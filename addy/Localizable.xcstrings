@@ -1,0 +1,225 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "anonymous_email_forwarding" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anonymous Email Forwarding"
+          }
+        }
+      }
+    },
+    "getting_started" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Getting started"
+          }
+        }
+      }
+    },
+    "got_the_api_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Got the API key?"
+          }
+        }
+      }
+    },
+    "new_user" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New user?"
+          }
+        }
+      }
+    },
+    "next" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
+    },
+    "setup_api_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "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 "
+          }
+        }
+      }
+    },
+    "setup_how_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step 1"
+          }
+        }
+      }
+    },
+    "setup_how_1_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's say your username is johndoe. You can now use *@johndoe.addy.io (or .me) as your email. Where * denotes any valid local part for an email address.\n\nIf you would like to remain anonymous choose a username that is not linked to your real name or identify and that you haven't used anywhere else.\n\nYou can also create aliases at shared domains if you are concerned about others linking alias ownership to you."
+          }
+        }
+      }
+    },
+    "setup_how_1_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Register your username"
+          }
+        }
+      }
+    },
+    "setup_how_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step 2"
+          }
+        }
+      }
+    },
+    "setup_how_2_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Either on the fly or generated beforehand. Next time you are signing up to a website or newsletter, simply make up a new alias and enter that instead of your real email address.\n\nFor example, if you are on vuejs.org and you want to sign up to their newsletter you could simply enter vuejs@johndoe.addy.io (or .me).\n\nWe'll automatically create the alias in your dashboard as soon as it receives its first email. You can reply to emails and send from aliases anonymously too!"
+          }
+        }
+      }
+    },
+    "setup_how_2_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Aliases"
+          }
+        }
+      }
+    },
+    "setup_how_3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step 3"
+          }
+        }
+      }
+    },
+    "setup_how_3_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's say a spammer gets hold of one of your aliases and starts sending unsolicited email to it. You can simply toggle a switch in your dashboard and deactivate that alias.\n\nOur system will then silently discard any further emails and you won't be forwarded anything else for that alias.\n\nYou can also delete the alias. Then our system will reject any emails and respond with an error."
+          }
+        }
+      }
+    },
+    "setup_how_3_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Aliases"
+          }
+        }
+      }
+    },
+    "setup_how_4" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What do you think?"
+          }
+        }
+      }
+    },
+    "setup_how_4_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(This will open your browser)"
+          }
+        }
+      }
+    },
+    "setup_how_4_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sounds like a service you’d use? If so, why not sign up."
+          }
+        }
+      }
+    },
+    "setup_view_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protect your real email address using email aliases"
+          }
+        }
+      }
+    },
+    "sign_up" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
