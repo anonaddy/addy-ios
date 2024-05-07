@@ -1,12 +1,152 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "addyio_instance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io instance"
+          }
+        }
+      }
+    },
     "anonymous_email_forwarding" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Anonymous Email Forwarding"
+          }
+        }
+      }
+    },
+    "api_invalid" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API key invalid"
+          }
+        }
+      }
+    },
+    "api_obtain" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manually enter your API key"
+          }
+        }
+      }
+    },
+    "api_obtain_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your API can be obtained at the settings page at app.addy.io (or your own hosted instance)"
+          }
+        }
+      }
+    },
+    "api_setup_qr_code_scan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scan the QR code displayed"
+          }
+        }
+      }
+    },
+    "api_setup_qr_code_scan_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adjust your device until the QR code fills the entire frame"
+          }
+        }
+      }
+    },
+    "api_setup_qr_code_scan_wrong" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR code invalid"
+          }
+        }
+      }
+    },
+    "api_setup_qr_code_scan_wrong_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtain the QR code in the settings page at app.addy.io (or your own hosted instance)"
+          }
+        }
+      }
+    },
+    "APIKey" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API key"
+          }
+        }
+      }
+    },
+    "APIKey_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paste your API key here…"
+          }
+        }
+      }
+    },
+    "default_base_url" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://app.addy.io"
+          }
+        }
+      }
+    },
+    "DELETE ALL KEYCHAIN DATA" : {
+
+    },
+    "error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
+    },
+    "get_my_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get my key"
           }
         }
       }
@@ -33,6 +173,17 @@
         }
       }
     },
+    "logs_cleared" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logs cleared"
+          }
+        }
+      }
+    },
     "new_user" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -51,6 +202,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Next"
+          }
+        }
+      }
+    },
+    "not_a_valid_address" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is not a valid address"
+          }
+        }
+      }
+    },
+    "qr_permissions_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera permissions are required in order to scan the QR code, tap the scanning area to open settings"
+          }
+        }
+      }
+    },
+    "settingsmanager_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uh-Oh, the required settingsdatabases cannot be created. Falling back to the default database"
           }
         }
       }
@@ -209,6 +393,17 @@
         }
       }
     },
+    "sign_in" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in"
+          }
+        }
+      }
+    },
     "sign_up" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -216,6 +411,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sign up"
+          }
+        }
+      }
+    },
+    "understood" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Understood"
           }
         }
       }

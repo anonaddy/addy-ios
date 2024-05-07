@@ -1,13 +1,13 @@
 import SwiftUI
 
-public struct AddyLoadingButton<Content: View>: View{
+struct AddyLoadingButton<Content: View>: View{
     @Binding var isLoading: Bool
 
     var style: AddyLoadingButtonStyle
     let content: Content
     var action: () -> () = {}
     
-    public init(action: @escaping () -> Void, isLoading: Binding<Bool>, style: AddyLoadingButtonStyle? = nil, @ViewBuilder builder: () -> Content) {
+    init(action: @escaping () -> Void, isLoading: Binding<Bool>, style: AddyLoadingButtonStyle? = nil, @ViewBuilder builder: () -> Content) {
         
         let defaultStyle = AddyLoadingButtonStyle(width: .infinity,
                                       height: 56,

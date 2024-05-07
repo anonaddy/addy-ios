@@ -1,19 +1,20 @@
 import SwiftUI
 
-public struct AddyButton<Content: View>: View{
-
+struct AddyButton<Content: View>: View{
+    
     var style: AddyButtonStyle
     let content: Content
     var action: () -> () = {}
     
-    public init(action: @escaping () -> Void, style: AddyButtonStyle? = nil, @ViewBuilder builder: () -> Content) {
+    init(action: @escaping () -> Void, style: AddyButtonStyle? = nil, @ViewBuilder builder: () -> Content) {
         
         let defaultStyle = AddyButtonStyle(width: .infinity,
-                                      height: 56,
-                                      cornerRadius: 12,
-                                      backgroundColor: Color("AccentColor"),
-                                      strokeWidth: 5,
-                                      strokeColor: .gray)
+                                           height: 56,
+                                           cornerRadius: 12,
+                                           buttonStyle: .primary,
+                                           backgroundColor: Color("AccentColor"),
+                                           strokeWidth: 5,
+                                           strokeColor: .gray)
         
         self.style = style ?? defaultStyle
         content = builder()
@@ -26,10 +27,10 @@ public struct AddyButton<Content: View>: View{
         }) {
             ZStack {
                 Rectangle()
-                    .fill(style.backgroundColor)
+                    .fill(style.buttonStyle == .primary ? style.backgroundColor : style.backgroundColor.opacity(0.4))
                     .frame(maxWidth: style.width, maxHeight: style.height)
                     .cornerRadius(style.cornerRadius)
-                    VStack { content }
+                VStack { content }
                 
             }
         }

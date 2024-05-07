@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8001D9D12BEA1E3600AAD10E /* CodeScanner */; };
+		8001DA012BEA516000AAD10E /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
 		801B929F2BE8FF6800179EB5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */; };
 		801B92A22BE905BB00179EB5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 801B92A12BE905BB00179EB5 /* Lottie */; };
 		801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
@@ -15,17 +17,45 @@
 		804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */; };
 		806D5F252BE925C600C5C109 /* ic_loading_logo.shapeshifter.json in Resources */ = {isa = PBXBuildFile; fileRef = 806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */; };
 		806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806D5F262BE92AB200C5C109 /* SetupView.swift */; };
-		806D5F292BE9391B00C5C109 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806D5F282BE9391B00C5C109 /* SettingsManager.swift */; };
 		806F21332BE8F1B100EBEBC8 /* addyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806F21322BE8F1B100EBEBC8 /* addyApp.swift */; };
 		806F21352BE8F1B100EBEBC8 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806F21342BE8F1B100EBEBC8 /* SplashView.swift */; };
-		806F21372BE8F1B100EBEBC8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806F21362BE8F1B100EBEBC8 /* Item.swift */; };
 		806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F21382BE8F1B200EBEBC8 /* Assets.xcassets */; };
 		806F213C2BE8F1B200EBEBC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */; };
+		807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		807337FA2BEA641A00D0D7E0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 807337F92BEA641A00D0D7E0 /* Alamofire */; };
+		807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */; };
+		807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */; };
+		807338052BEAAF4300D0D7E0 /* AddApiBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338042BEAAF4300D0D7E0 /* AddApiBottomSheet.swift */; };
 		80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */; };
 		80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8001D9FE2BEA513500AAD10E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8001D9F02BEA513500AAD10E;
+			remoteInfo = addy_shared;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8001DA032BEA516000AAD10E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = addy_shared.xcodeproj; path = addy_shared/addy_shared/addy_shared.xcodeproj; sourceTree = "<group>"; };
 		801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupOnboarding.swift; sourceTree = "<group>"; };
@@ -33,13 +63,14 @@
 		804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButtonStyle.swift; sourceTree = "<group>"; };
 		806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ic_loading_logo.shapeshifter.json; sourceTree = "<group>"; };
 		806D5F262BE92AB200C5C109 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
-		806D5F282BE9391B00C5C109 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		806F212F2BE8F1B100EBEBC8 /* addy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		806F21322BE8F1B100EBEBC8 /* addyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addyApp.swift; sourceTree = "<group>"; };
 		806F21342BE8F1B100EBEBC8 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		806F21362BE8F1B100EBEBC8 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		806F21382BE8F1B200EBEBC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingFieldModel.swift; sourceTree = "<group>"; };
+		807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
+		807338042BEAAF4300D0D7E0 /* AddApiBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApiBottomSheet.swift; sourceTree = "<group>"; };
 		80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButton.swift; sourceTree = "<group>"; };
 		80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -49,6 +80,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */,
+				807337FA2BEA641A00D0D7E0 /* Alamofire in Frameworks */,
+				8001DA012BEA516000AAD10E /* addy_shared.framework in Frameworks */,
 				801B92A22BE905BB00179EB5 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,6 +90,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8001D9FB2BEA513500AAD10E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8001D9FF2BEA513500AAD10E /* addy_shared.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8001DA002BEA515C00AAD10E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		801B92A52BE9128500179EB5 /* ui */ = {
 			isa = PBXGroup;
 			children = (
@@ -64,7 +113,6 @@
 				806F21342BE8F1B100EBEBC8 /* SplashView.swift */,
 				801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */,
 				806F21322BE8F1B100EBEBC8 /* addyApp.swift */,
-				806F21362BE8F1B100EBEBC8 /* Item.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -86,17 +134,10 @@
 			path = anims;
 			sourceTree = "<group>";
 		};
-		806D5F2A2BE9392200C5C109 /* managers */ = {
-			isa = PBXGroup;
-			children = (
-				806D5F282BE9391B00C5C109 /* SettingsManager.swift */,
-			);
-			path = managers;
-			sourceTree = "<group>";
-		};
 		806D5F2B2BE94C3F00C5C109 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				807338012BEA81DA00D0D7E0 /* ValidatingTextField */,
 				80D82DC32BE95BAF009440DC /* AddyLoadingButton */,
 				804BE7A92BE95B49001DDC8A /* AddyButton */,
 			);
@@ -108,6 +149,7 @@
 			children = (
 				806D5F262BE92AB200C5C109 /* SetupView.swift */,
 				804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */,
+				807338042BEAAF4300D0D7E0 /* AddApiBottomSheet.swift */,
 			);
 			path = setup;
 			sourceTree = "<group>";
@@ -115,8 +157,10 @@
 		806F21262BE8F1B100EBEBC8 = {
 			isa = PBXGroup;
 			children = (
+				8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */,
 				806F21312BE8F1B100EBEBC8 /* addy */,
 				806F21302BE8F1B100EBEBC8 /* Products */,
+				8001DA002BEA515C00AAD10E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,7 +175,6 @@
 		806F21312BE8F1B100EBEBC8 /* addy */ = {
 			isa = PBXGroup;
 			children = (
-				806D5F2A2BE9392200C5C109 /* managers */,
 				806D5F1B2BE91B9700C5C109 /* anims */,
 				801B92A52BE9128500179EB5 /* ui */,
 				806F21382BE8F1B200EBEBC8 /* Assets.xcassets */,
@@ -147,6 +190,23 @@
 				806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		807337FE2BEA7D1D00D0D7E0 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		807338012BEA81DA00D0D7E0 /* ValidatingTextField */ = {
+			isa = PBXGroup;
+			children = (
+				807337FE2BEA7D1D00D0D7E0 /* models */,
+				807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */,
+			);
+			path = ValidatingTextField;
 			sourceTree = "<group>";
 		};
 		80D82DC32BE95BAF009440DC /* AddyLoadingButton */ = {
@@ -168,6 +228,7 @@
 				806F212B2BE8F1B100EBEBC8 /* Sources */,
 				806F212C2BE8F1B100EBEBC8 /* Frameworks */,
 				806F212D2BE8F1B100EBEBC8 /* Resources */,
+				8001DA032BEA516000AAD10E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,6 +237,8 @@
 			name = addy;
 			packageProductDependencies = (
 				801B92A12BE905BB00179EB5 /* Lottie */,
+				8001D9D12BEA1E3600AAD10E /* CodeScanner */,
+				807337F92BEA641A00D0D7E0 /* Alamofire */,
 			);
 			productName = addy;
 			productReference = 806F212F2BE8F1B100EBEBC8 /* addy.app */;
@@ -207,15 +270,33 @@
 			mainGroup = 806F21262BE8F1B100EBEBC8;
 			packageReferences = (
 				801B92A02BE905BB00179EB5 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				8001D9D02BEA1E3600AAD10E /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				807337F82BEA641A00D0D7E0 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 806F21302BE8F1B100EBEBC8 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8001D9FB2BEA513500AAD10E /* Products */;
+					ProjectRef = 8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				806F212E2BE8F1B100EBEBC8 /* addy */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8001D9FF2BEA513500AAD10E /* addy_shared.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = addy_shared.framework;
+			remoteRef = 8001D9FE2BEA513500AAD10E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		806F212D2BE8F1B100EBEBC8 /* Resources */ = {
@@ -239,12 +320,13 @@
 			files = (
 				804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */,
 				804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */,
+				807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */,
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
 				80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */,
+				807338052BEAAF4300D0D7E0 /* AddApiBottomSheet.swift in Sources */,
 				804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */,
 				806F21352BE8F1B100EBEBC8 /* SplashView.swift in Sources */,
-				806F21372BE8F1B100EBEBC8 /* Item.swift in Sources */,
-				806D5F292BE9391B00C5C109 /* SettingsManager.swift in Sources */,
+				807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */,
 				806F21332BE8F1B100EBEBC8 /* addyApp.swift in Sources */,
 				806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */,
 			);
@@ -384,8 +466,10 @@
 				DEVELOPMENT_TEAM = 68LAMW5ZY8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = addy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for settings up the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -418,8 +502,10 @@
 				DEVELOPMENT_TEAM = 68LAMW5ZY8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = addy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for settings up the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -464,6 +550,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8001D9D02BEA1E3600AAD10E /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
 		801B92A02BE905BB00179EB5 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
@@ -472,13 +566,31 @@
 				minimumVersion = 4.4.3;
 			};
 		};
+		807337F82BEA641A00D0D7E0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8001D9D12BEA1E3600AAD10E /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8001D9D02BEA1E3600AAD10E /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
 		801B92A12BE905BB00179EB5 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 801B92A02BE905BB00179EB5 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		807337F92BEA641A00D0D7E0 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 807337F82BEA641A00D0D7E0 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

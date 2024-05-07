@@ -7,52 +7,37 @@
 
 import SwiftUI
 import SwiftData
+import addy_shared
+
+class AppState: ObservableObject {
+    @Published var apiKey: String? = SettingsManager(encrypted: true).getSettingsString(key: .apiKey)
+}
 
 @main
 struct addyApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-        
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    @StateObject private var appState = AppState()
     
     var body: some Scene {
         WindowGroup {
-
-            if getAPIKey() != nil {
-                SplashView()
-            } else {
-                SetupView()
+            
+            Group {      // or VStack
+                if appState.apiKey != nil {
+                    SplashView()
+                        .environmentObject(appState)
+                        .transition(.asymmetric(insertion: AnyTransition.scale(scale: 1.1).combined(with: .opacity), removal: AnyTransition.opacity.animation(.easeInOut(duration: 0.5))))
+                                    .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
+                    
+                } else {
+                    SetupView()
+                        .environmentObject(appState)
+                        .transition(.opacity)
+                                    .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
+                }
             }
+            .transition(.asymmetric(insertion: AnyTransition.scale(scale: 1.1).combined(with: .opacity), removal: AnyTransition.opacity.animation(.easeInOut(duration: 0.5))))
+            .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
+            
+            //TODO make animation fancier
         }
-        .modelContainer(sharedModelContainer)
-    }
-    
-    func getAPIKey() -> String? {
-        let key = SettingsManager.Prefs.apiKey
-        
-        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrAccount as String: key,
-                                    kSecReturnData as String: kCFBooleanTrue!,
-                                    kSecMatchLimit as String: kSecMatchLimitOne]
-        
-        var dataTypeRef: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
-        
-        if status == errSecSuccess {
-            if let retrievedData = dataTypeRef as? Data,
-               let retrievedValue = String(data: retrievedData, encoding: .utf8) {
-                return retrievedValue
-            }
-        }
-    
-        return nil
     }
 }

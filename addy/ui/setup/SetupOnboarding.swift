@@ -39,7 +39,7 @@ struct SetupOnboarding: View {
                         .tag(1)
                     Page3View(selectedPage: $selectedPage)
                         .tag(2)
-                    Page4View(selectedPage: $selectedPage)
+                    Page4View()
                         .tag(3)
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -167,7 +167,6 @@ struct SetupOnboarding: View {
     }
     
     struct Page4View: View {
-        @Binding var selectedPage: Int
         @Environment(\.openURL) var openURL
         @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -195,7 +194,6 @@ struct SetupOnboarding: View {
                 
                 AddyButton(action: {
                     withAnimation {
-                        selectedPage = 0
                         openURL(URL(string: "https://app.addy.io/register")!)
                         self.presentationMode.wrappedValue.dismiss()
 

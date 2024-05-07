@@ -2,4 +2,6 @@
 
 Used libs:
 
-https://github.com/changemin/LoadingButton
+https://github.com/changemin/LoadingButton (local)
+https://github.com/twostraws/CodeScanner
+https://github.com/evgenyneu/keychain-swift (local)

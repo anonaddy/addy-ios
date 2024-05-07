@@ -1,0 +1,7 @@
+project: addy.xcodeproj
+schemes:
+- addy
+- addy_shared
+targets:
+- addy
+- addy_shared

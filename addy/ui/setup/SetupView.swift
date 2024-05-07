@@ -6,24 +6,21 @@
 //
 
 import SwiftUI
+import addy_shared
 
 struct SetupView: View {
+    @EnvironmentObject var appState: AppState
     
     let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
     @State private var text = String(localized: "setup_api_key")
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var isLoadingGetStarted: Bool = false
-    @State var isLoadingExistingUser: Bool = false
     
     @State private var showOnboarding = false
+    @State private var isPresentingAddApiBottomSheet = false
+
     
-    
-    var existingUserLoadingButtonStyle = AddyButtonStyle(width: .infinity,
-                                                         height: 56,
-                                                         cornerRadius: 12,
-                                                         backgroundColor: Color("AccentColor").opacity(0.4),
-                                                         strokeWidth: 5,
-                                                         strokeColor: .gray)
+
     
     var body: some View {
         
@@ -88,16 +85,40 @@ struct SetupView: View {
                     
                     VStack {
                         
-                        
+                                               
                         AddyLoadingButton(action: {
-                            // Your Action here
+                            let pasteboardString: String? = UIPasteboard.general.string
+                            if let key = pasteboardString, key.count == 56 {
+                                // A 56 length string found. This is most likely the API key
+
+                                isLoadingGetStarted = true
+                                debugPrint("API key copied from clipboard")
+                                //TODO let the user know
+                                
+                                DispatchQueue.global(qos: .background).async {
+                                    // AddyIo.API_BASE_URL is defaulted to the addy.io instance. If the API key is valid there it was meant to use that instance.
+                                    // If the baseURL/API do not work or match it opens the API screen
+                                    self.verifyApiKey(apiKey: key)
+                                }
+                                
+                                
+                            } else {
+                                //FIXME This is a workaround to get the animation to run
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    isLoadingGetStarted = false
+                                }
+                                isPresentingAddApiBottomSheet = true
+                            }
+                            
+                            
                         }, isLoading: $isLoadingGetStarted) {
                             Text(String(localized: "got_the_api_key")).foregroundColor(Color.white)
                         }
                         
+                        
                         AddyButton(action: {
                             self.showOnboarding = true
-                        }, style: existingUserLoadingButtonStyle) {
+                        }, style: AddyButtonStyle(buttonStyle: .secondary)) {
                             Text(String(localized: "new_user")).foregroundColor(Color.white)
                         }
                         
@@ -106,14 +127,20 @@ struct SetupView: View {
                     .padding(32)
                     .navigationDestination(isPresented: $showOnboarding) {
                         SetupOnboarding()
-                            }
+                    }
                 }
                 
                 
-            }  .preferredColorScheme(.dark) // white tint on status bar
-
+            }
+            
+        }.sheet(isPresented: $isPresentingAddApiBottomSheet) {
+            AddApiBottomSheet(apiBaseUrl: nil, addKey: addKey(apiKey:baseUrl:))
         }
+        
+        
+        
     }
+    
     
     
     func getDummyAPIKey() -> String {
@@ -121,8 +148,33 @@ struct SetupView: View {
         dummyApi[Int.random(in: 0..<dummyApi.count)] = Array(chars)[Int.random(in: 0..<chars.count)]
         return String(dummyApi)
     }
+    
+    
+    private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL) {
+        let networkHelper = NetworkHelper()
+        networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: apiKey) { result in
+            DispatchQueue.main.async {
+                if result == "200" {
+                    self.addKey(apiKey: apiKey, baseUrl: baseUrl)
+                } else {
+                    isLoadingGetStarted = false
+                    isPresentingAddApiBottomSheet = true
+                }
+            }
+        }
+    }
+    
+    private func addKey(apiKey: String, baseUrl: String) {
+        let encryptedSettingsManager = SettingsManager(encrypted: true)
+        encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.apiKey, string: apiKey)
+        encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.baseUrl, string: baseUrl)
+        isPresentingAddApiBottomSheet = false
+        appState.apiKey = apiKey
+    }
+    
+    
+    
 }
-
 #Preview {
     SetupView()
 }
