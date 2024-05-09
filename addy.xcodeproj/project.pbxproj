@@ -37,7 +37,6 @@
 		80E849F72BEBB43000C8D68A /* AppBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849F62BEBB43000C8D68A /* AppBarView.swift */; };
 		80E849F92BEBB47A00C8D68A /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849F82BEBB47A00C8D68A /* BottomNavigationView.swift */; };
 		80E849FB2BEBD09B00C8D68A /* ScrollRefreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849FA2BEBD09B00C8D68A /* ScrollRefreshable.swift */; };
-		80E84A222BEBEA1200C8D68A /* ScalingHeaderScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 80E84A212BEBEA1200C8D68A /* ScalingHeaderScrollView */; };
 		80E84A252BEBECCC00C8D68A /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A242BEBECCC00C8D68A /* ProfileScreenViewModel.swift */; };
 		80E84A282BEBED0B00C8D68A /* CommonHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A272BEBED0B00C8D68A /* CommonHelpers.swift */; };
 		80E84A2A2BEBED3000C8D68A /* ProfileHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A292BEBED3000C8D68A /* ProfileHelpers.swift */; };
@@ -113,7 +112,6 @@
 				8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */,
 				8001DA012BEA516000AAD10E /* addy_shared.framework in Frameworks */,
 				801B92A22BE905BB00179EB5 /* Lottie in Frameworks */,
-				80E84A222BEBEA1200C8D68A /* ScalingHeaderScrollView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,7 +353,6 @@
 			packageProductDependencies = (
 				801B92A12BE905BB00179EB5 /* Lottie */,
 				8001D9D12BEA1E3600AAD10E /* CodeScanner */,
-				80E84A212BEBEA1200C8D68A /* ScalingHeaderScrollView */,
 			);
 			productName = addy;
 			productReference = 806F212F2BE8F1B100EBEBC8 /* addy.app */;
@@ -388,7 +385,6 @@
 			packageReferences = (
 				801B92A02BE905BB00179EB5 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				8001D9D02BEA1E3600AAD10E /* XCRemoteSwiftPackageReference "CodeScanner" */,
-				80E84A202BEBEA1200C8D68A /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
 			);
 			productRefGroup = 806F21302BE8F1B100EBEBC8 /* Products */;
 			projectDirPath = "";
@@ -698,14 +694,6 @@
 				minimumVersion = 4.4.3;
 			};
 		};
-		80E84A202BEBEA1200C8D68A /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/exyte/ScalingHeaderScrollView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.3;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -718,11 +706,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 801B92A02BE905BB00179EB5 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
-		};
-		80E84A212BEBEA1200C8D68A /* ScalingHeaderScrollView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 80E84A202BEBEA1200C8D68A /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */;
-			productName = ScalingHeaderScrollView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
