@@ -22,12 +22,27 @@
 		806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F21382BE8F1B200EBEBC8 /* Assets.xcassets */; };
 		806F213C2BE8F1B200EBEBC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */; };
 		807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		807337FA2BEA641A00D0D7E0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 807337F92BEA641A00D0D7E0 /* Alamofire */; };
 		807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */; };
 		807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */; };
 		807338052BEAAF4300D0D7E0 /* AddApiBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338042BEAAF4300D0D7E0 /* AddApiBottomSheet.swift */; };
+		80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2042BECD840001A984B /* AliasesViewModel.swift */; };
+		80A7F2072BECFA5B001A984B /* AliasRowCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2062BECFA5B001A984B /* AliasRowCardView.swift */; };
 		80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */; };
 		80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */; };
+		80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499A2BEB73D900C8D68A /* MainView.swift */; };
+		80E8499F2BEB802D00C8D68A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499E2BEB802D00C8D68A /* HomeView.swift */; };
+		80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849A02BEB803400C8D68A /* AliasesView.swift */; };
+		80E849B02BEBA66100C8D68A /* ic_loading_logo_error.shapeshifter.json in Resources */ = {isa = PBXBuildFile; fileRef = 80E849AF2BEBA66100C8D68A /* ic_loading_logo_error.shapeshifter.json */; };
+		80E849B32BEBA82A00C8D68A /* RecipientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849B22BEBA82A00C8D68A /* RecipientsView.swift */; };
+		80E849F72BEBB43000C8D68A /* AppBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849F62BEBB43000C8D68A /* AppBarView.swift */; };
+		80E849F92BEBB47A00C8D68A /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849F82BEBB47A00C8D68A /* BottomNavigationView.swift */; };
+		80E849FB2BEBD09B00C8D68A /* ScrollRefreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849FA2BEBD09B00C8D68A /* ScrollRefreshable.swift */; };
+		80E84A222BEBEA1200C8D68A /* ScalingHeaderScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 80E84A212BEBEA1200C8D68A /* ScalingHeaderScrollView */; };
+		80E84A252BEBECCC00C8D68A /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A242BEBECCC00C8D68A /* ProfileScreenViewModel.swift */; };
+		80E84A282BEBED0B00C8D68A /* CommonHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A272BEBED0B00C8D68A /* CommonHelpers.swift */; };
+		80E84A2A2BEBED3000C8D68A /* ProfileHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A292BEBED3000C8D68A /* ProfileHelpers.swift */; };
+		80E84A2D2BEC0D4300C8D68A /* OLD_MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A2C2BEC0D4300C8D68A /* OLD_MainView.swift */; };
+		80E84A2F2BEC119500C8D68A /* AliasDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,8 +86,23 @@
 		807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingFieldModel.swift; sourceTree = "<group>"; };
 		807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
 		807338042BEAAF4300D0D7E0 /* AddApiBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApiBottomSheet.swift; sourceTree = "<group>"; };
+		80A7F2042BECD840001A984B /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
+		80A7F2062BECFA5B001A984B /* AliasRowCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasRowCardView.swift; sourceTree = "<group>"; };
 		80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButton.swift; sourceTree = "<group>"; };
 		80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButtonStyle.swift; sourceTree = "<group>"; };
+		80E8499A2BEB73D900C8D68A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		80E8499E2BEB802D00C8D68A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		80E849A02BEB803400C8D68A /* AliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesView.swift; sourceTree = "<group>"; };
+		80E849AF2BEBA66100C8D68A /* ic_loading_logo_error.shapeshifter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ic_loading_logo_error.shapeshifter.json; sourceTree = "<group>"; };
+		80E849B22BEBA82A00C8D68A /* RecipientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsView.swift; sourceTree = "<group>"; };
+		80E849F62BEBB43000C8D68A /* AppBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBarView.swift; sourceTree = "<group>"; };
+		80E849F82BEBB47A00C8D68A /* BottomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationView.swift; sourceTree = "<group>"; };
+		80E849FA2BEBD09B00C8D68A /* ScrollRefreshable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollRefreshable.swift; sourceTree = "<group>"; };
+		80E84A242BEBECCC00C8D68A /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
+		80E84A272BEBED0B00C8D68A /* CommonHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHelpers.swift; sourceTree = "<group>"; };
+		80E84A292BEBED3000C8D68A /* ProfileHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHelpers.swift; sourceTree = "<group>"; };
+		80E84A2C2BEC0D4300C8D68A /* OLD_MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLD_MainView.swift; sourceTree = "<group>"; };
+		80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,9 +111,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */,
-				807337FA2BEA641A00D0D7E0 /* Alamofire in Frameworks */,
 				8001DA012BEA516000AAD10E /* addy_shared.framework in Frameworks */,
 				801B92A22BE905BB00179EB5 /* Lottie in Frameworks */,
+				80E84A222BEBEA1200C8D68A /* ScalingHeaderScrollView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,16 +135,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		801B92A52BE9128500179EB5 /* ui */ = {
+		801B92A52BE9128500179EB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				80E849992BEB73CE00C8D68A /* mainview */,
 				806D5F352BE9520200C5C109 /* setup */,
 				806D5F2B2BE94C3F00C5C109 /* customviews */,
 				806F21342BE8F1B100EBEBC8 /* SplashView.swift */,
 				801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */,
 				806F21322BE8F1B100EBEBC8 /* addyApp.swift */,
 			);
-			path = ui;
+			path = View;
 			sourceTree = "<group>";
 		};
 		804BE7A92BE95B49001DDC8A /* AddyButton */ = {
@@ -129,6 +160,7 @@
 		806D5F1B2BE91B9700C5C109 /* anims */ = {
 			isa = PBXGroup;
 			children = (
+				80E849AF2BEBA66100C8D68A /* ic_loading_logo_error.shapeshifter.json */,
 				806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */,
 			);
 			path = anims;
@@ -175,8 +207,11 @@
 		806F21312BE8F1B100EBEBC8 /* addy */ = {
 			isa = PBXGroup;
 			children = (
+				80A7F2022BECD7D8001A984B /* Model */,
+				80A7F2012BECD7D3001A984B /* ViewModel */,
+				80E84A2B2BEC0CDA00C8D68A /* _OLD */,
 				806D5F1B2BE91B9700C5C109 /* anims */,
-				801B92A52BE9128500179EB5 /* ui */,
+				801B92A52BE9128500179EB5 /* View */,
 				806F21382BE8F1B200EBEBC8 /* Assets.xcassets */,
 				806F213A2BE8F1B200EBEBC8 /* Preview Content */,
 				801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */,
@@ -209,6 +244,21 @@
 			path = ValidatingTextField;
 			sourceTree = "<group>";
 		};
+		80A7F2012BECD7D3001A984B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				80A7F2042BECD840001A984B /* AliasesViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		80A7F2022BECD7D8001A984B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		80D82DC32BE95BAF009440DC /* AddyLoadingButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +266,73 @@
 				80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */,
 			);
 			path = AddyLoadingButton;
+			sourceTree = "<group>";
+		};
+		80E849992BEB73CE00C8D68A /* mainview */ = {
+			isa = PBXGroup;
+			children = (
+				80E849B12BEBA81B00C8D68A /* recipients */,
+				80E8499D2BEB801600C8D68A /* aliases */,
+				80E8499C2BEB801100C8D68A /* home */,
+				80E8499A2BEB73D900C8D68A /* MainView.swift */,
+			);
+			path = mainview;
+			sourceTree = "<group>";
+		};
+		80E8499C2BEB801100C8D68A /* home */ = {
+			isa = PBXGroup;
+			children = (
+				80E8499E2BEB802D00C8D68A /* HomeView.swift */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		80E8499D2BEB801600C8D68A /* aliases */ = {
+			isa = PBXGroup;
+			children = (
+				80E849A02BEB803400C8D68A /* AliasesView.swift */,
+				80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */,
+				80A7F2062BECFA5B001A984B /* AliasRowCardView.swift */,
+			);
+			path = aliases;
+			sourceTree = "<group>";
+		};
+		80E849B12BEBA81B00C8D68A /* recipients */ = {
+			isa = PBXGroup;
+			children = (
+				80E849B22BEBA82A00C8D68A /* RecipientsView.swift */,
+			);
+			path = recipients;
+			sourceTree = "<group>";
+		};
+		80E84A232BEBECC500C8D68A /* models */ = {
+			isa = PBXGroup;
+			children = (
+				80E84A242BEBECCC00C8D68A /* ProfileScreenViewModel.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		80E84A262BEBECF600C8D68A /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				80E84A272BEBED0B00C8D68A /* CommonHelpers.swift */,
+				80E84A292BEBED3000C8D68A /* ProfileHelpers.swift */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
+		80E84A2B2BEC0CDA00C8D68A /* _OLD */ = {
+			isa = PBXGroup;
+			children = (
+				80E84A2C2BEC0D4300C8D68A /* OLD_MainView.swift */,
+				80E849FA2BEBD09B00C8D68A /* ScrollRefreshable.swift */,
+				80E849F62BEBB43000C8D68A /* AppBarView.swift */,
+				80E849F82BEBB47A00C8D68A /* BottomNavigationView.swift */,
+				80E84A232BEBECC500C8D68A /* models */,
+				80E84A262BEBECF600C8D68A /* helpers */,
+			);
+			path = _OLD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,7 +355,7 @@
 			packageProductDependencies = (
 				801B92A12BE905BB00179EB5 /* Lottie */,
 				8001D9D12BEA1E3600AAD10E /* CodeScanner */,
-				807337F92BEA641A00D0D7E0 /* Alamofire */,
+				80E84A212BEBEA1200C8D68A /* ScalingHeaderScrollView */,
 			);
 			productName = addy;
 			productReference = 806F212F2BE8F1B100EBEBC8 /* addy.app */;
@@ -271,7 +388,7 @@
 			packageReferences = (
 				801B92A02BE905BB00179EB5 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				8001D9D02BEA1E3600AAD10E /* XCRemoteSwiftPackageReference "CodeScanner" */,
-				807337F82BEA641A00D0D7E0 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				80E84A202BEBEA1200C8D68A /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */,
 			);
 			productRefGroup = 806F21302BE8F1B100EBEBC8 /* Products */;
 			projectDirPath = "";
@@ -308,6 +425,7 @@
 				806F213C2BE8F1B200EBEBC8 /* Preview Assets.xcassets in Resources */,
 				801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */,
 				806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */,
+				80E849B02BEBA66100C8D68A /* ic_loading_logo_error.shapeshifter.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,15 +437,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */,
+				80E84A2A2BEBED3000C8D68A /* ProfileHelpers.swift in Sources */,
+				80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */,
+				80E84A252BEBECCC00C8D68A /* ProfileScreenViewModel.swift in Sources */,
+				80E8499F2BEB802D00C8D68A /* HomeView.swift in Sources */,
 				804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */,
 				807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */,
+				80E84A2D2BEC0D4300C8D68A /* OLD_MainView.swift in Sources */,
+				80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */,
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
 				80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */,
+				80E849F72BEBB43000C8D68A /* AppBarView.swift in Sources */,
+				80E849B32BEBA82A00C8D68A /* RecipientsView.swift in Sources */,
+				80E849FB2BEBD09B00C8D68A /* ScrollRefreshable.swift in Sources */,
+				80A7F2072BECFA5B001A984B /* AliasRowCardView.swift in Sources */,
 				807338052BEAAF4300D0D7E0 /* AddApiBottomSheet.swift in Sources */,
+				80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */,
 				804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */,
+				80E84A2F2BEC119500C8D68A /* AliasDetailView.swift in Sources */,
 				806F21352BE8F1B100EBEBC8 /* SplashView.swift in Sources */,
+				80E849F92BEBB47A00C8D68A /* BottomNavigationView.swift in Sources */,
 				807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */,
 				806F21332BE8F1B100EBEBC8 /* addyApp.swift in Sources */,
+				80E84A282BEBED0B00C8D68A /* CommonHelpers.swift in Sources */,
 				806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,12 +698,12 @@
 				minimumVersion = 4.4.3;
 			};
 		};
-		807337F82BEA641A00D0D7E0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		80E84A202BEBEA1200C8D68A /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			repositoryURL = "https://github.com/exyte/ScalingHeaderScrollView";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
+				minimumVersion = 1.1.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -587,10 +719,10 @@
 			package = 801B92A02BE905BB00179EB5 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
 		};
-		807337F92BEA641A00D0D7E0 /* Alamofire */ = {
+		80E84A212BEBEA1200C8D68A /* ScalingHeaderScrollView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 807337F82BEA641A00D0D7E0 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
+			package = 80E84A202BEBEA1200C8D68A /* XCRemoteSwiftPackageReference "ScalingHeaderScrollView" */;
+			productName = ScalingHeaderScrollView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

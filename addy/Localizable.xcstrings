@@ -1,12 +1,40 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
+    "%lld reviews" : {
+
+    },
     "addyio_instance" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "addy.io instance"
+          }
+        }
+      }
+    },
+    "aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aliases"
+          }
+        }
+      }
+    },
+    "aliases_search" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Looking for an alias?"
           }
         }
       }
@@ -140,6 +168,9 @@
         }
       }
     },
+    "Error DELETE ALL KEYCHAIN DATA" : {
+
+    },
     "get_my_key" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -169,6 +200,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Got the API key?"
+          }
+        }
+      }
+    },
+    "Hello World" : {
+
+    },
+    "Hello, %@" : {
+
+    },
+    "Hello, World!" : {
+
+    },
+    "Hire" : {
+
+    },
+    "home" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
           }
         }
       }
@@ -206,6 +260,28 @@
         }
       }
     },
+    "no_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to see here"
+          }
+        }
+      }
+    },
+    "no_aliases_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No aliases with these filter settings.\n\nLooking for a specific alias? Use the search function."
+          }
+        }
+      }
+    },
     "not_a_valid_address" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -224,6 +300,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Camera permissions are required in order to scan the QR code, tap the scanning area to open settings"
+          }
+        }
+      }
+    },
+    "recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipients"
           }
         }
       }
@@ -414,6 +501,27 @@
           }
         }
       }
+    },
+    "Skills" : {
+
+    },
+    "SV" : {
+
+    },
+    "Tab 1" : {
+
+    },
+    "Tab 2" : {
+
+    },
+    "Tab 2 content" : {
+
+    },
+    "Tab 3" : {
+
+    },
+    "Tab 3 content" : {
+
     },
     "understood" : {
       "extractionState" : "manual",

@@ -206,4 +206,16 @@ public class SettingsManager {
         }
     }
     
+        /*
+        Clears all the settings and closes the app
+         */
+
+    public func clearSettingsAndCloseApp(){
+        SettingsManager(encrypted: true).clearAllData()
+        SettingsManager(encrypted: false).clearAllData()
+        
+        //TODO: AGAINST GUIDELINES
+        exit(0)
+    }
+    
 }

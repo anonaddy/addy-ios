@@ -1,0 +1,70 @@
+//
+//  Aliases.swift
+//  addy_shared
+//
+//  Created by Stijn van de Water on 08/05/2024.
+//
+
+public struct AliasesArray:Codable {
+    public var data: [Aliases]
+    public var links: Links?
+    public var meta: Meta?
+}
+
+struct BulkAliasesArray {
+    var data: [Aliases]
+}
+
+struct SingleAlias {
+    let data: Aliases
+}
+
+public struct Aliases:Identifiable,Codable {
+    public let id: String
+    let user_id: String
+    let aliasable_id: String?
+    let aliasable_type: String?
+    let local_part: String
+    let `extension`: String?
+    let domain: String
+    public let email: String
+    var active: Bool
+    let description: String?
+    let from_name: String?
+    let emails_forwarded: Int
+    let emails_blocked: Int
+    let emails_replied: Int
+    let emails_sent: Int
+    let recipients: [Recipients]?
+    let last_forwarded: String?
+    let last_blocked: String?
+    let last_replied: String?
+    let last_sent: String?
+    let created_at: String
+    let updated_at: String
+    var deleted_at: String?
+}
+
+public struct Meta:Codable {
+    public let current_page: Int
+    let from: Int?
+    public let last_page: Int
+    let links: [Link]
+    let path: String
+    let per_page: Int
+    let to: Int?
+    let total: Int
+}
+
+struct Link:Codable {
+    let url: String?
+    let label: String
+    let active: Bool
+}
+
+public struct Links:Codable {
+    let first: String?
+    let last: String?
+    let prev: String?
+    let next: String?
+}

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import addy_shared
 
 struct SetupOnboarding: View {
     @State private var selectedPage = 0
@@ -15,7 +16,7 @@ struct SetupOnboarding: View {
         
         ZStack {
             Rectangle()
-                .fill(Color.nightMode)
+                .fill(Color("NightModeColor", bundle: Bundle(identifier: "host.stjin.addy-shared")))
                 .opacity(0.6)
                 .edgesIgnoringSafeArea(.all)
             

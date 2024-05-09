@@ -13,17 +13,34 @@ enum SUBSCRIPTIONS: String {
     case PRO = "pro"
 }
 
-struct SingleUserResource {
+struct SingleUserResource: Codable {
     var data: UserResource
 }
 
-struct UserResourceExtended: Encodable, Decodable {
-    var default_recipient_email: String
+public struct UserResourceExtended: Codable {
+    public var default_recipient_email: String
+
+    // This is all neccesary to be able to init this class
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        default_recipient_email = try container.decode(String.self, forKey: .default_recipient_email)
+    }
+
+    public init(default_recipient_email: String) {
+        self.default_recipient_email = default_recipient_email
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case default_recipient_email
+    }
 }
 
-struct UserResource: Encodable, Decodable {
+
+
+public struct UserResource: Codable {
     var id: String
-    var username: String
+    public var username: String
     var from_name: String?
     var email_subject: String?
     var banner_location: String
@@ -31,7 +48,7 @@ struct UserResource: Encodable, Decodable {
     var username_count: Int
     var username_limit: Int
     var default_username_id: String
-    var default_recipient_id: String
+    public var default_recipient_id: String
     var default_alias_domain: String
     var default_alias_format: String
     var subscription: String?

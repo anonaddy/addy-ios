@@ -28,7 +28,6 @@ struct SetupView: View {
             
             
             ZStack {
-                
                 Color("SetupViewBackgroundColor")
                     .edgesIgnoringSafeArea(.all)
                 Rectangle() .fill(.ultraThinMaterial)
@@ -93,7 +92,7 @@ struct SetupView: View {
 
                                 isLoadingGetStarted = true
                                 debugPrint("API key copied from clipboard")
-                                //TODO let the user know
+                                //TODO: let the user know
                                 
                                 DispatchQueue.global(qos: .background).async {
                                     // AddyIo.API_BASE_URL is defaulted to the addy.io instance. If the API key is valid there it was meant to use that instance.

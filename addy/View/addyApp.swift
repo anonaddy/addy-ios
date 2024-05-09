@@ -22,8 +22,7 @@ struct addyApp: App {
             
             Group {      // or VStack
                 if appState.apiKey != nil {
-                    SplashView()
-                        .environmentObject(appState)
+                    MainView()
                         .transition(.asymmetric(insertion: AnyTransition.scale(scale: 1.1).combined(with: .opacity), removal: AnyTransition.opacity.animation(.easeInOut(duration: 0.5))))
                                     .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
                     
@@ -37,7 +36,7 @@ struct addyApp: App {
             .transition(.asymmetric(insertion: AnyTransition.scale(scale: 1.1).combined(with: .opacity), removal: AnyTransition.opacity.animation(.easeInOut(duration: 0.5))))
             .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
             
-            //TODO make animation fancier
+            //TODO: make animation fancier
         }
     }
 }

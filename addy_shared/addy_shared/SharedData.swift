@@ -44,48 +44,5 @@ class SharedData {
     
     
     public var userAgent: UserAgent
-
-    
-    public var userResource: UserResource? {
-        get {
-            if let jsonString = encryptedSettingsManager?.getSettingsString(key: .userResource),
-               let jsonData = jsonString.data(using: .utf8) {
-                let decoder = JSONDecoder()
-                return try? decoder.decode(UserResource.self, from: jsonData)
-            }
-            return nil
-        }
-        set {
-            if let newValue = newValue {
-                let encoder = JSONEncoder()
-                if let jsonData = try? encoder.encode(newValue),
-                   let jsonString = String(data: jsonData, encoding: .utf8) {
-                    encryptedSettingsManager?.putSettingsString(key: .userResource, string: jsonString)
-                }
-            }
-        }
-    }
-    
-    public var userResourceExtended: UserResourceExtended? {
-        get {
-            if let jsonString = encryptedSettingsManager?.getSettingsString(key: .userResourceExtended),
-               let jsonData = jsonString.data(using: .utf8) {
-                let decoder = JSONDecoder()
-                return try? decoder.decode(UserResourceExtended.self, from: jsonData)
-            }
-            return nil
-        }
-        set {
-            if let newValue = newValue {
-                let encoder = JSONEncoder()
-                if let jsonData = try? encoder.encode(newValue),
-                   let jsonString = String(data: jsonData, encoding: .utf8) {
-                    encryptedSettingsManager?.putSettingsString(key: .userResourceExtended, string: jsonString)
-                }
-            }
-        }
-    }
-    
-    
     
 }
