@@ -7,6 +7,17 @@
     "%lld reviews" : {
 
     },
+    "actions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actions"
+          }
+        }
+      }
+    },
     "addyio_instance" : {
       "localizations" : {
         "en" : {
@@ -143,6 +154,49 @@
         }
       }
     },
+    "bug_found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You caught a ladybug!"
+          }
+        }
+      }
+    },
+    "bug_found_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorry to disturb you, ma'am.\n\nPlease report this bug by visiting the issues section in the app settings"
+          }
+        }
+      }
+    },
+    "copy_to_clipboard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy to clipboard"
+          }
+        }
+      }
+    },
+    "created_at_s" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created %@"
+          }
+        }
+      }
+    },
     "default_base_url" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -157,6 +211,50 @@
     "DELETE ALL KEYCHAIN DATA" : {
 
     },
+    "delete_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete alias"
+          }
+        }
+      }
+    },
+    "details_about_error_s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details about the error:\n%@"
+          }
+        }
+      }
+    },
+    "disable_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disable alias"
+          }
+        }
+      }
+    },
+    "enable_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable alias"
+          }
+        }
+      }
+    },
     "error" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -170,6 +268,28 @@
     },
     "Error DELETE ALL KEYCHAIN DATA" : {
 
+    },
+    "forget_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forget alias"
+          }
+        }
+      }
+    },
+    "general" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
     },
     "get_my_key" : {
       "extractionState" : "manual",
@@ -293,6 +413,31 @@
         }
       }
     },
+    "obtaining_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your aliases"
+          }
+        }
+      }
+    },
+    "obtaining_aliases_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This shouldn't take long..."
+          }
+        }
+      }
+    },
+    "PLACEHOLDER" : {
+
+    },
     "qr_permissions_required" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -315,16 +460,50 @@
         }
       }
     },
-    "settingsmanager_error" : {
+    "restore_alias" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uh-Oh, the required settingsdatabases cannot be created. Falling back to the default database"
+            "value" : "Restore alias"
           }
         }
       }
+    },
+    "s_s" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ %@"
+          }
+        }
+      }
+    },
+    "s_s_s" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ %@ %@"
+          }
+        }
+      }
+    },
+    "send_mail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send mail"
+          }
+        }
+      }
+    },
+    "settingsmanager_error" : {
+      "extractionState" : "manual"
     },
     "setup_api_key" : {
       "extractionState" : "manual",
@@ -505,6 +684,28 @@
     "Skills" : {
 
     },
+    "something_went_wrong_retrieving_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving aliases"
+          }
+        }
+      }
+    },
+    "statistics" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics"
+          }
+        }
+      }
+    },
     "SV" : {
 
     },
@@ -514,14 +715,19 @@
     "Tab 2" : {
 
     },
-    "Tab 2 content" : {
-
-    },
     "Tab 3" : {
 
     },
-    "Tab 3 content" : {
-
+    "try_again" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again"
+          }
+        }
+      }
     },
     "understood" : {
       "extractionState" : "manual",
@@ -530,6 +736,27 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Understood"
+          }
+        }
+      }
+    },
+    "updated_at_s" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updated %@"
+          }
+        }
+      }
+    },
+    "you_ll_be_notified_if_this_alias_has_activity" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’ll be notified if this alias has activity"
           }
         }
       }

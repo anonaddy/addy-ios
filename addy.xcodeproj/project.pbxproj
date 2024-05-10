@@ -26,7 +26,7 @@
 		807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */; };
 		807338052BEAAF4300D0D7E0 /* AddApiBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338042BEAAF4300D0D7E0 /* AddApiBottomSheet.swift */; };
 		80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2042BECD840001A984B /* AliasesViewModel.swift */; };
-		80A7F2072BECFA5B001A984B /* AliasRowCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2062BECFA5B001A984B /* AliasRowCardView.swift */; };
+		80A7F2072BECFA5B001A984B /* AliasRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2062BECFA5B001A984B /* AliasRowView.swift */; };
 		80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */; };
 		80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */; };
 		80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499A2BEB73D900C8D68A /* MainView.swift */; };
@@ -42,6 +42,60 @@
 		80E84A2A2BEBED3000C8D68A /* ProfileHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A292BEBED3000C8D68A /* ProfileHelpers.swift */; };
 		80E84A2D2BEC0D4300C8D68A /* OLD_MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A2C2BEC0D4300C8D68A /* OLD_MainView.swift */; };
 		80E84A2F2BEC119500C8D68A /* AliasDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */; };
+		80F22ECB2BEE280B001176B4 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22ECA2BEE280B001176B4 /* Pie.swift */; };
+		80F22F7F2BEE34EE001176B4 /* AxisLabels+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F362BEE34EE001176B4 /* AxisLabels+Extension.swift */; };
+		80F22F802BEE34EE001176B4 /* AxisLabelsPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F382BEE34EE001176B4 /* AxisLabelsPosition.swift */; };
+		80F22F812BEE34EE001176B4 /* AxisLabelsStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F392BEE34EE001176B4 /* AxisLabelsStyle.swift */; };
+		80F22F822BEE34EE001176B4 /* AxisLablesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F3A2BEE34EE001176B4 /* AxisLablesData.swift */; };
+		80F22F832BEE34EE001176B4 /* AxisLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F3C2BEE34EE001176B4 /* AxisLabels.swift */; };
+		80F22F842BEE34EE001176B4 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F3E2BEE34EE001176B4 /* CardView.swift */; };
+		80F22F852BEE34EE001176B4 /* ChartBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F402BEE34EE001176B4 /* ChartBase.swift */; };
+		80F22F862BEE34EE001176B4 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F412BEE34EE001176B4 /* ChartData.swift */; };
+		80F22F872BEE34EE001176B4 /* ChartValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F422BEE34EE001176B4 /* ChartValue.swift */; };
+		80F22F882BEE34EE001176B4 /* ViewGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F442BEE34EE001176B4 /* ViewGeometry.swift */; };
+		80F22F892BEE34EE001176B4 /* ViewPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F452BEE34EE001176B4 /* ViewPreferenceKey.swift */; };
+		80F22F8A2BEE34EE001176B4 /* ViewSizeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F462BEE34EE001176B4 /* ViewSizeData.swift */; };
+		80F22F8B2BEE34EE001176B4 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F482BEE34EE001176B4 /* Array+Extension.swift */; };
+		80F22F8C2BEE34EE001176B4 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F492BEE34EE001176B4 /* CGPoint+Extension.swift */; };
+		80F22F8D2BEE34EE001176B4 /* CGRect+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F4A2BEE34EE001176B4 /* CGRect+Extension.swift */; };
+		80F22F8E2BEE34EE001176B4 /* ChartBase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F4B2BEE34EE001176B4 /* ChartBase+Extension.swift */; };
+		80F22F8F2BEE34EE001176B4 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F4C2BEE34EE001176B4 /* Color+Extension.swift */; };
+		80F22F902BEE34EE001176B4 /* Path+QuadCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F4D2BEE34EE001176B4 /* Path+QuadCurve.swift */; };
+		80F22F912BEE34EE001176B4 /* Range+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F4E2BEE34EE001176B4 /* Range+Extension.swift */; };
+		80F22F922BEE34EE001176B4 /* Shape+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F4F2BEE34EE001176B4 /* Shape+Extension.swift */; };
+		80F22F932BEE34EE001176B4 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F502BEE34EE001176B4 /* View+Extension.swift */; };
+		80F22F942BEE34EE001176B4 /* Grid+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F522BEE34EE001176B4 /* Grid+Extension.swift */; };
+		80F22F952BEE34EE001176B4 /* GridOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F542BEE34EE001176B4 /* GridOptions.swift */; };
+		80F22F962BEE34EE001176B4 /* ChartGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F562BEE34EE001176B4 /* ChartGrid.swift */; };
+		80F22F972BEE34EE001176B4 /* ChartGridBaseShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F572BEE34EE001176B4 /* ChartGridBaseShape.swift */; };
+		80F22F982BEE34EE001176B4 /* ChartGridShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F582BEE34EE001176B4 /* ChartGridShape.swift */; };
+		80F22F992BEE34EE001176B4 /* ChartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F5A2BEE34EE001176B4 /* ChartLabel.swift */; };
+		80F22F9A2BEE34EE001176B4 /* ChartStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F5C2BEE34EE001176B4 /* ChartStyle.swift */; };
+		80F22F9B2BEE34EE001176B4 /* ColorGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F5D2BEE34EE001176B4 /* ColorGradient.swift */; };
+		80F22F9C2BEE34EE001176B4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F5E2BEE34EE001176B4 /* Colors.swift */; };
+		80F22F9D2BEE34EE001176B4 /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F612BEE34EE001176B4 /* BarChart.swift */; };
+		80F22F9E2BEE34EE001176B4 /* BarChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F622BEE34EE001176B4 /* BarChartCell.swift */; };
+		80F22F9F2BEE34EE001176B4 /* BarChartCellShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F632BEE34EE001176B4 /* BarChartCellShape.swift */; };
+		80F22FA02BEE34EE001176B4 /* BarChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F642BEE34EE001176B4 /* BarChartRow.swift */; };
+		80F22FA12BEE34EE001176B4 /* LineChart+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F662BEE34EE001176B4 /* LineChart+Extension.swift */; };
+		80F22FA22BEE34EE001176B4 /* LineChartProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F682BEE34EE001176B4 /* LineChartProperties.swift */; };
+		80F22FA32BEE34EE001176B4 /* LineStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F692BEE34EE001176B4 /* LineStyle.swift */; };
+		80F22FA42BEE34EE001176B4 /* IndicatorPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F6B2BEE34EE001176B4 /* IndicatorPoint.swift */; };
+		80F22FA52BEE34EE001176B4 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F6C2BEE34EE001176B4 /* Line.swift */; };
+		80F22FA62BEE34EE001176B4 /* LineBackgroundShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F6D2BEE34EE001176B4 /* LineBackgroundShape.swift */; };
+		80F22FA72BEE34EE001176B4 /* LineBackgroundShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F6E2BEE34EE001176B4 /* LineBackgroundShapeView.swift */; };
+		80F22FA82BEE34EE001176B4 /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F6F2BEE34EE001176B4 /* LineChart.swift */; };
+		80F22FA92BEE34EE001176B4 /* LineShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F702BEE34EE001176B4 /* LineShape.swift */; };
+		80F22FAA2BEE34EE001176B4 /* LineShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F712BEE34EE001176B4 /* LineShapeView.swift */; };
+		80F22FAB2BEE34EE001176B4 /* MarkerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F722BEE34EE001176B4 /* MarkerShape.swift */; };
+		80F22FAC2BEE34EE001176B4 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F742BEE34EE001176B4 /* PieChart.swift */; };
+		80F22FAD2BEE34EE001176B4 /* PieChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F752BEE34EE001176B4 /* PieChartCell.swift */; };
+		80F22FAE2BEE34EE001176B4 /* PieChartHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F762BEE34EE001176B4 /* PieChartHelpers.swift */; };
+		80F22FAF2BEE34EE001176B4 /* PieChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F772BEE34EE001176B4 /* PieChartRow.swift */; };
+		80F22FB02BEE34EE001176B4 /* Ring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F792BEE34EE001176B4 /* Ring.swift */; };
+		80F22FB12BEE34EE001176B4 /* RingsChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F7A2BEE34EE001176B4 /* RingsChart.swift */; };
+		80F22FB22BEE34EE001176B4 /* RingsChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F7B2BEE34EE001176B4 /* RingsChartRow.swift */; };
+		80F22FBD2BEEB19B001176B4 /* TEMP_TEST.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22FBC2BEEB19B001176B4 /* TEMP_TEST.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +140,7 @@
 		807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
 		807338042BEAAF4300D0D7E0 /* AddApiBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApiBottomSheet.swift; sourceTree = "<group>"; };
 		80A7F2042BECD840001A984B /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
-		80A7F2062BECFA5B001A984B /* AliasRowCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasRowCardView.swift; sourceTree = "<group>"; };
+		80A7F2062BECFA5B001A984B /* AliasRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasRowView.swift; sourceTree = "<group>"; };
 		80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButton.swift; sourceTree = "<group>"; };
 		80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButtonStyle.swift; sourceTree = "<group>"; };
 		80E8499A2BEB73D900C8D68A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -102,6 +156,60 @@
 		80E84A292BEBED3000C8D68A /* ProfileHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHelpers.swift; sourceTree = "<group>"; };
 		80E84A2C2BEC0D4300C8D68A /* OLD_MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLD_MainView.swift; sourceTree = "<group>"; };
 		80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailView.swift; sourceTree = "<group>"; };
+		80F22ECA2BEE280B001176B4 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
+		80F22F362BEE34EE001176B4 /* AxisLabels+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AxisLabels+Extension.swift"; sourceTree = "<group>"; };
+		80F22F382BEE34EE001176B4 /* AxisLabelsPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxisLabelsPosition.swift; sourceTree = "<group>"; };
+		80F22F392BEE34EE001176B4 /* AxisLabelsStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxisLabelsStyle.swift; sourceTree = "<group>"; };
+		80F22F3A2BEE34EE001176B4 /* AxisLablesData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxisLablesData.swift; sourceTree = "<group>"; };
+		80F22F3C2BEE34EE001176B4 /* AxisLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxisLabels.swift; sourceTree = "<group>"; };
+		80F22F3E2BEE34EE001176B4 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		80F22F402BEE34EE001176B4 /* ChartBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartBase.swift; sourceTree = "<group>"; };
+		80F22F412BEE34EE001176B4 /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
+		80F22F422BEE34EE001176B4 /* ChartValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartValue.swift; sourceTree = "<group>"; };
+		80F22F442BEE34EE001176B4 /* ViewGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewGeometry.swift; sourceTree = "<group>"; };
+		80F22F452BEE34EE001176B4 /* ViewPreferenceKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPreferenceKey.swift; sourceTree = "<group>"; };
+		80F22F462BEE34EE001176B4 /* ViewSizeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSizeData.swift; sourceTree = "<group>"; };
+		80F22F482BEE34EE001176B4 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		80F22F492BEE34EE001176B4 /* CGPoint+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
+		80F22F4A2BEE34EE001176B4 /* CGRect+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extension.swift"; sourceTree = "<group>"; };
+		80F22F4B2BEE34EE001176B4 /* ChartBase+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChartBase+Extension.swift"; sourceTree = "<group>"; };
+		80F22F4C2BEE34EE001176B4 /* Color+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		80F22F4D2BEE34EE001176B4 /* Path+QuadCurve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Path+QuadCurve.swift"; sourceTree = "<group>"; };
+		80F22F4E2BEE34EE001176B4 /* Range+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Range+Extension.swift"; sourceTree = "<group>"; };
+		80F22F4F2BEE34EE001176B4 /* Shape+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shape+Extension.swift"; sourceTree = "<group>"; };
+		80F22F502BEE34EE001176B4 /* View+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		80F22F522BEE34EE001176B4 /* Grid+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Grid+Extension.swift"; sourceTree = "<group>"; };
+		80F22F542BEE34EE001176B4 /* GridOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridOptions.swift; sourceTree = "<group>"; };
+		80F22F562BEE34EE001176B4 /* ChartGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartGrid.swift; sourceTree = "<group>"; };
+		80F22F572BEE34EE001176B4 /* ChartGridBaseShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartGridBaseShape.swift; sourceTree = "<group>"; };
+		80F22F582BEE34EE001176B4 /* ChartGridShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartGridShape.swift; sourceTree = "<group>"; };
+		80F22F5A2BEE34EE001176B4 /* ChartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartLabel.swift; sourceTree = "<group>"; };
+		80F22F5C2BEE34EE001176B4 /* ChartStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartStyle.swift; sourceTree = "<group>"; };
+		80F22F5D2BEE34EE001176B4 /* ColorGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorGradient.swift; sourceTree = "<group>"; };
+		80F22F5E2BEE34EE001176B4 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		80F22F612BEE34EE001176B4 /* BarChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChart.swift; sourceTree = "<group>"; };
+		80F22F622BEE34EE001176B4 /* BarChartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartCell.swift; sourceTree = "<group>"; };
+		80F22F632BEE34EE001176B4 /* BarChartCellShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartCellShape.swift; sourceTree = "<group>"; };
+		80F22F642BEE34EE001176B4 /* BarChartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartRow.swift; sourceTree = "<group>"; };
+		80F22F662BEE34EE001176B4 /* LineChart+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LineChart+Extension.swift"; sourceTree = "<group>"; };
+		80F22F682BEE34EE001176B4 /* LineChartProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartProperties.swift; sourceTree = "<group>"; };
+		80F22F692BEE34EE001176B4 /* LineStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineStyle.swift; sourceTree = "<group>"; };
+		80F22F6B2BEE34EE001176B4 /* IndicatorPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorPoint.swift; sourceTree = "<group>"; };
+		80F22F6C2BEE34EE001176B4 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		80F22F6D2BEE34EE001176B4 /* LineBackgroundShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineBackgroundShape.swift; sourceTree = "<group>"; };
+		80F22F6E2BEE34EE001176B4 /* LineBackgroundShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineBackgroundShapeView.swift; sourceTree = "<group>"; };
+		80F22F6F2BEE34EE001176B4 /* LineChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
+		80F22F702BEE34EE001176B4 /* LineShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineShape.swift; sourceTree = "<group>"; };
+		80F22F712BEE34EE001176B4 /* LineShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineShapeView.swift; sourceTree = "<group>"; };
+		80F22F722BEE34EE001176B4 /* MarkerShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerShape.swift; sourceTree = "<group>"; };
+		80F22F742BEE34EE001176B4 /* PieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
+		80F22F752BEE34EE001176B4 /* PieChartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartCell.swift; sourceTree = "<group>"; };
+		80F22F762BEE34EE001176B4 /* PieChartHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartHelpers.swift; sourceTree = "<group>"; };
+		80F22F772BEE34EE001176B4 /* PieChartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartRow.swift; sourceTree = "<group>"; };
+		80F22F792BEE34EE001176B4 /* Ring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ring.swift; sourceTree = "<group>"; };
+		80F22F7A2BEE34EE001176B4 /* RingsChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingsChart.swift; sourceTree = "<group>"; };
+		80F22F7B2BEE34EE001176B4 /* RingsChartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingsChartRow.swift; sourceTree = "<group>"; };
+		80F22FBC2BEEB19B001176B4 /* TEMP_TEST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEMP_TEST.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,9 +275,12 @@
 		806D5F2B2BE94C3F00C5C109 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				80F22F3F2BEE34EE001176B4 /* CardView */,
+				80F22F352BEE34E1001176B4 /* dependencies */,
 				807338012BEA81DA00D0D7E0 /* ValidatingTextField */,
 				80D82DC32BE95BAF009440DC /* AddyLoadingButton */,
 				804BE7A92BE95B49001DDC8A /* AddyButton */,
+				80F22ECA2BEE280B001176B4 /* Pie.swift */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -290,7 +401,7 @@
 			children = (
 				80E849A02BEB803400C8D68A /* AliasesView.swift */,
 				80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */,
-				80A7F2062BECFA5B001A984B /* AliasRowCardView.swift */,
+				80A7F2062BECFA5B001A984B /* AliasRowView.swift */,
 			);
 			path = aliases;
 			sourceTree = "<group>";
@@ -329,8 +440,235 @@
 				80E849F82BEBB47A00C8D68A /* BottomNavigationView.swift */,
 				80E84A232BEBECC500C8D68A /* models */,
 				80E84A262BEBECF600C8D68A /* helpers */,
+				80F22FBC2BEEB19B001176B4 /* TEMP_TEST.swift */,
 			);
 			path = _OLD;
+			sourceTree = "<group>";
+		};
+		80F22F352BEE34E1001176B4 /* dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F7E2BEE34EE001176B4 /* SwiftUICharts */,
+			);
+			path = dependencies;
+			sourceTree = "<group>";
+		};
+		80F22F372BEE34EE001176B4 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F362BEE34EE001176B4 /* AxisLabels+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		80F22F3B2BEE34EE001176B4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F382BEE34EE001176B4 /* AxisLabelsPosition.swift */,
+				80F22F392BEE34EE001176B4 /* AxisLabelsStyle.swift */,
+				80F22F3A2BEE34EE001176B4 /* AxisLablesData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		80F22F3D2BEE34EE001176B4 /* Axis */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F372BEE34EE001176B4 /* Extension */,
+				80F22F3B2BEE34EE001176B4 /* Model */,
+				80F22F3C2BEE34EE001176B4 /* AxisLabels.swift */,
+			);
+			path = Axis;
+			sourceTree = "<group>";
+		};
+		80F22F3F2BEE34EE001176B4 /* CardView */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F3E2BEE34EE001176B4 /* CardView.swift */,
+			);
+			path = CardView;
+			sourceTree = "<group>";
+		};
+		80F22F432BEE34EE001176B4 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F402BEE34EE001176B4 /* ChartBase.swift */,
+				80F22F412BEE34EE001176B4 /* ChartData.swift */,
+				80F22F422BEE34EE001176B4 /* ChartValue.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		80F22F472BEE34EE001176B4 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F442BEE34EE001176B4 /* ViewGeometry.swift */,
+				80F22F452BEE34EE001176B4 /* ViewPreferenceKey.swift */,
+				80F22F462BEE34EE001176B4 /* ViewSizeData.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		80F22F512BEE34EE001176B4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F482BEE34EE001176B4 /* Array+Extension.swift */,
+				80F22F492BEE34EE001176B4 /* CGPoint+Extension.swift */,
+				80F22F4A2BEE34EE001176B4 /* CGRect+Extension.swift */,
+				80F22F4B2BEE34EE001176B4 /* ChartBase+Extension.swift */,
+				80F22F4C2BEE34EE001176B4 /* Color+Extension.swift */,
+				80F22F4D2BEE34EE001176B4 /* Path+QuadCurve.swift */,
+				80F22F4E2BEE34EE001176B4 /* Range+Extension.swift */,
+				80F22F4F2BEE34EE001176B4 /* Shape+Extension.swift */,
+				80F22F502BEE34EE001176B4 /* View+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		80F22F532BEE34EE001176B4 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F522BEE34EE001176B4 /* Grid+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		80F22F552BEE34EE001176B4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F542BEE34EE001176B4 /* GridOptions.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		80F22F592BEE34EE001176B4 /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F532BEE34EE001176B4 /* Extension */,
+				80F22F552BEE34EE001176B4 /* Model */,
+				80F22F562BEE34EE001176B4 /* ChartGrid.swift */,
+				80F22F572BEE34EE001176B4 /* ChartGridBaseShape.swift */,
+				80F22F582BEE34EE001176B4 /* ChartGridShape.swift */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
+		80F22F5B2BEE34EE001176B4 /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F5A2BEE34EE001176B4 /* ChartLabel.swift */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
+		80F22F5F2BEE34EE001176B4 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F5C2BEE34EE001176B4 /* ChartStyle.swift */,
+				80F22F5D2BEE34EE001176B4 /* ColorGradient.swift */,
+				80F22F5E2BEE34EE001176B4 /* Colors.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
+		80F22F602BEE34EE001176B4 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F3D2BEE34EE001176B4 /* Axis */,
+				80F22F432BEE34EE001176B4 /* Chart */,
+				80F22F472BEE34EE001176B4 /* Common */,
+				80F22F512BEE34EE001176B4 /* Extensions */,
+				80F22F592BEE34EE001176B4 /* Grid */,
+				80F22F5B2BEE34EE001176B4 /* Label */,
+				80F22F5F2BEE34EE001176B4 /* Style */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		80F22F652BEE34EE001176B4 /* BarChart */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F612BEE34EE001176B4 /* BarChart.swift */,
+				80F22F622BEE34EE001176B4 /* BarChartCell.swift */,
+				80F22F632BEE34EE001176B4 /* BarChartCellShape.swift */,
+				80F22F642BEE34EE001176B4 /* BarChartRow.swift */,
+			);
+			path = BarChart;
+			sourceTree = "<group>";
+		};
+		80F22F672BEE34EE001176B4 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F662BEE34EE001176B4 /* LineChart+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		80F22F6A2BEE34EE001176B4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F682BEE34EE001176B4 /* LineChartProperties.swift */,
+				80F22F692BEE34EE001176B4 /* LineStyle.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		80F22F732BEE34EE001176B4 /* LineChart */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F672BEE34EE001176B4 /* Extension */,
+				80F22F6A2BEE34EE001176B4 /* Model */,
+				80F22F6B2BEE34EE001176B4 /* IndicatorPoint.swift */,
+				80F22F6C2BEE34EE001176B4 /* Line.swift */,
+				80F22F6D2BEE34EE001176B4 /* LineBackgroundShape.swift */,
+				80F22F6E2BEE34EE001176B4 /* LineBackgroundShapeView.swift */,
+				80F22F6F2BEE34EE001176B4 /* LineChart.swift */,
+				80F22F702BEE34EE001176B4 /* LineShape.swift */,
+				80F22F712BEE34EE001176B4 /* LineShapeView.swift */,
+				80F22F722BEE34EE001176B4 /* MarkerShape.swift */,
+			);
+			path = LineChart;
+			sourceTree = "<group>";
+		};
+		80F22F782BEE34EE001176B4 /* PieChart */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F742BEE34EE001176B4 /* PieChart.swift */,
+				80F22F752BEE34EE001176B4 /* PieChartCell.swift */,
+				80F22F762BEE34EE001176B4 /* PieChartHelpers.swift */,
+				80F22F772BEE34EE001176B4 /* PieChartRow.swift */,
+			);
+			path = PieChart;
+			sourceTree = "<group>";
+		};
+		80F22F7C2BEE34EE001176B4 /* RingsChart */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F792BEE34EE001176B4 /* Ring.swift */,
+				80F22F7A2BEE34EE001176B4 /* RingsChart.swift */,
+				80F22F7B2BEE34EE001176B4 /* RingsChartRow.swift */,
+			);
+			path = RingsChart;
+			sourceTree = "<group>";
+		};
+		80F22F7D2BEE34EE001176B4 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F652BEE34EE001176B4 /* BarChart */,
+				80F22F732BEE34EE001176B4 /* LineChart */,
+				80F22F782BEE34EE001176B4 /* PieChart */,
+				80F22F7C2BEE34EE001176B4 /* RingsChart */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		80F22F7E2BEE34EE001176B4 /* SwiftUICharts */ = {
+			isa = PBXGroup;
+			children = (
+				80F22F602BEE34EE001176B4 /* Base */,
+				80F22F7D2BEE34EE001176B4 /* Charts */,
+			);
+			path = SwiftUICharts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -432,31 +770,85 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80F22F882BEE34EE001176B4 /* ViewGeometry.swift in Sources */,
 				804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */,
 				80E84A2A2BEBED3000C8D68A /* ProfileHelpers.swift in Sources */,
+				80F22F862BEE34EE001176B4 /* ChartData.swift in Sources */,
+				80F22F982BEE34EE001176B4 /* ChartGridShape.swift in Sources */,
+				80F22F992BEE34EE001176B4 /* ChartLabel.swift in Sources */,
 				80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */,
+				80F22F8A2BEE34EE001176B4 /* ViewSizeData.swift in Sources */,
 				80E84A252BEBECCC00C8D68A /* ProfileScreenViewModel.swift in Sources */,
+				80F22FAC2BEE34EE001176B4 /* PieChart.swift in Sources */,
+				80F22F7F2BEE34EE001176B4 /* AxisLabels+Extension.swift in Sources */,
+				80F22F912BEE34EE001176B4 /* Range+Extension.swift in Sources */,
+				80F22F822BEE34EE001176B4 /* AxisLablesData.swift in Sources */,
+				80F22F952BEE34EE001176B4 /* GridOptions.swift in Sources */,
 				80E8499F2BEB802D00C8D68A /* HomeView.swift in Sources */,
+				80F22FAA2BEE34EE001176B4 /* LineShapeView.swift in Sources */,
 				804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */,
+				80F22FA62BEE34EE001176B4 /* LineBackgroundShape.swift in Sources */,
+				80F22FAD2BEE34EE001176B4 /* PieChartCell.swift in Sources */,
+				80F22FAE2BEE34EE001176B4 /* PieChartHelpers.swift in Sources */,
+				80F22F9B2BEE34EE001176B4 /* ColorGradient.swift in Sources */,
 				807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */,
+				80F22F9C2BEE34EE001176B4 /* Colors.swift in Sources */,
+				80F22FA92BEE34EE001176B4 /* LineShape.swift in Sources */,
+				80F22F972BEE34EE001176B4 /* ChartGridBaseShape.swift in Sources */,
 				80E84A2D2BEC0D4300C8D68A /* OLD_MainView.swift in Sources */,
+				80F22F9E2BEE34EE001176B4 /* BarChartCell.swift in Sources */,
+				80F22F892BEE34EE001176B4 /* ViewPreferenceKey.swift in Sources */,
+				80F22FAB2BEE34EE001176B4 /* MarkerShape.swift in Sources */,
+				80F22FA42BEE34EE001176B4 /* IndicatorPoint.swift in Sources */,
+				80F22F922BEE34EE001176B4 /* Shape+Extension.swift in Sources */,
+				80F22F9A2BEE34EE001176B4 /* ChartStyle.swift in Sources */,
 				80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */,
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
+				80F22ECB2BEE280B001176B4 /* Pie.swift in Sources */,
 				80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */,
 				80E849F72BEBB43000C8D68A /* AppBarView.swift in Sources */,
+				80F22F9F2BEE34EE001176B4 /* BarChartCellShape.swift in Sources */,
 				80E849B32BEBA82A00C8D68A /* RecipientsView.swift in Sources */,
+				80F22FB22BEE34EE001176B4 /* RingsChartRow.swift in Sources */,
+				80F22F8D2BEE34EE001176B4 /* CGRect+Extension.swift in Sources */,
 				80E849FB2BEBD09B00C8D68A /* ScrollRefreshable.swift in Sources */,
-				80A7F2072BECFA5B001A984B /* AliasRowCardView.swift in Sources */,
+				80F22F932BEE34EE001176B4 /* View+Extension.swift in Sources */,
+				80F22FA82BEE34EE001176B4 /* LineChart.swift in Sources */,
+				80A7F2072BECFA5B001A984B /* AliasRowView.swift in Sources */,
+				80F22FA32BEE34EE001176B4 /* LineStyle.swift in Sources */,
 				807338052BEAAF4300D0D7E0 /* AddApiBottomSheet.swift in Sources */,
+				80F22F962BEE34EE001176B4 /* ChartGrid.swift in Sources */,
+				80F22F812BEE34EE001176B4 /* AxisLabelsStyle.swift in Sources */,
+				80F22F8B2BEE34EE001176B4 /* Array+Extension.swift in Sources */,
+				80F22F942BEE34EE001176B4 /* Grid+Extension.swift in Sources */,
 				80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */,
+				80F22FAF2BEE34EE001176B4 /* PieChartRow.swift in Sources */,
+				80F22FA22BEE34EE001176B4 /* LineChartProperties.swift in Sources */,
+				80F22FB02BEE34EE001176B4 /* Ring.swift in Sources */,
 				804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */,
+				80F22F802BEE34EE001176B4 /* AxisLabelsPosition.swift in Sources */,
+				80F22FA02BEE34EE001176B4 /* BarChartRow.swift in Sources */,
 				80E84A2F2BEC119500C8D68A /* AliasDetailView.swift in Sources */,
+				80F22F8F2BEE34EE001176B4 /* Color+Extension.swift in Sources */,
+				80F22FA72BEE34EE001176B4 /* LineBackgroundShapeView.swift in Sources */,
 				806F21352BE8F1B100EBEBC8 /* SplashView.swift in Sources */,
 				80E849F92BEBB47A00C8D68A /* BottomNavigationView.swift in Sources */,
 				807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */,
 				806F21332BE8F1B100EBEBC8 /* addyApp.swift in Sources */,
+				80F22F902BEE34EE001176B4 /* Path+QuadCurve.swift in Sources */,
 				80E84A282BEBED0B00C8D68A /* CommonHelpers.swift in Sources */,
+				80F22F9D2BEE34EE001176B4 /* BarChart.swift in Sources */,
+				80F22F832BEE34EE001176B4 /* AxisLabels.swift in Sources */,
+				80F22F842BEE34EE001176B4 /* CardView.swift in Sources */,
+				80F22F8E2BEE34EE001176B4 /* ChartBase+Extension.swift in Sources */,
+				80F22FB12BEE34EE001176B4 /* RingsChart.swift in Sources */,
+				80F22FA52BEE34EE001176B4 /* Line.swift in Sources */,
+				80F22F872BEE34EE001176B4 /* ChartValue.swift in Sources */,
 				806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */,
+				80F22F8C2BEE34EE001176B4 /* CGPoint+Extension.swift in Sources */,
+				80F22FA12BEE34EE001176B4 /* LineChart+Extension.swift in Sources */,
+				80F22FBD2BEEB19B001176B4 /* TEMP_TEST.swift in Sources */,
+				80F22F852BEE34EE001176B4 /* ChartBase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

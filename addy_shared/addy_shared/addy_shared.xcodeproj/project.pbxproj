@@ -22,6 +22,7 @@
 		80E849B52BEBA9C900C8D68A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80E849B42BEBA9C900C8D68A /* Assets.xcassets */; };
 		80E84A312BEC11ED00C8D68A /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A302BEC11ED00C8D68A /* Aliases.swift */; };
 		80E84A332BEC122900C8D68A /* Recipients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A322BEC122900C8D68A /* Recipients.swift */; };
+		80F22FB62BEE45AE001176B4 /* DateTimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22FB52BEE45AE001176B4 /* DateTimeUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +55,7 @@
 		80E849B42BEBA9C900C8D68A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80E84A302BEC11ED00C8D68A /* Aliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
 		80E84A322BEC122900C8D68A /* Recipients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipients.swift; sourceTree = "<group>"; };
+		80F22FB52BEE45AE001176B4 /* DateTimeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DateTimeUtils.swift; path = ../View/customviews/DateTimeUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				80E849B42BEBA9C900C8D68A /* Assets.xcassets */,
 				80B4F4CB2BEA58A20009E4CA /* SharedData.swift */,
 				80B4F4C42BEA55760009E4CA /* AddyIo.swift */,
+				80F22FB42BEE4597001176B4 /* utils */,
 				80B4F4BF2BEA53420009E4CA /* managers */,
 				80B4F4BA2BEA530D0009E4CA /* helpers */,
 				80B4F4B72BEA52E60009E4CA /* models */,
@@ -119,6 +122,15 @@
 				80B4F4C22BEA53530009E4CA /* SettingsManager.swift */,
 			);
 			name = managers;
+			sourceTree = "<group>";
+		};
+		80F22FB42BEE4597001176B4 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				80F22FB52BEE45AE001176B4 /* DateTimeUtils.swift */,
+			);
+			name = utils;
+			path = ../../addy/utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +227,7 @@
 				80B4F4D02BEA5BE60009E4CA /* UserAgent.swift in Sources */,
 				80B4F4CE2BEA598A0009E4CA /* UserResource.swift in Sources */,
 				80B4F4D22BEA5DCE0009E4CA /* Version.swift in Sources */,
+				80F22FB62BEE45AE001176B4 /* DateTimeUtils.swift in Sources */,
 				80E84A332BEC122900C8D68A /* Recipients.swift in Sources */,
 				80B4F4C52BEA55760009E4CA /* AddyIo.swift in Sources */,
 				80B4F4B92BEA52EE0009E4CA /* Logs.swift in Sources */,

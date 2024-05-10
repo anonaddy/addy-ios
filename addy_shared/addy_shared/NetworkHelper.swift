@@ -292,9 +292,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        ErrorHelper.getErrorMessage(data:data)
                     )
                 }
                 
@@ -308,7 +306,7 @@ public class NetworkHelper {
                 
             default:
                 let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                print("Error: \(httpResponse.statusCode) - \(String(describing: error))")
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,

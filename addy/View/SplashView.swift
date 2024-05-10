@@ -91,8 +91,8 @@ struct SplashView: View {
                             }
                         }, recipientId: userResource.default_recipient_id)
                         
-                    } else if let error = error {
-                        print("Error: \(error)")
+                    } else {
+                        print("Error: \(String(describing: error))")
                         self.showError = true
                     }
                 }

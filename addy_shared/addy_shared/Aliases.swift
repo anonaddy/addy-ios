@@ -28,21 +28,21 @@ public struct Aliases:Identifiable,Codable {
     let `extension`: String?
     let domain: String
     public let email: String
-    var active: Bool
-    let description: String?
+    public var active: Bool
+    public let description: String?
     let from_name: String?
-    let emails_forwarded: Int
-    let emails_blocked: Int
-    let emails_replied: Int
-    let emails_sent: Int
+    public let emails_forwarded: Int
+    public let emails_blocked: Int
+    public let emails_replied: Int
+    public let emails_sent: Int
     let recipients: [Recipients]?
     let last_forwarded: String?
     let last_blocked: String?
     let last_replied: String?
     let last_sent: String?
-    let created_at: String
-    let updated_at: String
-    var deleted_at: String?
+    public let created_at: String
+    public let updated_at: String
+    public var deleted_at: String?
 }
 
 public struct Meta:Codable {

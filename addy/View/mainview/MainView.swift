@@ -7,7 +7,6 @@
 
 import SwiftUI
 import addy_shared
-import ScalingHeaderScrollView
 
 class MainViewState: ObservableObject {
     @Published var apiKey: String? = SettingsManager(encrypted: true).getSettingsString(key: .apiKey)

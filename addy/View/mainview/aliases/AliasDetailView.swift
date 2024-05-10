@@ -12,46 +12,23 @@ struct AliasDetailView: View {
     
     var aliasId: String
     
-    @Environment(\.dismiss) private var dismiss
-        
-    var body: some View {
+    @State private var g1HappyMoods: Double = 3
+    @State private var g1NeutralMoods: Double = 2
+    @State private var g1SickMoods: Double = 2
+    @State private var g1OverateMoods: Double = 2
+    @State private var g1TotalDataPoints: Int = 9
+    var demoData: [Double] = [8, 2, 4, 6, 12, 9, 2]
 
-            VStack {
-                
-                
-                ScrollView {
-                    
-                    HStack {
-                        VStack(alignment: .leading) {
-                            
-                            Text(aliasId)
-                                .font(.title)
-                                .padding()
-                            
-                            Text(aliasId)
-                                .padding()
-                            
-                            Spacer()
-                        }
-                        
-                        Spacer()
-                    }
-                }
-            }
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "chevron.backward.circle.fill")
-                            .tint(.black)
-                    }
-                    .font(.title)
-                }
-        }
+    
+    var body: some View {
+        BarChart()
+            .data(demoData)
+            .chartStyle(ChartStyle(backgroundColor: .white,
+                                   foregroundColor: ColorGradient(.blue, .purple)))
+        
     }
 }
+
 
 #Preview {
     // TODO: preview remove this demo

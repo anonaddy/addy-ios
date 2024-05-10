@@ -21,24 +21,20 @@ class AliasesViewModel: ObservableObject{
         filter: nil
     )
 
-    
     @Published var searchQuery = ""
-    
-    // Combine Framework Search bar
-    
+        
     var searchCancellable: AnyCancellable? = nil
     
     
-    // fetched Data
     @Published var aliasList: AliasesArray? = nil
 
     @Published var isLoading = false
     @Published var hasArrivedAtTheLastPage = false
+    @Published var networkError:String = ""
     
     init(){
         // since SwiftUI uses @published so its a publisher.
         // so we dont need to explicitly define publisher..
-        
         searchCancellable = $searchQuery
             .removeDuplicates()
             .debounce(for: 0.6, scheduler: RunLoop.main)
@@ -59,10 +55,10 @@ class AliasesViewModel: ObservableObject{
             })
     }
     
-    func getAliases(forceReload: Bool){
+    public func getAliases(forceReload: Bool){
         if (!self.isLoading){
             self.isLoading = true
-            
+            self.networkError = ""
             if (forceReload){
                 // This will make sure that the meta resets and jumps back to 0
                 // To prevent that the app continues loading from page X when performing a search after scrolling for a while
@@ -72,6 +68,8 @@ class AliasesViewModel: ObservableObject{
             let networkHelper = NetworkHelper()
             networkHelper.getAliases (completion: { aliasArray, error in
                     DispatchQueue.main.async {
+                        self.isLoading = false
+
                         if let aliasArray = aliasArray {
                             
                             if (self.aliasList == nil || forceReload){
@@ -84,11 +82,10 @@ class AliasesViewModel: ObservableObject{
                                 self.aliasList?.data.append(contentsOf: aliasArray.data)
                             }
                             
-                            
                             self.hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page
-                            self.isLoading = false
                             
-                        } else if let error = error {
+                        } else {
+                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error)")
                             print("Error: \(error)")
                         }
                     }

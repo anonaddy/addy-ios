@@ -7,7 +7,6 @@
 
 import SwiftUI
 import addy_shared
-import ScalingHeaderScrollView
 
 class OldMainViewState: ObservableObject {
     @Published var apiKey: String? = SettingsManager(encrypted: true).getSettingsString(key: .apiKey)
@@ -93,27 +92,27 @@ struct OldMainView: View {
         } else {
             ZStack {
                 
-                ScalingHeaderScrollView {
-                    ZStack {
-                        Color.white.edgesIgnoringSafeArea(.all)
-                        largeHeader(progress: progress)
-                    }
-                } content: {
-                    //profilerContentView
-                    if selectedTab == 0 {
-                        profilerContentView
-                    } else if selectedTab == 1 {
-                        Text("Tab 2 content")
-                    } else if selectedTab == 2 {
-                        Text("Tab 3 content")
-                    }
-                }
-                .height(min: minHeight, max: maxHeight)
-                .collapseProgress($progress)
-                .allowsHeaderGrowth()
-                .pullToRefresh(isLoading: $isLoading) {
-                            print("RELOAD")
-                        }
+//                ScalingHeaderScrollView {
+//                    ZStack {
+//                        Color.white.edgesIgnoringSafeArea(.all)
+//                        largeHeader(progress: progress)
+//                    }
+//                } content: {
+//                    //profilerContentView
+//                    if selectedTab == 0 {
+//                        profilerContentView
+//                    } else if selectedTab == 1 {
+//                        Text("Tab 2 content")
+//                    } else if selectedTab == 2 {
+//                        Text("Tab 3 content")
+//                    }
+//                }
+//                .height(min: minHeight, max: maxHeight)
+//                .collapseProgress($progress)
+//                .allowsHeaderGrowth()
+//                .pullToRefresh(isLoading: $isLoading) {
+//                            print("RELOAD")
+//                        }
                 
                 topButtons
                 
