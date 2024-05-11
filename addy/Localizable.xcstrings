@@ -187,12 +187,59 @@
         }
       }
     },
+    "Creatduwdaudhwadhawdhwaidhuawidhuwaidhwauidhwauidhuwaidhawuidhwauidhauwidhuawidhawuidhawidhuihbfgihfuhefhfueisfhuifhuseifheuifhesuifheuifheufihseffhuseifhuiesfhuisefhuisefhisefhuisefhuisefhuiesfhuisefhushfseiufhufhseifhided 09-12-1999, 12:10\nUpdated 09-12-1999, 12:10\nUpdated 09-12-1999, 12:10\nUpdated 09-12-1999, 12:10" : {
+
+    },
     "created_at_s" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Created %@"
+          }
+        }
+      }
+    },
+    "d_blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ blocked"
+          }
+        }
+      }
+    },
+    "d_forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ forwarded"
+          }
+        }
+      }
+    },
+    "d_replied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ replied"
+          }
+        }
+      }
+    },
+    "d_sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ sent"
           }
         }
       }

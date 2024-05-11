@@ -78,7 +78,7 @@ struct MainView: View {
             SplashView().environmentObject(mainViewState)
         } else {
             TabView {
-                NavigationView {
+                NavigationStack {
                     HomeView()
 //                        .navigationDestination(for: Aliases.self){
 //                            alias in AliasDetailView(alias: alias)
@@ -99,7 +99,7 @@ struct MainView: View {
                 .tabItem {
                     Label(String(localized: "home"), systemImage: "house")
                 }.tag(0)
-                NavigationView {
+                NavigationStack {
                     AliasesView()
                         .environmentObject(mainViewState)
                         .environmentObject(aliasesData)
@@ -107,7 +107,7 @@ struct MainView: View {
                 .tabItem {
                     Label(String(localized: "aliases"), systemImage: "at.circle")
                 }.tag(1)
-                NavigationView {
+                NavigationStack {
                     RecipientsView()
                         .navigationTitle(String(localized: "recipients"))
                         .environmentObject(mainViewState)

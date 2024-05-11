@@ -60,7 +60,6 @@ struct AliasesView: View {
                                                 Label(String(localized: "send_mail"), systemImage: "paperplane")
                                             }
                                         
-                                        Section(String(localized: "general")){
                                             if (alias.active){
                                                 Button {
                                                     UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
@@ -81,24 +80,14 @@ struct AliasesView: View {
                                                 } label: {
                                                     Label(String(localized: "restore_alias"), systemImage: "arrow.up.trash")
                                                 }
-                                                Button(role: .destructive) {
-                                                    UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
-                                                } label: {
-                                                    Label(String(localized: "forget_alias"), systemImage: "eraser")
-                                                }
                                             } else {
                                                 Button(role: .destructive) {
                                                     UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
                                                 } label: {
-                                                    Label(String(localized: "delete_alias"), systemImage: "arrow.up.trash")
-                                                }
-                                                Button() {
-                                                    UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
-                                                } label: {
-                                                    Label(String(localized: "forget_alias"), systemImage: "eraser")
+                                                    Label(String(localized: "delete_alias"), systemImage: "trash")
                                                 }
                                             }
-                                        }
+                                        
                                     } preview:
                                 {
                                     AliasRowView(alias: alias, isPreview: true)

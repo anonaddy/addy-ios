@@ -33,7 +33,6 @@ struct AliasRowView: View {
         
         
         if let description = alias.description {
-            
             self.aliasDescription =  String(format: String(localized: "s_s_s"),
                                             description,
                                             String(format: NSLocalizedString("created_at_s", comment: ""),
@@ -53,54 +52,121 @@ struct AliasRowView: View {
         
         if isPreview {
             // Preview (long press) view
-            VStack() {
+            VStack(alignment: .leading){
+                Text(verbatim: alias.email)
+                    .font(.title3)
+                    .bold()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0))
+
                 HStack{
                     BarChart()
                         .data(chartData)
                         .chartStyle(ChartStyle(backgroundColor: .white,
                                                foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
-                                                                 ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
                                                                  ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
+                                                                 ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
                                                                  ColorGradient(.softRed, .softRed.opacity(0.7))]))
-                        .frame(width: 60)
-                        .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 12))
+                        .frame(maxWidth: .infinity)
 
                     
-                    
+                    Spacer()
+
                     VStack(alignment: .leading){
-                        Text(alias.email).font(.headline).lineLimit(1).minimumScaleFactor(0.5)
-                        Text(aliasDescription).font(.subheadline).lineLimit(2).minimumScaleFactor(0.5)
-                    }.padding(EdgeInsets(top: 12, leading: 0, bottom: 12, trailing: 0))
+                        Spacer()
+
+                        Label(title: {
+                            Text(String(format: String(localized: "d_forwarded"), "\(alias.emails_forwarded)"))
+                                .font(.subheadline)
+                                .foregroundStyle(Color.gray)
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
+
+                                }, icon: {
+                                    Image(systemName: "tray")
+                                        .foregroundColor(.portalOrange)
+                                        .font(.system(size: 18, weight: .bold))
+                                } )
+                        Spacer()
+                        Label(title: {
+                                    Text(String(format: String(localized: "d_replied"), "\(alias.emails_replied)"))
+                                .font(.subheadline)
+                                .foregroundStyle(Color.gray)
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
+
+                                }, icon: {
+                                    Image(systemName: "arrow.turn.up.left")
+                                        .foregroundColor(.easternBlue)
+                                        .font(.system(size: 18, weight: .bold))
+                                } )
+                        Spacer()
+                        Label(title: {
+                                    Text(String(format: String(localized: "d_sent"), "\(alias.emails_sent)"))
+                                .font(.subheadline)
+                                .foregroundStyle(Color.gray)
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
+
+                                }, icon: {
+                                    Image(systemName: "paperplane")
+                                        .foregroundColor(.portalBlue)
+                                        .font(.system(size: 18, weight: .bold))
+                                } )
+                        Spacer()
+                        Label(title: {
+                                    Text(String(format: String(localized: "d_blocked"), "\(alias.emails_blocked)"))
+                                .font(.subheadline)
+                                .foregroundStyle(Color.gray)
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
+
+                                }, icon: {
+                                    Image(systemName: "slash.circle")
+                                        .foregroundColor(.softRed)
+                                        .font(.system(size: 18, weight: .bold))
+                                } )
+                        Spacer()
+
+
+                    }
+                    .padding(.leading, 15)
+                    .labelStyle(MyAliasLabelStyle())
                 }
-            }.frame(height: 200)
-            Label(String(localized: "you_ll_be_notified_if_this_alias_has_activity"), systemImage: "eyes").foregroundColor(.gray.opacity(0.4)).padding()
+
+            }.padding().frame(height: 250)
+            
+            Label(String(localized: "you_ll_be_notified_if_this_alias_has_activity"), systemImage: "eyes").foregroundColor(.gray.opacity(0.4)).padding(.horizontal).padding(.bottom,16)
 
         } else {
             VStack() {
                 HStack{
-                    Group{
+
                         BarChart()
                             .data(chartData)
                             .chartStyle(ChartStyle(backgroundColor: .white,
                                                    foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
-                                                                     ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
                                                                      ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
+                                                                     ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
                                                                      ColorGradient(.softRed, .softRed.opacity(0.7))]))
-                    }.frame(width: 60)
+                    .frame(width: 60)
                      .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 12))
                     
+                    Spacer()
                     
                     VStack(alignment: .leading){
                         Text(alias.email)
                             .font(.headline)
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
-                        Text(aliasDescription).font(.subheadline)
+                        Text(aliasDescription)
+                            .font(.subheadline)
                             .lineLimit(2)
-                            .minimumScaleFactor(0.5)
                     }
                     .padding(EdgeInsets(top: 12, leading: 0, bottom: 12, trailing: 0))
                         
+                    Spacer()
 
                     //Spacer()
                     

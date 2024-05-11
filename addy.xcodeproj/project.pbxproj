@@ -27,6 +27,7 @@
 		807338052BEAAF4300D0D7E0 /* AddApiBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338042BEAAF4300D0D7E0 /* AddApiBottomSheet.swift */; };
 		80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2042BECD840001A984B /* AliasesViewModel.swift */; };
 		80A7F2072BECFA5B001A984B /* AliasRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2062BECFA5B001A984B /* AliasRowView.swift */; };
+		80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */; };
 		80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */; };
 		80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */; };
 		80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499A2BEB73D900C8D68A /* MainView.swift */; };
@@ -141,6 +142,7 @@
 		807338042BEAAF4300D0D7E0 /* AddApiBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApiBottomSheet.swift; sourceTree = "<group>"; };
 		80A7F2042BECD840001A984B /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
 		80A7F2062BECFA5B001A984B /* AliasRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasRowView.swift; sourceTree = "<group>"; };
+		80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAliasLabelStyle.swift; sourceTree = "<group>"; };
 		80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButton.swift; sourceTree = "<group>"; };
 		80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButtonStyle.swift; sourceTree = "<group>"; };
 		80E8499A2BEB73D900C8D68A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -316,7 +318,7 @@
 		806F21312BE8F1B100EBEBC8 /* addy */ = {
 			isa = PBXGroup;
 			children = (
-				80A7F2022BECD7D8001A984B /* Model */,
+				80BB84162BF00AAF005999C3 /* styles */,
 				80A7F2012BECD7D3001A984B /* ViewModel */,
 				80E84A2B2BEC0CDA00C8D68A /* _OLD */,
 				806D5F1B2BE91B9700C5C109 /* anims */,
@@ -361,11 +363,12 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		80A7F2022BECD7D8001A984B /* Model */ = {
+		80BB84162BF00AAF005999C3 /* styles */ = {
 			isa = PBXGroup;
 			children = (
+				80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */,
 			);
-			path = Model;
+			path = styles;
 			sourceTree = "<group>";
 		};
 		80D82DC32BE95BAF009440DC /* AddyLoadingButton */ = {
@@ -789,6 +792,7 @@
 				804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */,
 				80F22FA62BEE34EE001176B4 /* LineBackgroundShape.swift in Sources */,
 				80F22FAD2BEE34EE001176B4 /* PieChartCell.swift in Sources */,
+				80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */,
 				80F22FAE2BEE34EE001176B4 /* PieChartHelpers.swift in Sources */,
 				80F22F9B2BEE34EE001176B4 /* ColorGradient.swift in Sources */,
 				807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */,
