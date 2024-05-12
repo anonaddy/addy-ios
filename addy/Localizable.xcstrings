@@ -28,6 +28,50 @@
         }
       }
     },
+    "alias_activated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias activated"
+          }
+        }
+      }
+    },
+    "alias_deactivated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias deactivated"
+          }
+        }
+      }
+    },
+    "alias_no_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This alias has no description set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "alias_status_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this alias for mail forwarding"
+          }
+        }
+      }
+    },
     "aliases" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -46,6 +90,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Looking for an alias?"
+          }
+        }
+      }
+    },
+    "aliaswatcher_max_reached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reached maximum of watched aliases"
+          }
+        }
+      }
+    },
+    "aliaswatcher_max_reached_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The maximum number of aliases you can watch is 25"
           }
         }
       }
@@ -176,19 +242,26 @@
         }
       }
     },
-    "copy_to_clipboard" : {
+    "copied" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Copy to clipboard"
+            "value" : "Copied!"
           }
         }
       }
     },
-    "Creatduwdaudhwadhawdhwaidhuawidhuwaidhwauidhwauidhuwaidhawuidhwauidhauwidhuawidhawuidhawidhuihbfgihfuhefhfueisfhuifhuseifheuifhesuifheuifheufihseffhuseifhuiesfhuisefhuisefhisefhuisefhuisefhuiesfhuisefhushfseiufhufhseifhided 09-12-1999, 12:10\nUpdated 09-12-1999, 12:10\nUpdated 09-12-1999, 12:10\nUpdated 09-12-1999, 12:10" : {
-
+    "copy_alias" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy alias"
+          }
+        }
+      }
     },
     "created_at_s" : {
       "localizations" : {
@@ -269,6 +342,17 @@
         }
       }
     },
+    "description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description"
+          }
+        }
+      }
+    },
     "details_about_error_s" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -287,6 +371,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Disable alias"
+          }
+        }
+      }
+    },
+    "edit_desc_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the description for this alias, describe what this alias is used for"
+          }
+        }
+      }
+    },
+    "edit_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit description"
           }
         }
       }
@@ -400,7 +506,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Logs cleared"
+            "value" : "Alias activ"
           }
         }
       }
@@ -534,6 +640,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ %@ %@"
+          }
+        }
+      }
+    },
+    "save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
           }
         }
       }
@@ -793,6 +910,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Updated %@"
+          }
+        }
+      }
+    },
+    "watch_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch alias"
+          }
+        }
+      }
+    },
+    "watch_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification when an email is sent to this alias"
           }
         }
       }

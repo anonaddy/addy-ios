@@ -102,8 +102,7 @@ struct SetupView: View {
                                 
                                 
                             } else {
-                                //FIXME This is a workaround to get the animation to run
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                DispatchQueue.main.async {
                                     isLoadingGetStarted = false
                                 }
                                 isPresentingAddApiBottomSheet = true

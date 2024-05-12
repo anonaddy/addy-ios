@@ -23,7 +23,6 @@ struct AddApiBottomSheet: View {
         
     }
     
-      
     @State private var instanceError:String?
     @State private var apiKeyError:String?
     @State private var instance:String
@@ -124,13 +123,13 @@ struct AddApiBottomSheet: View {
                 
                 AddyLoadingButton(action: {
                     if (instanceError == nil && apiKeyError == nil){
+                        isLoadingSignIn = true;
+                        
                         DispatchQueue.global(qos: .background).async {
-                            isLoadingSignIn = true;
                             self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
                         }
                     } else {
-                        //FIXME This is a workaround to get the animation to run
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        DispatchQueue.main.async {
                             isLoadingSignIn = false
                         }
                     }

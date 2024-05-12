@@ -15,7 +15,7 @@ struct BulkAliasesArray {
     var data: [Aliases]
 }
 
-struct SingleAlias {
+struct SingleAlias: Codable {
     let data: Aliases
 }
 

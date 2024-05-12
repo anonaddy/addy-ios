@@ -30,6 +30,13 @@
 		80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */; };
 		80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */; };
 		80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */; };
+		80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF39E2BF1095B0022690F /* AddyToggle.swift */; };
+		80DCF3A22BF117720022690F /* AliasWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3A12BF117720022690F /* AliasWatcher.swift */; };
+		80DCF3A52BF118BE0022690F /* GsonTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3A42BF118BE0022690F /* GsonTools.swift */; };
+		80DCF3AA2BF12DF00022690F /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3A92BF12DF00022690F /* NotificationHelper.swift */; };
+		80DCF3AC2BF12E760022690F /* BackgroundWorkerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3AB2BF12E760022690F /* BackgroundWorkerHelper.swift */; };
+		80DCF3AE2BF1347F0022690F /* AddySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3AD2BF1347F0022690F /* AddySection.swift */; };
+		80DCF3B02BF137610022690F /* EditAliasDescriptionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3AF2BF137610022690F /* EditAliasDescriptionBottomSheet.swift */; };
 		80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499A2BEB73D900C8D68A /* MainView.swift */; };
 		80E8499F2BEB802D00C8D68A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499E2BEB802D00C8D68A /* HomeView.swift */; };
 		80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849A02BEB803400C8D68A /* AliasesView.swift */; };
@@ -43,6 +50,7 @@
 		80E84A2A2BEBED3000C8D68A /* ProfileHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A292BEBED3000C8D68A /* ProfileHelpers.swift */; };
 		80E84A2D2BEC0D4300C8D68A /* OLD_MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A2C2BEC0D4300C8D68A /* OLD_MainView.swift */; };
 		80E84A2F2BEC119500C8D68A /* AliasDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */; };
+		80F0D7E72BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json in Resources */ = {isa = PBXBuildFile; fileRef = 80F0D7E62BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json */; };
 		80F22ECB2BEE280B001176B4 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22ECA2BEE280B001176B4 /* Pie.swift */; };
 		80F22F7F2BEE34EE001176B4 /* AxisLabels+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F362BEE34EE001176B4 /* AxisLabels+Extension.swift */; };
 		80F22F802BEE34EE001176B4 /* AxisLabelsPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F382BEE34EE001176B4 /* AxisLabelsPosition.swift */; };
@@ -145,6 +153,13 @@
 		80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAliasLabelStyle.swift; sourceTree = "<group>"; };
 		80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButton.swift; sourceTree = "<group>"; };
 		80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButtonStyle.swift; sourceTree = "<group>"; };
+		80DCF39E2BF1095B0022690F /* AddyToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyToggle.swift; sourceTree = "<group>"; };
+		80DCF3A12BF117720022690F /* AliasWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasWatcher.swift; sourceTree = "<group>"; };
+		80DCF3A42BF118BE0022690F /* GsonTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GsonTools.swift; sourceTree = "<group>"; };
+		80DCF3A92BF12DF00022690F /* NotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHelper.swift; sourceTree = "<group>"; };
+		80DCF3AB2BF12E760022690F /* BackgroundWorkerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundWorkerHelper.swift; sourceTree = "<group>"; };
+		80DCF3AD2BF1347F0022690F /* AddySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySection.swift; sourceTree = "<group>"; };
+		80DCF3AF2BF137610022690F /* EditAliasDescriptionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasDescriptionBottomSheet.swift; sourceTree = "<group>"; };
 		80E8499A2BEB73D900C8D68A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		80E8499E2BEB802D00C8D68A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		80E849A02BEB803400C8D68A /* AliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesView.swift; sourceTree = "<group>"; };
@@ -158,6 +173,7 @@
 		80E84A292BEBED3000C8D68A /* ProfileHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHelpers.swift; sourceTree = "<group>"; };
 		80E84A2C2BEC0D4300C8D68A /* OLD_MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLD_MainView.swift; sourceTree = "<group>"; };
 		80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailView.swift; sourceTree = "<group>"; };
+		80F0D7E62BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gray_ic_loading_logo.shapeshifter.json; sourceTree = "<group>"; };
 		80F22ECA2BEE280B001176B4 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 		80F22F362BEE34EE001176B4 /* AxisLabels+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AxisLabels+Extension.swift"; sourceTree = "<group>"; };
 		80F22F382BEE34EE001176B4 /* AxisLabelsPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxisLabelsPosition.swift; sourceTree = "<group>"; };
@@ -268,6 +284,7 @@
 		806D5F1B2BE91B9700C5C109 /* anims */ = {
 			isa = PBXGroup;
 			children = (
+				80F0D7E62BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json */,
 				80E849AF2BEBA66100C8D68A /* ic_loading_logo_error.shapeshifter.json */,
 				806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */,
 			);
@@ -283,6 +300,8 @@
 				80D82DC32BE95BAF009440DC /* AddyLoadingButton */,
 				804BE7A92BE95B49001DDC8A /* AddyButton */,
 				80F22ECA2BEE280B001176B4 /* Pie.swift */,
+				80DCF39E2BF1095B0022690F /* AddyToggle.swift */,
+				80DCF3AD2BF1347F0022690F /* AddySection.swift */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -318,6 +337,9 @@
 		806F21312BE8F1B100EBEBC8 /* addy */ = {
 			isa = PBXGroup;
 			children = (
+				80DCF3A82BF12DEA0022690F /* notification */,
+				80DCF3A32BF118900022690F /* helpers */,
+				80DCF3A02BF117680022690F /* service */,
 				80BB84162BF00AAF005999C3 /* styles */,
 				80A7F2012BECD7D3001A984B /* ViewModel */,
 				80E84A2B2BEC0CDA00C8D68A /* _OLD */,
@@ -380,6 +402,31 @@
 			path = AddyLoadingButton;
 			sourceTree = "<group>";
 		};
+		80DCF3A02BF117680022690F /* service */ = {
+			isa = PBXGroup;
+			children = (
+				80DCF3A12BF117720022690F /* AliasWatcher.swift */,
+			);
+			path = service;
+			sourceTree = "<group>";
+		};
+		80DCF3A32BF118900022690F /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				80DCF3A42BF118BE0022690F /* GsonTools.swift */,
+				80DCF3AB2BF12E760022690F /* BackgroundWorkerHelper.swift */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
+		80DCF3A82BF12DEA0022690F /* notification */ = {
+			isa = PBXGroup;
+			children = (
+				80DCF3A92BF12DF00022690F /* NotificationHelper.swift */,
+			);
+			path = notification;
+			sourceTree = "<group>";
+		};
 		80E849992BEB73CE00C8D68A /* mainview */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,6 +452,7 @@
 				80E849A02BEB803400C8D68A /* AliasesView.swift */,
 				80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */,
 				80A7F2062BECFA5B001A984B /* AliasRowView.swift */,
+				80DCF3AF2BF137610022690F /* EditAliasDescriptionBottomSheet.swift */,
 			);
 			path = aliases;
 			sourceTree = "<group>";
@@ -763,6 +811,7 @@
 				801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */,
 				806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */,
 				80E849B02BEBA66100C8D68A /* ic_loading_logo_error.shapeshifter.json in Resources */,
+				80F0D7E72BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -779,7 +828,10 @@
 				80F22F862BEE34EE001176B4 /* ChartData.swift in Sources */,
 				80F22F982BEE34EE001176B4 /* ChartGridShape.swift in Sources */,
 				80F22F992BEE34EE001176B4 /* ChartLabel.swift in Sources */,
+				80DCF3AA2BF12DF00022690F /* NotificationHelper.swift in Sources */,
+				80DCF3B02BF137610022690F /* EditAliasDescriptionBottomSheet.swift in Sources */,
 				80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */,
+				80DCF3A22BF117720022690F /* AliasWatcher.swift in Sources */,
 				80F22F8A2BEE34EE001176B4 /* ViewSizeData.swift in Sources */,
 				80E84A252BEBECCC00C8D68A /* ProfileScreenViewModel.swift in Sources */,
 				80F22FAC2BEE34EE001176B4 /* PieChart.swift in Sources */,
@@ -795,6 +847,7 @@
 				80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */,
 				80F22FAE2BEE34EE001176B4 /* PieChartHelpers.swift in Sources */,
 				80F22F9B2BEE34EE001176B4 /* ColorGradient.swift in Sources */,
+				80DCF3AC2BF12E760022690F /* BackgroundWorkerHelper.swift in Sources */,
 				807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */,
 				80F22F9C2BEE34EE001176B4 /* Colors.swift in Sources */,
 				80F22FA92BEE34EE001176B4 /* LineShape.swift in Sources */,
@@ -810,7 +863,9 @@
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
 				80F22ECB2BEE280B001176B4 /* Pie.swift in Sources */,
 				80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */,
+				80DCF3A52BF118BE0022690F /* GsonTools.swift in Sources */,
 				80E849F72BEBB43000C8D68A /* AppBarView.swift in Sources */,
+				80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */,
 				80F22F9F2BEE34EE001176B4 /* BarChartCellShape.swift in Sources */,
 				80E849B32BEBA82A00C8D68A /* RecipientsView.swift in Sources */,
 				80F22FB22BEE34EE001176B4 /* RingsChartRow.swift in Sources */,
@@ -823,6 +878,7 @@
 				807338052BEAAF4300D0D7E0 /* AddApiBottomSheet.swift in Sources */,
 				80F22F962BEE34EE001176B4 /* ChartGrid.swift in Sources */,
 				80F22F812BEE34EE001176B4 /* AxisLabelsStyle.swift in Sources */,
+				80DCF3AE2BF1347F0022690F /* AddySection.swift in Sources */,
 				80F22F8B2BEE34EE001176B4 /* Array+Extension.swift in Sources */,
 				80F22F942BEE34EE001176B4 /* Grid+Extension.swift in Sources */,
 				80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */,

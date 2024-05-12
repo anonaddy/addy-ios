@@ -159,7 +159,7 @@ public class SettingsManager {
         }
     }
     
-    func putStringSet(key: Prefs, mutableSet: Set<String>) {
+    public func putStringSet(key: Prefs, mutableSet: Set<String>) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
             let array = Array(mutableSet)
@@ -171,7 +171,7 @@ public class SettingsManager {
         }
     }
     
-    func getStringSet(key: Prefs) -> Set<String>? {
+    public func getStringSet(key: Prefs) -> Set<String>? {
         let userKey = "\(user)_\(key)"
         if useKeychain {
             if let data = keychain.getData(userKey),

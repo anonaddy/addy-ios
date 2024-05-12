@@ -7,17 +7,17 @@
 
 import Foundation
 
-class LoggingHelper {
+public class LoggingHelper {
     private let settingsManager: SettingsManager
     private let prefs: UserDefaults
 
-    enum LogFiles: String {
+    public enum LogFiles: String {
         case `default` = "host.stjin.addy_logs"
         //case backupLogs = "host.stjin.anonaddy_logs_backups"
         //case watchosLogs = "host.stjin.anonaddy_logs_watchos"
     }
 
-    init(sharedPreference: LogFiles = .default) {
+    public init(sharedPreference: LogFiles = .default) {
         self.settingsManager = SettingsManager(encrypted: false)
         self.prefs = UserDefaults(suiteName: sharedPreference.rawValue)!
     }
@@ -32,7 +32,7 @@ class LoggingHelper {
         return try? JSONDecoder().decode([Logs].self, from: logsData)
     }
 
-    func addLog(importance: LogImportance, error: String, method: String, extra: String?) {
+    public func addLog(importance: LogImportance, error: String, method: String, extra: String?) {
         if settingsManager.getSettingsBool(key: .storeLogs) {
             var logs = getLogs() ?? []
             logs.append(Logs(importance: importance, dateTime: getDateTime(), method: method, message: error, extra: extra))

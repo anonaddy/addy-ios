@@ -26,7 +26,9 @@ struct AliasesView: View {
                     Text("PLACEHOLDER")
                     
 
-                        if (aliasesViewModel.searchQuery == ""){
+                    //Only show the stats when the user is NOT searching and there is NO error
+                        if (aliasesViewModel.searchQuery == "" &&
+                            aliasesViewModel.networkError == ""){
                             Section {
                                 VStack{
                                     CardView(){
@@ -52,7 +54,7 @@ struct AliasesView: View {
                                             Button {
                                                 UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
                                             } label: {
-                                                Label(String(localized: "copy_to_clipboard"), systemImage: "clipboard")
+                                                Label(String(localized: "copy_alias"), systemImage: "clipboard")
                                             }
                                             Button {
                                                 UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
@@ -92,7 +94,7 @@ struct AliasesView: View {
                                 {
                                     AliasRowView(alias: alias, isPreview: true)
                                 }
-                                NavigationLink(destination: AliasDetailView(aliasId: alias.id)){
+                                NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email)){
                                     EmptyView()
                                 }.opacity(0)
                                 
@@ -149,7 +151,24 @@ struct AliasesView: View {
                         
                     }
                 } else {
-                    if (aliasesViewModel.networkError != ""){
+                    if (aliasesViewModel.isLoading){
+                        VStack(alignment: .center, spacing: 0) {
+                            Spacer()
+                            ContentUnavailableView {
+                                Label(String(localized: "obtaining_aliases"), systemImage: "globe")
+                            } description: {
+                                Text(String(localized: "obtaining_aliases_desc"))
+                            }
+                            
+                            ProgressView()
+                                .foregroundColor(.black)
+                                .foregroundColor(.red)
+                                .frame(maxWidth: .infinity, maxHeight:50)
+                            Spacer()
+                        }
+                        
+                    }
+                    else if (aliasesViewModel.networkError != ""){
                         ContentUnavailableView {
                             Label(String(localized: "something_went_wrong_retrieving_aliases"), systemImage: "wifi.slash")
                         } description: {

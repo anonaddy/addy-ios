@@ -137,7 +137,9 @@ struct AliasRowView: View {
 
             }.padding().frame(height: 250)
             
-            Label(String(localized: "you_ll_be_notified_if_this_alias_has_activity"), systemImage: "eyes").foregroundColor(.gray.opacity(0.4)).padding(.horizontal).padding(.bottom,16)
+            if (AliasWatcher().getAliasesToWatch().contains(alias.id)){
+                Label(String(localized: "you_ll_be_notified_if_this_alias_has_activity"), systemImage: "eyes").foregroundColor(.gray.opacity(0.4)).padding(.horizontal).padding(.bottom,16)
+            }
 
         } else {
             VStack() {
