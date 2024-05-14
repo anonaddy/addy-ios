@@ -6,12 +6,12 @@
 //
 
 public struct AliasSortFilter {
-    var onlyActiveAliases: Bool
-    var onlyDeletedAliases: Bool
-    var onlyInactiveAliases: Bool
-    var onlyWatchedAliases: Bool
-    var sort: String?
-    var sortDesc: Bool
+    public var onlyActiveAliases: Bool
+    public var onlyDeletedAliases: Bool
+    public var onlyInactiveAliases: Bool
+    public var onlyWatchedAliases: Bool
+    public var sort: String?
+    public var sortDesc: Bool
     public var filter: String?
     
     public init(

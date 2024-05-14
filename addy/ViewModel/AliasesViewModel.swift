@@ -11,7 +11,7 @@ import addy_shared
 
 class AliasesViewModel: ObservableObject{
     
-    var aliasSortFilter = AliasSortFilter(
+    @Published var aliasSortFilter = AliasSortFilter(
         onlyActiveAliases: false,
         onlyDeletedAliases: false,
         onlyInactiveAliases: false,
@@ -24,6 +24,7 @@ class AliasesViewModel: ObservableObject{
     @Published var searchQuery = ""
         
     var searchCancellable: AnyCancellable? = nil
+    var filterCancellable: AnyCancellable? = nil
     
     
     @Published var aliasList: AliasesArray? = nil

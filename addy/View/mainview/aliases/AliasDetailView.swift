@@ -132,7 +132,7 @@ struct AliasDetailView: View {
                             .padding(.horizontal)
                             .padding(.vertical, 12)
                             .background(Color.accentColor.opacity(0.7))
-                            .cornerRadius(8)
+                            .cornerRadius(12)
                             Spacer()
                             Button(action: {
                                 //self.copyToClipboard(alias: alias)
@@ -147,7 +147,7 @@ struct AliasDetailView: View {
                             .padding(.horizontal)
                             .padding(.vertical, 12)
                             .background(Color.accentColor.opacity(0.7))
-                            .cornerRadius(8)
+                            .cornerRadius(12)
                         }.padding(.top, 8)
                         
                         
