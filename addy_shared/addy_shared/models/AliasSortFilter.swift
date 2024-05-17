@@ -5,7 +5,21 @@
 //  Created by Stijn van de Water on 09/05/2024.
 //
 
-public struct AliasSortFilter {
+public struct AliasSortFilter:Codable, Equatable {
+    public var aliasSortFilterRequest: AliasSortFilterRequest
+    public var filterId: String?
+    
+    public init(
+        aliasSortFilterRequest: AliasSortFilterRequest,
+        filterId: String?
+        ) {
+            self.aliasSortFilterRequest = aliasSortFilterRequest
+            self.filterId = filterId
+        }
+    
+}
+
+public struct AliasSortFilterRequest:Codable, Equatable {
     public var onlyActiveAliases: Bool
     public var onlyDeletedAliases: Bool
     public var onlyInactiveAliases: Bool
@@ -13,6 +27,7 @@ public struct AliasSortFilter {
     public var sort: String?
     public var sortDesc: Bool
     public var filter: String?
+    public var filterId: String?
     
     public init(
             onlyActiveAliases: Bool,
@@ -33,3 +48,4 @@ public struct AliasSortFilter {
         }
     
 }
+

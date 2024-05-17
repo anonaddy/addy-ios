@@ -83,6 +83,17 @@
         }
       }
     },
+    "aliases_filtered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aliases (filter active)"
+          }
+        }
+      }
+    },
     "aliases_search" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -112,6 +123,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The maximum number of aliases you can watch is 25"
+          }
+        }
+      }
+    },
+    "all_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All aliases"
           }
         }
       }
@@ -238,6 +260,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sorry to disturb you, ma'am.\n\nPlease report this bug by visiting the issues section in the app settings"
+          }
+        }
+      }
+    },
+    "clear_filter" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear filter"
           }
         }
       }
@@ -397,6 +430,17 @@
         }
       }
     },
+    "emails_forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emails forwarded"
+          }
+        }
+      }
+    },
     "enable_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -444,6 +488,17 @@
         }
       }
     },
+    "filter_custom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        }
+      }
+    },
     "filter_deleted_aliases" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -477,6 +532,39 @@
         }
       }
     },
+    "filtering_and_sorting" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtering and sorting"
+          }
+        }
+      }
+    },
+    "filtering_and_sorting_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decide which aliases to display and in which order to display them. Filters are saved and retained on app restart"
+          }
+        }
+      }
+    },
+    "filters" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filters"
+          }
+        }
+      }
+    },
     "forget_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -484,6 +572,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Forget alias"
+          }
+        }
+      }
+    },
+    "forwarded_blocked_stat" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ forwarded; %@ blocked"
           }
         }
       }
@@ -643,9 +742,6 @@
         }
       }
     },
-    "PLACEHOLDER" : {
-
-    },
     "qr_permissions_required" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -664,6 +760,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recipients"
+          }
+        }
+      }
+    },
+    "replied_sent_stat" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ replied; %@ sent"
           }
         }
       }
@@ -910,6 +1017,204 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Something went wrong retrieving aliases"
+          }
+        }
+      }
+    },
+    "sort_active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active"
+          }
+        }
+      }
+    },
+    "sort_asc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ascending"
+          }
+        }
+      }
+    },
+    "sort_by" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sort by"
+          }
+        }
+      }
+    },
+    "sort_created_at" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created at"
+          }
+        }
+      }
+    },
+    "sort_deleted_at" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleted at"
+          }
+        }
+      }
+    },
+    "sort_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descending"
+          }
+        }
+      }
+    },
+    "sort_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain"
+          }
+        }
+      }
+    },
+    "sort_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "sort_email_blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocked"
+          }
+        }
+      }
+    },
+    "sort_email_forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forwarded"
+          }
+        }
+      }
+    },
+    "sort_email_replied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replied"
+          }
+        }
+      }
+    },
+    "sort_email_sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sent"
+          }
+        }
+      }
+    },
+    "sort_last_blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last blocked"
+          }
+        }
+      }
+    },
+    "sort_last_forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last forwarded"
+          }
+        }
+      }
+    },
+    "sort_last_replied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last replied"
+          }
+        }
+      }
+    },
+    "sort_last_sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last sent"
+          }
+        }
+      }
+    },
+    "sort_localpart" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local part"
+          }
+        }
+      }
+    },
+    "sort_updated_at" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updated at"
           }
         }
       }

@@ -465,18 +465,18 @@ public class NetworkHelper {
     
     
     
-    public func  getAliases(completion: @escaping (AliasesArray?, String?) -> Void, aliasSortFilter: AliasSortFilter,page: Int? = nil,size: Int? = 20,recipient: String? = nil,domain: String? = nil,username: String? = nil) {
+    public func  getAliases(completion: @escaping (AliasesArray?, String?) -> Void, aliasSortFilterRequest: AliasSortFilterRequest,page: Int? = nil,size: Int? = 20,recipient: String? = nil,domain: String? = nil,username: String? = nil) {
         
         
         
         var parameters: [URLQueryItem] = []
 
-           if aliasSortFilter.onlyActiveAliases {
+           if aliasSortFilterRequest.onlyActiveAliases {
                parameters.append(URLQueryItem(name: "filter[active]", value: "true"))
-           } else if aliasSortFilter.onlyInactiveAliases {
+           } else if aliasSortFilterRequest.onlyInactiveAliases {
                parameters.append(URLQueryItem(name: "filter[active]", value: "false"))
                parameters.append(URLQueryItem(name: "filter[deleted]", value: "with"))
-           } else if aliasSortFilter.onlyDeletedAliases {
+           } else if aliasSortFilterRequest.onlyDeletedAliases {
                parameters.append(URLQueryItem(name: "filter[deleted]", value: "only"))
            } else {
                parameters.append(URLQueryItem(name: "filter[deleted]", value: "with"))
@@ -486,7 +486,7 @@ public class NetworkHelper {
                parameters.append(URLQueryItem(name: "page[size]", value: "\(size)"))
            }
 
-           if let filter = aliasSortFilter.filter {
+           if let filter = aliasSortFilterRequest.filter {
                parameters.append(URLQueryItem(name: "filter[search]", value: filter))
            }
 
@@ -494,8 +494,8 @@ public class NetworkHelper {
                parameters.append(URLQueryItem(name: "page[number]", value: "\(page)"))
            }
 
-           if let sort = aliasSortFilter.sort {
-               let sortFilter: String = aliasSortFilter.sortDesc ? "-\(sort)" : sort
+           if let sort = aliasSortFilterRequest.sort {
+               let sortFilter: String = aliasSortFilterRequest.sortDesc ? "-\(sort)" : sort
                parameters.append(URLQueryItem(name: "sort", value: sortFilter))
            }
 

@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import WrappingHStack
 
 class AddyChipModel:Identifiable{
     let id = UUID()
-    let filterId: String
+    let chipId: String
     let label:String
     
-    init(filterId:String, label: String) {
-        self.filterId = filterId
+    init(chipId:String, label: String) {
+        self.chipId = chipId
         self.label = label
     }
 }
@@ -21,27 +22,46 @@ class AddyChipModel:Identifiable{
 struct AddyChipView: View {
     @Binding var chips: [AddyChipModel]
     @Binding var selectedChip:String
+    var singleLine:Bool
+    
     let onTap: (AddyChipModel) -> Void
     
     var body: some View {
         
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(chips) { chip in
-                    Text(chip.label)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(Capsule().fill(self.selectedChip == chip.filterId ? Color.accentColor.opacity(0.7) : Color.gray.opacity(0.7)))
-                        .foregroundColor(.white.opacity(0.8))
-                        .onTapGesture{
-                            // Only trigger on change
-                            if (selectedChip != chip.filterId){
+        if (self.singleLine){
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(chips) { chip in
+                        Text(chip.label)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(Capsule().fill(self.selectedChip == chip.chipId ? Color.accentColor.opacity(0.7) : Color.gray.opacity(0.7)))
+                            .foregroundColor(.white.opacity(0.8))
+                            .onTapGesture{
                                 self.onTap(chip)
                             }
-                        }
+                    }
                 }
             }
+        } else {
+            WrappingHStack(alignment: .leading) {
+                    ForEach(chips) { chip in
+                        Text(chip.label)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(Capsule().fill(self.selectedChip == chip.chipId ? Color.accentColor.opacity(0.7) : Color.gray.opacity(0.7)))
+                            .foregroundColor(.white.opacity(0.8))
+                            .onTapGesture{
+                                // Only trigger on change
+                                if (selectedChip != chip.chipId){
+                                    self.onTap(chip)
+                                }
+                            }
+                    }
+                }
+            
         }
+        
     }
     
 }
@@ -54,15 +74,22 @@ struct AddyChip_Preview: PreviewProvider{
                     VStack {
                         @State var selectedChip:String = "test3"
                         @State var chips = [
-                            AddyChipModel(filterId: "test",label: "test"),
-                            AddyChipModel(filterId: "test2",label: "test2"),
-                            AddyChipModel(filterId: "test3",label: "test3"),
-                            AddyChipModel(filterId: "test4",label: "test4"),
-                            AddyChipModel(filterId: "test5",label: "test5"),
-                            AddyChipModel(filterId: "test6",label: "test6"),
+                            AddyChipModel(chipId: "test",label: "test"),
+                            AddyChipModel(chipId: "test2",label: "test2"),
+                            AddyChipModel(chipId: "test3",label: "test3"),
+                            AddyChipModel(chipId: "test4",label: "test4"),
+                            AddyChipModel(chipId: "test5",label: "test5"),
+                            AddyChipModel(chipId: "test6",label: "test6"),
+                            AddyChipModel(chipId: "test6",label: "test6"),
+                            AddyChipModel(chipId: "test6",label: "test6"),
+                            AddyChipModel(chipId: "test6",label: "test6"),
+                            AddyChipModel(chipId: "test6",label: "test6"),
+                            AddyChipModel(chipId: "test6",label: "test6"),
+                            AddyChipModel(chipId: "test6",label: "test6"),
+                            AddyChipModel(chipId: "test6",label: "test6"),
                         ]
                         
-                        AddyChipView(chips: $chips, selectedChip: $selectedChip) { onTappedChip in
+                        AddyChipView(chips: $chips, selectedChip: $selectedChip, singleLine: false) { onTappedChip in
                             print("\(onTappedChip.label) is selected")
                             selectedChip = onTappedChip.label
                         }

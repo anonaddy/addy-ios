@@ -35,7 +35,6 @@ struct EditAliasDescriptionBottomSheet: View {
     @State var IsLoadingSaveButton: Bool = false
     
     var body: some View {
-        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
         VStack{
             
             Text(String(localized: "edit_description"))

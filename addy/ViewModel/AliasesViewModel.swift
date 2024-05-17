@@ -11,7 +11,17 @@ import addy_shared
 
 class AliasesViewModel: ObservableObject{
     
-    @Published var aliasSortFilter = AliasSortFilter(
+    @Published var aliasSortFilterRequest = AliasSortFilterRequest(
+        onlyActiveAliases: false,
+        onlyDeletedAliases: false,
+        onlyInactiveAliases: false,
+        onlyWatchedAliases: false,
+        sort: nil,
+        sortDesc: false,
+        filter: nil
+    )
+    
+    var defaultSortFilterRequest = AliasSortFilterRequest(
         onlyActiveAliases: false,
         onlyDeletedAliases: false,
         onlyInactiveAliases: false,
@@ -24,7 +34,6 @@ class AliasesViewModel: ObservableObject{
     @Published var searchQuery = ""
         
     var searchCancellable: AnyCancellable? = nil
-    var filterCancellable: AnyCancellable? = nil
     
     
     @Published var aliasList: AliasesArray? = nil
@@ -38,22 +47,28 @@ class AliasesViewModel: ObservableObject{
         // so we dont need to explicitly define publisher..
         searchCancellable = $searchQuery
             .removeDuplicates()
-            .debounce(for: 0.6, scheduler: RunLoop.main)
+            .debounce(for: 1.0, scheduler: RunLoop.main)
             .sink(receiveValue: {str in
-                // When something is being searched cancel the loading to make sure that the networkCall will succeed
-                self.isLoading = false
-                if str == ""{
-                    // Reset Data....
-                    self.aliasSortFilter.filter = nil
-                    self.getAliases(forceReload:true)
-                }
-                else {
-                    // search Data
-                    self.aliasSortFilter.filter = str
-                    self.getAliases(forceReload:true)
-                }
-                
+                self.searchAliases(searchQuery: str)
             })
+    }
+    
+    public func searchAliases(searchQuery: String){
+        // When something is being searched cancel the loading to make sure that the networkCall will succeed
+        self.isLoading = false
+        if searchQuery == ""{
+            // Reset Data....
+            self.aliasSortFilterRequest.filter = nil
+            self.getAliases(forceReload:true)
+        }
+        else {
+            if (searchQuery.count >= 3){
+                // search Data
+                self.aliasSortFilterRequest.filter = searchQuery
+                self.getAliases(forceReload:true)
+            }
+            // Don't search for searchTerms for < 3 chars
+        }
     }
     
     public func getAliases(forceReload: Bool){
@@ -90,7 +105,7 @@ class AliasesViewModel: ObservableObject{
                             print("Error: \(error)")
                         }
                     }
-            },aliasSortFilter: self.aliasSortFilter, page : (aliasList?.meta?.current_page ?? 0) + 1,size: 25)
+            },aliasSortFilterRequest: self.aliasSortFilterRequest, page : (aliasList?.meta?.current_page ?? 0) + 1,size: 25)
         }
         
         }

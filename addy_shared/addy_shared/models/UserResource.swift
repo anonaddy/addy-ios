@@ -62,10 +62,10 @@ public struct UserResource: Codable {
     var active_shared_domain_alias_limit: Int
     var active_rule_count: Int
     var active_rule_limit: Int
-    var total_emails_forwarded: Int
-    var total_emails_blocked: Int
-    var total_emails_replied: Int
-    var total_emails_sent: Int
+    public var total_emails_forwarded: Int
+    public var total_emails_blocked: Int
+    public var total_emails_replied: Int
+    public var total_emails_sent: Int
     var total_aliases: Int
     var total_active_aliases: Int
     var total_inactive_aliases: Int
