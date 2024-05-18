@@ -11,12 +11,9 @@ import UniformTypeIdentifiers
 
 struct AliasesView: View {
     @EnvironmentObject var mainViewState: MainViewState
-    @State private var showError = false
     @EnvironmentObject var aliasesViewModel: AliasesViewModel
     @State private var isPresentingFilterOptionsAliasBottomSheet = false
-    
-    private var aliasList: AliasesArray? = nil
-    
+        
     
     @State var selectedFilterChip = "filter_all_aliases"
     @State var filterChips: [AddyChipModel] = []
@@ -46,7 +43,7 @@ struct AliasesView: View {
                     
                     
                     // Only show the stats when the user is NOT searching and there is NO error
-                    if (aliasesViewModel.searchQuery == "" &&
+                    if (aliasesViewModel.searchQuery != "" &&
                         aliasesViewModel.networkError == ""){
                         Section {
                             VStack{
@@ -140,7 +137,7 @@ struct AliasesView: View {
                                 {
                                     AliasRowView(alias: alias, isPreview: true)
                                 }
-                                NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email)){
+                                NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email).environmentObject(mainViewState)){
                                     EmptyView()
                                 }.opacity(0)
                                 
@@ -281,35 +278,35 @@ struct AliasesView: View {
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = nil
+            aliasesViewModel.aliasSortFilterRequest.sort = "created_at"
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_active_aliases":
             aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = true
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = nil
+            aliasesViewModel.aliasSortFilterRequest.sort = "created_at"
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_inactive_aliases":
             aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = true
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = nil
+            aliasesViewModel.aliasSortFilterRequest.sort = "created_at"
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_deleted_aliases":
             aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = true
-            aliasesViewModel.aliasSortFilterRequest.sort = nil
+            aliasesViewModel.aliasSortFilterRequest.sort = "created_at"
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_watched_only":
             aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = true
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = nil
+            aliasesViewModel.aliasSortFilterRequest.sort = "created_at"
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_custom":
             isPresentingFilterOptionsAliasBottomSheet = true

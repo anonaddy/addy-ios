@@ -27,7 +27,6 @@ public struct AliasSortFilterRequest:Codable, Equatable {
     public var sort: String?
     public var sortDesc: Bool
     public var filter: String?
-    public var filterId: String?
     
     public init(
             onlyActiveAliases: Bool,

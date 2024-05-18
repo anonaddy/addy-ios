@@ -15,7 +15,6 @@ struct AddySection: View {
     var trailingSystemimage: String? = nil
     var fontWeight: Font.Weight = .medium
     
-    
     var body: some View {
         HStack {
             if let leadingSystemimage = leadingSystemimage {
@@ -31,7 +30,7 @@ struct AddySection: View {
                     Text(description)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
-                        .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
+                        .lineLimit(3)
                 }
                 
             }

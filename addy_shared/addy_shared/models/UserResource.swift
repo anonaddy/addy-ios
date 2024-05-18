@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SUBSCRIPTIONS: String {
+public enum SUBSCRIPTIONS: String {
     case FREE = "free"
     case LITE = "lite"
     case PRO = "pro"
@@ -51,7 +51,7 @@ public struct UserResource: Codable {
     public var default_recipient_id: String
     var default_alias_domain: String
     var default_alias_format: String
-    var subscription: String?
+    public var subscription: String?
     var subscription_ends_at: String?
     var bandwidth_limit: Int64
     var recipient_count: Int

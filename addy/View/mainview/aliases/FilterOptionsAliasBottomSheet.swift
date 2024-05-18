@@ -22,8 +22,8 @@ import addy_shared
 struct FilterOptionsAliasBottomSheet: View {
     @State private var filter1Selection: Int = 0
     @State private var filter2Selection: Int = 0
+    @State private var sortSelection: Int = 0
     @State private var aliasSortFilterRequest: AliasSortFilterRequest
-    private var mainPadding: CGFloat = 20
     
     @State var selectedOrderChip = "created_at"
     @State var orderChips: [AddyChipModel] = [
@@ -55,9 +55,7 @@ struct FilterOptionsAliasBottomSheet: View {
         self.setFilterAndSortingSettings = setFilterAndSortingSettings
             }
     
-    
-    @State private var descriptionError:String?
-    
+        
     @State var IsLoadingSaveButton: Bool = false
     
     var body: some View {
@@ -73,11 +71,14 @@ struct FilterOptionsAliasBottomSheet: View {
             
             ScrollView {
                 
+                List {
+                    
+                }
+                
                 VStack{
                     
                     Text(String(localized: "filtering_and_sorting_desc"))
                         .font(.system(.footnote))
-                        .fontWeight(.medium)
                         .multilineTextAlignment(.center)
                         .opacity(0.5)
                     
@@ -98,8 +99,9 @@ struct FilterOptionsAliasBottomSheet: View {
                             LoadFilter(aliasSortFilterRequest: aliasSortFilterRequest)
                         }) {
                             Text(String(localized: "clear_filter"))
-                                .foregroundColor(.accentColor)
                                 .font(.system(size: 16))
+                                .buttonStyle(.bordered)
+                                .tint(.accentColor)
                             
                             
                         }
@@ -144,27 +146,22 @@ struct FilterOptionsAliasBottomSheet: View {
                     
                     Divider()
                     
+                  
                     
                     HStack() {
+                        
                         Text(String(localized: "sort_by"))
                             .font(.title2)
                         Spacer()
-                        Button(action: {
-                            aliasSortFilterRequest.sortDesc = !aliasSortFilterRequest.sortDesc
-                        }) {
-                            Label(aliasSortFilterRequest.sortDesc ? String(localized: "sort_desc") : String(localized: "sort_asc"),
-                                  systemImage: aliasSortFilterRequest.sortDesc ? "arrowtriangle.down.fill" : "arrowtriangle.up.fill")
-                                .foregroundColor(.accentColor)
-                                .font(.system(size: 16))
-                            
-                            
-                        }
-                        .disabled(filter2Selection == 1) // means if alias is set to Watch Only
-                        .contentTransition(.symbolEffect(.replace))
-                        .padding(.horizontal)
-                        .padding(.vertical, 12)
-                        .background(Color.accentColor.opacity(0.3))
-                        .cornerRadius(12)
+                        Picker(selection: $sortSelection, label: Text(String(localized:"sort_by"))) {
+                                                Text(String(localized: "sort_asc")).tag(0)
+                                                Text(String(localized:"sort_desc")).tag(1)
+                                            }
+                                            .pickerStyle(MenuPickerStyle())
+                                            .disabled(filter2Selection == 1) // means if alias is set to Watch Only
+                        
+
+                     
                     }.padding(.vertical)
                     
                     AddyChipView(chips: $orderChips, selectedChip: $selectedOrderChip, singleLine: false) { onTappedChip in
@@ -225,10 +222,18 @@ struct FilterOptionsAliasBottomSheet: View {
                     aliasSortFilterRequest.onlyWatchedAliases = true
             default:
                     aliasSortFilterRequest.onlyWatchedAliases = false
+        }        
+        
+        switch sortSelection {
+            case 1:
+                    aliasSortFilterRequest.sortDesc = true
+            default:
+                aliasSortFilterRequest.sortDesc = false
         }
         
         aliasSortFilterRequest.sort = selectedOrderChip
         
+        var test = self.aliasSortFilterRequest
         self.setFilterAndSortingSettings(self.aliasSortFilterRequest)
     }
     
@@ -254,6 +259,14 @@ struct FilterOptionsAliasBottomSheet: View {
         }
         else {
             filter2Selection = 0
+        }
+        
+        // Load the second selectionbar
+        if (aliasSortFilterRequest.sortDesc){
+            sortSelection = 1
+        }
+        else {
+            sortSelection = 0
         }
         
         // If sort is set, set the chip

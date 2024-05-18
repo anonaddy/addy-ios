@@ -19,28 +19,29 @@ import AVFoundation
 import CodeScanner
 import addy_shared
 
-struct EditAliasDescriptionBottomSheet: View {
+struct EditAliasFromNameBottomSheet: View {
     let aliasId: String
-    @State private var description: String
-    let descriptionEdited: (Aliases) -> Void
+    let aliasEmail: String
+    @State var fromName: String
+    let fromNameEdited: (Aliases) -> Void
 
-    init(aliasId: String, description: String, descriptionEdited: @escaping (Aliases) -> Void) {
+    init(aliasId: String, aliasEmail: String, fromName: String?, fromNameEdited: @escaping (Aliases) -> Void) {
         self.aliasId = aliasId
-        self.description = description
-        self.descriptionEdited = descriptionEdited
+        self.aliasEmail = aliasEmail
+        self.fromName = fromName ?? ""
+        self.fromNameEdited = fromNameEdited
     }
     
-    @State private var descriptionValidationError:String?
-    @State private var descriptionRequestError:String?
+    @State private var fromNameValidationError:String?
+    @State private var fromNameRequestError:String?
 
     @State var IsLoadingSaveButton: Bool = false
     
     var body: some View {
         VStack{
             
-            Text(String(localized: "edit_description"))
+            Text(String(localized: "edit_from_name"))
                 .font(.system(.title2))
-                .fontWeight(.medium)
                 .padding(.top, 25)
                 .padding(.bottom, 15)
             
@@ -50,7 +51,9 @@ struct EditAliasDescriptionBottomSheet: View {
 
                 VStack{
                     
-                    Text(String(localized: "edit_desc_alias_desc"))
+                    let formattedString = String.localizedStringWithFormat(NSLocalizedString("edit_from_name_alias_desc", comment: ""), aliasEmail)
+                    // Use Text with markdown to display the formatted string
+                    Text(LocalizedStringKey(formattedString))
                         .font(.system(.footnote))
                         .multilineTextAlignment(.center)
                         .opacity(0.5)
@@ -59,10 +62,10 @@ struct EditAliasDescriptionBottomSheet: View {
                     
                     
                     
-                    ValidatingTextField(value: self.$description, placeholder: String(localized: "description"), fieldType: .bigText, error: $descriptionValidationError)
+                    ValidatingTextField(value: self.$fromName, placeholder: String(localized: "from_name"), fieldType: .text, error: $fromNameValidationError)
                     
                     VStack(alignment: .leading, spacing: 0) {
-                        if let error = descriptionRequestError {
+                        if let error = fromNameRequestError {
                             Text(error)
                                 .foregroundColor(.red)
                                 .font(.system(size: 15))
@@ -78,11 +81,11 @@ struct EditAliasDescriptionBottomSheet: View {
                 AddyLoadingButton(action: {
                     // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
                     // We should not allow any saving until the validationErrors are nil
-                    if (descriptionValidationError == nil){
+                    if (fromNameValidationError == nil){
                         IsLoadingSaveButton = true;
                         
                         DispatchQueue.global(qos: .background).async {
-                            self.editDescription(description: self.description)
+                            self.editFromName(fromName: self.fromName)
                         }
                     } else {
                         DispatchQueue.main.async {
@@ -98,32 +101,32 @@ struct EditAliasDescriptionBottomSheet: View {
             }
             .padding(.horizontal)
             
-        }.presentationDetents([.medium])
+        }.presentationDetents([.large])
             .presentationDragIndicator(.visible)
         
         
     }
     
     
-    private func editDescription(description:String?) {
-        descriptionRequestError = nil
+    private func editFromName(fromName:String?) {
+        fromNameRequestError = nil
         
         let networkHelper = NetworkHelper()
-        networkHelper.updateDescriptionSpecificAlias(completion: { alias, error in
+        networkHelper.updateFromNameSpecificAlias(completion: { alias, error in
             DispatchQueue.main.async {
                 if let alias = alias {
-                    self.descriptionEdited(alias)
+                    self.fromNameEdited(alias)
                 } else {
                     IsLoadingSaveButton = false
-                    descriptionRequestError = error
+                    fromNameRequestError = error
                 }
             }
-        }, aliasId: self.aliasId, description: description)
+        }, aliasId: self.aliasId, fromName: fromName)
     }
 }
 
 #Preview {
-    EditAliasDescriptionBottomSheet(aliasId: "000", description: "TEST", descriptionEdited: { alias in
+    EditAliasFromNameBottomSheet(aliasId: "000", aliasEmail: "TEST", fromName: "NICE", fromNameEdited: { alias in
         // Dummy function for preview
     })
 }

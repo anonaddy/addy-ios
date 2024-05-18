@@ -12,8 +12,8 @@ struct AddyLoadingButton<Content: View>: View{
         let defaultStyle = AddyLoadingButtonStyle(width: .infinity,
                                       height: 56,
                                       cornerRadius: 12,
-                                      backgroundColor: Color("AccentColor"),
-                                      loadingColor: Color.white,
+                                      backgroundColor: Color.accentColor,
+                                      loadingColor: Color.accentColor.opacity(0.4),
                                       strokeWidth: 5,
                                       strokeColor: .gray)
         

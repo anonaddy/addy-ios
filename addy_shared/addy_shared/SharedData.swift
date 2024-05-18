@@ -9,12 +9,8 @@ import Foundation
 
 class SharedData {
     static let shared = SharedData()
-    
-    private var encryptedSettingsManager: SettingsManager?
-    
-    private init() {
-        self.encryptedSettingsManager = SettingsManager(encrypted: true)
         
+    private init() {
         
         // Get the bundle for the app
         let bundle = Bundle.main
@@ -43,6 +39,6 @@ class SharedData {
     }
     
     
-    public var userAgent: UserAgent
+    var userAgent: UserAgent
     
 }

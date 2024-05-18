@@ -5,7 +5,7 @@
 //  Created by Stijn van de Water on 08/05/2024.
 //
 
-struct RecipientsArray {
+struct RecipientsArray:Codable {
     let data: [Recipients]
 }
 
@@ -14,7 +14,7 @@ struct SingleRecipient:Codable {
 }
 
 public struct Recipients:Codable {
-    let id: String
+    public let id: String
     let user_id: String
     public let email: String
     var can_reply_send: Bool

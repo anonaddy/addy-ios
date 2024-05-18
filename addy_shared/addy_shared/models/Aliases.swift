@@ -30,16 +30,16 @@ public struct Aliases:Identifiable,Codable {
     public let email: String
     public var active: Bool
     public let description: String?
-    let from_name: String?
+    public let from_name: String?
     public let emails_forwarded: Int
     public let emails_blocked: Int
     public let emails_replied: Int
     public let emails_sent: Int
-    let recipients: [Recipients]?
-    let last_forwarded: String?
-    let last_blocked: String?
-    let last_replied: String?
-    let last_sent: String?
+    public let recipients: [Recipients]?
+    public let last_forwarded: String?
+    public let last_blocked: String?
+    public let last_replied: String?
+    public let last_sent: String?
     public let created_at: String
     public let updated_at: String
     public var deleted_at: String?

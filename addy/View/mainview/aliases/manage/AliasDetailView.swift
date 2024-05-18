@@ -12,17 +12,33 @@ import UniformTypeIdentifiers
 
 struct AliasDetailView: View {
     
+    enum ActiveAlert {
+        case reachedMaxAliases, deleteAliases, restoreAlias, forgetAlias, error
+    }
     
     let aliasId: String
     let aliasEmail: String
+        
+    @State private var activeAlert: ActiveAlert = .reachedMaxAliases
+    @State private var showAlert: Bool = false
+    @State private var isDeletingAlias: Bool = false
+    @State private var isRestoringAlias: Bool = false
+    @State private var isForgettingAlias: Bool = false
     
-    @State private var showReachedMaxAliasesWatchedAlert = false
-    
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @EnvironmentObject var mainViewState: MainViewState
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     @State private var alias: Aliases? = nil
+    @State private var errorText: String? = nil
+    
     @State private var isAliasActive: Bool = false
     @State private var isSwitchingAliasActiveState: Bool = false
     @State private var isAliasBeingWatched: Bool = false
     @State private var isPresentingEditAliasDescriptionBottomSheet = false
+    @State private var isPresentingEditAliasRecipientsBottomSheet = false
+    @State private var isPresentingEditAliasFromNameBottomSheet = false
     
     @State private var copiedToClipboard: Bool = false
     
@@ -128,11 +144,11 @@ struct AliasDetailView: View {
                                 
                                 
                             }
+                            .controlSize(.large)
+                            .buttonStyle(.borderedProminent)
+                            .tint(.accentColor)
                             .contentTransition(.symbolEffect(.replace))
                             .padding(.horizontal)
-                            .padding(.vertical, 12)
-                            .background(Color.accentColor.opacity(0.7))
-                            .cornerRadius(12)
                             Spacer()
                             Button(action: {
                                 //self.copyToClipboard(alias: alias)
@@ -144,10 +160,11 @@ struct AliasDetailView: View {
                                 
                                 
                             }
+                            .controlSize(.large)
+                            .buttonStyle(.borderedProminent)
+                            .tint(.accentColor)
+                            .contentTransition(.symbolEffect(.replace))
                             .padding(.horizontal)
-                            .padding(.vertical, 12)
-                            .background(Color.accentColor.opacity(0.7))
-                            .cornerRadius(12)
                         }.padding(.top, 8)
                         
                         
@@ -168,11 +185,11 @@ struct AliasDetailView: View {
                                 
                                 if (alias.active){
                                     DispatchQueue.global(qos: .background).async {
-                                        self.deactivateAliasAlias(alias: alias)
+                                        self.deactivateAlias(alias: alias)
                                     }
                                 } else {
                                     DispatchQueue.global(qos: .background).async {
-                                        self.activateAliasAlias(alias: alias)
+                                        self.activateAlias(alias: alias)
                                     }
                                 }
                             }
@@ -193,7 +210,8 @@ struct AliasDetailView: View {
                                         
                                     } else {
                                         // Could not add to watchlist (watchlist reached max?)
-                                        showReachedMaxAliasesWatchedAlert = true
+                                        activeAlert = .reachedMaxAliases
+                                        showAlert = true
                                     }
                                 }
                             }
@@ -202,38 +220,200 @@ struct AliasDetailView: View {
                     AddySection(title: String(localized: "description"), description: alias.description ?? String(localized: "alias_no_description"), leadingSystemimage: nil, trailingSystemimage: "pencil")
                         .onTapGesture {
                             isPresentingEditAliasDescriptionBottomSheet = true
+                            
                         }
+                    
+                    
+                    
+                    AddySection(title: String(localized: "recipients"), description: getRecipients(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil")
+                        .onTapGesture {
+                            isPresentingEditAliasRecipientsBottomSheet = true
+                        }
+                    
+                    AddySection(title: String(localized: "from_name"), description: getFromName(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil")
+                        .onTapGesture {
+                            if !hasUserFreeSubscription(){
+                                isPresentingEditAliasFromNameBottomSheet = true
+                            } else {
+                                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                            }
+                        }
+                    
+                    AddySection(title: String(localized: "last_forwarded"),
+                                description: alias.last_forwarded != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_forwarded) : String(localized: "unknown"),
+                                leadingSystemimage: nil, trailingSystemimage: nil)
+                    AddySection(title: String(localized: "last_replied"),
+                                description: alias.last_replied != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_replied) : String(localized: "unknown"),
+                                leadingSystemimage: nil, trailingSystemimage: nil)
+                    AddySection(title: String(localized: "last_sent"),
+                                description: alias.last_sent != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_sent) : String(localized: "unknown"),
+                                leadingSystemimage: nil, trailingSystemimage: nil)
+                    AddySection(title: String(localized: "last_blocked"),
+                                description: alias.last_blocked != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_blocked) : String(localized: "unknown"),
+                                leadingSystemimage: nil, trailingSystemimage: nil)
+                    
+                    
+                    
+                    
                 }header: {
                     Text(String(localized: "general"))
+                }.disabled(alias.deleted_at != nil) // If alias is deleted, disable the entire section
+                
+                Section {
+                    
+                    // If alias is not deleted, show the delete button section
+                    if alias.deleted_at == nil {
+                        AddySectionButton(title: String(localized: "delete_alias"), description: String(localized: "delete_alias_desc"),
+                                          leadingSystemimage: "trash", colorAccent: .softRed, isLoading: isDeletingAlias){
+                            activeAlert = .deleteAliases
+                            showAlert = true
+                        }
+                    }
+                    
+                    // If alias is deleted, show the restore button section
+                    if alias.deleted_at != nil {
+                        AddySectionButton(title: String(localized: "restore_alias"), description: String(localized: "restore_alias_desc"),
+                                          leadingSystemimage: "arrow.up.trash", colorAccent: .accentColor, isLoading: isRestoringAlias){
+                            activeAlert = .restoreAlias
+                            showAlert = true
+                        }
+                    }
+                    
+                    AddySectionButton(title: String(localized: "forget_alias"), description: String(localized: "forget_alias_desc"),
+                                      leadingSystemimage: "eraser", colorAccent: .red, isLoading: isForgettingAlias){
+                        activeAlert = .forgetAlias
+                        showAlert = true
+                    }
+                    
                 }
-            }
+                
+            }.disabled(isDeletingAlias || isRestoringAlias || isForgettingAlias)
             .navigationTitle(self.aliasEmail)
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isPresentingEditAliasDescriptionBottomSheet) {
                 EditAliasDescriptionBottomSheet(aliasId: alias.id, description: alias.description ?? ""){ alias in
                     self.alias = alias
                     isPresentingEditAliasDescriptionBottomSheet = false
-
+                    
                 }
             }
-            .alert(isPresented: $showReachedMaxAliasesWatchedAlert, content: {
-                Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood"))))
-            })
+            .sheet(isPresented: $isPresentingEditAliasRecipientsBottomSheet) {
+                EditAliasRecipientsBottomSheet(aliasId: alias.id, selectedRecipientsIds: getRecipientsIds(recipients: alias.recipients)){ alias in
+                    self.alias = alias
+                    isPresentingEditAliasRecipientsBottomSheet = false
+                    
+                }
+            }
+            .sheet(isPresented: $isPresentingEditAliasFromNameBottomSheet) {
+                EditAliasFromNameBottomSheet(aliasId: alias.id, aliasEmail: alias.email, fromName: alias.from_name){ alias in
+                    self.alias = alias
+                    isPresentingEditAliasFromNameBottomSheet = false
+                    
+                }
+            }
+            .alert(isPresented: $showAlert) {
+                        switch activeAlert {
+                        case .reachedMaxAliases:
+                            return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood"))))
+                        case .deleteAliases:
+                            return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
+                                isDeletingAlias = true
+                                deleteAlias(alias: alias)
+                            }, secondaryButton: .cancel())
+                        case .restoreAlias:
+                            return Alert(title: Text(String(localized: "restore_alias")), message: Text(String(localized: "restore_alias_confirmation_desc")), primaryButton: .default(Text(String(localized: "restore"))){
+                                isRestoringAlias = true
+                                restoreAlias(alias: alias)
+                            }, secondaryButton: .cancel())
+                        case .forgetAlias:
+                            return Alert(title: Text(String(localized: "forget_alias")), message: Text(String(localized: "forget_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "forget"))){
+                                isForgettingAlias = true
+                                forgetAlias(alias: alias)
+                            }, secondaryButton: .cancel())
+                        case .error:
+                            return Alert(
+                                title: Text(errorAlertTitle),
+                                message: Text(errorAlertMessage)
+                            )
+                        }
+                    }
             
         } else {
-            VStack(spacing: 20) {
-                LottieView(animation: .named("gray_ic_loading_logo.shapeshifter"))
-                    .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
-                    .animationSpeed(Double(2))
-                    .frame(maxHeight: 128)
-                    .opacity(0.5)
-                
+
+            VStack {
+                if let errorText = errorText
+                {
+                    ContentUnavailableView {
+                       Label(String(localized: "error_obtaining_alias"), systemImage: "questionmark")
+                   } description: {
+                       Text(errorText)
+                   }
+                } else {
+                    VStack(spacing: 20) {
+                        LottieView(animation: .named("gray_ic_loading_logo.shapeshifter"))
+                            .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
+                            .animationSpeed(Double(2))
+                            .frame(maxHeight: 128)
+                            .opacity(0.5)
+                        
+                    }
+                }
             }.task {
                 getAlias(aliasId: self.aliasId)
             }
+           
             .navigationTitle(self.aliasEmail)
             .navigationBarTitleDisplayMode(.inline)
         }
+        
+    }
+    
+    private func getRecipientsIds(recipients: [Recipients]?) -> [String] {
+        var idArray = [String]()
+        
+        if let recipients = recipients {
+            recipients.forEach { recipient in
+                idArray.append(recipient.id)
+            }
+        }
+        
+        return idArray
+    }
+    
+    private func getFromName(alias: Aliases) -> String {
+        
+        
+        if hasUserFreeSubscription() {
+            return String(localized: "feature_not_available_subscription")
+        }
+        else {
+            // Set description based on alias.from_name and initialize the bottom dialog fragment
+            if let fromName = alias.from_name {
+                return fromName
+            } else {
+                return String(localized: "alias_no_from_name")
+            }
+            
+            //            // Initialize the bottom dialog fragment
+            //            editAliasFromNameBottomDialogFragment = EditAliasFromNameBottomDialogFragment.newInstance(
+            //                alias.id,
+            //                alias.email,
+            //                alias.fromName
+            //            )
+        }
+        
+    }
+    
+    private func hasUserFreeSubscription() -> Bool {
+        
+        // If user has a subscription
+        if let userSubscription = mainViewState.userResource?.subscription {
+            // If free
+            if userSubscription == SUBSCRIPTIONS.FREE.rawValue {
+                return true
+            }
+        }
+        return false;
         
     }
     
@@ -252,6 +432,38 @@ struct AliasDetailView: View {
         
     }
     
+    func getRecipients(alias: Aliases) -> String{
+        // Set recipients
+        var recipients: String = ""
+        var count = 0
+        if let aliasRecipients = alias.recipients, !aliasRecipients.isEmpty {
+            // get the first 2 recipients and list them
+            var buf = ""
+            for recipient in aliasRecipients {
+                if count < 2 {
+                    if !buf.isEmpty {
+                        buf.append("\n")
+                    }
+                    buf.append(recipient.email)
+                    count += 1
+                }
+            }
+            recipients = buf
+            
+            // Check if there are more than 2 recipients in the list
+            if aliasRecipients.count > 2 {
+                // If this is the case add a "x more" on the third rule
+                // X is the total amount minus the 2 listed above
+                recipients += "\n"
+                recipients += String(format: NSLocalizedString(String(localized: "_more"), comment: ""), String(aliasRecipients.count - 2))
+            }
+        } else {
+            recipients = String(localized: "default_recipient")
+        }
+        
+        return recipients
+    }
+    
     func copyToClipboard(alias: Aliases) {
         UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
         
@@ -265,7 +477,7 @@ struct AliasDetailView: View {
         
     }
     
-    private func activateAliasAlias(alias:Aliases) {
+    private func activateAlias(alias:Aliases) {
         let networkHelper = NetworkHelper()
         networkHelper.activateSpecificAlias(completion: { alias, error in
             DispatchQueue.main.async {
@@ -283,7 +495,7 @@ struct AliasDetailView: View {
         },aliasId: alias.id)
     }
     
-    private func deactivateAliasAlias(alias:Aliases) {
+    private func deactivateAlias(alias:Aliases) {
         let networkHelper = NetworkHelper()
         networkHelper.deactivateSpecificAlias(completion: { result in
             DispatchQueue.main.async {
@@ -301,6 +513,63 @@ struct AliasDetailView: View {
         },aliasId: alias.id)
     }
     
+    private func deleteAlias(alias:Aliases) {
+        let networkHelper = NetworkHelper()
+        networkHelper.deleteAlias(completion: { result in
+            DispatchQueue.main.async {
+                self.isDeletingAlias = false
+                
+                if result == "204" {
+                    // TODO: Let the aliasView know this alias is deleted/restores/forgotten so it can refresh the data
+                    self.presentationMode.wrappedValue.dismiss()
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_deleting_alias")
+                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
+                }
+            }
+        },aliasId: alias.id)
+    }
+    
+    private func restoreAlias(alias:Aliases) {
+        let networkHelper = NetworkHelper()
+        networkHelper.restoreAlias(completion: { alias, error in
+            DispatchQueue.main.async {
+                self.isRestoringAlias = false
+                
+                if let alias = alias {
+                    self.alias = alias
+                    self.isAliasActive = alias.active
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_restoring_alias")
+                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
+                }
+            }
+        },aliasId: alias.id)
+    }
+    
+    private func forgetAlias(alias:Aliases) {
+        let networkHelper = NetworkHelper()
+        networkHelper.forgetAlias(completion: { result in
+            DispatchQueue.main.async {
+                self.isForgettingAlias = false
+                
+                if result == "204" {
+                    // TODO: Let the aliasView know this alias is deleted/restores/forgotten so it can refresh the data
+                    self.presentationMode.wrappedValue.dismiss()
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_forgetting_alias")
+                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
+                }
+            }
+        },aliasId: alias.id)
+    }
+    
     private func getAlias(aliasId: String) {
         let networkHelper = NetworkHelper()
         networkHelper.getSpecificAlias(completion: { alias, error in
@@ -310,10 +579,11 @@ struct AliasDetailView: View {
                         self.alias = alias
                         self.updateUi(alias: alias)
                     }
-
+                    
                 } else {
-                    print("Error: \(String(describing: error))")
-                    //self.showError = true
+                    withAnimation {
+                        self.errorText = error
+                    }
                 }
             }
         },aliasId: aliasId)

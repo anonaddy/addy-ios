@@ -14,42 +14,34 @@ struct SetupOnboarding: View {
     var body: some View {
         
         
-        ZStack {
-            Rectangle()
-                .fill(Color("NightModeColor", bundle: Bundle(identifier: "host.stjin.addy-shared")))
-                .opacity(0.6)
-                .edgesIgnoringSafeArea(.all)
+        NavigationStack(){
             
-            VStack{
-                HStack {
-                    Text(String(localized: "getting_started"))
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
-                                            .padding(.horizontal)
-                    Spacer()
-                }
-                .frame(height: 180) // Adjust this to change the height of the toolbar
-                .background(Color.white.opacity(0))
-                .edgesIgnoringSafeArea(.top) // This makes the toolbar extend
+            ZStack {
+                Rectangle()
+                    .fill(.nightMode)
+                    .opacity(0.6)
+                    .edgesIgnoringSafeArea(.all)
                 
-                TabView(selection: $selectedPage) {
-                    Page1View(selectedPage: $selectedPage)
-                        .tag(0)
-                    Page2View(selectedPage: $selectedPage)
-                        .tag(1)
-                    Page3View(selectedPage: $selectedPage)
-                        .tag(2)
-                    Page4View()
-                        .tag(3)
+                VStack{
+                    TabView(selection: $selectedPage) {
+                        Page1View(selectedPage: $selectedPage)
+                            .tag(0)
+                        Page2View(selectedPage: $selectedPage)
+                            .tag(1)
+                        Page3View(selectedPage: $selectedPage)
+                            .tag(2)
+                        Page4View()
+                            .tag(3)
+                    }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            }
-            
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(LinearGradient(gradient: Gradient(colors: [Color("SecondaryColor"), Color("AccentColor")]),
-                                       startPoint: .top, endPoint: .bottom))
-            .edgesIgnoringSafeArea(.all)
+                
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(LinearGradient(gradient: Gradient(colors: [Color("SecondaryColor"), Color("AccentColor")]),
+                                           startPoint: .top, endPoint: .bottom))
+                .edgesIgnoringSafeArea(.all)
+                .navigationTitle(String(localized: "getting_started"))
+        }
         
     }
     
@@ -71,7 +63,8 @@ struct SetupOnboarding: View {
                         .multilineTextAlignment(.center)
                         .opacity(0.5)
                     
-                    Text(String(localized: "setup_how_1_desc"))
+                    let setupHow1DescFormattedString = String.localizedStringWithFormat(NSLocalizedString("setup_how_1_desc", comment: ""))
+                    Text(LocalizedStringKey(setupHow1DescFormattedString))
                         .padding()
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
@@ -109,7 +102,8 @@ struct SetupOnboarding: View {
                         .multilineTextAlignment(.center)
                         .opacity(0.5)
                     
-                    Text(String(localized: "setup_how_2_desc"))
+                    let setupHow2DescFormattedString = String.localizedStringWithFormat(NSLocalizedString("setup_how_2_desc", comment: ""))
+                    Text(LocalizedStringKey(setupHow2DescFormattedString))
                         .padding()
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
@@ -147,7 +141,8 @@ struct SetupOnboarding: View {
                         .multilineTextAlignment(.center)
                         .opacity(0.5)
                     
-                    Text(String(localized: "setup_how_3_desc"))
+                    let setupHow3DescFormattedString = String.localizedStringWithFormat(NSLocalizedString("setup_how_3_desc", comment: ""))
+                    Text(LocalizedStringKey(setupHow3DescFormattedString))
                         .padding()
                         .font(.subheadline)
                         .multilineTextAlignment(.center)

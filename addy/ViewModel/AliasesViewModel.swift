@@ -16,9 +16,9 @@ class AliasesViewModel: ObservableObject{
         onlyDeletedAliases: false,
         onlyInactiveAliases: false,
         onlyWatchedAliases: false,
-        sort: nil,
+        sort: "created_at",
         sortDesc: false,
-        filter: nil
+        filter: ""
     )
     
     var defaultSortFilterRequest = AliasSortFilterRequest(
@@ -26,9 +26,9 @@ class AliasesViewModel: ObservableObject{
         onlyDeletedAliases: false,
         onlyInactiveAliases: false,
         onlyWatchedAliases: false,
-        sort: nil,
+        sort: "created_at",
         sortDesc: false,
-        filter: nil
+        filter: ""
     )
 
     @Published var searchQuery = ""
@@ -53,12 +53,12 @@ class AliasesViewModel: ObservableObject{
             })
     }
     
-    public func searchAliases(searchQuery: String){
+    func searchAliases(searchQuery: String){
         // When something is being searched cancel the loading to make sure that the networkCall will succeed
         self.isLoading = false
         if searchQuery == ""{
             // Reset Data....
-            self.aliasSortFilterRequest.filter = nil
+            self.aliasSortFilterRequest.filter = ""
             self.getAliases(forceReload:true)
         }
         else {
@@ -71,7 +71,7 @@ class AliasesViewModel: ObservableObject{
         }
     }
     
-    public func getAliases(forceReload: Bool){
+    func getAliases(forceReload: Bool){
         if (!self.isLoading){
             self.isLoading = true
             self.networkError = ""

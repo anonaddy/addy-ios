@@ -9,7 +9,6 @@ import SwiftUI
 import addy_shared
 
 class MainViewState: ObservableObject {
-    @Published var apiKey: String? = SettingsManager(encrypted: true).getSettingsString(key: .apiKey)
     @Published var encryptedSettingsManager = SettingsManager(encrypted: true)
     
     @Published var userResourceData: String? {

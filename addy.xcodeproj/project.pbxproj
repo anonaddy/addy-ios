@@ -42,6 +42,10 @@
 		80E082692BF7DA8200B51FB8 /* FilterOptionsAliasBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E082682BF7DA8100B51FB8 /* FilterOptionsAliasBottomSheet.swift */; };
 		80E0826B2BF7E2E100B51FB8 /* AddySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E0826A2BF7E2E100B51FB8 /* AddySegmentedControl.swift */; };
 		80E0827B2BF7F03C00B51FB8 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 80E0827A2BF7F03C00B51FB8 /* WrappingHStack */; };
+		80E194632BF8A9BB005175EA /* EditAliasRecipientsBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E194622BF8A9BB005175EA /* EditAliasRecipientsBottomSheet.swift */; };
+		80E194652BF8AE0C005175EA /* AddyMultiSelectChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E194642BF8AE0C005175EA /* AddyMultiSelectChipView.swift */; };
+		80E1946A2BF8C840005175EA /* EditAliasFromNameBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E194692BF8C840005175EA /* EditAliasFromNameBottomSheet.swift */; };
+		80E1946E2BF8DCE0005175EA /* AddySectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E1946D2BF8DCE0005175EA /* AddySectionButton.swift */; };
 		80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499A2BEB73D900C8D68A /* MainView.swift */; };
 		80E8499F2BEB802D00C8D68A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499E2BEB802D00C8D68A /* HomeView.swift */; };
 		80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849A02BEB803400C8D68A /* AliasesView.swift */; };
@@ -169,6 +173,10 @@
 		80E082662BF7DA2B00B51FB8 /* AddApiBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApiBottomSheet.swift; sourceTree = "<group>"; };
 		80E082682BF7DA8100B51FB8 /* FilterOptionsAliasBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionsAliasBottomSheet.swift; sourceTree = "<group>"; };
 		80E0826A2BF7E2E100B51FB8 /* AddySegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySegmentedControl.swift; sourceTree = "<group>"; };
+		80E194622BF8A9BB005175EA /* EditAliasRecipientsBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasRecipientsBottomSheet.swift; sourceTree = "<group>"; };
+		80E194642BF8AE0C005175EA /* AddyMultiSelectChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyMultiSelectChipView.swift; sourceTree = "<group>"; };
+		80E194692BF8C840005175EA /* EditAliasFromNameBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasFromNameBottomSheet.swift; sourceTree = "<group>"; };
+		80E1946D2BF8DCE0005175EA /* AddySectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySectionButton.swift; sourceTree = "<group>"; };
 		80E8499A2BEB73D900C8D68A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		80E8499E2BEB802D00C8D68A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		80E849A02BEB803400C8D68A /* AliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesView.swift; sourceTree = "<group>"; };
@@ -303,7 +311,6 @@
 		806D5F2B2BE94C3F00C5C109 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
-				80F22F3F2BEE34EE001176B4 /* CardView */,
 				80F22F352BEE34E1001176B4 /* dependencies */,
 				807338012BEA81DA00D0D7E0 /* ValidatingTextField */,
 				80D82DC32BE95BAF009440DC /* AddyLoadingButton */,
@@ -311,7 +318,9 @@
 				80F22ECA2BEE280B001176B4 /* Pie.swift */,
 				80DCF39E2BF1095B0022690F /* AddyToggle.swift */,
 				80DCF3AD2BF1347F0022690F /* AddySection.swift */,
+				80E1946D2BF8DCE0005175EA /* AddySectionButton.swift */,
 				80D8C7A52BF3D4E700933ED8 /* AddyChipView.swift */,
+				80E194642BF8AE0C005175EA /* AddyMultiSelectChipView.swift */,
 				80E082632BF7D36700B51FB8 /* AddyBugFound.swift */,
 				80E0826A2BF7E2E100B51FB8 /* AddySegmentedControl.swift */,
 			);
@@ -443,6 +452,8 @@
 			isa = PBXGroup;
 			children = (
 				80DCF3AF2BF137610022690F /* EditAliasDescriptionBottomSheet.swift */,
+				80E194692BF8C840005175EA /* EditAliasFromNameBottomSheet.swift */,
+				80E194622BF8A9BB005175EA /* EditAliasRecipientsBottomSheet.swift */,
 				80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */,
 			);
 			path = manage;
@@ -507,6 +518,7 @@
 		80E84A2B2BEC0CDA00C8D68A /* _OLD */ = {
 			isa = PBXGroup;
 			children = (
+				80F22F3F2BEE34EE001176B4 /* CardView */,
 				80E84A2C2BEC0D4300C8D68A /* OLD_MainView.swift */,
 				80E849FA2BEBD09B00C8D68A /* ScrollRefreshable.swift */,
 				80E849F62BEBB43000C8D68A /* AppBarView.swift */,
@@ -880,10 +892,12 @@
 				80F22F972BEE34EE001176B4 /* ChartGridBaseShape.swift in Sources */,
 				80E84A2D2BEC0D4300C8D68A /* OLD_MainView.swift in Sources */,
 				80F22F9E2BEE34EE001176B4 /* BarChartCell.swift in Sources */,
+				80E1946E2BF8DCE0005175EA /* AddySectionButton.swift in Sources */,
 				80F22F892BEE34EE001176B4 /* ViewPreferenceKey.swift in Sources */,
 				80F22FAB2BEE34EE001176B4 /* MarkerShape.swift in Sources */,
 				80F22FA42BEE34EE001176B4 /* IndicatorPoint.swift in Sources */,
 				80F22F922BEE34EE001176B4 /* Shape+Extension.swift in Sources */,
+				80E194632BF8A9BB005175EA /* EditAliasRecipientsBottomSheet.swift in Sources */,
 				80F22F9A2BEE34EE001176B4 /* ChartStyle.swift in Sources */,
 				80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */,
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
@@ -908,6 +922,7 @@
 				80F22F8B2BEE34EE001176B4 /* Array+Extension.swift in Sources */,
 				80F22F942BEE34EE001176B4 /* Grid+Extension.swift in Sources */,
 				80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */,
+				80E194652BF8AE0C005175EA /* AddyMultiSelectChipView.swift in Sources */,
 				80F22FAF2BEE34EE001176B4 /* PieChartRow.swift in Sources */,
 				80F22FA22BEE34EE001176B4 /* LineChartProperties.swift in Sources */,
 				80F22FB02BEE34EE001176B4 /* Ring.swift in Sources */,
@@ -930,6 +945,7 @@
 				80F22F842BEE34EE001176B4 /* CardView.swift in Sources */,
 				80F22F8E2BEE34EE001176B4 /* ChartBase+Extension.swift in Sources */,
 				80F22FB12BEE34EE001176B4 /* RingsChart.swift in Sources */,
+				80E1946A2BF8C840005175EA /* EditAliasFromNameBottomSheet.swift in Sources */,
 				80F22FA52BEE34EE001176B4 /* Line.swift in Sources */,
 				80F22F872BEE34EE001176B4 /* ChartValue.swift in Sources */,
 				806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */,
