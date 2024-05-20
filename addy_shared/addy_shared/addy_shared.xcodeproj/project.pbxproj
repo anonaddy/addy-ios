@@ -23,6 +23,7 @@
 		80E849B52BEBA9C900C8D68A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80E849B42BEBA9C900C8D68A /* Assets.xcassets */; };
 		80E84A312BEC11ED00C8D68A /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A302BEC11ED00C8D68A /* Aliases.swift */; };
 		80E84A332BEC122900C8D68A /* Recipients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A322BEC122900C8D68A /* Recipients.swift */; };
+		80F3C6672BFB73AF0028A486 /* Domains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F3C6662BFB73AF0028A486 /* Domains.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,6 +57,7 @@
 		80E849B42BEBA9C900C8D68A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80E84A302BEC11ED00C8D68A /* Aliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
 		80E84A322BEC122900C8D68A /* Recipients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipients.swift; sourceTree = "<group>"; };
+		80F3C6662BFB73AF0028A486 /* Domains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domains.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				80E84A302BEC11ED00C8D68A /* Aliases.swift */,
 				80E84A322BEC122900C8D68A /* Recipients.swift */,
 				80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */,
+				80F3C6662BFB73AF0028A486 /* Domains.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				80B4F4BE2BEA53260009E4CA /* LoggingHelper.swift in Sources */,
 				80B4F4CC2BEA58A20009E4CA /* SharedData.swift in Sources */,
 				80E84A312BEC11ED00C8D68A /* Aliases.swift in Sources */,
+				80F3C6672BFB73AF0028A486 /* Domains.swift in Sources */,
 				80B4F4C32BEA53530009E4CA /* SettingsManager.swift in Sources */,
 				80E849A62BEB93F900C8D68A /* Error.swift in Sources */,
 				80B4F4BC2BEA531A0009E4CA /* NetworkHelper.swift in Sources */,

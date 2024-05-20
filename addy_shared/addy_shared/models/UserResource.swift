@@ -72,4 +72,20 @@ public struct UserResource: Codable {
     var total_deleted_aliases: Int
     var created_at: String
     var updated_at: String
+    
+    
+    
+    
+    public func hasUserFreeSubscription() -> Bool {
+        
+        // If user has a subscription
+        if let userSubscription = subscription {
+            // If free
+            if userSubscription == SUBSCRIPTIONS.FREE.rawValue {
+                return true
+            }
+        }
+        return false;
+        
+    }
 }

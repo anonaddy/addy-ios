@@ -18,109 +18,111 @@ struct AddApiBottomSheet: View {
     init(apiBaseUrl: String?, addKey: @escaping (String, String) -> Void) {
         self.apiBaseUrl = apiBaseUrl
         self.addKey = addKey
-        
         self.instance = apiBaseUrl ?? String(localized: "default_base_url")
+        self.apiKey = ""
         
     }
     
     @State private var instanceError:String?
     @State private var apiKeyError:String?
     @State private var instance:String
-    @State private var apiKey = String(localized: "APIKey_desc")
+    @State private var instancePlaceholder:String = String(localized: "addyio_instance")
+    @State private var apiKey:String
+    @State private var apiKeyPlaceholder = String(localized: "APIKey_desc")
+    @State private var cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+
     
     @State var isLoadingSignIn: Bool = false
-    
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.openURL) var openURL
+
+
     var body: some View {
-        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-        VStack{
+        Form{
             
-            Text(String(localized: "APIKey"))
-                .font(.system(.title2))
-                .fontWeight(.medium)
-                .padding(.top, 25)
-                .padding(.bottom, 15)
             
-            Divider()
-            
-            ScrollView {
+            Section {
                 
-                VStack {
-                    Text(String(localized: "api_setup_qr_code_scan"))
-                        .font(.system(.body, design: .rounded))
-                        .opacity(0.7)
-                        .fontWeight(.medium)
-                        .multilineTextAlignment(.center)
+                ZStack(alignment: .center) {
+                   
                     
-                    Text(cameraAuthorizationStatus == .authorized ? String(localized: "api_setup_qr_code_scan_desc") : String(localized: "qr_permissions_required"))
-                        .font(.system(.footnote))
-                        .opacity(0.7)
-                        .fontWeight(.medium)
-                        .multilineTextAlignment(.center)
-                        .opacity(0.5)
-                }.padding()
-                CodeScannerView(codeTypes: [.qr], scanMode: .continuous) { response in
-                    if case let .success(result) = response {
-                        
-                        if isQrCodeFormattedCorrect(text: result.string) {
-                            // if apiBaseUrl set, do not set the baseURL using QR
-                            if apiBaseUrl == nil {
-                                // Get the string part before the | delimiter
-                                instance = result.string.components(separatedBy: "|").first ?? ""
-                            }
-                            // Get the string part after the | delimiter
-                            apiKey = result.string.components(separatedBy: "|").last ?? ""
+                    CodeScannerView(codeTypes: [.qr], scanMode: .continuous) { response in
+                        if case let .success(result) = response {
                             
-                            isLoadingSignIn = true
-                            // Call back to SetupView
-                            self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
-                        } else {
-                            self.showInvalidQrAlert = true
+                            if isQrCodeFormattedCorrect(text: result.string) {
+                                // if apiBaseUrl set, do not set the baseURL using QR
+                                if apiBaseUrl == nil {
+                                    // Get the string part before the | delimiter
+                                    instance = result.string.components(separatedBy: "|").first ?? ""
+                                }
+                                // Get the string part after the | delimiter
+                                apiKey = result.string.components(separatedBy: "|").last ?? ""
+                                
+                                isLoadingSignIn = true
+                                // Call back to SetupView
+                                self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
+                            } else {
+                                self.showInvalidQrAlert = true
+                            }
+                            
+                            
                         }
-                        
-                        
-                    }
-                }.onTapGesture {
+                    }.onTapGesture {
+                        if (cameraAuthorizationStatus != .authorized){
+                            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                        }
+                    }.frame(maxHeight: .infinity)
+                        .alert(isPresented: $showInvalidQrAlert, content: {
+                            Alert(title: Text(String(localized: "api_setup_qr_code_scan_wrong")), message: Text(String(localized: "api_setup_qr_code_scan_wrong_desc")), dismissButton: .default(Text(String(localized: "understood"))))
+                        })
+                    
                     if (cameraAuthorizationStatus != .authorized){
-                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                        Text(String(localized: "qr_permissions_required_short"))
+                            .font(.system(.body, design: .rounded))
+                            .opacity(0.7)
+                            .fontWeight(.medium)
                     }
-                }.frame(width: 85, height: 85)
-                    .cornerRadius(28)
-                    .padding(.bottom, 25)
-                    .alert(isPresented: $showInvalidQrAlert, content: {
-                        Alert(title: Text(String(localized: "api_setup_qr_code_scan_wrong")), message: Text(String(localized: "api_setup_qr_code_scan_wrong_desc")), dismissButton: .default(Text(String(localized: "understood"))))
-                    })
-                
-                Divider()
+                   
+                    
+                   
+                    
+                }.frame(height: 200).listRowInsets(EdgeInsets())
                 
                 
+            } header: {
+                VStack(alignment: .leading){
+                    Text(String(localized: "qr_code_setup"))
+                    
+                }
+            } footer: {
                 
-                @Environment(\.openURL) var openURL
+                if (cameraAuthorizationStatus == .authorized) {
+                    Text(String(localized: "api_setup_qr_code_scan_desc"))
+                } else {
+                    Text(String(localized: "qr_permissions_required"))
+                        .foregroundStyle(.red)
+                }
                 
-                VStack{
+                
+            }
+            
+            Section {
+                ValidatingTextField(value: $instance, placeholder:
+                                        $instancePlaceholder, fieldType: .url, error: $instanceError, formStyling: true).disabled(apiBaseUrl != nil)
+                
+                ValidatingTextField(value: $apiKey, placeholder: $apiKeyPlaceholder, fieldType: .bigText, error: $apiKeyError,formStyling: true)
+                
+            } header: {
+                VStack(alignment: .leading){
                     Text(String(localized: "api_obtain"))
-                        .font(.system(.body, design: .rounded))
-                        .opacity(0.7)
-                        .fontWeight(.medium)
-                        .multilineTextAlignment(.center)
                     
-                    Text(String(localized: "api_obtain_desc"))
-                        .font(.system(.footnote))
-                        .fontWeight(.medium)
-                        .multilineTextAlignment(.center)
-                        .opacity(0.5)
-                    
-                    Spacer(minLength: 25)
-                    
-                    
-                    
-                    ValidatingTextField(value: $instance, placeholder:
-                                            String(localized: "addyio_instance"), fieldType: .url, error: $instanceError).disabled(apiBaseUrl != nil)
-                    ValidatingTextField(value: $apiKey, placeholder: String(localized: "APIKey_desc"), fieldType: .bigText, error: $apiKeyError)
-                    
-                    
-                }.padding(.vertical)
-                
-                
+                }
+            } footer: {
+                Text(String(localized: "api_obtain_desc"))
+                   
+            }
+            
+            Section {
                 AddyLoadingButton(action: {
                     if (instanceError == nil && apiKeyError == nil){
                         isLoadingSignIn = true;
@@ -135,22 +137,36 @@ struct AddApiBottomSheet: View {
                     }
                 }, isLoading: $isLoadingSignIn) {
                     Text(String(localized: "sign_in")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-                
-                Button(action: {
-                    openURL(URL(string: "\(instance)/settings/api")!)
-                }) {
-                    Text(String(localized: "get_my_key"))
-                }.padding()
-                
-                
-                
-                
-            }
-            .padding(.horizontal)
+                }.frame(minHeight: 56)}.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
-        }.presentationDetents([.large])
-            .presentationDragIndicator(.visible)
+        }.navigationTitle(String(localized: "APIKey")).pickerStyle(.navigationLink)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem() {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                    }
+                    
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    
+                    Menu(content: {
+                        Button(String(localized: "get_my_key")) {
+                            openURL(URL(string: "\(instance)/settings/api")!)
+                        }
+                    }, label: {
+                        Label(String(localized: "menu"), systemImage: "ellipsis.circle")
+                    })
+                    
+                }
+                
+            })
+            .onAppear{
+                cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+            }
         
         
     }

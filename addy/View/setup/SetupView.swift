@@ -25,13 +25,11 @@ struct SetupView: View {
     var body: some View {
         
         NavigationStack{
-            
-            
             ZStack {
-                Color("SetupViewBackgroundColor")
+                Color(.setupViewBackground)
                     .edgesIgnoringSafeArea(.all)
                 Rectangle() .fill(.ultraThinMaterial)
-                    .fill(LinearGradient(gradient: Gradient(colors: [Color("SecondaryColor"), Color("AccentColor")]),
+                    .fill(LinearGradient(gradient: Gradient(colors: [.secondary, .accentColor]),
                                          startPoint: .top, endPoint: .bottom))
                     .opacity(1)
                     .edgesIgnoringSafeArea(.all)
@@ -132,7 +130,9 @@ struct SetupView: View {
             }
             
         }.sheet(isPresented: $isPresentingAddApiBottomSheet) {
-            AddApiBottomSheet(apiBaseUrl: nil, addKey: addKey(apiKey:baseUrl:))
+            NavigationStack {
+                AddApiBottomSheet(apiBaseUrl: nil, addKey: addKey(apiKey:baseUrl:))
+            }
         }
         
         

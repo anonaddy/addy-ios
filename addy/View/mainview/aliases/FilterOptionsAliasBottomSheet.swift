@@ -44,7 +44,7 @@ struct FilterOptionsAliasBottomSheet: View {
         AddyChipModel(chipId: "deleted_at",label: String(localized: "sort_deleted_at"))
     ]
     
-
+    
     
     
     
@@ -53,42 +53,103 @@ struct FilterOptionsAliasBottomSheet: View {
     init(aliasSortFilterRequest: AliasSortFilterRequest, setFilterAndSortingSettings: @escaping (AliasSortFilterRequest) -> Void) {
         self.aliasSortFilterRequest = aliasSortFilterRequest
         self.setFilterAndSortingSettings = setFilterAndSortingSettings
-            }
+    }
     
-        
-    @State var IsLoadingSaveButton: Bool = false
+    
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack{
+        Form{
             
-            Text(String(localized: "filtering_and_sorting"))
-                .font(.system(.title2))
-                .fontWeight(.medium)
-                .padding(.top, 25)
-                .padding(.bottom, 15)
-            
-            Divider()
-            
-            ScrollView {
+            Section{
                 
-                List {
+                //                    AddySegmentedControl(selection: $filter1Selection, size: CGSize(width: UIScreen.main.bounds.width - (mainPadding * 2), height: 48), segmentLabels:
+                //                                            [String(localized: "filter_all_aliases"),
+                //                                             String(localized: "filter_active_aliases"),
+                //                                             String(localized: "filter_inactive_aliases"),
+                //                                             String(localized: "filter_deleted_aliases")])
+                //
+                //
+                //                    AddySegmentedControl(selection: $filter2Selection, size: CGSize(width: UIScreen.main.bounds.width - (mainPadding * 2), height: 48), segmentLabels:
+                //                                            [String(localized: "all_aliases"),
+                //                                             String(localized: "filter_watched_only")])
+                
+                VStack {
+                    Picker(selection: $filter1Selection, label: Text(String(localized:"all_aliases"))) {
+                        Text(String(localized: "filter_all_aliases")).tag(0)
+                        Text(String(localized:"filter_active_aliases")).tag(1)
+                        Text(String(localized:"filter_inactive_aliases")).tag(2)
+                        Text(String(localized:"filter_deleted_aliases")).tag(3)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .disabled(filter2Selection == 1) // means if alias is set to Watch Only
+                    
+                    
+                    Picker(selection: $filter2Selection, label: Text(String(localized:"filter_watched_only"))) {
+                        Text(String(localized: "all_aliases")).tag(0)
+                        Text(String(localized:"filter_watched_only")).tag(1)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
                     
                 }
                 
-                VStack{
-                    
+                
+            } header: {
+                VStack(alignment: .leading){
                     Text(String(localized: "filtering_and_sorting_desc"))
-                        .font(.system(.footnote))
-                        .multilineTextAlignment(.center)
-                        .opacity(0.5)
-                    
+                        .multilineTextAlignment(.center).textCase(nil)
                     Spacer(minLength: 25)
+                    Text(String(localized: "filtering"))
                     
-                    HStack() {
-                        Text(String(localized: "filters"))
-                            .font(.title2)
-                        Spacer()
-                        Button(action: {
+                }
+            }
+            
+            
+            Section {
+                Picker(selection: $sortSelection, label: Text(String(localized:"sort_by"))) {
+                    Text(String(localized: "sort_asc")).tag(0)
+                    Text(String(localized:"sort_desc")).tag(1)
+                }
+                .pickerStyle(MenuPickerStyle())
+                .disabled(filter2Selection == 1) // means if alias is set to Watch Only
+                AddyChipView(chips: $orderChips, selectedChip: $selectedOrderChip, singleLine: false) { onTappedChip in
+                    withAnimation {
+                        selectedOrderChip = onTappedChip.chipId
+                    }
+                    
+                }.disabled(filter2Selection == 1) // means if alias is set to Watch Only
+                
+                
+                
+            }header: {
+                Text(String(localized: "sorting"))
+            }
+            
+            
+            Section {
+                AddyButton(action: {
+                    self.saveFilterAndSortingSettings()
+                }) {
+                    Text(String(localized: "save")).foregroundColor(Color.white)
+                }.frame(minHeight: 56)
+            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+            
+        }.navigationTitle(String(localized: "filtering_and_sorting")).pickerStyle(.navigationLink)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem() {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                    }
+                    
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    
+                    Menu(content: {
+                        Button(String(localized: "clear_filter")) {
                             aliasSortFilterRequest.onlyActiveAliases = false
                             aliasSortFilterRequest.onlyInactiveAliases = false
                             aliasSortFilterRequest.onlyWatchedAliases = false
@@ -97,98 +158,13 @@ struct FilterOptionsAliasBottomSheet: View {
                             aliasSortFilterRequest.sortDesc = false
                             
                             LoadFilter(aliasSortFilterRequest: aliasSortFilterRequest)
-                        }) {
-                            Text(String(localized: "clear_filter"))
-                                .font(.system(size: 16))
-                                .buttonStyle(.bordered)
-                                .tint(.accentColor)
-                            
-                            
                         }
-                        .contentTransition(.symbolEffect(.replace))
-                        .padding(.horizontal)
-                        .padding(.vertical, 12)
-                        .background(Color.accentColor.opacity(0.3))
-                        .cornerRadius(12)
-                    }.padding(.vertical)
+                    }, label: {
+                        Label(String(localized: "menu"), systemImage: "ellipsis.circle")
+                    })
                     
-                    
-                    
-                    
-//                    AddySegmentedControl(selection: $filter1Selection, size: CGSize(width: UIScreen.main.bounds.width - (mainPadding * 2), height: 48), segmentLabels:
-//                                            [String(localized: "filter_all_aliases"),
-//                                             String(localized: "filter_active_aliases"),
-//                                             String(localized: "filter_inactive_aliases"),
-//                                             String(localized: "filter_deleted_aliases")])
-//                    
-//                    
-//                    AddySegmentedControl(selection: $filter2Selection, size: CGSize(width: UIScreen.main.bounds.width - (mainPadding * 2), height: 48), segmentLabels:
-//                                            [String(localized: "all_aliases"),
-//                                             String(localized: "filter_watched_only")])
-                    
-                    
-                    Picker(selection: $filter1Selection, label: Text(String(localized:"all_aliases"))) {
-                                            Text(String(localized: "filter_all_aliases")).tag(0)
-                                            Text(String(localized:"filter_active_aliases")).tag(1)
-                                            Text(String(localized:"filter_inactive_aliases")).tag(2)
-                                            Text(String(localized:"filter_deleted_aliases")).tag(3)
-                                        }
-                                        .pickerStyle(SegmentedPickerStyle())
-                                        .disabled(filter2Selection == 1) // means if alias is set to Watch Only
-
-                    
-                    Picker(selection: $filter2Selection, label: Text(String(localized:"filter_watched_only"))) {
-                                            Text(String(localized: "all_aliases")).tag(0)
-                                            Text(String(localized:"filter_watched_only")).tag(1)
-                                        }
-                                        .pickerStyle(SegmentedPickerStyle())
-                                        .padding(.vertical)
-                    
-                    Divider()
-                    
-                  
-                    
-                    HStack() {
-                        
-                        Text(String(localized: "sort_by"))
-                            .font(.title2)
-                        Spacer()
-                        Picker(selection: $sortSelection, label: Text(String(localized:"sort_by"))) {
-                                                Text(String(localized: "sort_asc")).tag(0)
-                                                Text(String(localized:"sort_desc")).tag(1)
-                                            }
-                                            .pickerStyle(MenuPickerStyle())
-                                            .disabled(filter2Selection == 1) // means if alias is set to Watch Only
-                        
-
-                     
-                    }.padding(.vertical)
-                    
-                    AddyChipView(chips: $orderChips, selectedChip: $selectedOrderChip, singleLine: false) { onTappedChip in
-                        withAnimation {
-                            selectedOrderChip = onTappedChip.chipId
-                        }
-                        
-                    }.disabled(filter2Selection == 1) // means if alias is set to Watch Only
-
-
-                    
-                }.padding(.vertical)
-                
-                
-                AddyLoadingButton(action: {
-                    self.saveFilterAndSortingSettings()
-                }, isLoading: $IsLoadingSaveButton) {
-                    Text(String(localized: "save")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-                
-                
-                
-            }
-            .padding(.horizontal)
-            
-        }.presentationDetents([.large])
-            .presentationDragIndicator(.visible)
+                }
+            })
             .onAppear(perform: {
                 LoadFilter(aliasSortFilterRequest: aliasSortFilterRequest)
             })
@@ -197,38 +173,38 @@ struct FilterOptionsAliasBottomSheet: View {
     }
     
     func saveFilterAndSortingSettings(){
-                
+        
         switch filter1Selection {
-            case 1:
-                    aliasSortFilterRequest.onlyActiveAliases = true
-                    aliasSortFilterRequest.onlyInactiveAliases = false
-                    aliasSortFilterRequest.onlyDeletedAliases = false
-            case 2:
-                    aliasSortFilterRequest.onlyActiveAliases = false
-                    aliasSortFilterRequest.onlyInactiveAliases = true
-                    aliasSortFilterRequest.onlyDeletedAliases = false
-            case 3:
-                    aliasSortFilterRequest.onlyActiveAliases = false
-                    aliasSortFilterRequest.onlyInactiveAliases = false
-                    aliasSortFilterRequest.onlyDeletedAliases = true
-            default:
-                    aliasSortFilterRequest.onlyActiveAliases = false
-                    aliasSortFilterRequest.onlyInactiveAliases = false
-                    aliasSortFilterRequest.onlyDeletedAliases = false
+        case 1:
+            aliasSortFilterRequest.onlyActiveAliases = true
+            aliasSortFilterRequest.onlyInactiveAliases = false
+            aliasSortFilterRequest.onlyDeletedAliases = false
+        case 2:
+            aliasSortFilterRequest.onlyActiveAliases = false
+            aliasSortFilterRequest.onlyInactiveAliases = true
+            aliasSortFilterRequest.onlyDeletedAliases = false
+        case 3:
+            aliasSortFilterRequest.onlyActiveAliases = false
+            aliasSortFilterRequest.onlyInactiveAliases = false
+            aliasSortFilterRequest.onlyDeletedAliases = true
+        default:
+            aliasSortFilterRequest.onlyActiveAliases = false
+            aliasSortFilterRequest.onlyInactiveAliases = false
+            aliasSortFilterRequest.onlyDeletedAliases = false
         }
         
         switch filter2Selection {
-            case 1:
-                    aliasSortFilterRequest.onlyWatchedAliases = true
-            default:
-                    aliasSortFilterRequest.onlyWatchedAliases = false
-        }        
+        case 1:
+            aliasSortFilterRequest.onlyWatchedAliases = true
+        default:
+            aliasSortFilterRequest.onlyWatchedAliases = false
+        }
         
         switch sortSelection {
-            case 1:
-                    aliasSortFilterRequest.sortDesc = true
-            default:
-                aliasSortFilterRequest.sortDesc = false
+        case 1:
+            aliasSortFilterRequest.sortDesc = true
+        default:
+            aliasSortFilterRequest.sortDesc = false
         }
         
         aliasSortFilterRequest.sort = selectedOrderChip

@@ -42,7 +42,7 @@ struct AddyChipView: View {
                             }
                     }
                 }
-            }
+            }.scrollClipDisabled()
         } else {
             WrappingHStack(alignment: .leading) {
                     ForEach(chips) { chip in

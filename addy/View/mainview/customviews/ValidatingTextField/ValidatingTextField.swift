@@ -9,42 +9,108 @@ import SwiftUI
 
 struct ValidatingTextField: View {
     @Binding var value: String
-    var placeholder: String?
+    @Binding var placeholder: String
     var fieldType: FieldType
     @Binding var error: String?
+    var formStyling: Bool = false
     
     
     var body: some View {
         VStack(alignment: .leading){
-            if (fieldType == .bigText){
-                TextEditor(text: $value)
-                    .onChange(of: value) {
-                       error = fieldType.validate(value: value)
+            if (formStyling){
+                if (fieldType == .bigText){
+                    
+                    ZStack {
+                        if value.isEmpty {
+                            TextEditor(text: self.$placeholder)
+                                .font(.body)
+                                .foregroundColor(.gray.opacity(0.5))
+                                .disabled(true)
+                                .frame(height: 150)
+                        }
+                        
+                        TextEditor(text: $value)
+                            .onChange(of: value) {
+                                withAnimation {
+                                    error = fieldType.validate(value: value)
+                                }
+                            }
+                            .frame(height: 150)
+                            .disableAutocorrection(true)
+                            .keyboardType(fieldType.getKeyboardType())
                     }
-                
-                    .frame(height: 150)
-                    .scrollContentBackground(.hidden)
-                    .padding(.all)
-                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.gray.opacity(0.1), lineWidth: 2))
-                    .disableAutocorrection(true)
+                    
+                    
+                } else {
+                    TextField(placeholder, text: $value)
+                        .onChange(of: value) {
+                            withAnimation {
+                                error = fieldType.validate(value: value)
+                            }
+                        }
+                    
+                        .disableAutocorrection(true)
+                        .keyboardType(fieldType.getKeyboardType())
+                }
             } else {
-                TextField(placeholder ?? "", text: $value)
-                    .onChange(of: value) {
-                        error = fieldType.validate(value: value)
+                if (fieldType == .bigText){
+                    
+                    if (fieldType == .bigText){
+                        
+                        ZStack {
+                            if value.isEmpty {
+                                TextEditor(text: self.$placeholder)
+                                    .font(.body)
+                                    .foregroundColor(.gray.opacity(0.5))
+                                    .disabled(true)
+                                    .frame(height: 150)
+
+                            }
+                            
+                            TextEditor(text: $value)
+                                .onChange(of: value) {
+                                    withAnimation {
+                                        error = fieldType.validate(value: value)
+                                    }
+                                }
+                                .frame(height: 150)
+                                .scrollContentBackground(.hidden)
+                                .padding(.all)
+                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.gray.opacity(0.1), lineWidth: 2))
+                                .disableAutocorrection(true)
+                                .keyboardType(fieldType.getKeyboardType())
+                        }
+                        
+                    } else {
+                        TextField(placeholder, text: $value)
+                            .onChange(of: value) {
+                                withAnimation {
+                                    error = fieldType.validate(value: value)
+                                }
+                            }
+                        
+                            .scrollContentBackground(.hidden)
+                            .padding(.all)
+                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.gray.opacity(0.1), lineWidth: 2))
+                            .disableAutocorrection(true)
+                            .keyboardType(fieldType.getKeyboardType())
                     }
+                }
                 
-                    .scrollContentBackground(.hidden)
-                    .padding(.all)
-                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.gray.opacity(0.1), lineWidth: 2))
-                    .disableAutocorrection(true)
-            }
-            
-            if let error = error {
-                Text(error)
-                    .foregroundColor(.red)
-                    .font(.system(size: 15))
-                    .multilineTextAlignment(.leading)
-                    .padding([.horizontal], 0)
+                
+                if let error = error {
+                    if !error.isEmpty {
+                        Text(error)
+                            .foregroundColor(.red)
+                            .font(.system(size: 15))
+                            .multilineTextAlignment(.leading)
+                            .padding([.horizontal], 0)
+                            .onAppear{
+                                                                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                                                            }
+                    }
+                    
+                }
             }
         }
     }

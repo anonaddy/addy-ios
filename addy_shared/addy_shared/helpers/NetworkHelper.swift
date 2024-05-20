@@ -228,6 +228,71 @@ public class NetworkHelper {
         task.resume()
     }
     
+    public func getDomainOptions(completion: @escaping (DomainOptions?, String?) -> Void) {
+        let url = URL(string: AddyIo.API_URL_DOMAIN_OPTIONS)!
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(DomainOptions.self, from: data)
+                    completion(addyIoData, nil)
+                    
+                } catch {
+                    let errorMessage = error.localizedDescription
+                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "getDomainOptions",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "getDomainOptions",
+                    extra: ErrorHelper.getErrorMessage(data:
+                                                        data
+                                                      ))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:
+                                                    data
+                                               )
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
     public func getSpecificRecipient(completion: @escaping (Recipients?, String?) -> Void, recipientId:String) {
         let url = URL(string: "\(AddyIo.API_URL_RECIPIENTS)/\(recipientId)")!
         var request = URLRequest(url: url)
@@ -415,6 +480,79 @@ public class NetworkHelper {
         
         task.resume()
     }
+    
+    public func addAlias(completion: @escaping (Aliases?, String?) -> Void, domain: String, description: String, format: String, localPart: String, recipients: [String]) {
+        let url = URL(string: AddyIo.API_URL_ALIAS)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+                
+        
+        let json: [String: Any] = ["domain": domain,
+                                   "description": description,
+                                   "format": format,
+                                   "local_part": localPart,
+                                   "recipient_ids": recipients]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 201:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(SingleAlias.self, from: data)
+                    completion(addyIoData.data, nil)
+                } catch {
+                    let errorMessage = error.localizedDescription
+                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "addAlias",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:
+                                                        data
+                                                   )
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "addAlias",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }    
     
     public func activateSpecificAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String) {
         let url = URL(string: AddyIo.API_URL_ACTIVE_ALIAS)!

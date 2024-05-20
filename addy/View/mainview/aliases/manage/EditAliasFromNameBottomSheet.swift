@@ -23,6 +23,7 @@ struct EditAliasFromNameBottomSheet: View {
     let aliasId: String
     let aliasEmail: String
     @State var fromName: String
+    @State var fromNamePlaceholder: String = String(localized: "from_name")
     let fromNameEdited: (Aliases) -> Void
 
     init(aliasId: String, aliasEmail: String, fromName: String?, fromNameEdited: @escaping (Aliases) -> Void) {
@@ -36,75 +37,75 @@ struct EditAliasFromNameBottomSheet: View {
     @State private var fromNameRequestError:String?
 
     @State var IsLoadingSaveButton: Bool = false
-    
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         VStack{
             
-            Text(String(localized: "edit_from_name"))
-                .font(.system(.title2))
-                .padding(.top, 25)
-                .padding(.bottom, 15)
-            
-            Divider()
-            
-            ScrollView {
-
-                VStack{
+            Form {
+                
+                Section{
+                    ValidatingTextField(value: self.$fromName, placeholder: self.$fromNamePlaceholder, fieldType: .text, error: $fromNameValidationError, formStyling: true)
                     
-                    let formattedString = String.localizedStringWithFormat(NSLocalizedString("edit_from_name_alias_desc", comment: ""), aliasEmail)
-                    // Use Text with markdown to display the formatted string
-                    Text(LocalizedStringKey(formattedString))
-                        .font(.system(.footnote))
-                        .multilineTextAlignment(.center)
-                        .opacity(0.5)
-                    
-                    Spacer(minLength: 25)
-                    
-                    
-                    
-                    ValidatingTextField(value: self.$fromName, placeholder: String(localized: "from_name"), fieldType: .text, error: $fromNameValidationError)
-                    
-                    VStack(alignment: .leading, spacing: 0) {
-                        if let error = fromNameRequestError {
-                            Text(error)
-                                .foregroundColor(.red)
-                                .font(.system(size: 15))
-                                .multilineTextAlignment(.leading)
-                                .padding([.horizontal], 0)
-                        }
+                } header: {
+                    VStack(alignment: .leading){
+                        let formattedString = String.localizedStringWithFormat(NSLocalizedString("edit_from_name_alias_desc", comment: ""), aliasEmail)
+                        Text(LocalizedStringKey(formattedString))
+                            .multilineTextAlignment(.center)
+                            .padding(.bottom)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                }.padding(.vertical)
+                } footer: {
+                    if let error = fromNameRequestError {
+                        Text(error)
+                            .foregroundColor(.red)
+                            .font(.system(size: 15))
+                            .multilineTextAlignment(.leading)
+                            .padding([.horizontal], 0)
+                            .onAppear{
+                                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                            }
+                    }
+                
+                }.textCase(nil)
+                
+                Section{
+                    AddyLoadingButton(action: {
+                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                        // We should not allow any saving until the validationErrors are nil
+                        if (fromNameValidationError == nil){
+                            IsLoadingSaveButton = true;
+                            
+                            DispatchQueue.global(qos: .background).async {
+                                self.editFromName(fromName: self.fromName)
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                IsLoadingSaveButton = false
+                            }
+                        }
+                    }, isLoading: $IsLoadingSaveButton) {
+                        Text(String(localized: "save")).foregroundColor(Color.white)
+                    }.frame(minHeight: 56)
+                }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
                 
                 
-                AddyLoadingButton(action: {
-                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                    // We should not allow any saving until the validationErrors are nil
-                    if (fromNameValidationError == nil){
-                        IsLoadingSaveButton = true;
+                
+                
+            }.navigationTitle(String(localized: "edit_from_name")).pickerStyle(.navigationLink)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar(content: {
+                    ToolbarItem() {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                        }
                         
-                        DispatchQueue.global(qos: .background).async {
-                            self.editFromName(fromName: self.fromName)
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            IsLoadingSaveButton = false
-                        }
                     }
-                }, isLoading: $IsLoadingSaveButton) {
-                    Text(String(localized: "save")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-
-                
-                
-            }
-            .padding(.horizontal)
+                })
             
-        }.presentationDetents([.large])
-            .presentationDragIndicator(.visible)
-        
-        
+            
+        }
     }
     
     

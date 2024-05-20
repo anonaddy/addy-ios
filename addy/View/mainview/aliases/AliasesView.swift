@@ -13,12 +13,11 @@ struct AliasesView: View {
     @EnvironmentObject var mainViewState: MainViewState
     @EnvironmentObject var aliasesViewModel: AliasesViewModel
     @State private var isPresentingFilterOptionsAliasBottomSheet = false
-        
+    @State private var isPresentingAddAliasBottomSheet = false
+    
     
     @State var selectedFilterChip = "filter_all_aliases"
     @State var filterChips: [AddyChipModel] = []
-    
-    
     
     var body: some View {
         NavigationStack(){
@@ -34,8 +33,7 @@ struct AliasesView: View {
                             
                             ApplyFilter(chipId: onTappedChip.chipId)
                         }
-                    }.listRowBackground(Color.clear)
-                        .listRowInsets(.init())
+                    }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
                     
                     
                     
@@ -43,44 +41,59 @@ struct AliasesView: View {
                     
                     
                     // Only show the stats when the user is NOT searching and there is NO error
-                    if (aliasesViewModel.searchQuery != "" &&
-                        aliasesViewModel.networkError == ""){
+                    if (aliasesViewModel.searchQuery == "" &&
+                        aliasesViewModel.networkError == "" && !aliasList.data.isEmpty){
                         Section {
-                            VStack{
-                                HStack{
-                                    Image(systemName: "at.circle")
-                                        .resizable()
-                                        .frame(width: 35, height: 35)
-                                        .foregroundColor(.accentColor)
-                                        .padding(.trailing, 12)
-                                        .frame(width: 35)
-                                    VStack(alignment: .leading) {
-                                        Text(String(localized: "emails_forwarded"))
-                                            .font(.headline)
-                                        Text(String(format: String(localized: "forwarded_blocked_stat"), "\(mainViewState.userResource!.total_emails_forwarded)", "\(mainViewState.userResource!.total_emails_blocked)"))
-                                            .font(.subheadline)
-                                    }
-                                    Spacer()
-                                    
-                                }.padding(.vertical, 8)
+                            
+                            HStack{
                                 
-                                Divider()
-                                HStack{
-                                    Image(systemName: "paperplane")
-                                        .resizable()
-                                        .frame(width: 35, height: 35)
-                                        .foregroundColor(.accentColor)
-                                        .padding(.trailing, 12)
-                                        .frame(width: 35)
-                                    VStack(alignment: .leading) {
-                                        Text(String(localized: "emails_forwarded"))
-                                            .font(.headline)
-                                        Text(String(format: String(localized: "replied_sent_stat"), "\(mainViewState.userResource!.total_emails_replied)", "\(mainViewState.userResource!.total_emails_sent)"))
-                                            .font(.subheadline)
-                                    }
-                                    Spacer()
-                                }.padding(.vertical, 8)
-                            }
+                                
+                                VStack {
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .fill(Color.accentColor)
+                                        .frame(width: 50, height: 50)
+                                        .overlay(
+                                            Image(systemName: "at.circle.fill")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 25, height: 25)
+                                                .foregroundColor(.white)
+                                        )
+                                    
+                                    Text(String(localized: "emails_forwarded"))
+                                        .font(.subheadline)
+                                        .multilineTextAlignment(.center)
+                                    
+                                    Text(String(format: String(localized: "forwarded_blocked_stat"), "\(mainViewState.userResource!.total_emails_forwarded)", "\(mainViewState.userResource!.total_emails_blocked)"))
+                                        .font(.caption)
+                                        .multilineTextAlignment(.center)
+                                }
+                                Spacer()
+                                Divider().padding(.vertical,24)
+                                Spacer()
+                                
+                                VStack {
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .fill(Color.accentColor)
+                                        .frame(width: 50, height: 50)
+                                        .overlay(
+                                            Image(systemName: "tray.and.arrow.up.fill")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 25, height: 25)
+                                                .foregroundColor(.white)
+                                        )
+                                    Text(String(localized: "emails_forwarded"))
+                                        .font(.subheadline)
+                                        .multilineTextAlignment(.center)
+                                    
+                                    Text(String(format: String(localized: "forwarded_blocked_stat"), "\(mainViewState.userResource!.total_emails_forwarded)", "\(mainViewState.userResource!.total_emails_blocked)"))
+                                        .font(.caption)
+                                        .multilineTextAlignment(.center)
+                                    
+                                }
+                                
+                            }.padding(12)
                         } header: {
                             Text(String(localized: "statistics"))
                         }
@@ -164,7 +177,7 @@ struct AliasesView: View {
                     if !aliasesViewModel.hasArrivedAtTheLastPage {
                         ProgressView()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .onAppear {
+                            .task {
                                 aliasesViewModel.loadMoreContent()
                             }
                     }
@@ -172,6 +185,9 @@ struct AliasesView: View {
                 }
                 
             }
+            .refreshable {
+                self.aliasesViewModel.getAliases(forceReload: true)
+                        }
             .overlay(Group {
                 
                 
@@ -187,11 +203,11 @@ struct AliasesView: View {
                         
                         //TODO: this view is visible for 1s after clearing search when looking for aliases without results (empty list)
                     } else if aliasList.data.isEmpty, aliasesViewModel.searchQuery.isEmpty {
-                            ContentUnavailableView {
-                                Label(String(localized: "no_aliases"), systemImage: "at.badge.plus")
-                            } description: {
-                                Text(String(localized: "no_aliases_desc"))
-                            }
+                        ContentUnavailableView {
+                            Label(String(localized: "no_aliases"), systemImage: "at.badge.plus")
+                        } description: {
+                            Text(String(localized: "no_aliases_desc"))
+                        }
                     }
                 } else {
                     // If there is NO aliasList (aka, if the list is not visible)
@@ -234,32 +250,47 @@ struct AliasesView: View {
             })
             .navigationTitle(String(localized: "aliases"))
             .navigationBarItems(trailing: Button(action: {
-                             // button activates link
-                              //self.addMode = true
-                            } ) {
-                            Image(systemName: "plus")
-                                .resizable()
-                                .padding(6)
-                                .frame(width: 24, height: 24)
-                                .background(Color.accentColor)
-                                .clipShape(Circle())
-                                .foregroundColor(.white)
-                        } )
+                self.isPresentingAddAliasBottomSheet = true
+            } ) {
+                Image(systemName: "plus")
+                    .resizable()
+                    .padding(6)
+                    .frame(width: 24, height: 24)
+                    .background(Color.accentColor)
+                    .clipShape(Circle())
+                    .foregroundColor(.white)
+            } )
             .searchable(text: $aliasesViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "aliases_search"))
             .onSubmit(of: .search) {
-                    aliasesViewModel.searchAliases(searchQuery: aliasesViewModel.searchQuery)
-                }
+                aliasesViewModel.searchAliases(searchQuery: aliasesViewModel.searchQuery)
+            }
             .autocorrectionDisabled(true)
             .textInputAutocapitalization(.never)
             .sheet(isPresented: $isPresentingFilterOptionsAliasBottomSheet) {
-                FilterOptionsAliasBottomSheet(aliasSortFilterRequest: self.aliasesViewModel.aliasSortFilterRequest){ aliasSortFilterRequest in
-                    // This will also reload new filter in memory
-                    SaveFilter(chipId: "filter_custom", aliasSortFilterRequest: aliasSortFilterRequest)
-                    
-                    // Hide dialog and refresh aliases
-                    isPresentingFilterOptionsAliasBottomSheet = false
-                    aliasesViewModel.getAliases(forceReload: true)
+                NavigationStack {
+                    FilterOptionsAliasBottomSheet(aliasSortFilterRequest: self.aliasesViewModel.aliasSortFilterRequest){ aliasSortFilterRequest in
+                        // This will also reload new filter in memory
+                        SaveFilter(chipId: "filter_custom", aliasSortFilterRequest: aliasSortFilterRequest)
+                        
+                        // Hide dialog and refresh aliases
+                        isPresentingFilterOptionsAliasBottomSheet = false
+                        aliasesViewModel.getAliases(forceReload: true)
+                    }
                 }
+            }
+            .sheet(isPresented: $isPresentingAddAliasBottomSheet) {
+                NavigationStack {
+                        AddAliasBottomSheet(){
+                            // Hide dialog and refresh aliases
+                            isPresentingAddAliasBottomSheet = false
+                            aliasesViewModel.getAliases(forceReload: true)
+                        }.environmentObject(mainViewState)
+
+                }
+                
+        
+            
+                
             }
         }.onAppear(perform: {
             LoadFilter()

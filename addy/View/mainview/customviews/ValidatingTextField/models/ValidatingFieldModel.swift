@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 protocol FieldValidatorProtocol {
     func validate(value: String)->String?
@@ -14,6 +14,7 @@ protocol FieldValidatorProtocol {
 
 enum FieldType: FieldValidatorProtocol {
     case email
+    case commaSeperatedEmails
     case url
     case text
     case bigText
@@ -22,6 +23,8 @@ enum FieldType: FieldValidatorProtocol {
         switch self {
         case .email:
             return emailValidate(value: value)
+        case .commaSeperatedEmails:
+            return commaSeperatedEmails(value: value)
         case .url:
             return urlValidate(value: value)
         case .text:
@@ -31,12 +34,43 @@ enum FieldType: FieldValidatorProtocol {
         }
     }
     
+    func getKeyboardType() -> UIKeyboardType {
+        switch self {
+        case .email:
+            return UIKeyboardType.emailAddress
+        case .commaSeperatedEmails:
+            return UIKeyboardType.emailAddress
+        case .url:
+            return UIKeyboardType.URL
+        case .text:
+            return UIKeyboardType.default
+        case .bigText:
+            return UIKeyboardType.default
+        }
+    }
+    
     
     private func emailValidate(value:String)->String?
     {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: value) ? nil : String(localized: "not_a_valid_address")
+    }
+      
+    
+    private func commaSeperatedEmails(value: String) -> String? {
+        let emails = value.components(separatedBy: ",")
+        
+        for email in emails {
+            let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+            let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+            
+            if !emailPred.evaluate(with: String(email)) {
+                return String(localized: "not_a_valid_address")
+            }
+        }
+        
+        return emails.isEmpty ? String(localized: "not_a_valid_address") : nil
     }
     
     private func urlValidate(value:String)->String?

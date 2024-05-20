@@ -6,15 +6,6 @@
 //
 
 import SwiftUI
-
-//
-//  AddApiBottomSHeet.swift
-//  addy
-//
-//  Created by Stijn van de Water on 07/05/2024.
-//
-
-import SwiftUI
 import AVFoundation
 import CodeScanner
 import addy_shared
@@ -25,7 +16,7 @@ struct EditAliasRecipientsBottomSheet: View {
     
     @State var recipientsLoaded: Bool = false
     @State var selectedChips: [String] = []
-    @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: String(localized: "loading_recipients"), label: String(localized: "loading_recipients"))]
+    @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
 
     init(aliasId: String, selectedRecipientsIds: [String]?, recipientsEdited: @escaping (Aliases) -> Void) {
         self.aliasId = aliasId
@@ -36,57 +27,51 @@ struct EditAliasRecipientsBottomSheet: View {
     @State private var recipientsRequestError:String? = ""
 
     @State var IsLoadingSaveButton: Bool = false
-    
-    var body: some View {
-        VStack{
-            
-            Text(String(localized: "edit_recipients"))
-                .font(.system(.title2))
-                .fontWeight(.medium)
-                .padding(.top, 25)
-                .padding(.bottom, 15)
-            
-            Divider()
-            
-            ScrollView {
+    @Environment(\.dismiss) var dismiss
 
-                VStack{
-                    
-                    Text(String(localized: "alias_edit_recipients_desc"))
-                        .font(.system(.footnote))
-                        .multilineTextAlignment(.center)
-                        .opacity(0.5)
-                    
-                    Spacer(minLength: 25)
-                    
-                    
-                    
-                    AddyMultiSelectChipView(chips: $recipientsChips, selectedChips: $selectedChips, singleLine: false) { onTappedChip in
-                        withAnimation {
-                            if (selectedChips.contains(onTappedChip.chipId)){
-                                if let index = selectedChips.firstIndex(of: onTappedChip.chipId) {
-                                    selectedChips.remove(at: index)
-                                }
-                            } else {
-                                selectedChips.append(onTappedChip.chipId)
+    var body: some View {
+        Form{
+            
+        
+            Section {
+
+                AddyMultiSelectChipView(chips: $recipientsChips, selectedChips: $selectedChips, singleLine: false) { onTappedChip in
+                    withAnimation {
+                        if (selectedChips.contains(onTappedChip.chipId)){
+                            if let index = selectedChips.firstIndex(of: onTappedChip.chipId) {
+                                selectedChips.remove(at: index)
                             }
+                        } else {
+                            selectedChips.append(onTappedChip.chipId)
                         }
-                        
-                    }.disabled(!recipientsLoaded)
+                    }
                     
-                }.padding(.vertical)
+                }.disabled(!recipientsLoaded)
                 
-                VStack(alignment: .leading, spacing: 0) {
-                    if let error = recipientsRequestError {
+            
+            } header: {
+                VStack(alignment: .leading){
+                    Text(String(localized: "alias_edit_recipients_desc"))
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom)
+                    
+                }
+            } footer: {
+                if let error = recipientsRequestError {
+                    if (!error.isEmpty){
                         Text(error)
                             .foregroundColor(.red)
                             .font(.system(size: 15))
                             .multilineTextAlignment(.leading)
                             .padding([.horizontal], 0)
+                            .onAppear{
+                                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                            }
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
+            }.textCase(nil).listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
+            
+            Section {
                 AddyLoadingButton(action: {
                         IsLoadingSaveButton = true;
                         
@@ -98,17 +83,23 @@ struct EditAliasRecipientsBottomSheet: View {
                     Text(String(localized: "save")).foregroundColor(Color.white)
                 }.frame(minHeight: 56)
 
-                
-                
-            }
-            .padding(.horizontal)
+            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
-        }.presentationDetents([.medium])
-            .presentationDragIndicator(.visible)
-            .onAppear(perform: {
-                getAllRecipients()
+        }.navigationTitle(String(localized: "edit_recipients")).pickerStyle(.navigationLink)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem() {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                    }
+                    
+                }
             })
-        
+            .task{
+                getAllRecipients()
+            }
         
     }
     

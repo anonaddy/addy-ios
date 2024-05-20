@@ -12,28 +12,41 @@ struct TEMP_TEST: View {
 
     var body: some View {
         HStack {
+            
             Button(action: {
-                       // Add your delete action here
-                       print("Delete button tapped")
-                   }) {
-                       HStack {
-                           Image(systemName: "trash")
-                               .foregroundColor(.softRed)
-                           
-                           VStack(alignment: .leading) {
-                               Text("delete_alias")
-                                   .font(.callout)
-                                   .foregroundColor(.softRed)
-                               Text("delete_alias_desc")
-                                   .font(.subheadline)
-                                   .foregroundColor(.secondary)
-                                   .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
-                           }
-                       }
-                   }
-                   .buttonStyle(BorderlessButtonStyle()) // Ensure the button looks plain without default styles
+            }) {
+                Label(String(localized: "copied"), systemImage: "clipboard")
+                    .foregroundColor(.white)
+                    .frame(maxWidth:.infinity, maxHeight: 12)
+                    .font(.system(size: 16))
+                
+                
+            }
+            .controlSize(.large)
+            .buttonStyle(.borderedProminent)
+            .tint(.accentColor)
+            .contentTransition(.symbolEffect(.replace))
+            .padding(.horizontal)
+            Spacer()
+            Button(action: {
+                //self.copyToClipboard(alias: alias)
+            }) {
+                Label(String(localized: "send_mail"), systemImage: "paperplane")
+                    .foregroundColor(.white)
+                    .frame(maxWidth:.infinity, maxHeight: 16)
+                    .font(.system(size: 16))
+                
+                
+            }
+            .controlSize(.large)
+            .buttonStyle(.borderedProminent)
+            .tint(.accentColor)
+            .contentTransition(.symbolEffect(.replace))
+            .padding(.horizontal)
         }.padding(.top, 8)
+        
     }
+    
     
 
     

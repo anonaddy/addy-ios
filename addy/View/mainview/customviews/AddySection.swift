@@ -14,33 +14,39 @@ struct AddySection: View {
     var leadingSystemimage: String? = nil
     var trailingSystemimage: String? = nil
     var fontWeight: Font.Weight = .medium
-    
+    let onTap: () -> Void
+
     var body: some View {
-        HStack {
-            if let leadingSystemimage = leadingSystemimage {
-                
-                Image(systemName: leadingSystemimage)
-                    .fontWeight(fontWeight)
-            }
-            VStack(alignment: .leading) {
-                Text(title)
-                    .font(.callout)
-                
-                if let description = description{
-                    Text(description)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .lineLimit(3)
+        Button(action: {
+            self.onTap()
+        }) {
+            HStack {
+                if let leadingSystemimage = leadingSystemimage {
+                    
+                    Image(systemName: leadingSystemimage)
+                        .fontWeight(fontWeight)
+                }
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .foregroundColor(Color.revertedNightMode)
+                        .font(.callout)
+                    
+                    if let description = description{
+                        Text(description)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .lineLimit(3)
+                    }
+                    
+                }
+                Spacer()
+                if let trailingSystemimage = trailingSystemimage {
+                    
+                    Image(systemName: trailingSystemimage)
+                        .fontWeight(fontWeight)
                 }
                 
             }
-            Spacer()
-            if let trailingSystemimage = trailingSystemimage {
-                
-                Image(systemName: trailingSystemimage)
-                    .fontWeight(fontWeight)
-            }
-
         }
     }
 }
@@ -48,5 +54,7 @@ struct AddySection: View {
 #Preview {
 //    AddySection(title: "Section title", description: "This is a nice long description to show off the functionalities of the AddySection inside this beautiful SwiftUI application", leadingSystemimage: "eyes", trailingSystemimage: "pencil")
 //    
-    AddySection(title: "Section title", description: nil, leadingSystemimage: "eyes", trailingSystemimage: "pencil")
+    AddySection(title: "Section title", description: nil, leadingSystemimage: "eyes", trailingSystemimage: "pencil"){
+        
+    }
 }

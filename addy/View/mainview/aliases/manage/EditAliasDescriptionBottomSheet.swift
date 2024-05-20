@@ -22,6 +22,7 @@ import addy_shared
 struct EditAliasDescriptionBottomSheet: View {
     let aliasId: String
     @State private var description: String
+    @State private var descriptionPlaceholder: String = String(localized: "description")
     let descriptionEdited: (Aliases) -> Void
 
     init(aliasId: String, description: String, descriptionEdited: @escaping (Aliases) -> Void) {
@@ -34,47 +35,41 @@ struct EditAliasDescriptionBottomSheet: View {
     @State private var descriptionRequestError:String?
 
     @State var IsLoadingSaveButton: Bool = false
-    
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
-        VStack{
-            
-            Text(String(localized: "edit_description"))
-                .font(.system(.title2))
-                .fontWeight(.medium)
-                .padding(.top, 25)
-                .padding(.bottom, 15)
-            
-            Divider()
-            
-            ScrollView {
+        Form{
 
-                VStack{
-                    
+            Section {
+
+                
+                ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError, formStyling: true)
+
+                
+
+                
+                
+            } header: {
+                VStack(alignment: .leading){
                     Text(String(localized: "edit_desc_alias_desc"))
-                        .font(.system(.footnote))
                         .multilineTextAlignment(.center)
-                        .opacity(0.5)
+                        .padding(.bottom)
                     
-                    Spacer(minLength: 25)
-                    
-                    
-                    
-                    ValidatingTextField(value: self.$description, placeholder: String(localized: "description"), fieldType: .bigText, error: $descriptionValidationError)
-                    
-                    VStack(alignment: .leading, spacing: 0) {
-                        if let error = descriptionRequestError {
-                            Text(error)
-                                .foregroundColor(.red)
-                                .font(.system(size: 15))
-                                .multilineTextAlignment(.leading)
-                                .padding([.horizontal], 0)
-                        }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                }.padding(.vertical)
-                
-                
+                }.textCase(nil)
+            } footer: {
+                if let error = descriptionRequestError {
+                    Text(error)
+                        .foregroundColor(.red)
+                        .font(.system(size: 15))
+                        .multilineTextAlignment(.leading)
+                        .padding([.horizontal], 0)
+                        .onAppear{
+                                                            UINotificationFeedbackGenerator().notificationOccurred(.error)
+                                                        }
+                }
+            }
+            
+            Section {
                 AddyLoadingButton(action: {
                     // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
                     // We should not allow any saving until the validationErrors are nil
@@ -92,14 +87,20 @@ struct EditAliasDescriptionBottomSheet: View {
                 }, isLoading: $IsLoadingSaveButton) {
                     Text(String(localized: "save")).foregroundColor(Color.white)
                 }.frame(minHeight: 56)
-
-                
-                
-            }
-            .padding(.horizontal)
+            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
-        }.presentationDetents([.medium])
-            .presentationDragIndicator(.visible)
+            }.navigationTitle(String(localized: "edit_description")).pickerStyle(.navigationLink)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem() {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                    }
+                    
+                }
+            })
         
         
     }

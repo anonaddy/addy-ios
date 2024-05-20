@@ -29,12 +29,67 @@
         }
       }
     },
+    "add" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        }
+      }
+    },
+    "add_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add alias"
+          }
+        }
+      }
+    },
+    "add_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other aliases e.g. alias@%@.addy.io or .me can also be created automatically when they receive their first email"
+          }
+        }
+      }
+    },
+    "addresses" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Addresses"
+          }
+        }
+      }
+    },
     "addyio_instance" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "addy.io instance"
+          }
+        }
+      }
+    },
+    "alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias"
           }
         }
       }
@@ -68,6 +123,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The list below shows all verified recipients. Select which recipients you want to set as recipient for this alias"
+          }
+        }
+      }
+    },
+    "alias_format" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias format"
+          }
+        }
+      }
+    },
+    "alias_local_part" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias local part"
           }
         }
       }
@@ -207,16 +284,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your API can be obtained at the settings page at app.addy.io (or your own hosted instance)"
-          }
-        }
-      }
-    },
-    "api_setup_qr_code_scan" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Scan the QR code displayed"
           }
         }
       }
@@ -494,6 +561,100 @@
         }
       }
     },
+    "dismiss" : {
+
+    },
+    "Dismiss" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dismiss"
+          }
+        }
+      }
+    },
+    "domain" : {
+
+    },
+    "Domain" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain"
+          }
+        }
+      }
+    },
+    "domains_format_custom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        }
+      }
+    },
+    "domains_format_custom_not_available_for_this_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not available for the selected domain"
+          }
+        }
+      }
+    },
+    "domains_format_random_characters" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random characters"
+          }
+        }
+      }
+    },
+    "domains_format_random_words" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random words"
+          }
+        }
+      }
+    },
+    "domains_format_random_words_not_available_for_this_subscription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random words is not available for your current subscription"
+          }
+        }
+      }
+    },
+    "domains_format_uuid" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UUID"
+          }
+        }
+      }
+    },
     "edit_desc_alias_desc" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -584,6 +745,17 @@
     },
     "Error DELETE ALL KEYCHAIN DATA" : {
 
+    },
+    "error_adding_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while adding the alias"
+          }
+        }
+      }
     },
     "error_deleting_alias" : {
       "extractionState" : "manual",
@@ -716,6 +888,17 @@
         }
       }
     },
+    "filtering" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtering"
+          }
+        }
+      }
+    },
     "filtering_and_sorting" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -734,17 +917,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Decide which aliases to display and in which order to display them. Filters are saved and retained on app restart"
-          }
-        }
-      }
-    },
-    "filters" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filters"
           }
         }
       }
@@ -810,7 +982,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ forwarded; %@ blocked"
+            "value" : "%@ forwarded\n%@ blocked"
           }
         }
       }
@@ -959,6 +1131,17 @@
         }
       }
     },
+    "menu" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu"
+          }
+        }
+      }
+    },
     "new_user" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1036,6 +1219,17 @@
         }
       }
     },
+    "qr_code_setup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup using QR code"
+          }
+        }
+      }
+    },
     "qr_permissions_required" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1043,6 +1237,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Camera permissions are required in order to scan the QR code, tap the scanning area to open settings"
+          }
+        }
+      }
+    },
+    "qr_permissions_required_short" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot open camera"
           }
         }
       }
@@ -1064,7 +1269,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ replied; %@ sent"
+            "value" : "%@ replied\n%@ sent"
           }
         }
       }
@@ -1155,6 +1360,17 @@
         }
       }
     },
+    "send" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        }
+      }
+    },
     "send_mail" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1162,6 +1378,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Send mail"
+          }
+        }
+      }
+    },
+    "send_mail_from_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the email addresses (comma separated) of the recipients you’d like to send an email to from %@.\n\nThe mail app on your device opens with the correct to addresses entered. Note that you must send this email from one of your verified recipients email address."
           }
         }
       }
@@ -1557,6 +1784,17 @@
         }
       }
     },
+    "sorting" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorting"
+          }
+        }
+      }
+    },
     "statistics" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1579,6 +1817,17 @@
     },
     "Tab 3" : {
 
+    },
+    "this_field_cannot_be_empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This field cannot be empty"
+          }
+        }
+      }
     },
     "try_again" : {
       "extractionState" : "manual",

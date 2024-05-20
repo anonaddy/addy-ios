@@ -24,9 +24,9 @@ public struct Aliases:Identifiable,Codable {
     let user_id: String
     let aliasable_id: String?
     let aliasable_type: String?
-    let local_part: String
+    public let local_part: String
     let `extension`: String?
-    let domain: String
+    public let domain: String
     public let email: String
     public var active: Bool
     public let description: String?

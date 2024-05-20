@@ -39,9 +39,9 @@ struct AliasDetailView: View {
     @State private var isPresentingEditAliasDescriptionBottomSheet = false
     @State private var isPresentingEditAliasRecipientsBottomSheet = false
     @State private var isPresentingEditAliasFromNameBottomSheet = false
+    @State private var isPresentingEditAliasSendMailRecipientBottomSheet = false
     
     @State private var copiedToClipboard: Bool = false
-    
     
     @State private var chartData: [Double] = [0,0,0,0]
     
@@ -140,31 +140,29 @@ struct AliasDetailView: View {
                                 Label(copiedToClipboard ? String(localized: "copied") : String(localized: "copy_alias"), systemImage: copiedToClipboard ? "checkmark": "clipboard")
                                     .foregroundColor(.white)
                                     .frame(maxWidth:.infinity, maxHeight: 16)
-                                    .font(.system(size: 16))
+                                    .font(.system(size: 14))
                                 
                                 
                             }
-                            .controlSize(.large)
+                            .controlSize(.regular)
                             .buttonStyle(.borderedProminent)
                             .tint(.accentColor)
                             .contentTransition(.symbolEffect(.replace))
-                            .padding(.horizontal)
                             Spacer()
                             Button(action: {
-                                //self.copyToClipboard(alias: alias)
+                                isPresentingEditAliasSendMailRecipientBottomSheet = true
                             }) {
                                 Label(String(localized: "send_mail"), systemImage: "paperplane")
                                     .foregroundColor(.white)
                                     .frame(maxWidth:.infinity, maxHeight: 16)
-                                    .font(.system(size: 16))
+                                    .font(.system(size: 14))
                                 
                                 
                             }
-                            .controlSize(.large)
+                            .controlSize(.regular)
                             .buttonStyle(.borderedProminent)
                             .tint(.accentColor)
                             .contentTransition(.symbolEffect(.replace))
-                            .padding(.horizontal)
                         }.padding(.top, 8)
                         
                         
@@ -217,22 +215,18 @@ struct AliasDetailView: View {
                             }
                         }
                     
-                    AddySection(title: String(localized: "description"), description: alias.description ?? String(localized: "alias_no_description"), leadingSystemimage: nil, trailingSystemimage: "pencil")
-                        .onTapGesture {
+                    AddySection(title: String(localized: "description"), description: alias.description ?? String(localized: "alias_no_description"), leadingSystemimage: nil, trailingSystemimage: "pencil"){
                             isPresentingEditAliasDescriptionBottomSheet = true
-                            
                         }
                     
                     
                     
-                    AddySection(title: String(localized: "recipients"), description: getRecipients(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil")
-                        .onTapGesture {
+                    AddySection(title: String(localized: "recipients"), description: getRecipients(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil"){
                             isPresentingEditAliasRecipientsBottomSheet = true
                         }
                     
-                    AddySection(title: String(localized: "from_name"), description: getFromName(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil")
-                        .onTapGesture {
-                            if !hasUserFreeSubscription(){
+                    AddySection(title: String(localized: "from_name"), description: getFromName(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil"){
+                            if !mainViewState.userResource!.hasUserFreeSubscription(){
                                 isPresentingEditAliasFromNameBottomSheet = true
                             } else {
                                 UINotificationFeedbackGenerator().notificationOccurred(.error)
@@ -241,16 +235,16 @@ struct AliasDetailView: View {
                     
                     AddySection(title: String(localized: "last_forwarded"),
                                 description: alias.last_forwarded != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_forwarded) : String(localized: "unknown"),
-                                leadingSystemimage: nil, trailingSystemimage: nil)
+                                leadingSystemimage: nil, trailingSystemimage: nil){}
                     AddySection(title: String(localized: "last_replied"),
                                 description: alias.last_replied != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_replied) : String(localized: "unknown"),
-                                leadingSystemimage: nil, trailingSystemimage: nil)
+                                leadingSystemimage: nil, trailingSystemimage: nil){}
                     AddySection(title: String(localized: "last_sent"),
                                 description: alias.last_sent != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_sent) : String(localized: "unknown"),
-                                leadingSystemimage: nil, trailingSystemimage: nil)
+                                leadingSystemimage: nil, trailingSystemimage: nil){}
                     AddySection(title: String(localized: "last_blocked"),
                                 description: alias.last_blocked != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_blocked) : String(localized: "unknown"),
-                                leadingSystemimage: nil, trailingSystemimage: nil)
+                                leadingSystemimage: nil, trailingSystemimage: nil){}
                     
                     
                     
@@ -291,24 +285,38 @@ struct AliasDetailView: View {
             .navigationTitle(self.aliasEmail)
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isPresentingEditAliasDescriptionBottomSheet) {
-                EditAliasDescriptionBottomSheet(aliasId: alias.id, description: alias.description ?? ""){ alias in
-                    self.alias = alias
-                    isPresentingEditAliasDescriptionBottomSheet = false
-                    
+                NavigationStack {
+                    EditAliasDescriptionBottomSheet(aliasId: alias.id, description: alias.description ?? ""){ alias in
+                        self.alias = alias
+                        isPresentingEditAliasDescriptionBottomSheet = false
+                    }
                 }
             }
             .sheet(isPresented: $isPresentingEditAliasRecipientsBottomSheet) {
-                EditAliasRecipientsBottomSheet(aliasId: alias.id, selectedRecipientsIds: getRecipientsIds(recipients: alias.recipients)){ alias in
-                    self.alias = alias
-                    isPresentingEditAliasRecipientsBottomSheet = false
-                    
+                NavigationStack {
+                    EditAliasRecipientsBottomSheet(aliasId: alias.id, selectedRecipientsIds: getRecipientsIds(recipients: alias.recipients)){ alias in
+                        self.alias = alias
+                        isPresentingEditAliasRecipientsBottomSheet = false
+                        
+                    }
                 }
             }
             .sheet(isPresented: $isPresentingEditAliasFromNameBottomSheet) {
-                EditAliasFromNameBottomSheet(aliasId: alias.id, aliasEmail: alias.email, fromName: alias.from_name){ alias in
-                    self.alias = alias
-                    isPresentingEditAliasFromNameBottomSheet = false
-                    
+                NavigationStack {
+                    EditAliasFromNameBottomSheet(aliasId: alias.id, aliasEmail: alias.email, fromName: alias.from_name){ alias in
+                        self.alias = alias
+                        isPresentingEditAliasFromNameBottomSheet = false
+                        
+                    }
+                }
+            }
+            .sheet(isPresented: $isPresentingEditAliasSendMailRecipientBottomSheet) {
+                NavigationStack {
+                    EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email){ addresses in
+                        self.onPressSend(toString: addresses)
+                        isPresentingEditAliasSendMailRecipientBottomSheet = false
+                        
+                    }
                 }
             }
             .alert(isPresented: $showAlert) {
@@ -318,17 +326,26 @@ struct AliasDetailView: View {
                         case .deleteAliases:
                             return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
                                 isDeletingAlias = true
-                                deleteAlias(alias: alias)
+                                
+                                DispatchQueue.global(qos: .background).async {
+                                    deleteAlias(alias: alias)
+                                }
                             }, secondaryButton: .cancel())
                         case .restoreAlias:
                             return Alert(title: Text(String(localized: "restore_alias")), message: Text(String(localized: "restore_alias_confirmation_desc")), primaryButton: .default(Text(String(localized: "restore"))){
                                 isRestoringAlias = true
-                                restoreAlias(alias: alias)
+                                
+                                DispatchQueue.global(qos: .background).async {
+                                    restoreAlias(alias: alias)
+                                }
                             }, secondaryButton: .cancel())
                         case .forgetAlias:
                             return Alert(title: Text(String(localized: "forget_alias")), message: Text(String(localized: "forget_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "forget"))){
                                 isForgettingAlias = true
-                                forgetAlias(alias: alias)
+                                
+                                DispatchQueue.global(qos: .background).async {
+                                    forgetAlias(alias: alias)
+                                }
                             }, secondaryButton: .cancel())
                         case .error:
                             return Alert(
@@ -347,6 +364,8 @@ struct AliasDetailView: View {
                        Label(String(localized: "error_obtaining_alias"), systemImage: "questionmark")
                    } description: {
                        Text(errorText)
+                   }.onAppear{
+                       UINotificationFeedbackGenerator().notificationOccurred(.error)
                    }
                 } else {
                     VStack(spacing: 20) {
@@ -383,7 +402,7 @@ struct AliasDetailView: View {
     private func getFromName(alias: Aliases) -> String {
         
         
-        if hasUserFreeSubscription() {
+        if mainViewState.userResource!.hasUserFreeSubscription() {
             return String(localized: "feature_not_available_subscription")
         }
         else {
@@ -404,19 +423,6 @@ struct AliasDetailView: View {
         
     }
     
-    private func hasUserFreeSubscription() -> Bool {
-        
-        // If user has a subscription
-        if let userSubscription = mainViewState.userResource?.subscription {
-            // If free
-            if userSubscription == SUBSCRIPTIONS.FREE.rawValue {
-                return true
-            }
-        }
-        return false;
-        
-    }
-    
     private func updateUi(alias: Aliases){
         var aliasTotalCount =  Double(alias.emails_forwarded + alias.emails_replied + alias.emails_sent + alias.emails_blocked)
         aliasTotalCount = aliasTotalCount != 0.0 ? aliasTotalCount : 10.0 // To prevent dividing by 0
@@ -430,6 +436,32 @@ struct AliasDetailView: View {
         self.chartData = [aliasEmailForwardedProgress, aliasEmailRepliedProgress, aliasEmailSentProgress, aliasEmailBlockedProgress]
         
         
+    }
+    
+    private func onPressSend(toString: String) {
+            guard let alias = alias else { return }
+            // Get recipients
+            let recipients = AnonAddyUtils.getSendAddress(recipientEmails: toString, alias: alias)
+            
+            // Copy the email addresses to clipboard
+            UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
+
+            // Prepare mailto URL
+            let mailtoURL = createMailtoURL(recipients: recipients)
+            
+            // Open mailto URL
+            if let url = mailtoURL {
+                UIApplication.shared.open(url)
+            }
+        }
+    
+    private func createMailtoURL(recipients: [String]) -> URL? {
+        let recipientsString = recipients.joined(separator: ",")
+        var components = URLComponents()
+        components.scheme = "mailto"
+        components.path = recipientsString
+        
+        return components.url
     }
     
     func getRecipients(alias: Aliases) -> String{
@@ -488,6 +520,8 @@ struct AliasDetailView: View {
                     self.isAliasActive = true
                 } else {
                     self.isAliasActive = false
+                    
+                    // TODO: let user know
                     print("Error: \(String(describing: error))")
                     //self.showError = true
                 }
