@@ -11,9 +11,25 @@ import UniformTypeIdentifiers
 
 struct AliasesView: View {
     @EnvironmentObject var mainViewState: MainViewState
-    @EnvironmentObject var aliasesViewModel: AliasesViewModel
+    @StateObject var aliasesViewModel = AliasesViewModel()
+    
     @State private var isPresentingFilterOptionsAliasBottomSheet = false
     @State private var isPresentingAddAliasBottomSheet = false
+    
+    enum ActiveAlert {
+        case reachedMaxAliases, deleteAliases, restoreAlias, error
+    }
+    
+    @State private var activeAlert: ActiveAlert = .reachedMaxAliases
+    @State private var showAlert: Bool = false
+    
+    @State private var aliasInContextMenu: Aliases? = nil
+    
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    
+    
+    @State private var isPresentingEditAliasSendMailRecipientBottomSheet = false
     
     
     @State var selectedFilterChip = "filter_all_aliases"
@@ -71,7 +87,7 @@ struct AliasesView: View {
                                 Spacer()
                                 Divider().padding(.vertical,24)
                                 Spacer()
-                                
+
                                 VStack {
                                     RoundedRectangle(cornerRadius: 16)
                                         .fill(Color.accentColor)
@@ -93,6 +109,7 @@ struct AliasesView: View {
                                     
                                 }
                                 
+                                
                             }.padding(12)
                         } header: {
                             Text(String(localized: "statistics"))
@@ -113,34 +130,44 @@ struct AliasesView: View {
                                             Label(String(localized: "copy_alias"), systemImage: "clipboard")
                                         }
                                         Button {
-                                            UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
+                                                self.aliasInContextMenu = alias
+                                                self.isPresentingEditAliasSendMailRecipientBottomSheet = true
                                         } label: {
                                             Label(String(localized: "send_mail"), systemImage: "paperplane")
                                         }
                                         
-                                        if (alias.active){
-                                            Button {
-                                                UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
-                                            } label: {
-                                                Label(String(localized: "disable_alias"), systemImage: "hand.raised")
-                                            }
-                                        } else {
-                                            Button {
-                                                UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
-                                            } label: {
-                                                Label(String(localized: "enable_alias"), systemImage: "checkmark.circle")
-                                            }
-                                        }
-                                        
                                         if (alias.deleted_at != nil){
                                             Button() {
-                                                UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
+                                                self.activeAlert = .restoreAlias
+                                                self.showAlert = true
+                                                self.aliasInContextMenu = alias
                                             } label: {
                                                 Label(String(localized: "restore_alias"), systemImage: "arrow.up.trash")
                                             }
                                         } else {
+                                            
+                                            if (alias.active){
+                                                Button {
+                                                    DispatchQueue.global(qos: .background).async {
+                                                        self.deactivateAlias(alias: alias)
+                                                    }                                            } label: {
+                                                        Label(String(localized: "disable_alias"), systemImage: "hand.raised")
+                                                    }
+                                            } else {
+                                                
+                                                Button {
+                                                    DispatchQueue.global(qos: .background).async {
+                                                        self.activateAlias(alias: alias)
+                                                    }
+                                                } label: {
+                                                    Label(String(localized: "enable_alias"), systemImage: "checkmark.circle")
+                                                }
+                                            }
+                                            
                                             Button(role: .destructive) {
-                                                UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
+                                                self.activeAlert = .deleteAliases
+                                                self.showAlert = true
+                                                self.aliasInContextMenu = alias
                                             } label: {
                                                 Label(String(localized: "delete_alias"), systemImage: "trash")
                                             }
@@ -187,7 +214,32 @@ struct AliasesView: View {
             }
             .refreshable {
                 self.aliasesViewModel.getAliases(forceReload: true)
+            }
+            .alert(isPresented: $showAlert) {
+                switch activeAlert {
+                case .reachedMaxAliases:
+                    return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood"))))
+                case .deleteAliases:
+                    return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
+                        
+                        DispatchQueue.global(qos: .background).async {
+                            self.deleteAlias(alias: aliasInContextMenu!)
                         }
+                    }, secondaryButton: .cancel())
+                case .restoreAlias:
+                    return Alert(title: Text(String(localized: "restore_alias")), message: Text(String(localized: "restore_alias_confirmation_desc")), primaryButton: .default(Text(String(localized: "restore"))){
+                        
+                        DispatchQueue.global(qos: .background).async {
+                            self.restoreAlias(alias: aliasInContextMenu!)
+                        }
+                    }, secondaryButton: .cancel())
+                case .error:
+                    return Alert(
+                        title: Text(errorAlertTitle),
+                        message: Text(errorAlertMessage)
+                    )
+                }
+            }
             .overlay(Group {
                 
                 
@@ -200,8 +252,6 @@ struct AliasesView: View {
                         ContentUnavailableView.search(text: aliasesViewModel.searchQuery)
                         
                         // If there is NO data inside the list AND the user has NOT tried searching for something
-                        
-                        //TODO: this view is visible for 1s after clearing search when looking for aliases without results (empty list)
                     } else if aliasList.data.isEmpty, aliasesViewModel.searchQuery.isEmpty {
                         ContentUnavailableView {
                             Label(String(localized: "no_aliases"), systemImage: "at.badge.plus")
@@ -212,9 +262,21 @@ struct AliasesView: View {
                 } else {
                     // If there is NO aliasList (aka, if the list is not visible)
                     
-                    // If the viewModel is still loading
-                    if (aliasesViewModel.isLoading){
-                        // Obtaining screen
+                    
+                    // No aliases, check if there is an error
+                    if (aliasesViewModel.networkError != ""){
+                        // Error screen
+                        ContentUnavailableView {
+                            Label(String(localized: "something_went_wrong_retrieving_aliases"), systemImage: "wifi.slash")
+                        } description: {
+                            Text(aliasesViewModel.networkError)
+                        } actions: {
+                            Button(String(localized: "try_again")) {
+                                aliasesViewModel.getAliases(forceReload: true)
+                            }
+                        }
+                    } else {
+                        // No aliasList and no error. It must still be loading...
                         VStack(alignment: .center, spacing: 0) {
                             Spacer()
                             ContentUnavailableView {
@@ -227,23 +289,6 @@ struct AliasesView: View {
                                 .frame(maxWidth: .infinity, maxHeight:50)
                             Spacer()
                         }
-                        
-                    }
-                    // No aliases and not loading? Check if there is an error
-                    else if (aliasesViewModel.networkError != ""){
-                        // Error screen
-                        ContentUnavailableView {
-                            Label(String(localized: "something_went_wrong_retrieving_aliases"), systemImage: "wifi.slash")
-                        } description: {
-                            Text(aliasesViewModel.networkError)
-                        } actions: {
-                            Button(String(localized: "try_again")) {
-                                aliasesViewModel.getAliases(forceReload: true)
-                            }
-                        }
-                    } else {
-                        // No aliases, not loading AND no error? How even? This must be a bug.
-                        AddyBugFound()
                     }
                     
                 }
@@ -278,22 +323,44 @@ struct AliasesView: View {
                     }
                 }
             }
+            .sheet(isPresented: $isPresentingEditAliasSendMailRecipientBottomSheet, onDismiss: {
+                self.aliasInContextMenu = nil
+            }) {
+                NavigationStack {
+                    if let alias = self.aliasInContextMenu {
+                        EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email){ addresses in
+                            self.onPressSend(toString: addresses)
+                            isPresentingEditAliasSendMailRecipientBottomSheet = false
+                            
+                        }
+                    } else {
+                        AddyBugFound()
+                    }
+                }
+            }
             .sheet(isPresented: $isPresentingAddAliasBottomSheet) {
                 NavigationStack {
-                        AddAliasBottomSheet(){
-                            // Hide dialog and refresh aliases
-                            isPresentingAddAliasBottomSheet = false
-                            aliasesViewModel.getAliases(forceReload: true)
-                        }.environmentObject(mainViewState)
-
+                    AddAliasBottomSheet(){
+                        // Hide dialog and refresh aliases
+                        isPresentingAddAliasBottomSheet = false
+                        aliasesViewModel.getAliases(forceReload: true)
+                    }.environmentObject(mainViewState)
+                    
                 }
                 
-        
-            
+                
+                
                 
             }
         }.onAppear(perform: {
             LoadFilter()
+            
+            if let aliasList = aliasesViewModel.aliasList{
+                if (aliasList.data.isEmpty) {
+                    aliasesViewModel.getAliases(forceReload: true)
+                    
+                }
+            }
         })
         
         
@@ -398,6 +465,101 @@ struct AliasesView: View {
         
         aliasesViewModel.aliasSortFilterRequest.filter = self.aliasesViewModel.searchQuery
         
+    }
+    
+    private func onPressSend(toString: String) {
+        guard let alias = aliasInContextMenu else { return }
+        // Get recipients
+        let recipients = AnonAddyUtils.getSendAddress(recipientEmails: toString, alias: alias)
+        
+        // Copy the email addresses to clipboard
+        UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
+        
+        // Prepare mailto URL
+        let mailtoURL = AnonAddyUtils.createMailtoURL(recipients: recipients)
+        
+        // Open mailto URL
+        if let url = mailtoURL {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    
+    
+    private func activateAlias(alias:Aliases) {
+        let networkHelper = NetworkHelper()
+        networkHelper.activateSpecificAlias(completion: { alias, error in
+            DispatchQueue.main.async {
+                
+                if alias != nil {
+                    // TODO can I update this item without full reload
+                    self.aliasInContextMenu = nil
+                    aliasesViewModel.getAliases(forceReload: true)
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_forgetting_alias")
+                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
+                }
+            }
+        },aliasId: alias.id)
+    }
+    
+    private func deactivateAlias(alias:Aliases) {
+        let networkHelper = NetworkHelper()
+        networkHelper.deactivateSpecificAlias(completion: { result in
+            DispatchQueue.main.async {
+                
+                if result == "204" {
+                    // TODO can I update this item without full reload
+                    self.aliasInContextMenu = nil
+                    aliasesViewModel.getAliases(forceReload: true)
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_forgetting_alias")
+                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
+                }
+            }
+        },aliasId: alias.id)
+    }
+    
+    private func deleteAlias(alias:Aliases) {
+        let networkHelper = NetworkHelper()
+        networkHelper.deleteAlias(completion: { result in
+            DispatchQueue.main.async {
+                
+                if result == "204" {
+                    // TODO can I remove this item without full reload
+                    self.aliasInContextMenu = nil
+                    aliasesViewModel.getAliases(forceReload: true)
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_deleting_alias")
+                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
+                }
+            }
+        },aliasId: alias.id)
+    }
+    
+    private func restoreAlias(alias:Aliases) {
+        let networkHelper = NetworkHelper()
+        networkHelper.restoreAlias(completion: { alias, error in
+            DispatchQueue.main.async {
+                
+                if alias != nil {
+                    // TODO can I update this item without full reload
+                    self.aliasInContextMenu = nil
+                    aliasesViewModel.getAliases(forceReload: true)
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_restoring_alias")
+                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
+                }
+            }
+        },aliasId: alias.id)
     }
     
     

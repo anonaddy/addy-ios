@@ -25,4 +25,13 @@ class AnonAddyUtils {
         
         return toAddresses
     }
+    
+    static func createMailtoURL(recipients: [String]) -> URL? {
+        let recipientsString = recipients.joined(separator: ",")
+        var components = URLComponents()
+        components.scheme = "mailto"
+        components.path = recipientsString
+        
+        return components.url
+    }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import WrappingHStack
+import addy_shared
 
 class AddyChipModel:Identifiable{
     let id = UUID()
@@ -38,6 +39,7 @@ struct AddyChipView: View {
                             .background(Capsule().fill(self.selectedChip == chip.chipId ? Color.accentColor.opacity(0.7) : Color.gray.opacity(0.7)))
                             .foregroundColor(.white.opacity(0.8))
                             .onTapGesture{
+                                HapticHelper.playHapticFeedback(hapticType: .tap)
                                 self.onTap(chip)
                             }
                     }
@@ -52,6 +54,7 @@ struct AddyChipView: View {
                             .background(Capsule().fill(self.selectedChip == chip.chipId ? Color.accentColor.opacity(0.7) : Color.gray.opacity(0.7)))
                             .foregroundColor(.white.opacity(0.8))
                             .onTapGesture{
+                                HapticHelper.playHapticFeedback(hapticType: .tap)
                                     self.onTap(chip)
                                 
                             }
@@ -61,6 +64,8 @@ struct AddyChipView: View {
         }
         
     }
+    
+
     
 }
 

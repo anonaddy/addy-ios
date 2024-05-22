@@ -7,7 +7,7 @@
 
 import SwiftUI
 import WrappingHStack
-
+import addy_shared
 
 struct AddyMultiSelectChipView: View {
     @Binding var chips: [AddyChipModel]
@@ -30,6 +30,7 @@ struct AddyMultiSelectChipView: View {
                                 .background(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)).fill(Color.accentColor.opacity(0.7)))
                                 .foregroundColor(.white.opacity(0.8))
                                 .onTapGesture{
+                                    HapticHelper.playHapticFeedback(hapticType: .tap)
                                     self.onTap(chip)
                                 }
                         } else {
@@ -39,6 +40,7 @@ struct AddyMultiSelectChipView: View {
                                 .background(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)).fill(Color.gray.opacity(0.7)))
                                 .foregroundColor(.white.opacity(0.8))
                                 .onTapGesture{
+                                    HapticHelper.playHapticFeedback(hapticType: .tap)
                                     self.onTap(chip)
                                 }
                         }

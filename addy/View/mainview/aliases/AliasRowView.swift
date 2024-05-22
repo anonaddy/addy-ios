@@ -59,7 +59,7 @@ struct AliasRowView: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0))
-
+                
                 HStack{
                     BarChart()
                         .data(chartData)
@@ -69,91 +69,92 @@ struct AliasRowView: View {
                                                                  ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
                                                                  ColorGradient(.softRed, .softRed.opacity(0.7))]))
                         .frame(maxWidth: .infinity)
-
+                    
                     
                     Spacer()
-
+                    
                     VStack(alignment: .leading){
                         Spacer()
-
+                        
                         Label(title: {
                             Text(String(format: String(localized: "d_forwarded"), "\(alias.emails_forwarded)"))
                                 .font(.subheadline)
                                 .foregroundStyle(Color.gray)
                                 .minimumScaleFactor(0.5)
                                 .lineLimit(1)
-
-                                }, icon: {
-                                    Image(systemName: "tray")
-                                        .foregroundColor(.portalOrange)
-                                        .font(.system(size: 18, weight: .bold))
-                                } )
+                            
+                        }, icon: {
+                            Image(systemName: "tray")
+                                .foregroundColor(.portalOrange)
+                                .font(.system(size: 18, weight: .bold))
+                        } )
                         Spacer()
                         Label(title: {
-                                    Text(String(format: String(localized: "d_replied"), "\(alias.emails_replied)"))
+                            Text(String(format: String(localized: "d_replied"), "\(alias.emails_replied)"))
                                 .font(.subheadline)
                                 .foregroundStyle(Color.gray)
                                 .minimumScaleFactor(0.5)
                                 .lineLimit(1)
-
-                                }, icon: {
-                                    Image(systemName: "arrow.turn.up.left")
-                                        .foregroundColor(.easternBlue)
-                                        .font(.system(size: 18, weight: .bold))
-                                } )
+                            
+                        }, icon: {
+                            Image(systemName: "arrow.turn.up.left")
+                                .foregroundColor(.easternBlue)
+                                .font(.system(size: 18, weight: .bold))
+                        } )
                         Spacer()
                         Label(title: {
-                                    Text(String(format: String(localized: "d_sent"), "\(alias.emails_sent)"))
+                            Text(String(format: String(localized: "d_sent"), "\(alias.emails_sent)"))
                                 .font(.subheadline)
                                 .foregroundStyle(Color.gray)
                                 .minimumScaleFactor(0.5)
                                 .lineLimit(1)
-
-                                }, icon: {
-                                    Image(systemName: "paperplane")
-                                        .foregroundColor(.portalBlue)
-                                        .font(.system(size: 18, weight: .bold))
-                                } )
+                            
+                        }, icon: {
+                            Image(systemName: "paperplane")
+                                .foregroundColor(.portalBlue)
+                                .font(.system(size: 18, weight: .bold))
+                        } )
                         Spacer()
                         Label(title: {
-                                    Text(String(format: String(localized: "d_blocked"), "\(alias.emails_blocked)"))
+                            Text(String(format: String(localized: "d_blocked"), "\(alias.emails_blocked)"))
                                 .font(.subheadline)
                                 .foregroundStyle(Color.gray)
                                 .minimumScaleFactor(0.5)
                                 .lineLimit(1)
-
-                                }, icon: {
-                                    Image(systemName: "slash.circle")
-                                        .foregroundColor(.softRed)
-                                        .font(.system(size: 18, weight: .bold))
-                                } )
+                            
+                        }, icon: {
+                            Image(systemName: "slash.circle")
+                                .foregroundColor(.softRed)
+                                .font(.system(size: 18, weight: .bold))
+                        } )
                         Spacer()
-
-
+                        
+                        
                     }
                     .padding(.leading, 15)
                     .labelStyle(MyAliasLabelStyle())
-                }
-
-            }.padding().frame(height: 250)
+                }.frame(idealHeight: 200, maxHeight: 300)
+                
+            }.padding()
             
             if (AliasWatcher().getAliasesToWatch().contains(alias.id)){
                 Label(String(localized: "you_ll_be_notified_if_this_alias_has_activity"), systemImage: "eyes").foregroundColor(.gray.opacity(0.4)).padding(.horizontal).padding(.bottom,16)
             }
-
+            
         } else {
             VStack() {
                 HStack{
-
-                        BarChart()
-                            .data(chartData)
-                            .chartStyle(ChartStyle(backgroundColor: .white,
-                                                   foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
-                                                                     ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
-                                                                     ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
-                                                                     ColorGradient(.softRed, .softRed.opacity(0.7))]))
-                    .frame(width: 60)
-                     .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 12))
+ 
+                    BarChart()
+                        .data(chartData)
+                        .chartStyle(ChartStyle(backgroundColor: .white,
+                                               foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
+                                                                 ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
+                                                                 ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
+                                                                 ColorGradient(.softRed, .softRed.opacity(0.7))]))
+                        .frame(width: 60)
+                        .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 12))
+                        .grayscale(alias.active ? 0 : 1)
                     
                     Spacer()
                     
@@ -167,9 +168,9 @@ struct AliasRowView: View {
                             .lineLimit(2)
                     }
                     .padding(EdgeInsets(top: 12, leading: 0, bottom: 12, trailing: 0))
-                        
+                    
                     Spacer()
-
+                    
                     //Spacer()
                     
                     
@@ -188,7 +189,7 @@ struct AliasRowView: View {
             
         }
     }
-
+    
 }
 
 //#Preview {

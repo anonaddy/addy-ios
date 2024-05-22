@@ -76,7 +76,7 @@ struct SetupOnboarding: View {
                     }}
                 ) {
                     Text(String(localized: "next")).foregroundColor(Color.white)
-                }
+                }.padding(.bottom)
                 
             }.padding(.horizontal, 32)
             
@@ -115,7 +115,7 @@ struct SetupOnboarding: View {
                     }}
                 ) {
                     Text(String(localized: "next")).foregroundColor(Color.white)
-                }
+                }.padding(.bottom)
                 
             }.padding(.horizontal, 32)
             
@@ -154,7 +154,7 @@ struct SetupOnboarding: View {
                     }}
                 ) {
                     Text(String(localized: "next")).foregroundColor(Color.white)
-                }
+                }.padding(.bottom)
                 
             }.padding(.horizontal, 32)
             
@@ -195,7 +195,7 @@ struct SetupOnboarding: View {
                }}
                 ) {
                     Text(String(localized: "sign_up")).foregroundColor(Color.white)
-                }
+                }.padding(.bottom)
                 
             }.padding(.horizontal, 32)
             

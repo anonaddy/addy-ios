@@ -229,7 +229,7 @@ struct AliasDetailView: View {
                             if !mainViewState.userResource!.hasUserFreeSubscription(){
                                 isPresentingEditAliasFromNameBottomSheet = true
                             } else {
-                                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                                HapticHelper.playHapticFeedback(hapticType: .error)
                             }
                         }
                     
@@ -365,7 +365,7 @@ struct AliasDetailView: View {
                    } description: {
                        Text(errorText)
                    }.onAppear{
-                       UINotificationFeedbackGenerator().notificationOccurred(.error)
+                       HapticHelper.playHapticFeedback(hapticType: .error)
                    }
                 } else {
                     VStack(spacing: 20) {
@@ -447,22 +447,13 @@ struct AliasDetailView: View {
             UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
 
             // Prepare mailto URL
-            let mailtoURL = createMailtoURL(recipients: recipients)
+        let mailtoURL = AnonAddyUtils.createMailtoURL(recipients: recipients)
             
             // Open mailto URL
             if let url = mailtoURL {
                 UIApplication.shared.open(url)
             }
         }
-    
-    private func createMailtoURL(recipients: [String]) -> URL? {
-        let recipientsString = recipients.joined(separator: ",")
-        var components = URLComponents()
-        components.scheme = "mailto"
-        components.path = recipientsString
-        
-        return components.url
-    }
     
     func getRecipients(alias: Aliases) -> String{
         // Set recipients
@@ -520,10 +511,10 @@ struct AliasDetailView: View {
                     self.isAliasActive = true
                 } else {
                     self.isAliasActive = false
-                    
-                    // TODO: let user know
-                    print("Error: \(String(describing: error))")
-                    //self.showError = true
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_forgetting_alias")
+                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
                 }
             }
         },aliasId: alias.id)
@@ -540,8 +531,10 @@ struct AliasDetailView: View {
                     self.isAliasActive = false
                 } else {
                     self.isAliasActive = true
-                    print("Error: \(String(describing: result))")
-                    //self.showError = true
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_forgetting_alias")
+                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
                 }
             }
         },aliasId: alias.id)

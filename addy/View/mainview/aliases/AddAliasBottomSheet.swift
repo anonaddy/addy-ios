@@ -121,7 +121,7 @@ struct AddAliasBottomSheet: View {
                             .multilineTextAlignment(.leading)
                             .padding([.horizontal], 0)
                             .onAppear{
-                                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                                HapticHelper.playHapticFeedback(hapticType: .error)
 
                             }
                     }

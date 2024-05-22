@@ -69,7 +69,6 @@ class MainViewState: ObservableObject {
 
 struct MainView: View {
     @StateObject private var mainViewState = MainViewState()
-    @StateObject var aliasesData = AliasesViewModel()
 
     
     var body: some View {
@@ -101,7 +100,6 @@ struct MainView: View {
                 NavigationStack {
                     AliasesView()
                         .environmentObject(mainViewState)
-                        .environmentObject(aliasesData)
                 }
                 .tabItem {
                     Label(String(localized: "aliases"), systemImage: "at.circle")

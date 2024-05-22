@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806890952BFE7F7300CEB8C7 /* HapticHelper.swift */; };
 		80A7F2002BECD122001A984B /* AliasSortFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */; };
 		80B4F4B92BEA52EE0009E4CA /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4F4B82BEA52EE0009E4CA /* Logs.swift */; };
 		80B4F4BC2BEA531A0009E4CA /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4F4BB2BEA531A0009E4CA /* NetworkHelper.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		8001D9F02BEA513500AAD10E /* addy_shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = addy_shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		806890952BFE7F7300CEB8C7 /* HapticHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticHelper.swift; sourceTree = "<group>"; };
 		80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSortFilter.swift; sourceTree = "<group>"; };
 		80B4F4B82BEA52EE0009E4CA /* Logs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logs.swift; sourceTree = "<group>"; };
 		80B4F4BB2BEA531A0009E4CA /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		80BB84112BF0008A005999C3 /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				806890952BFE7F7300CEB8C7 /* HapticHelper.swift */,
 				80B4F4BD2BEA53260009E4CA /* LoggingHelper.swift */,
 				80B4F4BB2BEA531A0009E4CA /* NetworkHelper.swift */,
 			);
@@ -233,6 +236,7 @@
 				80BB84152BF001AB005999C3 /* DateTimeUtils.swift in Sources */,
 				80E84A332BEC122900C8D68A /* Recipients.swift in Sources */,
 				80B4F4C52BEA55760009E4CA /* AddyIo.swift in Sources */,
+				806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */,
 				80B4F4B92BEA52EE0009E4CA /* Logs.swift in Sources */,
 				80A7F2002BECD122001A984B /* AliasSortFilter.swift in Sources */,
 				80B4F4C12BEA534B0009E4CA /* KeychainSwift.swift in Sources */,

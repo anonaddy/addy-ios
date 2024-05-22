@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import addy_shared
 
 struct ValidatingTextField: View {
     @Binding var value: String
@@ -106,7 +107,7 @@ struct ValidatingTextField: View {
                             .multilineTextAlignment(.leading)
                             .padding([.horizontal], 0)
                             .onAppear{
-                                                                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                                HapticHelper.playHapticFeedback(hapticType: .error)
                                                             }
                     }
                     
