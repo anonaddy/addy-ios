@@ -29,6 +29,9 @@
 		80AC67082BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */; };
 		80AC670C2BFB5DC1004D227D /* AnonAddyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC670B2BFB5DC1004D227D /* AnonAddyUtils.swift */; };
 		80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */; };
+		80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */; };
+		80CEC3432C01343000EC651F /* RecipientRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC3422C01343000EC651F /* RecipientRowView.swift */; };
+		80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC3442C01354300EC651F /* RecipientsDetailView.swift */; };
 		80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */; };
 		80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */; };
 		80D8C7A62BF3D4E700933ED8 /* AddyChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D8C7A52BF3D4E700933ED8 /* AddyChipView.swift */; };
@@ -164,6 +167,9 @@
 		80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasSendMailRecipientBottomSheet.swift; sourceTree = "<group>"; };
 		80AC670B2BFB5DC1004D227D /* AnonAddyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonAddyUtils.swift; sourceTree = "<group>"; };
 		80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAliasLabelStyle.swift; sourceTree = "<group>"; };
+		80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsViewModel.swift; sourceTree = "<group>"; };
+		80CEC3422C01343000EC651F /* RecipientRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientRowView.swift; sourceTree = "<group>"; };
+		80CEC3442C01354300EC651F /* RecipientsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsDetailView.swift; sourceTree = "<group>"; };
 		80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButton.swift; sourceTree = "<group>"; };
 		80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButtonStyle.swift; sourceTree = "<group>"; };
 		80D8C7A52BF3D4E700933ED8 /* AddyChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyChipView.swift; sourceTree = "<group>"; };
@@ -408,6 +414,7 @@
 		80A7F2012BECD7D3001A984B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */,
 				80A7F2042BECD840001A984B /* AliasesViewModel.swift */,
 			);
 			path = ViewModel;
@@ -427,6 +434,14 @@
 				80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */,
 			);
 			path = styles;
+			sourceTree = "<group>";
+		};
+		80CEC3462C01354700EC651F /* manage */ = {
+			isa = PBXGroup;
+			children = (
+				80CEC3442C01354300EC651F /* RecipientsDetailView.swift */,
+			);
+			path = manage;
 			sourceTree = "<group>";
 		};
 		80D82DC32BE95BAF009440DC /* AddyLoadingButton */ = {
@@ -510,6 +525,8 @@
 		80E849B12BEBA81B00C8D68A /* recipients */ = {
 			isa = PBXGroup;
 			children = (
+				80CEC3462C01354700EC651F /* manage */,
+				80CEC3422C01343000EC651F /* RecipientRowView.swift */,
 				80E849B22BEBA82A00C8D68A /* RecipientsView.swift */,
 			);
 			path = recipients;
@@ -925,6 +942,7 @@
 				80DCF3A52BF118BE0022690F /* GsonTools.swift in Sources */,
 				80E849F72BEBB43000C8D68A /* AppBarView.swift in Sources */,
 				80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */,
+				80CEC3432C01343000EC651F /* RecipientRowView.swift in Sources */,
 				80F22F9F2BEE34EE001176B4 /* BarChartCellShape.swift in Sources */,
 				80E849B32BEBA82A00C8D68A /* RecipientsView.swift in Sources */,
 				80F22FB22BEE34EE001176B4 /* RingsChartRow.swift in Sources */,
@@ -950,6 +968,7 @@
 				80F22F802BEE34EE001176B4 /* AxisLabelsPosition.swift in Sources */,
 				80F22FA02BEE34EE001176B4 /* BarChartRow.swift in Sources */,
 				80E84A2F2BEC119500C8D68A /* AliasDetailView.swift in Sources */,
+				80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */,
 				80D8C7A62BF3D4E700933ED8 /* AddyChipView.swift in Sources */,
 				80F22F8F2BEE34EE001176B4 /* Color+Extension.swift in Sources */,
 				80F22FA72BEE34EE001176B4 /* LineBackgroundShapeView.swift in Sources */,
@@ -962,6 +981,7 @@
 				80E84A282BEBED0B00C8D68A /* CommonHelpers.swift in Sources */,
 				80F22F9D2BEE34EE001176B4 /* BarChart.swift in Sources */,
 				80F22F832BEE34EE001176B4 /* AxisLabels.swift in Sources */,
+				80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */,
 				80F22F842BEE34EE001176B4 /* CardView.swift in Sources */,
 				80F22F8E2BEE34EE001176B4 /* ChartBase+Extension.swift in Sources */,
 				80F22FB12BEE34EE001176B4 /* RingsChart.swift in Sources */,

@@ -24,14 +24,11 @@ struct AliasesView: View {
     @State private var showAlert: Bool = false
     
     @State private var aliasInContextMenu: Aliases? = nil
+    @State private var aliasToSendMailFrom: Aliases? = nil
     
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-    
-    
-    @State private var isPresentingEditAliasSendMailRecipientBottomSheet = false
-    
-    
+
     @State var selectedFilterChip = "filter_all_aliases"
     @State var filterChips: [AddyChipModel] = []
     
@@ -87,7 +84,7 @@ struct AliasesView: View {
                                 Spacer()
                                 Divider().padding(.vertical,24)
                                 Spacer()
-
+                                
                                 VStack {
                                     RoundedRectangle(cornerRadius: 16)
                                         .fill(Color.accentColor)
@@ -130,9 +127,8 @@ struct AliasesView: View {
                                             Label(String(localized: "copy_alias"), systemImage: "clipboard")
                                         }
                                         Button {
-                                                self.aliasInContextMenu = alias
-                                                self.isPresentingEditAliasSendMailRecipientBottomSheet = true
-                                        } label: {
+                                            self.aliasToSendMailFrom = alias
+                                      } label: {
                                             Label(String(localized: "send_mail"), systemImage: "paperplane")
                                         }
                                         
@@ -140,7 +136,6 @@ struct AliasesView: View {
                                             Button() {
                                                 self.activeAlert = .restoreAlias
                                                 self.showAlert = true
-                                                self.aliasInContextMenu = alias
                                             } label: {
                                                 Label(String(localized: "restore_alias"), systemImage: "arrow.up.trash")
                                             }
@@ -167,7 +162,6 @@ struct AliasesView: View {
                                             Button(role: .destructive) {
                                                 self.activeAlert = .deleteAliases
                                                 self.showAlert = true
-                                                self.aliasInContextMenu = alias
                                             } label: {
                                                 Label(String(localized: "delete_alias"), systemImage: "trash")
                                             }
@@ -175,7 +169,10 @@ struct AliasesView: View {
                                         
                                     } preview:
                                 {
-                                    AliasRowView(alias: alias, isPreview: true)
+                                    AliasRowView(alias: alias, isPreview: true).onAppear {
+                                        self.aliasInContextMenu = alias
+
+                                    }
                                 }
                                 NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email).environmentObject(mainViewState)){
                                     EmptyView()
@@ -282,7 +279,7 @@ struct AliasesView: View {
                             ContentUnavailableView {
                                 Label(String(localized: "obtaining_aliases"), systemImage: "globe")
                             } description: {
-                                Text(String(localized: "obtaining_aliases_desc"))
+                                Text(String(localized: "obtaining_desc"))
                             }
                             
                             ProgressView()
@@ -323,20 +320,18 @@ struct AliasesView: View {
                     }
                 }
             }
-            .sheet(isPresented: $isPresentingEditAliasSendMailRecipientBottomSheet, onDismiss: {
-                self.aliasInContextMenu = nil
-            }) {
-                NavigationStack {
-                    if let alias = self.aliasInContextMenu {
-                        EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email){ addresses in
+            // Replace the current .sheet modifier with this one
+            .sheet(item: $aliasToSendMailFrom) { alias in
+                    NavigationStack {
+                        EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email) { addresses in
                             self.onPressSend(toString: addresses)
-                            isPresentingEditAliasSendMailRecipientBottomSheet = false
-                            
                         }
-                    } else {
-                        AddyBugFound()
+                        .onDisappear {
+                            // Reset the aliasInContextMenu when the sheet disappears
+                            self.aliasToSendMailFrom = nil
+                        }
                     }
-                }
+                
             }
             .sheet(isPresented: $isPresentingAddAliasBottomSheet) {
                 NavigationStack {
@@ -354,7 +349,7 @@ struct AliasesView: View {
             }
         }.onAppear(perform: {
             LoadFilter()
-            
+
             if let aliasList = aliasesViewModel.aliasList{
                 if (aliasList.data.isEmpty) {
                     aliasesViewModel.getAliases(forceReload: true)
@@ -366,6 +361,7 @@ struct AliasesView: View {
         
         
     }
+    
     
     func ApplyFilter(chipId: String){
         
@@ -484,8 +480,6 @@ struct AliasesView: View {
         }
     }
     
-    
-    
     private func activateAlias(alias:Aliases) {
         let networkHelper = NetworkHelper()
         networkHelper.activateSpecificAlias(completion: { alias, error in
@@ -493,7 +487,6 @@ struct AliasesView: View {
                 
                 if alias != nil {
                     // TODO can I update this item without full reload
-                    self.aliasInContextMenu = nil
                     aliasesViewModel.getAliases(forceReload: true)
                 } else {
                     activeAlert = .error
@@ -512,7 +505,6 @@ struct AliasesView: View {
                 
                 if result == "204" {
                     // TODO can I update this item without full reload
-                    self.aliasInContextMenu = nil
                     aliasesViewModel.getAliases(forceReload: true)
                 } else {
                     activeAlert = .error
@@ -531,7 +523,6 @@ struct AliasesView: View {
                 
                 if result == "204" {
                     // TODO can I remove this item without full reload
-                    self.aliasInContextMenu = nil
                     aliasesViewModel.getAliases(forceReload: true)
                 } else {
                     activeAlert = .error
@@ -550,7 +541,6 @@ struct AliasesView: View {
                 
                 if alias != nil {
                     // TODO can I update this item without full reload
-                    self.aliasInContextMenu = nil
                     aliasesViewModel.getAliases(forceReload: true)
                 } else {
                     activeAlert = .error
@@ -561,8 +551,7 @@ struct AliasesView: View {
             }
         },aliasId: alias.id)
     }
-    
-    
+        
     func GetFilterChips() -> [AddyChipModel]{
         return [
             AddyChipModel(chipId: "filter_all_aliases",label: String(localized: "filter_all_aliases")),

@@ -517,6 +517,28 @@
         }
       }
     },
+    "delete_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete recipient"
+          }
+        }
+      }
+    },
+    "delete_recipient_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this recipient?"
+          }
+        }
+      }
+    },
     "deleting_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -768,6 +790,17 @@
         }
       }
     },
+    "error_deleting_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this recipient"
+          }
+        }
+      }
+    },
     "error_forgetting_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -786,6 +819,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Could not find alias"
+          }
+        }
+      }
+    },
+    "error_obtaining_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find recipient"
           }
         }
       }
@@ -844,6 +888,17 @@
         }
       }
     },
+    "filter_all_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        }
+      }
+    },
     "filter_custom" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -873,6 +928,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Inactive"
+          }
+        }
+      }
+    },
+    "filter_verified_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verified only"
           }
         }
       }
@@ -1045,9 +1111,6 @@
     "Hello World" : {
 
     },
-    "Hello, %@" : {
-
-    },
     "Hello, World!" : {
 
     },
@@ -1208,13 +1271,24 @@
         }
       }
     },
-    "obtaining_aliases_desc" : {
+    "obtaining_desc" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "This shouldn't take long..."
+          }
+        }
+      }
+    },
+    "obtaining_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your recipients"
           }
         }
       }
@@ -1259,6 +1333,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recipients"
+          }
+        }
+      }
+    },
+    "recipients_filtered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipients (filter active)"
           }
         }
       }
@@ -1586,6 +1671,17 @@
         }
       }
     },
+    "something_went_wrong_retrieving_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving recipients"
+          }
+        }
+      }
+    },
     "sort_active" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1828,6 +1924,9 @@
           }
         }
       }
+    },
+    "TODO" : {
+
     },
     "try_again" : {
       "extractionState" : "manual",
