@@ -1,5 +1,5 @@
 //
-//  EditAliasDescriptionBottomSheet.swift
+//  AddRecipientBottomSheet.swift
 //  addy
 //
 //  Created by Stijn van de Water on 12/05/2024.
@@ -7,36 +7,25 @@
 
 import SwiftUI
 
-//
-//  AddApiBottomSHeet.swift
-//  addy
-//
-//  Created by Stijn van de Water on 07/05/2024.
-//
 
 import SwiftUI
 import AVFoundation
 import CodeScanner
 import addy_shared
 
-struct EditAliasFromNameBottomSheet: View {
-    let aliasId: String
-    let aliasEmail: String
-    @State var fromName: String
-    @State var fromNamePlaceholder: String = String(localized: "from_name")
-    let fromNameEdited: (Aliases) -> Void
+struct AddRecipientBottomSheet: View {
+    @State var address: String = ""
+    @State var addressPlaceHolder: String = String(localized: "address")
+    let onAdded: () -> Void
 
-    init(aliasId: String, aliasEmail: String, fromName: String?, fromNameEdited: @escaping (Aliases) -> Void) {
-        self.aliasId = aliasId
-        self.aliasEmail = aliasEmail
-        self.fromName = fromName ?? ""
-        self.fromNameEdited = fromNameEdited
+    init(onAdded: @escaping () -> Void) {
+        self.onAdded = onAdded
     }
     
-    @State private var fromNameValidationError:String?
-    @State private var fromNameRequestError:String?
+    @State private var recipientValidationError:String?
+    @State private var recipientRequestError:String?
 
-    @State var IsLoadingSaveButton: Bool = false
+    @State var IsLoadingAddButton: Bool = false
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -45,17 +34,17 @@ struct EditAliasFromNameBottomSheet: View {
             Form {
                 
                 Section{
-                    ValidatingTextField(value: self.$fromName, placeholder: self.$fromNamePlaceholder, fieldType: .text, error: $fromNameValidationError)
+                    ValidatingTextField(value: self.$address, placeholder: self.$addressPlaceHolder, fieldType: .email, error: $recipientValidationError)
                     
                 } header: {
                     VStack(alignment: .leading){
-                        let formattedString = String.localizedStringWithFormat(NSLocalizedString("edit_from_name_alias_desc", comment: ""), aliasEmail)
+                        let formattedString = String.localizedStringWithFormat(NSLocalizedString("add_recipient_desc", comment: ""))
                         Text(LocalizedStringKey(formattedString))
                             .multilineTextAlignment(.center)
                             .padding(.bottom)
                     }
                 } footer: {
-                    if let error = fromNameRequestError {
+                    if let error = recipientRequestError {
                         Text(error)
                             .foregroundColor(.red)
                             .font(.system(size: 15))
@@ -72,26 +61,26 @@ struct EditAliasFromNameBottomSheet: View {
                     AddyLoadingButton(action: {
                         // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
                         // We should not allow any saving until the validationErrors are nil
-                        if (fromNameValidationError == nil){
-                            IsLoadingSaveButton = true;
+                        if (recipientValidationError == nil){
+                            IsLoadingAddButton = true;
                             
                             DispatchQueue.global(qos: .background).async {
-                                self.editFromName(fromName: self.fromName)
+                                self.addRecipientToAccount(address: self.address)
                             }
                         } else {
                             DispatchQueue.main.async {
-                                IsLoadingSaveButton = false
+                                IsLoadingAddButton = false
                             }
                         }
-                    }, isLoading: $IsLoadingSaveButton) {
-                        Text(String(localized: "save")).foregroundColor(Color.white)
+                    }, isLoading: $IsLoadingAddButton) {
+                        Text(String(localized: "add")).foregroundColor(Color.white)
                     }.frame(minHeight: 56)
                 }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
                 
                 
                 
                 
-            }.navigationTitle(String(localized: "edit_from_name")).pickerStyle(.navigationLink)
+            }.navigationTitle(String(localized: "add_recipient")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
                     ToolbarItem() {
@@ -109,25 +98,25 @@ struct EditAliasFromNameBottomSheet: View {
     }
     
     
-    private func editFromName(fromName:String?) {
-        fromNameRequestError = nil
+    private func addRecipientToAccount(address:String) {
+        recipientRequestError = nil
         
         let networkHelper = NetworkHelper()
-        networkHelper.updateFromNameSpecificAlias(completion: { alias, error in
+        networkHelper.addRecipient(completion: { recipient, error in
             DispatchQueue.main.async {
-                if let alias = alias {
-                    self.fromNameEdited(alias)
+                if let recipient = recipient {
+                    self.onAdded()
                 } else {
-                    IsLoadingSaveButton = false
-                    fromNameRequestError = error
+                    IsLoadingAddButton = false
+                    recipientRequestError = error
                 }
             }
-        }, aliasId: self.aliasId, fromName: fromName)
+        }, address: address)
     }
 }
 
 #Preview {
-    EditAliasFromNameBottomSheet(aliasId: "000", aliasEmail: "TEST", fromName: "NICE", fromNameEdited: { alias in
+    AddRecipientBottomSheet() {
         // Dummy function for preview
-    })
+    }
 }

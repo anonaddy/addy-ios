@@ -108,9 +108,9 @@ struct AddApiBottomSheet: View {
             
             Section {
                 ValidatingTextField(value: $instance, placeholder:
-                                        $instancePlaceholder, fieldType: .url, error: $instanceError, formStyling: true).disabled(apiBaseUrl != nil)
+                                        $instancePlaceholder, fieldType: .url, error: $instanceError).disabled(apiBaseUrl != nil)
                 
-                ValidatingTextField(value: $apiKey, placeholder: $apiKeyPlaceholder, fieldType: .bigText, error: $apiKeyError,formStyling: true)
+                ValidatingTextField(value: $apiKey, placeholder: $apiKeyPlaceholder, fieldType: .bigText, error: $apiKeyError)
                 
             } header: {
                 VStack(alignment: .leading){

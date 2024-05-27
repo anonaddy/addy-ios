@@ -23,6 +23,9 @@ struct AliasesView: View {
     @State private var activeAlert: ActiveAlert = .reachedMaxAliases
     @State private var showAlert: Bool = false
     
+    @State private var shouldReloadDataInParent = false
+
+    
     @State private var aliasInContextMenu: Aliases? = nil
     @State private var aliasToSendMailFrom: Aliases? = nil
     
@@ -174,9 +177,16 @@ struct AliasesView: View {
 
                                     }
                                 }
-                                NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email).environmentObject(mainViewState)){
+                                NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email, shouldReloadDataInParent: $shouldReloadDataInParent).environmentObject(mainViewState)){
                                     EmptyView()
-                                }.opacity(0)
+                                }
+                                .opacity(0)
+                                .onChange(of: shouldReloadDataInParent) {
+                                if shouldReloadDataInParent {
+                                    aliasesViewModel.getAliases(forceReload: true)
+                                                self.shouldReloadDataInParent = false
+                                            }
+                                }
                                 
                             }
                             

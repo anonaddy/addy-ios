@@ -62,6 +62,61 @@
         }
       }
     },
+    "add_public_gpg_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add public GPG key"
+          }
+        }
+      }
+    },
+    "add_public_gpg_key_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your PUBLIC key data in the textbox below\n\nMake sure to remove Comment: and Version:\n\nElGamal keys are not currently supported."
+          }
+        }
+      }
+    },
+    "add_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add recipient"
+          }
+        }
+      }
+    },
+    "add_recipient_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the individual email of the new recipient you'd like to add. This is where your aliases will **forward messages to.**\n\nYou will receive an email with a verification link that will **expire in one hour** you can click \"Resend email\" to get a new one."
+          }
+        }
+      }
+    },
+    "address" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Address"
+          }
+        }
+      }
+    },
     "addresses" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -341,6 +396,17 @@
         }
       }
     },
+    "basic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basic"
+          }
+        }
+      }
+    },
     "bug_found" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -363,6 +429,50 @@
         }
       }
     },
+    "can_reply_send" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reply/send allowed"
+          }
+        }
+      }
+    },
+    "can_reply_send_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toggle this option to determine whether this recipient is allowed to reply and send from your aliases. When set to off this recipient will not be able to reply or send from your aliases and you will be notified when an attempt is made"
+          }
+        }
+      }
+    },
+    "cannot_reply_send" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reply/send not allowed"
+          }
+        }
+      }
+    },
+    "change_public_gpg_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change public GPG key"
+          }
+        }
+      }
+    },
     "clear_filter" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -370,6 +480,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clear filter"
+          }
+        }
+      }
+    },
+    "close" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
           }
         }
       }
@@ -534,7 +655,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Are you sure you want to delete this recipient?"
+            "value" : "Are you sure you want to delete the recipient %@?"
           }
         }
       }
@@ -754,6 +875,50 @@
         }
       }
     },
+    "encrypt_emails_to_this_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encrypt emails to this recipient"
+          }
+        }
+      }
+    },
+    "encryption" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encryption"
+          }
+        }
+      }
+    },
+    "encryption_disabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encryption disabled"
+          }
+        }
+      }
+    },
+    "encryption_enabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encryption enabled"
+          }
+        }
+      }
+    },
     "error" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -801,6 +966,17 @@
         }
       }
     },
+    "error_edit_active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the active state"
+          }
+        }
+      }
+    },
     "error_forgetting_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -830,6 +1006,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Could not find recipient"
+          }
+        }
+      }
+    },
+    "error_removing_gpg_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while removing the public key"
+          }
+        }
+      }
+    },
+    "error_resend_verification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not resend verification email"
           }
         }
       }
@@ -983,6 +1181,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Decide which aliases to display and in which order to display them. Filters are saved and retained on app restart"
+          }
+        }
+      }
+    },
+    "fingerprint_s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fingerprint:\n%@"
           }
         }
       }
@@ -1194,6 +1403,17 @@
         }
       }
     },
+    "manage_recipient_basic_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email: %@\nCreated: %@\nUpdated at: %@\nEmail forwarded: %@\nEmail blocked: %@\nEmail replies: %@\nEmail sent: %@"
+          }
+        }
+      }
+    },
     "menu" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1260,6 +1480,17 @@
         }
       }
     },
+    "not_verified" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not verified"
+          }
+        }
+      }
+    },
     "obtaining_aliases" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1289,6 +1520,83 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Obtaining your recipients"
+          }
+        }
+      }
+    },
+    "pgp_inline" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PGP/Inline"
+          }
+        }
+      }
+    },
+    "pgp_inline_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use inline (PGP/Inline) instead of PGP/MIME encryption for forwarded messages. Please Note: This will ONLY encrypt and forward the plain text content!"
+          }
+        }
+      }
+    },
+    "prerequisite_disable_pgp_inline" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You need to disable inline encryption before you can enable protected headers (hide subject)"
+          }
+        }
+      }
+    },
+    "prerequisite_disable_protected_headers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You need to disable protected headers (hide subject) before you can enable inline encryption"
+          }
+        }
+      }
+    },
+    "protected_headers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide subject"
+          }
+        }
+      }
+    },
+    "protected_headers_subject_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enabling this setting will hide and encrypt the email subject using protected headers. Many mail clients are able to automatically decrypt and display the subject once the email arrives."
+          }
+        }
+      }
+    },
+    "public_key_placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Begins with \\'-----BEGIN PGP PUBLIC KEY BLOCK-----\\'"
           }
         }
       }
@@ -1326,6 +1634,17 @@
         }
       }
     },
+    "recipient_aliases_d" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipient aliases (%@)"
+          }
+        }
+      }
+    },
     "recipients" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1348,6 +1667,50 @@
         }
       }
     },
+    "recipients_list_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aliases"
+          }
+        }
+      }
+    },
+    "remove" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        }
+      }
+    },
+    "remove_public_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove public key"
+          }
+        }
+      }
+    },
+    "remove_public_key_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to remove the public key for this recipient? It will also be removed from any other recipients using the same key."
+          }
+        }
+      }
+    },
     "replied_sent_stat" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1355,6 +1718,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ replied\n%@ sent"
+          }
+        }
+      }
+    },
+    "resend_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resend email"
           }
         }
       }
@@ -1925,9 +2299,6 @@
         }
       }
     },
-    "TODO" : {
-
-    },
     "try_again" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1961,12 +2332,56 @@
         }
       }
     },
+    "unlimited" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unlimited"
+          }
+        }
+      }
+    },
     "updated_at_s" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Updated %@"
+          }
+        }
+      }
+    },
+    "verification_email_confirmation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This recipients is not verified yet"
+          }
+        }
+      }
+    },
+    "verification_email_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to resend the confirmation email to this recipient?"
+          }
+        }
+      }
+    },
+    "verification_email_has_been_sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verification email has been sent"
           }
         }
       }
@@ -2000,6 +2415,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You’ll be notified if this alias has activity"
+          }
+        }
+      }
+    },
+    "you_ve_used_d_out_of_d_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’ve used %@ out of %@ recipients"
           }
         }
       }

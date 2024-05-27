@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import addy_shared
 
 struct AddyToggle: View {
     
@@ -13,6 +14,7 @@ struct AddyToggle: View {
     var isLoading: Bool = false
     var title: String
     var description: String? = nil
+    @State var lineLimit: Int? = 3
     
     var body: some View {
                     
@@ -26,6 +28,7 @@ struct AddyToggle: View {
                             Text(description)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
+                                .lineLimit(lineLimit)
                         }
                         
                     }
@@ -37,7 +40,20 @@ struct AddyToggle: View {
                     }
 
                 }
-            }
+            }//.simultaneousGesture(
+//                LongPressGesture(minimumDuration: 1.0)
+//                    .onEnded { _ in
+//                        //TODO: Fix scrolling issue and implement this in the other sections as well
+//                        HapticHelper.playHapticFeedback(hapticType: .tap)
+//
+//                        if (self.lineLimit == nil){
+//                            self.lineLimit = 3
+//
+//                        } else {
+//                            self.lineLimit = nil
+//                        }
+//                    }
+//            )
             .tint(.accentColor)
             
     }

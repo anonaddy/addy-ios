@@ -54,8 +54,8 @@ public struct UserResource: Codable {
     public var subscription: String?
     var subscription_ends_at: String?
     var bandwidth_limit: Int64
-    var recipient_count: Int
-    var recipient_limit: Int
+    public var recipient_count: Int
+    public var recipient_limit: Int
     var active_domain_count: Int
     var active_domain_limit: Int
     var active_shared_domain_alias_count: Int

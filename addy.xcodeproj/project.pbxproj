@@ -24,13 +24,13 @@
 		807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */; };
 		807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */; };
+		807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */; };
 		80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2042BECD840001A984B /* AliasesViewModel.swift */; };
 		80A7F2072BECFA5B001A984B /* AliasRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2062BECFA5B001A984B /* AliasRowView.swift */; };
 		80AC67082BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */; };
 		80AC670C2BFB5DC1004D227D /* AnonAddyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC670B2BFB5DC1004D227D /* AnonAddyUtils.swift */; };
 		80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */; };
 		80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */; };
-		80CEC3432C01343000EC651F /* RecipientRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC3422C01343000EC651F /* RecipientRowView.swift */; };
 		80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC3442C01354300EC651F /* RecipientsDetailView.swift */; };
 		80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */; };
 		80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */; };
@@ -51,6 +51,7 @@
 		80E194652BF8AE0C005175EA /* AddyMultiSelectChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E194642BF8AE0C005175EA /* AddyMultiSelectChipView.swift */; };
 		80E1946A2BF8C840005175EA /* EditAliasFromNameBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E194692BF8C840005175EA /* EditAliasFromNameBottomSheet.swift */; };
 		80E1946E2BF8DCE0005175EA /* AddySectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E1946D2BF8DCE0005175EA /* AddySectionButton.swift */; };
+		80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E512502C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift */; };
 		80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499A2BEB73D900C8D68A /* MainView.swift */; };
 		80E8499F2BEB802D00C8D68A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499E2BEB802D00C8D68A /* HomeView.swift */; };
 		80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849A02BEB803400C8D68A /* AliasesView.swift */; };
@@ -65,7 +66,6 @@
 		80E84A2D2BEC0D4300C8D68A /* OLD_MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A2C2BEC0D4300C8D68A /* OLD_MainView.swift */; };
 		80E84A2F2BEC119500C8D68A /* AliasDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */; };
 		80F0D7E72BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json in Resources */ = {isa = PBXBuildFile; fileRef = 80F0D7E62BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json */; };
-		80F22ECB2BEE280B001176B4 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22ECA2BEE280B001176B4 /* Pie.swift */; };
 		80F22F7F2BEE34EE001176B4 /* AxisLabels+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F362BEE34EE001176B4 /* AxisLabels+Extension.swift */; };
 		80F22F802BEE34EE001176B4 /* AxisLabelsPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F382BEE34EE001176B4 /* AxisLabelsPosition.swift */; };
 		80F22F812BEE34EE001176B4 /* AxisLabelsStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F392BEE34EE001176B4 /* AxisLabelsStyle.swift */; };
@@ -162,13 +162,13 @@
 		806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingFieldModel.swift; sourceTree = "<group>"; };
 		807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
+		807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipientBottomSheet.swift; sourceTree = "<group>"; };
 		80A7F2042BECD840001A984B /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
 		80A7F2062BECFA5B001A984B /* AliasRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasRowView.swift; sourceTree = "<group>"; };
 		80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasSendMailRecipientBottomSheet.swift; sourceTree = "<group>"; };
 		80AC670B2BFB5DC1004D227D /* AnonAddyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonAddyUtils.swift; sourceTree = "<group>"; };
 		80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAliasLabelStyle.swift; sourceTree = "<group>"; };
 		80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsViewModel.swift; sourceTree = "<group>"; };
-		80CEC3422C01343000EC651F /* RecipientRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientRowView.swift; sourceTree = "<group>"; };
 		80CEC3442C01354300EC651F /* RecipientsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsDetailView.swift; sourceTree = "<group>"; };
 		80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButton.swift; sourceTree = "<group>"; };
 		80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButtonStyle.swift; sourceTree = "<group>"; };
@@ -188,6 +188,7 @@
 		80E194642BF8AE0C005175EA /* AddyMultiSelectChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyMultiSelectChipView.swift; sourceTree = "<group>"; };
 		80E194692BF8C840005175EA /* EditAliasFromNameBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasFromNameBottomSheet.swift; sourceTree = "<group>"; };
 		80E1946D2BF8DCE0005175EA /* AddySectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySectionButton.swift; sourceTree = "<group>"; };
+		80E512502C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipientPublicGpgKeyBottomSheet.swift; sourceTree = "<group>"; };
 		80E8499A2BEB73D900C8D68A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		80E8499E2BEB802D00C8D68A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		80E849A02BEB803400C8D68A /* AliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesView.swift; sourceTree = "<group>"; };
@@ -202,7 +203,6 @@
 		80E84A2C2BEC0D4300C8D68A /* OLD_MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLD_MainView.swift; sourceTree = "<group>"; };
 		80E84A2E2BEC119500C8D68A /* AliasDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDetailView.swift; sourceTree = "<group>"; };
 		80F0D7E62BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gray_ic_loading_logo.shapeshifter.json; sourceTree = "<group>"; };
-		80F22ECA2BEE280B001176B4 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 		80F22F362BEE34EE001176B4 /* AxisLabels+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AxisLabels+Extension.swift"; sourceTree = "<group>"; };
 		80F22F382BEE34EE001176B4 /* AxisLabelsPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxisLabelsPosition.swift; sourceTree = "<group>"; };
 		80F22F392BEE34EE001176B4 /* AxisLabelsStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxisLabelsStyle.swift; sourceTree = "<group>"; };
@@ -327,14 +327,12 @@
 				807338012BEA81DA00D0D7E0 /* ValidatingTextField */,
 				80D82DC32BE95BAF009440DC /* AddyLoadingButton */,
 				804BE7A92BE95B49001DDC8A /* AddyButton */,
-				80F22ECA2BEE280B001176B4 /* Pie.swift */,
 				80DCF39E2BF1095B0022690F /* AddyToggle.swift */,
 				80DCF3AD2BF1347F0022690F /* AddySection.swift */,
 				80E1946D2BF8DCE0005175EA /* AddySectionButton.swift */,
 				80D8C7A52BF3D4E700933ED8 /* AddyChipView.swift */,
 				80E194642BF8AE0C005175EA /* AddyMultiSelectChipView.swift */,
 				80E082632BF7D36700B51FB8 /* AddyBugFound.swift */,
-				80E0826A2BF7E2E100B51FB8 /* AddySegmentedControl.swift */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -439,6 +437,7 @@
 		80CEC3462C01354700EC651F /* manage */ = {
 			isa = PBXGroup;
 			children = (
+				80E512502C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift */,
 				80CEC3442C01354300EC651F /* RecipientsDetailView.swift */,
 			);
 			path = manage;
@@ -464,7 +463,6 @@
 		80DCF3A32BF118900022690F /* helpers */ = {
 			isa = PBXGroup;
 			children = (
-				80DCF3A42BF118BE0022690F /* GsonTools.swift */,
 				80DCF3AB2BF12E760022690F /* BackgroundWorkerHelper.swift */,
 			);
 			path = helpers;
@@ -526,8 +524,8 @@
 			isa = PBXGroup;
 			children = (
 				80CEC3462C01354700EC651F /* manage */,
-				80CEC3422C01343000EC651F /* RecipientRowView.swift */,
 				80E849B22BEBA82A00C8D68A /* RecipientsView.swift */,
+				807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */,
 			);
 			path = recipients;
 			sourceTree = "<group>";
@@ -552,6 +550,8 @@
 		80E84A2B2BEC0CDA00C8D68A /* _OLD */ = {
 			isa = PBXGroup;
 			children = (
+				80DCF3A42BF118BE0022690F /* GsonTools.swift */,
+				80E0826A2BF7E2E100B51FB8 /* AddySegmentedControl.swift */,
 				80F22F3F2BEE34EE001176B4 /* CardView */,
 				80E84A2C2BEC0D4300C8D68A /* OLD_MainView.swift */,
 				80E849FA2BEBD09B00C8D68A /* ScrollRefreshable.swift */,
@@ -894,6 +894,7 @@
 			files = (
 				80F22F882BEE34EE001176B4 /* ViewGeometry.swift in Sources */,
 				804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */,
+				807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */,
 				80E84A2A2BEBED3000C8D68A /* ProfileHelpers.swift in Sources */,
 				80F22F862BEE34EE001176B4 /* ChartData.swift in Sources */,
 				80F22F982BEE34EE001176B4 /* ChartGridShape.swift in Sources */,
@@ -937,12 +938,10 @@
 				80F22F9A2BEE34EE001176B4 /* ChartStyle.swift in Sources */,
 				80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */,
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
-				80F22ECB2BEE280B001176B4 /* Pie.swift in Sources */,
 				80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */,
 				80DCF3A52BF118BE0022690F /* GsonTools.swift in Sources */,
 				80E849F72BEBB43000C8D68A /* AppBarView.swift in Sources */,
 				80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */,
-				80CEC3432C01343000EC651F /* RecipientRowView.swift in Sources */,
 				80F22F9F2BEE34EE001176B4 /* BarChartCellShape.swift in Sources */,
 				80E849B32BEBA82A00C8D68A /* RecipientsView.swift in Sources */,
 				80F22FB22BEE34EE001176B4 /* RingsChartRow.swift in Sources */,
@@ -971,6 +970,7 @@
 				80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */,
 				80D8C7A62BF3D4E700933ED8 /* AddyChipView.swift in Sources */,
 				80F22F8F2BEE34EE001176B4 /* Color+Extension.swift in Sources */,
+				80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */,
 				80F22FA72BEE34EE001176B4 /* LineBackgroundShapeView.swift in Sources */,
 				806F21352BE8F1B100EBEBC8 /* SplashView.swift in Sources */,
 				80E849F92BEBB47A00C8D68A /* BottomNavigationView.swift in Sources */,

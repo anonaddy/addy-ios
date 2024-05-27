@@ -17,13 +17,13 @@ public struct Recipients:Identifiable, Codable {
     public let id: String
     let user_id: String
     public let email: String
-    var can_reply_send: Bool
-    var should_encrypt: Bool
-    var inline_encryption: Bool
-    var protected_headers: Bool
-    var fingerprint: String?
-    let email_verified_at: String?
-    var aliases_count: Int?
-    let created_at: String
-    let updated_at: String
+    public var can_reply_send: Bool
+    public var should_encrypt: Bool
+    public var inline_encryption: Bool
+    public var protected_headers: Bool
+    public var fingerprint: String?
+    public let email_verified_at: String?
+    public var aliases_count: Int?
+    public let created_at: String
+    public let updated_at: String
 }

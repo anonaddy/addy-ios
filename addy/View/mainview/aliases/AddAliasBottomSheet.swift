@@ -99,7 +99,7 @@ struct AddAliasBottomSheet: View {
                 
                 
                 if (selectedFormat == "custom"){
-                    ValidatingTextField(value: self.$localPart, placeholder: self.$localPartPlaceholder, fieldType: .text, error: $localPartValidationError, formStyling: true)
+                    ValidatingTextField(value: self.$localPart, placeholder: self.$localPartPlaceholder, fieldType: .text, error: $localPartValidationError)
                         .foregroundColor(localPartError ? .red : nil)
                 }
                 
@@ -129,7 +129,7 @@ struct AddAliasBottomSheet: View {
                 
             }
             Section {
-                ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError, formStyling: true)
+                ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError)
             } header: {
                 VStack(alignment: .leading){
                     Text(String(localized: "description"))

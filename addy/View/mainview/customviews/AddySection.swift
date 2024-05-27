@@ -15,6 +15,8 @@ struct AddySection: View {
     var trailingSystemimage: String? = nil
     var fontWeight: Font.Weight = .medium
     let onTap: () -> Void
+    @State var lineLimit: Int? = 3
+    
 
     var body: some View {
         Button(action: {
@@ -35,7 +37,7 @@ struct AddySection: View {
                         Text(description)
                             .font(.subheadline)
                             .foregroundColor(.secondary)
-                            .lineLimit(3)
+                            .lineLimit(self.lineLimit)
                     }
                     
                 }
@@ -54,7 +56,7 @@ struct AddySection: View {
 #Preview {
 //    AddySection(title: "Section title", description: "This is a nice long description to show off the functionalities of the AddySection inside this beautiful SwiftUI application", leadingSystemimage: "eyes", trailingSystemimage: "pencil")
 //    
-    AddySection(title: "Section title", description: nil, leadingSystemimage: "eyes", trailingSystemimage: "pencil"){
+    AddySection(title: "Section title", description: " wdhiadhaidhwaiodhwaiod", leadingSystemimage: "eyes", trailingSystemimage: "pencil"){
         
     }
 }

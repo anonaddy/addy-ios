@@ -355,6 +355,55 @@ public class NetworkHelper {
         task.resume()
     }
     
+    public func resendVerificationEmail(completion: @escaping (String?) -> Void, recipientId:String) {
+        let url = URL(string: AddyIo.API_URL_RECIPIENT_RESEND)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["recipient_id": recipientId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                completion("200")
+                
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "activateSpecificAlias",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
+    
     public func getSpecificAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String) {
         let url = URL(string: "\(AddyIo.API_URL_ALIAS)/\(aliasId)")!
         var request = URLRequest(url: url)
@@ -622,6 +671,76 @@ public class NetworkHelper {
         task.resume()
     }
     
+    
+    
+    public func allowRecipientToReplySend(completion: @escaping (Recipients?, String?) -> Void, recipientId:String) {
+        let url = URL(string: AddyIo.API_URL_ALLOWED_RECIPIENTS)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": recipientId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
+                    completion(addyIoData.data, nil)
+                } catch {
+                    let errorMessage = error.localizedDescription
+                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "allowRecipientToReplySend",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:
+                                                        data
+                                                   )
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "allowRecipientToReplySend",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
     public func deactivateSpecificAlias(completion: @escaping (String?) -> Void, aliasId:String) {
         let url = URL(string: "\(AddyIo.API_URL_ACTIVE_ALIAS)/\(aliasId)")!
         var request = URLRequest(url: url)
@@ -663,6 +782,563 @@ public class NetworkHelper {
         
         task.resume()
     }
+    
+    public func disallowRecipientToReplySend(completion: @escaping (String?) -> Void, recipientId:String) {
+        let url = URL(string: "\(AddyIo.API_URL_ALLOWED_RECIPIENTS)/\(recipientId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 204:
+                completion("204")
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "disallowRecipientToReplySend",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
+    
+    public func disableEncryptionRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
+        let url = URL(string: "\(AddyIo.API_URL_ENCRYPTED_RECIPIENTS)/\(recipientId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 204:
+                completion("204")
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "disableEncryptionRecipient",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
+    public func enableEncryptionRecipient(completion: @escaping (Recipients?, String?) -> Void, recipientId:String) {
+        let url = URL(string: AddyIo.API_URL_ENCRYPTED_RECIPIENTS)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": recipientId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
+                    completion(addyIoData.data, nil)
+                } catch {
+                    let errorMessage = error.localizedDescription
+                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "enableEncryptionRecipient",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:
+                                                        data
+                                                   )
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "enableEncryptionRecipient",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+
+    
+    public func disablePgpInlineRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
+        let url = URL(string: "\(AddyIo.API_URL_INLINE_ENCRYPTED_RECIPIENTS)/\(recipientId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 204:
+                completion("204")
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "disablePgpInlineRecipient",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
+    public func enablePgpInlineRecipient(completion: @escaping (Recipients?, String?) -> Void, recipientId:String) {
+        let url = URL(string: AddyIo.API_URL_INLINE_ENCRYPTED_RECIPIENTS)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": recipientId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
+                    completion(addyIoData.data, nil)
+                } catch {
+                    let errorMessage = error.localizedDescription
+                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "enablePgpInlineRecipient",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:
+                                                        data
+                                                   )
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "enablePgpInlineRecipient",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+
+    
+    
+    public func removeEncryptionKeyRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
+        let url = URL(string: "\(AddyIo.API_URL_RECIPIENT_KEYS)/\(recipientId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 204:
+                completion("204")
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "removeEncryptionKeyRecipient",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
+    public func disableProtectedHeadersRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
+        let url = URL(string: "\(AddyIo.API_URL_PROTECTED_HEADERS_RECIPIENTS)/\(recipientId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 204:
+                completion("204")
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "disablePgpInlineRecipient",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
+    public func enableProtectedHeadersRecipient(completion: @escaping (Recipients?, String?) -> Void, recipientId:String) {
+        let url = URL(string: AddyIo.API_URL_PROTECTED_HEADERS_RECIPIENTS)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": recipientId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
+                    completion(addyIoData.data, nil)
+                } catch {
+                    let errorMessage = error.localizedDescription
+                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "enablePgpInlineRecipient",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:
+                                                        data
+                                                   )
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "enablePgpInlineRecipient",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+
+    public func addEncryptionKeyRecipient(completion: @escaping (Recipients?, String?) -> Void, recipientId:String, keyData:String) {
+        let url = URL(string: "\(AddyIo.API_URL_RECIPIENT_KEYS)/\(recipientId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["key_data": keyData]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
+                    completion(addyIoData.data, nil)
+                } catch {
+                    let errorMessage = error.localizedDescription
+                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "addEncryptionKeyRecipient",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:
+                                                        data
+                                                   )
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "addEncryptionKeyRecipient",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+
+    
+    
+    public func addRecipient(completion: @escaping (Recipients?, String?) -> Void, address:String) {
+        let url = URL(string: AddyIo.API_URL_RECIPIENTS)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["email": address]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 201:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
+                    completion(addyIoData.data, nil)
+                } catch {
+                    let errorMessage = error.localizedDescription
+                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "addRecipient",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:
+                                                        data
+                                                   )
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "addRecipient",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+
     
     
     public func deleteAlias(completion: @escaping (String?) -> Void, aliasId:String) {
@@ -749,6 +1425,48 @@ public class NetworkHelper {
         task.resume()
     }
     
+    public func deleteRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
+        let url = URL(string: "\(AddyIo.API_URL_RECIPIENTS)/\(recipientId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 204:
+                completion("204")
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "deleteRecipient",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
     
     public func updateDescriptionSpecificAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String, description:String?) {
         let url = URL(string: "\(AddyIo.API_URL_ALIAS)/\(aliasId)")!
@@ -817,6 +1535,8 @@ public class NetworkHelper {
         
         task.resume()
     }
+    
+    
     public func updateFromNameSpecificAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String, fromName:String?) {
         let url = URL(string: "\(AddyIo.API_URL_ALIAS)/\(aliasId)")!
         var request = URLRequest(url: url)

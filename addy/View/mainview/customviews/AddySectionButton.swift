@@ -16,7 +16,7 @@ struct AddySectionButton: View {
     var colorAccent: Color? = .black
     var isLoading: Bool = false
     let onTap: () -> Void
-
+    
     
     var body: some View {
         
@@ -35,18 +35,17 @@ struct AddySectionButton: View {
                            Text(title)
                                .font(.callout)
                                .foregroundColor(colorAccent)
-                               .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
                            
                            if let description = description {
                                Text(description)
                                    .font(.subheadline)
                                    .foregroundColor(.secondary)
-                                   .multilineTextAlignment(.leading
-                                   )
+                                   .multilineTextAlignment(.leading)
+                                   .lineLimit(2)
+
                            }
                          
                        }
-                       
                        if isLoading {
                            Spacer(minLength: 15)
                            
@@ -60,8 +59,6 @@ struct AddySectionButton: View {
 }
 
 #Preview {
-//    AddySection(title: "Section title", description: "This is a nice long description to show off the functionalities of the AddySection inside this beautiful SwiftUI application", leadingSystemimage: "eyes", trailingSystemimage: "pencil")
-//
     
     AddySectionButton(title: "Section title", description: nil, leadingSystemimage: "eyes", isLoading: true){
         print("TAPPP")

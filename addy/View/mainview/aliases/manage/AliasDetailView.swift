@@ -19,6 +19,8 @@ struct AliasDetailView: View {
     let aliasId: String
     let aliasEmail: String
         
+    @Binding var shouldReloadDataInParent: Bool
+
     @State private var activeAlert: ActiveAlert = .reachedMaxAliases
     @State private var showAlert: Bool = false
     @State private var isDeletingAlias: Bool = false
@@ -45,9 +47,11 @@ struct AliasDetailView: View {
     
     @State private var chartData: [Double] = [0,0,0,0]
     
-    init(aliasId: String, aliasEmail: String) {
+    init(aliasId: String, aliasEmail: String, shouldReloadDataInParent: Binding<Bool>) {
         self.aliasId = aliasId
         self.aliasEmail = aliasEmail
+        _shouldReloadDataInParent = shouldReloadDataInParent
+
     }
     
     
@@ -199,6 +203,11 @@ struct AliasDetailView: View {
                             self.isAliasBeingWatched = AliasWatcher().getAliasesToWatch().contains(aliasId)
                         }
                         .onChange(of: isAliasBeingWatched) {
+                            
+                            // This changes the icon on the view in aliasesview
+                            // So we update the list when coming back
+                            shouldReloadDataInParent = true
+                            
                             // Only fire when the value is NOT the same as the value already in the model
                             if (isAliasBeingWatched != AliasWatcher().getAliasesToWatch().contains(aliasId)){
                                 if (AliasWatcher().getAliasesToWatch().contains(aliasId)){
@@ -289,6 +298,11 @@ struct AliasDetailView: View {
                     EditAliasDescriptionBottomSheet(aliasId: alias.id, description: alias.description ?? ""){ alias in
                         self.alias = alias
                         isPresentingEditAliasDescriptionBottomSheet = false
+                        
+                        // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                        // So we update the list when coming back
+                        shouldReloadDataInParent = true
+
                     }
                 }
             }
@@ -298,6 +312,9 @@ struct AliasDetailView: View {
                         self.alias = alias
                         isPresentingEditAliasRecipientsBottomSheet = false
                         
+                        // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                        // So we update the list when coming back
+                        shouldReloadDataInParent = true
                     }
                 }
             }
@@ -307,6 +324,9 @@ struct AliasDetailView: View {
                         self.alias = alias
                         isPresentingEditAliasFromNameBottomSheet = false
                         
+                        // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                        // So we update the list when coming back
+                        shouldReloadDataInParent = true
                     }
                 }
             }
@@ -509,6 +529,7 @@ struct AliasDetailView: View {
                 if let alias = alias {
                     self.alias = alias
                     self.isAliasActive = true
+                    shouldReloadDataInParent = true
                 } else {
                     self.isAliasActive = false
                     activeAlert = .error
@@ -529,6 +550,7 @@ struct AliasDetailView: View {
                 if result == "204" {
                     self.alias?.active = false
                     self.isAliasActive = false
+                    shouldReloadDataInParent = true
                 } else {
                     self.isAliasActive = true
                     activeAlert = .error
@@ -547,7 +569,7 @@ struct AliasDetailView: View {
                 self.isDeletingAlias = false
                 
                 if result == "204" {
-                    // TODO: Let the aliasView know this alias is deleted/restores/forgotten so it can refresh the data
+                    shouldReloadDataInParent = true
                     self.presentationMode.wrappedValue.dismiss()
                 } else {
                     activeAlert = .error
@@ -568,6 +590,8 @@ struct AliasDetailView: View {
                 if let alias = alias {
                     self.alias = alias
                     self.isAliasActive = alias.active
+                    shouldReloadDataInParent = true
+
                 } else {
                     activeAlert = .error
                     showAlert = true
@@ -585,7 +609,7 @@ struct AliasDetailView: View {
                 self.isForgettingAlias = false
                 
                 if result == "204" {
-                    // TODO: Let the aliasView know this alias is deleted/restores/forgotten so it can refresh the data
+                    shouldReloadDataInParent = true
                     self.presentationMode.wrappedValue.dismiss()
                 } else {
                     activeAlert = .error
@@ -618,6 +642,6 @@ struct AliasDetailView: View {
 }
 
 
-#Preview {
-    AliasDetailView(aliasId: "6a866f49-5a0b-4c7e-bc45-f46bf019c4ed", aliasEmail: "PLACEHOLDER")
-}
+//#Preview {
+//    AliasDetailView(aliasId: "6a866f49-5a0b-4c7e-bc45-f46bf019c4ed", aliasEmail: "PLACEHOLDER", shouldReloadDataInParent: false)
+//}
