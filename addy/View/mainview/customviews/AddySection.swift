@@ -32,6 +32,7 @@ struct AddySection: View {
                     Text(title)
                         .foregroundColor(Color.revertedNightMode)
                         .font(.callout)
+                        .fontWeight(.medium)
                     
                     if let description = description{
                         Text(description)

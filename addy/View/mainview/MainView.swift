@@ -9,6 +9,7 @@ import SwiftUI
 import addy_shared
 
 class MainViewState: ObservableObject {
+    
     @Published var encryptedSettingsManager = SettingsManager(encrypted: true)
     
     @Published var userResourceData: String? {
@@ -69,6 +70,7 @@ class MainViewState: ObservableObject {
 
 struct MainView: View {
     @StateObject private var mainViewState = MainViewState()
+    @State var isPresentingProfileBottomSheet = false
 
     
     var body: some View {
@@ -78,18 +80,16 @@ struct MainView: View {
             TabView {
                 NavigationStack {
                     HomeView()
-//                        .navigationDestination(for: Aliases.self){
-//                            alias in AliasDetailView(alias: alias)
-//                        }
                         .navigationTitle(String(localized: "home"))
                         .environmentObject(mainViewState)
                         .toolbar(content: {
                             ToolbarItem(placement: .topBarTrailing) {
                                 Button(action: {
-                                    print("Search button tapped")
+                                    isPresentingProfileBottomSheet = true
+
                                 }) {
-                                    Image(systemName: "magnifyingglass")
-                                        .foregroundStyle(.white)
+                                    Image(systemName: "person.crop.circle.fill")
+                                        .foregroundStyle(.primary)
                                 }
                             }
                         })
@@ -100,6 +100,17 @@ struct MainView: View {
                 NavigationStack {
                     AliasesView()
                         .environmentObject(mainViewState)
+                        .toolbar(content: {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button(action: {
+                                    isPresentingProfileBottomSheet = true
+
+                                }) {
+                                    Image(systemName: "person.crop.circle.fill")
+                                        .foregroundStyle(.primary)
+                                }
+                            }
+                        })
                 }
                 .tabItem {
                     Label(String(localized: "aliases"), systemImage: "at.circle")
@@ -108,10 +119,26 @@ struct MainView: View {
                     RecipientsView()
                         .navigationTitle(String(localized: "recipients"))
                         .environmentObject(mainViewState)
+                        .toolbar(content: {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button(action: {
+                                    isPresentingProfileBottomSheet = true
+
+                                }) {
+                                    Image(systemName: "person.crop.circle.fill")
+                                        .foregroundStyle(.primary)
+                                }
+                            }
+                        })
                 }
                 .tabItem {
                     Label(String(localized: "recipients"), systemImage: "person.2")
                 }.tag(1)
+            }.sheet(isPresented: $isPresentingProfileBottomSheet) {
+                ProfileBottomSheet(){
+                    isPresentingProfileBottomSheet = false
+                }.environmentObject(mainViewState)
+
             }
 
         }

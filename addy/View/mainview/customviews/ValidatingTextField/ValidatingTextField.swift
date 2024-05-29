@@ -16,59 +16,62 @@ struct ValidatingTextField: View {
     
     var body: some View {
         VStack(alignment: .leading){
-                if (fieldType == .bigText){
-
-                        VStack(alignment: .leading){
-                            // Your existing code...
-                            ScrollView {
-                                TextEditor(text: $value)
-                                    .onChange(of: value) {
-                                        withAnimation {
-                                            error = fieldType.validate(value: value)
-                                        }
-                                    }
-                                    .frame(height: 150)
-                                    .disableAutocorrection(true)
-                                    .keyboardType(fieldType.getKeyboardType())
+            if (fieldType == .bigText){
+                
+                VStack(alignment: .leading){
+                    // Your existing code...
+                    ScrollView {
+                        TextEditor(text: $value)
+                            .onChange(of: value) {
+                                withAnimation {
+                                    error = fieldType.validate(value: value)
+                                }
                             }
                             .frame(height: 150)
-                        }.overlay {
-                            if value.isEmpty {
-                                TextEditor(text: self.$placeholder)
-                                    .font(.body)
-                                    .foregroundColor(.gray.opacity(0.5))
-                                    .disabled(true)
-                                    .frame(height: 150)
-                            }
-                        }
-
+                            .disableAutocorrection(true)
+                            .keyboardType(fieldType.getKeyboardType())
+                    }
+                    .scrollContentBackground(.hidden)
+                    .frame(height: 150)
                     
-                } else {
-                    TextField(placeholder, text: $value)
-                        .onChange(of: value) {
-                            withAnimation {
-                                error = fieldType.validate(value: value)
-                            }
-                        }
                     
-                        .disableAutocorrection(true)
-                        .keyboardType(fieldType.getKeyboardType())
+                }.overlay {
+                    if value.isEmpty {
+                        TextEditor(text: self.$placeholder)
+                            .font(.body)
+                            .foregroundColor(.gray.opacity(0.5))
+                            .disabled(true)
+                            .frame(height: 150)
+                    }
                 }
+                
+                
+            } else {
+                TextField(placeholder, text: $value)
+                    .onChange(of: value) {
+                        withAnimation {
+                            error = fieldType.validate(value: value)
+                        }
+                    }
+                
+                    .disableAutocorrection(true)
+                    .keyboardType(fieldType.getKeyboardType())
+            }
             
             
             if let error = error {
-                            if !error.isEmpty {
-                                Text(error)
-                                    .foregroundColor(.red)
-                                    .font(.system(size: 15))
-                                    .multilineTextAlignment(.leading)
-                                    .padding([.horizontal], 0)
-                                    .onAppear{
-                                        HapticHelper.playHapticFeedback(hapticType: .error)
-                                                                    }
-                            }
-                            
+                if !error.isEmpty {
+                    Text(error)
+                        .foregroundColor(.red)
+                        .font(.system(size: 15))
+                        .multilineTextAlignment(.leading)
+                        .padding([.horizontal], 0)
+                        .onAppear{
+                            HapticHelper.playHapticFeedback(hapticType: .error)
                         }
+                }
+                
+            }
             
         }
     }

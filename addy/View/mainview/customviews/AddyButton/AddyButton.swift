@@ -28,7 +28,7 @@ struct AddyButton<Content: View>: View{
             ZStack {
                 Rectangle()
                     .fill(style.buttonStyle == .primary ? style.backgroundColor : style.backgroundColor.opacity(0.4))
-                    .frame(maxWidth: style.width, maxHeight: style.height)
+                    .frame(maxWidth: style.width, idealHeight: style.height)
                     .cornerRadius(style.cornerRadius)
                 VStack { content }
                 

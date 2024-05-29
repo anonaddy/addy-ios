@@ -18,6 +18,9 @@
     "%lld reviews" : {
 
     },
+    "$ADDYIO_Version" : {
+
+    },
     "actions" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -128,12 +131,45 @@
         }
       }
     },
+    "addyio_account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io Account"
+          }
+        }
+      }
+    },
+    "addyio_android_stjin" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io app | Stjin"
+          }
+        }
+      }
+    },
     "addyio_instance" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "addy.io instance"
+          }
+        }
+      }
+    },
+    "addyio_settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Account on addy.io"
           }
         }
       }
@@ -396,6 +432,17 @@
         }
       }
     },
+    "app_settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App settings"
+          }
+        }
+      }
+    },
     "basic" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -512,6 +559,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copy alias"
+          }
+        }
+      }
+    },
+    "crafted_with_love_and_privacy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crafted with love and privacy"
           }
         }
       }
@@ -1403,6 +1461,28 @@
         }
       }
     },
+    "manage_domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Domains"
+          }
+        }
+      }
+    },
+    "manage_domains_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add or remove custom domains"
+          }
+        }
+      }
+    },
     "manage_recipient_basic_info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1410,6 +1490,60 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Email: %@\nCreated: %@\nUpdated at: %@\nEmail forwarded: %@\nEmail blocked: %@\nEmail replies: %@\nEmail sent: %@"
+          }
+        }
+      }
+    },
+    "manage_rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage rules"
+          }
+        }
+      }
+    },
+    "manage_rules_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add, modify and reorder rules"
+          }
+        }
+      }
+    },
+    "manage_usernames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage usernames"
+          }
+        }
+      }
+    },
+    "manage_usernames_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose additional usernames"
+          }
+        }
+      }
+    },
+    "manage_your_addyio_account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage your addy.io account"
           }
         }
       }
