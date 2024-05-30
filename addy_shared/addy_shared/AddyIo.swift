@@ -14,14 +14,14 @@ public struct AddyIo {
     //TODO: Update on every release
 
     // 1.1.0
-    static let MINIMUMVERSIONCODEMAJOR = 1
-    static let MINIMUMVERSIONCODEMINOR = 1
-    static let MINIMUMVERSIONCODEPATCH = 0
+    public static let MINIMUMVERSIONCODEMAJOR = 1
+    public static let MINIMUMVERSIONCODEMINOR = 1
+    public static let MINIMUMVERSIONCODEPATCH = 0
 
-    static var VERSIONMAJOR = 0
-    static var VERSIONMINOR = 0
-    static var VERSIONPATCH = 0
-    static var VERSIONSTRING = ""
+    public static var VERSIONMAJOR = 0
+    public static var VERSIONMINOR = 0
+    public static var VERSIONPATCH = 0
+    public static var VERSIONSTRING = ""
 
     // API endpoints
     static var API_URL_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/recipients" }

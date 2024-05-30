@@ -86,6 +86,75 @@ public class NetworkHelper {
         task.resume()
     }
     
+    public func getAddyIoInstanceVersion(completion: @escaping (Version?, String?) -> Void) {
+        let url = URL(string: AddyIo.API_URL_APP_VERSION)!
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(Version.self, from: data)
+                    completion(addyIoData, nil)
+                } catch {
+                    let errorMessage = error.localizedDescription
+                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "getAddyIoInstanceVersion",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+            
+            case 404:
+                // Not found, aka the addy.io version is <0.6.0 (this endpoint was introduced in 0.6.0)
+                // Send an empty version as callback to let the checks run in SplashActivity
+                completion(Version(major: 0, minor: 0, patch: 0, version: ""), nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "getAddyIoInstanceVersion",
+                    extra: ErrorHelper.getErrorMessage(data:
+                                                        data
+                                                      ))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:
+                                                    data
+                                               )
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
     public func getUserResource(completion: @escaping (UserResource?, String?) -> Void) {
         let url = URL(string: AddyIo.API_URL_ACCOUNT_DETAILS)!
         var request = URLRequest(url: url)

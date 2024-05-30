@@ -119,7 +119,7 @@ struct RecipientsView: View {
                         
                     } footer: {
                         Label {
-                            Text(String(format: String(localized: "you_ve_used_d_out_of_d_recipients"), String(mainViewState.userResource!.recipient_count), (mainViewState.userResource!.subscription != nil ? String(mainViewState.userResource!.recipient_limit) : String(localized: "unlimited"))))
+                            Text(String(format: String(localized: "you_ve_used_d_out_of_d_recipients"), String(mainViewState.userResource!.recipient_count), (mainViewState.userResource!.subscription != nil ? String(mainViewState.userResource!.recipient_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited"))))
                         } icon: {
                             Image(systemName: "info.circle")
                         }
@@ -228,7 +228,7 @@ struct RecipientsView: View {
                     .foregroundColor(.white)
                 // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
                     .disabled(mainViewState.userResource!.subscription != nil &&
-                              mainViewState.userResource!.recipient_count >= mainViewState.userResource!.recipient_limit)
+                              mainViewState.userResource!.recipient_count >= mainViewState.userResource!.recipient_limit! /* Cannot be nil since subscription is not nil */ )
             } )
         }.onAppear(perform: {
             LoadFilter()

@@ -23,7 +23,7 @@ public struct Recipients:Identifiable, Codable {
     public var protected_headers: Bool
     public var fingerprint: String?
     public let email_verified_at: String?
-    public var aliases_count: Int?
+    public var aliases_count: Int? // Could be nil as it does not come with a specific alias->recipients endpoint
     public let created_at: String
     public let updated_at: String
 }

@@ -40,7 +40,6 @@ struct EditAliasFromNameBottomSheet: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        VStack{
             
             Form {
                 
@@ -105,7 +104,7 @@ struct EditAliasFromNameBottomSheet: View {
                 })
             
             
-        }
+        
     }
     
     

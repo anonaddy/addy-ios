@@ -51,17 +51,17 @@ public struct UserResource: Codable {
     public var default_recipient_id: String
     var default_alias_domain: String
     var default_alias_format: String
-    public var subscription: String?
-    var subscription_ends_at: String?
+    public var subscription: String? // Can be nil on selfhosted
+    public var subscription_ends_at: String? // Can be nil on selfhosted
     var bandwidth_limit: Int64
     public var recipient_count: Int
-    public var recipient_limit: Int
+    public var recipient_limit: Int? // Can be nil on selfhosted
     var active_domain_count: Int
-    var active_domain_limit: Int
+    var active_domain_limit: Int? // Can be nil on selfhosted
     var active_shared_domain_alias_count: Int
-    var active_shared_domain_alias_limit: Int
+    var active_shared_domain_alias_limit: Int? // Can be nil on selfhosted
     var active_rule_count: Int
-    var active_rule_limit: Int
+    var active_rule_limit: Int? // Can be nil on selfhosted
     public var total_emails_forwarded: Int
     public var total_emails_blocked: Int
     public var total_emails_replied: Int

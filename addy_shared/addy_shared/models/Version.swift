@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Version: Decodable {
-    let major: Int
-    let minor: Int
-    let patch: Int
-    let version: String?
+public struct Version: Decodable {
+    public let major: Int
+    public let minor: Int
+    public let patch: Int
+    public let version: String?
 }

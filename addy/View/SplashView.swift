@@ -13,9 +13,13 @@ import addy_shared
 struct SplashView: View {
     @EnvironmentObject var mainViewState: MainViewState
     @State private var showError = false
+    @State private var isPresentUnsupportedVersionBottomDialog = false
+    @State private var networkHelper: NetworkHelper? = nil
     
+    @Environment(\.openURL) var openURL
+
     var body: some View {
-        
+
         Group {
             if showError {
                 Color.accentColor
@@ -68,19 +72,86 @@ struct SplashView: View {
                 }
             }
         }.task {
-            getUserData()
+            loadDataAndStartApp()
         }
+        .sheet(isPresented: $isPresentUnsupportedVersionBottomDialog, onDismiss: {
+                isPresentUnsupportedVersionBottomDialog = false
+                getUserData()
+        }, content: {
+            NavigationStack {
+                UnsupportedBottomSheet {
+                    openURL(URL(string: "https://github.com/anonaddy/anonaddy/blob/master/SELF-HOSTING.md#updating")!)
+                } onClickIgnore: {
+                    isPresentUnsupportedVersionBottomDialog = false
+                    getUserData()
+                }
+            }
+        })
     }
     
+    private func loadDataAndStartApp(){
+        // This helper inits the BASE_URL var
+        self.networkHelper = NetworkHelper() //TODO: Check if this indeed set this value for it to never be reset again.
+        
+        if (AddyIo.API_BASE_URL == String(localized: "default_base_url")){
+            
+            AddyIo.VERSIONMAJOR = 9999
+            AddyIo.VERSIONSTRING = String(localized: "latest")
+            
+            getUserData()
+        } else {
+            getAddyIoInstanceVersion()
+        }
+        
+    }
+    
+    private func getAddyIoInstanceVersion() {
+        networkHelper!.getAddyIoInstanceVersion { version, error in
+                DispatchQueue.main.async {
+                    if let version = version {
+                        AddyIo.VERSIONMAJOR = version.major
+                                            AddyIo.VERSIONMINOR = version.minor
+                                            AddyIo.VERSIONPATCH = version.patch
+                                            AddyIo.VERSIONSTRING = version.version ?? String(localized: "unknown")
+                        
+                        if (instanceHasTheMinimumRequiredVersion()){
+                            getUserData()
+                        } else {
+                            print("Error: \(String(describing: error))")
+                            self.isPresentUnsupportedVersionBottomDialog = true
+                        }
+                    } else {
+                        print("Error: \(String(describing: error))")
+                        self.showError = true
+                    }
+                }
+            }
+        }
+    
+    private func instanceHasTheMinimumRequiredVersion() -> Bool {
+        if (AddyIo.VERSIONMAJOR > AddyIo.MINIMUMVERSIONCODEMAJOR) {
+            return true
+        } else if (AddyIo.VERSIONMAJOR >= AddyIo.MINIMUMVERSIONCODEMAJOR) {
+            if (AddyIo.VERSIONMINOR > AddyIo.MINIMUMVERSIONCODEMINOR) {
+                return true
+            } else if (AddyIo.VERSIONMINOR >= AddyIo.MINIMUMVERSIONCODEMINOR) {
+                if (AddyIo.VERSIONPATCH >= AddyIo.MINIMUMVERSIONCODEPATCH) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    
     private func getUserData() {
-        let networkHelper = NetworkHelper()
-        networkHelper.getUserResource { userResource, error in
+        networkHelper!.getUserResource { userResource, error in
                 DispatchQueue.main.async {
                     if let userResource = userResource {
                         mainViewState.userResource = userResource
                         
                         // Fetch UserResourceExtended data
-                        networkHelper.getSpecificRecipient(completion: { recipient, error in
+                        networkHelper!.getSpecificRecipient(completion: { recipient, error in
                             DispatchQueue.main.async {
                                 if let recipient = recipient {
                                     mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)

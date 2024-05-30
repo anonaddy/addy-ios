@@ -14,8 +14,8 @@ import CodeScanner
 import addy_shared
 
 struct ProfileBottomSheet: View {
-    //@EnvironmentObject var mainViewState: MainViewState
-
+    @EnvironmentObject var mainViewState: MainViewState
+    
     let onNavigate: () -> Void
 
     init(onNavigate: @escaping () -> Void) {
@@ -23,18 +23,10 @@ struct ProfileBottomSheet: View {
     }
 
     @Environment(\.dismiss) var dismiss
+    @Environment(\.openURL) var openURL
 
     var body: some View {
-        
-        let buttonStyle = AddyButtonStyle(width: .infinity,
-                                           height: 56,
-                                           cornerRadius: 12,
-                                           buttonStyle: .primary,
-                                           backgroundColor: Color("AccentColor"),
-                                           strokeWidth: 5,
-                                           strokeColor: .gray)
 
-            
             List {
                 
                 Section{
@@ -43,30 +35,33 @@ struct ProfileBottomSheet: View {
                             Circle()
                                 .fill(LinearGradient(gradient: Gradient(colors: [Color.secondary.opacity(0.6), Color.secondary]), startPoint: .top, endPoint: .bottom))
                                 .frame(width: 100, height: 100)
-                            //Text(mainViewState.userResource!.username.prefix(2).uppercased())
-                            Text("SV")
+                            Text(mainViewState.userResource!.username.prefix(2).uppercased())
                                 .font(.system(size: 40))
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                         }.frame(maxWidth: .infinity).padding(.bottom,10)
                         
-                        Text("USERNAME")
+                        Text(mainViewState.userResource!.username)
                             .font(.headline)
                         
-                        Text("Pro user")
-                            .font(.subheadline)
-                            .opacity(0.6)
-                        
-                        Text("SUBSC expire")
-                            .font(.subheadline)
-                            .fontWeight(.light)
-                            .opacity(0.6)
+                        if (mainViewState.userResource!.subscription != nil){
+                            Text(String(format: String(localized: "subscription_user"), mainViewState.userResource!.subscription!))
+                                .font(.subheadline)
+                                .opacity(0.6)
+                            
+                            if (mainViewState.userResource!.subscription_ends_at != nil) {
+                                Text(getSubscriptionUntilText())
+                                    .font(.subheadline)
+                                    .fontWeight(.thin)
+                                    .opacity(0.6)
+                            }
+                        }
+
                         
                         AddyButton(action: {
-                            // Action
-                            },
-                                   style: buttonStyle
-                        ) {
+                            openURL(URL(string: "\(AddyIo.API_BASE_URL)/settings")!)
+
+                        }, style: AddyButtonStyle(backgroundColor: Color(.accent).opacity(0.5))) {
                             Text(String(localized: "addyio_settings")).foregroundColor(Color.white)
                         }.padding(.top)
                     }
@@ -96,11 +91,11 @@ struct ProfileBottomSheet: View {
                         
                         
                         Spacer()
-                        Text("$ADDYIO_Version")
+                        Text(getAddyIoVersion())
                             .multilineTextAlignment(.center)
                             .font(.system(size: 16))
                             .frame(maxWidth: .infinity)
-                            .padding(.bottom,10).padding(.top)
+                            .padding(.bottom,5).padding(.top,5)
                         Text(String(localized: "addyio_android_stjin"))
                             .multilineTextAlignment(.center)
                             .font(.system(size: 16))
@@ -128,6 +123,22 @@ struct ProfileBottomSheet: View {
                 })
         }
     
+    private func getAddyIoVersion() ->String {
+        if (AddyIo.VERSIONMAJOR == 9999) {
+            return String(localized: "hosted_instance")
+        } else {
+            return String(format: String(localized: "self_hosted_instance_s"), AddyIo.VERSIONSTRING)
+        }
+    }
+    
+    
+    private func getSubscriptionUntilText() ->String {
+            return String(format: String(localized: "subscription_user_until"), DateTimeUtils.turnStringIntoLocalString(
+                mainViewState.userResource!.subscription_ends_at,
+                dateTimeFormat: DateTimeUtils.DateTimeFormat.date)
+                          )
+    
+    }
 }
 
 #Preview {

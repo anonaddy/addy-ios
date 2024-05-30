@@ -135,9 +135,12 @@ struct MainView: View {
                     Label(String(localized: "recipients"), systemImage: "person.2")
                 }.tag(1)
             }.sheet(isPresented: $isPresentingProfileBottomSheet) {
-                ProfileBottomSheet(){
-                    isPresentingProfileBottomSheet = false
-                }.environmentObject(mainViewState)
+                NavigationStack{
+                    ProfileBottomSheet(){
+                        isPresentingProfileBottomSheet = false
+                    }.environmentObject(mainViewState)
+                }
+                
 
             }
 

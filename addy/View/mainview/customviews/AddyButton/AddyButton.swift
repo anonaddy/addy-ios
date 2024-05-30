@@ -35,8 +35,6 @@ struct AddyButton<Content: View>: View{
             }
         }
         .frame(maxWidth: style.width, maxHeight: style.height)
-        //.disabled(isLoading)
-        //.animation(.easeInOut, value: isLoading)
     }
 }
 

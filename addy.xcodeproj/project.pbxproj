@@ -15,6 +15,7 @@
 		804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */; };
 		804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A72BE95B49001DDC8A /* AddyButton.swift */; };
 		804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */; };
+		805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */; };
 		806D5F252BE925C600C5C109 /* ic_loading_logo.shapeshifter.json in Resources */ = {isa = PBXBuildFile; fileRef = 806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */; };
 		806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806D5F262BE92AB200C5C109 /* SetupView.swift */; };
 		806F21332BE8F1B100EBEBC8 /* addyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806F21322BE8F1B100EBEBC8 /* addyApp.swift */; };
@@ -154,6 +155,7 @@
 		804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupOnboarding.swift; sourceTree = "<group>"; };
 		804BE7A72BE95B49001DDC8A /* AddyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButton.swift; sourceTree = "<group>"; };
 		804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButtonStyle.swift; sourceTree = "<group>"; };
+		805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBottomSheet.swift; sourceTree = "<group>"; };
 		806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ic_loading_logo.shapeshifter.json; sourceTree = "<group>"; };
 		806D5F262BE92AB200C5C109 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		806F212F2BE8F1B100EBEBC8 /* addy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -297,6 +299,7 @@
 				80E849992BEB73CE00C8D68A /* mainview */,
 				806D5F352BE9520200C5C109 /* setup */,
 				806F21342BE8F1B100EBEBC8 /* SplashView.swift */,
+				805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */,
 				801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */,
 				806F21322BE8F1B100EBEBC8 /* addyApp.swift */,
 			);
@@ -973,6 +976,7 @@
 				80E84A2F2BEC119500C8D68A /* AliasDetailView.swift in Sources */,
 				80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */,
 				80D8C7A62BF3D4E700933ED8 /* AddyChipView.swift in Sources */,
+				805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */,
 				80F22F8F2BEE34EE001176B4 /* Color+Extension.swift in Sources */,
 				80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */,
 				80F22FA72BEE34EE001176B4 /* LineBackgroundShapeView.swift in Sources */,
