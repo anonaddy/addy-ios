@@ -25,7 +25,7 @@ struct FilterOptionsAliasBottomSheet: View {
     @State private var sortSelection: Int = 0
     @State private var aliasSortFilterRequest: AliasSortFilterRequest
     
-    @State var selectedOrderChip = "created_at"
+    @State var selectedOrderChip:String? = "created_at"
     @State var orderChips: [AddyChipModel] = [
         AddyChipModel(chipId: "local_part",label: String(localized: "sort_localpart")),
         AddyChipModel(chipId: "domain",label: String(localized: "sort_domain")),
@@ -113,7 +113,7 @@ struct FilterOptionsAliasBottomSheet: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .disabled(filter2Selection == 1) // means if alias is set to Watch Only
-                AddyChipView(chips: $orderChips, selectedChip: $selectedOrderChip, singleLine: false) { onTappedChip in
+                AddyRoundedChipView(chips: $orderChips, selectedChip: $selectedOrderChip, singleLine: false) { onTappedChip in
                     withAnimation {
                         selectedOrderChip = onTappedChip.chipId
                     }
@@ -138,15 +138,15 @@ struct FilterOptionsAliasBottomSheet: View {
         }.navigationTitle(String(localized: "filtering_and_sorting")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem() {
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                        Text(String(localized: "cancel"))
                     }
                     
                 }
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarTrailing) {
                     
                     Menu(content: {
                         Button(String(localized: "clear_filter")) {

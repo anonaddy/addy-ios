@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Binding var isPresentingProfileBottomSheet: Bool
+
     @EnvironmentObject var mainViewState: MainViewState
 
     var body: some View {
         
-        Group {
+        NavigationStack(){
             ScrollView(.vertical) {
                 VStack{
                     ForEach(1..<666) { i in
@@ -20,12 +22,24 @@ struct HomeView: View {
                     }
                 }.frame(maxWidth: .infinity)
             }
+        }.toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    self.isPresentingProfileBottomSheet = true
+
+                }) {
+                    Image(systemName: "person.crop.circle.fill")
+                        .foregroundStyle(.primary)
+                }
+            }
         }
+        .navigationTitle(String(localized: "home"))
+           
 
 
     }
 }
 
-#Preview {
-    HomeView()
-}
+//#Preview {
+//    HomeView()
+//}

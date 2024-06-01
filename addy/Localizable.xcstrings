@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-
-    },
     "_more" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -14,9 +11,6 @@
           }
         }
       }
-    },
-    "%lld reviews" : {
-
     },
     "actions" : {
       "extractionState" : "manual",
@@ -102,6 +96,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter the individual email of the new recipient you'd like to add. This is where your aliases will **forward messages to.**\n\nYou will receive an email with a verification link that will **expire in one hour** you can click \"Resend email\" to get a new one."
+          }
+        }
+      }
+    },
+    "add_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add username"
+          }
+        }
+      }
+    },
+    "add_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please choose usernames carefully as you can only add a **maximum of %@.** You can login with **any of your usernames.**\n\nYou can prevent a username from being used to login by toggling the \"can login\" option."
           }
         }
       }
@@ -346,6 +362,17 @@
         }
       }
     },
+    "all_usernames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All usernames"
+          }
+        }
+      }
+    },
     "anonymous_email_forwarding" : {
       "localizations" : {
         "en" : {
@@ -451,6 +478,17 @@
         }
       }
     },
+    "back" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        }
+      }
+    },
     "basic" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -484,6 +522,39 @@
         }
       }
     },
+    "can_login_disabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can login disabled"
+          }
+        }
+      }
+    },
+    "can_login_enabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can login enabled"
+          }
+        }
+      }
+    },
+    "can_login_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toggle this option to determine whether this username can be used to login to your account or not. When set to off you will not be able to use this username to login to your account"
+          }
+        }
+      }
+    },
     "can_reply_send" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -506,6 +577,16 @@
         }
       }
     },
+    "cancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
     "cannot_reply_send" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -513,6 +594,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reply/send not allowed"
+          }
+        }
+      }
+    },
+    "catch_all_disabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Catch-All disabled"
+          }
+        }
+      }
+    },
+    "catch_all_enabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Catch-All enabled"
+          }
+        }
+      }
+    },
+    "catch_all_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable catch-all for this username"
           }
         }
       }
@@ -658,6 +772,17 @@
         }
       }
     },
+    "default_recipient_s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default recipient (%@)"
+          }
+        }
+      }
+    },
     "delete" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -721,7 +846,40 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Are you sure you want to delete the recipient %@?"
+            "value" : "Are you sure you want to delete this recipient?"
+          }
+        }
+      }
+    },
+    "delete_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete username"
+          }
+        }
+      }
+    },
+    "delete_username_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this username? This will also delete all aliases associated with this username. You will no longer be able to receive any emails at this username subdomain. This will still count towards your additional username limit even once deleted."
+          }
+        }
+      }
+    },
+    "delete_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This will still count towards your additional username limit"
           }
         }
       }
@@ -771,10 +929,6 @@
       }
     },
     "dismiss" : {
-
-    },
-    "Dismiss" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -785,10 +939,6 @@
       }
     },
     "domain" : {
-
-    },
-    "Domain" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -875,6 +1025,17 @@
         }
       }
     },
+    "edit_desc_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the description for this username, describe what this username is used for"
+          }
+        }
+      }
+    },
     "edit_description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -904,6 +1065,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The 'From Name' is shown when you send an email from an alias or reply anonymously to a forwarded email. If left blank, then the email alias itself will be used as the 'From Name' e.g. \"%@\".\n\nThe 'From Name' that is used for an alias is determined by the following **priority:**\n1. **Alias 'From Name'**\n2. Username or Custom Domain 'From Name'\n3. Global 'From Name' from the settings page\n\nIf you set the 'From Name' for this specific alias, it will override the other settings."
+          }
+        }
+      }
+    },
+    "edit_from_name_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The 'From Name' is shown when you send an email from an alias or reply anonymously to a forwarded email. If left blank, then the email alias itself will be used as the 'From Name' e.g. \"example@%@.addy.io\".\n\nThe 'From Name' that is used for an alias is determined by the following **priority:**\n1. Alias 'From Name'\n2. **Username** or Custom Domain **'From Name'**\n3. Global 'From Name' from the settings page\n\nIf you set the 'From Name' for this username, it will override the global 'From Name' setting."
           }
         }
       }
@@ -1032,6 +1204,17 @@
         }
       }
     },
+    "error_deleting_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this username"
+          }
+        }
+      }
+    },
     "error_edit_active" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1039,6 +1222,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "An error occurred while changing the active state"
+          }
+        }
+      }
+    },
+    "error_edit_can_login" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the can login state"
+          }
+        }
+      }
+    },
+    "error_edit_catch_all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the catch-all state"
           }
         }
       }
@@ -1072,6 +1277,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Could not find recipient"
+          }
+        }
+      }
+    },
+    "error_obtaining_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find username"
           }
         }
       }
@@ -1383,13 +1599,7 @@
         }
       }
     },
-    "Hello World" : {
-
-    },
     "Hello, World!" : {
-
-    },
-    "Hire" : {
 
     },
     "home" : {
@@ -1568,6 +1778,17 @@
         }
       }
     },
+    "manage_username_basic_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username: %@\nCreated: %@\nUpdated at: %@\nEmail forwarded: %@\nEmail blocked: %@\nEmail replies: %@\nEmail sent: %@"
+          }
+        }
+      }
+    },
     "manage_usernames" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1721,6 +1942,17 @@
         }
       }
     },
+    "obtaining_usernames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your usernames"
+          }
+        }
+      }
+    },
     "pgp_inline" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1738,7 +1970,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "not"
+            "value" : "Use inline (PGP/Inline) instead of PGP/MIME encryption for forwarded messages. Please Note: This will ONLY encrypt and forward the plain text content!"
           }
         }
       }
@@ -2016,6 +2248,17 @@
         }
       }
     },
+    "select_menu_item" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please select a menu item"
+          }
+        }
+      }
+    },
     "self_hosted_instance_s" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2059,9 +2302,6 @@
           }
         }
       }
-    },
-    "settingsmanager_error" : {
-      "extractionState" : "manual"
     },
     "setup_api_key" : {
       "extractionState" : "manual",
@@ -2239,9 +2479,6 @@
         }
       }
     },
-    "Skills" : {
-
-    },
     "something_went_wrong_retrieving_aliases" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2260,6 +2497,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Something went wrong retrieving recipients"
+          }
+        }
+      }
+    },
+    "something_went_wrong_retrieving_usernames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving usernames"
           }
         }
       }
@@ -2506,18 +2754,6 @@
         }
       }
     },
-    "SV" : {
-
-    },
-    "Tab 1" : {
-
-    },
-    "Tab 2" : {
-
-    },
-    "Tab 3" : {
-
-    },
     "this_field_cannot_be_empty" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2579,6 +2815,104 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Updated %@"
+          }
+        }
+      }
+    },
+    "username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username"
+          }
+        }
+      }
+    },
+    "username_activated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username activated"
+          }
+        }
+      }
+    },
+    "username_aliases_d" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username aliases (%@)"
+          }
+        }
+      }
+    },
+    "username_deactivated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username deactivated"
+          }
+        }
+      }
+    },
+    "username_edit_recipient_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The list below shows all verified recipients. Select which recipient you want to set as default recipient for this username"
+          }
+        }
+      }
+    },
+    "username_no_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This username has no description set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "username_no_from_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This username has no from name set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "username_status_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this username for mail forwarding"
+          }
+        }
+      }
+    },
+    "usernames" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usernames"
           }
         }
       }
@@ -2656,6 +2990,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You’ve used %@ out of %@ recipients"
+          }
+        }
+      }
+    },
+    "you_ve_used_d_out_of_d_usernames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’ve used %@ out of %@ usernames"
           }
         }
       }

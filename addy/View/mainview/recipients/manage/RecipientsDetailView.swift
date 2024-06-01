@@ -237,7 +237,7 @@ struct RecipientsDetailView: View {
                 .alert(isPresented: $showAlert) {
                             switch activeAlert {
                            case .deleteRecipient:
-                                return Alert(title: Text(String(localized: "delete_recipient")), message: Text(String(format: String(localized: "delete_recipient_desc"), recipient.email)), primaryButton: .destructive(Text(String(localized: "delete"))){
+                                return Alert(title: Text(String(localized: "delete_recipient")), message: Text(String(localized: "delete_recipient_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
                                     isDeletingRecipient = true
     
                                     DispatchQueue.global(qos: .background).async {

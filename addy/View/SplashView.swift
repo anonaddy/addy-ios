@@ -76,14 +76,14 @@ struct SplashView: View {
         }
         .sheet(isPresented: $isPresentUnsupportedVersionBottomDialog, onDismiss: {
                 isPresentUnsupportedVersionBottomDialog = false
-                getUserData()
+                getUserResource()
         }, content: {
             NavigationStack {
                 UnsupportedBottomSheet {
                     openURL(URL(string: "https://github.com/anonaddy/anonaddy/blob/master/SELF-HOSTING.md#updating")!)
                 } onClickIgnore: {
                     isPresentUnsupportedVersionBottomDialog = false
-                    getUserData()
+                    getUserResource()
                 }
             }
         })
@@ -98,7 +98,7 @@ struct SplashView: View {
             AddyIo.VERSIONMAJOR = 9999
             AddyIo.VERSIONSTRING = String(localized: "latest")
             
-            getUserData()
+            getUserResource()
         } else {
             getAddyIoInstanceVersion()
         }
@@ -115,7 +115,7 @@ struct SplashView: View {
                                             AddyIo.VERSIONSTRING = version.version ?? String(localized: "unknown")
                         
                         if (instanceHasTheMinimumRequiredVersion()){
-                            getUserData()
+                            getUserResource()
                         } else {
                             print("Error: \(String(describing: error))")
                             self.isPresentUnsupportedVersionBottomDialog = true
@@ -144,7 +144,7 @@ struct SplashView: View {
     }
     
     
-    private func getUserData() {
+    private func getUserResource() {
         networkHelper!.getUserResource { userResource, error in
                 DispatchQueue.main.async {
                     if let userResource = userResource {

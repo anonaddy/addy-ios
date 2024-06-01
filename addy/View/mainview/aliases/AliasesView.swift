@@ -10,6 +10,8 @@ import addy_shared
 import UniformTypeIdentifiers
 
 struct AliasesView: View {
+    @Binding var isPresentingProfileBottomSheet: Bool
+
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject var aliasesViewModel = AliasesViewModel()
     
@@ -32,7 +34,7 @@ struct AliasesView: View {
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
 
-    @State var selectedFilterChip = "filter_all_aliases"
+    @State var selectedFilterChip:String? = "filter_all_aliases"
     @State var filterChips: [AddyChipModel] = []
     
     var body: some View {
@@ -42,7 +44,7 @@ struct AliasesView: View {
                     
                     
                     Section {
-                        AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
+                        AddyRoundedChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
                             withAnimation {
                                 selectedFilterChip = onTappedChip.chipId
                             }
@@ -301,17 +303,26 @@ struct AliasesView: View {
                 }
             })
             .navigationTitle(String(localized: "aliases"))
-            .navigationBarItems(trailing: Button(action: {
-                self.isPresentingAddAliasBottomSheet = true
-            } ) {
-                Image(systemName: "plus")
-                    .resizable()
-                    .padding(6)
-                    .frame(width: 24, height: 24)
-                    .background(Color.accentColor)
-                    .clipShape(Circle())
-                    .foregroundColor(.white)
-            } )
+            .navigationBarItems(trailing: HStack{
+                Button(action: {
+                    self.isPresentingProfileBottomSheet = true
+                }) {
+                    Image(systemName: "person.crop.circle.fill")
+                        .foregroundStyle(.primary)
+                }
+                
+                Button(action: {
+                    self.isPresentingAddAliasBottomSheet = true
+                } ) {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .padding(6)
+                        .frame(width: 24, height: 24)
+                        .background(Color.accentColor)
+                        .clipShape(Circle())
+                        .foregroundColor(.white)
+                }
+            })
             .searchable(text: $aliasesViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "aliases_search"))
             .onSubmit(of: .search) {
                 aliasesViewModel.searchAliases(searchQuery: aliasesViewModel.searchQuery)
@@ -575,7 +586,7 @@ struct AliasesView: View {
     
 }
 
-
-#Preview {
-    AliasesView()
-}
+//
+//#Preview {
+//    AliasesView()
+//}

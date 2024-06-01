@@ -1,8 +1,8 @@
 //
-//  EditAliasFromNameBottomSheet.swift
+//  EditUsernameFromNameBottomSheet.swift
 //  addy
 //
-//  Created by Stijn van de Water on 12/05/2024.
+//  Created by Stijn van de Water on 01/06/2024.
 //
 
 import SwiftUI
@@ -10,16 +10,16 @@ import AVFoundation
 import CodeScanner
 import addy_shared
 
-struct EditAliasFromNameBottomSheet: View {
-    let aliasId: String
-    let aliasEmail: String
+struct EditUsernameFromNameBottomSheet: View {
+    let usernameId: String
+    let username: String
     @State var fromName: String
     @State var fromNamePlaceholder: String = String(localized: "from_name")
-    let fromNameEdited: (Aliases) -> Void
+    let fromNameEdited: (Usernames) -> Void
 
-    init(aliasId: String, aliasEmail: String, fromName: String?, fromNameEdited: @escaping (Aliases) -> Void) {
-        self.aliasId = aliasId
-        self.aliasEmail = aliasEmail
+    init(usernameId: String, username: String, fromName: String?, fromNameEdited: @escaping (Usernames) -> Void) {
+        self.usernameId = usernameId
+        self.username = username
         self.fromName = fromName ?? ""
         self.fromNameEdited = fromNameEdited
     }
@@ -39,7 +39,7 @@ struct EditAliasFromNameBottomSheet: View {
                     
                 } header: {
                     VStack(alignment: .leading){
-                        let formattedString = String.localizedStringWithFormat(NSLocalizedString("edit_from_name_alias_desc", comment: ""), aliasEmail)
+                        let formattedString = String.localizedStringWithFormat(NSLocalizedString("edit_from_name_username_desc", comment: ""), username)
                         Text(LocalizedStringKey(formattedString))
                             .multilineTextAlignment(.center)
                             .padding(.bottom)
@@ -103,21 +103,21 @@ struct EditAliasFromNameBottomSheet: View {
         fromNameRequestError = nil
         
         let networkHelper = NetworkHelper()
-        networkHelper.updateFromNameSpecificAlias(completion: { alias, error in
+        networkHelper.updateFromNameSpecificUsername(completion: { username, error in
             DispatchQueue.main.async {
-                if let alias = alias {
-                    self.fromNameEdited(alias)
+                if let username = username {
+                    self.fromNameEdited(username)
                 } else {
                     IsLoadingSaveButton = false
                     fromNameRequestError = error
                 }
             }
-        }, aliasId: self.aliasId, fromName: fromName)
+        }, usernameId: self.usernameId, fromName: fromName)
     }
 }
 
 #Preview {
-    EditAliasFromNameBottomSheet(aliasId: "000", aliasEmail: "TEST", fromName: "NICE", fromNameEdited: { alias in
+    EditUsernameFromNameBottomSheet(usernameId: "000", username: "TEST", fromName: "NICE", fromNameEdited: { username in
         // Dummy function for preview
     })
 }

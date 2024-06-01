@@ -1,8 +1,8 @@
 //
-//  EditAliasDescriptionBottomSheet.swift
+//  EditUsernameRecipientsBottomSheet.swift
 //  addy
 //
-//  Created by Stijn van de Water on 12/05/2024.
+//  Created by Stijn van de Water on 01/06/2024.
 //
 
 import SwiftUI
@@ -10,17 +10,17 @@ import AVFoundation
 import CodeScanner
 import addy_shared
 
-struct EditAliasRecipientsBottomSheet: View {
-    let aliasId: String
-    let recipientsEdited: (Aliases) -> Void
+struct EditUsernameRecipientsBottomSheet: View {
+    let usernameId: String
+    let recipientsEdited: (Usernames) -> Void
     
     @State var recipientsLoaded: Bool = false
-    @State var selectedChips: [String] = []
+    @State var selectedRecipientChip:[String]
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
 
-    init(aliasId: String, selectedRecipientsIds: [String]?, recipientsEdited: @escaping (Aliases) -> Void) {
-        self.aliasId = aliasId
-        self.selectedChips = selectedRecipientsIds ?? []
+    init(usernameId: String, selectedRecipientId: String?, recipientsEdited: @escaping (Usernames) -> Void) {
+        self.usernameId = usernameId
+        self.selectedRecipientChip = selectedRecipientId != nil ? [selectedRecipientId!] : []
         self.recipientsEdited = recipientsEdited
     }
     
@@ -35,14 +35,15 @@ struct EditAliasRecipientsBottomSheet: View {
         
             Section {
 
-                AddyMultiSelectChipView(chips: $recipientsChips, selectedChips: $selectedChips, singleLine: false) { onTappedChip in
+                AddyMultiSelectChipView(chips: $recipientsChips, selectedChips: $selectedRecipientChip, singleLine: false) { onTappedChip in
                     withAnimation {
-                        if (selectedChips.contains(onTappedChip.chipId)){
-                            if let index = selectedChips.firstIndex(of: onTappedChip.chipId) {
-                                selectedChips.remove(at: index)
-                            }
+                        if (selectedRecipientChip.contains(onTappedChip.chipId)){
+                            // If the chip is already selected, remove all
+                            selectedRecipientChip.removeAll()
                         } else {
-                            selectedChips.append(onTappedChip.chipId)
+                            // Else Remove all and select the tapped chip
+                            selectedRecipientChip.removeAll()
+                            selectedRecipientChip.append(onTappedChip.chipId)
                         }
                     }
                     
@@ -51,7 +52,7 @@ struct EditAliasRecipientsBottomSheet: View {
             
             } header: {
                 VStack(alignment: .leading){
-                    Text(String(localized: "alias_edit_recipients_desc"))
+                    Text(String(localized: "username_edit_recipient_desc"))
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                     
@@ -129,25 +130,25 @@ struct EditAliasRecipientsBottomSheet: View {
         })
     }
     
-    
+
     private func editRecipients() {
         recipientsRequestError = nil
         let networkHelper = NetworkHelper()
-        networkHelper.updateRecipientsSpecificAlias(completion: { alias, error in
+        networkHelper.updateDefaultRecipientForSpecificUsername(completion: { username, error in
             DispatchQueue.main.async {
-                if let alias = alias {
-                    self.recipientsEdited(alias)
+                if let username = username {
+                    self.recipientsEdited(username)
                 } else {
                     IsLoadingSaveButton = false
                     recipientsRequestError = error
                 }
             }
-        }, aliasId: self.aliasId, recipients: selectedChips)
+        }, usernameId: self.usernameId, recipientId: selectedRecipientChip.first)
     }
 }
 
 #Preview {
-    EditAliasRecipientsBottomSheet(aliasId: "000", selectedRecipientsIds: ["TEST"], recipientsEdited: { alias in
+    EditUsernameRecipientsBottomSheet(usernameId: "000", selectedRecipientId: nil, recipientsEdited: { username in
         // Dummy function for preview
     })
 }

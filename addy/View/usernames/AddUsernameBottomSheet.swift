@@ -1,51 +1,52 @@
 //
-//  EditAliasFromNameBottomSheet.swift
+//  AddUsernameBottomSheet.swift
 //  addy
 //
-//  Created by Stijn van de Water on 12/05/2024.
+//  Created by Stijn van de Water on 01/06/2024.
 //
+
+import SwiftUI
+
 
 import SwiftUI
 import AVFoundation
 import CodeScanner
 import addy_shared
 
-struct EditAliasFromNameBottomSheet: View {
-    let aliasId: String
-    let aliasEmail: String
-    @State var fromName: String
-    @State var fromNamePlaceholder: String = String(localized: "from_name")
-    let fromNameEdited: (Aliases) -> Void
+struct AddUsernameBottomSheet: View {
+    @State var username: String = ""
+    @State var usernameLimit: Int
+    @State var usernamePlaceHolder: String = String(localized: "username")
+    let onAdded: () -> Void
 
-    init(aliasId: String, aliasEmail: String, fromName: String?, fromNameEdited: @escaping (Aliases) -> Void) {
-        self.aliasId = aliasId
-        self.aliasEmail = aliasEmail
-        self.fromName = fromName ?? ""
-        self.fromNameEdited = fromNameEdited
+    init(usernameLimit: Int, onAdded: @escaping () -> Void) {
+        self.usernameLimit = usernameLimit
+        self.onAdded = onAdded
     }
     
-    @State private var fromNameValidationError:String?
-    @State private var fromNameRequestError:String?
+    @State private var usernameValidationError:String?
+    @State private var usernameRequestError:String?
 
-    @State var IsLoadingSaveButton: Bool = false
+    @State var IsLoadingAddButton: Bool = false
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
+        VStack{
             
             Form {
                 
                 Section{
-                    ValidatingTextField(value: self.$fromName, placeholder: self.$fromNamePlaceholder, fieldType: .text, error: $fromNameValidationError)
+                    ValidatingTextField(value: self.$username, placeholder: self.$usernamePlaceHolder, fieldType: .text, error: $usernameValidationError)
                     
                 } header: {
                     VStack(alignment: .leading){
-                        let formattedString = String.localizedStringWithFormat(NSLocalizedString("edit_from_name_alias_desc", comment: ""), aliasEmail)
+                        let formattedString = String.localizedStringWithFormat(NSLocalizedString("add_username_desc", comment: ""), String(usernameLimit))
                         Text(LocalizedStringKey(formattedString))
                             .multilineTextAlignment(.center)
                             .padding(.bottom)
                     }
                 } footer: {
-                    if let error = fromNameRequestError {
+                    if let error = usernameRequestError {
                         Text(error)
                             .foregroundColor(.red)
                             .font(.system(size: 15))
@@ -62,26 +63,26 @@ struct EditAliasFromNameBottomSheet: View {
                     AddyLoadingButton(action: {
                         // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
                         // We should not allow any saving until the validationErrors are nil
-                        if (fromNameValidationError == nil){
-                            IsLoadingSaveButton = true;
+                        if (usernameValidationError == nil){
+                            IsLoadingAddButton = true;
                             
                             DispatchQueue.global(qos: .background).async {
-                                self.editFromName(fromName: self.fromName)
+                                self.addUsernameToAccount(username: self.username)
                             }
                         } else {
                             DispatchQueue.main.async {
-                                IsLoadingSaveButton = false
+                                IsLoadingAddButton = false
                             }
                         }
-                    }, isLoading: $IsLoadingSaveButton) {
-                        Text(String(localized: "save")).foregroundColor(Color.white)
+                    }, isLoading: $IsLoadingAddButton) {
+                        Text(String(localized: "add")).foregroundColor(Color.white)
                     }.frame(minHeight: 56)
                 }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
                 
                 
                 
                 
-            }.navigationTitle(String(localized: "edit_from_name")).pickerStyle(.navigationLink)
+            }.navigationTitle(String(localized: "add_username")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
                     ToolbarItem(placement: .topBarLeading) {
@@ -95,29 +96,29 @@ struct EditAliasFromNameBottomSheet: View {
                 })
             
             
-        
+        }
     }
     
     
-    private func editFromName(fromName:String?) {
-        fromNameRequestError = nil
+    private func addUsernameToAccount(username: String) {
+        usernameRequestError = nil
         
         let networkHelper = NetworkHelper()
-        networkHelper.updateFromNameSpecificAlias(completion: { alias, error in
+        networkHelper.addUsername(completion: { username, error in
             DispatchQueue.main.async {
-                if let alias = alias {
-                    self.fromNameEdited(alias)
+                if let username = username {
+                    self.onAdded()
                 } else {
-                    IsLoadingSaveButton = false
-                    fromNameRequestError = error
+                    IsLoadingAddButton = false
+                    usernameRequestError = error
                 }
             }
-        }, aliasId: self.aliasId, fromName: fromName)
+        }, username: username)
     }
 }
 
 #Preview {
-    EditAliasFromNameBottomSheet(aliasId: "000", aliasEmail: "TEST", fromName: "NICE", fromNameEdited: { alias in
+    AddUsernameBottomSheet(usernameLimit: 10) {
         // Dummy function for preview
-    })
+    }
 }

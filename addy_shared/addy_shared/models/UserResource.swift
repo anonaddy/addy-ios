@@ -45,8 +45,8 @@ public struct UserResource: Codable {
     var email_subject: String?
     var banner_location: String
     var bandwidth: Int64
-    var username_count: Int
-    var username_limit: Int
+    public var username_count: Int
+    public var username_limit: Int
     var default_username_id: String
     public var default_recipient_id: String
     var default_alias_domain: String

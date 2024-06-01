@@ -142,16 +142,16 @@ struct AddApiBottomSheet: View {
         }.navigationTitle(String(localized: "APIKey")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem() {
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                        Text(String(localized: "cancel"))
                     }
                     
                 }
                 
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarTrailing) {
                     
                     Menu(content: {
                         Button(String(localized: "get_my_key")) {

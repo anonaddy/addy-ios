@@ -181,14 +181,14 @@ struct AddAliasBottomSheet: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                            ToolbarItem() {
-                                Button {
-                                    dismiss()
-                                } label: {
-                                    Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
-                                }
-
-                            }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text(String(localized: "cancel"))
+                    }
+                    
+                }
                         })
             .alert(isPresented: $showAlert) {
                 Alert(
@@ -255,7 +255,10 @@ struct AddAliasBottomSheet: View {
             if let alias = alias {
                 //TODO:  let user know
                 UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
-                self.onAdded()
+                
+                DispatchQueue.main.async {
+                    self.onAdded()
+                }
             } else {
                 isLoadingAddButton = false
                 showAlert = true

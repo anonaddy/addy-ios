@@ -1,32 +1,29 @@
 //
-//  AddRecipientPublicGpgKeyBottomSheet.swift
+//  EditUsernameDescriptionBottomSheet.swift
 //  addy
 //
-//  Created by Stijn van de Water on 27/05/2024.
+//  Created by Stijn van de Water on 01/06/2024.
 //
-
-import SwiftUI
-
 
 import SwiftUI
 import AVFoundation
 import CodeScanner
 import addy_shared
 
-struct AddRecipientPublicGpgKeyBottomSheet: View {
-    let recipientId: String
-    @State private var publicGpgKey: String = ""
+struct EditUsernameDescriptionBottomSheet: View {
+    let usernameId: String
+    @State private var description: String
+    @State private var descriptionPlaceholder: String = String(localized: "description")
+    let descriptionEdited: (Usernames) -> Void
 
-    @State private var publicGpgKeyPlaceholder: String = String(localized: "public_key_placeholder")
-    let onKeyAdded: (Recipients) -> Void
-
-    init(recipientId: String, onKeyAdded: @escaping (Recipients) -> Void) {
-        self.recipientId = recipientId
-        self.onKeyAdded = onKeyAdded
+    init(usernameId: String, description: String, descriptionEdited: @escaping (Usernames) -> Void) {
+        self.usernameId = usernameId
+        self.description = description
+        self.descriptionEdited = descriptionEdited
     }
     
-    @State private var publicGpgKeyValidationError:String?
-    @State private var publicGpgKeyRequestError:String?
+    @State private var descriptionValidationError:String?
+    @State private var descriptionRequestError:String?
 
     @State var IsLoadingSaveButton: Bool = false
     @Environment(\.dismiss) var dismiss
@@ -36,17 +33,22 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
 
             Section {
 
-                ValidatingTextField(value: self.$publicGpgKey, placeholder: self.$publicGpgKeyPlaceholder, fieldType: .bigText, error: $publicGpgKeyValidationError)
+                
+                ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError)
 
+                
+
+                
+                
             } header: {
                 VStack(alignment: .leading){
-                    Text(String(localized: "add_public_gpg_key_desc"))
+                    Text(String(localized: "edit_desc_username_desc"))
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                     
                 }.textCase(nil)
             } footer: {
-                if let error = publicGpgKeyRequestError {
+                if let error = descriptionRequestError {
                     Text(error)
                         .foregroundColor(.red)
                         .font(.system(size: 15))
@@ -62,11 +64,11 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
                 AddyLoadingButton(action: {
                     // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
                     // We should not allow any saving until the validationErrors are nil
-                    if (publicGpgKeyValidationError == nil){
+                    if (descriptionValidationError == nil){
                         IsLoadingSaveButton = true;
                         
                         DispatchQueue.global(qos: .background).async {
-                            self.addGpgKeyHttp(publicGpgKey: self.publicGpgKey)
+                            self.editDescription(description: self.description)
                         }
                     } else {
                         DispatchQueue.main.async {
@@ -78,7 +80,7 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
                 }.frame(minHeight: 56)
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
-            }.navigationTitle(String(localized: "add_public_gpg_key")).pickerStyle(.navigationLink)
+            }.navigationTitle(String(localized: "edit_description")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .topBarLeading) {
@@ -95,25 +97,25 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
     }
     
     
-    private func addGpgKeyHttp(publicGpgKey:String) {
-        publicGpgKeyRequestError = nil
+    private func editDescription(description:String?) {
+        descriptionRequestError = nil
         
         let networkHelper = NetworkHelper()
-        networkHelper.addEncryptionKeyRecipient(completion: { recipient, error in
+        networkHelper.updateDescriptionSpecificUsername(completion: { username, error in
             DispatchQueue.main.async {
-                if let recipient = recipient {
-                    self.onKeyAdded(recipient)
+                if let username = username {
+                    self.descriptionEdited(username)
                 } else {
                     IsLoadingSaveButton = false
-                    publicGpgKeyRequestError = error
+                    descriptionRequestError = error
                 }
             }
-        }, recipientId: self.recipientId, keyData: publicGpgKey)
+        }, usernameId: self.usernameId, description: description)
     }
 }
 
 #Preview {
-    EditAliasDescriptionBottomSheet(aliasId: "000", description: "TEST", descriptionEdited: { alias in
+    EditUsernameDescriptionBottomSheet(usernameId: "000", description: "TEST", descriptionEdited: { username in
         // Dummy function for preview
     })
 }

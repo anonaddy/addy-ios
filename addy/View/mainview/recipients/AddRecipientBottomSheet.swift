@@ -83,11 +83,11 @@ struct AddRecipientBottomSheet: View {
             }.navigationTitle(String(localized: "add_recipient")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
-                    ToolbarItem() {
+                    ToolbarItem(placement: .topBarLeading) {
                         Button {
                             dismiss()
                         } label: {
-                            Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                            Text(String(localized: "cancel"))
                         }
                         
                     }

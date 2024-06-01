@@ -20,9 +20,9 @@ class AddyChipModel:Identifiable{
     }
 }
 
-struct AddyChipView: View {
+struct AddyRoundedChipView: View {
     @Binding var chips: [AddyChipModel]
-    @Binding var selectedChip:String
+    @Binding var selectedChip:String?
     var singleLine:Bool
     
     let onTap: (AddyChipModel) -> Void
@@ -75,7 +75,7 @@ struct AddyChip_Preview: PreviewProvider{
         
         NavigationView {
                     VStack {
-                        @State var selectedChip:String = "test3"
+                        @State var selectedChip:String? = "test3"
                         @State var chips = [
                             AddyChipModel(chipId: "test",label: "test"),
                             AddyChipModel(chipId: "test2",label: "test2"),
@@ -92,7 +92,7 @@ struct AddyChip_Preview: PreviewProvider{
                             AddyChipModel(chipId: "test6",label: "test6"),
                         ]
                         
-                        AddyChipView(chips: $chips, selectedChip: $selectedChip, singleLine: false) { onTappedChip in
+                        AddyRoundedChipView(chips: $chips, selectedChip: $selectedChip, singleLine: false) { onTappedChip in
                             print("\(onTappedChip.label) is selected")
                             selectedChip = onTappedChip.label
                         }

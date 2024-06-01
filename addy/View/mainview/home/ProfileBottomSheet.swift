@@ -14,12 +14,14 @@ import CodeScanner
 import addy_shared
 
 struct ProfileBottomSheet: View {
+    @Binding var isPresentingProfileBottomSheet: Bool
     @EnvironmentObject var mainViewState: MainViewState
     
-    let onNavigate: () -> Void
+    let onNavigate: (Destination) -> Void
 
-    init(onNavigate: @escaping () -> Void) {
+    init(onNavigate: @escaping (Destination) -> Void, isPresentingProfileBottomSheet: Binding<Bool>) {
         self.onNavigate = onNavigate
+        self._isPresentingProfileBottomSheet = isPresentingProfileBottomSheet
     }
 
     @Environment(\.dismiss) var dismiss
@@ -70,19 +72,19 @@ struct ProfileBottomSheet: View {
                 Section{
                     
                     AddySection(title: String(localized: "manage_domains"), description: String(localized: "manage_domains_desc"), trailingSystemimage: "chevron.right") {
-                        self.onNavigate()
+                        self.onNavigate(Destination.usernames)
                     }
 
                     AddySection(title: String(localized: "manage_rules"), description: String(localized: "manage_rules_desc"), trailingSystemimage: "chevron.right") {
-                        self.onNavigate()
+                        self.onNavigate(Destination.usernames)
                     }
 
                     AddySection(title: String(localized: "manage_usernames"), description: String(localized: "manage_usernames_desc"), trailingSystemimage: "chevron.right") {
-                        self.onNavigate()
+                        self.onNavigate(Destination.usernames)
                     }
                     
                     AddySection(title: String(localized: "app_settings"), description: String(localized: "manage_domains_desc"), trailingSystemimage: "chevron.right") {
-                        self.onNavigate()
+                        self.onNavigate(Destination.usernames)
                     }
 
                     
@@ -141,8 +143,8 @@ struct ProfileBottomSheet: View {
     }
 }
 
-#Preview {
-    ProfileBottomSheet() {
-        // Dummy function for preview
-    }
-}
+//#Preview {
+//    ProfileBottomSheet() {
+//        // Dummy function for preview
+//    }
+//}

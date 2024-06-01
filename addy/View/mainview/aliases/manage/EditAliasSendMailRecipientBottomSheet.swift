@@ -1,18 +1,10 @@
 //
-//  EditAliasDescriptionBottomSheet.swift
+//  EditAliasSendMailRecipientBottomSheet.swift
 //  addy
 //
 //  Created by Stijn van de Water on 12/05/2024.
 //
 
-import SwiftUI
-
-//
-//  AddApiBottomSHeet.swift
-//  addy
-//
-//  Created by Stijn van de Water on 07/05/2024.
-//
 
 import SwiftUI
 import AVFoundation
@@ -64,11 +56,11 @@ struct EditAliasSendMailRecipientBottomSheet: View {
         }.navigationTitle(String(localized: "send_mail")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem() {
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                        Text(String(localized: "cancel"))
                     }
                     
                 }

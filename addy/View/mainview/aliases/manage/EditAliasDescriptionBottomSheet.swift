@@ -83,11 +83,11 @@ struct EditAliasDescriptionBottomSheet: View {
             }.navigationTitle(String(localized: "edit_description")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem() {
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                        Text(String(localized: "cancel"))
                     }
                     
                 }
