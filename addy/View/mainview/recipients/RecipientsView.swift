@@ -10,6 +10,7 @@ import addy_shared
 
 struct RecipientsView: View {
     @Binding var isPresentingProfileBottomSheet: Bool
+    @Binding var isShowingFailedDeliveriesView: Bool
 
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject var recipientsViewModel = RecipientsViewModel()
@@ -228,6 +229,12 @@ struct RecipientsView: View {
             })
             .navigationTitle(String(localized: "recipients"))
             .navigationBarItems(trailing: HStack {
+                Button(action: {
+                    self.isShowingFailedDeliveriesView = true
+                }) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.primary)
+                }
                 
                 Button(action: {
                     self.isPresentingProfileBottomSheet = true

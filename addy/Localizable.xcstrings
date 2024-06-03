@@ -56,6 +56,28 @@
         }
       }
     },
+    "add_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add domain"
+          }
+        }
+      }
+    },
+    "add_domain_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the domain you would like to add.\n\nYou will have to verify the ownership of the domain, so make sure you have access to the DNS settings of this domain"
+          }
+        }
+      }
+    },
     "add_public_gpg_key" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -362,6 +384,28 @@
         }
       }
     },
+    "all_domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All domains"
+          }
+        }
+      }
+    },
+    "all_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All failed deliveries"
+          }
+        }
+      }
+    },
     "all_usernames" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -609,6 +653,17 @@
         }
       }
     },
+    "catch_all_domain_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable catch-all for this domain"
+          }
+        }
+      }
+    },
     "catch_all_enabled" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -664,6 +719,28 @@
         }
       }
     },
+    "code" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code"
+          }
+        }
+      }
+    },
+    "configuration_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration error"
+          }
+        }
+      }
+    },
     "copied" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -692,6 +769,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Crafted with love and privacy"
+          }
+        }
+      }
+    },
+    "created" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created"
           }
         }
       }
@@ -829,6 +917,61 @@
         }
       }
     },
+    "delete_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete domain"
+          }
+        }
+      }
+    },
+    "delete_domain_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this domain? This will also delete all aliases associated with this domain. You will no longer be able to receive any emails at this domain."
+          }
+        }
+      }
+    },
+    "delete_domain_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will no longer be able to receive any emails at this domain"
+          }
+        }
+      }
+    },
+    "delete_failed_delivery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete failed delivery"
+          }
+        }
+      }
+    },
+    "delete_failed_delivery_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this failed delivery?"
+          }
+        }
+      }
+    },
     "delete_recipient" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -906,6 +1049,17 @@
         }
       }
     },
+    "details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details"
+          }
+        }
+      }
+    },
     "details_about_error_s" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -944,6 +1098,94 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Domain"
+          }
+        }
+      }
+    },
+    "domain_activated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain activated"
+          }
+        }
+      }
+    },
+    "domain_aliases_d" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain aliases (%@)"
+          }
+        }
+      }
+    },
+    "domain_deactivated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain deactivated"
+          }
+        }
+      }
+    },
+    "domain_edit_recipient_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The list below shows all verified recipients. Select which recipient you want to set as default recipient for this domain"
+          }
+        }
+      }
+    },
+    "domain_no_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This domain has no description set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "domain_no_from_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This domain has no from name set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "domain_status_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this domain for mail forwarding"
+          }
+        }
+      }
+    },
+    "domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domains"
           }
         }
       }
@@ -1014,6 +1256,17 @@
         }
       }
     },
+    "domains_list_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aliases"
+          }
+        }
+      }
+    },
     "edit_desc_alias_desc" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1024,6 +1277,9 @@
           }
         }
       }
+    },
+    "edit_desc_domain_desc" : {
+
     },
     "edit_desc_username_desc" : {
       "extractionState" : "manual",
@@ -1065,6 +1321,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The 'From Name' is shown when you send an email from an alias or reply anonymously to a forwarded email. If left blank, then the email alias itself will be used as the 'From Name' e.g. \"%@\".\n\nThe 'From Name' that is used for an alias is determined by the following **priority:**\n1. **Alias 'From Name'**\n2. Username or Custom Domain 'From Name'\n3. Global 'From Name' from the settings page\n\nIf you set the 'From Name' for this specific alias, it will override the other settings."
+          }
+        }
+      }
+    },
+    "edit_from_name_domain_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The 'From Name' is shown when you send an email from an alias or reply anonymously to a forwarded email. If left blank, then the email alias itself will be used as the 'From Name' e.g. \"example@%@\".\n\nThe 'From Name' that is used for an alias is determined by the following **priority:**\n1. Alias 'From Name'\n2. Username or **Custom Domain 'From Name'**\n3. Global 'From Name' from the settings page\n\nIf you set the 'From Name' for this domain, it will override the global 'From Name' setting."
           }
         }
       }
@@ -1182,6 +1449,17 @@
         }
       }
     },
+    "error_delete_failed_delivery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this failed delivery"
+          }
+        }
+      }
+    },
     "error_deleting_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1189,6 +1467,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Something went wrong while deleting this alias"
+          }
+        }
+      }
+    },
+    "error_deleting_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this domains"
           }
         }
       }
@@ -1270,6 +1559,17 @@
         }
       }
     },
+    "error_obtaining_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find domain"
+          }
+        }
+      }
+    },
     "error_obtaining_recipient" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1332,6 +1632,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Error unknown, please refer to the app logs for more information about this error."
+          }
+        }
+      }
+    },
+    "failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed deliveries"
+          }
+        }
+      }
+    },
+    "failed_delivery_details_text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Created**  \n%@\n\n**First attempted**  \n%@\n\n**Alias**\n%@\n\n**Recipient**\n%@\n\n**Type**\n%@\n\n**Mail Server**\n%@\n\n**Sender**\n%@\n\n**Code**\n%@"
           }
         }
       }
@@ -1723,6 +2045,17 @@
         }
       }
     },
+    "manage_domain_basic_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain: %@\nCreated: %@\nUpdated at: %@\u0003\nDomain verified at: %@\nDomain MX validated at: %@\nDomain sending verified at: %@\nEmail forwarded: %@\nEmail blocked: %@\nEmail replies: %@\nEmail sent: %@"
+          }
+        }
+      }
+    },
     "manage_domains" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1876,6 +2209,50 @@
         }
       }
     },
+    "no_domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to see here"
+          }
+        }
+      }
+    },
+    "no_domains_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have no domains, what about creating one?"
+          }
+        }
+      }
+    },
+    "no_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No failed deliveries"
+          }
+        }
+      }
+    },
+    "no_failed_deliveries_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "That's a good thing!"
+          }
+        }
+      }
+    },
     "not_a_valid_address" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1927,6 +2304,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This shouldn't take long..."
+          }
+        }
+      }
+    },
+    "obtaining_domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your domains"
+          }
+        }
+      }
+    },
+    "obtaining_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your failed deliveries"
           }
         }
       }
@@ -2490,6 +2889,28 @@
         }
       }
     },
+    "something_went_wrong_retrieving_domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving domains"
+          }
+        }
+      }
+    },
+    "something_went_wrong_retrieving_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving failed deliveries"
+          }
+        }
+      }
+    },
     "something_went_wrong_retrieving_recipients" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2950,6 +3371,17 @@
         }
       }
     },
+    "view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View details"
+          }
+        }
+      }
+    },
     "watch_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2979,6 +3411,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You’ll be notified if this alias has activity"
+          }
+        }
+      }
+    },
+    "you_ve_used_d_out_of_d_domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’ve used %@ out of %@ domains"
           }
         }
       }

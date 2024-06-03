@@ -56,8 +56,8 @@ public struct UserResource: Codable {
     var bandwidth_limit: Int64
     public var recipient_count: Int
     public var recipient_limit: Int? // Can be nil on selfhosted
-    var active_domain_count: Int
-    var active_domain_limit: Int? // Can be nil on selfhosted
+    public var active_domain_count: Int
+    public var active_domain_limit: Int? // Can be nil on selfhosted
     var active_shared_domain_alias_count: Int
     var active_shared_domain_alias_limit: Int? // Can be nil on selfhosted
     var active_rule_count: Int

@@ -11,6 +11,7 @@ import UniformTypeIdentifiers
 
 struct AliasesView: View {
     @Binding var isPresentingProfileBottomSheet: Bool
+    @Binding var isShowingFailedDeliveriesView: Bool
 
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject var aliasesViewModel = AliasesViewModel()
@@ -304,6 +305,13 @@ struct AliasesView: View {
             })
             .navigationTitle(String(localized: "aliases"))
             .navigationBarItems(trailing: HStack{
+                Button(action: {
+                    self.isShowingFailedDeliveriesView = true
+                }) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.primary)
+                }
+                
                 Button(action: {
                     self.isPresentingProfileBottomSheet = true
                 }) {

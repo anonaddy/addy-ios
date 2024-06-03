@@ -18,6 +18,7 @@ enum FieldType: FieldValidatorProtocol {
     case url
     case text
     case bigText
+    case domain
         
     func validate(value: String) -> String? {
         switch self {
@@ -31,6 +32,8 @@ enum FieldType: FieldValidatorProtocol {
             return nil
         case .bigText:
             return nil
+        case .domain:
+            return domainValidate(value: value)
         }
     }
     
@@ -46,6 +49,8 @@ enum FieldType: FieldValidatorProtocol {
             return UIKeyboardType.default
         case .bigText:
             return UIKeyboardType.default
+        case .domain:
+            return UIKeyboardType.URL
         }
     }
     
@@ -53,6 +58,14 @@ enum FieldType: FieldValidatorProtocol {
     private func emailValidate(value:String)->String?
     {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: value) ? nil : String(localized: "not_a_valid_address")
+    }
+    
+    
+       private func domainValidate(value:String)->String?
+    {
+        let emailRegEx = "([a-zA-Z0-9]+\\.)+[a-zA-Z]+"
         let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: value) ? nil : String(localized: "not_a_valid_address")
     }

@@ -26,6 +26,15 @@
 		807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */; };
 		807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */; };
 		807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */; };
+		80813B622C0DE1DA009C4E6A /* DomainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B612C0DE1DA009C4E6A /* DomainsView.swift */; };
+		80813B642C0DE1FF009C4E6A /* DomainsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B632C0DE1FF009C4E6A /* DomainsDetailView.swift */; };
+		80813B662C0DE21A009C4E6A /* EditDomainDescriptionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B652C0DE21A009C4E6A /* EditDomainDescriptionBottomSheet.swift */; };
+		80813B682C0DE234009C4E6A /* EditDomainFromNameBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B672C0DE234009C4E6A /* EditDomainFromNameBottomSheet.swift */; };
+		80813B6A2C0DE24C009C4E6A /* EditDomainRecipientsBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B692C0DE24C009C4E6A /* EditDomainRecipientsBottomSheet.swift */; };
+		80813B6C2C0DE288009C4E6A /* AddDomainBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B6B2C0DE288009C4E6A /* AddDomainBottomSheet.swift */; };
+		80813B6E2C0DF23B009C4E6A /* FailedDeliveriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B6D2C0DF23B009C4E6A /* FailedDeliveriesView.swift */; };
+		80813B712C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */; };
+		80813B752C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */; };
 		80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2042BECD840001A984B /* AliasesViewModel.swift */; };
 		80A7F2072BECFA5B001A984B /* AliasRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2062BECFA5B001A984B /* AliasRowView.swift */; };
 		80AC67082BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */; };
@@ -37,6 +46,7 @@
 		80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */; };
 		80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */; };
 		80D8C7A62BF3D4E700933ED8 /* AddyRoundedChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D8C7A52BF3D4E700933ED8 /* AddyRoundedChipView.swift */; };
+		80DB9DB32C0DC7F2002B6486 /* DomainsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB9DB22C0DC7F2002B6486 /* DomainsViewModel.swift */; };
 		80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF39E2BF1095B0022690F /* AddyToggle.swift */; };
 		80DCF3A22BF117720022690F /* AliasWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3A12BF117720022690F /* AliasWatcher.swift */; };
 		80DCF3AA2BF12DF00022690F /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3A92BF12DF00022690F /* NotificationHelper.swift */; };
@@ -163,6 +173,15 @@
 		807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingFieldModel.swift; sourceTree = "<group>"; };
 		807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
 		807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipientBottomSheet.swift; sourceTree = "<group>"; };
+		80813B612C0DE1DA009C4E6A /* DomainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainsView.swift; sourceTree = "<group>"; };
+		80813B632C0DE1FF009C4E6A /* DomainsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainsDetailView.swift; sourceTree = "<group>"; };
+		80813B652C0DE21A009C4E6A /* EditDomainDescriptionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDomainDescriptionBottomSheet.swift; sourceTree = "<group>"; };
+		80813B672C0DE234009C4E6A /* EditDomainFromNameBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDomainFromNameBottomSheet.swift; sourceTree = "<group>"; };
+		80813B692C0DE24C009C4E6A /* EditDomainRecipientsBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDomainRecipientsBottomSheet.swift; sourceTree = "<group>"; };
+		80813B6B2C0DE288009C4E6A /* AddDomainBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDomainBottomSheet.swift; sourceTree = "<group>"; };
+		80813B6D2C0DF23B009C4E6A /* FailedDeliveriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveriesView.swift; sourceTree = "<group>"; };
+		80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveriesViewModel.swift; sourceTree = "<group>"; };
+		80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveryBottomSheet.swift; sourceTree = "<group>"; };
 		80A7F2042BECD840001A984B /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
 		80A7F2062BECFA5B001A984B /* AliasRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasRowView.swift; sourceTree = "<group>"; };
 		80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasSendMailRecipientBottomSheet.swift; sourceTree = "<group>"; };
@@ -174,6 +193,7 @@
 		80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButton.swift; sourceTree = "<group>"; };
 		80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButtonStyle.swift; sourceTree = "<group>"; };
 		80D8C7A52BF3D4E700933ED8 /* AddyRoundedChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyRoundedChipView.swift; sourceTree = "<group>"; };
+		80DB9DB22C0DC7F2002B6486 /* DomainsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainsViewModel.swift; sourceTree = "<group>"; };
 		80DCF39E2BF1095B0022690F /* AddyToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyToggle.swift; sourceTree = "<group>"; };
 		80DCF3A12BF117720022690F /* AliasWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasWatcher.swift; sourceTree = "<group>"; };
 		80DCF3A92BF12DF00022690F /* NotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHelper.swift; sourceTree = "<group>"; };
@@ -290,6 +310,8 @@
 		801B92A52BE9128500179EB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				80813B6F2C0DF288009C4E6A /* faileddeliveries */,
+				80DB9DB02C0DC678002B6486 /* domains */,
 				80E9B22B2C0B238900C7EF99 /* usernames */,
 				80E849992BEB73CE00C8D68A /* mainview */,
 				806D5F352BE9520200C5C109 /* setup */,
@@ -408,9 +430,20 @@
 			path = ValidatingTextField;
 			sourceTree = "<group>";
 		};
+		80813B6F2C0DF288009C4E6A /* faileddeliveries */ = {
+			isa = PBXGroup;
+			children = (
+				80813B6D2C0DF23B009C4E6A /* FailedDeliveriesView.swift */,
+				80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */,
+			);
+			path = faileddeliveries;
+			sourceTree = "<group>";
+		};
 		80A7F2012BECD7D3001A984B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				80DB9DB22C0DC7F2002B6486 /* DomainsViewModel.swift */,
+				80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */,
 				80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */,
 				80E9B22F2C0B63FA00C7EF99 /* UsernamesViewModel.swift */,
 				80A7F2042BECD840001A984B /* AliasesViewModel.swift */,
@@ -450,6 +483,27 @@
 				80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */,
 			);
 			path = AddyLoadingButton;
+			sourceTree = "<group>";
+		};
+		80DB9DB02C0DC678002B6486 /* domains */ = {
+			isa = PBXGroup;
+			children = (
+				80DB9DB42C0DCC96002B6486 /* manage */,
+				80813B612C0DE1DA009C4E6A /* DomainsView.swift */,
+				80813B6B2C0DE288009C4E6A /* AddDomainBottomSheet.swift */,
+			);
+			path = domains;
+			sourceTree = "<group>";
+		};
+		80DB9DB42C0DCC96002B6486 /* manage */ = {
+			isa = PBXGroup;
+			children = (
+				80813B652C0DE21A009C4E6A /* EditDomainDescriptionBottomSheet.swift */,
+				80813B672C0DE234009C4E6A /* EditDomainFromNameBottomSheet.swift */,
+				80813B632C0DE1FF009C4E6A /* DomainsDetailView.swift */,
+				80813B692C0DE24C009C4E6A /* EditDomainRecipientsBottomSheet.swift */,
+			);
+			path = manage;
 			sourceTree = "<group>";
 		};
 		80DCF3A02BF117680022690F /* service */ = {
@@ -877,6 +931,7 @@
 				804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */,
 				807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */,
 				80F22F862BEE34EE001176B4 /* ChartData.swift in Sources */,
+				80813B6C2C0DE288009C4E6A /* AddDomainBottomSheet.swift in Sources */,
 				80E9B22C2C0B238900C7EF99 /* UsernamesDetailView.swift in Sources */,
 				80F22F982BEE34EE001176B4 /* ChartGridShape.swift in Sources */,
 				80F3C6642BFB6E6D0028A486 /* AddAliasBottomSheet.swift in Sources */,
@@ -887,6 +942,7 @@
 				80DCF3A22BF117720022690F /* AliasWatcher.swift in Sources */,
 				80F22F8A2BEE34EE001176B4 /* ViewSizeData.swift in Sources */,
 				80E082692BF7DA8200B51FB8 /* FilterOptionsAliasBottomSheet.swift in Sources */,
+				80813B752C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift in Sources */,
 				80F22FAC2BEE34EE001176B4 /* PieChart.swift in Sources */,
 				80F22F7F2BEE34EE001176B4 /* AxisLabels+Extension.swift in Sources */,
 				80AC67082BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift in Sources */,
@@ -901,11 +957,13 @@
 				80F22FAD2BEE34EE001176B4 /* PieChartCell.swift in Sources */,
 				80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */,
 				80F22FAE2BEE34EE001176B4 /* PieChartHelpers.swift in Sources */,
+				80813B682C0DE234009C4E6A /* EditDomainFromNameBottomSheet.swift in Sources */,
 				80F22F9B2BEE34EE001176B4 /* ColorGradient.swift in Sources */,
 				80DCF3AC2BF12E760022690F /* BackgroundWorkerHelper.swift in Sources */,
 				807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */,
 				80F22F9C2BEE34EE001176B4 /* Colors.swift in Sources */,
 				80F22FA92BEE34EE001176B4 /* LineShape.swift in Sources */,
+				80813B662C0DE21A009C4E6A /* EditDomainDescriptionBottomSheet.swift in Sources */,
 				80F22F972BEE34EE001176B4 /* ChartGridBaseShape.swift in Sources */,
 				80E9B23A2C0B9D8600C7EF99 /* GsonTools.swift in Sources */,
 				80F22F9E2BEE34EE001176B4 /* BarChartCell.swift in Sources */,
@@ -925,6 +983,7 @@
 				80E849B32BEBA82A00C8D68A /* RecipientsView.swift in Sources */,
 				80F22FB22BEE34EE001176B4 /* RingsChartRow.swift in Sources */,
 				80F22F8D2BEE34EE001176B4 /* CGRect+Extension.swift in Sources */,
+				80813B622C0DE1DA009C4E6A /* DomainsView.swift in Sources */,
 				80F22F932BEE34EE001176B4 /* View+Extension.swift in Sources */,
 				80F22FA82BEE34EE001176B4 /* LineChart.swift in Sources */,
 				80E082642BF7D36700B51FB8 /* AddyBugFound.swift in Sources */,
@@ -946,13 +1005,16 @@
 				80AC670C2BFB5DC1004D227D /* AnonAddyUtils.swift in Sources */,
 				80F22F802BEE34EE001176B4 /* AxisLabelsPosition.swift in Sources */,
 				80E9B2382C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift in Sources */,
+				80813B6E2C0DF23B009C4E6A /* FailedDeliveriesView.swift in Sources */,
 				80F22FA02BEE34EE001176B4 /* BarChartRow.swift in Sources */,
 				80E84A2F2BEC119500C8D68A /* AliasDetailView.swift in Sources */,
 				80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */,
+				80DB9DB32C0DC7F2002B6486 /* DomainsViewModel.swift in Sources */,
 				80D8C7A62BF3D4E700933ED8 /* AddyRoundedChipView.swift in Sources */,
 				805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */,
 				80F22F8F2BEE34EE001176B4 /* Color+Extension.swift in Sources */,
 				80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */,
+				80813B642C0DE1FF009C4E6A /* DomainsDetailView.swift in Sources */,
 				80E9B22D2C0B238900C7EF99 /* AddUsernameBottomSheet.swift in Sources */,
 				80F22FA72BEE34EE001176B4 /* LineBackgroundShapeView.swift in Sources */,
 				806F21352BE8F1B100EBEBC8 /* SplashView.swift in Sources */,
@@ -966,12 +1028,14 @@
 				80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */,
 				80F22F8E2BEE34EE001176B4 /* ChartBase+Extension.swift in Sources */,
 				80F22FB12BEE34EE001176B4 /* RingsChart.swift in Sources */,
+				80813B6A2C0DE24C009C4E6A /* EditDomainRecipientsBottomSheet.swift in Sources */,
 				80E1946A2BF8C840005175EA /* EditAliasFromNameBottomSheet.swift in Sources */,
 				80F22FA52BEE34EE001176B4 /* Line.swift in Sources */,
 				80F22F872BEE34EE001176B4 /* ChartValue.swift in Sources */,
 				806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */,
 				80F22F8C2BEE34EE001176B4 /* CGPoint+Extension.swift in Sources */,
 				80F22FA12BEE34EE001176B4 /* LineChart+Extension.swift in Sources */,
+				80813B712C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift in Sources */,
 				80F22F852BEE34EE001176B4 /* ChartBase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

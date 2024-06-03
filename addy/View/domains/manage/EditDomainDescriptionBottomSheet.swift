@@ -1,0 +1,121 @@
+//
+//  EditDomainDescriptionBottomSheet.swift
+//  addy
+//
+//  Created by Stijn van de Water on 03/06/2024.
+//
+
+import SwiftUI
+import AVFoundation
+import CodeScanner
+import addy_shared
+
+struct EditDomainDescriptionBottomSheet: View {
+    let domainId: String
+    @State private var description: String
+    @State private var descriptionPlaceholder: String = String(localized: "description")
+    let descriptionEdited: (Domains) -> Void
+
+    init(domainId: String, description: String, descriptionEdited: @escaping (Domains) -> Void) {
+        self.domainId = domainId
+        self.description = description
+        self.descriptionEdited = descriptionEdited
+    }
+    
+    @State private var descriptionValidationError:String?
+    @State private var descriptionRequestError:String?
+
+    @State var IsLoadingSaveButton: Bool = false
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        Form{
+
+            Section {
+
+                
+                ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError)
+
+                
+
+                
+                
+            } header: {
+                VStack(alignment: .leading){
+                    Text(String(localized: "edit_desc_domain_desc"))
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom)
+                    
+                }.textCase(nil)
+            } footer: {
+                if let error = descriptionRequestError {
+                    Text(error)
+                        .foregroundColor(.red)
+                        .font(.system(size: 15))
+                        .multilineTextAlignment(.leading)
+                        .padding([.horizontal], 0)
+                        .onAppear{
+                            HapticHelper.playHapticFeedback(hapticType: .error)
+                                                        }
+                }
+            }
+            
+            Section {
+                AddyLoadingButton(action: {
+                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                    // We should not allow any saving until the validationErrors are nil
+                    if (descriptionValidationError == nil){
+                        IsLoadingSaveButton = true;
+                        
+                        DispatchQueue.global(qos: .background).async {
+                            self.editDescription(description: self.description)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            IsLoadingSaveButton = false
+                        }
+                    }
+                }, isLoading: $IsLoadingSaveButton) {
+                    Text(String(localized: "save")).foregroundColor(Color.white)
+                }.frame(minHeight: 56)
+            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+            
+            }.navigationTitle(String(localized: "edit_description")).pickerStyle(.navigationLink)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text(String(localized: "cancel"))
+                    }
+                    
+                }
+            })
+        
+        
+    }
+    
+    
+    private func editDescription(description:String?) {
+        descriptionRequestError = nil
+        
+        let networkHelper = NetworkHelper()
+        networkHelper.updateDescriptionSpecificDomain(completion: { domain, error in
+            DispatchQueue.main.async {
+                if let domain = domain {
+                    self.descriptionEdited(domain)
+                } else {
+                    IsLoadingSaveButton = false
+                    descriptionRequestError = error
+                }
+            }
+        }, domainId: self.domainId, description: description)
+    }
+}
+
+#Preview {
+    EditDomainDescriptionBottomSheet(domainId: "000", description: "TEST", descriptionEdited: { domain in
+        // Dummy function for preview
+    })
+}

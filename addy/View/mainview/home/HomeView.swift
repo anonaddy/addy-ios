@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Binding var isPresentingProfileBottomSheet: Bool
+    @Binding var isShowingFailedDeliveriesView: Bool
 
     @EnvironmentObject var mainViewState: MainViewState
 
@@ -24,6 +25,13 @@ struct HomeView: View {
             }
         }.toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    self.isShowingFailedDeliveriesView = true
+                }) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.primary)
+                }
+                
                 Button(action: {
                     self.isPresentingProfileBottomSheet = true
 

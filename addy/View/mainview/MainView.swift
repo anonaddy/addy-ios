@@ -70,10 +70,14 @@ class MainViewState: ObservableObject {
 struct MainView: View {
     @StateObject private var mainViewState = MainViewState()
     @State private var isPresentingProfileBottomSheet = false
+    @State private var isShowingFailedDeliveriesView = false
     @State private var isShowingUsernamesView = false
+    @State private var isShowingDomainsView = false
     @State private var navigationPath = NavigationPath()
     @State private var selectedMenuItem: Destination? = .home
+    @State private var selectedTab: Destination = .home
 
+    
     var body: some View {
         Group {
                     if mainViewState.userResourceData == nil || mainViewState.userResourceExtendedData == nil {
@@ -92,7 +96,9 @@ struct MainView: View {
                                         if destination == .usernames {
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                                 isShowingUsernamesView = true}
-                                            
+                                        } else if destination == .domains {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                isShowingDomainsView = true}
                                         }
                                     }
                                 }, isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet).environmentObject(mainViewState)
@@ -100,6 +106,10 @@ struct MainView: View {
                         }
                         .fullScreenCover(isPresented: $isShowingUsernamesView) {
                             AnyView(UsernamesView(isShowingUsernamesView: $isShowingUsernamesView))
+                        }.fullScreenCover(isPresented: $isShowingDomainsView) {
+                            AnyView(DomainsView(isShowingDomainsView: $isShowingDomainsView))
+                        }.fullScreenCover(isPresented: $isShowingFailedDeliveriesView) {
+                            AnyView(FailedDeliveriesView(isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView))
                         }
                     }
                 }
@@ -126,9 +136,10 @@ struct MainView: View {
     }
 
     private var iPhoneLayout: some View {
-        TabView(selection: $selectedMenuItem) {
+        TabView(selection: $selectedTab) {
             ForEach(Destination.iPhoneCases, id: \.self) { destination in
-                destination.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView)
+                destination.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $isShowingDomainsView,
+                                 isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView)
                 .tag(destination)
                 .tabItem {
                     Label(destination.title, systemImage: destination.systemImage)
@@ -151,7 +162,8 @@ struct MainView: View {
     private var navigationStack: some View {
         NavigationStack(path: $navigationPath) {
             if let selectedItem = selectedMenuItem {
-                selectedItem.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView)
+                selectedItem.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $isShowingDomainsView,
+                    isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView)
             } else {
                 Text(String(localized: "select_menu_item"))
             }
@@ -163,7 +175,7 @@ struct MainView: View {
 }
 
 enum Destination: Hashable, CaseIterable {
-    case home, aliases, recipients, usernames
+    case home, aliases, recipients, usernames, domains, failedDeliveries
 
     
     static var iPhoneCases: [Destination] {
@@ -176,6 +188,8 @@ enum Destination: Hashable, CaseIterable {
         case .aliases: return "aliases"
         case .recipients: return "recipients"
         case .usernames: return "usernames"
+        case .domains: return "domains"
+        case .failedDeliveries: return "failed_deliveries"
         }
     }
 
@@ -185,15 +199,25 @@ enum Destination: Hashable, CaseIterable {
         case .aliases: return "at.circle"
         case .recipients: return "person.2"
         case .usernames: return "person.crop.circle.fill"
+        case .domains: return "globe"
+        case .failedDeliveries: return "exclamationmark.triangle.fill"
         }
     }
 
-    func view(isPresentingProfileBottomSheet: Binding<Bool>, isShowingUsernamesView: Binding<Bool>) -> some View {
+    func view(isPresentingProfileBottomSheet: Binding<Bool>,
+              isShowingUsernamesView: Binding<Bool>,
+              isShowingDomainsView: Binding<Bool>,
+              isShowingFailedDeliveriesView: Binding<Bool>) -> some View {
         switch self {
-        case .home: return AnyView(HomeView(isPresentingProfileBottomSheet: isPresentingProfileBottomSheet))
-        case .aliases: return AnyView(AliasesView(isPresentingProfileBottomSheet: isPresentingProfileBottomSheet))
-        case .recipients: return AnyView(RecipientsView(isPresentingProfileBottomSheet: isPresentingProfileBottomSheet))
+        case .home: return AnyView(HomeView(isPresentingProfileBottomSheet: isPresentingProfileBottomSheet,
+                                            isShowingFailedDeliveriesView: isShowingFailedDeliveriesView))
+        case .aliases: return AnyView(AliasesView(isPresentingProfileBottomSheet: isPresentingProfileBottomSheet,
+                                                  isShowingFailedDeliveriesView: isShowingFailedDeliveriesView))
+        case .recipients: return AnyView(RecipientsView(isPresentingProfileBottomSheet: isPresentingProfileBottomSheet,
+                                                        isShowingFailedDeliveriesView: isShowingFailedDeliveriesView))
         case .usernames: return AnyView(UsernamesView(isShowingUsernamesView: isShowingUsernamesView))
+        case .domains: return AnyView(DomainsView(isShowingDomainsView: isShowingDomainsView))
+        case .failedDeliveries: return AnyView(FailedDeliveriesView(isShowingFailedDeliveriesView: isShowingFailedDeliveriesView))
         }
     }
     

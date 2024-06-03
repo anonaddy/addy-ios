@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806890952BFE7F7300CEB8C7 /* HapticHelper.swift */; };
+		80813B732C0DF349009C4E6A /* FailedDeliveries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B722C0DF349009C4E6A /* FailedDeliveries.swift */; };
 		80A7F2002BECD122001A984B /* AliasSortFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */; };
 		80B4F4B92BEA52EE0009E4CA /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4F4B82BEA52EE0009E4CA /* Logs.swift */; };
 		80B4F4BC2BEA531A0009E4CA /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4F4BB2BEA531A0009E4CA /* NetworkHelper.swift */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		8001D9F02BEA513500AAD10E /* addy_shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = addy_shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		806890952BFE7F7300CEB8C7 /* HapticHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticHelper.swift; sourceTree = "<group>"; };
+		80813B722C0DF349009C4E6A /* FailedDeliveries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveries.swift; sourceTree = "<group>"; };
 		80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSortFilter.swift; sourceTree = "<group>"; };
 		80B4F4B82BEA52EE0009E4CA /* Logs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logs.swift; sourceTree = "<group>"; };
 		80B4F4BB2BEA531A0009E4CA /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				80E84A322BEC122900C8D68A /* Recipients.swift */,
 				80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */,
 				80F3C6662BFB73AF0028A486 /* Domains.swift */,
+				80813B722C0DF349009C4E6A /* FailedDeliveries.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				80E84A332BEC122900C8D68A /* Recipients.swift in Sources */,
 				80B4F4C52BEA55760009E4CA /* AddyIo.swift in Sources */,
 				806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */,
+				80813B732C0DF349009C4E6A /* FailedDeliveries.swift in Sources */,
 				80B4F4B92BEA52EE0009E4CA /* Logs.swift in Sources */,
 				80A7F2002BECD122001A984B /* AliasSortFilter.swift in Sources */,
 				80B4F4C12BEA534B0009E4CA /* KeychainSwift.swift in Sources */,

@@ -111,7 +111,7 @@ struct UsernamesView: View {
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
                 case .deleteUsername:
-                    return Alert(title: Text(String(localized: "delete_username")), message: Text(String(format: String(localized: "delete_username_confirmation_desc"), self.usernameToDelete!.username)), primaryButton: .destructive(Text(String(localized: "delete"))){
+                    return Alert(title: Text(String(localized: "delete_username")), message: Text(String(localized: "delete_username_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
                         DispatchQueue.global(qos: .background).async {
                             self.deleteUsername(username: self.usernameToDelete!)
                         }
