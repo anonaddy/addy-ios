@@ -39,7 +39,6 @@ struct DomainsDetailView: View {
     @State private var catchAllEnabled: Bool = false
     @State private var isSwitchingisActiveState: Bool = false
     @State private var isSwitchingCatchAllEnabledState: Bool = false
-    @State private var isSwitchingCanLoginState: Bool = false
     
     @State private var isPresentingEditDomainDescriptionBottomSheet: Bool = false
     @State private var isPresentingEditDomainFromNameBottomSheet: Bool = false
