@@ -406,6 +406,17 @@
         }
       }
     },
+    "all_rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All rules"
+          }
+        }
+      }
+    },
     "all_usernames" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -994,6 +1005,12 @@
         }
       }
     },
+    "delete_rule" : {
+
+    },
+    "delete_rule_confirmation_desc" : {
+
+    },
     "delete_username" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1449,6 +1466,17 @@
         }
       }
     },
+    "error_changing_rules_order" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while changing the order of the rules"
+          }
+        }
+      }
+    },
     "error_delete_failed_delivery" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1489,6 +1517,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Something went wrong while deleting this recipient"
+          }
+        }
+      }
+    },
+    "error_deleting_rule" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this rule"
           }
         }
       }
@@ -1924,6 +1962,17 @@
     "Hello, World!" : {
 
     },
+    "hold_the_drag_handle_and_drag_to_change_order" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold the drag handle and drag to change order"
+          }
+        }
+      }
+    },
     "home" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2062,7 +2111,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Manage Domains"
+            "value" : "Manage domains"
           }
         }
       }
@@ -2107,6 +2156,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add, modify and reorder rules"
+          }
+        }
+      }
+    },
+    "manage_rules_list_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If %@ then %@"
           }
         }
       }
@@ -2337,6 +2397,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Obtaining your recipients"
+          }
+        }
+      }
+    },
+    "obtaining_rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your rules"
           }
         }
       }
@@ -2612,6 +2683,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Restoring alias…"
+          }
+        }
+      }
+    },
+    "rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules"
           }
         }
       }
@@ -2918,6 +3000,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Something went wrong retrieving recipients"
+          }
+        }
+      }
+    },
+    "something_went_wrong_retrieving_rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving rules"
           }
         }
       }
@@ -3433,6 +3526,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You’ve used %@ out of %@ recipients"
+          }
+        }
+      }
+    },
+    "you_ve_used_d_out_of_d_rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’ve used %@ out of %@ rules"
           }
         }
       }

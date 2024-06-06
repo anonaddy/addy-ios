@@ -362,6 +362,72 @@ public class NetworkHelper {
         task.resume()
     }
     
+    
+    public func getRules(completion: @escaping (RulesArray?, String?) -> Void) {
+        let url = URL(string: AddyIo.API_URL_RULES)!
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(RulesArray.self, from: data)
+                    completion(addyIoData, nil)
+                    
+                } catch {
+                    let errorMessage = error.localizedDescription
+                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "getRules",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "getRules",
+                    extra: ErrorHelper.getErrorMessage(data:
+                                                        data
+                                                      ))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:
+                                                    data
+                                               )
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
      public func getDomains(completion: @escaping (DomainsArray?, String?) -> Void) {
         let url = URL(string: AddyIo.API_URL_DOMAINS)!
         var request = URLRequest(url: url)
@@ -2360,6 +2426,64 @@ public func addUsername(completion: @escaping (Usernames?, String?) -> Void, use
     
        
     
+public func reorderRules(completion: @escaping (String?) -> Void, rules:[Rules]) {
+        let url = URL(string: AddyIo.API_URL_REORDER_RULES)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+    
+        var array: [String] = []
+        // Sum up the ids
+        for rule in rules {
+            array.append(rule.id)
+        }
+    
+        let json: [String: Any] = ["ids": array]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                completion("200")
+                
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "reorderRules",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+
+    
+       
+    
 public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void, domain:String) {
         let url = URL(string: AddyIo.API_URL_DOMAINS)!
         var request = URLRequest(url: url)
@@ -2551,6 +2675,48 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "deleteUsername",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+      
+    public func deleteRule(completion: @escaping (String?) -> Void, ruleId:String) {
+        let url = URL(string: "\(AddyIo.API_URL_RULES)/\(ruleId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 204:
+                completion("204")
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil)
+                
+            default:
+                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                print("Error: \(httpResponse.statusCode) - \(error)")
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "deleteRule",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     ErrorHelper.getErrorMessage(data:data)

@@ -76,7 +76,7 @@ struct ProfileBottomSheet: View {
                     }
 
                     AddySection(title: String(localized: "manage_rules"), description: String(localized: "manage_rules_desc"), trailingSystemimage: "chevron.right") {
-                        self.onNavigate(Destination.usernames)
+                        self.onNavigate(Destination.rules)
                     }
 
                     AddySection(title: String(localized: "manage_usernames"), description: String(localized: "manage_usernames_desc"), trailingSystemimage: "chevron.right") {

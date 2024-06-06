@@ -12,6 +12,9 @@
 		801B929F2BE8FF6800179EB5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */; };
 		801B92A22BE905BB00179EB5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 801B92A12BE905BB00179EB5 /* Lottie */; };
 		801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
+		80477DDE2C12225D00E52AF8 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DDD2C12225D00E52AF8 /* RulesView.swift */; };
+		80477DE02C1222AE00E52AF8 /* RulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DDF2C1222AE00E52AF8 /* RulesViewModel.swift */; };
+		80477DE52C12261300E52AF8 /* CreateRulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DE42C12261300E52AF8 /* CreateRulesView.swift */; };
 		804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */; };
 		804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A72BE95B49001DDC8A /* AddyButton.swift */; };
 		804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */; };
@@ -159,6 +162,9 @@
 		8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = addy_shared.xcodeproj; path = addy_shared/addy_shared/addy_shared.xcodeproj; sourceTree = "<group>"; };
 		801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		80477DDD2C12225D00E52AF8 /* RulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesView.swift; sourceTree = "<group>"; };
+		80477DDF2C1222AE00E52AF8 /* RulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewModel.swift; sourceTree = "<group>"; };
+		80477DE42C12261300E52AF8 /* CreateRulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRulesView.swift; sourceTree = "<group>"; };
 		804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupOnboarding.swift; sourceTree = "<group>"; };
 		804BE7A72BE95B49001DDC8A /* AddyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButton.swift; sourceTree = "<group>"; };
 		804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButtonStyle.swift; sourceTree = "<group>"; };
@@ -310,6 +316,7 @@
 		801B92A52BE9128500179EB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				80477DDC2C12224F00E52AF8 /* rules */,
 				80813B6F2C0DF288009C4E6A /* faileddeliveries */,
 				80DB9DB02C0DC678002B6486 /* domains */,
 				80E9B22B2C0B238900C7EF99 /* usernames */,
@@ -321,6 +328,23 @@
 				806F21322BE8F1B100EBEBC8 /* addyApp.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		80477DDC2C12224F00E52AF8 /* rules */ = {
+			isa = PBXGroup;
+			children = (
+				80477DE32C12260700E52AF8 /* manage */,
+				80477DDD2C12225D00E52AF8 /* RulesView.swift */,
+			);
+			path = rules;
+			sourceTree = "<group>";
+		};
+		80477DE32C12260700E52AF8 /* manage */ = {
+			isa = PBXGroup;
+			children = (
+				80477DE42C12261300E52AF8 /* CreateRulesView.swift */,
+			);
+			path = manage;
 			sourceTree = "<group>";
 		};
 		804BE7A92BE95B49001DDC8A /* AddyButton */ = {
@@ -447,6 +471,7 @@
 				80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */,
 				80E9B22F2C0B63FA00C7EF99 /* UsernamesViewModel.swift */,
 				80A7F2042BECD840001A984B /* AliasesViewModel.swift */,
+				80477DDF2C1222AE00E52AF8 /* RulesViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -949,7 +974,9 @@
 				80F22F912BEE34EE001176B4 /* Range+Extension.swift in Sources */,
 				80F22F822BEE34EE001176B4 /* AxisLablesData.swift in Sources */,
 				80F22F952BEE34EE001176B4 /* GridOptions.swift in Sources */,
+				80477DE02C1222AE00E52AF8 /* RulesViewModel.swift in Sources */,
 				80E8499F2BEB802D00C8D68A /* HomeView.swift in Sources */,
+				80477DE52C12261300E52AF8 /* CreateRulesView.swift in Sources */,
 				80E9B2302C0B63FA00C7EF99 /* UsernamesViewModel.swift in Sources */,
 				80F22FAA2BEE34EE001176B4 /* LineShapeView.swift in Sources */,
 				804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */,
@@ -1001,6 +1028,7 @@
 				80F22FAF2BEE34EE001176B4 /* PieChartRow.swift in Sources */,
 				80F22FA22BEE34EE001176B4 /* LineChartProperties.swift in Sources */,
 				80F22FB02BEE34EE001176B4 /* Ring.swift in Sources */,
+				80477DDE2C12225D00E52AF8 /* RulesView.swift in Sources */,
 				804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */,
 				80AC670C2BFB5DC1004D227D /* AnonAddyUtils.swift in Sources */,
 				80F22F802BEE34EE001176B4 /* AxisLabelsPosition.swift in Sources */,

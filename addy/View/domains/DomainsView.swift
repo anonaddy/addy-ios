@@ -188,10 +188,7 @@ struct DomainsView: View {
                 self.isShowingDomainsView = false
             }) {
                 if UIDevice.current.userInterfaceIdiom != .pad {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text(String(localized: "back"))
-                    }
+                    Text(String(localized: "close"))
                 }
             }, trailing: Button(action: {
                 self.isPresentingAddDomainBottomSheet = true

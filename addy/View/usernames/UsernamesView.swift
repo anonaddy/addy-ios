@@ -181,10 +181,7 @@ struct UsernamesView: View {
                     self.isShowingUsernamesView = false
             }) {
                 if UIDevice.current.userInterfaceIdiom != .pad {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text(String(localized: "back"))
-                    }
+                    Text(String(localized: "close"))
                 }
             }, trailing: Button(action: {
                 self.isPresentingAddUsernameBottomSheet = true

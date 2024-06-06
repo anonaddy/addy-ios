@@ -60,8 +60,8 @@ public struct UserResource: Codable {
     public var active_domain_limit: Int? // Can be nil on selfhosted
     var active_shared_domain_alias_count: Int
     var active_shared_domain_alias_limit: Int? // Can be nil on selfhosted
-    var active_rule_count: Int
-    var active_rule_limit: Int? // Can be nil on selfhosted
+    public var active_rule_count: Int
+    public var active_rule_limit: Int? // Can be nil on selfhosted
     public var total_emails_forwarded: Int
     public var total_emails_blocked: Int
     public var total_emails_replied: Int

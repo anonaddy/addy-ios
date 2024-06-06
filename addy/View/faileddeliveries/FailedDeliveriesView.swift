@@ -175,10 +175,7 @@ struct FailedDeliveriesView: View {
                 self.isShowingFailedDeliveriesView = false
             }) {
                 if UIDevice.current.userInterfaceIdiom != .pad {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text(String(localized: "back"))
-                    }
+                    Text(String(localized: "close"))
                 }
             })
         }.onAppear(perform: {
