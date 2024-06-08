@@ -20,19 +20,9 @@ struct SingleUserResource: Codable {
 public struct UserResourceExtended: Codable {
     public var default_recipient_email: String
 
-    // This is all neccesary to be able to init this class
-
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        default_recipient_email = try container.decode(String.self, forKey: .default_recipient_email)
-    }
 
     public init(default_recipient_email: String) {
         self.default_recipient_email = default_recipient_email
-    }
-    
-    private enum CodingKeys: String, CodingKey {
-        case default_recipient_email
     }
 }
 

@@ -23,6 +23,17 @@
         }
       }
     },
+    "actions_then" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actions (then)"
+          }
+        }
+      }
+    },
     "add" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -30,6 +41,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add"
+          }
+        }
+      }
+    },
+    "add_action" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add action"
+          }
+        }
+      }
+    },
+    "add_action_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decide what action should be performed when conditions are met"
           }
         }
       }
@@ -52,6 +85,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Other aliases e.g. alias@%@.addy.io or .me can also be created automatically when they receive their first email"
+          }
+        }
+      }
+    },
+    "add_condition" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add condition"
+          }
+        }
+      }
+    },
+    "add_condition_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a condition which must be met before actions are performed"
           }
         }
       }
@@ -428,6 +483,17 @@
         }
       }
     },
+    "and" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AND"
+          }
+        }
+      }
+    },
     "anonymous_email_forwarding" : {
       "localizations" : {
         "en" : {
@@ -544,6 +610,17 @@
         }
       }
     },
+    "banner_location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Banner location"
+          }
+        }
+      }
+    },
     "basic" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -551,6 +628,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Basic"
+          }
+        }
+      }
+    },
+    "block_the_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "block the email"
           }
         }
       }
@@ -741,6 +829,28 @@
         }
       }
     },
+    "condition_operator" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operator"
+          }
+        }
+      }
+    },
+    "conditions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conditions"
+          }
+        }
+      }
+    },
     "configuration_error" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -748,6 +858,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configuration error"
+          }
+        }
+      }
+    },
+    "contains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "contains"
           }
         }
       }
@@ -1109,6 +1230,39 @@
         }
       }
     },
+    "does_not_contain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "does not contain"
+          }
+        }
+      }
+    },
+    "does_not_end_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "does not end with"
+          }
+        }
+      }
+    },
+    "does_not_start_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "does not start with"
+          }
+        }
+      }
+    },
     "domain" : {
       "localizations" : {
         "en" : {
@@ -1441,6 +1595,50 @@
         }
       }
     },
+    "ends_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ends with"
+          }
+        }
+      }
+    },
+    "enter_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter name"
+          }
+        }
+      }
+    },
+    "enter_value" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter value"
+          }
+        }
+      }
+    },
+    "enter_values_comma_separated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter values (comma separated)"
+          }
+        }
+      }
+    },
     "error" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1473,6 +1671,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Something went wrong while changing the order of the rules"
+          }
+        }
+      }
+    },
+    "error_creating_rule" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while saving this rule"
           }
         }
       }
@@ -1615,6 +1824,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Could not find recipient"
+          }
+        }
+      }
+    },
+    "error_obtaining_rule" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find rule"
           }
         }
       }
@@ -1904,6 +2124,17 @@
         }
       }
     },
+    "forwards" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forwards"
+          }
+        }
+      }
+    },
     "from_name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2013,6 +2244,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ignore and continue"
+          }
+        }
+      }
+    },
+    "is_exactly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "is exactly"
+          }
+        }
+      }
+    },
+    "is_not" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "is not"
           }
         }
       }
@@ -2214,6 +2467,17 @@
         }
       }
     },
+    "match" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Match"
+          }
+        }
+      }
+    },
     "menu" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2312,6 +2576,12 @@
           }
         }
       }
+    },
+    "no_rules" : {
+
+    },
+    "no_rules_desc" : {
+
     },
     "not_a_valid_address" : {
       "extractionState" : "manual",
@@ -2419,6 +2689,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Obtaining your usernames"
+          }
+        }
+      }
+    },
+    "or" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OR"
           }
         }
       }
@@ -2610,6 +2891,28 @@
         }
       }
     },
+    "replace_the_from_name_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "replace the \"from name\" with"
+          }
+        }
+      }
+    },
+    "replace_the_subject_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "replace the subject with"
+          }
+        }
+      }
+    },
     "replied_sent_stat" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2617,6 +2920,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ replied\n%@ sent"
+          }
+        }
+      }
+    },
+    "replies" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replies"
           }
         }
       }
@@ -2687,6 +3001,50 @@
         }
       }
     },
+    "rule_bannerlocation_bottom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bottom"
+          }
+        }
+      }
+    },
+    "rule_bannerlocation_off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "off"
+          }
+        }
+      }
+    },
+    "rule_bannerlocation_top" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "top"
+          }
+        }
+      }
+    },
+    "rule_if_" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If %@"
+          }
+        }
+      }
+    },
     "rules" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2694,6 +3052,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rules"
+          }
+        }
+      }
+    },
+    "rules_create_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules work on all emails, including replies and also send froms. New conditions and actions will be added over time."
+          }
+        }
+      }
+    },
+    "run_rule_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Run rule on"
           }
         }
       }
@@ -2725,6 +3105,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save"
+          }
+        }
+      }
+    },
+    "select" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select"
           }
         }
       }
@@ -2780,6 +3171,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter the email addresses (comma separated) of the recipients you’d like to send an email to from %@.\n\nThe mail app on your device opens with the correct to addresses entered. Note that you must send this email from one of your verified recipients email address."
+          }
+        }
+      }
+    },
+    "sends" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sends"
+          }
+        }
+      }
+    },
+    "set_the_banner_information_location_to" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "set the banner information location to"
           }
         }
       }
@@ -3235,6 +3648,17 @@
         }
       }
     },
+    "starts_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "starts with"
+          }
+        }
+      }
+    },
     "statistics" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3268,6 +3692,39 @@
         }
       }
     },
+    "the_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the alias"
+          }
+        }
+      }
+    },
+    "the_sender" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the sender"
+          }
+        }
+      }
+    },
+    "the_subject" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the subject"
+          }
+        }
+      }
+    },
     "this_field_cannot_be_empty" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3286,6 +3743,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Try again"
+          }
+        }
+      }
+    },
+    "turn_PGP_encryption_off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "turn PGP encryption off"
           }
         }
       }

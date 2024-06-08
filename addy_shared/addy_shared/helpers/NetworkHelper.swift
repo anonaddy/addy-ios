@@ -68,7 +68,7 @@ public class NetworkHelper {
             case 401:
                 completion(nil)
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
                 print("Error: \(httpResponse.statusCode) - \(errorMessage)")
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -105,8 +105,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(Version.self, from: data)
                     completion(addyIoData, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -115,9 +115,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        ErrorHelper.getErrorMessage(data:data)
-                    )
+                    nil,
+                    errorMessage
+                )
                 }
                 
             case 401:
@@ -127,15 +127,15 @@ public class NetworkHelper {
                 //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 //                }
                 completion(nil, nil)
-            
+                
             case 404:
                 // Not found, aka the addy.io version is <0.6.0 (this endpoint was introduced in 0.6.0)
                 // Send an empty version as callback to let the checks run in SplashActivity
                 completion(Version(major: 0, minor: 0, patch: 0, version: ""), nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -145,9 +145,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:
-                                                    data
-                                               )
+                    errorMessage
                 )
             }
         }
@@ -174,8 +172,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUserResource.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -184,9 +182,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        ErrorHelper.getErrorMessage(data:data)
-                    )
+                    nil,
+                    errorMessage
+                )
                 }
                 
             case 401:
@@ -198,8 +196,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -209,9 +207,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:
-                                                    data
-                                               )
+                    errorMessage
                 )
             }
         }
@@ -252,8 +248,8 @@ public class NetworkHelper {
                     completion(recipientList, nil)
                     
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -262,9 +258,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        ErrorHelper.getErrorMessage(data:data)
-                    )
+                    nil,
+                    errorMessage
+                )
                 }
                 
             case 401:
@@ -276,8 +272,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -287,9 +283,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:
-                                                    data
-                                               )
+                    errorMessage
                 )
             }
         }
@@ -317,8 +311,8 @@ public class NetworkHelper {
                     completion(addyIoData, nil)
                     
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -327,9 +321,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        ErrorHelper.getErrorMessage(data:data)
-                    )
+                    nil,
+                    errorMessage
+                )
                 }
                 
             case 401:
@@ -341,8 +335,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -352,9 +346,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:
-                                                    data
-                                               )
+                    errorMessage
                 )
             }
         }
@@ -383,8 +375,8 @@ public class NetworkHelper {
                     completion(addyIoData, nil)
                     
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -393,9 +385,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        ErrorHelper.getErrorMessage(data:data)
-                    )
+                    nil,
+                    errorMessage
+                )
                 }
                 
             case 401:
@@ -407,8 +399,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -418,9 +410,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:
-                                                    data
-                                               )
+                    errorMessage
                 )
             }
         }
@@ -428,7 +418,7 @@ public class NetworkHelper {
         task.resume()
     }
     
-     public func getDomains(completion: @escaping (DomainsArray?, String?) -> Void) {
+    public func getDomains(completion: @escaping (DomainsArray?, String?) -> Void) {
         let url = URL(string: AddyIo.API_URL_DOMAINS)!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -448,8 +438,8 @@ public class NetworkHelper {
                     completion(addyIoData, nil)
                     
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -458,9 +448,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        ErrorHelper.getErrorMessage(data:data)
-                    )
+                    nil,
+                    errorMessage
+                )
                 }
                 
             case 401:
@@ -472,8 +462,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -483,9 +473,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:
-                                                    data
-                                               )
+                    errorMessage
                 )
             }
         }
@@ -493,7 +481,7 @@ public class NetworkHelper {
         task.resume()
     }
     
-     public func getFailedDeliveries(completion: @escaping (FailedDeliveriesArray?, String?) -> Void) {
+    public func getFailedDeliveries(completion: @escaping (FailedDeliveriesArray?, String?) -> Void) {
         let url = URL(string: AddyIo.API_URL_FAILED_DELIVERIES)!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -513,8 +501,8 @@ public class NetworkHelper {
                     completion(addyIoData, nil)
                     
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -523,9 +511,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        ErrorHelper.getErrorMessage(data:data)
-                    )
+                    nil,
+                    errorMessage
+                )
                 }
                 
             case 401:
@@ -537,8 +525,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -548,9 +536,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:
-                                                    data
-                                               )
+                    errorMessage
                 )
             }
         }
@@ -578,8 +564,8 @@ public class NetworkHelper {
                     completion(addyIoData, nil)
                     
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -588,9 +574,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        ErrorHelper.getErrorMessage(data:data)
-                    )
+                    nil,
+                    errorMessage
+                )
                 }
                 
             case 401:
@@ -602,8 +588,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -613,9 +599,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:
-                                                    data
-                                               )
+                    errorMessage
                 )
             }
         }
@@ -643,8 +627,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -654,9 +638,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -669,8 +651,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -678,7 +660,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -706,8 +688,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -717,9 +699,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -732,8 +712,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -741,7 +721,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -769,8 +749,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -780,9 +760,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -795,8 +773,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -804,7 +782,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -844,15 +822,15 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "resendVerificationEmail",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -880,8 +858,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -891,9 +869,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -906,8 +882,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -915,7 +891,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -923,6 +899,111 @@ public class NetworkHelper {
         task.resume()
     }
     
+    
+    public func getSpecificRule(completion: @escaping (Rules?, String?) -> Void, ruleId:String) {
+        let url = URL(string: "\(AddyIo.API_URL_RULES)/\(ruleId)")!
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(SingleRule.self, from: data)
+                    completion(addyIoData.data, nil)
+                } catch {
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "getSpecificRule",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        errorMessage
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "getSpecificRule",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    errorMessage
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
+    
+    public func updateRule(completion: @escaping (String?) -> Void, ruleId:String, rule:Rules) {
+        let url = URL(string: "\(AddyIo.API_URL_RULES)/\(ruleId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.allHTTPHeaderFields = getHeaders()
+        let ruleData = try? JSONEncoder().encode(rule)
+        request.httpBody = ruleData
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                completion("200")
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil)
+                
+            default:
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "updateRule",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    errorMessage
+                )
+            }
+        }
+        
+        task.resume()
+    }
     
     public func restoreAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String) {
         let url = URL(string: "\(AddyIo.API_URL_ALIAS)/\(aliasId)/restore")!
@@ -944,8 +1025,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -955,9 +1036,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -970,8 +1049,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -979,7 +1058,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -992,7 +1071,7 @@ public class NetworkHelper {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = getHeaders()
-                
+        
         
         let json: [String: Any] = ["domain": domain,
                                    "description": description,
@@ -1017,8 +1096,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -1028,9 +1107,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -1043,8 +1120,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -1052,13 +1129,13 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
-    }    
+    }
     
     public func activateSpecificAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String) {
         let url = URL(string: AddyIo.API_URL_ACTIVE_ALIAS)!
@@ -1085,8 +1162,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -1096,9 +1173,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -1111,8 +1186,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -1120,7 +1195,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1157,8 +1232,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -1168,9 +1243,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -1183,8 +1256,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -1192,7 +1265,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1226,8 +1299,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -1237,9 +1310,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -1252,8 +1323,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -1261,7 +1332,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1294,8 +1365,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -1305,9 +1376,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -1320,8 +1389,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -1329,7 +1398,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1363,21 +1432,21 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "disableCatchAllSpecificUsername",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
-    }    
+    }
     
     
     public func disableCatchAllSpecificDomain(completion: @escaping (String?) -> Void, domainId:String) {
@@ -1406,21 +1475,21 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "disableCatchAllSpecificDomain",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
-    }    
+    }
     
     
     public func enableCanLoginSpecificUsername(completion: @escaping (Usernames?, String?) -> Void, usernameId:String) {
@@ -1448,8 +1517,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -1459,9 +1528,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -1474,8 +1541,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -1483,7 +1550,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1517,15 +1584,15 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "disableCanLoginSpecificUsername",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1560,8 +1627,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -1571,9 +1638,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -1586,8 +1651,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -1595,7 +1660,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1629,8 +1694,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -1640,9 +1705,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -1655,8 +1718,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -1664,7 +1727,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1698,15 +1761,15 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "deactivateSpecificUsername",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1740,15 +1803,15 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "deactivateSpecificDomain",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1782,15 +1845,15 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "deactivateSpecificAlias",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1824,15 +1887,15 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "disallowRecipientToReplySend",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1867,15 +1930,15 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "disableEncryptionRecipient",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -1908,8 +1971,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -1919,9 +1982,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -1934,8 +1995,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -1943,14 +2004,14 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
     }
-
+    
     
     public func disablePgpInlineRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
         let url = URL(string: "\(AddyIo.API_URL_INLINE_ENCRYPTED_RECIPIENTS)/\(recipientId)")!
@@ -1978,15 +2039,15 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "disablePgpInlineRecipient",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -2019,8 +2080,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -2030,9 +2091,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -2045,8 +2104,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -2054,14 +2113,14 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
     }
-
+    
     
     
     public func removeEncryptionKeyRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
@@ -2090,15 +2149,15 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "removeEncryptionKeyRecipient",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -2132,15 +2191,15 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "disablePgpInlineRecipient",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -2173,8 +2232,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -2184,9 +2243,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -2199,8 +2256,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -2208,14 +2265,14 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
     }
-
+    
     public func addEncryptionKeyRecipient(completion: @escaping (Recipients?, String?) -> Void, recipientId:String, keyData:String) {
         let url = URL(string: "\(AddyIo.API_URL_RECIPIENT_KEYS)/\(recipientId)")!
         var request = URLRequest(url: url)
@@ -2241,8 +2298,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -2252,9 +2309,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -2267,8 +2322,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -2276,14 +2331,14 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
     }
-
+    
     
     
     public func addRecipient(completion: @escaping (Recipients?, String?) -> Void, address:String) {
@@ -2311,8 +2366,8 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -2322,9 +2377,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -2337,8 +2390,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -2346,7 +2399,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -2355,7 +2408,7 @@ public class NetworkHelper {
     }
     
     
-public func addUsername(completion: @escaping (Usernames?, String?) -> Void, username:String) {
+    public func addUsername(completion: @escaping (Usernames?, String?) -> Void, username:String) {
         let url = URL(string: AddyIo.API_URL_USERNAMES)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -2380,8 +2433,8 @@ public func addUsername(completion: @escaping (Usernames?, String?) -> Void, use
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -2391,9 +2444,7 @@ public func addUsername(completion: @escaping (Usernames?, String?) -> Void, use
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -2406,8 +2457,8 @@ public func addUsername(completion: @escaping (Usernames?, String?) -> Void, use
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -2415,29 +2466,95 @@ public func addUsername(completion: @escaping (Usernames?, String?) -> Void, use
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
     }
-
     
-       
     
-public func reorderRules(completion: @escaping (String?) -> Void, rules:[Rules]) {
+    
+    public func createRule(completion: @escaping (Rules?, String?) -> Void, rule:Rules) {
+        let url = URL(string: AddyIo.API_URL_USERNAMES)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let ruleData = try? JSONEncoder().encode(rule)
+        request.httpBody = ruleData
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 201:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(SingleRule.self, from: data)
+                    completion(addyIoData.data, nil)
+                } catch {
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "createRule",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        errorMessage
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "createRule",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    errorMessage
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
+    
+    
+    
+    public func reorderRules(completion: @escaping (String?) -> Void, rules:[Rules]) {
         let url = URL(string: AddyIo.API_URL_REORDER_RULES)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = getHeaders()
-    
+        
         var array: [String] = []
         // Sum up the ids
         for rule in rules {
             array.append(rule.id)
         }
-    
+        
         let json: [String: Any] = ["ids": array]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         request.httpBody = jsonData
@@ -2465,26 +2582,26 @@ public func reorderRules(completion: @escaping (String?) -> Void, rules:[Rules])
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "reorderRules",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
     }
-
     
-       
     
-public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void, domain:String) {
+    
+    
+    public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void, domain:String) {
         let url = URL(string: AddyIo.API_URL_DOMAINS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -2509,8 +2626,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, "201", nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -2520,16 +2637,14 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   ),
+                        errorMessage,
                         nil
                     )
                 }
                 // 404 means that the setup is not completed
             case 404:
                 completion(nil, "404", String(data: data, encoding: .utf8))
-                            
+                
             case 401:
                 //TODO: remove, not allowed
                 //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
@@ -2539,8 +2654,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil, nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -2549,14 +2664,14 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(
                     nil,
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
     }
-
+    
     
     
     public func deleteAlias(completion: @escaping (String?) -> Void, aliasId:String) {
@@ -2585,15 +2700,15 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "deleteSpecificAlias",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -2627,15 +2742,15 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "forgetSpecificAlias",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -2669,22 +2784,22 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "deleteUsername",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
     }
-      
+    
     public func deleteRule(completion: @escaping (String?) -> Void, ruleId:String) {
         let url = URL(string: "\(AddyIo.API_URL_RULES)/\(ruleId)")!
         var request = URLRequest(url: url)
@@ -2711,22 +2826,22 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "deleteRule",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
     }
-      
+    
     public func deleteFailedDelivery(completion: @escaping (String?) -> Void, failedDeliveryId:String) {
         let url = URL(string: "\(AddyIo.API_URL_FAILED_DELIVERIES)/\(failedDeliveryId)")!
         var request = URLRequest(url: url)
@@ -2753,22 +2868,22 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "deleteFailedDelivery",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
     }
-      
+    
     public func deleteDomain(completion: @escaping (String?) -> Void, domainId:String) {
         let url = URL(string: "\(AddyIo.API_URL_DOMAINS)/\(domainId)")!
         var request = URLRequest(url: url)
@@ -2795,15 +2910,15 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "deleteDomain",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -2837,15 +2952,15 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "deleteRecipient",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -2879,8 +2994,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -2890,9 +3005,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -2905,8 +3018,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -2914,7 +3027,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -2947,8 +3060,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -2958,9 +3071,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -2973,8 +3084,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -2982,7 +3093,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -3016,8 +3127,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -3027,9 +3138,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -3042,8 +3151,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -3051,7 +3160,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -3085,8 +3194,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -3096,9 +3205,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -3111,8 +3218,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -3120,14 +3227,14 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
         
         task.resume()
     }
-     
+    
     public func updateFromNameSpecificUsername(completion: @escaping (Usernames?, String?) -> Void, usernameId:String, fromName:String?) {
         let url = URL(string: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)")!
         var request = URLRequest(url: url)
@@ -3153,8 +3260,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -3164,9 +3271,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -3179,8 +3284,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -3188,7 +3293,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -3221,8 +3326,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -3232,9 +3337,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -3247,8 +3350,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -3256,7 +3359,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -3289,8 +3392,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -3300,9 +3403,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -3315,8 +3416,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -3324,7 +3425,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -3357,8 +3458,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -3368,9 +3469,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -3383,8 +3482,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -3392,7 +3491,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -3425,8 +3524,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -3436,9 +3535,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                                                           ))
                     completion(
                         nil,
-                        ErrorHelper.getErrorMessage(data:
-                                                        data
-                                                   )
+                        errorMessage
                     )
                 }
                 
@@ -3451,8 +3548,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
-                print("Error: \(httpResponse.statusCode) - \(error)")
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -3460,7 +3557,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }
@@ -3533,8 +3630,8 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     let addyIoData = try decoder.decode(AliasesArray.self, from: data)
                     completion(addyIoData, nil)
                 } catch {
-                    let errorMessage = error.localizedDescription
-                    print("Error: \(httpResponse.statusCode) - \(error)")
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
                         error: errorMessage,
@@ -3543,9 +3640,9 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        ErrorHelper.getErrorMessage(data:data)
-                    )
+                    nil,
+                    errorMessage
+                )
                 }
                 
             case 401:
@@ -3557,7 +3654,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                 completion(nil, nil)
                 
             default:
-                let errorMessage = error?.localizedDescription ?? "Unknown error"
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
                 print("Error: \(httpResponse.statusCode) - \(String(describing: error))")
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3566,7 +3663,7 @@ public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    ErrorHelper.getErrorMessage(data:data)
+                    errorMessage
                 )
             }
         }

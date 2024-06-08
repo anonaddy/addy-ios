@@ -132,16 +132,14 @@ struct RulesView: View {
                 
                 // If there is an rules (aka, if the list is visible)
                 if let rules = rulesViewModel.rules{
-                    
-                    // There is always 1 rule.
-                    
-                    //                    if rules.isEmpty {
-                    //                        ContentUnavailableView {
-                    //                            Label(String(localized: "no_rules"), systemImage: "person.2")
-                    //                        } description: {
-                    //                            Text(String(localized: "no_rules_desc"))
-                    //                        }
-                    //                    }
+
+                    if rules.data.isEmpty {
+                        ContentUnavailableView {
+                            Label(String(localized: "no_rules"), systemImage: "checklist")
+                        } description: {
+                            Text(String(localized: "no_rules_desc"))
+                        }
+                    }
                     
                 } else {
                     // If there is NO rules (aka, if the list is not visible)

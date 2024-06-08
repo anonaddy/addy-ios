@@ -7,19 +7,34 @@
 
 import Foundation
 
-public struct Action: Codable {
-    public let type: String
-    public let value: String
+public struct Action: Identifiable, Hashable, Codable {
+    public var id: Self { self }
+
+    public var type: String
+    public var value: String
+    
+    public init(type: String, value: String) {
+        self.type = type
+        self.value = value
+    }
 }
 
-public struct Condition: Codable {
+public struct Condition: Identifiable, Hashable, Codable {
+    public var id: Self { self }
+
     public let type: String
     public let match: String
     public let values: [String]
+    
+    public init(type: String, match: String, values: [String]) {
+        self.type = type
+        self.match = match
+        self.values = values
+    }
 }
 
 struct SingleRule: Codable {
-    let data: Rules
+    var data: Rules
 }
  
 public struct RulesArray: Codable {
@@ -33,11 +48,28 @@ public struct Rules: Identifiable, Codable {
     let order: Int
     public var conditions: [Condition]
     public var actions: [Action]
-    var `operator`: String
-    var forwards: Bool
-    var replies: Bool
-    var sends: Bool
+    public var `operator`: String
+    public var forwards: Bool
+    public var replies: Bool
+    public var sends: Bool
     let active: Bool
     let created_at: String
     let updated_at: String
+    
+    // This is all neccesary to be able to init this class
+    public init(id: String, user_id: String, name: String, order: Int, conditions: [Condition], actions: [Action], `operator`:String,forwards: Bool, replies: Bool, sends: Bool, active: Bool, created_at: String, updated_at: String) {
+        self.id = id
+        self.user_id = user_id
+        self.name = name
+        self.order = order
+        self.conditions = conditions
+        self.actions = actions
+        self.`operator` = `operator`
+        self.forwards = forwards
+        self.replies = replies
+        self.sends = sends
+        self.active = active
+        self.created_at = created_at
+        self.updated_at = updated_at
+    }
 }

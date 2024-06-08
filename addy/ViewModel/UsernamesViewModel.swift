@@ -33,7 +33,7 @@ class UsernamesViewModel: ObservableObject{
                         if let usernames = usernames {
                             self.usernames = usernames
                         } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error)")
+                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error!)")
                             print("Error: \(error)")
                         }
                     }

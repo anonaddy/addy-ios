@@ -34,7 +34,7 @@ class RecipientsViewModel: ObservableObject{
                         if let recipients = recipients {
                             self.recipients = recipients
                         } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error)")
+                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error!)")
                             print("Error: \(error)")
                         }
                     }

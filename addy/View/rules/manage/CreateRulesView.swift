@@ -6,26 +6,499 @@
 //
 
 import SwiftUI
+import addy_shared
+import Lottie
 
 struct CreateRulesView: View {
-    @EnvironmentObject var mainViewState: MainViewState
-
+    
+    
+    let conditionsType = ["sender", "subject", "alias"]
+    let conditionsTypeName = [
+        NSLocalizedString("the_sender", comment: ""),
+        NSLocalizedString("the_subject", comment: ""),
+        NSLocalizedString("the_alias", comment: "")
+    ]
+    let conditionsMatch = ["contains", "does not contain", "is exactly", "is not", "starts with", "does not start with", "ends with", "does not end with"]
+    let conditionsMatchName = [
+        NSLocalizedString("contains", comment: ""),
+        NSLocalizedString("does_not_contain", comment: ""),
+        NSLocalizedString("is_exactly", comment: ""),
+        NSLocalizedString("is_not", comment: ""),
+        NSLocalizedString("starts_with", comment: ""),
+        NSLocalizedString("does_not_start_with", comment: ""),
+        NSLocalizedString("ends_with", comment: ""),
+        NSLocalizedString("does_not_end_with", comment: "")
+    ]
+    
+    let actionsType = ["subject", "displayFrom", "encryption", "banner", "block"]
+    let actionsTypeName = [
+        NSLocalizedString("replace_the_subject_with", comment: ""),
+        NSLocalizedString("replace_the_from_name_with", comment: ""),
+        NSLocalizedString("turn_PGP_encryption_off", comment: ""),
+        NSLocalizedString("set_the_banner_information_location_to", comment: ""),
+        NSLocalizedString("block_the_email", comment: "")
+    ]
+    
+    
+    enum ActiveAlert {
+        case error
+    }
+    
     let ruleId: String
-    let ruleName: String
+    @State var ruleName: String
+    @State var ruleNamePlaceholder: String = String(localized: "enter_name")
+    
+    @State private var actionToEdit: Action? = nil
+    @State private var conditionToEdit: Condition? = nil
 
     
     @Binding var shouldReloadDataInParent: Bool
-
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var showAlert: Bool = false
+    @State private var isSavingRule: Bool = false
     
-    init(ruleId: String, ruleName: String, shouldReloadDataInParent: Binding<Bool>) {
-        self.ruleId = ruleId
-        self.ruleName = ruleName
+    @State private var conditionOperator: String = "AND"
+    
+    
+    
+    
+    
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    @State var selectedChips: [String] = []
+    @State var rulesRunOnChips: [AddyChipModel] = [AddyChipModel(chipId: "forwards", label: String(localized: "forwards")),
+                                                   AddyChipModel(chipId: "replies", label: String(localized: "replies")),
+                                                   AddyChipModel(chipId: "sends", label: String(localized: "sends"))]
+    
+    
+    @State private var ruleNameValidationError:String?
+    
+    @State private var rule: Rules? = nil
+    @State private var errorText: String? = nil
+    
+    @State private var isPresentingAddNewActionBottomSheet = false
+    @State private var isPresentingAddNewConditionBottomSheet = false
+    
+    
+    init(ruleId: String?, ruleName: String, shouldReloadDataInParent: Binding<Bool>) {
+        if let ruleId = ruleId {
+            self.ruleId = ruleId
+            self.ruleName = ruleName
+        } else {
+            // RuleId is nil, load in the template rule
+            let rule = Rules(
+                id: "",
+                user_id: "",
+                name: "First Rule",
+                order: 0,
+                conditions: [
+                    Condition(type: "sender", match: "is exactly", values: ["will@addy.io", "no-reply@addy.io"]),
+                    Condition(type: "subject", match: "contains", values: ["newsletter", "subscription"])
+                ],
+                actions: [
+                    Action(type: "subject", value: "SPAM"),
+                    Action(type: "block", value: "true")
+                ],
+                operator: "AND",
+                forwards: true,
+                replies: true,
+                sends: true,
+                active: true,
+                created_at: "",
+                updated_at: ""
+            )
+            
+            self.rule = rule
+            self.ruleId = rule.id
+            self.ruleName = rule.name
+        }
+        
         _shouldReloadDataInParent = shouldReloadDataInParent
     }
     
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if let rule = rule {
+            Form {
+                Section {
+                    ValidatingTextField(value: self.$ruleName, placeholder: self.$ruleNamePlaceholder, fieldType: .text, error: $ruleNameValidationError)
+                } header: {
+                    Text(String(localized: "enter_name"))
+                    
+                }
+                
+                Section {
+                    AddyMultiSelectChipView(chips: $rulesRunOnChips, selectedChips: $selectedChips, singleLine: true) { onTappedChip in
+                        withAnimation {
+                            if (selectedChips.contains(onTappedChip.chipId)){
+                                if let index = selectedChips.firstIndex(of: onTappedChip.chipId) {
+                                    selectedChips.remove(at: index)
+                                }
+                            } else {
+                                selectedChips.append(onTappedChip.chipId)
+                            }
+                        }
+                        
+                    }
+                } header: {
+                    Text(String(localized: "run_rule_on")).padding(.horizontal)
+                    
+                }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+                
+                
+                Section {
+                    if (rule.conditions.isEmpty){
+                        VStack {
+                            Button {
+                                isPresentingAddNewActionBottomSheet = true
+                            } label: {
+                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).padding(.bottom)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    } else {
+                        ForEach(rule.conditions, id:\.self) { condition in
+                            VStack(alignment: .center) {
+                                HStack {
+                                    Spacer()
+                                    VStack {
+                                        
+                                        let typeIndex = conditionsType.firstIndex(of: condition.type) ?? 0
+                                        let matchIndex = conditionsMatch.firstIndex(of: condition.match) ?? 0
+                                        
+                                        let typeText = conditionsTypeName[typeIndex]
+                                        let matchText = conditionsMatchName[matchIndex]
+                                        
+                                        Text(String(format: String(localized: "rule_if_"), "`\(typeText)` \(matchText)..."))
+                                            .fontWeight(.medium)
+                                            .multilineTextAlignment(.center)
+                                            .padding(.bottom, 1)
+                                        Text(condition.values.joined(separator: ", "))
+                                            .font(.system(size: 14))
+                                            .multilineTextAlignment(.center)
+                                            .lineLimit(3)
+                                            .opacity(0.7)
+                                    }.onTapGesture {
+                                        conditionToEdit = condition
+                                    }.padding(EdgeInsets())
+                                    Spacer()
+                                    VStack {
+                                        Spacer()
+                                        Button {
+                                            self.rule!.conditions.remove(at: self.rule!.conditions.firstIndex(where: {$0 == condition})!)
+                                            
+                                        } label: {
+                                            Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
+                                        }.buttonStyle(PlainButtonStyle())
+                                        Spacer()
+                                    }
+                                }
+                                
+                            }.listRowSeparator(.hidden).padding()
+                            
+                            VStack {
+                                Capsule()
+                                    .fill(rule.conditions.last == condition ? Color.accentColor : Color.gray)
+                                    .frame(width: 3, height: 50)
+                                
+                                if (rule.conditions.last == condition) {
+                                    Button {
+                                        isPresentingAddNewConditionBottomSheet = true
+                                    } label: {
+                                        Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).padding(.bottom)
+                                    }
+                                }
+                                
+                            }
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                    }
+                    
+                    
+                } header: {
+                    HStack {
+                        Text(String(localized: "conditions"))
+                        Spacer()
+                        
+                        Picker(selection: $conditionOperator, label: Text(String(localized:"condition_operator"))) {
+                            Text(String(localized: "and")).tag("AND")
+                            Text(String(localized: "or")).tag("OR")
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .fixedSize()
+                    }
+                    
+                }
+                
+                Section {
+                    if (rule.actions.isEmpty){
+                        VStack {
+                            Button {
+                                isPresentingAddNewActionBottomSheet = true
+                            } label: {
+                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).padding(.bottom)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    } else {
+                        ForEach(rule.actions, id:\.self) { action in
+                            VStack(alignment: .center) {
+                                HStack {
+                                    Spacer()
+                                    VStack {
+                                        
+                                        let typeIndex = actionsType.firstIndex(of: action.type) ?? 0
+                                        let typeText = actionsTypeName[typeIndex]
+                                        
+                                        Text(typeText)
+                                            .fontWeight(.medium)
+                                            .multilineTextAlignment(.center)
+                                            .padding(.bottom, 1)
+                                        Text(action.value)
+                                            .font(.system(size: 14))
+                                            .multilineTextAlignment(.center)
+                                            .lineLimit(3)
+                                            .opacity(0.7)
+                                    }.onTapGesture {
+                                        actionToEdit = action
+                                    }.padding(EdgeInsets())
+                                    Spacer()
+                                    VStack {
+                                        Spacer()
+                                        Button {
+                                            self.rule!.actions.remove(at: self.rule!.actions.firstIndex(where: {$0 == action})!)
+                                        } label: {
+                                            Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
+                                        }.buttonStyle(PlainButtonStyle())
+                                        Spacer()
+                                    }
+                                }
+                                
+                            }.listRowSeparator(.hidden).padding()
+                            
+                            VStack {
+                                Capsule()
+                                    .fill(rule.actions.last == action ? Color.accentColor : Color.gray)
+                                    .frame(width: 3, height: 50)
+                                
+                                //TODO: When having 2 actions (or conditions) with the same content it will show the create button on both
+                                if (rule.actions.last == action) {
+                                    Button {
+                                        isPresentingAddNewActionBottomSheet = true
+                                    } label: {
+                                        Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).padding(.bottom)
+                                    }
+                                }
+                                
+                            }
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                    }
+                    
+                } header: {
+                    Text(String(localized: "actions_then"))
+                } footer: {
+                    Label {
+                        Text(String(localized: "rules_create_info"))
+                    } icon: {
+                        Image(systemName: "info.circle")
+                    }
+                }
+                
+            }.disabled(isSavingRule)
+                .navigationTitle(self.ruleName)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar(content: {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            if (self.ruleId.isEmpty){
+                                DispatchQueue.global(qos: .background).async {
+                                    self.createRule()
+                                }
+                            } else {
+                                // ruleId is not empty, update rule instead
+                                DispatchQueue.global(qos: .background).async {
+                                    self.updateRule()
+                                }
+                            }
+                        } label: {
+                            Text(String(localized: "save"))
+                        }.disabled(isSavingRule || self.ruleName.isEmpty)
+                        
+                    }
+                })
+                .sheet(item: $actionToEdit) { action in
+                    NavigationStack {
+                        ActionBottomSheet(actionEditObject: action){ oldAction, modifiedAction in
+                            
+                            if let index = self.rule?.actions.firstIndex(where: { $0.id == oldAction?.id }) {
+                                self.rule?.actions[index] = modifiedAction
+                            }
+                            
+                            self.actionToEdit = nil
+                        }
+                    }
+                }.sheet(isPresented: $isPresentingAddNewActionBottomSheet) {
+                    NavigationStack {
+                        ActionBottomSheet(actionEditObject: nil){ oldAction, modifiedAction in
+                            self.rule!.actions.append(modifiedAction)
+                            isPresentingAddNewActionBottomSheet = false
+                        }
+                    }
+                }.sheet(item: $conditionToEdit) { condition in
+                    NavigationStack {
+                        ConditionBottomSheet(conditionEditObject: condition){ oldCondition, modifiedCondition in
+                            
+                            if let index = self.rule?.conditions.firstIndex(where: { $0.id == oldCondition?.id }) {
+                                self.rule?.conditions[index] = modifiedCondition
+                            }
+
+                            
+                            self.conditionToEdit = nil
+                        }
+                    }
+                }.sheet(isPresented: $isPresentingAddNewConditionBottomSheet) {
+                    NavigationStack {
+                        ConditionBottomSheet(conditionEditObject: nil){ oldCondition, modifiedCondition in
+                            self.rule!.conditions.append(modifiedCondition)
+                            isPresentingAddNewConditionBottomSheet = false
+                        }
+                    }
+                }
+                .alert(isPresented: $showAlert) {
+                    switch activeAlert {
+                    case .error:
+                        return Alert(
+                            title: Text(errorAlertTitle),
+                            message: Text(errorAlertMessage)
+                        )
+                    }
+                }
+        } else {
+            VStack {
+                if let errorText = errorText
+                {
+                    ContentUnavailableView {
+                        Label(String(localized: "error_obtaining_rule"), systemImage: "questionmark")
+                    } description: {
+                        Text(errorText)
+                    }.onAppear{
+                        HapticHelper.playHapticFeedback(hapticType: .error)
+                    }
+                } else {
+                    VStack(spacing: 20) {
+                        LottieView(animation: .named("gray_ic_loading_logo.shapeshifter"))
+                            .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
+                            .animationSpeed(Double(2))
+                            .frame(maxHeight: 128)
+                            .opacity(0.5)
+                        
+                    }
+                }
+            }.task {
+                // Only get rule if the ruleId is not empty
+                if (!self.ruleId.isEmpty){
+                    getRule(ruleId: self.ruleId)
+                } else {
+                    if let rule = self.rule {
+                        updateUi(rule: rule)
+                    }
+                }
+            }
+            .navigationTitle(self.ruleName)
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+    
+    
+    private func updateUi(rule: Rules){
+        
+        self.conditionOperator = self.rule!.`operator`
+
+        if rule.forwards{
+            self.selectedChips.append("forwards")
+        }
+        if rule.replies{
+            self.selectedChips.append("replies")
+        }
+        if rule.sends{
+            self.selectedChips.append("sends")
+        }
+            
+        
+    }
+    
+    
+    private func getRule(ruleId: String) {
+        let networkHelper = NetworkHelper()
+        networkHelper.getSpecificRule(completion: { rule, error in
+            
+            if let rule = rule {
+                DispatchQueue.main.async {
+                    withAnimation {
+                        self.rule = rule
+                        updateUi(rule: rule)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    withAnimation {
+                        self.errorText = error
+                    }
+                }
+            }
+        },ruleId: ruleId)
+    }
+    
+    func updateRuleObject(){
+        self.rule!.name = self.ruleName
+        self.rule!.`operator` = self.conditionOperator
+        self.rule!.forwards = self.selectedChips.contains("forwards")
+        self.rule!.replies = self.selectedChips.contains("replies")
+        self.rule!.sends = self.selectedChips.contains("sends")
+    }
+    
+    func updateRule(){
+        updateRuleObject()
+        
+        let networkHelper = NetworkHelper()
+        networkHelper.updateRule(completion: { result in
+            DispatchQueue.main.async {
+                
+                if result == "200" {
+                    shouldReloadDataInParent = true
+                    self.presentationMode.wrappedValue.dismiss()
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_creating_rule")
+                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
+                }
+            }
+        },ruleId: self.rule!.id, rule: self.rule!)
+    }
+    
+    func createRule(){
+        updateRuleObject()
+
+        
+        let networkHelper = NetworkHelper()
+        networkHelper.createRule(completion: { rule, error in
+            DispatchQueue.main.async {
+                
+                if let rule = rule {
+                    shouldReloadDataInParent = true
+                    self.presentationMode.wrappedValue.dismiss()
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_creating_rule")
+                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
+                }
+            }
+        }, rule: self.rule!)
     }
 }
 

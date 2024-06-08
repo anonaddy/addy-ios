@@ -19,6 +19,8 @@
 		804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A72BE95B49001DDC8A /* AddyButton.swift */; };
 		804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */; };
 		805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */; };
+		8062CFE02C1487B600EFFB4C /* ActionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8062CFDF2C1487B600EFFB4C /* ActionBottomSheet.swift */; };
+		8062CFE22C149DCA00EFFB4C /* ConditionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8062CFE12C149DCA00EFFB4C /* ConditionBottomSheet.swift */; };
 		806D5F252BE925C600C5C109 /* ic_loading_logo.shapeshifter.json in Resources */ = {isa = PBXBuildFile; fileRef = 806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */; };
 		806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806D5F262BE92AB200C5C109 /* SetupView.swift */; };
 		806F21332BE8F1B100EBEBC8 /* addyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806F21322BE8F1B100EBEBC8 /* addyApp.swift */; };
@@ -169,6 +171,8 @@
 		804BE7A72BE95B49001DDC8A /* AddyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButton.swift; sourceTree = "<group>"; };
 		804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButtonStyle.swift; sourceTree = "<group>"; };
 		805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBottomSheet.swift; sourceTree = "<group>"; };
+		8062CFDF2C1487B600EFFB4C /* ActionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBottomSheet.swift; sourceTree = "<group>"; };
+		8062CFE12C149DCA00EFFB4C /* ConditionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionBottomSheet.swift; sourceTree = "<group>"; };
 		806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ic_loading_logo.shapeshifter.json; sourceTree = "<group>"; };
 		806D5F262BE92AB200C5C109 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		806F212F2BE8F1B100EBEBC8 /* addy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -343,6 +347,8 @@
 			isa = PBXGroup;
 			children = (
 				80477DE42C12261300E52AF8 /* CreateRulesView.swift */,
+				8062CFDF2C1487B600EFFB4C /* ActionBottomSheet.swift */,
+				8062CFE12C149DCA00EFFB4C /* ConditionBottomSheet.swift */,
 			);
 			path = manage;
 			sourceTree = "<group>";
@@ -980,6 +986,7 @@
 				80E9B2302C0B63FA00C7EF99 /* UsernamesViewModel.swift in Sources */,
 				80F22FAA2BEE34EE001176B4 /* LineShapeView.swift in Sources */,
 				804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */,
+				8062CFE22C149DCA00EFFB4C /* ConditionBottomSheet.swift in Sources */,
 				80F22FA62BEE34EE001176B4 /* LineBackgroundShape.swift in Sources */,
 				80F22FAD2BEE34EE001176B4 /* PieChartCell.swift in Sources */,
 				80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */,
@@ -1064,6 +1071,7 @@
 				80F22F8C2BEE34EE001176B4 /* CGPoint+Extension.swift in Sources */,
 				80F22FA12BEE34EE001176B4 /* LineChart+Extension.swift in Sources */,
 				80813B712C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift in Sources */,
+				8062CFE02C1487B600EFFB4C /* ActionBottomSheet.swift in Sources */,
 				80F22F852BEE34EE001176B4 /* ChartBase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
