@@ -76,7 +76,7 @@ struct MainView: View {
     @State private var isShowingUsernamesView = false
     @State private var isShowingDomainsView = false
     @State private var isShowingRulesView = false
-    @State private var isShowingSettingsView = false
+    @State private var isShowingAppSettingsView = false
     @State private var navigationPath = NavigationPath()
     @State private var selectedMenuItem: Destination? = .home
     @State private var selectedTab: Destination = .home
@@ -113,7 +113,7 @@ struct MainView: View {
                                                 isShowingRulesView = true}
                                         }else if destination == .settings {
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                isShowingSettingsView = true}
+                                                isShowingAppSettingsView = true}
                                         }
                                     }
                                 }, isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet).environmentObject(mainViewState)
@@ -127,8 +127,8 @@ struct MainView: View {
                             AnyView(FailedDeliveriesView(isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView))
                         }.fullScreenCover(isPresented: $isShowingRulesView) {
                             AnyView(RulesView(isShowingRulesView: $isShowingRulesView))
-                        }.fullScreenCover(isPresented: $isShowingSettingsView) {
-                            AnyView(SettingsView(isShowingSettingsView: $isShowingSettingsView))
+                        }.fullScreenCover(isPresented: $isShowingAppSettingsView) {
+                            AnyView(AppSettingsView(isShowingAppSettingsView: $isShowingAppSettingsView))
                         }
                 }
             }
@@ -215,7 +215,7 @@ struct MainView: View {
         TabView(selection: $selectedTab) {
             ForEach(Destination.iPhoneCases, id: \.self) { destination in
                 destination.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $isShowingDomainsView,
-                                 isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingSettingsView: $isShowingSettingsView)
+                                 isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $isShowingAppSettingsView)
                 .tag(destination)
                 .tabItem {
                     Label(destination.title, systemImage: destination.systemImage)
@@ -239,7 +239,7 @@ struct MainView: View {
         NavigationStack(path: $navigationPath) {
             if let selectedItem = selectedMenuItem {
                 selectedItem.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $isShowingDomainsView,
-                                  isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingSettingsView: $isShowingSettingsView)
+                                  isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $isShowingAppSettingsView)
             } else {
                 Text(String(localized: "select_menu_item"))
             }
@@ -289,7 +289,7 @@ enum Destination: Hashable, CaseIterable {
               isShowingDomainsView: Binding<Bool>,
               isShowingFailedDeliveriesView: Binding<Bool>,
               isShowingRulesView: Binding<Bool>,
-              isShowingSettingsView: Binding<Bool>) -> some View {
+              isShowingAppSettingsView: Binding<Bool>) -> some View {
         switch self {
         case .home: return AnyView(HomeView(isPresentingProfileBottomSheet: isPresentingProfileBottomSheet,
                                             isShowingFailedDeliveriesView: isShowingFailedDeliveriesView))
@@ -301,7 +301,7 @@ enum Destination: Hashable, CaseIterable {
         case .domains: return AnyView(DomainsView(isShowingDomainsView: isShowingDomainsView))
         case .failedDeliveries: return AnyView(FailedDeliveriesView(isShowingFailedDeliveriesView: isShowingFailedDeliveriesView))
         case .rules: return AnyView(RulesView(isShowingRulesView: isShowingRulesView))
-        case .settings: return AnyView(SettingsView(isShowingSettingsView: isShowingSettingsView))
+        case .settings: return AnyView(AppSettingsView(isShowingAppSettingsView: isShowingAppSettingsView))
         }
     }
     

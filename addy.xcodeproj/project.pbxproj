@@ -30,6 +30,7 @@
 		807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */; };
 		807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */; };
+		807DB4832C1764620051DD8A /* AppearanceBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */; };
 		807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */; };
 		80813B622C0DE1DA009C4E6A /* DomainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B612C0DE1DA009C4E6A /* DomainsView.swift */; };
 		80813B642C0DE1FF009C4E6A /* DomainsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B632C0DE1FF009C4E6A /* DomainsDetailView.swift */; };
@@ -48,7 +49,7 @@
 		80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */; };
 		80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC3442C01354300EC651F /* RecipientsDetailView.swift */; };
 		80D306022C079DF800C801EE /* ProfileBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D306012C079DF800C801EE /* ProfileBottomSheet.swift */; };
-		80D4F2DB2C17084E00D313EC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4F2DA2C17084E00D313EC /* SettingsView.swift */; };
+		80D4F2DB2C17084E00D313EC /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4F2DA2C17084E00D313EC /* AppSettingsView.swift */; };
 		80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */; };
 		80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */; };
 		80D8C7A62BF3D4E700933ED8 /* AddyRoundedChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D8C7A52BF3D4E700933ED8 /* AddyRoundedChipView.swift */; };
@@ -183,6 +184,7 @@
 		806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingFieldModel.swift; sourceTree = "<group>"; };
 		807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
+		807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceBottomSheet.swift; sourceTree = "<group>"; };
 		807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipientBottomSheet.swift; sourceTree = "<group>"; };
 		80813B612C0DE1DA009C4E6A /* DomainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainsView.swift; sourceTree = "<group>"; };
 		80813B632C0DE1FF009C4E6A /* DomainsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainsDetailView.swift; sourceTree = "<group>"; };
@@ -201,7 +203,7 @@
 		80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsViewModel.swift; sourceTree = "<group>"; };
 		80CEC3442C01354300EC651F /* RecipientsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsDetailView.swift; sourceTree = "<group>"; };
 		80D306012C079DF800C801EE /* ProfileBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBottomSheet.swift; sourceTree = "<group>"; };
-		80D4F2DA2C17084E00D313EC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		80D4F2DA2C17084E00D313EC /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButton.swift; sourceTree = "<group>"; };
 		80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButtonStyle.swift; sourceTree = "<group>"; };
 		80D8C7A52BF3D4E700933ED8 /* AddyRoundedChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyRoundedChipView.swift; sourceTree = "<group>"; };
@@ -322,7 +324,7 @@
 		801B92A52BE9128500179EB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				80D4F2D92C17083A00D313EC /* settings */,
+				80D4F2D92C17083A00D313EC /* appsettings */,
 				80477DDC2C12224F00E52AF8 /* rules */,
 				80813B6F2C0DF288009C4E6A /* faileddeliveries */,
 				80DB9DB02C0DC678002B6486 /* domains */,
@@ -510,12 +512,13 @@
 			path = manage;
 			sourceTree = "<group>";
 		};
-		80D4F2D92C17083A00D313EC /* settings */ = {
+		80D4F2D92C17083A00D313EC /* appsettings */ = {
 			isa = PBXGroup;
 			children = (
-				80D4F2DA2C17084E00D313EC /* SettingsView.swift */,
+				80D4F2DA2C17084E00D313EC /* AppSettingsView.swift */,
+				807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */,
 			);
-			path = settings;
+			path = appsettings;
 			sourceTree = "<group>";
 		};
 		80D82DC32BE95BAF009440DC /* AddyLoadingButton */ = {
@@ -1074,9 +1077,10 @@
 				80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */,
 				80F22F8E2BEE34EE001176B4 /* ChartBase+Extension.swift in Sources */,
 				80F22FB12BEE34EE001176B4 /* RingsChart.swift in Sources */,
-				80D4F2DB2C17084E00D313EC /* SettingsView.swift in Sources */,
+				80D4F2DB2C17084E00D313EC /* AppSettingsView.swift in Sources */,
 				80813B6A2C0DE24C009C4E6A /* EditDomainRecipientsBottomSheet.swift in Sources */,
 				80E1946A2BF8C840005175EA /* EditAliasFromNameBottomSheet.swift in Sources */,
+				807DB4832C1764620051DD8A /* AppearanceBottomSheet.swift in Sources */,
 				80F22FA52BEE34EE001176B4 /* Line.swift in Sources */,
 				80F22F872BEE34EE001176B4 /* ChartValue.swift in Sources */,
 				806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */,

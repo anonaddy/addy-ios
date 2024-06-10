@@ -1,5 +1,5 @@
 //
-//  SettingsView.swift
+//  AppSettingsView.swift
 //  addy
 //
 //  Created by Stijn van de Water on 10/06/2024.
@@ -9,9 +9,9 @@ import SwiftUI
 import addy_shared
 import LocalAuthentication
 
-struct SettingsView: View {
+struct AppSettingsView: View {
     @EnvironmentObject var mainViewState: MainViewState
-    @Binding var isShowingSettingsView: Bool
+    @Binding var isShowingAppSettingsView: Bool
 
     @State private var isPresentingAppearanceBottomSheet: Bool = false
     
@@ -147,13 +147,20 @@ struct SettingsView: View {
             }
             .navigationTitle(String(localized: "settings"))
             .navigationBarItems(leading: Button(action: {
-                        self.isShowingSettingsView = false
+                        self.isShowingAppSettingsView = false
                 }) {
                     if UIDevice.current.userInterfaceIdiom != .pad {
                         Text(String(localized: "close"))
                     }
                 })
-        }
+            .sheet(isPresented: $isPresentingAppearanceBottomSheet, content: {
+                NavigationStack {
+                    AppearanceBottomSheet()
+                }
+            })
+        }.onAppear(perform: {
+            checkNotificationPermission()
+        })
     }
     
     
@@ -193,12 +200,12 @@ struct SettingsView: View {
         }
 }
 
-struct SettingsView_Previews: PreviewProvider {
+struct AppSettingsView_Previews: PreviewProvider {
 
     static var previews: some View {
-        @State var isShowingSettingsView = false
+        @State var isShowingAppSettingsView = false
 
-        SettingsView(isShowingSettingsView: $isShowingSettingsView)
+        AppSettingsView(isShowingAppSettingsView: $isShowingAppSettingsView)
         
     }
 }
