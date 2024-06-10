@@ -19,7 +19,7 @@ struct AppearanceBottomSheet: View {
                 WrappingHStack(alignment: .leading) {
                     
                                     Button(action: {
-                                        UIApplication.shared.setAlternateIconName("AppIcon")
+                                        UIApplication.shared.setAlternateIconName(nil)
                                     }) {
                                         Image("AppIconPreview")
                                             .resizable()

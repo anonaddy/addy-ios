@@ -83,7 +83,8 @@ struct ProfileBottomSheet: View {
                         self.onNavigate(Destination.usernames)
                     }
                     
-                    AddySection(title: String(localized: "app_settings"), description: String(localized: "manage_domains_desc"), trailingSystemimage: "chevron.right") {
+                    let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
+                    AddySection(title: String(localized: "app_settings"), description: String(format: String(localized: "version_s"), appVersion), trailingSystemimage: "chevron.right") {
                         self.onNavigate(Destination.settings)
                     }
 
