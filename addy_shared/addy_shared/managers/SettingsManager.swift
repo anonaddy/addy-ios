@@ -85,7 +85,7 @@ public class SettingsManager {
         }
     }
     
-    func putSettingsBool(key: Prefs, boolean: Bool) {
+    public func putSettingsBool(key: Prefs, boolean: Bool) {
         let userKey = "\(user)_\(key)"
         
         if useKeychain {

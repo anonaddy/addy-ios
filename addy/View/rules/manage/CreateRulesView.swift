@@ -160,9 +160,8 @@ struct CreateRulesView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                     } else {
                         ForEach(rule.conditions, id:\.self) { condition in
-                            VStack(alignment: .center) {
                                 HStack {
-                                    Spacer()
+                                    Spacer().frame(width: 10)
                                     VStack {
                                         
                                         let typeIndex = conditionsType.firstIndex(of: condition.type) ?? 0
@@ -182,21 +181,17 @@ struct CreateRulesView: View {
                                             .opacity(0.7)
                                     }.onTapGesture {
                                         conditionToEdit = condition
-                                    }.padding(EdgeInsets())
-                                    Spacer()
+                                    }.padding(EdgeInsets()).frame(maxWidth: .infinity)
                                     VStack {
-                                        Spacer()
                                         Button {
                                             self.rule!.conditions.remove(at: self.rule!.conditions.firstIndex(where: {$0 == condition})!)
                                             
                                         } label: {
                                             Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                         }.buttonStyle(PlainButtonStyle())
-                                        Spacer()
-                                    }
-                                }
+                                    }.frame(width: 10)
+                                }.listRowSeparator(.hidden).padding()
                                 
-                            }.listRowSeparator(.hidden).padding()
                             
                             VStack {
                                 Capsule()
@@ -244,11 +239,9 @@ struct CreateRulesView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                     } else {
                         ForEach(rule.actions, id:\.self) { action in
-                            VStack(alignment: .center) {
                                 HStack {
-                                    Spacer()
+                                    Spacer().frame(width: 10)
                                     VStack {
-                                        
                                         let typeIndex = actionsType.firstIndex(of: action.type) ?? 0
                                         let typeText = actionsTypeName[typeIndex]
                                         
@@ -263,20 +256,17 @@ struct CreateRulesView: View {
                                             .opacity(0.7)
                                     }.onTapGesture {
                                         actionToEdit = action
-                                    }.padding(EdgeInsets())
-                                    Spacer()
+                                    }.padding(EdgeInsets()).frame(maxWidth: .infinity)
                                     VStack {
-                                        Spacer()
                                         Button {
                                             self.rule!.actions.remove(at: self.rule!.actions.firstIndex(where: {$0 == action})!)
                                         } label: {
                                             Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                         }.buttonStyle(PlainButtonStyle())
-                                        Spacer()
-                                    }
-                                }
+                                    }.frame(width: 10)
+                                }.listRowSeparator(.hidden).padding()
                                 
-                            }.listRowSeparator(.hidden).padding()
+                            
                             
                             VStack {
                                 Capsule()

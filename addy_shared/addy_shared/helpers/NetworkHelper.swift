@@ -1204,6 +1204,74 @@ public class NetworkHelper {
     }
     
     
+     
+    public func activateSpecificRule(completion: @escaping (Rules?, String?) -> Void, ruleId:String) {
+        let url = URL(string: AddyIo.API_URL_ACTIVE_RULES)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": ruleId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(SingleRule.self, from: data)
+                    completion(addyIoData.data, nil)
+                } catch {
+                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    print(errorMessage)
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "activateSpecificRule",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        errorMessage
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "activateSpecificRule",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    errorMessage
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
+    
     
     
     
@@ -1851,6 +1919,47 @@ public class NetworkHelper {
                     importance: LogImportance.critical,
                     error: errorMessage,
                     method: "deactivateSpecificAlias",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    errorMessage
+                )
+            }
+        }
+        
+        task.resume()
+    }
+       public func deactivateSpecificRule(completion: @escaping (String?) -> Void, ruleId:String) {
+        let url = URL(string: "\(AddyIo.API_URL_ACTIVE_RULES)/\(ruleId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                completion(String(describing: error))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 204:
+                completion("204")
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil)
+                
+            default:
+                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "deactivateSpecificRule",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     errorMessage

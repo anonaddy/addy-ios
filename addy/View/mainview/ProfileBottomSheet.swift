@@ -65,7 +65,7 @@ struct ProfileBottomSheet: View {
 
                         }, style: AddyButtonStyle(backgroundColor: Color(.accent).opacity(0.5))) {
                             Text(String(localized: "addyio_settings")).foregroundColor(Color.white)
-                        }.padding(.top)
+                        }.padding(.top).buttonStyle(PlainButtonStyle())
                     }
                 }.listRowBackground(Color.clear)
                 
@@ -84,7 +84,7 @@ struct ProfileBottomSheet: View {
                     }
                     
                     AddySection(title: String(localized: "app_settings"), description: String(localized: "manage_domains_desc"), trailingSystemimage: "chevron.right") {
-                        self.onNavigate(Destination.usernames)
+                        self.onNavigate(Destination.settings)
                     }
 
                     

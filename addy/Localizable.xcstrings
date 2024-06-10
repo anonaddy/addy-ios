@@ -34,6 +34,17 @@
         }
       }
     },
+    "activate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activate"
+          }
+        }
+      }
+    },
     "add" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -243,6 +254,17 @@
         }
       }
     },
+    "addyio_help" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io help"
+          }
+        }
+      }
+    },
     "addyio_instance" : {
       "localizations" : {
         "en" : {
@@ -264,6 +286,17 @@
         }
       }
     },
+    "addyio_locked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io locked"
+          }
+        }
+      }
+    },
     "addyio_settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -271,6 +304,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Manage Account on addy.io"
+          }
+        }
+      }
+    },
+    "addyio_updater" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io app updater"
+          }
+        }
+      }
+    },
+    "addyio_updater_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for new updates and view the latest changelog"
           }
         }
       }
@@ -588,6 +643,17 @@
         }
       }
     },
+    "app_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io"
+          }
+        }
+      }
+    },
     "app_settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -599,6 +665,39 @@
         }
       }
     },
+    "appearance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
+          }
+        }
+      }
+    },
+    "appearance_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the app icon"
+          }
+        }
+      }
+    },
+    "authentication_splash_error_unavailable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The addy.io app is protected using biometrics, but they are currently unavailable. Without biometric authentication, access to the data is restricted. Would you like to reset the app?"
+          }
+        }
+      }
+    },
     "back" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -606,6 +705,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Back"
+          }
+        }
+      }
+    },
+    "background_service_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the interval at which data is updated in the background for widgets, for example"
+          }
+        }
+      }
+    },
+    "background_service_interval" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background service interval"
           }
         }
       }
@@ -628,6 +749,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Basic"
+          }
+        }
+      }
+    },
+    "biometric_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biometrics is not available right now"
           }
         }
       }
@@ -873,6 +1005,28 @@
         }
       }
     },
+    "contributors" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contributors"
+          }
+        }
+      }
+    },
+    "contributors_list" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Will Browning (addy.io)\nStjin (lead developer)\nJPH (designer)"
+          }
+        }
+      }
+    },
     "copied" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -966,6 +1120,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ sent"
+          }
+        }
+      }
+    },
+    "deactivate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deactivate"
           }
         }
       }
@@ -1883,6 +2048,17 @@
         }
       }
     },
+    "error_rules_active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the rule state"
+          }
+        }
+      }
+    },
     "error_unknown_refer_to_logs" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1916,12 +2092,56 @@
         }
       }
     },
+    "faq" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FAQ"
+          }
+        }
+      }
+    },
+    "faq_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visit the Frequently asked questions"
+          }
+        }
+      }
+    },
     "feature_not_available_subscription" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "This feature is not available with your current subscription"
+          }
+        }
+      }
+    },
+    "features_and_integrations" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Features and integrations"
+          }
+        }
+      }
+    },
+    "features_and_integrations_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check out app-exclusive features and integrations"
           }
         }
       }
@@ -2179,6 +2399,28 @@
         }
       }
     },
+    "github_project" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Github project"
+          }
+        }
+      }
+    },
+    "github_project_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View source code and report issues"
+          }
+        }
+      }
+    },
     "got_the_api_key" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2269,6 +2511,9 @@
           }
         }
       }
+    },
+    "Key" : {
+      "extractionState" : "manual"
     },
     "last_blocked" : {
       "extractionState" : "manual",
@@ -2489,6 +2734,17 @@
         }
       }
     },
+    "more" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More"
+          }
+        }
+      }
+    },
     "new_user" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2616,6 +2872,17 @@
         }
       }
     },
+    "notification_permissions_required_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notification permissions are required to fully use the app. Tap here to allow the addy.io app to send notifications. You retain control over which notification the app can send."
+          }
+        }
+      }
+    },
     "obtaining_aliases" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2704,6 +2971,17 @@
         }
       }
     },
+    "permissions_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permissions required"
+          }
+        }
+      }
+    },
     "pgp_inline" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2744,6 +3022,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You need to disable protected headers (hide subject) before you can enable inline encryption"
+          }
+        }
+      }
+    },
+    "privacy_mode" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy mode"
+          }
+        }
+      }
+    },
+    "privacy_mode_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide personal information such as email addresses in shortcuts, widgets and notifications"
           }
         }
       }
@@ -2935,6 +3235,39 @@
         }
       }
     },
+    "report_an_issue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report an issue"
+          }
+        }
+      }
+    },
+    "report_an_issue_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found a bug? Tap here to create a report"
+          }
+        }
+      }
+    },
+    "requires_attention" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requires attention"
+          }
+        }
+      }
+    },
     "resend_email" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2942,6 +3275,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Resend email"
+          }
+        }
+      }
+    },
+    "reset_app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset app"
+          }
+        }
+      }
+    },
+    "reset_app_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear all data and start over"
           }
         }
       }
@@ -3034,6 +3389,17 @@
         }
       }
     },
+    "rule_disabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rule disabled"
+          }
+        }
+      }
+    },
     "rule_if_" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3105,6 +3471,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save"
+          }
+        }
+      }
+    },
+    "security" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Security"
+          }
+        }
+      }
+    },
+    "security_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use your biometric to open the addy.io app"
           }
         }
       }
@@ -3193,6 +3581,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "set the banner information location to"
+          }
+        }
+      }
+    },
+    "settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
           }
         }
       }
@@ -3670,6 +4069,28 @@
         }
       }
     },
+    "store_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Store logs"
+          }
+        }
+      }
+    },
+    "store_logs_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap here to see or clear the stored logs"
+          }
+        }
+      }
+    },
     "subscription_user" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3939,6 +4360,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "View details"
+          }
+        }
+      }
+    },
+    "visit_addyio_helps_section" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visit addy.io help section"
           }
         }
       }

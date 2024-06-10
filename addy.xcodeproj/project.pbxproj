@@ -48,6 +48,7 @@
 		80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */; };
 		80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC3442C01354300EC651F /* RecipientsDetailView.swift */; };
 		80D306022C079DF800C801EE /* ProfileBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D306012C079DF800C801EE /* ProfileBottomSheet.swift */; };
+		80D4F2DB2C17084E00D313EC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4F2DA2C17084E00D313EC /* SettingsView.swift */; };
 		80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */; };
 		80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */; };
 		80D8C7A62BF3D4E700933ED8 /* AddyRoundedChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D8C7A52BF3D4E700933ED8 /* AddyRoundedChipView.swift */; };
@@ -200,6 +201,7 @@
 		80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsViewModel.swift; sourceTree = "<group>"; };
 		80CEC3442C01354300EC651F /* RecipientsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsDetailView.swift; sourceTree = "<group>"; };
 		80D306012C079DF800C801EE /* ProfileBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBottomSheet.swift; sourceTree = "<group>"; };
+		80D4F2DA2C17084E00D313EC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButton.swift; sourceTree = "<group>"; };
 		80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButtonStyle.swift; sourceTree = "<group>"; };
 		80D8C7A52BF3D4E700933ED8 /* AddyRoundedChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyRoundedChipView.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 		801B92A52BE9128500179EB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				80D4F2D92C17083A00D313EC /* settings */,
 				80477DDC2C12224F00E52AF8 /* rules */,
 				80813B6F2C0DF288009C4E6A /* faileddeliveries */,
 				80DB9DB02C0DC678002B6486 /* domains */,
@@ -507,6 +510,14 @@
 			path = manage;
 			sourceTree = "<group>";
 		};
+		80D4F2D92C17083A00D313EC /* settings */ = {
+			isa = PBXGroup;
+			children = (
+				80D4F2DA2C17084E00D313EC /* SettingsView.swift */,
+			);
+			path = settings;
+			sourceTree = "<group>";
+		};
 		80D82DC32BE95BAF009440DC /* AddyLoadingButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -582,6 +593,7 @@
 				80E8499D2BEB801600C8D68A /* aliases */,
 				80E8499C2BEB801100C8D68A /* home */,
 				80E8499A2BEB73D900C8D68A /* MainView.swift */,
+				80D306012C079DF800C801EE /* ProfileBottomSheet.swift */,
 			);
 			path = mainview;
 			sourceTree = "<group>";
@@ -589,7 +601,6 @@
 		80E8499C2BEB801100C8D68A /* home */ = {
 			isa = PBXGroup;
 			children = (
-				80D306012C079DF800C801EE /* ProfileBottomSheet.swift */,
 				80E8499E2BEB802D00C8D68A /* HomeView.swift */,
 			);
 			path = home;
@@ -1063,6 +1074,7 @@
 				80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */,
 				80F22F8E2BEE34EE001176B4 /* ChartBase+Extension.swift in Sources */,
 				80F22FB12BEE34EE001176B4 /* RingsChart.swift in Sources */,
+				80D4F2DB2C17084E00D313EC /* SettingsView.swift in Sources */,
 				80813B6A2C0DE24C009C4E6A /* EditDomainRecipientsBottomSheet.swift in Sources */,
 				80E1946A2BF8C840005175EA /* EditAliasFromNameBottomSheet.swift in Sources */,
 				80F22FA52BEE34EE001176B4 /* Line.swift in Sources */,
@@ -1214,6 +1226,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for settings up the app";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1250,6 +1263,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for settings up the app";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

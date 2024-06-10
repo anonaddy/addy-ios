@@ -52,7 +52,7 @@ public struct Rules: Identifiable, Codable {
     public var forwards: Bool
     public var replies: Bool
     public var sends: Bool
-    let active: Bool
+    public let active: Bool
     let created_at: String
     let updated_at: String
     

@@ -12,6 +12,7 @@ struct AddySection: View {
     var title: String
     var description: String? = nil
     var leadingSystemimage: String? = nil
+    var leadingSystemimageColor: Color = .blue
     var trailingSystemimage: String? = nil
     var fontWeight: Font.Weight = .medium
     let onTap: () -> Void
@@ -25,14 +26,21 @@ struct AddySection: View {
             HStack {
                 if let leadingSystemimage = leadingSystemimage {
                     
-                    Image(systemName: leadingSystemimage)
-                        .fontWeight(fontWeight)
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(leadingSystemimageColor)
+                        .frame(width: 32, height: 32)
+                        .overlay(
+                            Image(systemName: leadingSystemimage)
+                                .fontWeight(fontWeight)
+                                .font(.system(size: 20))
+                                .foregroundColor(.white)
+                        )
+                        .padding(.trailing)
+
                 }
                 VStack(alignment: .leading) {
                     Text(title)
                         .foregroundColor(Color.revertedNightMode)
-                        .font(.callout)
-                        .fontWeight(.medium)
                     
                     if let description = description{
                         Text(description)
@@ -46,7 +54,7 @@ struct AddySection: View {
                 if let trailingSystemimage = trailingSystemimage {
                     
                     Image(systemName: trailingSystemimage)
-                        .fontWeight(fontWeight)
+                        .fontWeight(fontWeight).foregroundStyle(.gray)
                 }
                 
             }

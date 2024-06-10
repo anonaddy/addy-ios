@@ -190,10 +190,23 @@ struct AliasesView: View {
                                                 self.shouldReloadDataInParent = false
                                             }
                                 }
+                                .swipeActions(edge: .leading) {
+                                    Button {
+                                        UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
+                                    } label: {
+                                        Label(String(localized: "copy_alias"), systemImage: "clipboard")
+                                    }.tint(Color.accentColor)
+                                    Button {
+                                        self.aliasToSendMailFrom = alias
+                                  } label: {
+                                        Label(String(localized: "send_mail"), systemImage: "paperplane")
+                                  }.tint(Color.accentColor.opacity(0.8))
+                                                           
+                                                        }
                                 
                             }
-                            
-                        }
+                        }.onDelete(perform: deleteAlias)
+
                     }header: {
                         HStack(spacing: 6){
                             if (aliasesViewModel.aliasSortFilterRequest != aliasesViewModel.defaultSortFilterRequest){
@@ -235,14 +248,18 @@ struct AliasesView: View {
                         DispatchQueue.global(qos: .background).async {
                             self.deleteAlias(alias: aliasInContextMenu!)
                         }
-                    }, secondaryButton: .cancel())
+                    }, secondaryButton: .cancel(){
+                        aliasesViewModel.getAliases(forceReload: true)
+                    })
                 case .restoreAlias:
                     return Alert(title: Text(String(localized: "restore_alias")), message: Text(String(localized: "restore_alias_confirmation_desc")), primaryButton: .default(Text(String(localized: "restore"))){
                         
                         DispatchQueue.global(qos: .background).async {
                             self.restoreAlias(alias: aliasInContextMenu!)
                         }
-                    }, secondaryButton: .cancel())
+                    }, secondaryButton: .cancel(){
+                        aliasesViewModel.getAliases(forceReload: true)
+                    })
                 case .error:
                     return Alert(
                         title: Text(errorAlertTitle),
@@ -561,6 +578,21 @@ struct AliasesView: View {
                 }
             }
         },aliasId: alias.id)
+    }
+    
+    func deleteAlias(at offsets: IndexSet) {
+        for index in offsets.sorted(by: >) {
+            if let aliases = aliasesViewModel.aliasList?.data {
+                let item = aliases[index]
+                aliasInContextMenu = item
+                activeAlert = .deleteAliases
+                showAlert = true
+                
+                // Remove from the collection for the smooth animation
+                aliasesViewModel.aliasList?.data.remove(atOffsets: offsets)
+                
+            }
+        }
     }
     
     private func restoreAlias(alias:Aliases) {

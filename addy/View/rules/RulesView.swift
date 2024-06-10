@@ -49,17 +49,37 @@ struct RulesView: View {
                                         Image(systemName: "line.horizontal.3").opacity(0.8).padding(.trailing)
 
                                         VStack(alignment: .leading) {
-                                            Text(rule.name)
-                                                .font(.headline)
-                                                .truncationMode(.tail)
-                                                .frame(minWidth: 20)
                                             
+                                            if (rule.active) {
+                                                Text(rule.name)
+                                                    .font(.headline)
+                                                    .truncationMode(.tail)
+                                                    .frame(minWidth: 20)
+                                            } else {
+                                                Text(rule.name)
+                                                    .font(.headline)
+                                                    .truncationMode(.tail)
+                                                    .frame(minWidth: 20)
+                                                    .opacity(0.5)
+                                            }
                                             
-                                            Text(getRuleDescription(rule: rule))
-                                                    .font(.caption)
-                                                    .opacity(0.625)
-                                                    .lineLimit(1)
-                                                    .truncationMode(.middle)
+                                           
+                                            
+                                            if (rule.active) {
+                                                Text(getRuleDescription(rule: rule))
+                                                        .font(.caption)
+                                                        .opacity(0.625)
+                                                        .lineLimit(1)
+                                                        .truncationMode(.middle)
+                                            } else {
+                                                Text(String(localized: "rule_disabled"))
+                                                        .font(.caption)
+                                                        .opacity(0.312)
+                                                        .lineLimit(1)
+                                                        .truncationMode(.middle)
+                                            }
+                                            
+                                           
                                             
                                             
                                         }
@@ -73,11 +93,34 @@ struct RulesView: View {
                                         self.shouldReloadDataInParent = false
                                     }
                                 }
+                                .swipeActions(edge: .leading) {
+                                    if (rule.active){
+                                        Button {
+                                            DispatchQueue.global(qos: .background).async {
+                                                self.deactivateRule(rule: rule)
+                                            }
+                                        } label: {
+                                            Label(String(localized: "deactivate"), systemImage: "hand.raised.fill")
+                                        }
+                                        .tint(.indigo)
+                                    } else {
+                                        Button {
+                                            DispatchQueue.global(qos: .background).async {
+                                                self.activateRule(rule: rule)
+                                            }
+                                        } label: {
+                                            Label(String(localized: "activate"), systemImage: "checkmark.circle")
+                                        }
+                                        .tint(.indigo)
+                                    }
+                                                           
+                                                        }
                             
                             
                             
                         }.onMove(perform: moveRule)
-                            .onDelete(perform: deleteRule)
+                        .onDelete(perform: deleteRule)
+
                     }header: {
                         HStack(spacing: 6){
                             Text(String(localized: "all_rules"))
@@ -288,6 +331,41 @@ struct RulesView: View {
         },rules: rules)
     }
     
+    private func activateRule(rule:Rules) {
+        let networkHelper = NetworkHelper()
+        networkHelper.activateSpecificRule(completion: { alias, error in
+            DispatchQueue.main.async {
+                
+                if alias != nil {
+                    // TODO can I update this item without full reload
+                    rulesViewModel.getRules()
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_rules_active")
+                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
+                }
+            }
+        },ruleId: rule.id)
+    }
+    
+    private func deactivateRule(rule:Rules) {
+        let networkHelper = NetworkHelper()
+        networkHelper.deactivateSpecificRule(completion: { result in
+            DispatchQueue.main.async {
+                
+                if result == "204" {
+                    // TODO can I update this item without full reload
+                    rulesViewModel.getRules()
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_rules_active")
+                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
+                }
+            }
+        },ruleId: rule.id)
+    }
     
     private func getUserResource() {
         let networkHelper = NetworkHelper()
