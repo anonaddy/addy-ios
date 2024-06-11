@@ -34,7 +34,6 @@ class UsernamesViewModel: ObservableObject{
                             self.usernames = usernames
                         } else {
                             self.networkError = String(format: String(localized: "details_about_error_s"),"\(error!)")
-                            print("Error: \(error)")
                         }
                     }
             })

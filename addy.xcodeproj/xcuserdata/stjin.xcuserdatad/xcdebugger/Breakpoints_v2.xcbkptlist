@@ -302,8 +302,8 @@
             filePath = "addy/View/mainview/customviews/AddySection.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -430,8 +430,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "504"
-            endingLineNumber = "504"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
             landmarkName = "getFailedDeliveries(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -446,8 +446,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
+            startingLineNumber = "562"
+            endingLineNumber = "562"
             landmarkName = "getFailedDeliveries(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -462,8 +462,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "506"
-            endingLineNumber = "506"
+            startingLineNumber = "563"
+            endingLineNumber = "563"
             landmarkName = "getFailedDeliveries(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -478,8 +478,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "500"
-            endingLineNumber = "500"
+            startingLineNumber = "557"
+            endingLineNumber = "557"
             landmarkName = "getFailedDeliveries(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -494,8 +494,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "499"
-            endingLineNumber = "499"
+            startingLineNumber = "556"
+            endingLineNumber = "556"
             landmarkName = "getFailedDeliveries(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -510,8 +510,8 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "getRuleDescription(rule:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -520,6 +520,22 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "417C0FC4-BEC9-4273-A157-C85C1EFA2CB4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "getRuleDescription(rule:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EA127A7E-7EF7-49B8-AF84-47822D371180"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -535,22 +551,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EA127A7E-7EF7-49B8-AF84-47822D371180"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/rules/RulesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
-            landmarkName = "getRuleDescription(rule:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FBB12381-2721-4424-820C-71F9316CB279"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -558,8 +558,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "970"
-            endingLineNumber = "970"
+            startingLineNumber = "1077"
+            endingLineNumber = "1077"
             landmarkName = "updateRule(completion:ruleId:rule:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -574,8 +574,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "969"
-            endingLineNumber = "969"
+            startingLineNumber = "1076"
+            endingLineNumber = "1076"
             landmarkName = "updateRule(completion:ruleId:rule:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -590,8 +590,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "968"
-            endingLineNumber = "968"
+            startingLineNumber = "1075"
+            endingLineNumber = "1075"
             landmarkName = "updateRule(completion:ruleId:rule:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -606,8 +606,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "972"
-            endingLineNumber = "972"
+            startingLineNumber = "1079"
+            endingLineNumber = "1079"
             landmarkName = "updateRule(completion:ruleId:rule:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -914,36 +914,6 @@
             endingLineNumber = "436"
             landmarkName = "getRule(ruleId:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "900CC8BA-0B22-4DAF-96E9-C7752C84B3CB - 2e1430fb4c0a11f7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;addy_shared.Rules&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; () in addy.CreateRulesView.getRule(ruleId: Swift.String) -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/iOS_addy.io/addy/addy/View/rules/manage/CreateRulesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "436"
-                  endingLineNumber = "436">
-               </Location>
-               <Location
-                  uuid = "900CC8BA-0B22-4DAF-96E9-C7752C84B3CB - e4ca8739f02701a2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 @Swift.MainActor () -&gt; () in closure #1 (Swift.Optional&lt;addy_shared.Rules&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; () in addy.CreateRulesView.getRule(ruleId: Swift.String) -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/iOS_addy.io/addy/addy/View/rules/manage/CreateRulesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "437"
-                  endingLineNumber = "437">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -960,36 +930,6 @@
             endingLineNumber = "437"
             landmarkName = "getRule(ruleId:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EB0598CD-07AB-4CD3-8569-A8D3BA7234C1 - e4ca8739f02701a2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 @Swift.MainActor () -&gt; () in closure #1 (Swift.Optional&lt;addy_shared.Rules&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; () in addy.CreateRulesView.getRule(ruleId: Swift.String) -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/iOS_addy.io/addy/addy/View/rules/manage/CreateRulesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "437"
-                  endingLineNumber = "437">
-               </Location>
-               <Location
-                  uuid = "EB0598CD-07AB-4CD3-8569-A8D3BA7234C1 - 91a3eec301cf19a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #2 @Swift.MainActor () -&gt; () in closure #1 (Swift.Optional&lt;addy_shared.Rules&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; () in addy.CreateRulesView.getRule(ruleId: Swift.String) -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/iOS_addy.io/addy/addy/View/rules/manage/CreateRulesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "438"
-                  endingLineNumber = "438">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1102,36 +1042,6 @@
             endingLineNumber = "257"
             landmarkName = "body"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "10077DF8-B8EC-4CBE-A675-B1770CF93C2E - e8c4a6e3624a7ff7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #3 () -&gt; () in closure #3 () -&gt; SwiftUI.Alert in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.sheet&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in addy.AliasesView.body.getter : some"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/iOS_addy.io/addy/addy/View/mainview/aliases/AliasesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "257"
-                  endingLineNumber = "257">
-               </Location>
-               <Location
-                  uuid = "10077DF8-B8EC-4CBE-A675-B1770CF93C2E - 55b0de0e20925e1c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable () -&gt; () in closure #3 () -&gt; () in closure #3 () -&gt; SwiftUI.Alert in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.sheet&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in addy.AliasesView.body.getter : some"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/iOS_addy.io/addy/addy/View/mainview/aliases/AliasesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "258"
-                  endingLineNumber = "258">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

@@ -35,7 +35,6 @@ class RecipientsViewModel: ObservableObject{
                             self.recipients = recipients
                         } else {
                             self.networkError = String(format: String(localized: "details_about_error_s"),"\(error!)")
-                            print("Error: \(error)")
                         }
                     }
             })

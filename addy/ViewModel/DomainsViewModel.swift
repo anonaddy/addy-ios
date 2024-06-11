@@ -34,7 +34,6 @@ class DomainsViewModel: ObservableObject{
                             self.domains = domains
                         } else {
                             self.networkError = String(format: String(localized: "details_about_error_s"),"\(error!)")
-                            print("Error: \(error)")
                         }
                     }
             })

@@ -15,7 +15,7 @@ class AnonAddyUtils {
         var toAddresses = [String]()
 
         
-        for (i, email) in recipients.enumerated() {
+        for (_, email) in recipients.enumerated() {
             let leftPartOfAlias = alias.local_part
             let domain = alias.domain
             let recipientLeftPartOfEmail = email.components(separatedBy: "@").first ?? ""

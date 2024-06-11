@@ -58,6 +58,13 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "verifyApiKey",
+                    extra: error.debugDescription)
+                
                 completion(nil)
                 return
             }
@@ -68,7 +75,7 @@ public class NetworkHelper {
             case 401:
                 completion(nil)
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print("Error: \(httpResponse.statusCode) - \(errorMessage)")
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -94,7 +101,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getAddyIoInstanceVersion",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -105,7 +119,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(Version.self, from: data)
                     completion(addyIoData, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -116,7 +130,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
                 }
                 
@@ -134,7 +148,7 @@ public class NetworkHelper {
                 completion(Version(major: 0, minor: 0, patch: 0, version: ""), nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -145,7 +159,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -161,7 +175,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getUserResource",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -172,7 +193,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUserResource.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -183,7 +204,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
                 }
                 
@@ -196,7 +217,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -207,7 +228,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -223,7 +244,15 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getRecipients",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -248,7 +277,7 @@ public class NetworkHelper {
                     completion(recipientList, nil)
                     
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -259,7 +288,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
                 }
                 
@@ -272,7 +301,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -283,7 +312,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -299,7 +328,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getUsernames",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -311,7 +347,7 @@ public class NetworkHelper {
                     completion(addyIoData, nil)
                     
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -322,7 +358,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
                 }
                 
@@ -335,7 +371,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -346,7 +382,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -363,7 +399,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getRules",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -375,7 +418,7 @@ public class NetworkHelper {
                     completion(addyIoData, nil)
                     
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -386,7 +429,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
                 }
                 
@@ -399,7 +442,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -410,7 +453,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -426,7 +469,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getDomains",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -438,7 +488,7 @@ public class NetworkHelper {
                     completion(addyIoData, nil)
                     
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -449,7 +499,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
                 }
                 
@@ -462,7 +512,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -473,7 +523,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -489,7 +539,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getFailedDeliveries",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -501,7 +558,7 @@ public class NetworkHelper {
                     completion(addyIoData, nil)
                     
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -512,7 +569,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
                 }
                 
@@ -525,7 +582,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -536,7 +593,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -552,7 +609,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getDomainOptions",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -564,7 +628,7 @@ public class NetworkHelper {
                     completion(addyIoData, nil)
                     
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -575,7 +639,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
                 }
                 
@@ -588,7 +652,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -599,7 +663,7 @@ public class NetworkHelper {
                                                       ))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -616,7 +680,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getSpecificUsername",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -627,7 +698,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -637,9 +708,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -651,7 +722,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -660,7 +731,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -677,7 +748,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getSpecificDomain",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -688,7 +766,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -698,9 +776,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -712,7 +790,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -721,7 +799,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -738,7 +816,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getSpecificRecipient",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -749,7 +834,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -759,9 +844,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -773,7 +858,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -782,7 +867,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -804,7 +889,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "resendVerificationEmail",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -822,7 +914,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -830,7 +922,7 @@ public class NetworkHelper {
                     method: "resendVerificationEmail",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -847,7 +939,15 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getSpecificAlias",
+                    extra: error.debugDescription)
+                
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -858,7 +958,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -868,9 +968,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -882,7 +982,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -891,7 +991,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -908,7 +1008,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getSpecificRule",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -919,7 +1026,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRule.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -929,9 +1036,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -943,7 +1050,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -952,7 +1059,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -972,7 +1079,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "updateRule",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -989,7 +1103,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -997,7 +1111,7 @@ public class NetworkHelper {
                     method: "updateRule",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1014,7 +1128,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "restoreAlias",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1025,7 +1146,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -1035,9 +1156,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -1049,7 +1170,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1058,7 +1179,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1085,7 +1206,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "addAlias",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1096,7 +1224,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -1106,9 +1234,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -1120,7 +1248,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1129,7 +1257,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1151,7 +1279,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "activateSpecificAlias",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1162,7 +1297,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -1172,9 +1307,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -1186,7 +1321,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1195,7 +1330,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1219,7 +1354,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "activateSpecificRule",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1230,7 +1372,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRule.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -1240,9 +1382,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -1254,7 +1396,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1263,7 +1405,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1289,7 +1431,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "allowRecipientToReplySend",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1300,7 +1449,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -1310,9 +1459,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -1324,7 +1473,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1333,7 +1482,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1356,7 +1505,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "enableCatchAllSpecificUsername",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1367,7 +1523,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -1377,9 +1533,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -1391,7 +1547,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1400,7 +1556,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1422,7 +1578,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "enableCatchAllSpecificDomain",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1433,7 +1596,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -1443,9 +1606,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -1457,7 +1620,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1466,7 +1629,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1483,7 +1646,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "disableCatchAllSpecificUsername",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1500,7 +1670,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1508,7 +1678,7 @@ public class NetworkHelper {
                     method: "disableCatchAllSpecificUsername",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1526,7 +1696,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "disableCatchAllSpecificDomain",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1543,7 +1720,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1551,7 +1728,7 @@ public class NetworkHelper {
                     method: "disableCatchAllSpecificDomain",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1574,7 +1751,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "enableCanLoginSpecificUsername",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1585,7 +1769,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -1595,9 +1779,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -1609,7 +1793,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1618,7 +1802,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1635,7 +1819,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "disableCanLoginSpecificUsername",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1652,7 +1843,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1660,7 +1851,7 @@ public class NetworkHelper {
                     method: "disableCanLoginSpecificUsername",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1684,7 +1875,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "activateSpecificUsername",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1695,7 +1893,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -1705,9 +1903,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -1719,7 +1917,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1728,7 +1926,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1751,7 +1949,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "activateSpecificDomain",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1762,7 +1967,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -1772,9 +1977,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -1786,7 +1991,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1795,7 +2000,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1812,7 +2017,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "deactivateSpecificUsername",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1829,7 +2041,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1837,7 +2049,7 @@ public class NetworkHelper {
                     method: "deactivateSpecificUsername",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1854,7 +2066,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "deactivateSpecificDomain",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1871,7 +2090,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1879,7 +2098,7 @@ public class NetworkHelper {
                     method: "deactivateSpecificDomain",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1896,7 +2115,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "deactivateSpecificAlias",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1913,7 +2139,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1921,7 +2147,7 @@ public class NetworkHelper {
                     method: "deactivateSpecificAlias",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1937,7 +2163,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "deactivateSpecificRule",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1954,7 +2187,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -1962,7 +2195,7 @@ public class NetworkHelper {
                     method: "deactivateSpecificRule",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -1979,7 +2212,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "disallowRecipientToReplySend",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -1996,7 +2236,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2004,7 +2244,7 @@ public class NetworkHelper {
                     method: "disallowRecipientToReplySend",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2022,7 +2262,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "disableEncryptionRecipient",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2039,7 +2286,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2047,7 +2294,7 @@ public class NetworkHelper {
                     method: "disableEncryptionRecipient",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2069,7 +2316,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "enableEncryptionRecipient",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2080,7 +2334,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -2090,9 +2344,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -2104,7 +2358,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2113,7 +2367,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2131,7 +2385,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "disablePgpInlineRecipient",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2148,7 +2409,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2156,7 +2417,7 @@ public class NetworkHelper {
                     method: "disablePgpInlineRecipient",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2178,7 +2439,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "enablePgpInlineRecipient",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2189,7 +2457,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -2199,9 +2467,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -2213,7 +2481,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2222,7 +2490,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2241,7 +2509,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "removeEncryptionKeyRecipient",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2258,7 +2533,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2266,7 +2541,7 @@ public class NetworkHelper {
                     method: "removeEncryptionKeyRecipient",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2283,7 +2558,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "disableProtectedHeadersRecipient",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2300,7 +2582,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2308,7 +2590,7 @@ public class NetworkHelper {
                     method: "disablePgpInlineRecipient",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2330,7 +2612,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "enableProtectedHeadersRecipient",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2341,7 +2630,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -2351,9 +2640,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -2365,7 +2654,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2374,7 +2663,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2396,7 +2685,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "addEncryptionKeyRecipient",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2407,7 +2703,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -2417,9 +2713,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -2431,7 +2727,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2440,7 +2736,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2464,7 +2760,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "addRecipient",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2475,7 +2778,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -2485,9 +2788,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -2499,7 +2802,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2508,7 +2811,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2531,7 +2834,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "addUsername",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2542,7 +2852,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -2552,9 +2862,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -2566,7 +2876,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2575,7 +2885,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2597,7 +2907,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "createRule",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2608,7 +2925,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleRule.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -2618,9 +2935,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -2632,7 +2949,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2641,7 +2958,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2673,7 +2990,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "reorderRules",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2691,7 +3015,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2699,7 +3023,7 @@ public class NetworkHelper {
                     method: "reorderRules",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2724,7 +3048,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error), nil)
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "addDomain",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"), nil)
                 return
             }
             
@@ -2735,7 +3066,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, "201", nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -2746,7 +3077,9 @@ public class NetworkHelper {
                                                           ))
                     completion(
                         nil,
-                        errorMessage,
+                        ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ),
                         nil
                     )
                 }
@@ -2763,7 +3096,7 @@ public class NetworkHelper {
                 completion(nil, nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2792,7 +3125,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "deleteAlias",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2809,7 +3149,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2817,7 +3157,7 @@ public class NetworkHelper {
                     method: "deleteSpecificAlias",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2834,7 +3174,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "forgetAlias",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2851,7 +3198,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2859,7 +3206,7 @@ public class NetworkHelper {
                     method: "forgetSpecificAlias",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2876,7 +3223,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "deleteUsername",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2893,7 +3247,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2901,7 +3255,7 @@ public class NetworkHelper {
                     method: "deleteUsername",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2918,7 +3272,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "deleteRule",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2935,7 +3296,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2943,7 +3304,7 @@ public class NetworkHelper {
                     method: "deleteRule",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -2960,7 +3321,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "deleteFailedDelivery",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -2977,7 +3345,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -2985,7 +3353,7 @@ public class NetworkHelper {
                     method: "deleteFailedDelivery",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3002,7 +3370,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "deleteDomain",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3019,7 +3394,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3027,7 +3402,7 @@ public class NetworkHelper {
                     method: "deleteDomain",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3044,7 +3419,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "deleteRecipient",
+                    extra: error.debugDescription)
+                
+                completion(error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3061,7 +3443,7 @@ public class NetworkHelper {
                 completion(nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3069,7 +3451,7 @@ public class NetworkHelper {
                     method: "deleteRecipient",
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3092,7 +3474,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "updateDescriptionSpecificAlias",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3103,7 +3492,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -3113,9 +3502,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -3127,7 +3516,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3136,7 +3525,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3158,7 +3547,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "updateDescriptionSpecificUsername",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3169,7 +3565,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -3179,9 +3575,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -3193,7 +3589,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3202,7 +3598,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3225,7 +3621,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "updateDescriptionSpecificDomain",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3236,7 +3639,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -3246,9 +3649,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -3260,7 +3663,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3269,7 +3672,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3292,7 +3695,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "updateFromNameSpecificAlias",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3303,7 +3713,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -3313,9 +3723,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -3327,7 +3737,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3336,7 +3746,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3358,7 +3768,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "updateFromNameSpecificUsername",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3369,7 +3786,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -3379,9 +3796,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -3393,7 +3810,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3402,7 +3819,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3424,7 +3841,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "updateFromNameSpecificDomain",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3435,7 +3859,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -3445,9 +3869,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -3459,7 +3883,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3468,7 +3892,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3490,7 +3914,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "updateRecipientsSpecificAlias",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3501,7 +3932,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleAlias.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -3511,9 +3942,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -3525,7 +3956,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3534,7 +3965,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3556,7 +3987,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "updateDefaultRecipientForSpecificUsername",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3567,7 +4005,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleUsername.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -3577,9 +4015,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -3591,7 +4029,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3600,7 +4038,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3622,7 +4060,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "updateDefaultRecipientForSpecificDomain",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3633,7 +4078,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(SingleDomain.self, from: data)
                     completion(addyIoData.data, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -3643,9 +4088,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                        nil,
-                        errorMessage
-                    )
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
                 }
                 
             case 401:
@@ -3657,7 +4102,7 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
                 print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
@@ -3666,7 +4111,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }
@@ -3728,7 +4173,14 @@ public class NetworkHelper {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, String(describing: error))
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getAliases",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
                 return
             }
             
@@ -3739,7 +4191,7 @@ public class NetworkHelper {
                     let addyIoData = try decoder.decode(AliasesArray.self, from: data)
                     completion(addyIoData, nil)
                 } catch {
-                    let errorMessage = "Error: \(String(describing: error.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
                     print(errorMessage)
                     self.loggingHelper.addLog(
                         importance: LogImportance.critical,
@@ -3750,7 +4202,7 @@ public class NetworkHelper {
                                                           ))
                     completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
                 }
                 
@@ -3763,8 +4215,8 @@ public class NetworkHelper {
                 completion(nil, nil)
                 
             default:
-                let errorMessage = "Error: \(String(describing: error?.localizedDescription)) | \(httpResponse.statusCode) - \(String(describing: error))"
-                print("Error: \(httpResponse.statusCode) - \(String(describing: error))")
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
+                print(errorMessage)
                 self.loggingHelper.addLog(
                     importance: LogImportance.critical,
                     error: errorMessage,
@@ -3772,7 +4224,7 @@ public class NetworkHelper {
                     extra: ErrorHelper.getErrorMessage(data:data))
                 completion(
                     nil,
-                    errorMessage
+                    ErrorHelper.getErrorMessage(data:data)
                 )
             }
         }

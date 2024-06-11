@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "Stjin - Output v1 - NO R@1x.png",
+      "filename" : "Stjin - Output v1 - NO R@0.25x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Stjin - Output v1 - NO R@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Stjin - Output v1 - NO R@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

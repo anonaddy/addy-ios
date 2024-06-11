@@ -26,9 +26,7 @@ struct RulesView: View {
     // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
     @State private var rule_count: Int = 0
     @State private var rule_limit: Int? = 0
-    
-    @State private var isPresentingAddRuleBottomSheet = false
-    
+        
     @State private var shouldReloadDataInParent = false
     
     @State private var errorAlertTitle = ""
@@ -227,7 +225,7 @@ struct RulesView: View {
                     Text(String(localized: "close"))
                 }
             }, trailing: Button(action: {
-                self.isPresentingAddRuleBottomSheet = true
+                //TODO: Allow for creating new rule
             } ) {
                 
                 Image(systemName: "plus")
@@ -376,7 +374,6 @@ struct RulesView: View {
                         rule_limit = userResource.active_rule_limit
                         rule_count = userResource.active_rule_count
                     } else {
-                        print("Error: \(String(describing: error))")
                         activeAlert = .error
                         showAlert = true
                     }

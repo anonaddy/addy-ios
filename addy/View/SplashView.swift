@@ -117,11 +117,9 @@ struct SplashView: View {
                         if (instanceHasTheMinimumRequiredVersion()){
                             getUserResource()
                         } else {
-                            print("Error: \(String(describing: error))")
                             self.isPresentUnsupportedVersionBottomDialog = true
                         }
                     } else {
-                        print("Error: \(String(describing: error))")
                         self.showError = true
                     }
                 }
@@ -156,14 +154,12 @@ struct SplashView: View {
                                 if let recipient = recipient {
                                     mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
                                 } else if let error = error {
-                                    print("Error: \(error)")
                                     self.showError = true
                                 }
                             }
                         }, recipientId: userResource.default_recipient_id)
                         
                     } else {
-                        print("Error: \(String(describing: error))")
                         self.showError = true
                     }
                 }

@@ -34,7 +34,6 @@ class FailedDeliveriesViewModel: ObservableObject{
                             self.failedDeliveries = failedDeliveries
                         } else {
                             self.networkError = String(format: String(localized: "details_about_error_s"),"\(error!)")
-                            print("Error: \(error)")
                         }
                     }
             })

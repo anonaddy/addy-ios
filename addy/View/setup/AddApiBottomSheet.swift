@@ -163,6 +163,28 @@ struct AddApiBottomSheet: View {
                     
                 }
                 
+            }).toolbar(content: {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text(String(localized: "cancel"))
+                    }
+                    
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    
+                    Menu(content: {
+                        Button(String(localized: "get_my_key")) {
+                            openURL(URL(string: "\(instance)/settings/api")!)
+                        }
+                    }, label: {
+                        Label(String(localized: "menu"), systemImage: "ellipsis.circle")
+                    })
+                    
+                }
+                
             })
             .onAppear{
                 cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)

@@ -478,7 +478,7 @@ struct CreateRulesView: View {
         networkHelper.createRule(completion: { rule, error in
             DispatchQueue.main.async {
                 
-                if let rule = rule {
+                if rule != nil {
                     shouldReloadDataInParent = true
                     self.presentationMode.wrappedValue.dismiss()
                 } else {

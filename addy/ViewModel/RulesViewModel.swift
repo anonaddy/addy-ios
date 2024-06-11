@@ -34,7 +34,6 @@ class RulesViewModel: ObservableObject{
                             self.rules = rules
                         } else {
                             self.networkError = String(format: String(localized: "details_about_error_s"),"\(error!)")
-                            print("Error: \(error)")
                         }
                     }
             })

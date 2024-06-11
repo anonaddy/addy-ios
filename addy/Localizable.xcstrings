@@ -330,6 +330,17 @@
         }
       }
     },
+    "advanced" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced"
+          }
+        }
+      }
+    },
     "alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -946,6 +957,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clear filter"
+          }
+        }
+      }
+    },
+    "clear_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear logs"
           }
         }
       }
@@ -2523,9 +2545,6 @@
         }
       }
     },
-    "Key" : {
-      "extractionState" : "manual"
-    },
     "last_blocked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2592,13 +2611,24 @@
         }
       }
     },
+    "logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logs"
+          }
+        }
+      }
+    },
     "logs_cleared" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alias activ"
+            "value" : "Logs cleared"
           }
         }
       }
@@ -2844,6 +2874,28 @@
         }
       }
     },
+    "no_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No logs found"
+          }
+        }
+      }
+    },
+    "no_logs_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make sure to enable storing logs in the app settings"
+          }
+        }
+      }
+    },
     "no_rules" : {
 
     },
@@ -2934,6 +2986,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Obtaining your failed deliveries"
+          }
+        }
+      }
+    },
+    "obtaining_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gathering logs"
           }
         }
       }
@@ -4097,7 +4160,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap here to see or clear the stored logs"
+            "value" : "When an error occurs, store the relevant information"
           }
         }
       }
@@ -4382,6 +4445,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "View details"
+          }
+        }
+      }
+    },
+    "view_store_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View stored logs"
           }
         }
       }

@@ -264,7 +264,6 @@ struct DomainsView: View {
                     domain_limit = userResource.active_domain_limit
                     domain_count = userResource.active_domain_count
                 } else {
-                    print("Error: \(String(describing: error))")
                     activeAlert = .error
                     showAlert = true
                 }

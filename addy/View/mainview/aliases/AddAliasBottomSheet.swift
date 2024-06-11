@@ -298,7 +298,6 @@ struct AddAliasBottomSheet: View {
                     }
                     
                 } else {
-                    print("Error: \(String(describing: error))")
                     recipientsRequestError = error
                 }
             }

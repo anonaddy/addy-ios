@@ -17,9 +17,9 @@ public class LoggingHelper {
         //case watchosLogs = "host.stjin.anonaddy_logs_watchos"
     }
 
-    public init(sharedPreference: LogFiles = .default) {
+    public init(logFile: LogFiles = .default) {
         self.settingsManager = SettingsManager(encrypted: false)
-        self.prefs = UserDefaults(suiteName: sharedPreference.rawValue)!
+        self.prefs = UserDefaults(suiteName: logFile.rawValue)!
     }
 
     private func setList(logs: [Logs]?) {
@@ -27,7 +27,7 @@ public class LoggingHelper {
         prefs.set(logsData, forKey: "logs")
     }
 
-    func getLogs() -> [Logs]? {
+    public func getLogs() -> [Logs]? {
         guard let logsData = prefs.data(forKey: "logs") else { return nil }
         return try? JSONDecoder().decode([Logs].self, from: logsData)
     }
@@ -40,7 +40,7 @@ public class LoggingHelper {
         }
     }
 
-    func clearLogs() {
+    public func clearLogs() {
         prefs.removeObject(forKey: "logs")
         addLog(importance: .info, error: String(localized: "logs_cleared"), method: "getLogs()", extra: nil)
     }

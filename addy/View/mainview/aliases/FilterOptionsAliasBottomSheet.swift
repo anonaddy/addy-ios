@@ -209,7 +209,6 @@ struct FilterOptionsAliasBottomSheet: View {
         
         aliasSortFilterRequest.sort = selectedOrderChip
         
-        var test = self.aliasSortFilterRequest
         self.setFilterAndSortingSettings(self.aliasSortFilterRequest)
     }
     

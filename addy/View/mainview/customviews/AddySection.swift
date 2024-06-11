@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import addy_shared
 
 struct AddySection: View {
     
@@ -15,13 +16,13 @@ struct AddySection: View {
     var leadingSystemimageColor: Color = .blue
     var trailingSystemimage: String? = nil
     var fontWeight: Font.Weight = .medium
-    let onTap: () -> Void
+    var onTap: (() -> Void)? = nil
     @State var lineLimit: Int? = 3
     
 
     var body: some View {
         Button(action: {
-            self.onTap()
+            self.onTap?()
         }) {
             HStack {
                 if let leadingSystemimage = leadingSystemimage {
@@ -58,6 +59,20 @@ struct AddySection: View {
                 }
                 
             }
+            //TODO: Fix this issue (scrolling will be blocked)
+//            .onLongPressGesture(perform: {
+//                HapticHelper.playHapticFeedback(hapticType: .tap)
+//
+//                withAnimation {
+//                    if (self.lineLimit == nil){
+//                        self.lineLimit = 3
+//
+//                    } else {
+//                        self.lineLimit = nil
+//                    }
+//                }
+//                
+//            })
         }
     }
 }

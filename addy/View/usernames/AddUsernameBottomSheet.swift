@@ -106,7 +106,7 @@ struct AddUsernameBottomSheet: View {
         let networkHelper = NetworkHelper()
         networkHelper.addUsername(completion: { username, error in
             DispatchQueue.main.async {
-                if let username = username {
+                if username != nil {
                     self.onAdded()
                 } else {
                     IsLoadingAddButton = false

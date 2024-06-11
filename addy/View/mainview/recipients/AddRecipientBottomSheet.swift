@@ -104,7 +104,7 @@ struct AddRecipientBottomSheet: View {
         let networkHelper = NetworkHelper()
         networkHelper.addRecipient(completion: { recipient, error in
             DispatchQueue.main.async {
-                if let recipient = recipient {
+                if recipient != nil {
                     self.onAdded()
                 } else {
                     IsLoadingAddButton = false

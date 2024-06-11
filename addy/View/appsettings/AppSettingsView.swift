@@ -43,26 +43,26 @@ struct AppSettingsView: View {
                 Section {
                     AddySection(title: String(localized: "appearance"), description: String(localized: "appearance_desc"), leadingSystemimage: "app.dashed",leadingSystemimageColor: .orange ,trailingSystemimage: "chevron.right"){
                         isPresentingAppearanceBottomSheet = true
-                        }
+                    }
                     AddySection(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_desc"), leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue, trailingSystemimage: "chevron.right"){
                         isPresentingAppearanceBottomSheet = true
-                        }
+                    }
                     AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor, trailingSystemimage: "chevron.right"){
                         isPresentingAppearanceBottomSheet = true
-                        }
+                    }
                     
-//                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor, trailingSystemimage: "chevron.right"){
-//
-//                        }
+                    //                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor, trailingSystemimage: "chevron.right"){
+                    //
+                    //                        }
                     
                     
-//                    AddySection(title: String(localized: "addyio_backup"), leadingSystemimage: "square.and.arrow.up", leadingSystemimageColor: .accentColor, trailingSystemimage: "chevron.right"){
-//                        isPresentingAppearanceBottomSheet = true
-//                        }
-
+                    //                    AddySection(title: String(localized: "addyio_backup"), leadingSystemimage: "square.and.arrow.up", leadingSystemimageColor: .accentColor, trailingSystemimage: "chevron.right"){
+                    //                        isPresentingAppearanceBottomSheet = true
+                    //                        }
+                    
                     AddySection(title: String(localized: "background_service_interval"), description: String(localized: "background_service_desc"), leadingSystemimage: "clock.fill", leadingSystemimageColor: .red, trailingSystemimage: "chevron.right"){
                         isPresentingAppearanceBottomSheet = true
-                        }
+                    }
                     
                     AddyToggle(isOn: $biometricEnabled, title: String(localized: "security"),description: !LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? String(localized: "biometric_error") : String(localized: "security_desc"), leadingSystemimage: "faceid", leadingSystemimageColor: .green).onAppear {
                         self.biometricEnabled = encryptedSettingsManager.getSettingsBool(key: .biometricEnabled)
@@ -80,8 +80,13 @@ struct AppSettingsView: View {
                     }
                     .onChange(of: privacyMode) {
                         encryptedSettingsManager.putSettingsBool(key: .privacyMode, boolean: privacyMode)
-
+                        
                     }
+                } header: {
+                    Text(String(localized: "general"))
+                }
+                
+                Section {
                     
                     AddyToggle(isOn: $storeLogs, title: String(localized: "store_logs"), description: String(localized: "store_logs_desc"), leadingSystemimage: "exclamationmark.magnifyingglass")
                         .onAppear {
@@ -91,12 +96,19 @@ struct AppSettingsView: View {
                             settingsManager.putSettingsBool(key: .storeLogs, boolean: storeLogs)
                         }
                     
+                    NavigationLink(destination: LogViewerView()) {
+                        AddySection(title: String(localized: "view_store_logs"))
+                    }
+                    
+                } header: {
+                    Text(String(localized: "advanced"))
+                }
+                
+                Section {
                     AddySection(title: String(localized: "reset_app"), description: String(localized: "reset_app_desc"), leadingSystemimage: "gobackward", leadingSystemimageColor: .red){
                         isPresentingAppearanceBottomSheet = true
                         }
                     
-                } header: {
-                    Text(String(localized: "general"))
                 }
                 
                 Section {

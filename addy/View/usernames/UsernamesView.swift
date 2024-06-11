@@ -129,7 +129,7 @@ struct UsernamesView: View {
                 
                 
                 // If there is an usernames (aka, if the list is visible)
-                if let usernames = usernamesViewModel.usernames{
+                if usernamesViewModel.usernames != nil{
                     
                     // There is always 1 username.
                     
@@ -275,7 +275,6 @@ struct UsernamesView: View {
                         username_limit = userResource.username_limit
                         username_count = userResource.username_count
                     } else {
-                        print("Error: \(String(describing: error))")
                         activeAlert = .error
                         showAlert = true
                     }

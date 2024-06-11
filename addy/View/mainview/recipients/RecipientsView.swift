@@ -111,7 +111,7 @@ struct RecipientsView: View {
                             
                             
                         }.onDelete(perform: deleteRecipient)
-                    }header: {
+                    } header: {
                         HStack(spacing: 6){
                             if (recipientsViewModel.verifiedOnly){
                                 Text(String(localized: "recipients_filtered"))
@@ -180,7 +180,7 @@ struct RecipientsView: View {
                 
                 
                 // If there is an recipients (aka, if the list is visible)
-                if let recipients = recipientsViewModel.recipients{
+                if recipientsViewModel.recipients != nil{
                     
                     // There is always 1 recipient.
                     
@@ -368,7 +368,6 @@ struct RecipientsView: View {
                         recipient_limit = userResource.recipient_limit
                         recipient_count = userResource.recipient_count
                     } else {
-                        print("Error: \(String(describing: error))")
                         activeAlert = .error
                         showAlert = true
                     }

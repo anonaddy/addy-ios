@@ -102,7 +102,6 @@ class AliasesViewModel: ObservableObject{
                             
                         } else {
                             self.networkError = String(format: String(localized: "details_about_error_s"),"\(error!)")
-                            print("Error: \(error)")
                         }
                     }
             },aliasSortFilterRequest: self.aliasSortFilterRequest, page : (aliasList?.meta?.current_page ?? 0) + 1,size: 25)

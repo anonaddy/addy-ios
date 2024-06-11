@@ -188,7 +188,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					8001D9EF2BEA513500AAD10E = {
 						CreatedOnToolsVersion = 15.3;
@@ -388,6 +388,7 @@
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -423,6 +424,7 @@
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;

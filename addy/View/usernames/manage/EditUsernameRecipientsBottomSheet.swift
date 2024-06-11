@@ -122,7 +122,6 @@ struct EditUsernameRecipientsBottomSheet: View {
                     }
 
                 } else {
-                    print("Error: \(String(describing: error))")
                     recipientsRequestError = error
                     //self.showError = true
                 }

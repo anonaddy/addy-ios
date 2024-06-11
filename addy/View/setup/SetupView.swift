@@ -89,8 +89,6 @@ struct SetupView: View {
                                 // A 56 length string found. This is most likely the API key
 
                                 isLoadingGetStarted = true
-                                debugPrint("API key copied from clipboard")
-                                //TODO: let the user know
                                 
                                 DispatchQueue.global(qos: .background).async {
                                     // AddyIo.API_BASE_URL is defaulted to the addy.io instance. If the API key is valid there it was meant to use that instance.
