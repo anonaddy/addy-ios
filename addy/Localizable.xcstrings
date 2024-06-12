@@ -12,6 +12,18 @@
         }
       }
     },
+    "1h" : {
+
+    },
+    "2h" : {
+
+    },
+    "15m" : {
+
+    },
+    "30m" : {
+
+    },
     "actions" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -654,6 +666,17 @@
         }
       }
     },
+    "app_changelog" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**A swifty start!**\n\n**Features**\n- So much cool stuff!"
+          }
+        }
+      }
+    },
     "app_icon" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -946,6 +969,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Change public GPG key"
+          }
+        }
+      }
+    },
+    "changelog" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changelog"
+          }
+        }
+      }
+    },
+    "check_for_updates" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for updates"
+          }
+        }
+      }
+    },
+    "check_for_updates_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap here to manually check for new updates"
           }
         }
       }
@@ -1325,10 +1381,24 @@
       }
     },
     "delete_rule" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete rule"
+          }
+        }
+      }
     },
     "delete_rule_confirmation_desc" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this rule?"
+          }
+        }
+      }
     },
     "delete_username" : {
       "extractionState" : "manual",
@@ -2465,6 +2535,28 @@
         }
       }
     },
+    "greetings_time_traveller" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Greetings, time traveller"
+          }
+        }
+      }
+    },
+    "greetings_time_traveller_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It appears that you are using a future version of the addy.io app. Report any bugs you find!"
+          }
+        }
+      }
+    },
     "Hello, World!" : {
 
     },
@@ -2786,6 +2878,28 @@
         }
       }
     },
+    "new_update_available" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New update available"
+          }
+        }
+      }
+    },
+    "new_update_available_version" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ -> %@"
+          }
+        }
+      }
+    },
     "new_user" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2892,6 +3006,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Make sure to enable storing logs in the app settings"
+          }
+        }
+      }
+    },
+    "no_new_update_available" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You're up to date"
+          }
+        }
+      }
+    },
+    "no_new_update_available_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are currently using the latest version of the addy.io app. Turn on notifications to get notified when a new version is available"
           }
         }
       }
@@ -3096,6 +3232,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You need to disable protected headers (hide subject) before you can enable inline encryption"
+          }
+        }
+      }
+    },
+    "previous_changelogs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous changelogs"
+          }
+        }
+      }
+    },
+    "previous_changelogs_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View previous changelogs"
           }
         }
       }
@@ -3567,6 +3725,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use your biometric to open the addy.io app"
+          }
+        }
+      }
+    },
+    "see_this_version_changelogs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See this version's changelog"
           }
         }
       }
@@ -4282,6 +4451,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "unlimited"
+          }
+        }
+      }
+    },
+    "update_notify_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Periodically check for updates in the background and send a notification when one is available"
+          }
+        }
+      }
+    },
+    "update_notify_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notify for new updates"
           }
         }
       }

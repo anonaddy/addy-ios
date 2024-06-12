@@ -51,12 +51,12 @@ struct EditDomainRecipientsBottomSheet: View {
                 
             
             } header: {
-                VStack(alignment: .leading){
+                VStack {
                     Text(String(localized: "domain_edit_recipient_desc"))
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                     
-                }
+                }.frame(maxWidth: .infinity, alignment: .center)
             } footer: {
                 if let error = recipientsRequestError {
                     if (!error.isEmpty){

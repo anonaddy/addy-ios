@@ -23,6 +23,11 @@
 		8062CFE22C149DCA00EFFB4C /* ConditionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8062CFE12C149DCA00EFFB4C /* ConditionBottomSheet.swift */; };
 		80676D652C18CD64008FC147 /* LogViewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80676D642C18CD64008FC147 /* LogViewerView.swift */; };
 		80676D672C18D27C008FC147 /* LogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80676D662C18D27C008FC147 /* LogsViewModel.swift */; };
+		806AE6872C19DEE900F3CA92 /* BackgroundServiceIntervalBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6862C19DEE900F3CA92 /* BackgroundServiceIntervalBottomSheet.swift */; };
+		806AE6892C19EA3600F3CA92 /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6882C19EA3400F3CA92 /* Updater.swift */; };
+		806AE6922C19ED1700F3CA92 /* AppSettingsUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6912C19ED1000F3CA92 /* AppSettingsUpdateView.swift */; };
+		806AE6962C1A085100F3CA92 /* ChangelogBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6952C1A085100F3CA92 /* ChangelogBottomSheet.swift */; };
+		806AE6992C1A0D5700F3CA92 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 806AE6982C1A0D5700F3CA92 /* Settings.bundle */; };
 		806D5F252BE925C600C5C109 /* ic_loading_logo.shapeshifter.json in Resources */ = {isa = PBXBuildFile; fileRef = 806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */; };
 		806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806D5F262BE92AB200C5C109 /* SetupView.swift */; };
 		806F21332BE8F1B100EBEBC8 /* addyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806F21322BE8F1B100EBEBC8 /* addyApp.swift */; };
@@ -179,6 +184,11 @@
 		8062CFE12C149DCA00EFFB4C /* ConditionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionBottomSheet.swift; sourceTree = "<group>"; };
 		80676D642C18CD64008FC147 /* LogViewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewerView.swift; sourceTree = "<group>"; };
 		80676D662C18D27C008FC147 /* LogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsViewModel.swift; sourceTree = "<group>"; };
+		806AE6862C19DEE900F3CA92 /* BackgroundServiceIntervalBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundServiceIntervalBottomSheet.swift; sourceTree = "<group>"; };
+		806AE6882C19EA3400F3CA92 /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
+		806AE6912C19ED1000F3CA92 /* AppSettingsUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsUpdateView.swift; sourceTree = "<group>"; };
+		806AE6952C1A085100F3CA92 /* ChangelogBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangelogBottomSheet.swift; sourceTree = "<group>"; };
+		806AE6982C1A0D5700F3CA92 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ic_loading_logo.shapeshifter.json; sourceTree = "<group>"; };
 		806D5F262BE92AB200C5C109 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		806F212F2BE8F1B100EBEBC8 /* addy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -379,6 +389,14 @@
 			path = logs;
 			sourceTree = "<group>";
 		};
+		806AE6902C19ED0300F3CA92 /* update */ = {
+			isa = PBXGroup;
+			children = (
+				806AE6912C19ED1000F3CA92 /* AppSettingsUpdateView.swift */,
+			);
+			path = update;
+			sourceTree = "<group>";
+		};
 		806D5F1B2BE91B9700C5C109 /* anims */ = {
 			isa = PBXGroup;
 			children = (
@@ -419,6 +437,7 @@
 		806F21262BE8F1B100EBEBC8 = {
 			isa = PBXGroup;
 			children = (
+				806AE6982C1A0D5700F3CA92 /* Settings.bundle */,
 				8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */,
 				806F21312BE8F1B100EBEBC8 /* addy */,
 				806F21302BE8F1B100EBEBC8 /* Products */,
@@ -503,6 +522,7 @@
 		80AC67092BFB5DAC004D227D /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				806AE6882C19EA3400F3CA92 /* Updater.swift */,
 				80AC670B2BFB5DC1004D227D /* AnonAddyUtils.swift */,
 			);
 			path = utils;
@@ -528,9 +548,12 @@
 		80D4F2D92C17083A00D313EC /* appsettings */ = {
 			isa = PBXGroup;
 			children = (
+				806AE6902C19ED0300F3CA92 /* update */,
 				80676D632C18CD44008FC147 /* logs */,
 				80D4F2DA2C17084E00D313EC /* AppSettingsView.swift */,
 				807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */,
+				806AE6862C19DEE900F3CA92 /* BackgroundServiceIntervalBottomSheet.swift */,
+				806AE6952C1A085100F3CA92 /* ChangelogBottomSheet.swift */,
 			);
 			path = appsettings;
 			sourceTree = "<group>";
@@ -895,6 +918,7 @@
 				806F212C2BE8F1B100EBEBC8 /* Frameworks */,
 				806F212D2BE8F1B100EBEBC8 /* Resources */,
 				8001DA032BEA516000AAD10E /* Embed Frameworks */,
+				806AE69A2C1A0EC800F3CA92 /* Update version number in settings Root.plist */,
 			);
 			buildRules = (
 			);
@@ -969,6 +993,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				806AE6992C1A0D5700F3CA92 /* Settings.bundle in Resources */,
 				801B929F2BE8FF6800179EB5 /* Launch Screen.storyboard in Resources */,
 				806D5F252BE925C600C5C109 /* ic_loading_logo.shapeshifter.json in Resources */,
 				806F213C2BE8F1B200EBEBC8 /* Preview Assets.xcassets in Resources */,
@@ -980,6 +1005,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		806AE69A2C1A0EC800F3CA92 /* Update version number in settings Root.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Update version number in settings Root.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "settings_plist=\"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Settings.bundle/Root.plist\"\nCFBundleShortVersionString=`/usr/libexec/PlistBuddy -c \"Print :CFBundleShortVersionString\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Info.plist\"`\nCFBundleVersion=`/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Info.plist\"`\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:0:DefaultValue '${CFBundleShortVersionString} (${CFBundleVersion})'\" \"$settings_plist\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		806F212B2BE8F1B100EBEBC8 /* Sources */ = {
@@ -995,6 +1041,7 @@
 				80F22F982BEE34EE001176B4 /* ChartGridShape.swift in Sources */,
 				80F3C6642BFB6E6D0028A486 /* AddAliasBottomSheet.swift in Sources */,
 				80F22F992BEE34EE001176B4 /* ChartLabel.swift in Sources */,
+				806AE6872C19DEE900F3CA92 /* BackgroundServiceIntervalBottomSheet.swift in Sources */,
 				80DCF3AA2BF12DF00022690F /* NotificationHelper.swift in Sources */,
 				80DCF3B02BF137610022690F /* EditAliasDescriptionBottomSheet.swift in Sources */,
 				80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */,
@@ -1044,8 +1091,10 @@
 				80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */,
 				80F22F9F2BEE34EE001176B4 /* BarChartCellShape.swift in Sources */,
 				80E849B32BEBA82A00C8D68A /* RecipientsView.swift in Sources */,
+				806AE6962C1A085100F3CA92 /* ChangelogBottomSheet.swift in Sources */,
 				80F22FB22BEE34EE001176B4 /* RingsChartRow.swift in Sources */,
 				80F22F8D2BEE34EE001176B4 /* CGRect+Extension.swift in Sources */,
+				806AE6892C19EA3600F3CA92 /* Updater.swift in Sources */,
 				80813B622C0DE1DA009C4E6A /* DomainsView.swift in Sources */,
 				80F22F932BEE34EE001176B4 /* View+Extension.swift in Sources */,
 				80F22FA82BEE34EE001176B4 /* LineChart.swift in Sources */,
@@ -1054,6 +1103,7 @@
 				80F22FA32BEE34EE001176B4 /* LineStyle.swift in Sources */,
 				80E9B2342C0B7D2D00C7EF99 /* EditUsernameDescriptionBottomSheet.swift in Sources */,
 				80F22F962BEE34EE001176B4 /* ChartGrid.swift in Sources */,
+				806AE6922C19ED1700F3CA92 /* AppSettingsUpdateView.swift in Sources */,
 				80F22F812BEE34EE001176B4 /* AxisLabelsStyle.swift in Sources */,
 				80DCF3AE2BF1347F0022690F /* AddySection.swift in Sources */,
 				80F22F8B2BEE34EE001176B4 /* Array+Extension.swift in Sources */,
@@ -1148,7 +1198,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1163,6 +1213,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -1171,7 +1222,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1212,7 +1263,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1221,13 +1272,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1245,7 +1297,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = addy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
+				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for settings up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
@@ -1261,7 +1313,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

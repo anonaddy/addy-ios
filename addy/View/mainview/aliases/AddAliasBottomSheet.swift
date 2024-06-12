@@ -107,11 +107,11 @@ struct AddAliasBottomSheet: View {
                 
             } header: {
                 VStack(alignment: .leading){
-                    Text(String(format: String(localized: "add_alias_desc"), self.mainViewState.userResource!.username)).multilineTextAlignment(.center).textCase(nil)
+                    Text(String(format: String(localized: "add_alias_desc"), self.mainViewState.userResource!.username)).multilineTextAlignment(.center)
                     Spacer(minLength: 25)
                     Text(String(localized: "alias"))
                     
-                }
+                }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
             } footer: {
                 if let error = aliasError {
                     if (!error.isEmpty){
@@ -131,10 +131,7 @@ struct AddAliasBottomSheet: View {
             Section {
                 ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError)
             } header: {
-                VStack(alignment: .leading){
                     Text(String(localized: "description"))
-                    
-                }
             }
             
             Section {
@@ -151,10 +148,8 @@ struct AddAliasBottomSheet: View {
                     
                 }.disabled(!recipientsLoaded)
             } header: {
-                VStack(alignment: .leading){
                     Text(String(localized: "recipients"))
-                    
-                }
+                
             }.listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
             
             Section {

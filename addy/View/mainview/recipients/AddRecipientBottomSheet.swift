@@ -42,7 +42,7 @@ struct AddRecipientBottomSheet: View {
                         Text(LocalizedStringKey(formattedString))
                             .multilineTextAlignment(.center)
                             .padding(.bottom)
-                    }
+                    }.frame(maxWidth: .infinity, alignment: .center)
                 } footer: {
                     if let error = recipientRequestError {
                         Text(error)

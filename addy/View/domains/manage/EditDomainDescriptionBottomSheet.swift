@@ -41,12 +41,12 @@ struct EditDomainDescriptionBottomSheet: View {
                 
                 
             } header: {
-                VStack(alignment: .leading){
+                VStack {
                     Text(String(localized: "edit_desc_domain_desc"))
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                     
-                }.textCase(nil)
+                }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
             } footer: {
                 if let error = descriptionRequestError {
                     Text(error)

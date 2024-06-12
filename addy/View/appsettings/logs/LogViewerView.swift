@@ -24,7 +24,7 @@ struct LogViewerView: View {
                                 
                                 HStack {
                                     Capsule()
-                                        .frame(maxWidth: 10, maxHeight: .infinity)
+                                        .frame(maxWidth: 8, maxHeight: .infinity)
                                         .foregroundStyle(Color.red).padding(.vertical).padding(.trailing, 4)
                                     VStack(alignment: .leading){
                                         Text(logEntry.dateTime).fontWeight(.medium).padding(.bottom, 4)
@@ -33,7 +33,7 @@ struct LogViewerView: View {
                                             .lineLimit(2)
                                     }
                                 }
-                            }
+                            }.buttonStyle(PlainButtonStyle())
                         }
                     } header: {
                         HStack(spacing: 6){

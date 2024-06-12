@@ -39,12 +39,12 @@ struct EditDomainFromNameBottomSheet: View {
                     ValidatingTextField(value: self.$fromName, placeholder: self.$fromNamePlaceholder, fieldType: .text, error: $fromNameValidationError)
                     
                 } header: {
-                    VStack(alignment: .leading){
+                    VStack {
                         let formattedString = String.localizedStringWithFormat(NSLocalizedString("edit_from_name_domain_desc", comment: ""), domain)
                         Text(LocalizedStringKey(formattedString))
                             .multilineTextAlignment(.center)
                             .padding(.bottom)
-                    }
+                    }.frame(maxWidth: .infinity, alignment: .center)
                 } footer: {
                     if let error = fromNameRequestError {
                         Text(error)

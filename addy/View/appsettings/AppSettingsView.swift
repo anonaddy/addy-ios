@@ -10,10 +10,10 @@ import addy_shared
 import LocalAuthentication
 
 struct AppSettingsView: View {
-    @EnvironmentObject var mainViewState: MainViewState
     @Binding var isShowingAppSettingsView: Bool
 
     @State private var isPresentingAppearanceBottomSheet: Bool = false
+    @State private var isPresentingBackgroundServiceIntervalBottomSheet: Bool = false
     
     @State private var storeLogs: Bool = false
     @State private var privacyMode: Bool = false
@@ -41,27 +41,27 @@ struct AppSettingsView: View {
                 }
                 
                 Section {
-                    AddySection(title: String(localized: "appearance"), description: String(localized: "appearance_desc"), leadingSystemimage: "app.dashed",leadingSystemimageColor: .orange ,trailingSystemimage: "chevron.right"){
+                    AddySection(title: String(localized: "appearance"), description: String(localized: "appearance_desc"), leadingSystemimage: "app.dashed",leadingSystemimageColor: .orange){
                         isPresentingAppearanceBottomSheet = true
                     }
-                    AddySection(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_desc"), leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue, trailingSystemimage: "chevron.right"){
-                        isPresentingAppearanceBottomSheet = true
+                    NavigationLink(destination: AppSettingsUpdateView()) {
+                        AddySection(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_desc"), leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue)
                     }
-                    AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor, trailingSystemimage: "chevron.right"){
+                    AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor){
                         isPresentingAppearanceBottomSheet = true
                     }
                     
-                    //                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor, trailingSystemimage: "chevron.right"){
+                    //                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor){
                     //
                     //                        }
                     
                     
-                    //                    AddySection(title: String(localized: "addyio_backup"), leadingSystemimage: "square.and.arrow.up", leadingSystemimageColor: .accentColor, trailingSystemimage: "chevron.right"){
+                    //                    AddySection(title: String(localized: "addyio_backup"), leadingSystemimage: "square.and.arrow.up", leadingSystemimageColor: .accentColor){
                     //                        isPresentingAppearanceBottomSheet = true
                     //                        }
                     
-                    AddySection(title: String(localized: "background_service_interval"), description: String(localized: "background_service_desc"), leadingSystemimage: "clock.fill", leadingSystemimageColor: .red, trailingSystemimage: "chevron.right"){
-                        isPresentingAppearanceBottomSheet = true
+                    AddySection(title: String(localized: "background_service_interval"), description: String(localized: "background_service_desc"), leadingSystemimage: "clock.fill", leadingSystemimageColor: .red){
+                        isPresentingBackgroundServiceIntervalBottomSheet = true
                     }
                     
                     AddyToggle(isOn: $biometricEnabled, title: String(localized: "security"),description: !LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? String(localized: "biometric_error") : String(localized: "security_desc"), leadingSystemimage: "faceid", leadingSystemimageColor: .green).onAppear {
@@ -168,6 +168,10 @@ struct AppSettingsView: View {
             .sheet(isPresented: $isPresentingAppearanceBottomSheet, content: {
                 NavigationStack {
                     AppearanceBottomSheet()
+                }
+            }).sheet(isPresented: $isPresentingBackgroundServiceIntervalBottomSheet, content: {
+                NavigationStack {
+                    BackgroundServiceIntervalBottomSheet()
                 }
             })
         }.onAppear(perform: {

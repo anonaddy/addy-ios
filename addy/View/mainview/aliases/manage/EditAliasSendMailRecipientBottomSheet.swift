@@ -38,7 +38,7 @@ struct EditAliasSendMailRecipientBottomSheet: View {
                 // Use Text with markdown to display the formatted string
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.center).padding(.bottom)
-            }.textCase(nil)
+            }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
             
             Section {
                 

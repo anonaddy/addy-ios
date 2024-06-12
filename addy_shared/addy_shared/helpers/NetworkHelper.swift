@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FeedKit
 
 public class NetworkHelper {
     private let loggingHelper: LoggingHelper
@@ -129,9 +130,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -203,9 +204,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -287,9 +288,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -357,9 +358,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -428,9 +429,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -498,9 +499,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -568,9 +569,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -638,9 +639,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -708,9 +709,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -776,9 +777,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -844,9 +845,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -968,9 +969,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -1036,9 +1037,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -1156,9 +1157,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -1234,9 +1235,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -1307,9 +1308,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -1339,7 +1340,7 @@ public class NetworkHelper {
     }
     
     
-     
+    
     public func activateSpecificRule(completion: @escaping (Rules?, String?) -> Void, ruleId:String) {
         let url = URL(string: AddyIo.API_URL_ACTIVE_RULES)!
         var request = URLRequest(url: url)
@@ -1382,9 +1383,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -1459,9 +1460,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -1533,9 +1534,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -1606,9 +1607,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -1779,9 +1780,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -1903,9 +1904,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -1977,9 +1978,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -2154,7 +2155,7 @@ public class NetworkHelper {
         
         task.resume()
     }
-       public func deactivateSpecificRule(completion: @escaping (String?) -> Void, ruleId:String) {
+    public func deactivateSpecificRule(completion: @escaping (String?) -> Void, ruleId:String) {
         let url = URL(string: "\(AddyIo.API_URL_ACTIVE_RULES)/\(ruleId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -2344,9 +2345,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -2467,9 +2468,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -2640,9 +2641,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -2713,9 +2714,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -2788,9 +2789,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -2862,9 +2863,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -2896,7 +2897,7 @@ public class NetworkHelper {
     
     
     public func createRule(completion: @escaping (Rules?, String?) -> Void, rule:Rules) {
-        let url = URL(string: AddyIo.API_URL_USERNAMES)!
+        let url = URL(string: AddyIo.API_URL_RULES)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = getHeaders()
@@ -2935,9 +2936,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -3078,8 +3079,8 @@ public class NetworkHelper {
                     completion(
                         nil,
                         ErrorHelper.getErrorMessage(data:
-                                                            data
-                                                          ),
+                                                        data
+                                                   ),
                         nil
                     )
                 }
@@ -3502,9 +3503,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -3575,9 +3576,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -3649,9 +3650,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -3723,9 +3724,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -3796,9 +3797,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -3869,9 +3870,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -3942,9 +3943,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -4015,9 +4016,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -4088,9 +4089,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -4201,9 +4202,9 @@ public class NetworkHelper {
                                                             data
                                                           ))
                     completion(
-                    nil,
-                    ErrorHelper.getErrorMessage(data:data)
-                )
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
                 }
                 
             case 401:
@@ -4230,4 +4231,49 @@ public class NetworkHelper {
         }
         
         task.resume()
-    }}
+    }
+    
+    
+    public func getGithubTags(completion: @escaping (AtomFeed?, String?) -> Void) {
+        let url = URL(string: AddyIo.GITLAB_TAGS_RSS_FEED)!
+        let request = URLRequest(url: url)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getGitlabTags",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription)
+                return
+            }
+            
+            
+            let parser = FeedParser(data: data) // or FeedParser(URL: url)
+            let result = parser.parse()
+            switch result {
+            case .success(let feed):
+                completion(feed.atomFeed, nil)
+            case .failure(let error):
+                print(error)
+                let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode)"
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "getGitlabTags",
+                    extra: nil
+                )
+                
+                completion(nil, error.localizedDescription)
+            }
+            
+        }
+        task.resume()
+    }
+    
+}

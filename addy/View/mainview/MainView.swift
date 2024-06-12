@@ -72,6 +72,7 @@ class MainViewState: ObservableObject {
 struct MainView: View {
     @StateObject private var mainViewState = MainViewState()
     @State private var isPresentingProfileBottomSheet = false
+    @State private var isPresentingChangelogBottomSheet = false
     @State private var isShowingFailedDeliveriesView = false
     @State private var isShowingUsernamesView = false
     @State private var isShowingDomainsView = false
@@ -93,6 +94,15 @@ struct MainView: View {
                     SplashView()
                 } else {
                     deviceSpecificLayout
+                        .onAppear(perform: {
+                            let dictionary = Bundle.main.infoDictionary!
+                            let currentVersionCode = Int(dictionary["CFBundleVersion"] as! String) ?? 0
+                            if SettingsManager(encrypted: false).getSettingsInt(key: .versionCode) < currentVersionCode {
+                                isPresentingChangelogBottomSheet = true
+                            }
+                            
+                            SettingsManager(encrypted: false).putSettingsInt(key: .versionCode, int: currentVersionCode)
+                        })
                         .sheet(isPresented: $isPresentingProfileBottomSheet) {
                             NavigationStack {
                                 ProfileBottomSheet(onNavigate: { destination in
@@ -119,6 +129,11 @@ struct MainView: View {
                                 }, isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet).environmentObject(mainViewState)
                             }
                         }
+                        .sheet(isPresented: $isPresentingChangelogBottomSheet, content: {
+                            NavigationStack {
+                                ChangelogBottomSheet()
+                            }
+                        })
                         .fullScreenCover(isPresented: $isShowingUsernamesView) {
                             AnyView(UsernamesView(isShowingUsernamesView: $isShowingUsernamesView))
                         }.fullScreenCover(isPresented: $isShowingDomainsView) {

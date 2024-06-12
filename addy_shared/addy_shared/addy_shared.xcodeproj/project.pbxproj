@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		80477DE22C12232C00E52AF8 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DE12C12232C00E52AF8 /* Rules.swift */; };
 		806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806890952BFE7F7300CEB8C7 /* HapticHelper.swift */; };
+		806AE68F2C19EB9E00F3CA92 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 806AE68E2C19EB9E00F3CA92 /* FeedKit */; };
 		80813B732C0DF349009C4E6A /* FailedDeliveries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B722C0DF349009C4E6A /* FailedDeliveries.swift */; };
 		80A7F2002BECD122001A984B /* AliasSortFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */; };
 		80B4F4B92BEA52EE0009E4CA /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4F4B82BEA52EE0009E4CA /* Logs.swift */; };
@@ -73,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				806AE68F2C19EB9E00F3CA92 /* FeedKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +178,7 @@
 			);
 			name = addy_shared;
 			packageProductDependencies = (
+				806AE68E2C19EB9E00F3CA92 /* FeedKit */,
 			);
 			productName = addy_shared;
 			productReference = 8001D9F02BEA513500AAD10E /* addy_shared.framework */;
@@ -206,6 +209,7 @@
 			);
 			mainGroup = 8001D9E62BEA513500AAD10E;
 			packageReferences = (
+				806AE68D2C19EB9E00F3CA92 /* XCRemoteSwiftPackageReference "FeedKit" */,
 			);
 			productRefGroup = 8001D9F12BEA513500AAD10E /* Products */;
 			projectDirPath = "";
@@ -476,6 +480,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		806AE68D2C19EB9E00F3CA92 /* XCRemoteSwiftPackageReference "FeedKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nmdias/FeedKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		806AE68E2C19EB9E00F3CA92 /* FeedKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 806AE68D2C19EB9E00F3CA92 /* XCRemoteSwiftPackageReference "FeedKit" */;
+			productName = FeedKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8001D9E72BEA513500AAD10E /* Project object */;
 }

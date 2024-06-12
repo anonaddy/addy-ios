@@ -224,9 +224,7 @@ struct RulesView: View {
                 if UIDevice.current.userInterfaceIdiom != .pad {
                     Text(String(localized: "close"))
                 }
-            }, trailing: Button(action: {
-                //TODO: Allow for creating new rule
-            } ) {
+            }, trailing: NavigationLink(destination: CreateRulesView(ruleId: nil, ruleName: "", shouldReloadDataInParent: $shouldReloadDataInParent)) {
                 
                 Image(systemName: "plus")
                     .resizable()

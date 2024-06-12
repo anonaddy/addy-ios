@@ -41,7 +41,7 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                     
-                }.textCase(nil)
+                }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
             } footer: {
                 if let error = publicGpgKeyRequestError {
                     Text(error)

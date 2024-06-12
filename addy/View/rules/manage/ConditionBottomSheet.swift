@@ -76,12 +76,12 @@ struct ConditionBottomSheet: View {
                 ValidatingTextField(value: self.$value, placeholder: self.$valuePlaceHolder, fieldType: .bigText, error: $valuePlaceHolderValidationError)
                 
             } header: {
-                VStack(alignment: .leading){
+                VStack {
                     Text(String(localized: "add_condition_desc"))
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                     
-                }.textCase(nil)
+                }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
             }
             
             Section {

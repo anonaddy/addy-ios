@@ -43,7 +43,7 @@ struct EditAliasFromNameBottomSheet: View {
                         Text(LocalizedStringKey(formattedString))
                             .multilineTextAlignment(.center)
                             .padding(.bottom)
-                    }
+                    }.frame(maxWidth: .infinity, alignment: .center)
                 } footer: {
                     if let error = fromNameRequestError {
                         Text(error)

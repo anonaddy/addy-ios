@@ -78,12 +78,12 @@ struct ActionBottomSheet: View {
                 }
                 
             } header: {
-                VStack(alignment: .leading){
+                VStack {
                     Text(String(localized: "add_action_desc"))
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                     
-                }.textCase(nil)
+                }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
             }
             
             Section {

@@ -8,3 +8,4 @@ https://github.com/evgenyneu/keychain-swift (local)
 https://github.com/AppPear/ChartView (local)
 Lottie!
 https://github.com/ksemianov/WrappingHStack
+https://github.com/nmdias/FeedKit.git

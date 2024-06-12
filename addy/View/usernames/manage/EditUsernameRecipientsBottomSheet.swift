@@ -56,7 +56,7 @@ struct EditUsernameRecipientsBottomSheet: View {
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                     
-                }
+                }.frame(maxWidth: .infinity, alignment: .center)
             } footer: {
                 if let error = recipientsRequestError {
                     if (!error.isEmpty){

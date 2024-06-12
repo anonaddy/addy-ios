@@ -123,7 +123,7 @@ public class SettingsManager {
         }
     }
     
-    func putSettingsInt(key: Prefs, int: Int) {
+    public func putSettingsInt(key: Prefs, int: Int) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
             keychain.set("\(int)", forKey: userKey)
@@ -132,14 +132,20 @@ public class SettingsManager {
         }
     }
     
-    func getSettingsInt(key: Prefs, default: Int = 0) -> Int {
+    public func getSettingsInt(key: Prefs, default: Int = 0) -> Int {
         let userKey = "\(user)_\(key)"
         if useKeychain {
             return Int(keychain.get(userKey)!) ?? `default`
         } else {
-            return prefs?.integer(forKey: userKey) ?? `default`
+            if let value = prefs?.object(forKey: userKey) as? Int {
+                return value
+            } else {
+                // This line will be executed if the key does not exist
+                return `default`
+            }
         }
     }
+
     
     func putSettingsFloat(key: Prefs, float: Float) {
         let userKey = "\(user)_\(key)"
