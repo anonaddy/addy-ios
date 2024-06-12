@@ -100,7 +100,7 @@ struct DomainsView: View {
                                 Text(String(format: String(localized: "you_ve_used_d_out_of_d_domains"),  String(domain_count), (mainViewState.userResource!.subscription != nil ? String(domain_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited"))))
                             } icon: {
                                 Image(systemName: "info.circle")
-                            }
+                            }.padding(.top)
                             
                         }
                 }

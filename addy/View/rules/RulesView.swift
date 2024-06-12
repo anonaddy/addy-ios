@@ -141,7 +141,7 @@ struct RulesView: View {
                             }
                         } icon: {
                             Image(systemName: "info.circle")
-                        }
+                        }.padding(.top)
                         
                     }
                     

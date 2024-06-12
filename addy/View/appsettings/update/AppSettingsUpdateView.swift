@@ -11,7 +11,6 @@ import addy_shared
 struct AppSettingsUpdateView: View {
     @State private var showAlert: Bool = false
     
-    @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     
     @State private var isCheckingForUpdates: Bool = false
@@ -28,9 +27,11 @@ struct AppSettingsUpdateView: View {
 
     var body: some View {
         List {
+            AddySettingsHeader(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_header_desc"), systemimage: "arrow.down.circle.dotted", systemimageColor: .blue)
             
             Section {
-                AddySection(title: updateStatusTitle, description: updateStatusDescription, leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue){
+                AddySection(title: isCheckingForUpdates ? String(localized: "obtaining_information") : updateStatusTitle, description: updateStatusDescription, leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue){
+                    isCheckingForUpdates = true
                     self.checkForUpdates()
                     }
                 
@@ -61,11 +62,13 @@ struct AppSettingsUpdateView: View {
                     Text(String(format: String(localized: "version_s"), appVersion))
                 } icon: {
                     Image(systemName: "info.circle")
-                }
+                }.padding(.top)
                 
             }
             
         }.refreshable {
+            isCheckingForUpdates = true
+
                 self.checkForUpdates()
         }.sheet(isPresented: $isPresentingChangelogBottomSheet, content: {
             NavigationStack {
@@ -74,7 +77,7 @@ struct AppSettingsUpdateView: View {
         })
         .alert(isPresented: $showAlert) {
             return Alert(
-                title: Text(errorAlertTitle),
+                title: Text(String(localized: "could_not_check_for_updates")),
                 message: Text(errorAlertMessage)
             )
         }
@@ -83,6 +86,8 @@ struct AppSettingsUpdateView: View {
         .onAppear(perform: {
             if settingsManager.getSettingsBool(key: .notifyUpdates){
                 DispatchQueue.global(qos: .background).async {
+                    isCheckingForUpdates = true
+
                     self.checkForUpdates()
                 }
             }
@@ -90,21 +95,33 @@ struct AppSettingsUpdateView: View {
     }
     
     private func checkForUpdates(){
-        Updater().isUpdateAvailable { updateAvailable, latestVersion, isRunningFutureVersion in
+        Updater().isUpdateAvailable { updateAvailable, latestVersion, isRunningFutureVersion, error in
+            
             DispatchQueue.main.async {
-                let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
-
-                if (updateAvailable){
-                    updateStatusTitle = String(localized: "new_update_available")
-                    updateStatusDescription = String(format: String(localized: "new_update_available_version"), appVersion, latestVersion ?? "")
-                } else if (isRunningFutureVersion) {
-                    updateStatusTitle = String(localized: "greetings_time_traveller")
-                    updateStatusDescription = String(localized: "greetings_time_traveller_desc")
-                } else {
-                    updateStatusTitle = String(localized: "no_new_update_available")
-                    updateStatusDescription = String(localized: "no_new_update_available_desc")
-                }
+                isCheckingForUpdates = false
             }
+            
+            if error == nil {
+                DispatchQueue.main.async {
+                    let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
+
+                    if (updateAvailable){
+                        updateStatusTitle = String(localized: "new_update_available")
+                        updateStatusDescription = String(format: String(localized: "new_update_available_version"), appVersion, latestVersion ?? "")
+                    } else if (isRunningFutureVersion) {
+                        updateStatusTitle = String(localized: "greetings_time_traveller")
+                        updateStatusDescription = String(localized: "greetings_time_traveller_desc")
+                    } else {
+                        updateStatusTitle = String(localized: "no_new_update_available")
+                        updateStatusDescription = String(localized: "no_new_update_available_desc")
+                    }
+                }
+            } else {
+                errorAlertMessage = error ?? ""
+                showAlert = true
+            }
+            
+            
         }
     }
 }

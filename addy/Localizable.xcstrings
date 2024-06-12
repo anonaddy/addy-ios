@@ -342,6 +342,17 @@
         }
       }
     },
+    "addyio_updater_header_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for app updates and enable notification to stay up-to-date with the latest great features and bug fixes."
+          }
+        }
+      }
+    },
     "advanced" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1137,6 +1148,17 @@
         }
       }
     },
+    "could_not_check_for_updates" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not check for updates"
+          }
+        }
+      }
+    },
     "crafted_with_love_and_privacy" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1819,6 +1841,28 @@
         }
       }
     },
+    "enable_feature" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable feature"
+          }
+        }
+      }
+    },
+    "enable_feature_always" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "his feature is always enabled"
+          }
+        }
+      }
+    },
     "encrypt_emails_to_this_recipient" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2227,6 +2271,17 @@
         }
       }
     },
+    "features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Features"
+          }
+        }
+      }
+    },
     "features_and_integrations" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2245,6 +2300,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Check out app-exclusive features and integrations"
+          }
+        }
+      }
+    },
+    "features_and_integrations_header_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discover the standout features and integrations of the addy.io app. Monitor aliases, receive notifications for important events, and enjoy additional functionalities."
           }
         }
       }
@@ -2615,6 +2681,17 @@
         }
       }
     },
+    "integrations" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrations"
+          }
+        }
+      }
+    },
     "is_exactly" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2636,6 +2713,9 @@
           }
         }
       }
+    },
+    "Key" : {
+      "extractionState" : "manual"
     },
     "last_blocked" : {
       "extractionState" : "manual",
@@ -3122,6 +3202,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Obtaining your failed deliveries"
+          }
+        }
+      }
+    },
+    "obtaining_information" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining information..."
           }
         }
       }
@@ -4680,6 +4771,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Receive a notification when an email is sent to this alias"
+          }
+        }
+      }
+    },
+    "watch_alias_feature_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep track of emails being forwarded through a specific alias. Open the management page of an alias and enable  \"Watch alias\" to be notified of a new forwarded message.\n\nUse the \"Background service interval\" option in the app settings to determine how often to check for new forwarded messages.\n\nYou can watch a maximum of 25 aliases."
           }
         }
       }

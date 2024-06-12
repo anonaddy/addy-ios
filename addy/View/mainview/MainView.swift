@@ -95,6 +95,11 @@ struct MainView: View {
                 } else {
                     deviceSpecificLayout
                         .onAppear(perform: {
+                            
+                            // Schedule background tasks
+                            BackgroundWorkerHelper().scheduleBackgroundWorker()
+                            
+                            // Check for changelog
                             let dictionary = Bundle.main.infoDictionary!
                             let currentVersionCode = Int(dictionary["CFBundleVersion"] as! String) ?? 0
                             if SettingsManager(encrypted: false).getSettingsInt(key: .versionCode) < currentVersionCode {

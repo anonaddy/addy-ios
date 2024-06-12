@@ -294,7 +294,7 @@ struct CreateRulesView: View {
                         Text(String(localized: "rules_create_info"))
                     } icon: {
                         Image(systemName: "info.circle")
-                    }
+                    }.padding(.top)
                 }
                 
             }.disabled(isSavingRule)

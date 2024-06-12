@@ -47,8 +47,10 @@ struct AppSettingsView: View {
                     NavigationLink(destination: AppSettingsUpdateView()) {
                         AddySection(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_desc"), leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue)
                     }
-                    AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor){
-                        isPresentingAppearanceBottomSheet = true
+                    NavigationLink(destination: AppSettingsFeaturesView()) {
+                        AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor){
+                            isPresentingAppearanceBottomSheet = true
+                        }
                     }
                     
                     //                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor){

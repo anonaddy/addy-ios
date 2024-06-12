@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8001D9D12BEA1E3600AAD10E /* CodeScanner */; };
 		8001DA012BEA516000AAD10E /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
+		8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003C36A2C1A27D90005D742 /* AppDelegate.swift */; };
 		801B929F2BE8FF6800179EB5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */; };
 		801B92A22BE905BB00179EB5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 801B92A12BE905BB00179EB5 /* Lottie */; };
 		801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
@@ -28,6 +29,9 @@
 		806AE6922C19ED1700F3CA92 /* AppSettingsUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6912C19ED1000F3CA92 /* AppSettingsUpdateView.swift */; };
 		806AE6962C1A085100F3CA92 /* ChangelogBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6952C1A085100F3CA92 /* ChangelogBottomSheet.swift */; };
 		806AE6992C1A0D5700F3CA92 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 806AE6982C1A0D5700F3CA92 /* Settings.bundle */; };
+		806AE69C2C1A194800F3CA92 /* AddySettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE69B2C1A194800F3CA92 /* AddySettingsHeader.swift */; };
+		806AE69F2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE69E2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift */; };
+		806AE6A12C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6A02C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift */; };
 		806D5F252BE925C600C5C109 /* ic_loading_logo.shapeshifter.json in Resources */ = {isa = PBXBuildFile; fileRef = 806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */; };
 		806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806D5F262BE92AB200C5C109 /* SetupView.swift */; };
 		806F21332BE8F1B100EBEBC8 /* addyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806F21322BE8F1B100EBEBC8 /* addyApp.swift */; };
@@ -171,6 +175,7 @@
 
 /* Begin PBXFileReference section */
 		8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = addy_shared.xcodeproj; path = addy_shared/addy_shared/addy_shared.xcodeproj; sourceTree = "<group>"; };
+		8003C36A2C1A27D90005D742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		80477DDD2C12225D00E52AF8 /* RulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesView.swift; sourceTree = "<group>"; };
@@ -189,6 +194,9 @@
 		806AE6912C19ED1000F3CA92 /* AppSettingsUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsUpdateView.swift; sourceTree = "<group>"; };
 		806AE6952C1A085100F3CA92 /* ChangelogBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangelogBottomSheet.swift; sourceTree = "<group>"; };
 		806AE6982C1A0D5700F3CA92 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		806AE69B2C1A194800F3CA92 /* AddySettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySettingsHeader.swift; sourceTree = "<group>"; };
+		806AE69E2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesView.swift; sourceTree = "<group>"; };
+		806AE6A02C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesWatchAliasView.swift; sourceTree = "<group>"; };
 		806D5F242BE925C600C5C109 /* ic_loading_logo.shapeshifter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ic_loading_logo.shapeshifter.json; sourceTree = "<group>"; };
 		806D5F262BE92AB200C5C109 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		806F212F2BE8F1B100EBEBC8 /* addy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -338,6 +346,7 @@
 		801B92A52BE9128500179EB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				806D5F2B2BE94C3F00C5C109 /* customviews */,
 				80D4F2D92C17083A00D313EC /* appsettings */,
 				80477DDC2C12224F00E52AF8 /* rules */,
 				80813B6F2C0DF288009C4E6A /* faileddeliveries */,
@@ -397,6 +406,15 @@
 			path = update;
 			sourceTree = "<group>";
 		};
+		806AE69D2C1A1A1600F3CA92 /* features */ = {
+			isa = PBXGroup;
+			children = (
+				806AE69E2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift */,
+				806AE6A02C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift */,
+			);
+			path = features;
+			sourceTree = "<group>";
+		};
 		806D5F1B2BE91B9700C5C109 /* anims */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +438,7 @@
 				80D8C7A52BF3D4E700933ED8 /* AddyRoundedChipView.swift */,
 				80E194642BF8AE0C005175EA /* AddyMultiSelectChipView.swift */,
 				80E082632BF7D36700B51FB8 /* AddyBugFound.swift */,
+				806AE69B2C1A194800F3CA92 /* AddySettingsHeader.swift */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -437,6 +456,7 @@
 		806F21262BE8F1B100EBEBC8 = {
 			isa = PBXGroup;
 			children = (
+				8003C36A2C1A27D90005D742 /* AppDelegate.swift */,
 				806AE6982C1A0D5700F3CA92 /* Settings.bundle */,
 				8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */,
 				806F21312BE8F1B100EBEBC8 /* addy */,
@@ -548,6 +568,7 @@
 		80D4F2D92C17083A00D313EC /* appsettings */ = {
 			isa = PBXGroup;
 			children = (
+				806AE69D2C1A1A1600F3CA92 /* features */,
 				806AE6902C19ED0300F3CA92 /* update */,
 				80676D632C18CD44008FC147 /* logs */,
 				80D4F2DA2C17084E00D313EC /* AppSettingsView.swift */,
@@ -628,7 +649,6 @@
 		80E849992BEB73CE00C8D68A /* mainview */ = {
 			isa = PBXGroup;
 			children = (
-				806D5F2B2BE94C3F00C5C109 /* customviews */,
 				80E849B12BEBA81B00C8D68A /* recipients */,
 				80E8499D2BEB801600C8D68A /* aliases */,
 				80E8499C2BEB801100C8D68A /* home */,
@@ -1063,6 +1083,7 @@
 				80F22FAA2BEE34EE001176B4 /* LineShapeView.swift in Sources */,
 				804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */,
 				8062CFE22C149DCA00EFFB4C /* ConditionBottomSheet.swift in Sources */,
+				806AE6A12C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift in Sources */,
 				80F22FA62BEE34EE001176B4 /* LineBackgroundShape.swift in Sources */,
 				80F22FAD2BEE34EE001176B4 /* PieChartCell.swift in Sources */,
 				80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */,
@@ -1129,6 +1150,7 @@
 				80F22F8F2BEE34EE001176B4 /* Color+Extension.swift in Sources */,
 				80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */,
 				80813B642C0DE1FF009C4E6A /* DomainsDetailView.swift in Sources */,
+				8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */,
 				80E9B22D2C0B238900C7EF99 /* AddUsernameBottomSheet.swift in Sources */,
 				80F22FA72BEE34EE001176B4 /* LineBackgroundShapeView.swift in Sources */,
 				806F21352BE8F1B100EBEBC8 /* SplashView.swift in Sources */,
@@ -1143,6 +1165,8 @@
 				80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */,
 				80F22F8E2BEE34EE001176B4 /* ChartBase+Extension.swift in Sources */,
 				80F22FB12BEE34EE001176B4 /* RingsChart.swift in Sources */,
+				806AE69C2C1A194800F3CA92 /* AddySettingsHeader.swift in Sources */,
+				806AE69F2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift in Sources */,
 				80D4F2DB2C17084E00D313EC /* AppSettingsView.swift in Sources */,
 				80813B6A2C0DE24C009C4E6A /* EditDomainRecipientsBottomSheet.swift in Sources */,
 				80E1946A2BF8C840005175EA /* EditAliasFromNameBottomSheet.swift in Sources */,
@@ -1290,6 +1314,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
@@ -1315,6 +1340,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1327,14 +1353,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
-				DEVELOPMENT_TEAM = 68LAMW5ZY8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = addy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
+				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for settings up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
@@ -1352,6 +1378,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

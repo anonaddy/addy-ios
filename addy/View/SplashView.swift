@@ -153,7 +153,7 @@ struct SplashView: View {
                             DispatchQueue.main.async {
                                 if let recipient = recipient {
                                     mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
-                                } else if let error = error {
+                                } else if error != nil {
                                     self.showError = true
                                 }
                             }
