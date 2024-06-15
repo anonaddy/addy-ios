@@ -51,6 +51,7 @@
 		80813B6E2C0DF23B009C4E6A /* FailedDeliveriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B6D2C0DF23B009C4E6A /* FailedDeliveriesView.swift */; };
 		80813B712C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */; };
 		80813B752C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */; };
+		80A0F9D42C1E0429003EE397 /* NotificationActionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A0F9D32C1E0422003EE397 /* NotificationActionHelper.swift */; };
 		80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2042BECD840001A984B /* AliasesViewModel.swift */; };
 		80A7F2072BECFA5B001A984B /* AliasRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2062BECFA5B001A984B /* AliasRowView.swift */; };
 		80AC67082BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */; };
@@ -216,6 +217,7 @@
 		80813B6D2C0DF23B009C4E6A /* FailedDeliveriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveriesView.swift; sourceTree = "<group>"; };
 		80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveriesViewModel.swift; sourceTree = "<group>"; };
 		80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveryBottomSheet.swift; sourceTree = "<group>"; };
+		80A0F9D32C1E0422003EE397 /* NotificationActionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationActionHelper.swift; sourceTree = "<group>"; };
 		80A7F2042BECD840001A984B /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
 		80A7F2062BECFA5B001A984B /* AliasRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasRowView.swift; sourceTree = "<group>"; };
 		80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasSendMailRecipientBottomSheet.swift; sourceTree = "<group>"; };
@@ -629,6 +631,7 @@
 		80DCF3A82BF12DEA0022690F /* notification */ = {
 			isa = PBXGroup;
 			children = (
+				80A0F9D32C1E0422003EE397 /* NotificationActionHelper.swift */,
 				80DCF3A92BF12DF00022690F /* NotificationHelper.swift */,
 			);
 			path = notification;
@@ -1090,6 +1093,7 @@
 				80F22FAA2BEE34EE001176B4 /* LineShapeView.swift in Sources */,
 				804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */,
 				8062CFE22C149DCA00EFFB4C /* ConditionBottomSheet.swift in Sources */,
+				80A0F9D42C1E0429003EE397 /* NotificationActionHelper.swift in Sources */,
 				806AE6A12C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift in Sources */,
 				80F22FA62BEE34EE001176B4 /* LineBackgroundShape.swift in Sources */,
 				80F22FAD2BEE34EE001176B4 /* PieChartCell.swift in Sources */,

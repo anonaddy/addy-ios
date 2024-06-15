@@ -14,6 +14,11 @@ class MainViewState: ObservableObject {
     
     static let shared = MainViewState() // Shared instance
     
+    // MARK: NOTIFICATION ACTIONS
+    @Published var aliasToDisable: String? = nil
+    @Published var showAliasWithId: String? = nil
+    // MARK: END NOTIFICATION ACTIONS
+    
     @Published var isShowingAppSettingsView = false
     @Published var isUnlocked = false
 
@@ -164,6 +169,13 @@ struct MainView: View {
                     // User closed the app to background, lock the app (only if neccessary of course)
                     if mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled){
                         self.mainViewState.isUnlocked = false
+                    }
+                    
+                }
+                else if newPhase == .active {
+                    // User closed the app to background, lock the app (only if neccessary of course)
+                    if mainViewState.aliasToDisable != nil{
+                        self.selectedTab = .aliases
                     }
                     
                 }

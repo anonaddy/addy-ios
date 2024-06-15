@@ -22,9 +22,15 @@ class BackgroundWorkerHelper {
             print("Scheduled backgroundworker for at least \(15) minutes.")
 #endif
             
+            
+            
+            // Manually triggr with
+            // e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"host.stjin.addy.backgroundworker"]
+            
+            BackgroundWorker().main()
+            
             try BGTaskScheduler.shared.submit(request)
             // Run the Background worked immediately after scheduling
-            _ = BackgroundWorker()
         } catch {
             LoggingHelper().addLog(
                 importance: LogImportance.critical,
@@ -54,7 +60,7 @@ class BackgroundWorkerHelper {
         let settingsManager = SettingsManager(encrypted: false)
         
         // Count amount of aliases to be watched
-        let aliasToWatch = encryptedSettingsManager.getStringSet(key: .backgroundServiceWatchAliasList)
+        let aliasToWatch = AliasWatcher().getAliasesToWatch()
         // Count amount of widgets
         let amountOfWidgets = settingsManager.getSettingsInt(key: .widgetsActive)
         
@@ -69,7 +75,13 @@ class BackgroundWorkerHelper {
         // -app updates to be checked for in the background
         // -failed deliveries to be checked
         // --return true
-        return (!aliasToWatch!.isEmpty || amountOfWidgets > 0 || shouldCheckForUpdates || shouldCheckForFailedDeliveries || shouldCheckApiTokenExpiry || shouldMakePeriodicBackups)
+        
+#if DEBUG            
+        print("isThereWorkTodo: aliasToWatch=\(aliasToWatch);amountOfWidgets=\(amountOfWidgets);NOTIFY_UPDATES=\(shouldCheckForUpdates);NOTIFY_FAILED_DELIVERIES=\(shouldCheckForFailedDeliveries)")
+#endif
+
+        
+        return (!aliasToWatch.isEmpty || amountOfWidgets > 0 || shouldCheckForUpdates || shouldCheckForFailedDeliveries || shouldCheckApiTokenExpiry || shouldMakePeriodicBackups)
     }
     
 }

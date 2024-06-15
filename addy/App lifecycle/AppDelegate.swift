@@ -55,13 +55,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 #if DEBUG
-        print("User tapped on a notification (\(response.notification.request.identifier))")
+        print("User tapped on a notification with identifier (\(response.actionIdentifier))")
 #endif
-        // Check the identifier of the notification
-        if response.notification.request.identifier == notificationActions.openSettings {
-            // Set a property in your app state to true
-            MainViewState.shared.isShowingAppSettingsView = true
-        }
+
+        NotificationActionHelper().handleNotificationActions(response: response)
+        
+        
         completionHandler()
         
     }

@@ -3139,6 +3139,28 @@
         }
       }
     },
+    "notification_new_emails" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New emails forwarded"
+          }
+        }
+      }
+    },
+    "notification_new_emails_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ new email(s) have been forwarded via %@"
+          }
+        }
+      }
+    },
     "notification_new_update_available_desc" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3256,6 +3278,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Obtaining your usernames"
+          }
+        }
+      }
+    },
+    "one_of_your_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "one of your aliases"
           }
         }
       }
@@ -4398,6 +4431,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Statistics"
+          }
+        }
+      }
+    },
+    "stop_checking" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop checking"
+          }
+        }
+      }
+    },
+    "stop_watching" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop watching"
           }
         }
       }

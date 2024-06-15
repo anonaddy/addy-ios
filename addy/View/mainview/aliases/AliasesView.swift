@@ -180,7 +180,8 @@ struct AliasesView: View {
 
                                     }
                                 }
-                                NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email, shouldReloadDataInParent: $shouldReloadDataInParent).environmentObject(mainViewState)){
+                            NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState)){
                                     EmptyView()
                                 }
                                 .opacity(0)

@@ -36,25 +36,43 @@ class BackgroundWorker: Operation {
             var aliasWatcherNetworkCallResult = false
             var failedDeliveriesNetworkCallResult = false
             
+            /**
+             In this code, semaphore.signal() is called when each asynchronous function completes, and semaphore.wait() is used to block the current queue until the previous function has signaled completion.
+             */
+            
+            let semaphore = DispatchSemaphore(value: 0)
+
             DispatchQueue.global().async {
                 // Background work here
                 
                 networkHelper.cacheUserResourceForWidget { result in
                     // Store the result if the data succeeded to update in a boolean
                     userResourceNetworkCallResult = result
+                    semaphore.signal()
                 }
+                semaphore.wait()
+                
+                
+            
                 networkHelper.cacheMostPopularAliasesDataForWidget { result in
                     // Store the result if the data succeeded to update in a boolean
                     aliasNetworkCallResult = result
+                    semaphore.signal()
                 }
+                semaphore.wait()
                 
                 
                 /**
                  ALIAS_WATCHER FUNCTIONALITY
                  **/
                 
-                aliasWatcherNetworkCallResult = self.aliasWatcherTask(networkHelper: networkHelper, settingsManager: encryptedSettingsManager)
-                
+                self.aliasWatcherTask(networkHelper: networkHelper, settingsManager: encryptedSettingsManager) { result in
+                    aliasWatcherNetworkCallResult = result
+                    semaphore.signal()
+
+                }
+                semaphore.wait()
+
                 
                 /*
                  UPDATES
@@ -67,9 +85,12 @@ class BackgroundWorker: Operation {
                                 NotificationHelper().createUpdateNotification(version: version)
                             }
                         }
+                        semaphore.signal()
                     }
+                    semaphore.wait()
                 }
-                
+               
+
                 
                 /*
                  API TOKEN
@@ -109,9 +130,12 @@ class BackgroundWorker: Operation {
                             }
                             
                         }
+                        semaphore.signal()
                         // If expires_at is null it will never expire
                     }
+                    semaphore.wait()
                 }
+                
                 
                 /*
                  DOMAIN ERRORS
@@ -135,7 +159,9 @@ class BackgroundWorker: Operation {
                                 
                             }
                         }
+                        semaphore.signal()
                     }
+                    semaphore.wait()
                 }
                 
                 
@@ -174,8 +200,10 @@ class BackgroundWorker: Operation {
                                     extra: error.localizedDescription)
                             }
                         }
+                        semaphore.signal()
                         // If expires_at is null it will never expire
                     }
+                    semaphore.wait()
                 }
                 
                 
@@ -208,7 +236,9 @@ class BackgroundWorker: Operation {
                     networkHelper.cacheFailedDeliveryCountForWidgetAndBackgroundService { (result) in
                         // Store the result if the data succeeded to update in a boolean
                         failedDeliveriesNetworkCallResult = result
+                        semaphore.signal()
                     }
+                    semaphore.wait()
 
                     let currentFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
                     let previousFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheWatchAliasDataPrevious)
@@ -244,7 +274,7 @@ class BackgroundWorker: Operation {
         
     }
     
-    private func aliasWatcherTask(networkHelper: NetworkHelper, settingsManager: SettingsManager) -> Bool {
+    private func aliasWatcherTask(networkHelper: NetworkHelper, settingsManager: SettingsManager, completion: @escaping (Bool) -> Void){
         
         /*
          This method loops through all the aliases that need to be watched and caches those aliases locally
@@ -312,14 +342,13 @@ class BackgroundWorker: Operation {
                     if let data = data {
                         settingsManager.putSettingsString(key: .backgroundServiceCacheWatchAliasData, string: String(data: data, encoding: .utf8)!)
                     }
-                    
                 } else {
                     // The call failed, it will be logged in NetworkHelper. Try again later
                 }
             }, aliases: aliasesToWatch)
         }
         
-        return true
+        completion(true)
     }
     
 }
