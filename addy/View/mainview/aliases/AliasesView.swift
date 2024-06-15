@@ -484,7 +484,7 @@ struct AliasesView: View {
     }
     
     func LoadFilter(){
-        let aliasSortFilterJson = SettingsManager(encrypted: false).getSettingsString(key: .aliasSortFilter)
+        let aliasSortFilterJson = MainViewState.shared.settingsManager.getSettingsString(key: .aliasSortFilter)
         var aliasSortFilterObject: AliasSortFilter? = nil
         if let json = aliasSortFilterJson {
             aliasSortFilterObject = try? JSONDecoder().decode(AliasSortFilter.self, from: Data(json.utf8))

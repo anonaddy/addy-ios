@@ -12,7 +12,13 @@ import LocalAuthentication
 
 class MainViewState: ObservableObject {
     
+    static let shared = MainViewState() // Shared instance
+    
+    @Published var isShowingAppSettingsView = false
+    @Published var isUnlocked = false
+
     @Published var encryptedSettingsManager = SettingsManager(encrypted: true)
+    @Published var settingsManager = SettingsManager(encrypted: false)
     
     @Published var userResourceData: String? {
         didSet {
@@ -66,28 +72,28 @@ class MainViewState: ObservableObject {
             }
         }
     }
-
+    
 }
 
 struct MainView: View {
-    @StateObject private var mainViewState = MainViewState()
+    @EnvironmentObject var mainViewState: MainViewState
+    @Environment(\.scenePhase) var scenePhase
+    
     @State private var isPresentingProfileBottomSheet = false
     @State private var isPresentingChangelogBottomSheet = false
     @State private var isShowingFailedDeliveriesView = false
     @State private var isShowingUsernamesView = false
     @State private var isShowingDomainsView = false
     @State private var isShowingRulesView = false
-    @State private var isShowingAppSettingsView = false
     @State private var navigationPath = NavigationPath()
     @State private var selectedMenuItem: Destination? = .home
     @State private var selectedTab: Destination = .home
-    @State private var isUnlocked = false
     @State private var showBiometricsNotAvailableAlert = false
-
+    
     
     var body: some View {
         
-        if isUnlocked {
+        if !mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled) || mainViewState.isUnlocked {
             Group {
                 
                 if mainViewState.userResourceData == nil || mainViewState.userResourceExtendedData == nil {
@@ -128,7 +134,7 @@ struct MainView: View {
                                                 isShowingRulesView = true}
                                         }else if destination == .settings {
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                isShowingAppSettingsView = true}
+                                                mainViewState.isShowingAppSettingsView = true}
                                         }
                                     }
                                 }, isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet).environmentObject(mainViewState)
@@ -147,72 +153,89 @@ struct MainView: View {
                             AnyView(FailedDeliveriesView(isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView))
                         }.fullScreenCover(isPresented: $isShowingRulesView) {
                             AnyView(RulesView(isShowingRulesView: $isShowingRulesView))
-                        }.fullScreenCover(isPresented: $isShowingAppSettingsView) {
-                            AnyView(AppSettingsView(isShowingAppSettingsView: $isShowingAppSettingsView))
+                        }.fullScreenCover(isPresented: $mainViewState.isShowingAppSettingsView) {
+                            AnyView(AppSettingsView(isShowingAppSettingsView: $mainViewState.isShowingAppSettingsView))
                         }
                 }
             }
             .environmentObject(mainViewState)
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                if newPhase == .background {
+                    // User closed the app to background, lock the app (only if neccessary of course)
+                    if mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled){
+                        self.mainViewState.isUnlocked = false
+                    }
+                    
+                }
+            }
         } else {
-            Color.accentColor
-                .ignoresSafeArea(.container) // Ignore just for the color
-                .overlay(
-                    VStack(spacing: 20) {
-                        LottieView(animation: .named("ic_loading_logo.shapeshifter"))
-                            .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
-                            .animationSpeed(Double(2))
-                            .frame(maxHeight: 128)
-                            .opacity(0.5)
-                        
-                    }).onAppear(perform: {
-                        if mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled){
-                            authenticate()
-                        } else {
-                            isUnlocked = true
-                        }
-                    })
-                .alert(String(localized: "authentication_splash_error_unavailable"), isPresented: $showBiometricsNotAvailableAlert) {
-                    Button(String(localized: "try_again"), role: .cancel) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            authenticate()
-                        }
-                        
+            ContentUnavailableView {
+                Label(String(localized: "addyio_locked"), systemImage: "lock.fill")
+            } description: {
+                Text(String(localized: "addyio_locked_desc"))
+            } actions: {
+                Button(String(localized: "unlock")) {
+                    authenticate()
+                }
+            }
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                if newPhase == .active {
+                    // User opens the app and the app is not unlocked
+                    
+                    if mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled){
+                        authenticate()
+                    } else {
+                        self.mainViewState.isUnlocked = true
                     }
-                    Button(String(localized: "reset_app"), role: .destructive) {
-                        // TODO: RESET THE APP
+                                    }
+            }
+            .onAppear(perform: {
+                
+            })
+            .alert(String(localized: "authentication_splash_error_unavailable"), isPresented: $showBiometricsNotAvailableAlert) {
+                Button(String(localized: "try_again"), role: .cancel) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        authenticate()
                     }
-
-                    }
+                    
+                }
+                Button(String(localized: "reset_app"), role: .destructive) {
+                    // TODO: RESET THE APP
+                }
+                
+            }
             
-
+            
+            
         }
         
         
-            }
-        
+    }
+    
     
     func authenticate() {
         let context = LAContext()
         var error: NSError?
-
+        
         // check whether biometric authentication is possible
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             // it's possible, so go ahead and use it
             let reason = String(localized: "addyio_locked")
-
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+            
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
                 // authentication has now completed
                 if success {
-                    self.isUnlocked = true
-                } else {
-                    authenticate()
+                    DispatchQueue.main.async {
+                        self.mainViewState.isUnlocked = true
+
+                                }
                 }
             }
         } else {
             showBiometricsNotAvailableAlert = true
         }
     }
-
+    
     private var deviceSpecificLayout: some View {
         Group {
             if UIDevice.current.userInterfaceIdiom == .pad {
@@ -222,7 +245,7 @@ struct MainView: View {
             }
         }
     }
-
+    
     private var iPadLayout: some View {
         NavigationSplitView {
             menuList
@@ -230,12 +253,12 @@ struct MainView: View {
             navigationStack
         }
     }
-
+    
     private var iPhoneLayout: some View {
         TabView(selection: $selectedTab) {
             ForEach(Destination.iPhoneCases, id: \.self) { destination in
                 destination.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $isShowingDomainsView,
-                                 isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $isShowingAppSettingsView)
+                                 isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $mainViewState.isShowingAppSettingsView)
                 .tag(destination)
                 .tabItem {
                     Label(destination.title, systemImage: destination.systemImage)
@@ -254,29 +277,29 @@ struct MainView: View {
         }
     }
     
-
+    
     private var navigationStack: some View {
         NavigationStack(path: $navigationPath) {
             if let selectedItem = selectedMenuItem {
                 selectedItem.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $isShowingDomainsView,
-                                  isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $isShowingAppSettingsView)
+                                  isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $mainViewState.isShowingAppSettingsView)
             } else {
                 Text(String(localized: "select_menu_item"))
             }
         }
     }
-
-
-
+    
+    
+    
 }
 
 enum Destination: Hashable, CaseIterable {
     case home, aliases, recipients, usernames, domains, failedDeliveries, rules, settings
-
+    
     
     static var iPhoneCases: [Destination] {
-            return [.home, .aliases, .recipients]
-        }
+        return [.home, .aliases, .recipients]
+    }
     
     var title: LocalizedStringKey {
         switch self {
@@ -290,7 +313,7 @@ enum Destination: Hashable, CaseIterable {
         case .settings: return "settings"
         }
     }
-
+    
     var systemImage: String {
         switch self {
         case .home: return "house"
@@ -303,7 +326,7 @@ enum Destination: Hashable, CaseIterable {
         case .settings: return "gear"
         }
     }
-
+    
     func view(isPresentingProfileBottomSheet: Binding<Bool>,
               isShowingUsernamesView: Binding<Bool>,
               isShowingDomainsView: Binding<Bool>,

@@ -11,21 +11,18 @@ import LocalAuthentication
 
 struct AppSettingsView: View {
     @Binding var isShowingAppSettingsView: Bool
-
+    
     @State private var isPresentingAppearanceBottomSheet: Bool = false
-    @State private var isPresentingBackgroundServiceIntervalBottomSheet: Bool = false
     
     @State private var storeLogs: Bool = false
     @State private var privacyMode: Bool = false
     @State private var biometricEnabled: Bool = false
     
-    let encryptedSettingsManager = SettingsManager(encrypted: true)
-    let settingsManager = SettingsManager(encrypted: false)
-
+    
     @State private var hasNotificationPermission = false
-
+    
     @Environment(\.openURL) var openURL
-
+    
     var body: some View {
         NavigationStack(){
             List {
@@ -62,26 +59,23 @@ struct AppSettingsView: View {
                     //                        isPresentingAppearanceBottomSheet = true
                     //                        }
                     
-                    AddySection(title: String(localized: "background_service_interval"), description: String(localized: "background_service_desc"), leadingSystemimage: "clock.fill", leadingSystemimageColor: .red){
-                        isPresentingBackgroundServiceIntervalBottomSheet = true
-                    }
                     
                     AddyToggle(isOn: $biometricEnabled, title: String(localized: "security"),description: !LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? String(localized: "biometric_error") : String(localized: "security_desc"), leadingSystemimage: "faceid", leadingSystemimageColor: .green).onAppear {
-                        self.biometricEnabled = encryptedSettingsManager.getSettingsBool(key: .biometricEnabled)
+                        self.biometricEnabled = MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled)
                     }
                     .onChange(of: biometricEnabled) {
                         // Only fire when the value is NOT the same as the value already in the model
-                        if (biometricEnabled != encryptedSettingsManager.getSettingsBool(key: .biometricEnabled)){
+                        if (biometricEnabled != MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled)){
                             faceIdAuthentication(shouldEnableBiometrics: biometricEnabled)
                         }
                     }
                     .disabled(!LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil))
                     
                     AddyToggle(isOn: $privacyMode, title: String(localized: "privacy_mode"), description: String(localized: "privacy_mode_desc"), leadingSystemimage: "lock.shield.fill", leadingSystemimageColor: .green).onAppear {
-                        self.privacyMode = encryptedSettingsManager.getSettingsBool(key: .privacyMode)
+                        self.privacyMode = MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .privacyMode)
                     }
                     .onChange(of: privacyMode) {
-                        encryptedSettingsManager.putSettingsBool(key: .privacyMode, boolean: privacyMode)
+                        MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .privacyMode, boolean: privacyMode)
                         
                     }
                 } header: {
@@ -92,10 +86,10 @@ struct AppSettingsView: View {
                     
                     AddyToggle(isOn: $storeLogs, title: String(localized: "store_logs"), description: String(localized: "store_logs_desc"), leadingSystemimage: "exclamationmark.magnifyingglass")
                         .onAppear {
-                            self.storeLogs = settingsManager.getSettingsBool(key: .storeLogs)
+                            self.storeLogs = MainViewState.shared.settingsManager.getSettingsBool(key: .storeLogs)
                         }
                         .onChange(of: storeLogs) {
-                            settingsManager.putSettingsBool(key: .storeLogs, boolean: storeLogs)
+                            MainViewState.shared.settingsManager.putSettingsBool(key: .storeLogs, boolean: storeLogs)
                         }
                     
                     NavigationLink(destination: LogViewerView()) {
@@ -109,28 +103,28 @@ struct AppSettingsView: View {
                 Section {
                     AddySection(title: String(localized: "reset_app"), description: String(localized: "reset_app_desc"), leadingSystemimage: "gobackward", leadingSystemimageColor: .red){
                         isPresentingAppearanceBottomSheet = true
-                        }
+                    }
                     
                 }
                 
                 Section {
                     AddySection(title: String(localized: "addyio_help"), description: String(localized: "visit_addyio_helps_section"), leadingSystemimage: "questionmark.circle", leadingSystemimageColor: .primaryColorStatic){
-                            openURL(URL(string: "https://addy.io/help/")!)
-                        }
+                        openURL(URL(string: "https://addy.io/help/")!)
+                    }
                     AddySection(title: String(localized: "faq"), description: String(localized: "faq_desc"), leadingSystemimage: "questionmark.bubble.fill", leadingSystemimageColor: .primaryColorStatic){
-                            openURL(URL(string: "https://addy.io/faq/")!)
-                        }
+                        openURL(URL(string: "https://addy.io/faq/")!)
+                    }
                 } header: {
                     Text(String(localized: "app_name"))
                 }
                 
                 Section {
                     AddySection(title: String(localized: "github_project"), description: String(localized: "github_project_desc"), leadingSystemimage: "swift", leadingSystemimageColor: .primaryColorStatic){
-                            openURL(URL(string: "https://github.com/anonaddy/addy-ios")!)
-                        }
+                        openURL(URL(string: "https://github.com/anonaddy/addy-ios")!)
+                    }
                     AddySection(title: String(localized: "report_an_issue"), description: String(localized: "report_an_issue_desc"), leadingSystemimage: "ladybug.fill", leadingSystemimageColor: .primaryColorStatic){
-                            openURL(URL(string: "https://github.com/anonaddy/addy-ios/issues/new")!)
-                        }
+                        openURL(URL(string: "https://github.com/anonaddy/addy-ios/issues/new")!)
+                    }
                     AddySection(title: String(localized: "contributors"), description: String(localized: "contributors_list"), leadingSystemimage: "person.2.fill", leadingSystemimageColor: .primaryColorStatic){}
                     
                 } header: {
@@ -145,7 +139,7 @@ struct AppSettingsView: View {
                             openURL(URL(string: "https://stjin.host")!)
                         }
                         let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
-
+                        
                         Text(String(localized: "crafted_with_love_and_privacy"))
                             .multilineTextAlignment(.center)
                             .font(.system(size: 14))
@@ -156,24 +150,20 @@ struct AppSettingsView: View {
                             .frame(maxWidth: .infinity)
                     }
                     
-
+                    
                 }
             }
             .navigationTitle(String(localized: "settings"))
             .navigationBarItems(leading: Button(action: {
-                        self.isShowingAppSettingsView = false
-                }) {
-                    if UIDevice.current.userInterfaceIdiom != .pad {
-                        Text(String(localized: "close"))
-                    }
-                })
+                self.isShowingAppSettingsView = false
+            }) {
+                if UIDevice.current.userInterfaceIdiom != .pad {
+                    Text(String(localized: "close"))
+                }
+            })
             .sheet(isPresented: $isPresentingAppearanceBottomSheet, content: {
                 NavigationStack {
                     AppearanceBottomSheet()
-                }
-            }).sheet(isPresented: $isPresentingBackgroundServiceIntervalBottomSheet, content: {
-                NavigationStack {
-                    BackgroundServiceIntervalBottomSheet()
                 }
             })
         }.onAppear(perform: {
@@ -183,46 +173,63 @@ struct AppSettingsView: View {
     
     
     func faceIdAuthentication(shouldEnableBiometrics: Bool){
-            let context = LAContext()
-            var error: NSError?
-            
-            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error){
-                let reason = "Authenticate to access the app"
-                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason){ success, authenticationError in
-                    if success{
-                        encryptedSettingsManager.putSettingsBool(key: .biometricEnabled, boolean: shouldEnableBiometrics)
-                    }else{
-                        biometricEnabled = !shouldEnableBiometrics
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error){
+            let reason = "Authenticate to access the app"
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason){ success, authenticationError in
+                if success{
+                    DispatchQueue.main.async {
+                        // Also unlock the app to prevent the app from immediately locking
+                        MainViewState.shared.isUnlocked = true
                     }
+                    
+                    
+                    MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .biometricEnabled, boolean: shouldEnableBiometrics)
+                }else{
+                    biometricEnabled = !shouldEnableBiometrics
                 }
-            } else{
-                // Device does not support Face ID or Touch ID
-                print("Biometric authentication unavailable")
             }
+        } else{
+            // Device does not support Face ID or Touch ID
+            print("Biometric authentication unavailable")
         }
+    }
     
     func checkNotificationPermission() {
-            UNUserNotificationCenter.current().getNotificationSettings { settings in
-                DispatchQueue.main.async {
-                    self.hasNotificationPermission = settings.authorizationStatus == .authorized
-                }
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                self.hasNotificationPermission = settings.authorizationStatus == .authorized
             }
         }
+    }
     
     func requestNotificationPermission() {
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-                DispatchQueue.main.async {
-                    self.hasNotificationPermission = granted
+        
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            self.hasNotificationPermission = granted
+            if granted {
+                print("Permission granted for local notifications")
+            } else {
+                if let error = error {
+                    print("Error requesting permission: \(error.localizedDescription)")
+                } else {
+                    print("Permission denied for local notifications")
                 }
             }
         }
+        
+        
+    }
 }
 
 struct AppSettingsView_Previews: PreviewProvider {
-
+    
     static var previews: some View {
         @State var isShowingAppSettingsView = false
-
+        
         AppSettingsView(isShowingAppSettingsView: $isShowingAppSettingsView)
         
     }

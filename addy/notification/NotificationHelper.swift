@@ -6,9 +6,163 @@
 //
 
 import Foundation
+import UserNotifications
+
+
+public struct notificationActions {
+    static let openSettings = "openSettings"
+    static let STOP_WATCHING = "stop_watching"
+    static let DISABLE_ALIAS = "disable_alias"
+    static let STOP_UPDATE_CHECK = "stop_update_check"
+    static let STOP_FAILED_DELIVERY_CHECK = "stop_failed_delivery_check"
+    static let STOP_DOMAIN_ERROR_CHECK = "stop_domain_error_check"
+    static let STOP_API_EXPIRY_CHECK = "stop_api_expiry_check"
+    static let STOP_SUBSCRIPTION_EXPIRY_CHECK = "stop_subscription_expiry_check"
+    static let STOP_PERIODIC_BACKUPS = "stop_periodic_backups"
+    static let DISABLE_WEAROS_QUICK_SETUP = "disable_wearos_quick_setup"
+}
 
 class NotificationHelper{
+
+
+    
     public func createAliasWatcherNotification(emailDifference: Int, id: String, email: String){
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Feed the cat"
+        content.subtitle = "It looks hungry"
+        content.sound = UNNotificationSound.default
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+        
+        
+        
+    }
+    
+    public func createAliasWatcherAliasDoesNotExistAnymoreNotification(email: String){
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Feed the cat"
+        content.subtitle = "It looks hungry"
+        content.sound = UNNotificationSound.default
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+        
+        
+        
+    }
+    
+    public func createUpdateNotification(version: String){
+        
+        let content = UNMutableNotificationContent()
+        content.title = String(localized: "new_update_available")
+        content.subtitle = String(format: String(localized: "notification_new_update_available_desc"), version)
+        content.sound = nil
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: notificationActions.openSettings, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+        
+        
+        
+    }
+    
+    
+    
+    public func createApiTokenExpiryNotification(daysLeft: String){
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Feed the cat"
+        content.subtitle = "It looks hungry"
+        content.sound = UNNotificationSound.default
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+        
+        
+        
+    }       
+    public func createSubscriptionExpiryNotification(createSubscriptionExpiryNotification: String){
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Feed the cat"
+        content.subtitle = "It looks hungry"
+        content.sound = UNNotificationSound.default
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+        
+        
+        
+    }   
+    public func createDomainErrorNotification(count: Int){
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Feed the cat"
+        content.subtitle = "It looks hungry"
+        content.sound = UNNotificationSound.default
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+        
+        
+        
+    }
+    
+    public func createFailedDeliveryNotification(difference: Int){
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Feed the cat"
+        content.subtitle = "It looks hungry"
+        content.sound = UNNotificationSound.default
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+        
+        
         
     }
 }

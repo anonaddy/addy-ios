@@ -12,18 +12,6 @@
         }
       }
     },
-    "1h" : {
-
-    },
-    "2h" : {
-
-    },
-    "15m" : {
-
-    },
-    "30m" : {
-
-    },
     "actions" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -305,6 +293,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "addy.io locked"
+          }
+        }
+      }
+    },
+    "addyio_locked_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To use this app you need to unlock it using your biometrics"
           }
         }
       }
@@ -761,28 +760,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Back"
-          }
-        }
-      }
-    },
-    "background_service_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Change the interval at which data is updated in the background for widgets, for example"
-          }
-        }
-      }
-    },
-    "background_service_interval" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Background service interval"
           }
         }
       }
@@ -3151,6 +3128,28 @@
         }
       }
     },
+    "notification_alias_watches_alias_does_not_exist_anymore_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has been forgotten and removed from the alias watcher"
+          }
+        }
+      }
+    },
+    "notification_new_update_available_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@ of the addy.io app is available. Tap here to download it"
+          }
+        }
+      }
+    },
     "notification_permissions_required_desc" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4542,6 +4541,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "unlimited"
+          }
+        }
+      }
+    },
+    "unlock" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock"
           }
         }
       }

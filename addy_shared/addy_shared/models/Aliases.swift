@@ -11,8 +11,8 @@ public struct AliasesArray:Codable {
     public var meta: Meta?
 }
 
-struct BulkAliasesArray {
-    var data: [Aliases]
+public struct BulkAliasesArray: Codable {
+    public var data: [Aliases]
 }
 
 struct SingleAlias: Codable {

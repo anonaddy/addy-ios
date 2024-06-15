@@ -9,43 +9,67 @@ import Foundation
 import BackgroundTasks
 import addy_shared
 
-class BackgroundWorkerHelper: Operation {
+class BackgroundWorkerHelper {
     
     
     func scheduleBackgroundWorker() {
-        let backgroundServiceIntervalInMinutes = Double(SettingsManager(encrypted: false).getSettingsInt(key: .backgroundServiceInterval, default: 30))
-            let request = BGAppRefreshTaskRequest(identifier: "host.stjin.addy.backgroundworker")
-            request.earliestBeginDate = Date(timeIntervalSinceNow: backgroundServiceIntervalInMinutes * 60) // Fetch no earlier than 1 minute from now
-
-            do {
-                try BGTaskScheduler.shared.submit(request)
-            } catch {
-                LoggingHelper().addLog(
-                                    importance: LogImportance.critical,
-                                    error: "Could not schedule app refresh",
-                                    method: "scheduleAppRefresh",
-                                    extra: error.localizedDescription)
-                
-                print("Could not schedule app refresh: \(error)")
-            }
-        }
-    
-    override func main() {
-        if isCancelled {
-            return
-        }
-
-        // Your data fetching logic goes here.
-        // For example, you might call an API to fetch data.
-        // Make sure to handle errors appropriately.
+        let request = BGAppRefreshTaskRequest(identifier: "host.stjin.addy.backgroundworker")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60) // Fetch no earlier than 1 minute from now
         
-        print("TEST background task")
-
-        if isCancelled {
-            return
+        do {
+            
+#if DEBUG
+            print("Scheduled backgroundworker for at least \(15) minutes.")
+#endif
+            
+            try BGTaskScheduler.shared.submit(request)
+            // Run the Background worked immediately after scheduling
+            _ = BackgroundWorker()
+        } catch {
+            LoggingHelper().addLog(
+                importance: LogImportance.critical,
+                error: "Could not schedule app refresh",
+                method: "scheduleAppRefresh",
+                extra: error.localizedDescription)
+            
+            
+#if DEBUG
+            print("Could not schedule app refresh: \(error)")
+#endif
+            
         }
-
-        // Once the data is fetched, you can process it as needed.
-        // Remember to check `isCancelled` periodically to ensure the operation stops if needed.
     }
+    
+    
+    func cancelScheduledBackgroundWorker() {
+        BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "host.stjin.addy.backgroundworker")
+#if DEBUG
+        print("Cancelled all work")
+#endif
+        
+    }
+    
+    func isThereWorkTodo() -> Bool {
+        let encryptedSettingsManager = SettingsManager(encrypted: true)
+        let settingsManager = SettingsManager(encrypted: false)
+        
+        // Count amount of aliases to be watched
+        let aliasToWatch = encryptedSettingsManager.getStringSet(key: .backgroundServiceWatchAliasList)
+        // Count amount of widgets
+        let amountOfWidgets = settingsManager.getSettingsInt(key: .widgetsActive)
+        
+        let shouldCheckForUpdates = settingsManager.getSettingsBool(key: .notifyUpdates)
+        let shouldCheckForFailedDeliveries = settingsManager.getSettingsBool(key: .notifyFailedDeliveries)
+        let shouldCheckApiTokenExpiry = settingsManager.getSettingsBool(key: .notifyApiTokenExpiry, default: true)
+        let shouldMakePeriodicBackups = settingsManager.getSettingsBool(key:  .periodicBackups)
+        
+        // If there are
+        // -aliases to be watched
+        // -widgets to be updated
+        // -app updates to be checked for in the background
+        // -failed deliveries to be checked
+        // --return true
+        return (!aliasToWatch!.isEmpty || amountOfWidgets > 0 || shouldCheckForUpdates || shouldCheckForFailedDeliveries || shouldCheckApiTokenExpiry || shouldMakePeriodicBackups)
+    }
+    
 }

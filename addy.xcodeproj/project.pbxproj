@@ -24,7 +24,6 @@
 		8062CFE22C149DCA00EFFB4C /* ConditionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8062CFE12C149DCA00EFFB4C /* ConditionBottomSheet.swift */; };
 		80676D652C18CD64008FC147 /* LogViewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80676D642C18CD64008FC147 /* LogViewerView.swift */; };
 		80676D672C18D27C008FC147 /* LogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80676D662C18D27C008FC147 /* LogsViewModel.swift */; };
-		806AE6872C19DEE900F3CA92 /* BackgroundServiceIntervalBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6862C19DEE900F3CA92 /* BackgroundServiceIntervalBottomSheet.swift */; };
 		806AE6892C19EA3600F3CA92 /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6882C19EA3400F3CA92 /* Updater.swift */; };
 		806AE6922C19ED1700F3CA92 /* AppSettingsUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6912C19ED1000F3CA92 /* AppSettingsUpdateView.swift */; };
 		806AE6962C1A085100F3CA92 /* ChangelogBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6952C1A085100F3CA92 /* ChangelogBottomSheet.swift */; };
@@ -68,7 +67,7 @@
 		80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF39E2BF1095B0022690F /* AddyToggle.swift */; };
 		80DCF3A22BF117720022690F /* AliasWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3A12BF117720022690F /* AliasWatcher.swift */; };
 		80DCF3AA2BF12DF00022690F /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3A92BF12DF00022690F /* NotificationHelper.swift */; };
-		80DCF3AC2BF12E760022690F /* BackgroundWorkerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3AB2BF12E760022690F /* BackgroundWorkerHelper.swift */; };
+		80DCF3AC2BF12E760022690F /* BackgroundWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3AB2BF12E760022690F /* BackgroundWorker.swift */; };
 		80DCF3AE2BF1347F0022690F /* AddySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3AD2BF1347F0022690F /* AddySection.swift */; };
 		80DCF3B02BF137610022690F /* EditAliasDescriptionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3AF2BF137610022690F /* EditAliasDescriptionBottomSheet.swift */; };
 		80E082642BF7D36700B51FB8 /* AddyBugFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E082632BF7D36700B51FB8 /* AddyBugFound.swift */; };
@@ -94,6 +93,7 @@
 		80E9B2362C0B7E5C00C7EF99 /* EditUsernameFromNameBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E9B2352C0B7E5C00C7EF99 /* EditUsernameFromNameBottomSheet.swift */; };
 		80E9B2382C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E9B2372C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift */; };
 		80E9B23A2C0B9D8600C7EF99 /* GsonTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E9B2392C0B9D8600C7EF99 /* GsonTools.swift */; };
+		80ECA1012C1DA00100788D75 /* BackgroundWorkerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ECA1002C1DA00100788D75 /* BackgroundWorkerHelper.swift */; };
 		80F0D7E72BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json in Resources */ = {isa = PBXBuildFile; fileRef = 80F0D7E62BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json */; };
 		80F22F7F2BEE34EE001176B4 /* AxisLabels+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F362BEE34EE001176B4 /* AxisLabels+Extension.swift */; };
 		80F22F802BEE34EE001176B4 /* AxisLabelsPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F22F382BEE34EE001176B4 /* AxisLabelsPosition.swift */; };
@@ -189,7 +189,6 @@
 		8062CFE12C149DCA00EFFB4C /* ConditionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionBottomSheet.swift; sourceTree = "<group>"; };
 		80676D642C18CD64008FC147 /* LogViewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewerView.swift; sourceTree = "<group>"; };
 		80676D662C18D27C008FC147 /* LogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsViewModel.swift; sourceTree = "<group>"; };
-		806AE6862C19DEE900F3CA92 /* BackgroundServiceIntervalBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundServiceIntervalBottomSheet.swift; sourceTree = "<group>"; };
 		806AE6882C19EA3400F3CA92 /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
 		806AE6912C19ED1000F3CA92 /* AppSettingsUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsUpdateView.swift; sourceTree = "<group>"; };
 		806AE6952C1A085100F3CA92 /* ChangelogBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangelogBottomSheet.swift; sourceTree = "<group>"; };
@@ -233,7 +232,7 @@
 		80DCF39E2BF1095B0022690F /* AddyToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyToggle.swift; sourceTree = "<group>"; };
 		80DCF3A12BF117720022690F /* AliasWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasWatcher.swift; sourceTree = "<group>"; };
 		80DCF3A92BF12DF00022690F /* NotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHelper.swift; sourceTree = "<group>"; };
-		80DCF3AB2BF12E760022690F /* BackgroundWorkerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundWorkerHelper.swift; sourceTree = "<group>"; };
+		80DCF3AB2BF12E760022690F /* BackgroundWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundWorker.swift; sourceTree = "<group>"; };
 		80DCF3AD2BF1347F0022690F /* AddySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySection.swift; sourceTree = "<group>"; };
 		80DCF3AF2BF137610022690F /* EditAliasDescriptionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasDescriptionBottomSheet.swift; sourceTree = "<group>"; };
 		80E082632BF7D36700B51FB8 /* AddyBugFound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyBugFound.swift; sourceTree = "<group>"; };
@@ -258,6 +257,7 @@
 		80E9B2352C0B7E5C00C7EF99 /* EditUsernameFromNameBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUsernameFromNameBottomSheet.swift; sourceTree = "<group>"; };
 		80E9B2372C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUsernameRecipientsBottomSheet.swift; sourceTree = "<group>"; };
 		80E9B2392C0B9D8600C7EF99 /* GsonTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GsonTools.swift; sourceTree = "<group>"; };
+		80ECA1002C1DA00100788D75 /* BackgroundWorkerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundWorkerHelper.swift; sourceTree = "<group>"; };
 		80F0D7E62BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gray_ic_loading_logo.shapeshifter.json; sourceTree = "<group>"; };
 		80F22F362BEE34EE001176B4 /* AxisLabels+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AxisLabels+Extension.swift"; sourceTree = "<group>"; };
 		80F22F382BEE34EE001176B4 /* AxisLabelsPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxisLabelsPosition.swift; sourceTree = "<group>"; };
@@ -456,7 +456,6 @@
 		806F21262BE8F1B100EBEBC8 = {
 			isa = PBXGroup;
 			children = (
-				8003C36A2C1A27D90005D742 /* AppDelegate.swift */,
 				806AE6982C1A0D5700F3CA92 /* Settings.bundle */,
 				8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */,
 				806F21312BE8F1B100EBEBC8 /* addy */,
@@ -476,6 +475,7 @@
 		806F21312BE8F1B100EBEBC8 /* addy */ = {
 			isa = PBXGroup;
 			children = (
+				80ECA1022C1DADAF00788D75 /* App lifecycle */,
 				80AC67092BFB5DAC004D227D /* utils */,
 				80DCF3A82BF12DEA0022690F /* notification */,
 				80DCF3A32BF118900022690F /* helpers */,
@@ -573,7 +573,6 @@
 				80676D632C18CD44008FC147 /* logs */,
 				80D4F2DA2C17084E00D313EC /* AppSettingsView.swift */,
 				807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */,
-				806AE6862C19DEE900F3CA92 /* BackgroundServiceIntervalBottomSheet.swift */,
 				806AE6952C1A085100F3CA92 /* ChangelogBottomSheet.swift */,
 			);
 			path = appsettings;
@@ -612,6 +611,7 @@
 		80DCF3A02BF117680022690F /* service */ = {
 			isa = PBXGroup;
 			children = (
+				80DCF3AB2BF12E760022690F /* BackgroundWorker.swift */,
 				80DCF3A12BF117720022690F /* AliasWatcher.swift */,
 			);
 			path = service;
@@ -621,7 +621,7 @@
 			isa = PBXGroup;
 			children = (
 				80E9B2392C0B9D8600C7EF99 /* GsonTools.swift */,
-				80DCF3AB2BF12E760022690F /* BackgroundWorkerHelper.swift */,
+				80ECA1002C1DA00100788D75 /* BackgroundWorkerHelper.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -707,6 +707,14 @@
 				80E9B22A2C0B238900C7EF99 /* UsernamesView.swift */,
 			);
 			path = usernames;
+			sourceTree = "<group>";
+		};
+		80ECA1022C1DADAF00788D75 /* App lifecycle */ = {
+			isa = PBXGroup;
+			children = (
+				8003C36A2C1A27D90005D742 /* AppDelegate.swift */,
+			);
+			path = "App lifecycle";
 			sourceTree = "<group>";
 		};
 		80F22F352BEE34E1001176B4 /* dependencies */ = {
@@ -1061,7 +1069,6 @@
 				80F22F982BEE34EE001176B4 /* ChartGridShape.swift in Sources */,
 				80F3C6642BFB6E6D0028A486 /* AddAliasBottomSheet.swift in Sources */,
 				80F22F992BEE34EE001176B4 /* ChartLabel.swift in Sources */,
-				806AE6872C19DEE900F3CA92 /* BackgroundServiceIntervalBottomSheet.swift in Sources */,
 				80DCF3AA2BF12DF00022690F /* NotificationHelper.swift in Sources */,
 				80DCF3B02BF137610022690F /* EditAliasDescriptionBottomSheet.swift in Sources */,
 				80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */,
@@ -1089,8 +1096,9 @@
 				80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */,
 				80F22FAE2BEE34EE001176B4 /* PieChartHelpers.swift in Sources */,
 				80813B682C0DE234009C4E6A /* EditDomainFromNameBottomSheet.swift in Sources */,
+				80ECA1012C1DA00100788D75 /* BackgroundWorkerHelper.swift in Sources */,
 				80F22F9B2BEE34EE001176B4 /* ColorGradient.swift in Sources */,
-				80DCF3AC2BF12E760022690F /* BackgroundWorkerHelper.swift in Sources */,
+				80DCF3AC2BF12E760022690F /* BackgroundWorker.swift in Sources */,
 				807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */,
 				80F22F9C2BEE34EE001176B4 /* Colors.swift in Sources */,
 				80F22FA92BEE34EE001176B4 /* LineShape.swift in Sources */,
@@ -1338,7 +1346,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1353,6 +1361,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
@@ -1376,7 +1385,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

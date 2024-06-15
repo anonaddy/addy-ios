@@ -28,6 +28,7 @@
 		80E84A312BEC11ED00C8D68A /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A302BEC11ED00C8D68A /* Aliases.swift */; };
 		80E84A332BEC122900C8D68A /* Recipients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A322BEC122900C8D68A /* Recipients.swift */; };
 		80E9B2322C0B646400C7EF99 /* Usernames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E9B2312C0B646400C7EF99 /* Usernames.swift */; };
+		80ECA1042C1DCB5E00788D75 /* ApiTokenDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ECA1032C1DCB5E00788D75 /* ApiTokenDetails.swift */; };
 		80F3C6672BFB73AF0028A486 /* Domains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F3C6662BFB73AF0028A486 /* Domains.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		80E84A302BEC11ED00C8D68A /* Aliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
 		80E84A322BEC122900C8D68A /* Recipients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipients.swift; sourceTree = "<group>"; };
 		80E9B2312C0B646400C7EF99 /* Usernames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Usernames.swift; sourceTree = "<group>"; };
+		80ECA1032C1DCB5E00788D75 /* ApiTokenDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTokenDetails.swift; sourceTree = "<group>"; };
 		80F3C6662BFB73AF0028A486 /* Domains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domains.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,6 +139,7 @@
 				80F3C6662BFB73AF0028A486 /* Domains.swift */,
 				80813B722C0DF349009C4E6A /* FailedDeliveries.swift */,
 				80477DE12C12232C00E52AF8 /* Rules.swift */,
+				80ECA1032C1DCB5E00788D75 /* ApiTokenDetails.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				80B4F4D02BEA5BE60009E4CA /* UserAgent.swift in Sources */,
 				80477DE22C12232C00E52AF8 /* Rules.swift in Sources */,
 				80B4F4CE2BEA598A0009E4CA /* UserResource.swift in Sources */,
+				80ECA1042C1DCB5E00788D75 /* ApiTokenDetails.swift in Sources */,
 				80B4F4D22BEA5DCE0009E4CA /* Version.swift in Sources */,
 				80BB84152BF001AB005999C3 /* DateTimeUtils.swift in Sources */,
 				80E84A332BEC122900C8D68A /* Recipients.swift in Sources */,

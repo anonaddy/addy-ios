@@ -49,6 +49,10 @@ public class NetworkHelper {
     }
     
     public func verifyApiKey(baseUrl: String, apiKey: String, completion: @escaping (String?) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        
         // Set base URL
         AddyIo.API_BASE_URL = baseUrl
         
@@ -95,6 +99,9 @@ public class NetworkHelper {
     }
     
     public func getAddyIoInstanceVersion(completion: @escaping (Version?, String?) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_APP_VERSION)!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -169,6 +176,11 @@ public class NetworkHelper {
     }
     
     public func getUserResource(completion: @escaping (UserResource?, String?) -> Void) {
+        
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+
         let url = URL(string: AddyIo.API_URL_ACCOUNT_DETAILS)!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -238,6 +250,9 @@ public class NetworkHelper {
     }
     
     public func getRecipients(verifiedOnly: Bool, completion: @escaping ([Recipients]?, String?) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_RECIPIENTS)!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -322,6 +337,9 @@ public class NetworkHelper {
     }
     
     public func getUsernames(completion: @escaping (UsernamesArray?, String?) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_USERNAMES)!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -393,6 +411,9 @@ public class NetworkHelper {
     
     
     public func getRules(completion: @escaping (RulesArray?, String?) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_RULES)!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -463,6 +484,9 @@ public class NetworkHelper {
     }
     
     public func getDomains(completion: @escaping (DomainsArray?, String?) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_DOMAINS)!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -533,6 +557,9 @@ public class NetworkHelper {
     }
     
     public func getFailedDeliveries(completion: @escaping (FailedDeliveriesArray?, String?) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_FAILED_DELIVERIES)!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -603,6 +630,9 @@ public class NetworkHelper {
     }
     
     public func getDomainOptions(completion: @escaping (DomainOptions?, String?) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_DOMAIN_OPTIONS)!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -674,6 +704,9 @@ public class NetworkHelper {
     
     
     public func getSpecificUsername(completion: @escaping (Usernames?, String?) -> Void, usernameId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)")!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -741,7 +774,82 @@ public class NetworkHelper {
     }
     
     
+    
+    public func getApiTokenDetails(completion: @escaping (ApiTokenDetails?, String?) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        let url = URL(string: "\(AddyIo.API_URL_API_TOKEN_DETAILS)")!
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "getApiTokenDetails",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(ApiTokenDetails.self, from: data)
+                    completion(addyIoData, nil)
+                } catch {
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
+                    print(errorMessage)
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "getApiTokenDetails",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "getApiTokenDetails",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
+    
     public func getSpecificDomain(completion: @escaping (Domains?, String?) -> Void, domainId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_DOMAINS)/\(domainId)")!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -810,6 +918,9 @@ public class NetworkHelper {
     
     
     public func getSpecificRecipient(completion: @escaping (Recipients?, String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_RECIPIENTS)/\(recipientId)")!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -877,6 +988,9 @@ public class NetworkHelper {
     }
     
     public func resendVerificationEmail(completion: @escaping (String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_RECIPIENT_RESEND)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -933,6 +1047,9 @@ public class NetworkHelper {
     
     
     public func getSpecificAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ALIAS)/\(aliasId)")!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -1002,6 +1119,9 @@ public class NetworkHelper {
     
     
     public func getSpecificRule(completion: @escaping (Rules?, String?) -> Void, ruleId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_RULES)/\(ruleId)")!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
@@ -1070,6 +1190,9 @@ public class NetworkHelper {
     
     
     public func updateRule(completion: @escaping (String?) -> Void, ruleId:String, rule:Rules) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_RULES)/\(ruleId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -1121,6 +1244,9 @@ public class NetworkHelper {
     }
     
     public func restoreAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ALIAS)/\(aliasId)/restore")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -1189,6 +1315,9 @@ public class NetworkHelper {
     }
     
     public func addAlias(completion: @escaping (Aliases?, String?) -> Void, domain: String, description: String, format: String, localPart: String, recipients: [String]) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_ALIAS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -1267,6 +1396,9 @@ public class NetworkHelper {
     }
     
     public func activateSpecificAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_ACTIVE_ALIAS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -1342,6 +1474,9 @@ public class NetworkHelper {
     
     
     public func activateSpecificRule(completion: @escaping (Rules?, String?) -> Void, ruleId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_ACTIVE_RULES)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -1419,6 +1554,9 @@ public class NetworkHelper {
     
     
     public func allowRecipientToReplySend(completion: @escaping (Recipients?, String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_ALLOWED_RECIPIENTS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -1493,6 +1631,9 @@ public class NetworkHelper {
     
     
     public func enableCatchAllSpecificUsername(completion: @escaping (Usernames?, String?) -> Void, usernameId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_CATCH_ALL_USERNAMES)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -1566,6 +1707,9 @@ public class NetworkHelper {
     }
     
     public func enableCatchAllSpecificDomain(completion: @escaping (Domains?, String?) -> Void, domainId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_CATCH_ALL_DOMAINS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -1639,6 +1783,9 @@ public class NetworkHelper {
     }
     
     public func disableCatchAllSpecificUsername(completion: @escaping (String?) -> Void, usernameId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_CATCH_ALL_USERNAMES)/\(usernameId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -1689,6 +1836,9 @@ public class NetworkHelper {
     
     
     public func disableCatchAllSpecificDomain(completion: @escaping (String?) -> Void, domainId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_CATCH_ALL_DOMAINS)/\(domainId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -1739,6 +1889,9 @@ public class NetworkHelper {
     
     
     public func enableCanLoginSpecificUsername(completion: @escaping (Usernames?, String?) -> Void, usernameId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_CAN_LOGIN_USERNAMES)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -1812,6 +1965,9 @@ public class NetworkHelper {
     }
     
     public func disableCanLoginSpecificUsername(completion: @escaping (String?) -> Void, usernameId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_CAN_LOGIN_USERNAMES)/\(usernameId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -1863,6 +2019,9 @@ public class NetworkHelper {
     
     
     public func activateSpecificUsername(completion: @escaping (Usernames?, String?) -> Void, usernameId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_ACTIVE_USERNAMES)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -1937,6 +2096,9 @@ public class NetworkHelper {
     
     
     public func activateSpecificDomain(completion: @escaping (Domains?, String?) -> Void, domainId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_ACTIVE_DOMAINS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -2010,6 +2172,9 @@ public class NetworkHelper {
     }
     
     public func deactivateSpecificUsername(completion: @escaping (String?) -> Void, usernameId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ACTIVE_USERNAMES)/\(usernameId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -2059,6 +2224,9 @@ public class NetworkHelper {
     }
     
     public func deactivateSpecificDomain(completion: @escaping (String?) -> Void, domainId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ACTIVE_DOMAINS)/\(domainId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -2108,6 +2276,9 @@ public class NetworkHelper {
     }
     
     public func deactivateSpecificAlias(completion: @escaping (String?) -> Void, aliasId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ACTIVE_ALIAS)/\(aliasId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -2156,6 +2327,9 @@ public class NetworkHelper {
         task.resume()
     }
     public func deactivateSpecificRule(completion: @escaping (String?) -> Void, ruleId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ACTIVE_RULES)/\(ruleId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -2205,6 +2379,9 @@ public class NetworkHelper {
     }
     
     public func disallowRecipientToReplySend(completion: @escaping (String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ALLOWED_RECIPIENTS)/\(recipientId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -2255,6 +2432,9 @@ public class NetworkHelper {
     
     
     public func disableEncryptionRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ENCRYPTED_RECIPIENTS)/\(recipientId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -2304,6 +2484,9 @@ public class NetworkHelper {
     }
     
     public func enableEncryptionRecipient(completion: @escaping (Recipients?, String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_ENCRYPTED_RECIPIENTS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -2378,6 +2561,9 @@ public class NetworkHelper {
     
     
     public func disablePgpInlineRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_INLINE_ENCRYPTED_RECIPIENTS)/\(recipientId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -2427,6 +2613,9 @@ public class NetworkHelper {
     }
     
     public func enablePgpInlineRecipient(completion: @escaping (Recipients?, String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_INLINE_ENCRYPTED_RECIPIENTS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -2502,6 +2691,9 @@ public class NetworkHelper {
     
     
     public func removeEncryptionKeyRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_RECIPIENT_KEYS)/\(recipientId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -2551,6 +2743,9 @@ public class NetworkHelper {
     }
     
     public func disableProtectedHeadersRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_PROTECTED_HEADERS_RECIPIENTS)/\(recipientId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -2600,6 +2795,9 @@ public class NetworkHelper {
     }
     
     public func enableProtectedHeadersRecipient(completion: @escaping (Recipients?, String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_PROTECTED_HEADERS_RECIPIENTS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -2673,6 +2871,9 @@ public class NetworkHelper {
     }
     
     public func addEncryptionKeyRecipient(completion: @escaping (Recipients?, String?) -> Void, recipientId:String, keyData:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_RECIPIENT_KEYS)/\(recipientId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -2748,6 +2949,9 @@ public class NetworkHelper {
     
     
     public func addRecipient(completion: @escaping (Recipients?, String?) -> Void, address:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_RECIPIENTS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -2822,6 +3026,9 @@ public class NetworkHelper {
     
     
     public func addUsername(completion: @escaping (Usernames?, String?) -> Void, username:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_USERNAMES)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -2897,6 +3104,9 @@ public class NetworkHelper {
     
     
     public func createRule(completion: @escaping (Rules?, String?) -> Void, rule:Rules) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_RULES)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -2971,6 +3181,9 @@ public class NetworkHelper {
     
     
     public func reorderRules(completion: @escaping (String?) -> Void, rules:[Rules]) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_REORDER_RULES)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -3036,6 +3249,9 @@ public class NetworkHelper {
     
     
     public func addDomain(completion: @escaping (Domains?, String?, String?) -> Void, domain:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_DOMAINS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -3118,6 +3334,9 @@ public class NetworkHelper {
     
     
     public func deleteAlias(completion: @escaping (String?) -> Void, aliasId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ALIAS)/\(aliasId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -3167,6 +3386,9 @@ public class NetworkHelper {
     }
     
     public func forgetAlias(completion: @escaping (String?) -> Void, aliasId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ALIAS)/\(aliasId)/forget")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -3216,6 +3438,9 @@ public class NetworkHelper {
     }
     
     public func deleteUsername(completion: @escaping (String?) -> Void, usernameId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -3265,6 +3490,9 @@ public class NetworkHelper {
     }
     
     public func deleteRule(completion: @escaping (String?) -> Void, ruleId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_RULES)/\(ruleId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -3314,6 +3542,9 @@ public class NetworkHelper {
     }
     
     public func deleteFailedDelivery(completion: @escaping (String?) -> Void, failedDeliveryId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_FAILED_DELIVERIES)/\(failedDeliveryId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -3363,6 +3594,9 @@ public class NetworkHelper {
     }
     
     public func deleteDomain(completion: @escaping (String?) -> Void, domainId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_DOMAINS)/\(domainId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -3412,6 +3646,9 @@ public class NetworkHelper {
     }
     
     public func deleteRecipient(completion: @escaping (String?) -> Void, recipientId:String) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_RECIPIENTS)/\(recipientId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -3462,6 +3699,9 @@ public class NetworkHelper {
     
     
     public func updateDescriptionSpecificAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String, description:String?) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ALIAS)/\(aliasId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -3535,6 +3775,9 @@ public class NetworkHelper {
     }
     
     public func updateDescriptionSpecificUsername(completion: @escaping (Usernames?, String?) -> Void, usernameId:String, description:String?) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -3609,6 +3852,9 @@ public class NetworkHelper {
     
     
     public func updateDescriptionSpecificDomain(completion: @escaping (Domains?, String?) -> Void, domainId:String, description:String?) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_DOMAINS)/\(domainId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -3683,6 +3929,9 @@ public class NetworkHelper {
     
     
     public func updateFromNameSpecificAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String, fromName:String?) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_ALIAS)/\(aliasId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -3756,6 +4005,9 @@ public class NetworkHelper {
     }
     
     public func updateFromNameSpecificUsername(completion: @escaping (Usernames?, String?) -> Void, usernameId:String, fromName:String?) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -3829,6 +4081,9 @@ public class NetworkHelper {
     }
     
     public func updateFromNameSpecificDomain(completion: @escaping (Domains?, String?) -> Void, domainId:String, fromName:String?) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_DOMAINS)/\(domainId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -3902,6 +4157,9 @@ public class NetworkHelper {
     }
     
     public func updateRecipientsSpecificAlias(completion: @escaping (Aliases?, String?) -> Void, aliasId:String, recipients:[String]) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.API_URL_ALIAS_RECIPIENTS)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -3975,6 +4233,9 @@ public class NetworkHelper {
     }
     
     public func updateDefaultRecipientForSpecificUsername(completion: @escaping (Usernames?, String?) -> Void, usernameId:String, recipientId:String?) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)/default-recipient")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -4048,6 +4309,9 @@ public class NetworkHelper {
     }
     
     public func updateDefaultRecipientForSpecificDomain(completion: @escaping (Domains?, String?) -> Void, domainId:String, recipientId:String?) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: "\(AddyIo.API_URL_DOMAINS)/\(domainId)/default-recipient")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -4121,7 +4385,9 @@ public class NetworkHelper {
     }
     
     public func  getAliases(completion: @escaping (AliasesArray?, String?) -> Void, aliasSortFilterRequest: AliasSortFilterRequest,page: Int? = nil,size: Int? = 20,recipient: String? = nil,domain: String? = nil,username: String? = nil) {
-        
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         
         
         var parameters: [URLQueryItem] = []
@@ -4234,7 +4500,195 @@ public class NetworkHelper {
     }
     
     
+    public func bulkGetAlias(completion: @escaping (BulkAliasesArray?, String?) -> Void, aliases: [String]) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        
+        
+        let url = URL(string: "\(AddyIo.API_URL_ALIAS)/get/bulk")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["ids": aliases]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let httpResponse = response as? HTTPURLResponse else {
+                
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error?.localizedDescription ?? "-",
+                    method: "bulkGetAlias",
+                    extra: error.debugDescription)
+                
+                completion(nil, error?.localizedDescription ?? String(localized: "error_unknown_refer_to_logs"))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let decoder = JSONDecoder()
+                    let addyIoData = try decoder.decode(BulkAliasesArray.self, from: data)
+                    completion(addyIoData, nil)
+                } catch {
+                    let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode) - \(data)"
+                    print(errorMessage)
+                    self.loggingHelper.addLog(
+                        importance: LogImportance.critical,
+                        error: errorMessage,
+                        method: "bulkGetAlias",
+                        extra: ErrorHelper.getErrorMessage(data:
+                                                            data
+                                                          ))
+                    completion(
+                        nil,
+                        ErrorHelper.getErrorMessage(data:data)
+                    )
+                }
+                
+            case 401:
+                //TODO: remove, not allowed
+                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                //                    // Unauthenticated, clear settings
+                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                //                }
+                completion(nil, nil)
+                
+            default:
+                let errorMessage = "Error: \(error?.localizedDescription ?? "-") | \(httpResponse.statusCode) - \(error.debugDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "bulkGetAlias",
+                    extra: ErrorHelper.getErrorMessage(data:data))
+                completion(
+                    nil,
+                    ErrorHelper.getErrorMessage(data:data)
+                )
+            }
+        }
+        
+        task.resume()
+    }
+    
+    
+    public func cacheUserResourceForWidget(completion: @escaping (Bool) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        getUserResource { userResource, _ in
+            guard let userResource = userResource else {
+                // Result is null, callback false to let the BackgroundWorker know the task failed.
+                completion(false)
+                return
+            }
+
+            do {
+                // Turn the list into a json object
+                let data = try JSONEncoder().encode(userResource)
+                let jsonString = String(data: data, encoding: .utf8)!
+
+                // Store a copy of the just received data locally
+                self.encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheUserResource, string: jsonString)
+
+            } catch {
+                let errorMessage = "Error: \(error.localizedDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "cacheUserResourceForWidget",
+                    extra: nil)
+                
+                completion(false)
+
+            }
+           // Stored data, let the BackgroundWorker know the task succeeded
+            completion(true)
+        }
+    }
+
+     
+    public func cacheMostPopularAliasesDataForWidget(completion: @escaping (Bool) -> Void, amountOfAliasesToCache: Int? = 15) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        getAliases (completion: { list, _ in
+            guard let list = list else {
+                // Result is null, callback false to let the BackgroundWorker know the task failed.
+                completion(false)
+                return
+            }
+
+            do {
+                // Turn the list into a json object
+                let data = try JSONEncoder().encode(list)
+                let jsonString = String(data: data, encoding: .utf8)!
+
+                // Store a copy of the just received data locally
+                self.encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheMostActiveAliasesData, string: jsonString)
+
+            } catch {
+                let errorMessage = "Error: \(error.localizedDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "cacheMostPopularAliasesDataForWidget",
+                    extra: nil)
+                
+                completion(false)
+
+            }
+           // Stored data, let the BackgroundWorker know the task succeeded
+            completion(true)
+        }, aliasSortFilterRequest: AliasSortFilterRequest(
+            onlyActiveAliases: true,
+            onlyDeletedAliases: false,
+            onlyInactiveAliases: false,
+            onlyWatchedAliases:false,
+            sort: "emails_forwarded",
+            sortDesc: true,
+            filter: nil
+        ),
+                    size: amountOfAliasesToCache)
+    }
+
+    
+     
+    public func cacheFailedDeliveryCountForWidgetAndBackgroundService(completion: @escaping (Bool) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        getFailedDeliveries (completion: { result, _ in
+            guard let result = result else {
+                // Result is null, callback false to let the BackgroundWorker know the task failed.
+                completion(false)
+                return
+            }
+
+                // Store a copy of the just received data locally
+                self.encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCountPrevious, int: self.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount))
+                self.encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount, int: result.data.count)
+
+           // Stored data, let the BackgroundWorker know the task succeeded
+            completion(true)
+        })
+    }
+
+    
+    
     public func getGithubTags(completion: @escaping (AtomFeed?, String?) -> Void) {
+#if DEBUG
+print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
         let url = URL(string: AddyIo.GITLAB_TAGS_RSS_FEED)!
         let request = URLRequest(url: url)
         

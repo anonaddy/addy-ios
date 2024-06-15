@@ -46,7 +46,7 @@ public struct DateTimeUtils {
         }
     }
     
-    static func turnStringIntoLocalDateTime(_ string: String?) throws -> Date {
+    public static func turnStringIntoLocalDateTime(_ string: String?) throws -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyy-MM-dd HH:mm:ss"
         guard let date = formatter.date(from: string!) else {

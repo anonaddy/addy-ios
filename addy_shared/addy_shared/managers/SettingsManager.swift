@@ -22,7 +22,6 @@ public class SettingsManager {
     public enum Prefs {
         case storeLogs
         case versionCode
-        case backgroundServiceInterval
         case widgetsActive
         case notifyUpdates
         case periodicBackups
@@ -184,10 +183,10 @@ public class SettingsManager {
                let array = try? JSONDecoder().decode([String].self, from: data) {
                 return Set(array)
             }
-            return nil
+            return Set()
         } else {
             guard let array = prefs?.array(forKey: userKey) as? [String] else {
-                return nil
+                return Set()
             }
             return Set(array)
         }

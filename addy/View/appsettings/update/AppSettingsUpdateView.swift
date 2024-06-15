@@ -21,7 +21,6 @@ struct AppSettingsUpdateView: View {
     @State private var notifyUpdates: Bool = false
     @State private var isPresentingChangelogBottomSheet = false
     
-    let settingsManager = SettingsManager(encrypted: false)
 
     @Environment(\.openURL) var openURL
 
@@ -36,10 +35,10 @@ struct AppSettingsUpdateView: View {
                     }
                 
                 AddyToggle(isOn: $notifyUpdates, title: String(localized: "update_notify_title"), description: String(localized: "update_notify_desc"), leadingSystemimage: "bell.fill", leadingSystemimageColor: .green).onAppear {
-                    self.notifyUpdates = settingsManager.getSettingsBool(key: .notifyUpdates)
+                    self.notifyUpdates = MainViewState.shared.settingsManager.getSettingsBool(key: .notifyUpdates)
                 }
                 .onChange(of: notifyUpdates) {
-                    settingsManager.putSettingsBool(key: .notifyUpdates, boolean: notifyUpdates)
+                    MainViewState.shared.settingsManager.putSettingsBool(key: .notifyUpdates, boolean: notifyUpdates)
                 }
                 
             } header: {
@@ -84,7 +83,7 @@ struct AppSettingsUpdateView: View {
         .navigationTitle(String(localized: "addyio_updater"))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: {
-            if settingsManager.getSettingsBool(key: .notifyUpdates){
+            if MainViewState.shared.settingsManager.getSettingsBool(key: .notifyUpdates){
                 DispatchQueue.global(qos: .background).async {
                     isCheckingForUpdates = true
 

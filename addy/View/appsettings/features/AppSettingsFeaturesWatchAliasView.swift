@@ -13,7 +13,7 @@ struct AppSettingsFeaturesWatchAliasView: View {
     var body: some View {
     
         List {
-            Image("register").resizable().scaledToFit().frame(maxHeight: 100)
+            Image("feature_watch_alias").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
             
             Section {
                 AddyToggle(isOn: $watchAlias, title: String(localized: "enable_feature"), description: String(localized: "enable_feature_always")).disabled(true)

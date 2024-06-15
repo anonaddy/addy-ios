@@ -25,6 +25,7 @@ struct addyApp: App {
             Group {      // or VStack
                 if appState.apiKey != nil {
                     MainView()
+                        .environmentObject(MainViewState.shared)
                         .transition(.asymmetric(insertion: AnyTransition.scale(scale: 1.1).combined(with: .opacity), removal: AnyTransition.opacity.animation(.easeInOut(duration: 0.5))))
                                     .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
                     
