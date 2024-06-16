@@ -32,6 +32,12 @@ class FailedDeliveriesViewModel: ObservableObject{
 
                         if let failedDeliveries = failedDeliveries {
                             self.failedDeliveries = failedDeliveries
+                            
+                            // Set the count of failed deliveries so that we can use it for the backgroundservice AND mark this a read for the badge
+                            MainViewState.shared.encryptedSettingsManager.putSettingsInt(
+                                key: .backgroundServiceCacheFailedDeliveriesCount,
+                                int: failedDeliveries.data.count
+                            )
                         } else {
                             self.networkError = String(format: String(localized: "details_about_error_s"),"\(error!)")
                         }

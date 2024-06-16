@@ -85,7 +85,7 @@ struct AddUsernameBottomSheet: View {
             }.navigationTitle(String(localized: "add_username")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
-                    ToolbarItem(placement: .topBarLeading) {
+                    ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             dismiss()
                         } label: {

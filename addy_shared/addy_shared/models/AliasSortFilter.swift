@@ -7,7 +7,7 @@
 
 public struct AliasSortFilter:Codable, Equatable {
     public var aliasSortFilterRequest: AliasSortFilterRequest
-    public var filterId: String?
+    public var filterId: String? //MARK: iOS only
     
     public init(
         aliasSortFilterRequest: AliasSortFilterRequest,

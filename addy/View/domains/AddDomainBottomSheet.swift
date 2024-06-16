@@ -90,7 +90,7 @@ struct AddDomainBottomSheet: View {
                     }.navigationTitle(String(localized: "add_domain")).pickerStyle(.navigationLink)
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar(content: {
-                            ToolbarItem(placement: .topBarLeading) {
+                            ToolbarItem(placement: .topBarTrailing) {
                                 Button {
                                     dismiss()
                                 } label: {

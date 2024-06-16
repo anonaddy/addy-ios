@@ -655,6 +655,48 @@
         }
       }
     },
+    "api_token_about_to_expire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API key about to expire"
+          }
+        }
+      }
+    },
+    "api_token_about_to_expire_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your API key will expire in %@. It is recommended to update your API key to prevent the app from resetting. Do you want to change the API token now?"
+          }
+        }
+      }
+    },
+    "api_token_about_to_expire_desc_unknown_expiry_date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your API key will expire soon. It is recommended to update your API key to prevent the app from resetting. Do you want to change the API token now?"
+          }
+        }
+      }
+    },
+    "api_token_about_to_expire_option_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter new key"
+          }
+        }
+      }
+    },
     "APIKey" : {
       "localizations" : {
         "en" : {
@@ -1168,6 +1210,39 @@
         }
       }
     },
+    "current_api_token_expiry_date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your current API key (%@) will expire in %@"
+          }
+        }
+      }
+    },
+    "current_api_token_expiry_date_never" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your current API key (%@) has no expiration, visit %@/settings to revoke this key"
+          }
+        }
+      }
+    },
+    "current_api_token_expiry_date_unknown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The expiry date of your API key could not be determined, visit %@/settings to revoke this key"
+          }
+        }
+      }
+    },
     "d_blocked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1175,6 +1250,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ blocked"
+          }
+        }
+      }
+    },
+    "d_days_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d days from now on"
           }
         }
       }
@@ -1190,6 +1276,39 @@
         }
       }
     },
+    "d_hrs_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d hrs from now on"
+          }
+        }
+      }
+    },
+    "d_min_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d min from now on"
+          }
+        }
+      }
+    },
+    "d_months_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d months from now on"
+          }
+        }
+      }
+    },
     "d_replied" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1201,6 +1320,17 @@
         }
       }
     },
+    "d_sec_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d sec from now on"
+          }
+        }
+      }
+    },
     "d_sent" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1208,6 +1338,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ sent"
+          }
+        }
+      }
+    },
+    "d_weeks_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d weeks from now on"
           }
         }
       }
@@ -1483,6 +1624,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Disable alias"
+          }
+        }
+      }
+    },
+    "disable_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disable notifications"
           }
         }
       }
@@ -1835,7 +1987,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "his feature is always enabled"
+            "value" : "This feature is always enabled"
           }
         }
       }
@@ -2238,12 +2390,89 @@
         }
       }
     },
+    "feature_api_token_expiry_notification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API key expiry notification"
+          }
+        }
+      }
+    },
+    "feature_api_token_expiry_notification_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification 5 days before your API key expires to prevent the app from being reset.\n\nThese notifications will reappear every day until a new API key is entered"
+          }
+        }
+      }
+    },
+    "feature_domain_error_notification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification when a domain has configuration errors"
+          }
+        }
+      }
+    },
+    "feature_domain_error_notification_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification when a domain has configuration errors.\n\nThese notifications will appear once (unless another domain with configuration errors is detected)"
+          }
+        }
+      }
+    },
     "feature_not_available_subscription" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "This feature is not available with your current subscription"
+          }
+        }
+      }
+    },
+    "feature_notify_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed delivery notifications"
+          }
+        }
+      }
+    },
+    "feature_subscription_expiry_notification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription expiry notification"
+          }
+        }
+      }
+    },
+    "feature_subscription_expiry_notification_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification 7 days before your subscription expires to remind you to renew your subscription.\n\nThese notifications will reappear every day until the subscription has been renewed"
           }
         }
       }
@@ -2694,6 +2923,12 @@
     "Key" : {
       "extractionState" : "manual"
     },
+    "Key 1" : {
+      "extractionState" : "manual"
+    },
+    "Key 2" : {
+      "extractionState" : "manual"
+    },
     "last_blocked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3128,6 +3363,17 @@
         }
       }
     },
+    "notification_alias_watches_alias_does_not_exist_anymore" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias removed from alias watcher"
+          }
+        }
+      }
+    },
     "notification_alias_watches_alias_does_not_exist_anymore_desc" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3135,6 +3381,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ has been forgotten and removed from the alias watcher"
+          }
+        }
+      }
+    },
+    "notification_api_token_about_to_expire" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your API key is about to expire"
+          }
+        }
+      }
+    },
+    "notification_api_token_about_to_expire_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your API key will expire in %@. Create a new one to prevent the app from resetting. Tap here to change the API key"
+          }
+        }
+      }
+    },
+    "notification_domain_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain configuration error"
+          }
+        }
+      }
+    },
+    "notification_domain_error_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d domain(s) have configuration errors. Tap here to view the domains"
           }
         }
       }
@@ -3161,6 +3451,28 @@
         }
       }
     },
+    "notification_new_failed_delivery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email delivery failed"
+          }
+        }
+      }
+    },
+    "notification_new_failed_delivery_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ email(s) could not be delivered. Tap here to view the failed deliveries"
+          }
+        }
+      }
+    },
     "notification_new_update_available_desc" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3179,6 +3491,83 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notification permissions are required to fully use the app. Tap here to allow the addy.io app to send notifications. You retain control over which notification the app can send."
+          }
+        }
+      }
+    },
+    "notification_subscription_about_to_expire" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your subscription is about to expire"
+          }
+        }
+      }
+    },
+    "notification_subscription_about_to_expire_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your subscription will expire in %@. Renew your subscription to keep using pro features"
+          }
+        }
+      }
+    },
+    "notify_api_token_expiry_feature_section_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification 5 days before your API key expires"
+          }
+        }
+      }
+    },
+    "notify_domain_error_feature_section_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification when a domain has configuration errors"
+          }
+        }
+      }
+    },
+    "notify_failed_deliveries_feature_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For an overview of all failed deliveries, go back to main section and tap on the failed deliveries button at the top. (exclamation mark)"
+          }
+        }
+      }
+    },
+    "notify_failed_deliveries_feature_section_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification if an email sent from an alias cannot be delivered"
+          }
+        }
+      }
+    },
+    "notify_subscription_expiry_feature_section_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification 7 days before your subscription expires"
           }
         }
       }
@@ -4479,6 +4868,50 @@
         }
       }
     },
+    "subscription_expiry_date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your subscription will expire in %@"
+          }
+        }
+      }
+    },
+    "subscription_expiry_date_never" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your current subscription has no expiration"
+          }
+        }
+      }
+    },
+    "subscription_expiry_date_self_hosted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are using a self-hosted instance of addy.io, subscriptions do not apply to self-hosted instances"
+          }
+        }
+      }
+    },
+    "subscription_expiry_date_unknown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The expiry date of your subscription could not be determined"
+          }
+        }
+      }
+    },
     "subscription_user" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4607,6 +5040,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unlock"
+          }
+        }
+      }
+    },
+    "update_api_token_now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update API key now"
+          }
+        }
+      }
+    },
+    "update_api_token_now_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the API token that the addy.io app authenticates with. The instance cannot be changed"
           }
         }
       }
@@ -4792,6 +5247,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "View details"
+          }
+        }
+      }
+    },
+    "view_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View failed deliveries"
+          }
+        }
+      }
+    },
+    "view_failed_deliveries_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open an overview of recent failed deliveries"
           }
         }
       }

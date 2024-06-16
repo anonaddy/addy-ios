@@ -11,6 +11,7 @@ import addy_shared
 struct FailedDeliveriesView: View {
     @StateObject var failedDeliveriesViewModel = FailedDeliveriesViewModel()
     @Binding var isShowingFailedDeliveriesView: Bool
+    @State var navigationBarTitleDisplayMode: NavigationBarItem.TitleDisplayMode = .automatic
     
     enum ActiveAlert {
         case error, deleteFailedDelivery
@@ -170,6 +171,7 @@ struct FailedDeliveriesView: View {
                     
                 }
             })
+            .navigationBarTitleDisplayMode(navigationBarTitleDisplayMode)
             .navigationTitle(String(localized: "failed_deliveries"))
             .navigationBarItems(leading: Button(action: {
                 self.isShowingFailedDeliveriesView = false
@@ -185,7 +187,6 @@ struct FailedDeliveriesView: View {
                     
                 }
             }
-            
         })
         
     }

@@ -88,7 +88,7 @@ struct EditAliasRecipientsBottomSheet: View {
         }.navigationTitle(String(localized: "edit_recipients")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
                     } label: {

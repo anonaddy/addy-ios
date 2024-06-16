@@ -231,6 +231,7 @@ struct AppSettingsView_Previews: PreviewProvider {
         @State var isShowingAppSettingsView = false
         
         AppSettingsView(isShowingAppSettingsView: $isShowingAppSettingsView)
+            .environmentObject(MainViewState.shared)
         
     }
 }

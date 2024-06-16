@@ -118,7 +118,7 @@ struct ActionBottomSheet: View {
         }.navigationTitle(String(localized: "add_action")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
                     } label: {

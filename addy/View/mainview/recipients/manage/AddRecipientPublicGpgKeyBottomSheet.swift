@@ -78,7 +78,7 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
             }.navigationTitle(String(localized: "add_public_gpg_key")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
                     } label: {

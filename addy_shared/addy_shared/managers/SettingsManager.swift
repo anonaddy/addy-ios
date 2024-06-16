@@ -134,7 +134,8 @@ public class SettingsManager {
     public func getSettingsInt(key: Prefs, default: Int = 0) -> Int {
         let userKey = "\(user)_\(key)"
         if useKeychain {
-            return Int(keychain.get(userKey)!) ?? `default`
+            let test = keychain.get(userKey)
+            return Int(keychain.get(userKey) ?? String(`default`)) ?? `default`
         } else {
             if let value = prefs?.object(forKey: userKey) as? Int {
                 return value

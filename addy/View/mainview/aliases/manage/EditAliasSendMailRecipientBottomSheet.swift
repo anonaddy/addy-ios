@@ -56,7 +56,7 @@ struct EditAliasSendMailRecipientBottomSheet: View {
         }.navigationTitle(String(localized: "send_mail")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
                     } label: {

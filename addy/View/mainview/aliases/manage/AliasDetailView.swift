@@ -17,7 +17,8 @@ struct AliasDetailView: View {
     }
     
     let aliasId: String
-    let aliasEmail: String
+    @State var aliasEmail: String
+    @State var shouldDisableAlias: Bool = false
         
     @Binding var shouldReloadDataInParent: Bool
 
@@ -47,10 +48,11 @@ struct AliasDetailView: View {
     
     @State private var chartData: [Double] = [0,0,0,0]
     
-    init(aliasId: String, aliasEmail: String, shouldReloadDataInParent: Binding<Bool>) {
+    init(aliasId: String, aliasEmail: String?, shouldReloadDataInParent: Binding<Bool>? = nil, shouldDisableAlias: Bool = false) {
         self.aliasId = aliasId
-        self.aliasEmail = aliasEmail
-        _shouldReloadDataInParent = shouldReloadDataInParent
+        self.aliasEmail = aliasEmail ?? ""
+        self.shouldDisableAlias = shouldDisableAlias
+        _shouldReloadDataInParent = shouldReloadDataInParent ?? .constant(false)
 
     }
     
@@ -213,12 +215,11 @@ struct AliasDetailView: View {
                                 if (AliasWatcher().getAliasesToWatch().contains(aliasId)){
                                     AliasWatcher().removeAliasToWatch(alias: aliasId)
                                 } else {
-                                    if (AliasWatcher().addAliasToWatch(alias: aliasId)) {
-                                        
-                                    } else {
+                                    if (!AliasWatcher().addAliasToWatch(alias: aliasId)) {
                                         // Could not add to watchlist (watchlist reached max?)
                                         activeAlert = .reachedMaxAliases
                                         showAlert = true
+                                        isAliasBeingWatched = false
                                     }
                                 }
                             }
@@ -290,7 +291,21 @@ struct AliasDetailView: View {
                     
                 }
                 
-            }.disabled(isDeletingAlias || isRestoringAlias || isForgettingAlias)
+            }
+            .onAppear(perform: {
+                if shouldDisableAlias {
+                    
+                    if alias.active {
+                        self.isSwitchingAliasActiveState = true
+                        
+                        DispatchQueue.global(qos: .background).async {
+                            self.deactivateAlias(alias: alias)
+                        }
+                    }
+                    self.shouldDisableAlias = false
+                }
+            })
+            .disabled(isDeletingAlias || isRestoringAlias || isForgettingAlias)
             .navigationTitle(self.aliasEmail)
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isPresentingEditAliasDescriptionBottomSheet) {
@@ -628,6 +643,7 @@ struct AliasDetailView: View {
                 if let alias = alias {
                     withAnimation {
                         self.alias = alias
+                        self.aliasEmail = alias.email
                         self.updateUi(alias: alias)
                     }
                     

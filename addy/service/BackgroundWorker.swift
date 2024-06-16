@@ -114,7 +114,7 @@ class BackgroundWorker: Operation {
                                     if previousNotificationLeftDays != currentLeftDays {
                                         encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheApiKeyExpiryLeftCount, int: currentLeftDays)
                                         
-                                        NotificationHelper().createApiTokenExpiryNotification(daysLeft: expiresAt)
+                                        NotificationHelper().createApiTokenExpiryNotification(daysLeft: expiryDate.futureDateDisplay())
                                     }
                                     
                                 } else {
@@ -186,7 +186,7 @@ class BackgroundWorker: Operation {
                                     
                                     if previousNotificationLeftDays != currentLeftDays {
                                         encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheSubscriptionExpiryLeftCount, int: currentLeftDays)
-                                        NotificationHelper().createSubscriptionExpiryNotification(createSubscriptionExpiryNotification: subscriptionEndsAt)
+                                        NotificationHelper().createSubscriptionExpiryNotification(daysLeft: expiryDate.futureDateDisplay())
                                     }
                                 } else {
                                     // The current date is not yet after the deadline date.
@@ -241,7 +241,7 @@ class BackgroundWorker: Operation {
                     semaphore.wait()
 
                     let currentFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
-                    let previousFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheWatchAliasDataPrevious)
+                    let previousFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCountPrevious)
                     // If the current failed delivery count is bigger than the previous list. That means there are new failed deliveries
                     if currentFailedDeliveries > previousFailedDeliveries {
                         NotificationHelper().createFailedDeliveryNotification(difference: currentFailedDeliveries - previousFailedDeliveries)
@@ -252,7 +252,7 @@ class BackgroundWorker: Operation {
                 }
 
                 // If the aliasNetwork call was successful, perform the check
-               if (aliasNetworkCallResult) {
+               if (aliasWatcherNetworkCallResult) {
                    // Now the data has been updated, perform the AliasWatcher check
                    AliasWatcher().watchAliasesForDifferences()
                }
@@ -261,7 +261,7 @@ class BackgroundWorker: Operation {
                 WidgetCenter.shared.reloadAllTimelines()
             }
             
-            
+             
         } else {
             backgroundWorkerHelper.cancelScheduledBackgroundWorker()
         }

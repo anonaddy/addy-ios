@@ -25,7 +25,7 @@ struct LogViewerView: View {
                                 HStack {
                                     Capsule()
                                         .frame(maxWidth: 8, maxHeight: .infinity)
-                                        .foregroundStyle(Color.red).padding(.vertical).padding(.trailing, 4)
+                                        .foregroundStyle(self.getImportanceColor(importance: logEntry.importance)).padding(.vertical).padding(.trailing, 4)
                                     VStack(alignment: .leading){
                                         Text(logEntry.dateTime).fontWeight(.medium).padding(.bottom, 4)
                                         Text(logEntry.message)
@@ -109,6 +109,18 @@ struct LogViewerView: View {
                 }
             }
         })
+    }
+    
+    private func getImportanceColor(importance: LogImportance) -> Color {
+        
+        switch (importance) {
+        case .critical:
+            return Color.red
+        case .warning:
+            return Color.orange
+        case .info:
+            return Color.green
+        }
     }
 }
 

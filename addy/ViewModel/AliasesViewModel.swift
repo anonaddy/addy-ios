@@ -46,6 +46,7 @@ class AliasesViewModel: ObservableObject{
         // since SwiftUI uses @published so its a publisher.
         // so we dont need to explicitly define publisher..
         searchCancellable = $searchQuery
+            .dropFirst()
             .removeDuplicates()
             .debounce(for: 1.0, scheduler: RunLoop.main)
             .sink(receiveValue: {str in

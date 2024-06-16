@@ -83,7 +83,7 @@ struct AddRecipientBottomSheet: View {
             }.navigationTitle(String(localized: "add_recipient")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
-                    ToolbarItem(placement: .topBarLeading) {
+                    ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             dismiss()
                         } label: {

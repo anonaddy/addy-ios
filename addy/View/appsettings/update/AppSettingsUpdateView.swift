@@ -39,6 +39,7 @@ struct AppSettingsUpdateView: View {
                 }
                 .onChange(of: notifyUpdates) {
                     MainViewState.shared.settingsManager.putSettingsBool(key: .notifyUpdates, boolean: notifyUpdates)
+                    BackgroundWorkerHelper().scheduleBackgroundWorker()
                 }
                 
             } header: {

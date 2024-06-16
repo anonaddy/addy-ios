@@ -19,7 +19,11 @@
 		804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */; };
 		804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A72BE95B49001DDC8A /* AddyButton.swift */; };
 		804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */; };
+		805A74532C1F5C1600C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805A74522C1F5C1500C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift */; };
+		805A74552C1F5FC200C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805A74542C1F5FC100C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift */; };
 		805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */; };
+		805D66A02C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D669F2C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift */; };
+		805D66A32C1F4C870085CCED /* PrettyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D66A22C1F4C860085CCED /* PrettyTime.swift */; };
 		8062CFE02C1487B600EFFB4C /* ActionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8062CFDF2C1487B600EFFB4C /* ActionBottomSheet.swift */; };
 		8062CFE22C149DCA00EFFB4C /* ConditionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8062CFE12C149DCA00EFFB4C /* ConditionBottomSheet.swift */; };
 		80676D652C18CD64008FC147 /* LogViewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80676D642C18CD64008FC147 /* LogViewerView.swift */; };
@@ -51,6 +55,7 @@
 		80813B6E2C0DF23B009C4E6A /* FailedDeliveriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B6D2C0DF23B009C4E6A /* FailedDeliveriesView.swift */; };
 		80813B712C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */; };
 		80813B752C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */; };
+		809AB1C82C1F10FE0054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809AB1C72C1F10F80054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift */; };
 		80A0F9D42C1E0429003EE397 /* NotificationActionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A0F9D32C1E0422003EE397 /* NotificationActionHelper.swift */; };
 		80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2042BECD840001A984B /* AliasesViewModel.swift */; };
 		80A7F2072BECFA5B001A984B /* AliasRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2062BECFA5B001A984B /* AliasRowView.swift */; };
@@ -185,7 +190,11 @@
 		804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupOnboarding.swift; sourceTree = "<group>"; };
 		804BE7A72BE95B49001DDC8A /* AddyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButton.swift; sourceTree = "<group>"; };
 		804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButtonStyle.swift; sourceTree = "<group>"; };
+		805A74522C1F5C1500C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyDomainErrorView.swift; sourceTree = "<group>"; };
+		805A74542C1F5FC100C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifySubscriptionExpiryView.swift; sourceTree = "<group>"; };
 		805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBottomSheet.swift; sourceTree = "<group>"; };
+		805D669F2C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyApiTokenExpiryView.swift; sourceTree = "<group>"; };
+		805D66A22C1F4C860085CCED /* PrettyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrettyTime.swift; sourceTree = "<group>"; };
 		8062CFDF2C1487B600EFFB4C /* ActionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBottomSheet.swift; sourceTree = "<group>"; };
 		8062CFE12C149DCA00EFFB4C /* ConditionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionBottomSheet.swift; sourceTree = "<group>"; };
 		80676D642C18CD64008FC147 /* LogViewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewerView.swift; sourceTree = "<group>"; };
@@ -217,6 +226,7 @@
 		80813B6D2C0DF23B009C4E6A /* FailedDeliveriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveriesView.swift; sourceTree = "<group>"; };
 		80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveriesViewModel.swift; sourceTree = "<group>"; };
 		80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveryBottomSheet.swift; sourceTree = "<group>"; };
+		809AB1C72C1F10F80054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyFailedDeliveriesView.swift; sourceTree = "<group>"; };
 		80A0F9D32C1E0422003EE397 /* NotificationActionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationActionHelper.swift; sourceTree = "<group>"; };
 		80A7F2042BECD840001A984B /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
 		80A7F2062BECFA5B001A984B /* AliasRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasRowView.swift; sourceTree = "<group>"; };
@@ -392,6 +402,14 @@
 			path = AddyButton;
 			sourceTree = "<group>";
 		};
+		805D66A12C1F4C810085CCED /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				805D66A22C1F4C860085CCED /* PrettyTime.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		80676D632C18CD44008FC147 /* logs */ = {
 			isa = PBXGroup;
 			children = (
@@ -411,8 +429,12 @@
 		806AE69D2C1A1A1600F3CA92 /* features */ = {
 			isa = PBXGroup;
 			children = (
+				805A74542C1F5FC100C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift */,
+				805A74522C1F5C1500C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift */,
+				809AB1C72C1F10F80054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift */,
 				806AE69E2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift */,
 				806AE6A02C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift */,
+				805D669F2C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift */,
 			);
 			path = features;
 			sourceTree = "<group>";
@@ -477,6 +499,7 @@
 		806F21312BE8F1B100EBEBC8 /* addy */ = {
 			isa = PBXGroup;
 			children = (
+				805D66A12C1F4C810085CCED /* extensions */,
 				80ECA1022C1DADAF00788D75 /* App lifecycle */,
 				80AC67092BFB5DAC004D227D /* utils */,
 				80DCF3A82BF12DEA0022690F /* notification */,
@@ -1070,6 +1093,7 @@
 				80813B6C2C0DE288009C4E6A /* AddDomainBottomSheet.swift in Sources */,
 				80E9B22C2C0B238900C7EF99 /* UsernamesDetailView.swift in Sources */,
 				80F22F982BEE34EE001176B4 /* ChartGridShape.swift in Sources */,
+				805D66A02C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift in Sources */,
 				80F3C6642BFB6E6D0028A486 /* AddAliasBottomSheet.swift in Sources */,
 				80F22F992BEE34EE001176B4 /* ChartLabel.swift in Sources */,
 				80DCF3AA2BF12DF00022690F /* NotificationHelper.swift in Sources */,
@@ -1101,6 +1125,7 @@
 				80F22FAE2BEE34EE001176B4 /* PieChartHelpers.swift in Sources */,
 				80813B682C0DE234009C4E6A /* EditDomainFromNameBottomSheet.swift in Sources */,
 				80ECA1012C1DA00100788D75 /* BackgroundWorkerHelper.swift in Sources */,
+				805A74552C1F5FC200C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift in Sources */,
 				80F22F9B2BEE34EE001176B4 /* ColorGradient.swift in Sources */,
 				80DCF3AC2BF12E760022690F /* BackgroundWorker.swift in Sources */,
 				807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */,
@@ -1117,6 +1142,7 @@
 				80F22F922BEE34EE001176B4 /* Shape+Extension.swift in Sources */,
 				80D306022C079DF800C801EE /* ProfileBottomSheet.swift in Sources */,
 				80E194632BF8A9BB005175EA /* EditAliasRecipientsBottomSheet.swift in Sources */,
+				809AB1C82C1F10FE0054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift in Sources */,
 				80F22F9A2BEE34EE001176B4 /* ChartStyle.swift in Sources */,
 				80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */,
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
@@ -1145,6 +1171,7 @@
 				80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */,
 				80E194652BF8AE0C005175EA /* AddyMultiSelectChipView.swift in Sources */,
 				80F22FAF2BEE34EE001176B4 /* PieChartRow.swift in Sources */,
+				805A74532C1F5C1600C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift in Sources */,
 				80F22FA22BEE34EE001176B4 /* LineChartProperties.swift in Sources */,
 				80F22FB02BEE34EE001176B4 /* Ring.swift in Sources */,
 				80477DDE2C12225D00E52AF8 /* RulesView.swift in Sources */,
@@ -1161,6 +1188,7 @@
 				805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */,
 				80F22F8F2BEE34EE001176B4 /* Color+Extension.swift in Sources */,
 				80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */,
+				805D66A32C1F4C870085CCED /* PrettyTime.swift in Sources */,
 				80813B642C0DE1FF009C4E6A /* DomainsDetailView.swift in Sources */,
 				8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */,
 				80E9B22D2C0B238900C7EF99 /* AddUsernameBottomSheet.swift in Sources */,

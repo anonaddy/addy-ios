@@ -20,6 +20,10 @@ class MainViewState: ObservableObject {
     // MARK: END NOTIFICATION ACTIONS
     
     @Published var isShowingAppSettingsView = false
+    @Published var isShowingAliasDetailView = false
+    @Published var isShowingFailedDeliveriesView = false
+    @Published var isShowingDomainsView = false
+    @Published var showApiExpirationWarning = false
     @Published var isUnlocked = false
 
     @Published var encryptedSettingsManager = SettingsManager(encrypted: true)
@@ -84,17 +88,18 @@ struct MainView: View {
     @EnvironmentObject var mainViewState: MainViewState
     @Environment(\.scenePhase) var scenePhase
     
+    @State private var apiTokenExpiryText = ""
+    
     @State private var isPresentingProfileBottomSheet = false
     @State private var isPresentingChangelogBottomSheet = false
-    @State private var isShowingFailedDeliveriesView = false
     @State private var isShowingUsernamesView = false
-    @State private var isShowingDomainsView = false
     @State private var isShowingRulesView = false
     @State private var navigationPath = NavigationPath()
     @State private var selectedMenuItem: Destination? = .home
     @State private var selectedTab: Destination = .home
     @State private var showBiometricsNotAvailableAlert = false
-    
+    @State var isShowingAddApiBottomSheet: Bool = false
+
     
     var body: some View {
         
@@ -119,6 +124,17 @@ struct MainView: View {
                             
                             SettingsManager(encrypted: false).putSettingsInt(key: .versionCode, int: currentVersionCode)
                         })
+                        .alert(isPresented: $mainViewState.showApiExpirationWarning){
+                            Alert(title: Text(String(localized: "api_token_about_to_expire")), message: Text(apiTokenExpiryText.isEmpty ? String(localized: "api_token_about_to_expire_desc_unknown_expiry_date") : String(format: String(localized:"api_token_about_to_expire_desc"), apiTokenExpiryText)), primaryButton: .default(Text(String(localized: "api_token_about_to_expire_option_1"))){
+                                isShowingAddApiBottomSheet = true
+                            }, secondaryButton: .cancel(Text(String(localized: "dismiss"))))
+                        }
+                        .sheet(isPresented: $isShowingAddApiBottomSheet) {
+                            let baseUrl = MainViewState.shared.encryptedSettingsManager.getSettingsString(key: .baseUrl)
+                            NavigationStack {
+                                AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:baseUrl:))
+                            }
+                        }
                         .sheet(isPresented: $isPresentingProfileBottomSheet) {
                             NavigationStack {
                                 ProfileBottomSheet(onNavigate: { destination in
@@ -133,7 +149,7 @@ struct MainView: View {
                                                 isShowingUsernamesView = true}
                                         } else if destination == .domains {
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                isShowingDomainsView = true}
+                                                mainViewState.isShowingDomainsView = true}
                                         }else if destination == .rules {
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                                 isShowingRulesView = true}
@@ -152,14 +168,53 @@ struct MainView: View {
                         })
                         .fullScreenCover(isPresented: $isShowingUsernamesView) {
                             AnyView(UsernamesView(isShowingUsernamesView: $isShowingUsernamesView))
-                        }.fullScreenCover(isPresented: $isShowingDomainsView) {
-                            AnyView(DomainsView(isShowingDomainsView: $isShowingDomainsView))
-                        }.fullScreenCover(isPresented: $isShowingFailedDeliveriesView) {
-                            AnyView(FailedDeliveriesView(isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView))
+                        }.fullScreenCover(isPresented: $mainViewState.isShowingDomainsView) {
+                            AnyView(DomainsView(isShowingDomainsView: $mainViewState.isShowingDomainsView))
+                        }.fullScreenCover(isPresented: $mainViewState.isShowingFailedDeliveriesView) {
+                            AnyView(FailedDeliveriesView(isShowingFailedDeliveriesView: $mainViewState.isShowingFailedDeliveriesView))
                         }.fullScreenCover(isPresented: $isShowingRulesView) {
                             AnyView(RulesView(isShowingRulesView: $isShowingRulesView))
                         }.fullScreenCover(isPresented: $mainViewState.isShowingAppSettingsView) {
                             AnyView(AppSettingsView(isShowingAppSettingsView: $mainViewState.isShowingAppSettingsView))
+                        }.sheet(isPresented: $mainViewState.isShowingAliasDetailView, content: {
+                            // USED FOR ALIAS INTENT ACTIONS (DISABLING, VIEWING ALIASES)
+                            // THIS MAKES SURE IT WILL ALWAYS APPEAR FOR THE USER
+                            if let aliasToDisable = mainViewState.aliasToDisable {
+                                NavigationStack(){
+                                    AliasDetailView(aliasId: aliasToDisable, aliasEmail: nil, shouldReloadDataInParent: nil, shouldDisableAlias: true)
+                                        .environmentObject(mainViewState)
+                                        .toolbar(content: {
+                                            ToolbarItem() {
+                                                Button {
+                                                    mainViewState.isShowingAliasDetailView = false
+                                                } label: {
+                                                    Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                                                }
+                                                
+                                            }
+                                        })
+                                }
+                            } else if let showAliasWithId = mainViewState.showAliasWithId {
+                                NavigationStack(){
+                                    AliasDetailView(aliasId: showAliasWithId, aliasEmail: nil, shouldReloadDataInParent: nil)
+                                        .environmentObject(mainViewState)
+                                        .toolbar(content: {
+                                            ToolbarItem() {
+                                                Button {
+                                                    mainViewState.isShowingAliasDetailView = false
+                                                } label: {
+                                                    Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                                                }
+                                                
+                                            }
+                                        })
+                                }
+                            }
+
+                        })
+                        .task {
+                            // Upon launching the app, always check for token expiry
+                                checkTokenExpiry()
                         }
                 }
             }
@@ -170,10 +225,9 @@ struct MainView: View {
                     if mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled){
                         self.mainViewState.isUnlocked = false
                     }
-                    
                 }
                 else if newPhase == .active {
-                    // User closed the app to background, lock the app (only if neccessary of course)
+                    // User opened the app from background
                     if mainViewState.aliasToDisable != nil{
                         self.selectedTab = .aliases
                     }
@@ -224,6 +278,37 @@ struct MainView: View {
         
     }
     
+    private func checkTokenExpiry(){
+        NetworkHelper().getApiTokenDetails { (apiTokenDetails, error) in
+            if let expiresAt = apiTokenDetails?.expires_at {
+                do {
+                    let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(expiresAt) // Get the expiry date
+                    let currentDateTime = Date() // Get the current date
+                    let deadLineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate) // Subtract 5 days from the expiry date
+                    if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
+                        // The current date is suddenly after the deadline date. It will expire within 5 days
+                        // Show the api is about to expire alert
+                        
+                        DispatchQueue.main.async {
+                            apiTokenExpiryText = expiryDate.futureDateDisplay()
+                            mainViewState.showApiExpirationWarning = true
+                        }
+                    } else {
+                        // The current date is not yet after the deadline date.
+                    }
+                } catch {
+                    // Panic
+                    LoggingHelper().addLog(
+                        importance: LogImportance.critical,
+                        error: "Could not parse expiresAt",
+                        method: "checkTokenExpiry",
+                        extra: error.localizedDescription)
+                }
+                
+            }
+            // If expires_at is null it will never expire
+        }
+    }
     
     func authenticate() {
         let context = LAContext()
@@ -248,6 +333,12 @@ struct MainView: View {
         }
     }
     
+    
+    private func addKey(apiKey: String, baseUrl: String) {
+        mainViewState.encryptedSettingsManager.putSettingsString(key: .apiKey, string: apiKey)
+        isShowingAddApiBottomSheet = false
+    }
+    
     private var deviceSpecificLayout: some View {
         Group {
             if UIDevice.current.userInterfaceIdiom == .pad {
@@ -269,8 +360,8 @@ struct MainView: View {
     private var iPhoneLayout: some View {
         TabView(selection: $selectedTab) {
             ForEach(Destination.iPhoneCases, id: \.self) { destination in
-                destination.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $isShowingDomainsView,
-                                 isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $mainViewState.isShowingAppSettingsView)
+                destination.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $mainViewState.isShowingDomainsView,
+                                 isShowingFailedDeliveriesView: $mainViewState.isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $mainViewState.isShowingAppSettingsView)
                 .tag(destination)
                 .tabItem {
                     Label(destination.title, systemImage: destination.systemImage)
@@ -293,8 +384,8 @@ struct MainView: View {
     private var navigationStack: some View {
         NavigationStack(path: $navigationPath) {
             if let selectedItem = selectedMenuItem {
-                selectedItem.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $isShowingDomainsView,
-                                  isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $mainViewState.isShowingAppSettingsView)
+                selectedItem.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $mainViewState.isShowingDomainsView,
+                                  isShowingFailedDeliveriesView: $mainViewState.isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $mainViewState.isShowingAppSettingsView)
             } else {
                 Text(String(localized: "select_menu_item"))
             }

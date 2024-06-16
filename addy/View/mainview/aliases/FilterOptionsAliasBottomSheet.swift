@@ -138,7 +138,7 @@ struct FilterOptionsAliasBottomSheet: View {
         }.navigationTitle(String(localized: "filtering_and_sorting")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
                     } label: {

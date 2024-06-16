@@ -399,9 +399,10 @@ struct AliasesView: View {
 
             if let aliasList = aliasesViewModel.aliasList{
                 if (aliasList.data.isEmpty) {
-                    aliasesViewModel.getAliases(forceReload: true)
-                    
+                    aliasesViewModel.getAliases(forceReload: true) 
                 }
+            } else {
+                aliasesViewModel.getAliases(forceReload: true)
             }
         })
         

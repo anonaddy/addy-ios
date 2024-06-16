@@ -142,7 +142,7 @@ struct AddApiBottomSheet: View {
         }.navigationTitle(String(localized: "APIKey")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
                     } label: {
@@ -151,29 +151,7 @@ struct AddApiBottomSheet: View {
                     
                 }
                 
-                ToolbarItem(placement: .topBarTrailing) {
-                    
-                    Menu(content: {
-                        Button(String(localized: "get_my_key")) {
-                            openURL(URL(string: "\(instance)/settings/api")!)
-                        }
-                    }, label: {
-                        Label(String(localized: "menu"), systemImage: "ellipsis.circle")
-                    })
-                    
-                }
-                
-            }).toolbar(content: {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text(String(localized: "cancel"))
-                    }
-                    
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
                     
                     Menu(content: {
                         Button(String(localized: "get_my_key")) {

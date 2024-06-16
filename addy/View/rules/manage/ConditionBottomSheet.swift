@@ -96,7 +96,7 @@ struct ConditionBottomSheet: View {
         }.navigationTitle(String(localized: "add_condition")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
                     } label: {

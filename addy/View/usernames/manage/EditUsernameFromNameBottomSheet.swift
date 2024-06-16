@@ -84,7 +84,7 @@ struct EditUsernameFromNameBottomSheet: View {
             }.navigationTitle(String(localized: "edit_from_name")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
-                    ToolbarItem(placement: .topBarLeading) {
+                    ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             dismiss()
                         } label: {
