@@ -12,7 +12,6 @@ import addy_shared
 struct RulesView: View {
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject var rulesViewModel = RulesViewModel()
-    @Binding var isShowingRulesView: Bool
     
     enum ActiveAlert {
         case error, deleteRule
@@ -26,15 +25,45 @@ struct RulesView: View {
     // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
     @State private var rule_count: Int = 0
     @State private var rule_limit: Int? = 0
-        
+    
     @State private var shouldReloadDataInParent = false
     
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     
+    @Binding var horizontalSize: UserInterfaceSizeClass
     
     var body: some View {
-        NavigationStack(){
+        
+        // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
+        Group() {
+            if horizontalSize == .regular {
+                NavigationStack(){
+                    rulesViewBody
+                }
+            } else {
+                rulesViewBody
+            }
+        }
+        
+        .onAppear(perform: {
+            // Set stats, update later
+            rule_count = mainViewState.userResource!.active_rule_count
+            rule_limit = mainViewState.userResource!.active_rule_limit
+            
+            if let rules = rulesViewModel.rules{
+                if (rules.data.isEmpty) {
+                    rulesViewModel.getRules()
+                    
+                }
+            }
+            DispatchQueue.global(qos: .background).async {
+                getUserResource()
+            }
+        })
+    }
+    
+    private var rulesViewBody: some View {
             List {
                 if let rules = rulesViewModel.rules{
                     Section {
@@ -45,7 +74,7 @@ struct RulesView: View {
                                     
                                     HStack {
                                         Image(systemName: "line.horizontal.3").opacity(0.8).padding(.trailing)
-
+                                        
                                         VStack(alignment: .leading) {
                                             
                                             if (rule.active) {
@@ -61,23 +90,23 @@ struct RulesView: View {
                                                     .opacity(0.5)
                                             }
                                             
-                                           
+                                            
                                             
                                             if (rule.active) {
                                                 Text(getRuleDescription(rule: rule))
-                                                        .font(.caption)
-                                                        .opacity(0.625)
-                                                        .lineLimit(1)
-                                                        .truncationMode(.middle)
+                                                    .font(.caption)
+                                                    .opacity(0.625)
+                                                    .lineLimit(1)
+                                                    .truncationMode(.middle)
                                             } else {
                                                 Text(String(localized: "rule_disabled"))
-                                                        .font(.caption)
-                                                        .opacity(0.312)
-                                                        .lineLimit(1)
-                                                        .truncationMode(.middle)
+                                                    .font(.caption)
+                                                    .opacity(0.312)
+                                                    .lineLimit(1)
+                                                    .truncationMode(.middle)
                                             }
                                             
-                                           
+                                            
                                             
                                             
                                         }
@@ -86,8 +115,10 @@ struct RulesView: View {
                                 }
                                 .onChange(of: shouldReloadDataInParent) {
                                     if shouldReloadDataInParent {
-                                        rulesViewModel.getRules()
-                                        getUserResource()
+                                        DispatchQueue.global(qos: .background).async {
+                                            rulesViewModel.getRules()
+                                            getUserResource()
+                                        }
                                         self.shouldReloadDataInParent = false
                                     }
                                 }
@@ -111,18 +142,16 @@ struct RulesView: View {
                                         }
                                         .tint(.indigo)
                                     }
-                                                           
-                                                        }
-                            
-                            
+                                    
+                                }
                             
                         }.onMove(perform: moveRule)
-                        .onDelete(perform: deleteRule)
-
-                    }header: {
+                        .onDelete(perform: deleteRule) // TODO: This is not allowed, no async. Move to async, you won't have these queues anymore
+                        
+                    } header: {
                         HStack(spacing: 6){
                             Text(String(localized: "all_rules"))
-
+                            
                             
                             if (rulesViewModel.isLoading){
                                 ProgressView()
@@ -173,7 +202,7 @@ struct RulesView: View {
                 
                 // If there is an rules (aka, if the list is visible)
                 if let rules = rulesViewModel.rules{
-
+                    
                     if rules.data.isEmpty {
                         ContentUnavailableView {
                             Label(String(localized: "no_rules"), systemImage: "checklist")
@@ -195,8 +224,10 @@ struct RulesView: View {
                             Text(rulesViewModel.networkError)
                         } actions: {
                             Button(String(localized: "try_again")) {
-                                rulesViewModel.getRules()
-                                getUserResource()
+                                DispatchQueue.global(qos: .background).async {
+                                    rulesViewModel.getRules()
+                                    getUserResource()
+                                }
                             }
                         }
                     } else {
@@ -218,47 +249,28 @@ struct RulesView: View {
                 }
             })
             .navigationTitle(String(localized: "rules"))
-            .navigationBarItems(leading: Button(action: {
-                    self.isShowingRulesView = false
-            }) {
-                if UIDevice.current.userInterfaceIdiom != .pad {
-                    Text(String(localized: "close"))
+            .navigationBarTitleDisplayMode(horizontalSize == .regular ? .large : .inline)
+            .toolbar {
+                if horizontalSize == .regular {
+                    ProfilePicture().environmentObject(mainViewState)
                 }
-            }, trailing: NavigationLink(destination: CreateRulesView(ruleId: nil, ruleName: "", shouldReloadDataInParent: $shouldReloadDataInParent)) {
+            }
+            .navigationBarItems(trailing: NavigationLink(destination: CreateRulesView(ruleId: nil, ruleName: "", shouldReloadDataInParent: $shouldReloadDataInParent)) {
                 
                 Image(systemName: "plus")
-                    .resizable()
-                    .padding(6)
                     .frame(width: 24, height: 24)
-                    .background(Color.accentColor)
-                    .clipShape(Circle())
-                    .foregroundColor(.white)
                 // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
                     .disabled(mainViewState.userResource!.subscription != nil &&
                               rule_count >= rule_limit! /* Cannot be nil since subscription is not nil */ )
             })
-        }.onAppear(perform: {
-            // Set stats, update later
-            rule_count = mainViewState.userResource!.active_rule_count
-            rule_limit = mainViewState.userResource!.active_rule_limit
-            
-            if let rules = rulesViewModel.rules{
-                if (rules.data.isEmpty) {
-                    rulesViewModel.getRules()
-                    
-                }
-            }
-            getUserResource()
-        })
-        
     }
     
     private func getRuleDescription(rule: Rules) -> String{
         let descConditions = "\(rule.conditions[0].type) \(rule.conditions[0].match) \(rule.conditions[0].values[0])"
         let descActions = "\(rule.actions[0].type) \(rule.actions[0].value)"
-
+        
         return String(format: NSLocalizedString("manage_rules_list_desc", comment: ""), descConditions, descActions)
-
+        
     }
     
     
@@ -267,8 +279,10 @@ struct RulesView: View {
         networkHelper.deleteRule(completion: { result in
             DispatchQueue.main.async {
                 if result == "204" {
-                    rulesViewModel.getRules()
-                    getUserResource()
+                    DispatchQueue.global(qos: .background).async {
+                        rulesViewModel.getRules()
+                        getUserResource()
+                    }
                 } else {
                     activeAlert = .error
                     showAlert = true
@@ -366,18 +380,18 @@ struct RulesView: View {
     private func getUserResource() {
         let networkHelper = NetworkHelper()
         networkHelper.getUserResource { userResource, error in
-                DispatchQueue.main.async {
-                    if let userResource = userResource {
-                        // Don't update mainView, this will refresh the entire view hiearchy
-                        rule_limit = userResource.active_rule_limit
-                        rule_count = userResource.active_rule_count
-                    } else {
-                        activeAlert = .error
-                        showAlert = true
-                    }
+            DispatchQueue.main.async {
+                if let userResource = userResource {
+                    // Don't update mainView, this will refresh the entire view hiearchy
+                    rule_limit = userResource.active_rule_limit
+                    rule_count = userResource.active_rule_count
+                } else {
+                    activeAlert = .error
+                    showAlert = true
                 }
             }
         }
+    }
     
 }
 

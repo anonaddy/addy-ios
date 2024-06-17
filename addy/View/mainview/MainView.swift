@@ -19,10 +19,10 @@ class MainViewState: ObservableObject {
     @Published var showAliasWithId: String? = nil
     // MARK: END NOTIFICATION ACTIONS
     
-    @Published var isShowingAppSettingsView = false
-    @Published var isShowingAliasDetailView = false
-    @Published var isShowingFailedDeliveriesView = false
-    @Published var isShowingDomainsView = false
+    @Published var isPresentingProfileBottomSheet = false
+
+    @Published var selectedTab: Destination = .home
+
     @Published var showApiExpirationWarning = false
     @Published var isUnlocked = false
 
@@ -90,18 +90,23 @@ struct MainView: View {
     
     @State private var apiTokenExpiryText = ""
     
-    @State private var isPresentingProfileBottomSheet = false
+    @State var isShowingAppSettingsView = false
+    @State var isShowingFailedDeliveriesView = false
+    @State var isShowingDomainsView = false
     @State private var isPresentingChangelogBottomSheet = false
     @State private var isShowingUsernamesView = false
     @State private var isShowingRulesView = false
     @State private var navigationPath = NavigationPath()
-    @State private var selectedMenuItem: Destination? = .home
-    @State private var selectedTab: Destination = .home
     @State private var showBiometricsNotAvailableAlert = false
     @State var isShowingAddApiBottomSheet: Bool = false
+    @State var newFailedDeliveries : Int? = nil
+    @Environment(\.horizontalSizeClass) var horizontalSize
 
     
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         
         if !mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled) || mainViewState.isUnlocked {
             Group {
@@ -109,7 +114,7 @@ struct MainView: View {
                 if mainViewState.userResourceData == nil || mainViewState.userResourceExtendedData == nil {
                     SplashView()
                 } else {
-                    deviceSpecificLayout
+                    tabView
                         .onAppear(perform: {
                             
                             // Schedule background tasks
@@ -134,90 +139,32 @@ struct MainView: View {
                             NavigationStack {
                                 AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:baseUrl:))
                             }
+                            .presentationDetents([.large])
                         }
-                        .sheet(isPresented: $isPresentingProfileBottomSheet) {
+                        .sheet(isPresented: $mainViewState.isPresentingProfileBottomSheet) {
                             NavigationStack {
                                 ProfileBottomSheet(onNavigate: { destination in
-                                    isPresentingProfileBottomSheet = false
-                                    
-                                    if UIDevice.current.userInterfaceIdiom == .pad {
-                                        selectedMenuItem = destination
-                                        
-                                    } else {
-                                        if destination == .usernames {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                isShowingUsernamesView = true}
-                                        } else if destination == .domains {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                mainViewState.isShowingDomainsView = true}
-                                        }else if destination == .rules {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                isShowingRulesView = true}
-                                        }else if destination == .settings {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                mainViewState.isShowingAppSettingsView = true}
-                                        }
-                                    }
-                                }, isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet).environmentObject(mainViewState)
+                                    mainViewState.isPresentingProfileBottomSheet = false
+                                    mainViewState.selectedTab = destination
+                                }, isPresentingProfileBottomSheet: $mainViewState.isPresentingProfileBottomSheet, horizontalSize:  .constant(horizontalSize!))
+                                .environmentObject(mainViewState)
                             }
+                            .presentationDetents([.large])
                         }
                         .sheet(isPresented: $isPresentingChangelogBottomSheet, content: {
                             NavigationStack {
                                 ChangelogBottomSheet()
                             }
-                        })
-                        .fullScreenCover(isPresented: $isShowingUsernamesView) {
-                            AnyView(UsernamesView(isShowingUsernamesView: $isShowingUsernamesView))
-                        }.fullScreenCover(isPresented: $mainViewState.isShowingDomainsView) {
-                            AnyView(DomainsView(isShowingDomainsView: $mainViewState.isShowingDomainsView))
-                        }.fullScreenCover(isPresented: $mainViewState.isShowingFailedDeliveriesView) {
-                            AnyView(FailedDeliveriesView(isShowingFailedDeliveriesView: $mainViewState.isShowingFailedDeliveriesView))
-                        }.fullScreenCover(isPresented: $isShowingRulesView) {
-                            AnyView(RulesView(isShowingRulesView: $isShowingRulesView))
-                        }.fullScreenCover(isPresented: $mainViewState.isShowingAppSettingsView) {
-                            AnyView(AppSettingsView(isShowingAppSettingsView: $mainViewState.isShowingAppSettingsView))
-                        }.sheet(isPresented: $mainViewState.isShowingAliasDetailView, content: {
-                            // USED FOR ALIAS INTENT ACTIONS (DISABLING, VIEWING ALIASES)
-                            // THIS MAKES SURE IT WILL ALWAYS APPEAR FOR THE USER
-                            if let aliasToDisable = mainViewState.aliasToDisable {
-                                NavigationStack(){
-                                    AliasDetailView(aliasId: aliasToDisable, aliasEmail: nil, shouldReloadDataInParent: nil, shouldDisableAlias: true)
-                                        .environmentObject(mainViewState)
-                                        .toolbar(content: {
-                                            ToolbarItem() {
-                                                Button {
-                                                    mainViewState.isShowingAliasDetailView = false
-                                                } label: {
-                                                    Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
-                                                }
-                                                
-                                            }
-                                        })
-                                }
-                            } else if let showAliasWithId = mainViewState.showAliasWithId {
-                                NavigationStack(){
-                                    AliasDetailView(aliasId: showAliasWithId, aliasEmail: nil, shouldReloadDataInParent: nil)
-                                        .environmentObject(mainViewState)
-                                        .toolbar(content: {
-                                            ToolbarItem() {
-                                                Button {
-                                                    mainViewState.isShowingAliasDetailView = false
-                                                } label: {
-                                                    Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
-                                                }
-                                                
-                                            }
-                                        })
-                                }
-                            }
-
+                            .presentationDetents([.medium, .large])
                         })
                         .task {
                             // Upon launching the app, always check for token expiry
-                                checkTokenExpiry()
+                            checkTokenExpiry()
+                            checkForNewFailedDeliveries()
                         }
                 }
             }
+            // Makes sure the env obj is available to all the child views
             .environmentObject(mainViewState)
             .onChange(of: scenePhase) { oldPhase, newPhase in
                 if newPhase == .background {
@@ -229,7 +176,7 @@ struct MainView: View {
                 else if newPhase == .active {
                     // User opened the app from background
                     if mainViewState.aliasToDisable != nil{
-                        self.selectedTab = .aliases
+                        mainViewState.selectedTab = .aliases
                     }
                     
                 }
@@ -310,6 +257,30 @@ struct MainView: View {
         }
     }
     
+    /*
+        This method checks if there are new failed deliveries
+        It does this by getting the current failed delivery count, if that count is bigger than the failed deliveries in the cache that means there are new failed
+        deliveries.
+
+        As backgroundServiceCacheFailedDeliveriesCount is only updated in the service and in the FailedDeliveriesActivity that means that the red
+        indicator is only visible if:
+
+        - The activity has not been opened since there were new items.
+        - There are more failed deliveries than the server cached last time (in which case the user should have got a notification)
+         */
+    
+    //TODO: Refresh button to refresh this?
+        private func checkForNewFailedDeliveries(){
+            NetworkHelper().getFailedDeliveries { (result, _) in
+                let currentFailedDeliveries = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
+                if (result?.data.count ?? 0 - currentFailedDeliveries) > 0 {
+                    DispatchQueue.main.async {
+                        newFailedDeliveries = (result?.data.count ?? 0) - currentFailedDeliveries
+                    }
+                }
+            }
+    }
+    
     func authenticate() {
         let context = LAContext()
         var error: NSError?
@@ -339,61 +310,35 @@ struct MainView: View {
         isShowingAddApiBottomSheet = false
     }
     
-    private var deviceSpecificLayout: some View {
-        Group {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                iPadLayout
-            } else {
-                iPhoneLayout
-            }
-        }
-    }
     
-    private var iPadLayout: some View {
-        NavigationSplitView {
-            menuList
-        } detail: {
-            navigationStack
-        }
-    }
+    private var tabView: some View {
+        TabView(selection: $mainViewState.selectedTab) {
+            let destinations = horizontalSize == .regular ? Destination.allCases : Destination.iPhoneCases
     
-    private var iPhoneLayout: some View {
-        TabView(selection: $selectedTab) {
-            ForEach(Destination.iPhoneCases, id: \.self) { destination in
-                destination.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $mainViewState.isShowingDomainsView,
-                                 isShowingFailedDeliveriesView: $mainViewState.isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $mainViewState.isShowingAppSettingsView)
-                .tag(destination)
-                .tabItem {
-                    Label(destination.title, systemImage: destination.systemImage)
+            ForEach(destinations, id: \.self) { destination in
+                destination.view(horizontalSize: .constant(horizontalSize!))
+                        .tag(destination)
+                        .tabItem {
+                            Label(destination.title, systemImage: destination.systemImage)
+                        }
+                        .apply {
+                            // Apply the badge to the failed deliveries item
+                            if (destination == .failedDeliveries) {
+                                $0.badge(newFailedDeliveries ?? 0)
+                            } else {
+                                $0.badge(0)
+                            }
+                        }
+                    }
                 }
-            }
-        }
-    }
-    
-    private var menuList: some View {
-        List(selection: $selectedMenuItem) {
-            ForEach(Destination.allCases, id: \.self) { destination in
-                NavigationLink(value: destination, label: {
-                    Label(destination.title, systemImage: destination.systemImage)
-                })
-            }
-        }
-    }
-    
-    
-    private var navigationStack: some View {
-        NavigationStack(path: $navigationPath) {
-            if let selectedItem = selectedMenuItem {
-                selectedItem.view(isPresentingProfileBottomSheet: $isPresentingProfileBottomSheet, isShowingUsernamesView: $isShowingUsernamesView, isShowingDomainsView: $mainViewState.isShowingDomainsView,
-                                  isShowingFailedDeliveriesView: $mainViewState.isShowingFailedDeliveriesView, isShowingRulesView: $isShowingRulesView, isShowingAppSettingsView: $mainViewState.isShowingAppSettingsView)
+        .apply {
+            if #available(iOS 18.0, *) {
+                $0.tabViewStyle(.sidebarAdaptable)
             } else {
-                Text(String(localized: "select_menu_item"))
+                $0.tabViewStyle(.automatic)
             }
         }
     }
-    
-    
-    
 }
 
 enum Destination: Hashable, CaseIterable {
@@ -430,24 +375,16 @@ enum Destination: Hashable, CaseIterable {
         }
     }
     
-    func view(isPresentingProfileBottomSheet: Binding<Bool>,
-              isShowingUsernamesView: Binding<Bool>,
-              isShowingDomainsView: Binding<Bool>,
-              isShowingFailedDeliveriesView: Binding<Bool>,
-              isShowingRulesView: Binding<Bool>,
-              isShowingAppSettingsView: Binding<Bool>) -> some View {
+    func view(horizontalSize:Binding<UserInterfaceSizeClass>) -> some View {
         switch self {
-        case .home: return AnyView(HomeView(isPresentingProfileBottomSheet: isPresentingProfileBottomSheet,
-                                            isShowingFailedDeliveriesView: isShowingFailedDeliveriesView))
-        case .aliases: return AnyView(AliasesView(isPresentingProfileBottomSheet: isPresentingProfileBottomSheet,
-                                                  isShowingFailedDeliveriesView: isShowingFailedDeliveriesView))
-        case .recipients: return AnyView(RecipientsView(isPresentingProfileBottomSheet: isPresentingProfileBottomSheet,
-                                                        isShowingFailedDeliveriesView: isShowingFailedDeliveriesView))
-        case .usernames: return AnyView(UsernamesView(isShowingUsernamesView: isShowingUsernamesView))
-        case .domains: return AnyView(DomainsView(isShowingDomainsView: isShowingDomainsView))
-        case .failedDeliveries: return AnyView(FailedDeliveriesView(isShowingFailedDeliveriesView: isShowingFailedDeliveriesView))
-        case .rules: return AnyView(RulesView(isShowingRulesView: isShowingRulesView))
-        case .settings: return AnyView(AppSettingsView(isShowingAppSettingsView: isShowingAppSettingsView))
+        case .home: return AnyView(HomeView())
+        case .aliases: return AnyView(AliasesView())
+        case .recipients: return AnyView(RecipientsView())
+        case .usernames: return AnyView(UsernamesView(horizontalSize: horizontalSize))
+        case .domains: return AnyView(DomainsView(horizontalSize: horizontalSize))
+        case .failedDeliveries: return AnyView(FailedDeliveriesView(horizontalSize: horizontalSize))
+        case .rules: return AnyView(RulesView(horizontalSize: horizontalSize))
+        case .settings: return AnyView(AppSettingsView(horizontalSize: horizontalSize))
         }
     }
     

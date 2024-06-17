@@ -10,9 +10,6 @@ import addy_shared
 import UniformTypeIdentifiers
 
 struct AliasesView: View {
-    @Binding var isPresentingProfileBottomSheet: Bool
-    @Binding var isShowingFailedDeliveriesView: Bool
-
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject var aliasesViewModel = AliasesViewModel()
     
@@ -27,16 +24,20 @@ struct AliasesView: View {
     @State private var showAlert: Bool = false
     
     @State private var shouldReloadDataInParent = false
-
+    @State private var isShowingDomainsView = false
+    
+    @State private var isShowingAliasDetailView = false
     
     @State private var aliasInContextMenu: Aliases? = nil
     @State private var aliasToSendMailFrom: Aliases? = nil
     
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-
+    
     @State var selectedFilterChip:String? = "filter_all_aliases"
     @State var filterChips: [AddyChipModel] = []
+    
+    @Environment(\.scenePhase) var scenePhase
     
     var body: some View {
         NavigationStack(){
@@ -134,7 +135,7 @@ struct AliasesView: View {
                                         }
                                         Button {
                                             self.aliasToSendMailFrom = alias
-                                      } label: {
+                                        } label: {
                                             Label(String(localized: "send_mail"), systemImage: "paperplane")
                                         }
                                         
@@ -177,37 +178,38 @@ struct AliasesView: View {
                                 {
                                     AliasRowView(alias: alias, isPreview: true).onAppear {
                                         self.aliasInContextMenu = alias
-
                                     }
                                 }
-                            NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email, shouldReloadDataInParent: $shouldReloadDataInParent)
-                                .environmentObject(mainViewState)){
-                                    EmptyView()
-                                }
-                                .opacity(0)
-                                .onChange(of: shouldReloadDataInParent) {
-                                if shouldReloadDataInParent {
-                                    aliasesViewModel.getAliases(forceReload: true)
-                                                self.shouldReloadDataInParent = false
-                                            }
-                                }
-                                .swipeActions(edge: .leading) {
-                                    Button {
-                                        UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
-                                    } label: {
-                                        Label(String(localized: "copy_alias"), systemImage: "clipboard")
-                                    }.tint(Color.accentColor)
-                                    Button {
-                                        self.aliasToSendMailFrom = alias
-                                  } label: {
-                                        Label(String(localized: "send_mail"), systemImage: "paperplane")
-                                  }.tint(Color.accentColor.opacity(0.8))
-                                                           
-                                                        }
+                                
+                                
+                                NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                    .environmentObject(mainViewState)){
+                                        EmptyView()
+                                    }
+                                    .opacity(0)
+                                    .onChange(of: shouldReloadDataInParent) {
+                                        if shouldReloadDataInParent {
+                                            aliasesViewModel.getAliases(forceReload: true)
+                                            self.shouldReloadDataInParent = false
+                                        }
+                                    }
+                                    .swipeActions(edge: .leading) {
+                                        Button {
+                                            UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
+                                        } label: {
+                                            Label(String(localized: "copy_alias"), systemImage: "clipboard")
+                                        }.tint(Color.accentColor)
+                                        Button {
+                                            self.aliasToSendMailFrom = alias
+                                        } label: {
+                                            Label(String(localized: "send_mail"), systemImage: "paperplane")
+                                        }.tint(Color.accentColor.opacity(0.8))
+                                        
+                                    }
                                 
                             }
                         }.onDelete(perform: deleteAlias)
-
+                        
                     }header: {
                         HStack(spacing: 6){
                             if (aliasesViewModel.aliasSortFilterRequest != aliasesViewModel.defaultSortFilterRequest){
@@ -238,6 +240,18 @@ struct AliasesView: View {
             }
             .refreshable {
                 self.aliasesViewModel.getAliases(forceReload: true)
+            }
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                if newPhase == .active {
+                    // User opened the app from background
+                    
+                    // If there is an aliasToDisable or an showAliasWithId after opening the app
+                    // eg. when tapping a notification action while the app is inactive but this tab was last open
+                    if mainViewState.aliasToDisable != nil || mainViewState.showAliasWithId != nil {
+                        isShowingDomainsView = true
+                    }
+                    
+                }
             }
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
@@ -322,39 +336,39 @@ struct AliasesView: View {
                 }
             })
             .navigationTitle(String(localized: "aliases"))
+            .toolbar {
+                ProfilePicture().environmentObject(mainViewState)
+            }
             .navigationBarItems(trailing: HStack{
-                Button(action: {
-                    self.isShowingFailedDeliveriesView = true
-                }) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(.primary)
-                }
-                
-                Button(action: {
-                    self.isPresentingProfileBottomSheet = true
-                }) {
-                    Image(systemName: "person.crop.circle.fill")
-                        .foregroundStyle(.primary)
-                }
-                
                 Button(action: {
                     self.isPresentingAddAliasBottomSheet = true
                 } ) {
                     Image(systemName: "plus")
-                        .resizable()
-                        .padding(6)
                         .frame(width: 24, height: 24)
-                        .background(Color.accentColor)
-                        .clipShape(Circle())
-                        .foregroundColor(.white)
                 }
             })
+            
             .searchable(text: $aliasesViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "aliases_search"))
             .onSubmit(of: .search) {
                 aliasesViewModel.searchAliases(searchQuery: aliasesViewModel.searchQuery)
             }
             .autocorrectionDisabled(true)
             .textInputAutocapitalization(.never)
+            .navigationDestination(isPresented: $isShowingDomainsView) {
+                
+                if let aliasToDisable = mainViewState.aliasToDisable {
+                    NavigationStack(){
+                        AliasDetailView(aliasId: aliasToDisable, aliasEmail: nil, shouldReloadDataInParent: nil, shouldDisableAlias: true)
+                            .environmentObject(mainViewState)
+                    }
+                    .presentationDetents([.large])
+                } else if let showAliasWithId = mainViewState.showAliasWithId {
+                    NavigationStack(){
+                        AliasDetailView(aliasId: showAliasWithId, aliasEmail: nil, shouldReloadDataInParent: nil)
+                            .environmentObject(mainViewState)
+                    }
+                }
+            }
             .sheet(isPresented: $isPresentingFilterOptionsAliasBottomSheet) {
                 NavigationStack {
                     FilterOptionsAliasBottomSheet(aliasSortFilterRequest: self.aliasesViewModel.aliasSortFilterRequest){ aliasSortFilterRequest in
@@ -366,18 +380,20 @@ struct AliasesView: View {
                         aliasesViewModel.getAliases(forceReload: true)
                     }
                 }
+                .presentationDetents([.large])
             }
             // Replace the current .sheet modifier with this one
             .sheet(item: $aliasToSendMailFrom) { alias in
-                    NavigationStack {
-                        EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email) { addresses in
-                            self.onPressSend(toString: addresses)
-                        }
-                        .onDisappear {
-                            // Reset the aliasInContextMenu when the sheet disappears
-                            self.aliasToSendMailFrom = nil
-                        }
+                NavigationStack {
+                    EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email) { addresses in
+                        self.onPressSend(toString: addresses)
                     }
+                    .onDisappear {
+                        // Reset the aliasInContextMenu when the sheet disappears
+                        self.aliasToSendMailFrom = nil
+                    }
+                }
+                .presentationDetents([.large])
                 
             }
             .sheet(isPresented: $isPresentingAddAliasBottomSheet) {
@@ -389,21 +405,27 @@ struct AliasesView: View {
                     }.environmentObject(mainViewState)
                     
                 }
-                
-                
-                
-                
+                .presentationDetents([.large])
             }
         }.onAppear(perform: {
             LoadFilter()
-
+            
             if let aliasList = aliasesViewModel.aliasList{
                 if (aliasList.data.isEmpty) {
-                    aliasesViewModel.getAliases(forceReload: true) 
+                    aliasesViewModel.getAliases(forceReload: true)
                 }
             } else {
                 aliasesViewModel.getAliases(forceReload: true)
             }
+            
+            
+            // If there is an aliasToDisable or an showAliasWithId after switching to this tab
+            // eg. when tapping a notification action while the app is active
+            if mainViewState.aliasToDisable != nil || mainViewState.showAliasWithId != nil {
+                // Show the domainsView
+                isShowingDomainsView = true
+            }
+            
         })
         
         
@@ -614,7 +636,7 @@ struct AliasesView: View {
             }
         },aliasId: alias.id)
     }
-        
+    
     func GetFilterChips() -> [AddyChipModel]{
         return [
             AddyChipModel(chipId: "filter_all_aliases",label: String(localized: "filter_all_aliases")),

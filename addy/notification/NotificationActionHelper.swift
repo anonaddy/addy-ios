@@ -46,7 +46,7 @@ class NotificationActionHelper {
         case notificationActions.disableAlias:
             if let aliasId = response.notification.request.content.userInfo["aliasId"] as? String {
                 MainViewState.shared.aliasToDisable = aliasId
-                MainViewState.shared.isShowingAliasDetailView = true
+                MainViewState.shared.selectedTab = .aliases
             }
             break
         case notificationActions.stopWatching:
@@ -57,18 +57,18 @@ class NotificationActionHelper {
         default:
             // Notification tap actions
             switch response.notification.request.identifier {
-            case notificationActions.openSettings: MainViewState.shared.isShowingAppSettingsView = true
+            case notificationActions.openSettings: MainViewState.shared.selectedTab = .settings
                 break
-            case notificationActions.openDomains: MainViewState.shared.isShowingDomainsView = true
+            case notificationActions.openDomains: MainViewState.shared.selectedTab = .domains
                 break
-            case notificationActions.openFailedDeliveries: MainViewState.shared.isShowingFailedDeliveriesView = true
+            case notificationActions.openFailedDeliveries: MainViewState.shared.selectedTab = .failedDeliveries
                 break
             case notificationActions.openApiExpirationWarning: MainViewState.shared.showApiExpirationWarning = true
                 break
             case notificationActions.openAlias:
                 if let aliasId = response.notification.request.content.userInfo["aliasId"] as? String {
                     MainViewState.shared.showAliasWithId = aliasId
-                    MainViewState.shared.isShowingAliasDetailView = true
+                    MainViewState.shared.selectedTab = .aliases
                 }
                 break
             default:

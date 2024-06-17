@@ -9,9 +9,9 @@ import SwiftUI
 import addy_shared
 
 struct FailedDeliveriesView: View {
+    @EnvironmentObject var mainViewState: MainViewState
+
     @StateObject var failedDeliveriesViewModel = FailedDeliveriesViewModel()
-    @Binding var isShowingFailedDeliveriesView: Bool
-    @State var navigationBarTitleDisplayMode: NavigationBarItem.TitleDisplayMode = .automatic
     
     enum ActiveAlert {
         case error, deleteFailedDelivery
@@ -26,71 +26,72 @@ struct FailedDeliveriesView: View {
     @State private var errorAlertMessage = ""
     
     
+    @Binding var horizontalSize: UserInterfaceSizeClass
+    
     var body: some View {
-        NavigationStack(){
+        NavigationStack{
             List {
                 if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries{
-                    if !failedDeliveries.data.isEmpty {
+                    
+                    Section {
                         
-                        Section {
-                            
-                            ForEach (failedDeliveries.data) { failedDelivery in
-                                VStack {
-                                    HStack {
-                                        VStack(alignment: .leading) {
-                                            Text(String(localized: "alias"))
-                                                .font(.system(size: 16, weight: .medium))
-                                            Text(failedDelivery.alias_email ?? "")
-                                                .font(.system(size: 14))
-                                                .foregroundColor(.gray)
-                                        }
-                                        Spacer()
-                                        VStack(alignment: .trailing) {
-                                            Text(String(localized: "created"))
-                                                .font(.system(size: 16, weight: .medium))
-                                            Text(DateTimeUtils.turnStringIntoLocalString(failedDelivery.created_at))
-                                                .font(.system(size: 14))
-                                                .foregroundColor(.gray)
-                                        }
-                                    }
-                                    HStack {
-                                        Text(String(localized: "code"))
+                        ForEach (failedDeliveries.data) { failedDelivery in
+                            VStack {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(String(localized: "alias"))
                                             .font(.system(size: 16, weight: .medium))
-                                        Text(failedDelivery.code)
+                                        Text(failedDelivery.alias_email ?? "")
                                             .font(.system(size: 14))
                                             .foregroundColor(.gray)
-                                            .lineLimit(1)
-                                    }.padding(.top,5)
-                                    Button(action: {
-                                        self.failedDeliveryToShow = failedDelivery
-                                    }) {
-                                        HStack {
-                                            Text(String(localized: "view_details"))
-                                                .font(.system(size: 16, weight: .medium))
-                                            Spacer()
-                                            Image(systemName: "text.justify.leading")
-                                        }
-                                        .padding(.horizontal).padding(.vertical, 10)
-                                        .frame(maxWidth: .infinity)
-                                        .background(Color.secondary.opacity(0.2))
-                                        .cornerRadius(8)
+                                    }
+                                    Spacer()
+                                    VStack(alignment: .trailing) {
+                                        Text(String(localized: "created"))
+                                            .font(.system(size: 16, weight: .medium))
+                                        Text(DateTimeUtils.turnStringIntoLocalString(failedDelivery.created_at))
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.gray)
                                     }
                                 }
-                            }.onDelete(perform: deleteFailedDelivery)
-                        }header: {
-                            HStack(spacing: 6){
-                                Text(String(localized: "all_failed_deliveries"))
-                                
-                                
-                                if (failedDeliveriesViewModel.isLoading){
-                                    ProgressView()
-                                        .frame(maxHeight: 4)
-                                    
+                                HStack {
+                                    Text(String(localized: "code"))
+                                        .font(.system(size: 16, weight: .medium))
+                                    Text(failedDelivery.code)
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.gray)
+                                        .lineLimit(1)
+                                }.padding(.top,5)
+                                Button(action: {
+                                    self.failedDeliveryToShow = failedDelivery
+                                }) {
+                                    HStack {
+                                        Text(String(localized: "view_details"))
+                                            .font(.system(size: 16, weight: .medium))
+                                        Spacer()
+                                        Image(systemName: "text.justify.leading")
+                                    }
+                                    .padding(.horizontal).padding(.vertical, 10)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.secondary.opacity(0.2))
+                                    .cornerRadius(8)
                                 }
                             }
+                        }.onDelete(perform: deleteFailedDelivery)
+                    }header: {
+                        HStack(spacing: 6){
+                            Text(String(localized: "all_failed_deliveries"))
                             
+                            
+                            if (failedDeliveriesViewModel.isLoading){
+                                ProgressView()
+                                    .frame(maxHeight: 4)
+                                
+                            }
                         }
+                        
                     }
+                    
                 }
                 
             }.refreshable {
@@ -107,6 +108,7 @@ struct FailedDeliveriesView: View {
                         self.failedDeliveryToShow = nil
                     }
                 }
+                .presentationDetents([.large])
             }
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
@@ -171,24 +173,27 @@ struct FailedDeliveriesView: View {
                     
                 }
             })
-            .navigationBarTitleDisplayMode(navigationBarTitleDisplayMode)
             .navigationTitle(String(localized: "failed_deliveries"))
-            .navigationBarItems(leading: Button(action: {
-                self.isShowingFailedDeliveriesView = false
-            }) {
-                if UIDevice.current.userInterfaceIdiom != .pad {
-                    Text(String(localized: "close"))
-                }
-            })
-        }.onAppear(perform: {
+            .toolbar {
+                if horizontalSize == .regular {
+                                ProfilePicture().environmentObject(mainViewState)
+                            }
+            }
+            
+        }
+        .onAppear(perform: {
             if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries{
                 if (failedDeliveries.data.isEmpty) {
                     failedDeliveriesViewModel.getFailedDeliveries()
-                    
+                } else {
+                    // Set the count of failed deliveries so that we can use it for the backgroundservice AND mark this a read for the badge
+                    MainViewState.shared.encryptedSettingsManager.putSettingsInt(
+                        key: .backgroundServiceCacheFailedDeliveriesCount,
+                        int: failedDeliveries.data.count
+                    )
                 }
             }
         })
-        
     }
     
     

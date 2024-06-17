@@ -76,29 +76,38 @@ struct SplashView: View {
         }
         .sheet(isPresented: $isPresentUnsupportedVersionBottomDialog, onDismiss: {
                 isPresentUnsupportedVersionBottomDialog = false
+            DispatchQueue.global(qos: .background).async {
                 getUserResource()
+            }
         }, content: {
             NavigationStack {
                 UnsupportedBottomSheet {
                     openURL(URL(string: "https://github.com/anonaddy/anonaddy/blob/master/SELF-HOSTING.md#updating")!)
                 } onClickIgnore: {
                     isPresentUnsupportedVersionBottomDialog = false
-                    getUserResource()
+                    DispatchQueue.global(qos: .background).async {
+                        getUserResource()
+                    }
                 }
             }
+            .presentationDetents([.fraction(0.45), .large])
+            // No cancel button so a drag indicator is a nice to have
+            .presentationDragIndicator(.visible)
         })
     }
     
     private func loadDataAndStartApp(){
         // This helper inits the BASE_URL var
-        self.networkHelper = NetworkHelper() //TODO: Check if this indeed set this value for it to never be reset again.
+        self.networkHelper = NetworkHelper()
         
         if (AddyIo.API_BASE_URL == String(localized: "default_base_url")){
             
             AddyIo.VERSIONMAJOR = 9999
             AddyIo.VERSIONSTRING = String(localized: "latest")
             
-            getUserResource()
+            DispatchQueue.global(qos: .background).async {
+                getUserResource()
+            }
         } else {
             getAddyIoInstanceVersion()
         }
@@ -115,7 +124,9 @@ struct SplashView: View {
                                             AddyIo.VERSIONSTRING = version.version ?? String(localized: "unknown")
                         
                         if (instanceHasTheMinimumRequiredVersion()){
-                            getUserResource()
+                            DispatchQueue.global(qos: .background).async {
+                                getUserResource()
+                            }
                         } else {
                             self.isPresentUnsupportedVersionBottomDialog = true
                         }

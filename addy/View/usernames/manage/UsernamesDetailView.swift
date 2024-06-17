@@ -206,6 +206,7 @@ struct UsernamesDetailView: View {
 
                         }
                     }
+                    .presentationDetents([.large])
                 }
                 .sheet(isPresented: $isPresentingEditUsernameFromNameBottomSheet) {
                     NavigationStack {
@@ -219,6 +220,7 @@ struct UsernamesDetailView: View {
 
                         }
                     }
+                    .presentationDetents([.large])
                 }
                 .sheet(isPresented: $isPresentingEditUsernameRecipientsBottomSheet) {
                     NavigationStack {
@@ -231,6 +233,7 @@ struct UsernamesDetailView: View {
                             shouldReloadDataInParent = true
                         }
                     }
+                    .presentationDetents([.medium, .large])
                 }
             
             

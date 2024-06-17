@@ -7,41 +7,29 @@
 
 import SwiftUI
 
+
+
 struct HomeView: View {
-    @Binding var isPresentingProfileBottomSheet: Bool
-    @Binding var isShowingFailedDeliveriesView: Bool
 
     @EnvironmentObject var mainViewState: MainViewState
+    @State private var lastHostingView: UIView!
 
     var body: some View {
         
         NavigationStack(){
-            ScrollView(.vertical) {
+            List {
                 VStack{
                     ForEach(1..<666) { i in
                         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
                     }
                 }.frame(maxWidth: .infinity)
-            }
-        }.toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    self.isShowingFailedDeliveriesView = true
-                }) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(.primary)
-                }
-                
-                Button(action: {
-                    self.isPresentingProfileBottomSheet = true
-
-                }) {
-                    Image(systemName: "person.crop.circle.fill")
-                        .foregroundStyle(.primary)
-                }
+            }        
+            .navigationTitle(String(localized: "home"))
+            .toolbar {
+                ProfilePicture().environmentObject(mainViewState)
             }
         }
-        .navigationTitle(String(localized: "home"))
+        
            
 
 

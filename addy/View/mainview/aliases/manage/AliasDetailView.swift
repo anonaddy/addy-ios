@@ -320,6 +320,7 @@ struct AliasDetailView: View {
 
                     }
                 }
+                .presentationDetents([.large])
             }
             .sheet(isPresented: $isPresentingEditAliasRecipientsBottomSheet) {
                 NavigationStack {
@@ -332,6 +333,7 @@ struct AliasDetailView: View {
                         shouldReloadDataInParent = true
                     }
                 }
+                .presentationDetents([.medium, .large])
             }
             .sheet(isPresented: $isPresentingEditAliasFromNameBottomSheet) {
                 NavigationStack {
@@ -344,6 +346,7 @@ struct AliasDetailView: View {
                         shouldReloadDataInParent = true
                     }
                 }
+                .presentationDetents([.large])
             }
             .sheet(isPresented: $isPresentingEditAliasSendMailRecipientBottomSheet) {
                 NavigationStack {
@@ -353,6 +356,7 @@ struct AliasDetailView: View {
                         
                     }
                 }
+                .presentationDetents([.large])
             }
             .alert(isPresented: $showAlert) {
                         switch activeAlert {

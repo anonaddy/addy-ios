@@ -43,13 +43,24 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
             }
         }.sheet(isPresented: $isShowingFailedDeliveriesView) {
             // FailedDeliveriesView has its own navigationStack
-            AnyView(FailedDeliveriesView(isShowingFailedDeliveriesView: $isShowingFailedDeliveriesView, navigationBarTitleDisplayMode: .inline))
+            FailedDeliveriesView(horizontalSize: .constant(UserInterfaceSizeClass.compact))
+                .presentationDetents([.large])
+            // No cancel button so a drag indicator is a nice to have
+            .presentationDragIndicator(.visible)
+
         }
             .navigationTitle(String(localized: "feature_notify_failed_deliveries"))
             .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-#Preview {
-    AppSettingsFeaturesNotifyFailedDeliveriesView()
+
+struct AppSettingsFeaturesNotifyFailedDeliveriesView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        @State var userInterfaceSizeClass: UserInterfaceSizeClass =  UserInterfaceSizeClass.regular
+        AppSettingsFeaturesNotifyFailedDeliveriesView()
+        
+    }
 }
+

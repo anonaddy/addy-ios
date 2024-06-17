@@ -81,7 +81,6 @@ struct CreateRulesView: View {
     @State private var isPresentingAddNewActionBottomSheet = false
     @State private var isPresentingAddNewConditionBottomSheet = false
     
-    
     init(ruleId: String?, ruleName: String, shouldReloadDataInParent: Binding<Bool>) {
         if let ruleId = ruleId {
             self.ruleId = ruleId
@@ -120,6 +119,11 @@ struct CreateRulesView: View {
     
     
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
+        
+        //CreateRulesView: @self changed.
         if let rule = rule {
             Form {
                 Section {
@@ -329,7 +333,7 @@ struct CreateRulesView: View {
                             
                             self.actionToEdit = nil
                         }
-                    }
+                    }.presentationDetents([.large])
                 }.sheet(isPresented: $isPresentingAddNewActionBottomSheet) {
                     NavigationStack {
                         ActionBottomSheet(actionEditObject: nil){ oldAction, modifiedAction in
@@ -337,6 +341,7 @@ struct CreateRulesView: View {
                             isPresentingAddNewActionBottomSheet = false
                         }
                     }
+                    .presentationDetents([.large])
                 }.sheet(item: $conditionToEdit) { condition in
                     NavigationStack {
                         ConditionBottomSheet(conditionEditObject: condition){ oldCondition, modifiedCondition in
@@ -349,6 +354,7 @@ struct CreateRulesView: View {
                             self.conditionToEdit = nil
                         }
                     }
+                    .presentationDetents([.large])
                 }.sheet(isPresented: $isPresentingAddNewConditionBottomSheet) {
                     NavigationStack {
                         ConditionBottomSheet(conditionEditObject: nil){ oldCondition, modifiedCondition in
@@ -356,6 +362,7 @@ struct CreateRulesView: View {
                             isPresentingAddNewConditionBottomSheet = false
                         }
                     }
+                    .presentationDetents([.large])
                 }
                 .alert(isPresented: $showAlert) {
                     switch activeAlert {

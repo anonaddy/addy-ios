@@ -56,6 +56,7 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
             NavigationStack {
                 AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:baseUrl:))
             }
+            .presentationDetents([.large])
         }
         .navigationTitle(String(localized: "feature_api_token_expiry_notification"))
         .navigationBarTitleDisplayMode(.inline)

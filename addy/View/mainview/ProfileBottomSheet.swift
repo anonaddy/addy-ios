@@ -16,19 +16,26 @@ import addy_shared
 struct ProfileBottomSheet: View {
     @Binding var isPresentingProfileBottomSheet: Bool
     @EnvironmentObject var mainViewState: MainViewState
+    @Binding var horizontalSize: UserInterfaceSizeClass
+    
+    @State var isShowingDomainsView = false
+    @State var isShowingRulesView = false
+    @State var isShowingUsernamesView = false
+    @State var isShowingAppSettingsView = false
     
     let onNavigate: (Destination) -> Void
 
-    init(onNavigate: @escaping (Destination) -> Void, isPresentingProfileBottomSheet: Binding<Bool>) {
+    init(onNavigate: @escaping (Destination) -> Void, isPresentingProfileBottomSheet: Binding<Bool>, horizontalSize: Binding<UserInterfaceSizeClass>) {
         self.onNavigate = onNavigate
         self._isPresentingProfileBottomSheet = isPresentingProfileBottomSheet
+        self._horizontalSize = horizontalSize
     }
 
     @Environment(\.dismiss) var dismiss
     @Environment(\.openURL) var openURL
 
     var body: some View {
-
+        NavigationStack {
             List {
                 
                 Section{
@@ -56,6 +63,7 @@ struct ProfileBottomSheet: View {
                                     .font(.subheadline)
                                     .fontWeight(.thin)
                                     .opacity(0.6)
+                                    .multilineTextAlignment(.center)
                             }
                         }
 
@@ -70,22 +78,40 @@ struct ProfileBottomSheet: View {
                 }.listRowBackground(Color.clear)
                 
                 Section{
-                    
+                                        
                     AddySection(title: String(localized: "manage_domains"), description: String(localized: "manage_domains_desc"), trailingSystemimage: "chevron.right") {
-                        self.onNavigate(Destination.domains)
+                        
+                        if horizontalSize == .regular {
+                            self.onNavigate(Destination.domains)
+                        } else {
+                            self.isShowingDomainsView = true
+                        }
+                        
                     }
 
                     AddySection(title: String(localized: "manage_rules"), description: String(localized: "manage_rules_desc"), trailingSystemimage: "chevron.right") {
-                        self.onNavigate(Destination.rules)
+                        if horizontalSize == .regular {
+                            self.onNavigate(Destination.rules)
+                        } else {
+                            self.isShowingRulesView = true
+                        }
                     }
 
                     AddySection(title: String(localized: "manage_usernames"), description: String(localized: "manage_usernames_desc"), trailingSystemimage: "chevron.right") {
-                        self.onNavigate(Destination.usernames)
+                        if horizontalSize == .regular {
+                            self.onNavigate(Destination.usernames)
+                        } else {
+                            self.isShowingUsernamesView = true
+                        }
                     }
                     
                     let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
                     AddySection(title: String(localized: "app_settings"), description: String(format: String(localized: "version_s"), appVersion), trailingSystemimage: "chevron.right") {
-                        self.onNavigate(Destination.settings)
+                        if horizontalSize == .regular {
+                            self.onNavigate(Destination.settings)
+                        } else {
+                            self.isShowingAppSettingsView = true
+                        }
                     }
 
                     
@@ -112,7 +138,21 @@ struct ProfileBottomSheet: View {
                 }
                 
                 
-            }.navigationTitle(String(localized: "addyio_account")).listSectionSpacing(.compact)
+            }
+            .navigationTitle(String(localized: "addyio_account"))
+            .navigationDestination(isPresented: $isShowingDomainsView) {
+                DomainsView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    }
+            .navigationDestination(isPresented: $isShowingRulesView) {
+                    RulesView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    }
+            .navigationDestination(isPresented: $isShowingUsernamesView) {
+                UsernamesView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    }
+            .navigationDestination(isPresented: $isShowingAppSettingsView) {
+                AppSettingsView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    }
+            .listSectionSpacing(.compact)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
                     ToolbarItem() {
@@ -124,6 +164,8 @@ struct ProfileBottomSheet: View {
                         
                     }
                 })
+        }
+            
         }
     
     private func getAddyIoVersion() ->String {

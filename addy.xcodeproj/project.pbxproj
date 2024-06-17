@@ -62,6 +62,9 @@
 		80AC67082BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */; };
 		80AC670C2BFB5DC1004D227D /* AnonAddyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC670B2BFB5DC1004D227D /* AnonAddyUtils.swift */; };
 		80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */; };
+		80CE87D22C203CBC001ECF5C /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CE87D12C203CBB001ECF5C /* SheetView.swift */; };
+		80CE87D42C205453001ECF5C /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CE87D32C20544E001ECF5C /* Apply.swift */; };
+		80CE87DD2C209CAD001ECF5C /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CE87DC2C209CA9001ECF5C /* ProfilePicture.swift */; };
 		80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */; };
 		80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC3442C01354300EC651F /* RecipientsDetailView.swift */; };
 		80D306022C079DF800C801EE /* ProfileBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D306012C079DF800C801EE /* ProfileBottomSheet.swift */; };
@@ -233,6 +236,9 @@
 		80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasSendMailRecipientBottomSheet.swift; sourceTree = "<group>"; };
 		80AC670B2BFB5DC1004D227D /* AnonAddyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonAddyUtils.swift; sourceTree = "<group>"; };
 		80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAliasLabelStyle.swift; sourceTree = "<group>"; };
+		80CE87D12C203CBB001ECF5C /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		80CE87D32C20544E001ECF5C /* Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apply.swift; sourceTree = "<group>"; };
+		80CE87DC2C209CA9001ECF5C /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
 		80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsViewModel.swift; sourceTree = "<group>"; };
 		80CEC3442C01354300EC651F /* RecipientsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsDetailView.swift; sourceTree = "<group>"; };
 		80D306012C079DF800C801EE /* ProfileBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBottomSheet.swift; sourceTree = "<group>"; };
@@ -405,6 +411,8 @@
 		805D66A12C1F4C810085CCED /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				80CE87D32C20544E001ECF5C /* Apply.swift */,
+				80CE87D12C203CBB001ECF5C /* SheetView.swift */,
 				805D66A22C1F4C860085CCED /* PrettyTime.swift */,
 			);
 			path = extensions;
@@ -452,6 +460,7 @@
 		806D5F2B2BE94C3F00C5C109 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				80CE87DC2C209CA9001ECF5C /* ProfilePicture.swift */,
 				80F22F352BEE34E1001176B4 /* dependencies */,
 				807338012BEA81DA00D0D7E0 /* ValidatingTextField */,
 				80D82DC32BE95BAF009440DC /* AddyLoadingButton */,
@@ -1086,6 +1095,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80CE87D22C203CBC001ECF5C /* SheetView.swift in Sources */,
 				80F22F882BEE34EE001176B4 /* ViewGeometry.swift in Sources */,
 				804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */,
 				807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */,
@@ -1177,6 +1187,7 @@
 				80477DDE2C12225D00E52AF8 /* RulesView.swift in Sources */,
 				804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */,
 				80AC670C2BFB5DC1004D227D /* AnonAddyUtils.swift in Sources */,
+				80CE87DD2C209CAD001ECF5C /* ProfilePicture.swift in Sources */,
 				80F22F802BEE34EE001176B4 /* AxisLabelsPosition.swift in Sources */,
 				80E9B2382C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift in Sources */,
 				80813B6E2C0DF23B009C4E6A /* FailedDeliveriesView.swift in Sources */,
@@ -1198,6 +1209,7 @@
 				807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */,
 				80E9B22E2C0B238900C7EF99 /* UsernamesView.swift in Sources */,
 				806F21332BE8F1B100EBEBC8 /* addyApp.swift in Sources */,
+				80CE87D42C205453001ECF5C /* Apply.swift in Sources */,
 				80F22F902BEE34EE001176B4 /* Path+QuadCurve.swift in Sources */,
 				80F22F9D2BEE34EE001176B4 /* BarChart.swift in Sources */,
 				80676D672C18D27C008FC147 /* LogsViewModel.swift in Sources */,

@@ -11,7 +11,6 @@ import addy_shared
 struct DomainsView: View {
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject var domainsViewModel = DomainsViewModel()
-    @Binding var isShowingDomainsView: Bool
     
     enum ActiveAlert {
         case error, deleteDomain
@@ -33,178 +32,19 @@ struct DomainsView: View {
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     
+    @Binding var horizontalSize: UserInterfaceSizeClass
     
     var body: some View {
-        NavigationStack(){
-            List {
-                if let domains = domainsViewModel.domains{
-                    if !domains.data.isEmpty {
-                    
-                        Section {
-                            
-                            ForEach (domains.data) { domain in
-                                NavigationLink(destination: DomainsDetailView(domainId: domain.id, domainDomain: domain.domain ,shouldReloadDataInParent: $shouldReloadDataInParent)
-                                    .environmentObject(mainViewState)){
-                                        
-                                        VStack(alignment: .leading) {
-                                            Text(domain.domain)
-                                                .font(.headline)
-                                                .truncationMode(.tail)
-                                                .frame(minWidth: 20)
-                                            
-                                            
-                                            if domain.domain_sending_verified_at == nil {
-                                                Text(String(localized: "configuration_error"))
-                                                    .font(.caption)
-                                                    .opacity(0.625)
-                                                    .truncationMode(.middle)
-                                                    .foregroundStyle(.red)
-                                                
-                                            } else {
-                                                Text(String(format: String(format: String(localized: "domains_list_description"), String(domain.aliases_count ?? 0))))
-                                                    .font(.caption)
-                                                    .opacity(0.625)
-                                                    .truncationMode(.middle)
-                                                
-                                            }
-  
-                                            
-                                        }
-                                        .padding(.vertical, 4)
-                                    }
-                                    .onChange(of: shouldReloadDataInParent) {
-                                        if shouldReloadDataInParent {
-                                            domainsViewModel.getDomains()
-                                            getUserResource()
-                                            self.shouldReloadDataInParent = false
-                                        }
-                                    }
-                                
-                                
-                                
-                            }.onDelete(perform: deleteDomain)
-                        }header: {
-                            HStack(spacing: 6){
-                                Text(String(localized: "all_domains"))
-                                
-                                
-                                if (domainsViewModel.isLoading){
-                                    ProgressView()
-                                        .frame(maxHeight: 4)
-                                    
-                                }
-                            }
-                            
-                        } footer: {
-                            Label {
-                                Text(String(format: String(localized: "you_ve_used_d_out_of_d_domains"),  String(domain_count), (mainViewState.userResource!.subscription != nil ? String(domain_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited"))))
-                            } icon: {
-                                Image(systemName: "info.circle")
-                            }.padding(.top)
-                            
-                        }
+        
+        // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
+        Group() {
+            if horizontalSize == .regular {
+                NavigationStack(){
+                    domainsViewBody
                 }
-                }
-                
-            }.refreshable {
-                self.domainsViewModel.getDomains()
-                getUserResource()
+            } else {
+                domainsViewBody
             }
-            .sheet(isPresented: $isPresentingAddDomainBottomSheet) {
-                NavigationStack {
-                    AddDomainBottomSheet(){
-                        domainsViewModel.getDomains()
-                        getUserResource()
-                        isPresentingAddDomainBottomSheet = false
-                    }
-                }
-            }
-            .alert(isPresented: $showAlert) {
-                switch activeAlert {
-                case .deleteDomain:
-                    return Alert(title: Text(String(localized: "delete_domain")), message: Text(String(localized: "delete_domain_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
-                        DispatchQueue.global(qos: .background).async {
-                            self.deleteDomain(domain: self.domainToDelete!)
-                        }
-                    }, secondaryButton: .cancel(){
-                        domainsViewModel.getDomains()
-                    })
-                case .error:
-                    return Alert(
-                        title: Text(errorAlertTitle),
-                        message: Text(errorAlertMessage)
-                    )
-                }
-            }
-            .overlay(Group {
-                
-                
-                // If there is an domains (aka, if the list is visible)
-                if let domains = domainsViewModel.domains{
-                    if domains.data.isEmpty {
-                        ContentUnavailableView {
-                            Label(String(localized: "no_domains"), systemImage: "globe")
-                        } description: {
-                            Text(String(localized: "no_domains_desc"))
-                        }
-                    }
-                } else {
-                    // If there is NO domains (aka, if the list is not visible)
-                    
-                    
-                    // No domains, check if there is an error
-                    if (domainsViewModel.networkError != ""){
-                        // Error screen
-                        ContentUnavailableView {
-                            Label(String(localized: "something_went_wrong_retrieving_domains"), systemImage: "wifi.slash")
-                        } description: {
-                            Text(domainsViewModel.networkError)
-                        } actions: {
-                            Button(String(localized: "try_again")) {
-                                domainsViewModel.getDomains()
-                                getUserResource()
-                            }
-                        }
-                    } else {
-                        // No domains and no error. It must still be loading...
-                        VStack(alignment: .center, spacing: 0) {
-                            Spacer()
-                            ContentUnavailableView {
-                                Label(String(localized: "obtaining_domains"), systemImage: "globe")
-                            } description: {
-                                Text(String(localized: "obtaining_desc"))
-                            }
-                            
-                            ProgressView()
-                                .frame(maxWidth: .infinity, maxHeight:50)
-                            Spacer()
-                        }
-                    }
-                    
-                }
-            })
-            .navigationTitle(String(localized: "domains"))
-            .navigationBarItems(leading: Button(action: {
-                self.isShowingDomainsView = false
-            }) {
-                if UIDevice.current.userInterfaceIdiom != .pad {
-                    Text(String(localized: "close"))
-                }
-            }, trailing: Button(action: {
-                self.isPresentingAddDomainBottomSheet = true
-            } ) {
-                
-                Image(systemName: "plus")
-                    .resizable()
-                    .padding(6)
-                    .frame(width: 24, height: 24)
-                    .background(Color.accentColor)
-                    .clipShape(Circle())
-                    .foregroundColor(.white)
-                // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
-                    .disabled(mainViewState.userResource!.subscription != nil &&
-                              domain_count >= domain_limit! /* Cannot be nil since subscription is not nil */ )
-            })
         }.onAppear(perform: {
             // Set stats, update later
             domain_count = mainViewState.userResource!.active_domain_count
@@ -216,19 +56,195 @@ struct DomainsView: View {
                     
                 }
             }
-            getUserResource()
+            
+            DispatchQueue.global(qos: .background).async {
+                getUserResource()
+            }
         })
         
     }
     
+    private var domainsViewBody: some View {
+        List {
+            if let domains = domainsViewModel.domains{
+                Section {
+                    
+                    ForEach (domains.data) { domain in
+                        NavigationLink(destination: DomainsDetailView(domainId: domain.id, domainDomain: domain.domain ,shouldReloadDataInParent: $shouldReloadDataInParent)
+                            .environmentObject(mainViewState)){
+                                
+                                VStack(alignment: .leading) {
+                                    Text(domain.domain)
+                                        .font(.headline)
+                                        .truncationMode(.tail)
+                                        .frame(minWidth: 20)
+                                    
+                                    
+                                    if domain.domain_sending_verified_at == nil {
+                                        Text(String(localized: "configuration_error"))
+                                            .font(.caption)
+                                            .opacity(0.625)
+                                            .truncationMode(.middle)
+                                            .foregroundStyle(.red)
+                                        
+                                    } else {
+                                        Text(String(format: String(format: String(localized: "domains_list_description"), String(domain.aliases_count ?? 0))))
+                                            .font(.caption)
+                                            .opacity(0.625)
+                                            .truncationMode(.middle)
+                                        
+                                    }
+                                    
+                                    
+                                }
+                                .padding(.vertical, 4)
+                            }
+                            .onChange(of: shouldReloadDataInParent) {
+                                if shouldReloadDataInParent {
+                                    DispatchQueue.global(qos: .background).async {
+                                        domainsViewModel.getDomains()
+                                        getUserResource()
+                                    }
+                                    self.shouldReloadDataInParent = false
+                                }
+                            }
+                        
+                        
+                        
+                    }.onDelete(perform: deleteDomain)
+                }header: {
+                    HStack(spacing: 6){
+                        Text(String(localized: "all_domains"))
+                        
+                        
+                        if (domainsViewModel.isLoading){
+                            ProgressView()
+                                .frame(maxHeight: 4)
+                            
+                        }
+                    }
+                    
+                } footer: {
+                    Label {
+                        Text(String(format: String(localized: "you_ve_used_d_out_of_d_domains"),  String(domain_count), (mainViewState.userResource!.subscription != nil ? String(domain_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited"))))
+                    } icon: {
+                        Image(systemName: "info.circle")
+                    }.padding(.top)
+                    
+                }
+                
+            }
+            
+        }.refreshable {
+            self.domainsViewModel.getDomains()
+            getUserResource()
+        }
+        .sheet(isPresented: $isPresentingAddDomainBottomSheet) {
+            NavigationStack {
+                AddDomainBottomSheet(){
+                    DispatchQueue.global(qos: .background).async {
+                        domainsViewModel.getDomains()
+                        getUserResource()
+                    }
+                    isPresentingAddDomainBottomSheet = false
+                }
+            }
+            .presentationDetents([.medium, .large])
+        }
+        .alert(isPresented: $showAlert) {
+            switch activeAlert {
+            case .deleteDomain:
+                return Alert(title: Text(String(localized: "delete_domain")), message: Text(String(localized: "delete_domain_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
+                    DispatchQueue.global(qos: .background).async {
+                        self.deleteDomain(domain: self.domainToDelete!)
+                    }
+                }, secondaryButton: .cancel(){
+                    domainsViewModel.getDomains()
+                })
+            case .error:
+                return Alert(
+                    title: Text(errorAlertTitle),
+                    message: Text(errorAlertMessage)
+                )
+            }
+        }
+        .overlay(Group {
+            
+            
+            // If there is an domains (aka, if the list is visible)
+            if let domains = domainsViewModel.domains{
+                if domains.data.isEmpty {
+                    ContentUnavailableView {
+                        Label(String(localized: "no_domains"), systemImage: "globe")
+                    } description: {
+                        Text(String(localized: "no_domains_desc"))
+                    }
+                }
+            } else {
+                // If there is NO domains (aka, if the list is not visible)
+                
+                
+                // No domains, check if there is an error
+                if (domainsViewModel.networkError != ""){
+                    // Error screen
+                    ContentUnavailableView {
+                        Label(String(localized: "something_went_wrong_retrieving_domains"), systemImage: "wifi.slash")
+                    } description: {
+                        Text(domainsViewModel.networkError)
+                    } actions: {
+                        Button(String(localized: "try_again")) {
+                            DispatchQueue.global(qos: .background).async {
+                                domainsViewModel.getDomains()
+                                getUserResource()
+                            }
+                        }
+                    }
+                } else {
+                    // No domains and no error. It must still be loading...
+                    VStack(alignment: .center, spacing: 0) {
+                        Spacer()
+                        ContentUnavailableView {
+                            Label(String(localized: "obtaining_domains"), systemImage: "globe")
+                        } description: {
+                            Text(String(localized: "obtaining_desc"))
+                        }
+                        
+                        ProgressView()
+                            .frame(maxWidth: .infinity, maxHeight:50)
+                        Spacer()
+                    }
+                }
+                
+            }
+        })
+        .navigationTitle(String(localized: "domains"))
+        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .large : .inline)
+        .toolbar {
+            if horizontalSize == .regular {
+                ProfilePicture().environmentObject(mainViewState)
+            }
+        }
+        .navigationBarItems(trailing: Button(action: {
+            self.isPresentingAddDomainBottomSheet = true
+        } ) {
+            
+            Image(systemName: "plus")
+                .frame(width: 24, height: 24)
+            // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
+                .disabled(mainViewState.userResource!.subscription != nil &&
+                          domain_count >= domain_limit! /* Cannot be nil since subscription is not nil */ )
+        })
+    }
     
     private func deleteDomain(domain:Domains) {
         let networkHelper = NetworkHelper()
         networkHelper.deleteDomain(completion: { result in
             DispatchQueue.main.async {
                 if result == "204" {
-                    domainsViewModel.getDomains()
-                    getUserResource()
+                    DispatchQueue.global(qos: .background).async {
+                        domainsViewModel.getDomains()
+                        getUserResource()
+                    }
                 } else {
                     activeAlert = .error
                     showAlert = true

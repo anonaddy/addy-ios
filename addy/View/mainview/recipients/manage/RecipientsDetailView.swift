@@ -232,6 +232,7 @@ struct RecipientsDetailView: View {
                             isPresentingAddRecipientPublicGpgKeyBottomSheet = false
                         }
                     }
+                    .presentationDetents([.large])
                 }
 
                 .alert(isPresented: $showAlert) {

@@ -74,6 +74,7 @@ struct AppSettingsUpdateView: View {
             NavigationStack {
                 ChangelogBottomSheet()
             }
+            .presentationDetents([.medium, .large])
         })
         .alert(isPresented: $showAlert) {
             return Alert(

@@ -186,6 +186,7 @@ struct DomainsDetailView: View {
 
                         }
                     }
+                    .presentationDetents([.large])
                 }
                 .sheet(isPresented: $isPresentingEditDomainFromNameBottomSheet) {
                     NavigationStack {
@@ -199,6 +200,7 @@ struct DomainsDetailView: View {
 
                         }
                     }
+                    .presentationDetents([.large])
                 }
                 .sheet(isPresented: $isPresentingEditDomainRecipientsBottomSheet) {
                     NavigationStack {
@@ -210,7 +212,7 @@ struct DomainsDetailView: View {
                             // So we update the list when coming back
                             shouldReloadDataInParent = true
                         }
-                    }
+                    }.presentationDetents([.medium, .large])
                 }
             
             

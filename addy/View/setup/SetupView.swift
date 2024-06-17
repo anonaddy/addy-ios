@@ -131,6 +131,7 @@ struct SetupView: View {
             NavigationStack {
                 AddApiBottomSheet(apiBaseUrl: nil, addKey: addKey(apiKey:baseUrl:))
             }
+            .presentationDetents([.large])
         }
         
         

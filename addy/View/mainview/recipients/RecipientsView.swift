@@ -9,8 +9,6 @@ import SwiftUI
 import addy_shared
 
 struct RecipientsView: View {
-    @Binding var isPresentingProfileBottomSheet: Bool
-    @Binding var isShowingFailedDeliveriesView: Bool
 
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject var recipientsViewModel = RecipientsViewModel()
@@ -39,6 +37,8 @@ struct RecipientsView: View {
     @State var selectedFilterChip:String? = "all"
     @State var filterChips: [AddyChipModel] = []
     
+    
+
     
     var body: some View {
         NavigationStack(){
@@ -102,8 +102,10 @@ struct RecipientsView: View {
                                 )
                                 .onChange(of: shouldReloadDataInParent) {
                                     if shouldReloadDataInParent {
-                                        recipientsViewModel.getRecipients()
-                                        getUserResource()
+                                        DispatchQueue.global(qos: .background).async {
+                                            recipientsViewModel.getRecipients()
+                                            getUserResource()
+                                        }
                                         self.shouldReloadDataInParent = false
                                     }
                                 }
@@ -144,11 +146,15 @@ struct RecipientsView: View {
             .sheet(isPresented: $isPresentingAddRecipientBottomSheet) {
                 NavigationStack {
                     AddRecipientBottomSheet(){
-                        recipientsViewModel.getRecipients()
-                        getUserResource()
+                        DispatchQueue.global(qos: .background).async {
+                            recipientsViewModel.getRecipients()
+                            getUserResource()
+                        }
                         isPresentingAddRecipientBottomSheet = false
                     }
                 }
+                // This one has a bit more text, medium doesnt quite fit
+                .presentationDetents([.fraction(0.6), .large])
             }
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
@@ -205,8 +211,10 @@ struct RecipientsView: View {
                             Text(recipientsViewModel.networkError)
                         } actions: {
                             Button(String(localized: "try_again")) {
-                                recipientsViewModel.getRecipients()
-                                getUserResource()
+                                DispatchQueue.global(qos: .background).async {
+                                    recipientsViewModel.getRecipients()
+                                    getUserResource()
+                                }
                             }
                         }
                     } else {
@@ -228,32 +236,16 @@ struct RecipientsView: View {
                 }
             })
             .navigationTitle(String(localized: "recipients"))
+            .toolbar {
+                ProfilePicture().environmentObject(mainViewState)
+            }
             .navigationBarItems(trailing: HStack {
-                Button(action: {
-                    self.isShowingFailedDeliveriesView = true
-                }) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(.primary)
-                }
-                
-                Button(action: {
-                    self.isPresentingProfileBottomSheet = true
-                }) {
-                    Image(systemName: "person.crop.circle.fill")
-                        .foregroundStyle(.primary)
-                }
-                
                 Button(action: {
                     self.isPresentingAddRecipientBottomSheet = true
                 } ) {
                     
                     Image(systemName: "plus")
-                        .resizable()
-                        .padding(6)
                         .frame(width: 24, height: 24)
-                        .background(Color.accentColor)
-                        .clipShape(Circle())
-                        .foregroundColor(.white)
                     // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
                         .disabled(mainViewState.userResource!.subscription != nil &&
                                   recipient_count >= recipient_limit! /* Cannot be nil since subscription is not nil */ )
@@ -272,7 +264,9 @@ struct RecipientsView: View {
                     
                 }
             }
-            getUserResource()
+            DispatchQueue.global(qos: .background).async {
+                getUserResource()
+            }
         })
         
     }
@@ -320,8 +314,10 @@ struct RecipientsView: View {
         networkHelper.deleteRecipient(completion: { result in
             DispatchQueue.main.async {
                 if result == "204" {
-                    recipientsViewModel.getRecipients()
-                    getUserResource()
+                    DispatchQueue.global(qos: .background).async {
+                        recipientsViewModel.getRecipients()
+                        getUserResource()
+                    }
                 } else {
                     activeAlert = .error
                     showAlert = true

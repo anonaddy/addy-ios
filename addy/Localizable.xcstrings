@@ -1282,7 +1282,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d hrs from now on"
+            "value" : "%d hours from now on"
           }
         }
       }
@@ -1326,7 +1326,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d sec from now on"
+            "value" : "%d seconds from now on"
           }
         }
       }
@@ -1869,7 +1869,14 @@
       }
     },
     "edit_desc_domain_desc" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the description for this domain, describe what this domain is used for"
+          }
+        }
+      }
     },
     "edit_desc_username_desc" : {
       "extractionState" : "manual",
