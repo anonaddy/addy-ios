@@ -17,7 +17,7 @@ struct AddyMultiSelectChipView: View {
     let onTap: (AddyChipModel) -> Void
     
     var body: some View {
-        
+
         if (self.singleLine){
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {

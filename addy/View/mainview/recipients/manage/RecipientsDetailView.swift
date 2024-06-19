@@ -64,6 +64,9 @@ struct RecipientsDetailView: View {
     
     
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         
         if let recipient = recipient {
             Form {

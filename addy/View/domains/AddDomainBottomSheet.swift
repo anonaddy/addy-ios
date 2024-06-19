@@ -32,7 +32,9 @@ struct AddDomainBottomSheet: View {
     
     
     var body: some View {
-        
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         Group {
             if isWaitingForDomainVerification {
                 Text(domainVerificationStatusText).transition(.opacity).multilineTextAlignment(.center)

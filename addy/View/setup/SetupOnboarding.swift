@@ -11,7 +11,9 @@ struct SetupOnboarding: View {
     @State private var selectedPage = 0
     
     var body: some View {
-        
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         
         NavigationStack(){
             
@@ -48,7 +50,9 @@ struct SetupOnboarding: View {
         @Binding var selectedPage: Int
         
         var body: some View {
-            
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
             VStack {
                 ScrollView{
                     Image("register").resizable().scaledToFit().frame(maxHeight: 200)
@@ -87,7 +91,9 @@ struct SetupOnboarding: View {
         @Binding var selectedPage: Int
         
         var body: some View {
-            
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
             VStack {
                 ScrollView{
                     Image("email_aliases").resizable().scaledToFit().frame(maxHeight: 200)
@@ -126,7 +132,9 @@ struct SetupOnboarding: View {
         @Binding var selectedPage: Int
         
         var body: some View {
-            
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
             VStack {
                 ScrollView{
                     Image("dashboard").resizable().scaledToFit().frame(maxHeight: 200)
@@ -166,7 +174,9 @@ struct SetupOnboarding: View {
         @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
         var body: some View {
-            
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
             VStack {
                 ScrollView{
                     Image("icon-monocolor").resizable().scaledToFit().frame(maxHeight: 100).padding()

@@ -15,6 +15,7 @@ struct ValidatingTextField: View {
     @Binding var error: String?
     
     var body: some View {
+
         VStack(alignment: .leading){
             if (fieldType == .bigText){
                 

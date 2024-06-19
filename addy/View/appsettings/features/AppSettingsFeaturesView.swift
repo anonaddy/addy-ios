@@ -10,6 +10,9 @@ import SwiftUI
 struct AppSettingsFeaturesView: View {
     
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         List {
             AddySettingsHeader(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_header_desc"), systemimage: "star.fill", systemimageColor: .accentColor)
             

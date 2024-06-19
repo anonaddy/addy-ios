@@ -37,9 +37,15 @@ struct AliasesView: View {
     @State var selectedFilterChip:String? = "filter_all_aliases"
     @State var filterChips: [AddyChipModel] = []
     
+    @Binding var horizontalSize: UserInterfaceSizeClass
+
+    
     @Environment(\.scenePhase) var scenePhase
     
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         NavigationStack(){
             List {
                 if let aliasList = aliasesViewModel.aliasList{
@@ -338,6 +344,7 @@ struct AliasesView: View {
             .navigationTitle(String(localized: "aliases"))
             .toolbar {
                 ProfilePicture().environmentObject(mainViewState)
+                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
             }
             .navigationBarItems(trailing: HStack{
                 Button(action: {

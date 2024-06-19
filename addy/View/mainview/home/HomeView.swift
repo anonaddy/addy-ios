@@ -12,10 +12,12 @@ import SwiftUI
 struct HomeView: View {
 
     @EnvironmentObject var mainViewState: MainViewState
-    @State private var lastHostingView: UIView!
+    @Binding var horizontalSize: UserInterfaceSizeClass
 
     var body: some View {
-        
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         NavigationStack(){
             List {
                 VStack{
@@ -27,6 +29,7 @@ struct HomeView: View {
             .navigationTitle(String(localized: "home"))
             .toolbar {
                 ProfilePicture().environmentObject(mainViewState)
+                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
             }
         }
         

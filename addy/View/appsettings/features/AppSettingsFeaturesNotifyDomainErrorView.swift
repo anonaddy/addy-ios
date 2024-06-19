@@ -12,7 +12,9 @@ struct AppSettingsFeaturesNotifyDomainErrorView: View {
     @State var notifyDomainError: Bool = false
     
     var body: some View {
-    
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         List {
             Image("feature_notify_domain_error").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
             

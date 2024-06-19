@@ -15,7 +15,9 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
     @State var apiExpiryText: String = String(localized: "obtaining_information")
     
     var body: some View {
-        
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         List {
             Image("feature_notify_api_token_expiry").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
             

@@ -30,7 +30,8 @@ struct RecipientsView: View {
     
     @State private var shouldReloadDataInParent = false
     
-    
+    @Binding var horizontalSize: UserInterfaceSizeClass
+
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     
@@ -41,6 +42,9 @@ struct RecipientsView: View {
 
     
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         NavigationStack(){
             List {
                 if let recipients = recipientsViewModel.recipients{
@@ -238,6 +242,7 @@ struct RecipientsView: View {
             .navigationTitle(String(localized: "recipients"))
             .toolbar {
                 ProfilePicture().environmentObject(mainViewState)
+                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
             }
             .navigationBarItems(trailing: HStack {
                 Button(action: {

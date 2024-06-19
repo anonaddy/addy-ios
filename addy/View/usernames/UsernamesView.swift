@@ -34,6 +34,9 @@ struct UsernamesView: View {
     @Binding var horizontalSize: UserInterfaceSizeClass
     
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         
         // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
         Group() {
@@ -79,10 +82,10 @@ struct UsernamesView: View {
                                     
                                     
                                     Text(getUsernameDescription(username: username))
-                                            .font(.caption)
-                                            .opacity(0.625)
-                                            .lineLimit(1)
-                                            .truncationMode(.middle)
+                                        .font(.caption)
+                                        .opacity(0.625)
+                                        .lineLimit(1)
+                                        .truncationMode(.middle)
                                     
                                     
                                 }
@@ -104,7 +107,7 @@ struct UsernamesView: View {
                 }header: {
                     HStack(spacing: 6){
                         Text(String(localized: "all_usernames"))
-
+                        
                         
                         if (usernamesViewModel.isLoading){
                             ProgressView()
@@ -211,11 +214,12 @@ struct UsernamesView: View {
             }
         })
         .navigationTitle(String(localized: "usernames"))
-        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .large : .inline)
+        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
         .toolbar {
             if horizontalSize == .regular {
-                            ProfilePicture().environmentObject(mainViewState)
-                        }
+                ProfilePicture().environmentObject(mainViewState)
+                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+            }
         }
         .navigationBarItems(trailing: Button(action: {
             self.isPresentingAddUsernameBottomSheet = true
@@ -231,20 +235,20 @@ struct UsernamesView: View {
     
     private func getUsernameDescription(username: Usernames) -> String{
         if let description = username.description {
-           return String(format: String(localized: "s_s_s"),
-                                           description,
-                                           String(format: NSLocalizedString("created_at_s", comment: ""),
-                                                  DateTimeUtils.turnStringIntoLocalString(username.created_at)),
-                                           String(format: String(localized: "updated_at_s"),
-                                                  DateTimeUtils.turnStringIntoLocalString(username.updated_at)))
-       } else {
-           return String(format: String(localized: "s_s"),
-                                           String(format: NSLocalizedString("created_at_s", comment: ""),
-                                                  DateTimeUtils.turnStringIntoLocalString(username.created_at)),
-                                           String(format: String(localized: "created_at_s"),
-                                                  DateTimeUtils.turnStringIntoLocalString(username.updated_at)))
-       }
-
+            return String(format: String(localized: "s_s_s"),
+                          description,
+                          String(format: NSLocalizedString("created_at_s", comment: ""),
+                                 DateTimeUtils.turnStringIntoLocalString(username.created_at)),
+                          String(format: String(localized: "updated_at_s"),
+                                 DateTimeUtils.turnStringIntoLocalString(username.updated_at)))
+        } else {
+            return String(format: String(localized: "s_s"),
+                          String(format: NSLocalizedString("created_at_s", comment: ""),
+                                 DateTimeUtils.turnStringIntoLocalString(username.created_at)),
+                          String(format: String(localized: "created_at_s"),
+                                 DateTimeUtils.turnStringIntoLocalString(username.updated_at)))
+        }
+        
     }
     
     
@@ -286,18 +290,18 @@ struct UsernamesView: View {
     private func getUserResource() {
         let networkHelper = NetworkHelper()
         networkHelper.getUserResource { userResource, error in
-                DispatchQueue.main.async {
-                    if let userResource = userResource {
-                        // Don't update mainView, this will refresh the entire view hiearchy
-                        username_limit = userResource.username_limit
-                        username_count = userResource.username_count
-                    } else {
-                        activeAlert = .error
-                        showAlert = true
-                    }
+            DispatchQueue.main.async {
+                if let userResource = userResource {
+                    // Don't update mainView, this will refresh the entire view hiearchy
+                    username_limit = userResource.username_limit
+                    username_count = userResource.username_count
+                } else {
+                    activeAlert = .error
+                    showAlert = true
                 }
             }
         }
+    }
     
 }
 

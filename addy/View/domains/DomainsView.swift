@@ -35,6 +35,9 @@ struct DomainsView: View {
     @Binding var horizontalSize: UserInterfaceSizeClass
     
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         
         // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
         Group() {
@@ -218,10 +221,11 @@ struct DomainsView: View {
             }
         })
         .navigationTitle(String(localized: "domains"))
-        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .large : .inline)
+        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
         .toolbar {
             if horizontalSize == .regular {
                 ProfilePicture().environmentObject(mainViewState)
+                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
             }
         }
         .navigationBarItems(trailing: Button(action: {

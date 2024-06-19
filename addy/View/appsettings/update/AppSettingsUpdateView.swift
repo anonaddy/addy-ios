@@ -25,6 +25,9 @@ struct AppSettingsUpdateView: View {
     @Environment(\.openURL) var openURL
 
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         List {
             AddySettingsHeader(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_header_desc"), systemimage: "arrow.down.circle.dotted", systemimageColor: .blue)
             

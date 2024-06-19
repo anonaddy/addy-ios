@@ -16,7 +16,9 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
     @State var toggleDescription: String = String(localized: "notify_subscription_expiry_feature_section_desc")
     
     var body: some View {
-        
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         List {
             Image("feature_notify_subscription_expiry").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
             

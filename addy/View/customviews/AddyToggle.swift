@@ -25,8 +25,6 @@ struct AddyToggle: View {
         
     
     var body: some View {
-                    
-        
                     HStack {
                         if let leadingSystemimage = leadingSystemimage {
                             

@@ -12,6 +12,9 @@ struct ChangelogBottomSheet: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         List{
             Section{
                 let formattedString = String.localizedStringWithFormat(NSLocalizedString("app_changelog", comment: ""))

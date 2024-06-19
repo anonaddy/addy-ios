@@ -24,6 +24,7 @@ struct AddyLoadingButton<Content: View>: View{
     }
     
     public var body: some View {
+
         Button(action: {
             if !isLoading {
                 action()

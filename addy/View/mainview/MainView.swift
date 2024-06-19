@@ -12,6 +12,8 @@ import LocalAuthentication
 
 class MainViewState: ObservableObject {
     
+    @Environment(\.horizontalSizeClass) var horizontalSize
+
     static let shared = MainViewState() // Shared instance
     
     // MARK: NOTIFICATION ACTIONS
@@ -20,11 +22,13 @@ class MainViewState: ObservableObject {
     // MARK: END NOTIFICATION ACTIONS
     
     @Published var isPresentingProfileBottomSheet = false
+    @Published var isPresentingFailedDeliveriesSheet = false
 
     @Published var selectedTab: Destination = .home
 
     @Published var showApiExpirationWarning = false
     @Published var isUnlocked = false
+    
 
     @Published var encryptedSettingsManager = SettingsManager(encrypted: true)
     @Published var settingsManager = SettingsManager(encrypted: false)
@@ -146,8 +150,15 @@ struct MainView: View {
                                 ProfileBottomSheet(onNavigate: { destination in
                                     mainViewState.isPresentingProfileBottomSheet = false
                                     mainViewState.selectedTab = destination
-                                }, isPresentingProfileBottomSheet: $mainViewState.isPresentingProfileBottomSheet, horizontalSize:  .constant(horizontalSize!))
+                                }, isPresentingProfileBottomSheet: $mainViewState.isPresentingProfileBottomSheet,
+                                                   horizontalSize:  horizontalSize)
                                 .environmentObject(mainViewState)
+                            }
+                            .presentationDetents([.large])
+                        }
+                        .sheet(isPresented: $mainViewState.isPresentingFailedDeliveriesSheet) {
+                            NavigationStack {
+                                FailedDeliveriesView(horizontalSize: horizontalSize)
                             }
                             .presentationDetents([.large])
                         }
@@ -377,12 +388,12 @@ enum Destination: Hashable, CaseIterable {
     
     func view(horizontalSize:Binding<UserInterfaceSizeClass>) -> some View {
         switch self {
-        case .home: return AnyView(HomeView())
-        case .aliases: return AnyView(AliasesView())
-        case .recipients: return AnyView(RecipientsView())
+        case .home: return AnyView(HomeView(horizontalSize: horizontalSize))
+        case .aliases: return AnyView(AliasesView(horizontalSize: horizontalSize))
+        case .recipients: return AnyView(RecipientsView(horizontalSize: horizontalSize))
         case .usernames: return AnyView(UsernamesView(horizontalSize: horizontalSize))
         case .domains: return AnyView(DomainsView(horizontalSize: horizontalSize))
-        case .failedDeliveries: return AnyView(FailedDeliveriesView(horizontalSize: horizontalSize))
+        case .failedDeliveries: return AnyView(FailedDeliveriesView(horizontalSize: horizontalSize.wrappedValue))
         case .rules: return AnyView(RulesView(horizontalSize: horizontalSize))
         case .settings: return AnyView(AppSettingsView(horizontalSize: horizontalSize))
         }

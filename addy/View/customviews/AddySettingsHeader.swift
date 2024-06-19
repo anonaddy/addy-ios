@@ -15,6 +15,9 @@ struct AddySettingsHeader: View {
     var systemimageColor: Color = .blue
     
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         Section {
            
             VStack(alignment: .center) {

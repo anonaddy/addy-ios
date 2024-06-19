@@ -23,7 +23,9 @@ struct SetupView: View {
 
     
     var body: some View {
-        
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         NavigationStack{
             ZStack {
                 Color(.setupViewBackground)

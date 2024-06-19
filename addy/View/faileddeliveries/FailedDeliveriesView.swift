@@ -24,11 +24,19 @@ struct FailedDeliveriesView: View {
     
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
+  
+    @State var horizontalSize: UserInterfaceSizeClass
     
-    
-    @Binding var horizontalSize: UserInterfaceSizeClass
+    @Environment(\.dismiss) var dismiss
+
+    init(horizontalSize: UserInterfaceSizeClass?) {
+        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
+    }
     
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         NavigationStack{
             List {
                 if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries{
@@ -173,11 +181,19 @@ struct FailedDeliveriesView: View {
                     
                 }
             })
+            .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
             .navigationTitle(String(localized: "failed_deliveries"))
             .toolbar {
                 if horizontalSize == .regular {
                                 ProfilePicture().environmentObject(mainViewState)
-                            }
+                                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                } else {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                    }
+                }
             }
             
         }

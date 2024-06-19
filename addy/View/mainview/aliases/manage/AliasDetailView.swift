@@ -58,7 +58,9 @@ struct AliasDetailView: View {
     
     
     var body: some View {
-        
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         if let alias = alias {
             Form {
                 Section {
@@ -143,14 +145,11 @@ struct AliasDetailView: View {
                             Button(action: {
                                 self.copyToClipboard(alias: alias)
                             }) {
-                                Label(copiedToClipboard ? String(localized: "copied") : String(localized: "copy_alias"), systemImage: copiedToClipboard ? "checkmark": "clipboard")
+                                Label(copiedToClipboard ? String(localized: "copied") : String(localized: "copy_alias"), systemImage: "clipboard")
                                     .foregroundColor(.white)
-                                    .frame(maxWidth:.infinity, maxHeight: 16)
+                                    .frame(maxWidth:.infinity, maxHeight: 20).frame(alignment: .leading)
                                     .font(.system(size: 14))
-                                
-                                
                             }
-                            .controlSize(.regular)
                             .buttonStyle(.borderedProminent)
                             .tint(.accentColor)
                             .contentTransition(.symbolEffect(.replace))
@@ -160,12 +159,9 @@ struct AliasDetailView: View {
                             }) {
                                 Label(String(localized: "send_mail"), systemImage: "paperplane")
                                     .foregroundColor(.white)
-                                    .frame(maxWidth:.infinity, maxHeight: 16)
+                                    .frame(maxWidth:.infinity, maxHeight: 20).frame(alignment: .leading)
                                     .font(.system(size: 14))
-                                
-                                
                             }
-                            .controlSize(.regular)
                             .buttonStyle(.borderedProminent)
                             .tint(.accentColor)
                             .contentTransition(.symbolEffect(.replace))
@@ -530,11 +526,14 @@ struct AliasDetailView: View {
         UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
         
         
-        self.copiedToClipboard = true
+        withAnimation {
+            self.copiedToClipboard = true
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.copiedToClipboard = false
-            
+            withAnimation {
+                self.copiedToClipboard = false
+            }
         }
         
     }

@@ -31,7 +31,9 @@ struct EditAliasFromNameBottomSheet: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-            
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
             Form {
                 
                 Section{

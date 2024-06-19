@@ -11,7 +11,9 @@ struct AppSettingsFeaturesWatchAliasView: View {
     
     @State var watchAlias = true
     var body: some View {
-    
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         List {
             Image("feature_watch_alias").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
             

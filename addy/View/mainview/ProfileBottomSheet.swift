@@ -16,7 +16,7 @@ import addy_shared
 struct ProfileBottomSheet: View {
     @Binding var isPresentingProfileBottomSheet: Bool
     @EnvironmentObject var mainViewState: MainViewState
-    @Binding var horizontalSize: UserInterfaceSizeClass
+    @State var horizontalSize: UserInterfaceSizeClass
     
     @State var isShowingDomainsView = false
     @State var isShowingRulesView = false
@@ -25,16 +25,19 @@ struct ProfileBottomSheet: View {
     
     let onNavigate: (Destination) -> Void
 
-    init(onNavigate: @escaping (Destination) -> Void, isPresentingProfileBottomSheet: Binding<Bool>, horizontalSize: Binding<UserInterfaceSizeClass>) {
+    init(onNavigate: @escaping (Destination) -> Void, isPresentingProfileBottomSheet: Binding<Bool>, horizontalSize: UserInterfaceSizeClass?) {
         self.onNavigate = onNavigate
         self._isPresentingProfileBottomSheet = isPresentingProfileBottomSheet
-        self._horizontalSize = horizontalSize
+        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact // In case horizontalSize cannot be determined, go with the compact mode (iPhone)
     }
 
     @Environment(\.dismiss) var dismiss
     @Environment(\.openURL) var openURL
 
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         NavigationStack {
             List {
                 

@@ -49,7 +49,9 @@ struct AliasRowView: View {
     }
     
     var body: some View {
-        
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         if isPreview {
             // Preview (long press) view
             VStack(alignment: .leading){

@@ -14,6 +14,9 @@ struct LogViewerView: View {
     
     
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         List {
             if let logs = logsViewModel.logs{
                 if !logs.isEmpty {

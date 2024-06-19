@@ -24,6 +24,9 @@ struct AppSettingsView: View {
     @Environment(\.openURL) var openURL
     @Binding var horizontalSize: UserInterfaceSizeClass
     var body: some View {
+#if DEBUG
+        let _ = Self._printChanges()
+#endif
         
         // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
         Group() {
@@ -171,10 +174,11 @@ struct AppSettingsView: View {
             }
         }
         .navigationTitle(String(localized: "settings"))
-        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .large : .inline)
+        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
         .toolbar {
             if horizontalSize == .regular {
                 ProfilePicture().environmentObject(mainViewState)
+                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
             }
         }
         .sheet(isPresented: $isPresentingAppearanceBottomSheet, content: {
