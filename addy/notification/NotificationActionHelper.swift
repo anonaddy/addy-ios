@@ -18,6 +18,7 @@ public struct notificationActions {
     static let stopFailedDeliveriesCheck = "stopFailedDeliveryCheck"
     static let stopApiExpiryCheck = "stopApiExpiryCheck"
     static let openApiExpirationWarning = "openApiExpirationWarning"
+    static let openSubscriptionExpirationWarning = "openSubscriptionExpirationWarning"
     static let stopDomainErrorCheck = "stopDomainErrorCheck"
     static let openDomains = "openDomains"
     static let stopSubscriptionExpiryCheck = "stopSubscriptionExpiryCheck"
@@ -61,9 +62,11 @@ class NotificationActionHelper {
                 break
             case notificationActions.openDomains: MainViewState.shared.selectedTab = .domains
                 break
-            case notificationActions.openFailedDeliveries: MainViewState.shared.selectedTab = .failedDeliveries
+            case notificationActions.openFailedDeliveries: MainViewState.shared.isPresentingFailedDeliveriesSheet = true
                 break
             case notificationActions.openApiExpirationWarning: MainViewState.shared.showApiExpirationWarning = true
+                break            
+            case notificationActions.openSubscriptionExpirationWarning: MainViewState.shared.showSubscriptionExpirationWarning = true
                 break
             case notificationActions.openAlias:
                 if let aliasId = response.notification.request.content.userInfo["aliasId"] as? String {

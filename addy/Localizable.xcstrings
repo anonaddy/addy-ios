@@ -4875,6 +4875,28 @@
         }
       }
     },
+    "subscription_about_to_expire" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription about to expire"
+          }
+        }
+      }
+    },
+    "subscription_about_to_expire_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your subscription will expire in %@. Renew your subscription to keep using pro features."
+          }
+        }
+      }
+    },
     "subscription_expiry_date" : {
       "extractionState" : "manual",
       "localizations" : {

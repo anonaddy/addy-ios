@@ -32,7 +32,8 @@ struct UsernamesView: View {
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     @Binding var horizontalSize: UserInterfaceSizeClass
-    
+    var onRefreshGeneralData: (() -> Void)? = nil
+
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -128,6 +129,11 @@ struct UsernamesView: View {
             }
             
         }.refreshable {
+            if horizontalSize == .regular {
+                // When in regular size (tablet) mode, refreshing aliases also ask the mainView to update general data
+                self.onRefreshGeneralData?()
+            }
+            
             self.usernamesViewModel.getUsernames()
             getUserResource()
         }

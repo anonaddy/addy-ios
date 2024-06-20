@@ -10,6 +10,7 @@ import addy_shared
 import UniformTypeIdentifiers
 
 struct AliasesView: View {
+
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject var aliasesViewModel = AliasesViewModel()
     
@@ -38,6 +39,7 @@ struct AliasesView: View {
     @State var filterChips: [AddyChipModel] = []
     
     @Binding var horizontalSize: UserInterfaceSizeClass
+    var onRefreshGeneralData: (() -> Void)? = nil
 
     
     @Environment(\.scenePhase) var scenePhase
@@ -245,6 +247,8 @@ struct AliasesView: View {
                 
             }
             .refreshable {
+                // When refreshing aliases also ask the mainView to update general data
+                self.onRefreshGeneralData?()
                 self.aliasesViewModel.getAliases(forceReload: true)
             }
             .onChange(of: scenePhase) { oldPhase, newPhase in

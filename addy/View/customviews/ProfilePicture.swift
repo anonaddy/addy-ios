@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfilePicture: View {
     @EnvironmentObject var mainViewState: MainViewState
-
+        
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -18,9 +18,15 @@ struct ProfilePicture: View {
             mainViewState.isPresentingProfileBottomSheet = true
         } label: {
             ZStack(alignment: .center) {
-                Circle()
-                    .fill(LinearGradient(gradient: Gradient(colors: [Color.secondary.opacity(0.6), Color.secondary]), startPoint: .top, endPoint: .bottom))
-                    .frame(width: 24, height: 24)
+                if mainViewState.updateAvailable {
+                    Circle()
+                        .fill(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.6), Color.blue]), startPoint: .top, endPoint: .bottom))
+                        .frame(width: 24, height: 24)
+                } else {
+                    Circle()
+                        .fill(LinearGradient(gradient: Gradient(colors: [Color.secondary.opacity(0.6), Color.secondary]), startPoint: .top, endPoint: .bottom))
+                        .frame(width: 24, height: 24)
+                }
                 Text(MainViewState.shared.userResource!.username.prefix(2).uppercased())
                     .font(.system(size: 12))
                     .fontWeight(.bold)

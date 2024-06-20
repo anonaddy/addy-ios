@@ -13,6 +13,7 @@ struct HomeView: View {
 
     @EnvironmentObject var mainViewState: MainViewState
     @Binding var horizontalSize: UserInterfaceSizeClass
+    var onRefreshGeneralData: (() -> Void)? = nil
 
     var body: some View {
 #if DEBUG
@@ -31,6 +32,9 @@ struct HomeView: View {
                 ProfilePicture().environmentObject(mainViewState)
                 FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
             }
+        }.refreshable {
+            // When refreshing aliases also ask the mainView to update general data
+            self.onRefreshGeneralData?()
         }
         
            

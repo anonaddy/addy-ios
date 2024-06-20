@@ -26,11 +26,13 @@ struct FailedDeliveriesView: View {
     @State private var errorAlertMessage = ""
   
     @State var horizontalSize: UserInterfaceSizeClass
-    
+    var onRefreshGeneralData: (() -> Void)? = nil
+
     @Environment(\.dismiss) var dismiss
 
-    init(horizontalSize: UserInterfaceSizeClass?) {
+    init(horizontalSize: UserInterfaceSizeClass?, onRefreshGeneralData: (() -> Void)? = nil) {
         self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
+        self.onRefreshGeneralData = onRefreshGeneralData
     }
     
     var body: some View {
@@ -97,12 +99,19 @@ struct FailedDeliveriesView: View {
                                 
                             }
                         }
-                        
-                    }
+                        // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
+                    }.onAppear(perform: {
+                        updateTheCacheFDCount(count: failedDeliveries.data.count)
+                    })
                     
                 }
                 
             }.refreshable {
+                if horizontalSize == .regular {
+                    // When in regular size (tablet) mode, refreshing aliases also ask the mainView to update general data
+                    self.onRefreshGeneralData?()
+                }
+                
                 self.failedDeliveriesViewModel.getFailedDeliveries()
             }
             .sheet(item: $failedDeliveryToShow) { failedDelivery in
@@ -201,15 +210,18 @@ struct FailedDeliveriesView: View {
             if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries{
                 if (failedDeliveries.data.isEmpty) {
                     failedDeliveriesViewModel.getFailedDeliveries()
-                } else {
-                    // Set the count of failed deliveries so that we can use it for the backgroundservice AND mark this a read for the badge
-                    MainViewState.shared.encryptedSettingsManager.putSettingsInt(
-                        key: .backgroundServiceCacheFailedDeliveriesCount,
-                        int: failedDeliveries.data.count
-                    )
                 }
             }
         })
+    }
+    
+    private func updateTheCacheFDCount(count: Int){
+        // Set the count of failed deliveries so that we can use it for the backgroundservice AND mark this a read for the badge
+        MainViewState.shared.encryptedSettingsManager.putSettingsInt(
+            key: .backgroundServiceCacheFailedDeliveriesCount,
+            int: count
+        )
+            
     }
     
     

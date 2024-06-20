@@ -31,6 +31,7 @@ struct RecipientsView: View {
     @State private var shouldReloadDataInParent = false
     
     @Binding var horizontalSize: UserInterfaceSizeClass
+    var onRefreshGeneralData: (() -> Void)? = nil
 
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
@@ -144,6 +145,8 @@ struct RecipientsView: View {
                 }
                 
             }.refreshable {
+                // When refreshing aliases also ask the mainView to update general data
+                self.onRefreshGeneralData?()
                 self.recipientsViewModel.getRecipients()
                 getUserResource()
             }

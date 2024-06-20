@@ -135,16 +135,16 @@ class NotificationHelper{
         content.sound = .default
         
         let action1 = UNNotificationAction(identifier: notificationActions.stopSubscriptionExpiryCheck, title: String(localized: "disable_notifications"), options: [])
-        let category = UNNotificationCategory(identifier: notificationActions.openSettings, actions: [action1], intentIdentifiers: [], options: [])
+        let category = UNNotificationCategory(identifier: notificationActions.openSubscriptionExpirationWarning, actions: [action1], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
-        content.categoryIdentifier = notificationActions.openSettings
+        content.categoryIdentifier = notificationActions.openSubscriptionExpirationWarning
 
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openSettings, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: notificationActions.openSubscriptionExpirationWarning, content: content, trigger: trigger)
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)

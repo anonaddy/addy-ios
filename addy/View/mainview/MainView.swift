@@ -26,7 +26,11 @@ class MainViewState: ObservableObject {
 
     @Published var selectedTab: Destination = .home
 
+    @Published var newFailedDeliveries : Int? = nil
+    @Published var updateAvailable : Bool = false
+
     @Published var showApiExpirationWarning = false
+    @Published var showSubscriptionExpirationWarning = false
     @Published var isUnlocked = false
     
 
@@ -93,6 +97,7 @@ struct MainView: View {
     @Environment(\.scenePhase) var scenePhase
     
     @State private var apiTokenExpiryText = ""
+    @State private var subscriptionExpiryText = ""
     
     @State var isShowingAppSettingsView = false
     @State var isShowingFailedDeliveriesView = false
@@ -103,7 +108,6 @@ struct MainView: View {
     @State private var navigationPath = NavigationPath()
     @State private var showBiometricsNotAvailableAlert = false
     @State var isShowingAddApiBottomSheet: Bool = false
-    @State var newFailedDeliveries : Int? = nil
     @Environment(\.horizontalSizeClass) var horizontalSize
 
     
@@ -138,6 +142,9 @@ struct MainView: View {
                                 isShowingAddApiBottomSheet = true
                             }, secondaryButton: .cancel(Text(String(localized: "dismiss"))))
                         }
+                        .alert(isPresented: $mainViewState.showSubscriptionExpirationWarning){
+                            Alert(title: Text(String(localized: "subscription_about_to_expire")), message: Text(String(format: String(localized:"subscription_about_to_expire_desc"), subscriptionExpiryText)), dismissButton: .cancel(Text(String(localized: "dismiss"))))
+                        }
                         .sheet(isPresented: $isShowingAddApiBottomSheet) {
                             let baseUrl = MainViewState.shared.encryptedSettingsManager.getSettingsString(key: .baseUrl)
                             NavigationStack {
@@ -169,8 +176,9 @@ struct MainView: View {
                             .presentationDetents([.medium, .large])
                         })
                         .task {
-                            // Upon launching the app, always check for token expiry
+                            checkForUpdates()
                             checkTokenExpiry()
+                            checkForSubscriptionExpiration()
                             checkForNewFailedDeliveries()
                         }
                 }
@@ -213,9 +221,6 @@ struct MainView: View {
                     }
                                     }
             }
-            .onAppear(perform: {
-                
-            })
             .alert(String(localized: "authentication_splash_error_unavailable"), isPresented: $showBiometricsNotAvailableAlert) {
                 Button(String(localized: "try_again"), role: .cancel) {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -234,6 +239,42 @@ struct MainView: View {
         }
         
         
+    }
+    
+    
+    
+    private func checkForSubscriptionExpiration(){
+        if mainViewState.settingsManager.getSettingsBool(key: .notifySubscriptionExpiry, default: false) {
+            NetworkHelper().getUserResource { (user, _) in
+                if let subscriptionEndsAt = user?.subscription_ends_at {
+                    do {
+                        let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(subscriptionEndsAt) // Get the expiry date
+                        let currentDateTime = Date() // Get the current date
+                        let deadLineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate) // Subtract 7 days from the expiry date
+                        if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
+                            // The current date is suddenly after the deadline date. It will expire within 7 days
+                            // Show the subscription is about to expire card
+                            
+                            DispatchQueue.main.async {
+                                subscriptionExpiryText = expiryDate.futureDateDisplay()
+                                mainViewState.showSubscriptionExpirationWarning = true
+                            }
+                            
+                        } else {
+                            // The current date is not yet after the deadline date.
+                        }
+                    } catch {
+                        // Panic
+                        LoggingHelper().addLog(
+                            importance: LogImportance.critical,
+                            error: "Could not parse subscriptionEndsAt",
+                            method: "checkForSubscriptionExpiration",
+                            extra: error.localizedDescription)
+                    }
+                }
+                // If expires_at is null it will never expire
+            }
+        }
     }
     
     private func checkTokenExpiry(){
@@ -286,7 +327,9 @@ struct MainView: View {
                 let currentFailedDeliveries = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
                 if (result?.data.count ?? 0 - currentFailedDeliveries) > 0 {
                     DispatchQueue.main.async {
-                        newFailedDeliveries = (result?.data.count ?? 0) - currentFailedDeliveries
+                        withAnimation {
+                            self.mainViewState.newFailedDeliveries = (result?.data.count ?? 0) - currentFailedDeliveries
+                        }
                     }
                 }
             }
@@ -322,12 +365,34 @@ struct MainView: View {
     }
     
     
+    private func refreshGeneralData(){
+        DispatchQueue.global(qos: .background).async {
+            checkForNewFailedDeliveries()
+            checkForUpdates()
+            checkTokenExpiry()
+            checkForSubscriptionExpiration()
+        }
+    }
+    
+    private func checkForUpdates(){
+        if mainViewState.settingsManager.getSettingsBool(key: .notifyUpdates) {
+            Updater().isUpdateAvailable { updateAvailable, _, _, _ in
+                DispatchQueue.main.async {
+                    withAnimation {
+                        mainViewState.updateAvailable = updateAvailable
+                    }
+                }
+            }
+        }
+    }    
+
+    
     private var tabView: some View {
         TabView(selection: $mainViewState.selectedTab) {
             let destinations = horizontalSize == .regular ? Destination.allCases : Destination.iPhoneCases
     
             ForEach(destinations, id: \.self) { destination in
-                destination.view(horizontalSize: .constant(horizontalSize!))
+                destination.view(horizontalSize: .constant(horizontalSize!), refreshGeneralData: self.refreshGeneralData)
                         .tag(destination)
                         .tabItem {
                             Label(destination.title, systemImage: destination.systemImage)
@@ -335,7 +400,7 @@ struct MainView: View {
                         .apply {
                             // Apply the badge to the failed deliveries item
                             if (destination == .failedDeliveries) {
-                                $0.badge(newFailedDeliveries ?? 0)
+                                $0.badge(self.mainViewState.newFailedDeliveries ?? 0)
                             } else {
                                 $0.badge(0)
                             }
@@ -386,15 +451,29 @@ enum Destination: Hashable, CaseIterable {
         }
     }
     
-    func view(horizontalSize:Binding<UserInterfaceSizeClass>) -> some View {
+    func view(horizontalSize:Binding<UserInterfaceSizeClass>, refreshGeneralData: (() -> Void)? = nil) -> some View {
         switch self {
-        case .home: return AnyView(HomeView(horizontalSize: horizontalSize))
-        case .aliases: return AnyView(AliasesView(horizontalSize: horizontalSize))
-        case .recipients: return AnyView(RecipientsView(horizontalSize: horizontalSize))
-        case .usernames: return AnyView(UsernamesView(horizontalSize: horizontalSize))
-        case .domains: return AnyView(DomainsView(horizontalSize: horizontalSize))
-        case .failedDeliveries: return AnyView(FailedDeliveriesView(horizontalSize: horizontalSize.wrappedValue))
-        case .rules: return AnyView(RulesView(horizontalSize: horizontalSize))
+        case .home: return AnyView(HomeView(horizontalSize: horizontalSize, onRefreshGeneralData: {
+            refreshGeneralData?()
+        }))
+        case .aliases: return AnyView(AliasesView(horizontalSize: horizontalSize, onRefreshGeneralData: {
+            refreshGeneralData?()
+        }))
+        case .recipients: return AnyView(RecipientsView(horizontalSize: horizontalSize, onRefreshGeneralData: {
+            refreshGeneralData?()
+        }))
+        case .usernames: return AnyView(UsernamesView(horizontalSize: horizontalSize, onRefreshGeneralData: {
+            refreshGeneralData?()
+        }))
+        case .domains: return AnyView(DomainsView(horizontalSize: horizontalSize, onRefreshGeneralData: {
+            refreshGeneralData?()
+        }))
+        case .failedDeliveries: return AnyView(FailedDeliveriesView(horizontalSize: horizontalSize.wrappedValue, onRefreshGeneralData: {
+            refreshGeneralData?()
+        }))
+        case .rules: return AnyView(RulesView(horizontalSize: horizontalSize, onRefreshGeneralData: {
+            refreshGeneralData?()
+        }))
         case .settings: return AnyView(AppSettingsView(horizontalSize: horizontalSize))
         }
     }
