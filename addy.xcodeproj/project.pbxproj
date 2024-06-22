@@ -44,6 +44,7 @@
 		807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */; };
 		807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */; };
+		807515102C26C69E00DE2AC7 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */; };
 		807DB4832C1764620051DD8A /* AppearanceBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */; };
 		807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */; };
 		80813B622C0DE1DA009C4E6A /* DomainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B612C0DE1DA009C4E6A /* DomainsView.swift */; };
@@ -219,6 +220,7 @@
 		806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingFieldModel.swift; sourceTree = "<group>"; };
 		807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
+		8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceBottomSheet.swift; sourceTree = "<group>"; };
 		807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipientBottomSheet.swift; sourceTree = "<group>"; };
 		80813B612C0DE1DA009C4E6A /* DomainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainsView.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 		806F21262BE8F1B100EBEBC8 = {
 			isa = PBXGroup;
 			children = (
+				8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */,
 				806AE6982C1A0D5700F3CA92 /* Settings.bundle */,
 				8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */,
 				806F21312BE8F1B100EBEBC8 /* addy */,
@@ -1062,6 +1065,7 @@
 				806AE6992C1A0D5700F3CA92 /* Settings.bundle in Resources */,
 				801B929F2BE8FF6800179EB5 /* Launch Screen.storyboard in Resources */,
 				806D5F252BE925C600C5C109 /* ic_loading_logo.shapeshifter.json in Resources */,
+				807515102C26C69E00DE2AC7 /* InfoPlist.xcstrings in Resources */,
 				806F213C2BE8F1B200EBEBC8 /* Preview Assets.xcassets in Resources */,
 				801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */,
 				806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */,
@@ -1301,6 +1305,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1359,6 +1364,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};

@@ -6,6 +6,17 @@
 	<array>
 		<string>host.stjin.addy.backgroundworker</string>
 	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>SHORTCUT_ADD_ALIAS</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>host.stjin.addy.shortcut_add_alias</string>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

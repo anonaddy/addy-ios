@@ -74,8 +74,6 @@ struct AliasDetailView: View {
                                                                          ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
                                                                          ColorGradient(.softRed, .softRed.opacity(0.7))]))
                                 .frame(maxWidth: .infinity)
-                            
-                            
                             Spacer()
                             
                             VStack(alignment: .leading){
@@ -422,6 +420,12 @@ struct AliasDetailView: View {
         
     }
     
+    private func addQuickActions(alias: Aliases) {
+        UIApplication.shared.shortcutItems = [
+            UIApplicationShortcutItem(type: "host.stjin.addy.shortcut_open_alias_\(alias.id)", localizedTitle: alias.email, localizedSubtitle: nil, icon: UIApplicationShortcutIcon.init(type: .time)),
+        ]
+    }
+    
     private func getRecipientsIds(recipients: [Recipients]?) -> [String] {
         var idArray = [String]()
         
@@ -469,6 +473,8 @@ struct AliasDetailView: View {
         let aliasEmailBlockedProgress = (Double(alias.emails_blocked) / aliasTotalCount) * 100
         
         self.chartData = [aliasEmailForwardedProgress, aliasEmailRepliedProgress, aliasEmailSentProgress, aliasEmailBlockedProgress]
+        
+        addQuickActions(alias: alias)
         
         
     }
