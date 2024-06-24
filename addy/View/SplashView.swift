@@ -16,6 +16,11 @@ struct SplashView: View {
     @State private var isPresentUnsupportedVersionBottomDialog = false
     @State private var networkHelper: NetworkHelper? = nil
     
+    @State private var isShowingDetailedErrorAlert = false
+    @State private var detailedError: String? = ""
+    
+    
+    
     @Environment(\.openURL) var openURL
 
     var body: some View {
@@ -27,26 +32,53 @@ struct SplashView: View {
                 Color.accentColor
                     .ignoresSafeArea(.container) // Ignore just for the color
                     .overlay(
-                        VStack(spacing: 20) {
-                            LottieView(animation: .named("ic_loading_logo_error.shapeshifter"))
-                                .playbackMode(.playing(.toProgress(1, loopMode: .playOnce)))
-                                .animationSpeed(Double(2))
-                                .frame(maxHeight: 128)
-                                .opacity(0.5)
+                        VStack() {
+                                VStack{
+                                    Text(String(localized: "whoops"))
+                                        .foregroundStyle(.white)
+                                        .font(.title)
+                                        .fontWeight(.heavy)
+                                        .padding(.bottom)
+                                    Text(String(localized: "addyio_load_error"))
+                                        .foregroundStyle(.white)
+                                        .font(.subheadline)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.bottom)
+                                    Text(String(localized: "tap_here_to_see_the_error"))
+                                        .foregroundStyle(.red)
+                                        .font(.subheadline)
+                                        .multilineTextAlignment(.center)
+                                        .onTapGesture {
+                                            isShowingDetailedErrorAlert = true
+                                        }
+                                }.padding()
+                                Spacer()
+                                LottieView(animation: .named("ic_loading_logo_error.shapeshifter"))
+                                    .playbackMode(.playing(.toProgress(1, loopMode: .playOnce)))
+                                    .animationSpeed(Double(2))
+                                    .frame(maxHeight: 128)
+                                    .opacity(0.5)
+                                Spacer()
+                                Spacer()
+                                HStack{
+                                    AddyButton(action: {
+                                        loadDataAndStartApp()
+                   
+                                    }, style: AddyButtonStyle(backgroundColor: .easternBlue)) {
+                                        Text(String(localized: "try_again")).foregroundColor(Color.white)
+                                    }
+                                    
+                                    AddyButton(action: {
+                                        let settingsManager = SettingsManager(encrypted: true)
+                                        settingsManager.clearSettingsAndCloseApp()
+                   
+                                    }, style: AddyButtonStyle(backgroundColor: .easternBlue)) {
+                                        Text(String(localized: "reset_app")).foregroundColor(Color.white)
+                                    }
+                                }.padding()
                             
                         })
-                VStack{
-                    
-                    AddyButton(action: {
-                        let settingsManager = SettingsManager(encrypted: true)
-                        settingsManager.clearAllData()
-                        exit(0)
-                        
-                        
-                    }, style: AddyButtonStyle(buttonStyle: .primary)) {
-                        Text("Error DELETE ALL KEYCHAIN DATA").foregroundColor(Color.white)
-                    }
-                }
+                
             } else {
                 Color.accentColor
                     .ignoresSafeArea(.container) // Ignore just for the color
@@ -59,23 +91,15 @@ struct SplashView: View {
                                 .opacity(0.5)
                             
                         })
-                
-                VStack{
-                    
-                    AddyButton(action: {
-                        let settingsManager = SettingsManager(encrypted: true)
-                        settingsManager.clearAllData()
-                        exit(0)
-                        
-                        
-                    }, style: AddyButtonStyle(buttonStyle: .primary)) {
-                        Text("DELETE ALL KEYCHAIN DATA").foregroundColor(Color.white)
-                    }
-                }
             }
         }.task {
             loadDataAndStartApp()
         }
+        .alert(isPresented: $isShowingDetailedErrorAlert, content: {
+            Alert(
+                title: Text(String(localized: "error")), message: Text(detailedError ?? String(localized: "unknown"))
+            )
+        })
         .sheet(isPresented: $isPresentUnsupportedVersionBottomDialog, onDismiss: {
                 isPresentUnsupportedVersionBottomDialog = false
             DispatchQueue.global(qos: .background).async {
@@ -99,6 +123,7 @@ struct SplashView: View {
     }
     
     private func loadDataAndStartApp(){
+        self.showError = false
         // This helper inits the BASE_URL var
         self.networkHelper = NetworkHelper()
         
@@ -133,6 +158,7 @@ struct SplashView: View {
                             self.isPresentUnsupportedVersionBottomDialog = true
                         }
                     } else {
+                        self.detailedError = error
                         self.showError = true
                     }
                 }
@@ -173,6 +199,7 @@ struct SplashView: View {
                         }, recipientId: userResource.default_recipient_id)
                         
                     } else {
+                        self.detailedError = error
                         self.showError = true
                     }
                 }

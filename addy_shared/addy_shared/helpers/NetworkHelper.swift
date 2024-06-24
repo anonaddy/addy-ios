@@ -31,6 +31,11 @@ public class NetworkHelper {
         ]
     }
     
+    private func createAppResetDueToInvalidAPIKeyNotification(){
+        // TODO: Notify user
+        
+    }
+    
     private func getUserAgent() -> String {
         let userAgent = "\(SharedData.shared.userAgent.userAgentApplicationID) (\(SharedData.shared.userAgent.userAgentApplicationBuildType)) / \(SharedData.shared.userAgent.userAgentVersion) (\(SharedData.shared.userAgent.userAgentVersionCode))"
         
@@ -41,12 +46,6 @@ public class NetworkHelper {
         return userAgent
     }
     
-    
-    
-    private func invalidApiKey() {
-        print(String(localized: "api_key_invalid"))
-        // TODO: reset app
-    }
     
     public func verifyApiKey(baseUrl: String, apiKey: String, completion: @escaping (String?) -> Void) {
 #if DEBUG
@@ -143,11 +142,9 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                
                 completion(nil, nil)
                 
             case 404:
@@ -222,11 +219,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -309,11 +303,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -382,11 +373,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -456,11 +444,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -529,11 +514,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -602,11 +584,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -675,11 +654,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -748,11 +724,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -820,11 +793,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -891,11 +861,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -962,11 +929,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -1021,11 +985,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -1092,11 +1053,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -1163,11 +1121,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -1219,11 +1174,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("200")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -1289,11 +1241,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -1370,11 +1319,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -1446,11 +1392,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -1524,11 +1467,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -1604,11 +1544,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -1681,11 +1618,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -1757,11 +1691,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -1810,11 +1741,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -1863,11 +1791,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -1939,11 +1864,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -1992,11 +1914,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -2069,11 +1988,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -2146,11 +2062,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -2199,11 +2112,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -2251,11 +2161,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -2303,11 +2210,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -2354,11 +2258,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -2406,11 +2307,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -2459,11 +2357,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -2534,11 +2429,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -2588,11 +2480,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -2663,11 +2552,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -2718,11 +2604,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -2770,11 +2653,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -2845,11 +2725,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -2921,11 +2798,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -2999,11 +2873,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -3076,11 +2947,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -3152,11 +3020,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -3221,11 +3086,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -3305,11 +3167,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion(nil, "404", String(data: data, encoding: .utf8))
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil, nil)
                 
             default:
@@ -3361,11 +3220,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -3413,11 +3269,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -3465,11 +3318,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -3517,11 +3367,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -3569,11 +3416,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -3621,11 +3465,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -3673,11 +3514,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 completion("204")
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil)
                 
             default:
@@ -3749,11 +3587,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -3825,11 +3660,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -3902,11 +3734,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -3979,11 +3808,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -4055,11 +3881,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -4131,11 +3954,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -4207,11 +4027,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -4283,11 +4100,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -4359,11 +4173,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -4474,11 +4285,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:
@@ -4553,11 +4361,8 @@ print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line
                 }
                 
             case 401:
-                //TODO: remove, not allowed
-                //                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                //                    // Unauthenticated, clear settings
-                //                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                //                }
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 completion(nil, nil)
                 
             default:

@@ -58,6 +58,7 @@ class NotificationActionHelper {
         default:
             // Notification tap actions
             switch response.notification.request.identifier {
+                //TODO: on iPhone this should open the sheet.
             case notificationActions.openSettings: MainViewState.shared.selectedTab = .settings
                 break
             case notificationActions.openDomains: MainViewState.shared.selectedTab = .domains

@@ -286,6 +286,17 @@
         }
       }
     },
+    "addyio_load_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while loading the addy.io app, you might want to check your internet connection.\nMore information about the error:"
+          }
+        }
+      }
+    },
     "addyio_locked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1408,9 +1419,6 @@
         }
       }
     },
-    "DELETE ALL KEYCHAIN DATA" : {
-
-    },
     "delete_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2097,9 +2105,6 @@
           }
         }
       }
-    },
-    "Error DELETE ALL KEYCHAIN DATA" : {
-
     },
     "error_adding_alias" : {
       "extractionState" : "manual",
@@ -3414,6 +3419,28 @@
         }
       }
     },
+    "notification_app_reset" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App has been reset"
+          }
+        }
+      }
+    },
+    "notification_app_reset_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The API key for addy.io expired or was revoked, to protect user data the app has been reset"
+          }
+        }
+      }
+    },
     "notification_domain_error" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4037,6 +4064,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset app"
+          }
+        }
+      }
+    },
+    "reset_app_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete all the data from the app and start over? (This will not delete your addy.io account or anything related)"
           }
         }
       }
@@ -4963,6 +5001,17 @@
         }
       }
     },
+    "tap_here_to_see_the_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap here to see the error"
+          }
+        }
+      }
+    },
     "the_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5353,6 +5402,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Keep track of emails being forwarded through a specific alias. Open the management page of an alias and enable  \"Watch alias\" to be notified of a new forwarded message.\n\nUse the \"Background service interval\" option in the app settings to determine how often to check for new forwarded messages.\n\nYou can watch a maximum of 25 aliases."
+          }
+        }
+      }
+    },
+    "whoops" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whoops!"
           }
         }
       }

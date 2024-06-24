@@ -20,6 +20,7 @@ struct AppSettingsView: View {
     
     
     @State private var hasNotificationPermission = false
+    @State private var isShowingResetAppConfirmationAlert = false
     
     @Environment(\.openURL) var openURL
     @Binding var horizontalSize: UserInterfaceSizeClass
@@ -123,7 +124,7 @@ struct AppSettingsView: View {
             
             Section {
                 AddySection(title: String(localized: "reset_app"), description: String(localized: "reset_app_desc"), leadingSystemimage: "gobackward", leadingSystemimageColor: .red){
-                    isPresentingAppearanceBottomSheet = true
+                    isShowingResetAppConfirmationAlert = true
                 }
                 
             }
@@ -182,6 +183,11 @@ struct AppSettingsView: View {
                 FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
             }
         }
+        .alert(isPresented: $isShowingResetAppConfirmationAlert, content: {
+            Alert(title: Text(String(localized: "reset_app")), message: Text(String(localized: "reset_app_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "reset_app"))){
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            }, secondaryButton: .cancel())
+        })
         .sheet(isPresented: $isPresentingAppearanceBottomSheet, content: {
             NavigationStack {
                 AppearanceBottomSheet()

@@ -10,9 +10,29 @@ import SwiftUI
 import BackgroundTasks
 import addy_shared
 
+
+
+
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    var window: UIWindow?
+    
+    
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        print("TEST123")
+        if let shortcutItem = options.shortcutItem {
+            QuickActionsManager.instance.handleQaItem(shortcutItem)
+        }
+        
+        let sceneConfiguration = UISceneConfiguration(name: "Custom Configuration", sessionRole: connectingSceneSession.role)
+        sceneConfiguration.delegateClass = CustomSceneDelegate.self
+        
+        return sceneConfiguration
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        print("TEST1244443")
+
         UNUserNotificationCenter.current().delegate = self
         
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "host.stjin.addy.backgroundworker", using: nil) { task in
@@ -23,37 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.handleAppRefresh(task: task as! BGAppRefreshTask)
         }
         
-        // Check if the app was launched from a shortcut item
-        if let shortcutItem = launchOptions?[UIApplication.LaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
-            handleShortcutItem(shortcutItem)
-        } else {
-            print("SHORTCUT IS NIL")
-        }
-        
         return true
     }
     
-    
-    func application(_ application: UIApplication,performActionFor shortcutItem: UIApplicationShortcutItem,completionHandler: @escaping (Bool) -> Void) {
-        handleShortcutItem(shortcutItem)
-        completionHandler(true)
-    }
-    
-    private func handleShortcutItem(_ shortcutItem: UIApplicationShortcutItem) {
-#if DEBUG
-        print("SHORTCUT ITEM RECEIVED \(shortcutItem)")
-#endif
-        if shortcutItem.type == "host.stjin.addy.shortcut_add_alias" {
-            MainViewState.shared.isPresentingFailedDeliveriesSheet = true
-        } else if shortcutItem.type.starts(with: "host.stjin.addy.shortcut_open_alias_") {
-            if let range = shortcutItem.type.range(of: "host.stjin.addy.shortcut_open_alias_") {
-                let aliasId = shortcutItem.type[range.upperBound...]
-                MainViewState.shared.showAliasWithId = String(aliasId)
-                MainViewState.shared.selectedTab = .aliases
-            }
-            
-        }
-    }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
 #if DEBUG
@@ -104,4 +96,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     
+}
+
+
+class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
+    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        QuickActionsManager.instance.handleQaItem(shortcutItem)
+    }
 }

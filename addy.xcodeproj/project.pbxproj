@@ -58,6 +58,7 @@
 		80813B752C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */; };
 		809AB1C82C1F10FE0054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809AB1C72C1F10F80054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift */; };
 		809CB9502C2358CA00DBBD03 /* FailedDeliveriesIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CB94F2C2358C900DBBD03 /* FailedDeliveriesIcon.swift */; };
+		809F874F2C29D892002A89C0 /* QuickActionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F874E2C29D892002A89C0 /* QuickActionsManager.swift */; };
 		80A0F9D42C1E0429003EE397 /* NotificationActionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A0F9D32C1E0422003EE397 /* NotificationActionHelper.swift */; };
 		80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2042BECD840001A984B /* AliasesViewModel.swift */; };
 		80A7F2072BECFA5B001A984B /* AliasRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2062BECFA5B001A984B /* AliasRowView.swift */; };
@@ -234,6 +235,7 @@
 		80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveryBottomSheet.swift; sourceTree = "<group>"; };
 		809AB1C72C1F10F80054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyFailedDeliveriesView.swift; sourceTree = "<group>"; };
 		809CB94F2C2358C900DBBD03 /* FailedDeliveriesIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveriesIcon.swift; sourceTree = "<group>"; };
+		809F874E2C29D892002A89C0 /* QuickActionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsManager.swift; sourceTree = "<group>"; };
 		80A0F9D32C1E0422003EE397 /* NotificationActionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationActionHelper.swift; sourceTree = "<group>"; };
 		80A7F2042BECD840001A984B /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
 		80A7F2062BECFA5B001A984B /* AliasRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasRowView.swift; sourceTree = "<group>"; };
@@ -660,6 +662,7 @@
 		80DCF3A32BF118900022690F /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				809F874E2C29D892002A89C0 /* QuickActionsManager.swift */,
 				80E9B2392C0B9D8600C7EF99 /* GsonTools.swift */,
 				80ECA1002C1DA00100788D75 /* BackgroundWorkerHelper.swift */,
 			);
@@ -1143,6 +1146,7 @@
 				80F22FAE2BEE34EE001176B4 /* PieChartHelpers.swift in Sources */,
 				80813B682C0DE234009C4E6A /* EditDomainFromNameBottomSheet.swift in Sources */,
 				80ECA1012C1DA00100788D75 /* BackgroundWorkerHelper.swift in Sources */,
+				809F874F2C29D892002A89C0 /* QuickActionsManager.swift in Sources */,
 				805A74552C1F5FC200C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift in Sources */,
 				80F22F9B2BEE34EE001176B4 /* ColorGradient.swift in Sources */,
 				80DCF3AC2BF12E760022690F /* BackgroundWorker.swift in Sources */,

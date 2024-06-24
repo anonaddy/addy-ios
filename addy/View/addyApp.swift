@@ -9,20 +9,16 @@ import SwiftUI
 import SwiftData
 import addy_shared
 
-class AppState: ObservableObject {
-    @Published var apiKey: String? = SettingsManager(encrypted: true).getSettingsString(key: .apiKey)
-}
-
 @main
 struct addyApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
-    @StateObject private var appState = AppState()
+    @StateObject private var appState = AppState.shared
     
     var body: some Scene {
         WindowGroup {
             
-            Group {      // or VStack
+            Group {
                 if appState.apiKey != nil {
                     MainView()
                         .environmentObject(MainViewState.shared)

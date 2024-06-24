@@ -23,7 +23,7 @@ struct ChangelogBottomSheet: View {
                     .padding(.bottom)
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
            
-        }.navigationTitle(String(localized: "changelog")).pickerStyle(.navigationLink)
+        }.navigationTitle(String(localized: "changelog"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem() {

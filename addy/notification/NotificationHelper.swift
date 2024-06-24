@@ -73,7 +73,7 @@ class NotificationHelper{
         // add our notification request
         UNUserNotificationCenter.current().add(request)
     }
-    
+ 
     public func createUpdateNotification(version: String){
         
         let content = UNMutableNotificationContent()

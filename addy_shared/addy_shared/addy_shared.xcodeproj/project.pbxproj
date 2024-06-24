@@ -11,6 +11,7 @@
 		806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806890952BFE7F7300CEB8C7 /* HapticHelper.swift */; };
 		806AE68F2C19EB9E00F3CA92 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 806AE68E2C19EB9E00F3CA92 /* FeedKit */; };
 		80813B732C0DF349009C4E6A /* FailedDeliveries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B722C0DF349009C4E6A /* FailedDeliveries.swift */; };
+		809F87512C29E4C9002A89C0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F87502C29E4C8002A89C0 /* AppState.swift */; };
 		80A7F2002BECD122001A984B /* AliasSortFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */; };
 		80B4F4B92BEA52EE0009E4CA /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4F4B82BEA52EE0009E4CA /* Logs.swift */; };
 		80B4F4BC2BEA531A0009E4CA /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4F4BB2BEA531A0009E4CA /* NetworkHelper.swift */; };
@@ -50,6 +51,8 @@
 		80477DE12C12232C00E52AF8 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		806890952BFE7F7300CEB8C7 /* HapticHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticHelper.swift; sourceTree = "<group>"; };
 		80813B722C0DF349009C4E6A /* FailedDeliveries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveries.swift; sourceTree = "<group>"; };
+		809F87502C29E4C8002A89C0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		809F87542C29E9A7002A89C0 /* SharedNotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedNotificationHelper.swift; sourceTree = "<group>"; };
 		80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSortFilter.swift; sourceTree = "<group>"; };
 		80B4F4B82BEA52EE0009E4CA /* Logs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logs.swift; sourceTree = "<group>"; };
 		80B4F4BB2BEA531A0009E4CA /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
@@ -86,6 +89,8 @@
 		8001D9E62BEA513500AAD10E = {
 			isa = PBXGroup;
 			children = (
+				809F87522C29E916002A89C0 /* notification */,
+				809F87502C29E4C8002A89C0 /* AppState.swift */,
 				80BB84132BF0019E005999C3 /* utils */,
 				80BB84122BF00099005999C3 /* models */,
 				80BB84112BF0008A005999C3 /* helpers */,
@@ -103,6 +108,14 @@
 				8001D9F02BEA513500AAD10E /* addy_shared.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		809F87522C29E916002A89C0 /* notification */ = {
+			isa = PBXGroup;
+			children = (
+				809F87542C29E9A7002A89C0 /* SharedNotificationHelper.swift */,
+			);
+			path = notification;
 			sourceTree = "<group>";
 		};
 		80BB84102BF00077005999C3 /* managers */ = {
@@ -256,6 +269,7 @@
 				80E84A332BEC122900C8D68A /* Recipients.swift in Sources */,
 				80B4F4C52BEA55760009E4CA /* AddyIo.swift in Sources */,
 				806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */,
+				809F87512C29E4C9002A89C0 /* AppState.swift in Sources */,
 				80813B732C0DF349009C4E6A /* FailedDeliveries.swift in Sources */,
 				80B4F4B92BEA52EE0009E4CA /* Logs.swift in Sources */,
 				80A7F2002BECD122001A984B /* AliasSortFilter.swift in Sources */,

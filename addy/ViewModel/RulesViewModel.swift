@@ -33,7 +33,7 @@ class RulesViewModel: ObservableObject{
                         if let rules = rules {
                             self.rules = rules
                         } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error!)")
+                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
                         }
                     }
             })

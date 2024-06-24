@@ -6,8 +6,6 @@
 //
 
 import Foundation
-
-import Foundation
 import UIKit
 
 public class SettingsManager {
@@ -193,7 +191,7 @@ public class SettingsManager {
         }
     }
     
-    func removeSetting(value: Prefs) {
+    private func removeSetting(value: Prefs) {
         let userKey = "\(user)_\(value)"
         if useKeychain {
             keychain.delete(userKey)
@@ -202,7 +200,7 @@ public class SettingsManager {
         }
     }
     
-    public func clearAllData() {
+    private func clearAllData() {
         if useKeychain {
             keychain.clear()
         } else {
@@ -213,15 +211,17 @@ public class SettingsManager {
     }
     
         /*
-        Clears all the settings and closes the app
+        Clears all the settings
          */
 
     public func clearSettingsAndCloseApp(){
         SettingsManager(encrypted: true).clearAllData()
         SettingsManager(encrypted: false).clearAllData()
         
-        //TODO: AGAINST GUIDELINES
-        exit(0)
+        DispatchQueue.main.async {
+            // remove API from memory (will also reset the viewstate)
+            AppState.shared.apiKey = nil
+        }
     }
     
 }
