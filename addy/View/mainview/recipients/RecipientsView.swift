@@ -9,7 +9,7 @@ import SwiftUI
 import addy_shared
 
 struct RecipientsView: View {
-
+    
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject var recipientsViewModel = RecipientsViewModel()
     
@@ -32,7 +32,7 @@ struct RecipientsView: View {
     
     @Binding var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)? = nil
-
+    
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     
@@ -40,7 +40,7 @@ struct RecipientsView: View {
     @State var filterChips: [AddyChipModel] = []
     
     
-
+    
     
     var body: some View {
 #if DEBUG
@@ -107,9 +107,9 @@ struct RecipientsView: View {
                                 )
                                 .onChange(of: shouldReloadDataInParent) {
                                     if shouldReloadDataInParent {
-                                        DispatchQueue.global(qos: .background).async {
-                                            recipientsViewModel.getRecipients()
-                                            getUserResource()
+                                        Task {
+                                            await getUserResource()
+                                            await recipientsViewModel.getRecipients()
                                         }
                                         self.shouldReloadDataInParent = false
                                     }
@@ -147,15 +147,16 @@ struct RecipientsView: View {
             }.refreshable {
                 // When refreshing aliases also ask the mainView to update general data
                 self.onRefreshGeneralData?()
-                self.recipientsViewModel.getRecipients()
-                getUserResource()
+                await self.recipientsViewModel.getRecipients()
+                await getUserResource()
             }
             .sheet(isPresented: $isPresentingAddRecipientBottomSheet) {
                 NavigationStack {
                     AddRecipientBottomSheet(){
-                        DispatchQueue.global(qos: .background).async {
-                            recipientsViewModel.getRecipients()
-                            getUserResource()
+                        Task {
+                            await getUserResource()
+                            await recipientsViewModel.getRecipients()
+                            
                         }
                         isPresentingAddRecipientBottomSheet = false
                     }
@@ -167,19 +168,22 @@ struct RecipientsView: View {
                 switch activeAlert {
                 case .deleteRecipient:
                     return Alert(title: Text(String(localized: "delete_recipient")), message: Text(String(localized: "delete_recipient_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
-                        DispatchQueue.global(qos: .background).async {
-                            self.deleteRecipient(recipient: self.recipientToDelete!)
+                        Task {
+                            await self.deleteRecipient(recipient: self.recipientToDelete!)
                         }
                     }, secondaryButton: .cancel(){
-                        recipientsViewModel.getRecipients()
+                        Task {
+                            await recipientsViewModel.getRecipients()
+                        }
                     })
                 case .resendConfirmationMailRecipientSuccess:
                     return Alert(title: Text(String(localized: "verification_email_has_been_sent")), dismissButton: .default(Text(String(localized: "close"))))
                 case .resendConfirmationMailRecipientConfirmation:
                     return Alert(title: Text(String(localized: "verification_email_confirmation")), message: Text(String(localized: "verification_email_confirmation_desc")), primaryButton: .default(Text(String(localized: "resend_email"))){
                         
-                        DispatchQueue.global(qos: .background).async {
-                            self.resendConfirmationMailRecipient(recipient: recipientsToResendConfirmationEmailTo!)
+                        Task {
+                            await self.resendConfirmationMailRecipient(recipient: recipientsToResendConfirmationEmailTo!)
+
                         }
                     }, secondaryButton: .cancel())
                 case .error:
@@ -218,9 +222,9 @@ struct RecipientsView: View {
                             Text(recipientsViewModel.networkError)
                         } actions: {
                             Button(String(localized: "try_again")) {
-                                DispatchQueue.global(qos: .background).async {
-                                    recipientsViewModel.getRecipients()
-                                    getUserResource()
+                                Task {
+                                    await getUserResource()
+                                    await recipientsViewModel.getRecipients()
                                 }
                             }
                         }
@@ -268,14 +272,15 @@ struct RecipientsView: View {
             
             if let recipients = recipientsViewModel.recipients{
                 if (recipients.isEmpty) {
-                    recipientsViewModel.getRecipients()
-                    
+                    Task {
+                        await recipientsViewModel.getRecipients()
+                    }
                 }
             }
-            DispatchQueue.global(qos: .background).async {
-                getUserResource()
-            }
         })
+        .task {
+            await getUserResource()
+        }
         
     }
     
@@ -292,48 +297,56 @@ struct RecipientsView: View {
             recipientsViewModel.verifiedOnly = false
         }
         
-        recipientsViewModel.getRecipients()
+        Task {
+            await recipientsViewModel.getRecipients()
+        }
     }
     
     func LoadFilter(){
         self.filterChips = GetFilterChips()
     }
     
-    func resendConfirmationMailRecipient(recipient:Recipients){
+    func resendConfirmationMailRecipient(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
-        networkHelper.resendVerificationEmail(completion: { result in
-            DispatchQueue.main.async {
-                
-                if result == "200" {
-                    activeAlert = .resendConfirmationMailRecipientSuccess
-                    showAlert = true
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_resend_verification")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.resendVerificationEmail(recipientId: recipient.id)
+            if result == "200" {
+                activeAlert = .resendConfirmationMailRecipientSuccess
+                showAlert = true
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_resend_verification")
+                errorAlertMessage = result
             }
-        },recipientId: recipient.id)
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_resend_verification")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
     
-    private func deleteRecipient(recipient:Recipients) {
+    private func deleteRecipient(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deleteRecipient(completion: { result in
-            DispatchQueue.main.async {
-                if result == "204" {
-                    DispatchQueue.global(qos: .background).async {
-                        recipientsViewModel.getRecipients()
-                        getUserResource()
-                    }
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_deleting_recipient")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.deleteRecipient(recipientId: recipient.id)
+            if result == "204" {
+                await getUserResource()
+                await recipientsViewModel.getRecipients()
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_deleting_recipient")
+                errorAlertMessage = result
             }
-        },recipientId: recipient.id)
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_deleting_recipient")
+            errorAlertMessage = error.localizedDescription
+        }
     }
     
     
@@ -363,21 +376,23 @@ struct RecipientsView: View {
         ]
     }
     
-    private func getUserResource() {
+    private func getUserResource() async {
         let networkHelper = NetworkHelper()
-        networkHelper.getUserResource { userResource, error in
-                DispatchQueue.main.async {
-                    if let userResource = userResource {
-                        // Don't update mainView, this will refresh the entire view hiearchy
-                        recipient_limit = userResource.recipient_limit
-                        recipient_count = userResource.recipient_count
-                    } else {
-                        activeAlert = .error
-                        showAlert = true
-                    }
-                }
+        do {
+            let userResource = try await networkHelper.getUserResource()
+            if let userResource = userResource {
+                // Don't update mainView, this will refresh the entire view hierarchy
+                recipient_limit = userResource.recipient_limit
+                recipient_count = userResource.recipient_count
+            } else {
+                activeAlert = .error
+                showAlert = true
             }
+        } catch {
+            print("Failed to get user resource: \(error)")
         }
+    }
+    
 }
 
 

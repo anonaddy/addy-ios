@@ -73,13 +73,12 @@ struct AddDomainBottomSheet: View {
                                 if (domainValidationError == nil){
                                     IsLoadingAddButton = true;
                                     
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.addDomainToAccount(domain: self.domain)
+                                    Task {
+                                        await self.addDomainToAccount(domain: self.domain)
                                     }
                                 } else {
-                                    DispatchQueue.main.async {
                                         IsLoadingAddButton = false
-                                    }
+                                    
                                 }
                             }, isLoading: $IsLoadingAddButton) {
                                 Text(String(localized: "add")).foregroundColor(Color.white)
@@ -110,14 +109,13 @@ struct AddDomainBottomSheet: View {
         }
        
     }
+
     
-    
-    private func addDomainToAccount(domain: String) {
+    private func addDomainToAccount(domain: String) async {
         domainRequestError = nil
-        
         let networkHelper = NetworkHelper()
-        networkHelper.addDomain(completion: { _, error, body in
-            DispatchQueue.main.async {
+        do {
+            let (_, error, body) = try await networkHelper.addDomain(domain: domain)
                 switch error {
                 case "404": openSetup(body: String(body ?? ""))
                 case "201": self.onAdded()
@@ -125,9 +123,12 @@ struct AddDomainBottomSheet: View {
                     IsLoadingAddButton = false
                     domainRequestError = error
                 }
-            }
-        }, domain: domain)
+            
+        } catch {
+            domainRequestError = error.localizedDescription
+        }
     }
+
     
     private func openSetup(body: String) {
         withAnimation(.easeInOut(duration: 0.5)) {
@@ -143,8 +144,8 @@ struct AddDomainBottomSheet: View {
         
         self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) { _ in
-            DispatchQueue.global(qos: .background).async {
-                self.addDomainToAccount(domain: self.domain)
+            Task {
+                await self.addDomainToAccount(domain: self.domain)
             }
         }
         

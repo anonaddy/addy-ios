@@ -120,12 +120,12 @@ struct RecipientsDetailView: View {
                                 self.isSwitchingRecipientCanReplySendState = true
                                 
                                 if (recipient.can_reply_send){
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.disallowRecipientToReplySend(recipient: recipient)
+                                    Task {
+                                        await self.disallowRecipientToReplySend(recipient: recipient)
                                     }
                                 } else {
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.allowRecipientToReplySend(recipient: recipient)
+                                    Task {
+                                        await self.allowRecipientToReplySend(recipient: recipient)
                                     }
                                 }
                             }
@@ -142,12 +142,12 @@ struct RecipientsDetailView: View {
                                 self.isSwitchingRecipientShouldEncryptState = true
                                 
                                 if (recipient.should_encrypt){
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.disableEncryption(recipient: recipient)
+                                    Task {
+                                        await self.disableEncryption(recipient: recipient)
                                     }
                                 } else {
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.enableEncryption(recipient: recipient)
+                                    Task {
+                                        await self.enableEncryption(recipient: recipient)
                                     }
                                 }
                             }
@@ -175,12 +175,12 @@ struct RecipientsDetailView: View {
                                 self.isSwitchingInlineEncryptionState = true
                                 
                                 if (recipient.inline_encryption){
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.disablePGPInline(recipient: recipient)
+                                    Task {
+                                        await self.disablePGPInline(recipient: recipient)
                                     }
                                 } else {
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.enablePGPInline(recipient: recipient)
+                                    Task {
+                                        await self.enablePGPInline(recipient: recipient)
                                     }
                                 }
                             }
@@ -198,12 +198,12 @@ struct RecipientsDetailView: View {
                                 self.isSwitchingProtectedHeadersState = true
                                 
                                 if (recipient.protected_headers){
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.disableProtectedHeaders(recipient: recipient)
+                                    Task {
+                                        await self.disableProtectedHeaders(recipient: recipient)
                                     }
                                 } else {
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.enableProtectedHeaders(recipient: recipient)
+                                    Task {
+                                        await self.enableProtectedHeaders(recipient: recipient)
                                     }
                                 }
                             }
@@ -244,16 +244,16 @@ struct RecipientsDetailView: View {
                                 return Alert(title: Text(String(localized: "delete_recipient")), message: Text(String(localized: "delete_recipient_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
                                     isDeletingRecipient = true
     
-                                    DispatchQueue.global(qos: .background).async {
-                                        deleteRecipient(recipient: recipient)
+                                    Task {
+                                        await deleteRecipient(recipient: recipient)
                                     }
                                 }, secondaryButton: .cancel())
                             case .removePgpKey:
                                 return Alert(title: Text(String(localized: "remove_public_key")), message: Text(String(format: String(localized: "remove_public_key_desc"), recipient.email)), primaryButton: .destructive(Text(String(localized: "remove"))){
                                     isRemovingPgpKey = true
     
-                                    DispatchQueue.global(qos: .background).async {
-                                        removeGpgKeyHttpRequest(recipient: recipient)
+                                    Task {
+                                        await removeGpgKeyHttpRequest(recipient: recipient)
                                     }
                                 }, secondaryButton: .cancel())
                             case .error:
@@ -287,7 +287,7 @@ struct RecipientsDetailView: View {
                     }
                 }
             }.task {
-                getRecipient(recipientId: self.recipientId)
+                await getRecipient(recipientId: self.recipientId)
             }
             
             .navigationTitle(self.recipientEmail)
@@ -296,186 +296,200 @@ struct RecipientsDetailView: View {
         
     }
     
-    private func allowRecipientToReplySend(recipient:Recipients) {
+    private func allowRecipientToReplySend(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
-        networkHelper.allowRecipientToReplySend(completion: { recipient, result in
-            DispatchQueue.main.async {
-                self.isSwitchingRecipientCanReplySendState = false
-                
-                if let recipient = recipient {
-                    self.recipient = recipient
-                    self.replySendAllowed = true
-                } else {
-                    self.replySendAllowed = false
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },recipientId: recipient.id)
+        do {
+            let allowedRecipient = try await networkHelper.allowRecipientToReplySend(recipientId: recipient.id)
+            self.isSwitchingRecipientCanReplySendState = false
+            self.recipient = allowedRecipient
+            self.replySendAllowed = true
+        } catch {
+            self.isSwitchingRecipientCanReplySendState = false
+            self.replySendAllowed = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
     
-    private func disallowRecipientToReplySend(recipient:Recipients) {
+    private func disallowRecipientToReplySend(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
-        networkHelper.disallowRecipientToReplySend(completion: { result in
-            DispatchQueue.main.async {
-                self.isSwitchingRecipientCanReplySendState = false
-                
-                if result == "204" {
-                    self.recipient?.can_reply_send = false
-                    self.replySendAllowed = false
-                } else {
-                    self.replySendAllowed = true
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.disallowRecipientToReplySend(recipientId: recipient.id)
+            self.isSwitchingRecipientCanReplySendState = false
+            if result == "204" {
+                self.recipient?.can_reply_send = false
+                self.replySendAllowed = false
+            } else {
+                self.replySendAllowed = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertMessage = result
             }
-        },recipientId: recipient.id)
+        } catch {
+            self.isSwitchingRecipientCanReplySendState = false
+            self.replySendAllowed = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
     
-    private func enableEncryption(recipient:Recipients) {
+    private func enableEncryption(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
-        networkHelper.enableEncryptionRecipient(completion: { recipient, result in
-            DispatchQueue.main.async {
-                self.isSwitchingRecipientShouldEncryptState = false
-                
-                if let recipient = recipient {
-                    self.recipient = recipient
-                    self.shouldEncrypt = true
-                } else {
-                    self.shouldEncrypt = false
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },recipientId: recipient.id)
+        do {
+            let enabledRecipient = try await networkHelper.enableEncryptionRecipient(recipientId: recipient.id)
+            self.isSwitchingRecipientShouldEncryptState = false
+            self.recipient = enabledRecipient
+            self.shouldEncrypt = true
+        } catch {
+            self.isSwitchingRecipientShouldEncryptState = false
+            self.shouldEncrypt = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
     }
-    
-    private func disableEncryption(recipient:Recipients) {
+
+    private func disableEncryption(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
-        networkHelper.disableEncryptionRecipient(completion: { result in
-            DispatchQueue.main.async {
-                self.isSwitchingRecipientShouldEncryptState = false
-                
-                if result == "204" {
-                    self.recipient?.should_encrypt = false
-                    self.shouldEncrypt = false
-                } else {
-                    self.shouldEncrypt = true
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.disableEncryptionRecipient(recipientId: recipient.id)
+            self.isSwitchingRecipientShouldEncryptState = false
+            if result == "204" {
+                self.recipient?.should_encrypt = false
+                self.shouldEncrypt = false
+            } else {
+                self.shouldEncrypt = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertMessage = result
             }
-        },recipientId: recipient.id)
-    }     
-    
-    private func enableProtectedHeaders(recipient:Recipients) {
-        let networkHelper = NetworkHelper()
-        networkHelper.enableProtectedHeadersRecipient(completion: { recipient, result in
-            DispatchQueue.main.async {
-                self.isSwitchingProtectedHeadersState = false
-                
-                if let recipient = recipient {
-                    self.recipient = recipient
-                    self.protectedHeaders = true
-                } else {
-                    self.protectedHeaders = false
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },recipientId: recipient.id)
+        } catch {
+            self.isSwitchingRecipientShouldEncryptState = false
+            self.shouldEncrypt = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
     }
-    
-    private func disableProtectedHeaders(recipient:Recipients) {
+
+    private func enableProtectedHeaders(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
-        networkHelper.disableProtectedHeadersRecipient(completion: { result in
-            DispatchQueue.main.async {
-                self.isSwitchingProtectedHeadersState = false
-                
-                if result == "204" {
-                    self.recipient?.protected_headers = false
-                    self.protectedHeaders = false
-                } else {
-                    self.protectedHeaders = true
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },recipientId: recipient.id)
-    }    
-    
-    
-    private func enablePGPInline(recipient:Recipients) {
-        let networkHelper = NetworkHelper()
-        networkHelper.enablePgpInlineRecipient(completion: { recipient, result in
-            DispatchQueue.main.async {
-                self.isSwitchingInlineEncryptionState = false
-                
-                if let recipient = recipient {
-                    self.recipient = recipient
-                    self.inlineEncryption = true
-                } else {
-                    self.inlineEncryption = false
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },recipientId: recipient.id)
+        do {
+            let enabledRecipient = try await networkHelper.enableProtectedHeadersRecipient(recipientId: recipient.id)
+            self.isSwitchingProtectedHeadersState = false
+            self.recipient = enabledRecipient
+            self.protectedHeaders = true
+        } catch {
+            self.isSwitchingProtectedHeadersState = false
+            self.protectedHeaders = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
     }
-    
-    private func disablePGPInline(recipient:Recipients) {
+
+    private func disableProtectedHeaders(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
-        networkHelper.disablePgpInlineRecipient(completion: { result in
-            DispatchQueue.main.async {
-                self.isSwitchingInlineEncryptionState = false
-                
-                if result == "204" {
-                    self.recipient?.inline_encryption = false
-                    self.inlineEncryption = false
-                } else {
-                    self.inlineEncryption = true
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.disableProtectedHeadersRecipient(recipientId: recipient.id)
+            self.isSwitchingProtectedHeadersState = false
+            if result == "204" {
+                self.recipient?.protected_headers = false
+                self.protectedHeaders = false
+            } else {
+                self.protectedHeaders = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertMessage = result
             }
-        },recipientId: recipient.id)
+        } catch {
+            self.isSwitchingProtectedHeadersState = false
+            self.protectedHeaders = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
     }
-    
-    private func removeGpgKeyHttpRequest(recipient:Recipients) {
+
+    private func enablePGPInline(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
-        networkHelper.removeEncryptionKeyRecipient(completion: { result in
-            DispatchQueue.main.async {
-                self.isRemovingPgpKey = false
-                
-                if result == "204" {
-                    self.recipient?.should_encrypt = false
-                    self.recipient?.fingerprint = nil
-                    self.shouldEncrypt = false
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_removing_gpg_key")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },recipientId: recipient.id)
+        do {
+            let enabledRecipient = try await networkHelper.enablePgpInlineRecipient(recipientId: recipient.id)
+            self.isSwitchingInlineEncryptionState = false
+            self.recipient = enabledRecipient
+            self.inlineEncryption = true
+        } catch {
+            self.isSwitchingInlineEncryptionState = false
+            self.inlineEncryption = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
+    private func disablePGPInline(recipient: Recipients) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.disablePgpInlineRecipient(recipientId: recipient.id)
+            self.isSwitchingInlineEncryptionState = false
+            if result == "204" {
+                self.recipient?.inline_encryption = false
+                self.inlineEncryption = false
+            } else {
+                self.inlineEncryption = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertMessage = result
+            }
+        } catch {
+            self.isSwitchingInlineEncryptionState = false
+            self.inlineEncryption = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    private func removeGpgKeyHttpRequest(recipient: Recipients) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.removeEncryptionKeyRecipient(recipientId: recipient.id)
+            self.isRemovingPgpKey = false
+            if result == "204" {
+                self.recipient?.should_encrypt = false
+                self.recipient?.fingerprint = nil
+                self.shouldEncrypt = false
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_removing_gpg_key")
+                errorAlertMessage = result
+            }
+        } catch {
+            self.isRemovingPgpKey = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_removing_gpg_key")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
     
     private func updateUi(aliasesArray: AliasesArray?){
         
@@ -516,68 +530,61 @@ struct RecipientsDetailView: View {
         }
     }
     
-    private func deleteRecipient(recipient:Recipients) {
+    private func deleteRecipient(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deleteRecipient(completion: { result in
-            DispatchQueue.main.async {
-                self.isDeletingRecipient = false
-                
-                if result == "204" {
-                    shouldReloadDataInParent = true
-                    self.presentationMode.wrappedValue.dismiss()
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_deleting_recipient")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },recipientId: recipient.id)
-    }
-    
-    
-    
-    private func getRecipient(recipientId: String) {
-        let networkHelper = NetworkHelper()
-        networkHelper.getSpecificRecipient(completion: { recipient, error in
-            
-            if let recipient = recipient {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.recipient = recipient
-                    }
-                }
-                
-                DispatchQueue.global(qos: .background).async {
-                    getAliasesAndAddThemToList(recipient: recipient)
-                }
+        do {
+            let result = try await networkHelper.deleteRecipient(recipientId: recipient.id)
+            self.isDeletingRecipient = false
+            if result == "204" {
+                shouldReloadDataInParent = true
+                self.presentationMode.wrappedValue.dismiss()
             } else {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.errorText = error
-                    }
-                }
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_deleting_recipient")
+                errorAlertMessage = result
             }
-        },recipientId: recipientId)
+        } catch {
+            self.isDeletingRecipient = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_deleting_recipient")
+            errorAlertMessage = error.localizedDescription
+        }
     }
     
-    private func getAliasesAndAddThemToList(recipient: Recipients, workingAliasList: AliasesArray? = nil) {
+    
+    
+    private func getRecipient(recipientId: String) async {
         let networkHelper = NetworkHelper()
+        do {
+            if let recipient = try await networkHelper.getSpecificRecipient(recipientId: recipientId){
+                withAnimation {
+                    self.recipient = recipient
+                }
+                await getAliasesAndAddThemToList(recipient: recipient)
+            }
+        } catch {
+            withAnimation {
+                self.errorText = error.localizedDescription
+            }
+        }
+    }
 
-        networkHelper.getAliases(completion: { list, error in
-            if let list = list {
+    
+    private func getAliasesAndAddThemToList(recipient: Recipients, workingAliasList: AliasesArray? = nil) async {
+        let networkHelper = NetworkHelper()
+        let aliasSortFilterRequest = AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, sort: nil, sortDesc: false, filter: nil)
+        do {
+            if let list = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (workingAliasList?.meta?.current_page ?? 0) + 1, size: 100, recipient: recipientId){
                 addAliasesToList(recipient: recipient, aliasesArray: list, workingAliasListInbound: workingAliasList)
-            } else {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.errorText = error
-                    }
-                }
             }
-        },aliasSortFilterRequest: AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, sort: nil, sortDesc: false, filter: nil),
-                                 page: (workingAliasList?.meta?.current_page ?? 0) + 1,
-                                 size: 100,
-                                 recipient: recipientId)
+        } catch {
+                withAnimation {
+                    self.errorText = error.localizedDescription
+                }
+            
+        }
     }
     
     
@@ -598,12 +605,13 @@ struct RecipientsDetailView: View {
         // Check if there are more aliases to obtain (are there more pages)
         // If so, repeat.
         if (workingAliasList?.meta?.current_page ?? 0) < (workingAliasList?.meta?.last_page ?? 0) {
-            getAliasesAndAddThemToList(recipient: recipient, workingAliasList: workingAliasList)
+            Task {
+                await getAliasesAndAddThemToList(recipient: recipient, workingAliasList: workingAliasList)
+            }
         } else {
-            DispatchQueue.main.async {
                 // Else, set aliasList to update UI
                 updateUi(aliasesArray: workingAliasList)
-            }
+            
         }
     }
     

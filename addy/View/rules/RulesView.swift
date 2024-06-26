@@ -100,14 +100,16 @@ struct RulesView: View {
             
             if let rules = rulesViewModel.rules{
                 if (rules.data.isEmpty) {
-                    rulesViewModel.getRules()
+                    Task {
+                        await rulesViewModel.getRules()
+                    }
                     
                 }
             }
-            DispatchQueue.global(qos: .background).async {
-                getUserResource()
-            }
         })
+        .task {
+            await getUserResource()
+        }
     }
     
     private var rulesViewBody: some View {
@@ -162,18 +164,19 @@ struct RulesView: View {
                                 }
                                 .onChange(of: shouldReloadDataInParent) {
                                     if shouldReloadDataInParent {
-                                        DispatchQueue.global(qos: .background).async {
-                                            rulesViewModel.getRules()
-                                            getUserResource()
-                                        }
+                                        Task {
+                                                                await getUserResource()
+                                            await rulesViewModel.getRules()
+                                                            }
+                                        
                                         self.shouldReloadDataInParent = false
                                     }
                                 }
                                 .swipeActions(edge: .leading) {
                                     if (rule.active){
                                         Button {
-                                            DispatchQueue.global(qos: .background).async {
-                                                self.deactivateRule(rule: rule)
+                                            Task {
+                                                await self.deactivateRule(rule: rule)
                                             }
                                         } label: {
                                             Label(String(localized: "deactivate"), systemImage: "hand.raised.fill")
@@ -181,8 +184,8 @@ struct RulesView: View {
                                         .tint(.indigo)
                                     } else {
                                         Button {
-                                            DispatchQueue.global(qos: .background).async {
-                                                self.activateRule(rule: rule)
+                                            Task {
+                                                await self.activateRule(rule: rule)
                                             }
                                         } label: {
                                             Label(String(localized: "activate"), systemImage: "checkmark.circle")
@@ -193,7 +196,7 @@ struct RulesView: View {
                                 }
                             
                         }.onMove(perform: moveRule)
-                        .onDelete(perform: deleteRule) // TODO: This is not allowed, no async. Move to async, you won't have these queues anymore
+                        .onDelete(perform: deleteRule)
                         
                     } header: {
                         HStack(spacing: 6){
@@ -229,18 +232,20 @@ struct RulesView: View {
                     self.onRefreshGeneralData?()
                 }
                 
-                self.rulesViewModel.getRules()
-                getUserResource()
+                await self.rulesViewModel.getRules()
+                await getUserResource()
             }
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
                 case .deleteRule:
                     return Alert(title: Text(String(localized: "delete_rule")), message: Text(String(localized: "delete_rule_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
-                        DispatchQueue.global(qos: .background).async {
-                            self.deleteRule(rule: self.ruleToDelete!)
+                        Task {
+                            await self.deleteRule(rule: self.ruleToDelete!)
                         }
                     }, secondaryButton: .cancel(){
-                        rulesViewModel.getRules()
+                        Task {
+                                                await rulesViewModel.getRules()
+                                            }
                     })
                 case .error:
                     return Alert(
@@ -276,9 +281,9 @@ struct RulesView: View {
                             Text(rulesViewModel.networkError)
                         } actions: {
                             Button(String(localized: "try_again")) {
-                                DispatchQueue.global(qos: .background).async {
-                                    rulesViewModel.getRules()
-                                    getUserResource()
+                                Task {
+                                    await getUserResource()
+                                    await rulesViewModel.getRules()
                                 }
                             }
                         }
@@ -345,24 +350,27 @@ struct RulesView: View {
     }
     
     
-    private func deleteRule(rule:Rules) {
+    private func deleteRule(rule: Rules) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deleteRule(completion: { result in
-            DispatchQueue.main.async {
-                if result == "204" {
-                    DispatchQueue.global(qos: .background).async {
-                        rulesViewModel.getRules()
-                        getUserResource()
-                    }
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_deleting_rule")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.deleteRule(ruleId: rule.id)
+            if result == "204" {
+                await getUserResource()
+                await rulesViewModel.getRules()
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_deleting_rule")
+                errorAlertMessage = result
             }
-        },ruleId: rule.id)
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_deleting_rule")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
     
     
     func deleteRule(at offsets: IndexSet) {
@@ -385,84 +393,89 @@ struct RulesView: View {
         rulesViewModel.rules?.data.move(fromOffsets: source, toOffset: destination)
         
         if let rules = rulesViewModel.rules?.data {
-            DispatchQueue.global(qos: .background).async {
-                reorderRules(rules: rules)
+            Task {
+                await reorderRules(rules: rules)
             }
         }
         
     }
     
-    private func reorderRules(rules:[Rules]) {
+    private func reorderRules(rules: [Rules]) async {
         let networkHelper = NetworkHelper()
-        networkHelper.reorderRules(completion: { result in
-            DispatchQueue.main.async {
-                if result == "200" {
-                    // No need to change anything
-                    //rulesViewModel.getRules()
-                    //getUserResource()
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_changing_rules_order")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                    // Since the order changes, reload the data
-                    rulesViewModel.getRules()
-                }
+        do {
+            let result = try await networkHelper.reorderRules(rules: rules)
+            if result != "200" {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_changing_rules_order")
+                errorAlertMessage = result
+                await rulesViewModel.getRules()
             }
-        },rules: rules)
-    }
-    
-    private func activateRule(rule:Rules) {
-        let networkHelper = NetworkHelper()
-        networkHelper.activateSpecificRule(completion: { alias, error in
-            DispatchQueue.main.async {
-                
-                if alias != nil {
-                    // TODO can I update this item without full reload
-                    rulesViewModel.getRules()
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_rules_active")
-                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },ruleId: rule.id)
-    }
-    
-    private func deactivateRule(rule:Rules) {
-        let networkHelper = NetworkHelper()
-        networkHelper.deactivateSpecificRule(completion: { result in
-            DispatchQueue.main.async {
-                
-                if result == "204" {
-                    // TODO can I update this item without full reload
-                    rulesViewModel.getRules()
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_rules_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },ruleId: rule.id)
-    }
-    
-    private func getUserResource() {
-        let networkHelper = NetworkHelper()
-        networkHelper.getUserResource { userResource, error in
-            DispatchQueue.main.async {
-                if let userResource = userResource {
-                    // Don't update mainView, this will refresh the entire view hiearchy
-                    rule_limit = userResource.active_rule_limit
-                    rule_count = userResource.active_rule_count
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                }
-            }
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_changing_rules_order")
+            errorAlertMessage = error.localizedDescription
+            await rulesViewModel.getRules()
         }
     }
+
+    
+    private func activateRule(rule: Rules) async {
+        let networkHelper = NetworkHelper()
+        do {
+            _ = try await networkHelper.activateSpecificRule(ruleId: rule.id)
+            // TODO can I update this item without full reload
+            await rulesViewModel.getRules()
+        } catch {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_rules_active")
+                errorAlertMessage = error.localizedDescription
+            
+        }
+    }
+
+    
+    private func deactivateRule(rule: Rules) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.deactivateSpecificRule(ruleId: rule.id)
+            if result == "204" {
+                // TODO can I update this item without full reload
+                await rulesViewModel.getRules()
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_rules_active")
+                errorAlertMessage = result
+            }
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_rules_active")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    
+    private func getUserResource() async {
+        let networkHelper = NetworkHelper()
+        do {
+            let userResource = try await networkHelper.getUserResource()
+            if let userResource = userResource {
+                // Don't update mainView, this will refresh the entire view hierarchy
+                rule_limit = userResource.active_rule_limit
+                rule_count = userResource.active_rule_count
+            } else {
+                activeAlert = .error
+                showAlert = true
+            }
+        } catch {
+            print("Failed to get user resource: \(error)")
+        }
+    }
+
     
 }
 

@@ -51,7 +51,7 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
                 
             }
         }.task {
-                checkTokenExpiry()
+                await checkTokenExpiry()
         }
         .sheet(isPresented: $isShowingAddApiBottomSheet) {
             let baseUrl = MainViewState.shared.encryptedSettingsManager.getSettingsString(key: .baseUrl)
@@ -67,37 +67,38 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
     private func addKey(apiKey: String, baseUrl: String) {
         MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .apiKey, string: apiKey)
         isShowingAddApiBottomSheet = false
-        checkTokenExpiry()
+        
+        Task {
+            await checkTokenExpiry()
+        }
     }
     
-    private func checkTokenExpiry() {
-        NetworkHelper().getApiTokenDetails(completion: { apiTokenDetails, error in
-            DispatchQueue.main.async {
-                if let apiTokenDetails = apiTokenDetails {
-                    if let expiresAt = apiTokenDetails.expires_at {
-                        do {
-                            let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(expiresAt) // Get the expiry date
-                            let text = expiryDate.futureDateDisplay() // Use the new method here
-                            apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date", comment: ""), apiTokenDetails.name, text)
-                        } catch {
-                            // Panic
-                            LoggingHelper().addLog(
-                                importance: LogImportance.critical,
-                                error: "Could not parse expiryDate",
-                                method: "checkTokenExpiry",
-                                extra: error.localizedDescription)
-                            
-                                apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date_unknown", comment: ""), AddyIo.API_BASE_URL)
-                        }
-                    } else {
-                            apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date_never", comment: ""), apiTokenDetails.name, AddyIo.API_BASE_URL)
-                    }
+    private func checkTokenExpiry() async {
+        do {
+            let apiTokenDetails = try await NetworkHelper().getApiTokenDetails()
+            if let apiTokenDetails = apiTokenDetails {
+                if let expiresAt = apiTokenDetails.expires_at {
+                    let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(expiresAt) // Get the expiry date
+                    let text = expiryDate.futureDateDisplay() // Use the new method here
+                    apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date", comment: ""), apiTokenDetails.name, text)
                 } else {
-                        apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date_unknown", comment: ""), AddyIo.API_BASE_URL)
+                    apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date_never", comment: ""), apiTokenDetails.name, AddyIo.API_BASE_URL)
                 }
+            } else {
+                apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date_unknown", comment: ""), AddyIo.API_BASE_URL)
             }
-        })
+        } catch {
+            // Panic
+            LoggingHelper().addLog(
+                importance: LogImportance.critical,
+                error: "Could not parse expiryDate",
+                method: "checkTokenExpiry",
+                extra: error.localizedDescription)
+            
+            apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date_unknown", comment: ""), AddyIo.API_BASE_URL)
+        }
     }
+
     
 }
 

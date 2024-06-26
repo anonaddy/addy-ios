@@ -34,7 +34,9 @@ struct AppSettingsUpdateView: View {
             Section {
                 AddySection(title: isCheckingForUpdates ? String(localized: "obtaining_information") : updateStatusTitle, description: updateStatusDescription, leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue){
                     isCheckingForUpdates = true
-                    self.checkForUpdates()
+                    Task {
+                        await self.checkForUpdates()
+                    }
                     }
                 
                 AddyToggle(isOn: $notifyUpdates, title: String(localized: "update_notify_title"), description: String(localized: "update_notify_desc"), leadingSystemimage: "bell.fill", leadingSystemimageColor: .green).onAppear {
@@ -72,7 +74,9 @@ struct AppSettingsUpdateView: View {
         }.refreshable {
             isCheckingForUpdates = true
 
-                self.checkForUpdates()
+            Task {
+                await self.checkForUpdates()
+            }
         }.sheet(isPresented: $isPresentingChangelogBottomSheet, content: {
             NavigationStack {
                 ChangelogBottomSheet()
@@ -87,26 +91,22 @@ struct AppSettingsUpdateView: View {
         }
         .navigationTitle(String(localized: "addyio_updater"))
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear(perform: {
+        .task {
             if MainViewState.shared.settingsManager.getSettingsBool(key: .notifyUpdates){
-                DispatchQueue.global(qos: .background).async {
-                    isCheckingForUpdates = true
-
-                    self.checkForUpdates()
-                }
+                isCheckingForUpdates = true
+                await self.checkForUpdates()
             }
-        })
+        }
     }
     
-    private func checkForUpdates(){
-        Updater().isUpdateAvailable { updateAvailable, latestVersion, isRunningFutureVersion, error in
+    private func checkForUpdates() async {
+        do {
+            let (updateAvailable, latestVersion, isRunningFutureVersion, error) = try await Updater().isUpdateAvailable()
             
-            DispatchQueue.main.async {
                 isCheckingForUpdates = false
-            }
+            
             
             if error == nil {
-                DispatchQueue.main.async {
                     let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
 
                     if (updateAvailable){
@@ -119,15 +119,17 @@ struct AppSettingsUpdateView: View {
                         updateStatusTitle = String(localized: "no_new_update_available")
                         updateStatusDescription = String(localized: "no_new_update_available_desc")
                     }
-                }
+                
             } else {
                 errorAlertMessage = error ?? ""
                 showAlert = true
             }
             
-            
+        } catch {
+            print("Failed to check for updates: \(error)")
         }
     }
+
 }
 
 struct AppSettingsUpdateView_Previews: PreviewProvider {

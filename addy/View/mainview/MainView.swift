@@ -183,10 +183,10 @@ struct MainView: View {
                             .presentationDetents([.medium, .large])
                         })
                         .task {
-                            checkForUpdates()
-                            checkTokenExpiry()
-                            checkForSubscriptionExpiration()
-                            checkForNewFailedDeliveries()
+                            await checkForUpdates()
+                            await checkTokenExpiry()
+                            await checkForSubscriptionExpiration()
+                            await checkForNewFailedDeliveries()
                         }
                 }
             }
@@ -252,70 +252,58 @@ struct MainView: View {
     
     
     
-    private func checkForSubscriptionExpiration(){
-            NetworkHelper().getUserResource { (user, _) in
-                if let subscriptionEndsAt = user?.subscription_ends_at {
-                    do {
-                        let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(subscriptionEndsAt) // Get the expiry date
-                        let currentDateTime = Date() // Get the current date
-                        let deadLineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate) // Subtract 7 days from the expiry date
-                        if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
-                            // The current date is suddenly after the deadline date. It will expire within 7 days
-                            // Show the subscription is about to expire card
-                            
-                            DispatchQueue.main.async {
-                                subscriptionExpiryText = expiryDate.futureDateDisplay()
-                                mainViewState.showSubscriptionExpirationWarning = true
-                            }
-                            
-                        } else {
-                            // The current date is not yet after the deadline date.
-                        }
-                    } catch {
-                        // Panic
-                        LoggingHelper().addLog(
-                            importance: LogImportance.critical,
-                            error: "Could not parse subscriptionEndsAt",
-                            method: "checkForSubscriptionExpiration",
-                            extra: error.localizedDescription)
-                    }
+    private func checkForSubscriptionExpiration() async {
+        do {
+            let user = try await NetworkHelper().getUserResource()
+            if let subscriptionEndsAt = user?.subscription_ends_at {
+                let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(subscriptionEndsAt) // Get the expiry date
+                let currentDateTime = Date() // Get the current date
+                let deadLineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate) // Subtract 7 days from the expiry date
+                if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
+                    // The current date is suddenly after the deadline date. It will expire within 7 days
+                    // Show the subscription is about to expire card
+                    subscriptionExpiryText = expiryDate.futureDateDisplay()
+                    mainViewState.showSubscriptionExpirationWarning = true
                 }
-                // If expires_at is null it will never expire
-            }
-        
-    }
-    
-    private func checkTokenExpiry(){
-        NetworkHelper().getApiTokenDetails { (apiTokenDetails, error) in
-            if let expiresAt = apiTokenDetails?.expires_at {
-                do {
-                    let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(expiresAt) // Get the expiry date
-                    let currentDateTime = Date() // Get the current date
-                    let deadLineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate) // Subtract 5 days from the expiry date
-                    if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
-                        // The current date is suddenly after the deadline date. It will expire within 5 days
-                        // Show the api is about to expire alert
-                        
-                        DispatchQueue.main.async {
-                            apiTokenExpiryText = expiryDate.futureDateDisplay()
-                            mainViewState.showApiExpirationWarning = true
-                        }
-                    } else {
-                        // The current date is not yet after the deadline date.
-                    }
-                } catch {
-                    // Panic
-                    LoggingHelper().addLog(
-                        importance: LogImportance.critical,
-                        error: "Could not parse expiresAt",
-                        method: "checkTokenExpiry",
-                        extra: error.localizedDescription)
-                }
-                
             }
             // If expires_at is null it will never expire
+        } catch {
+            // Panic
+            LoggingHelper().addLog(
+                importance: LogImportance.critical,
+                error: "Could not parse subscriptionEndsAt",
+                method: "checkForSubscriptionExpiration",
+                extra: error.localizedDescription)
         }
     }
+
+    
+    private func checkTokenExpiry() async {
+        do {
+            let apiTokenDetails = try await NetworkHelper().getApiTokenDetails()
+            if let expiresAt = apiTokenDetails?.expires_at {
+                let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(expiresAt) // Get the expiry date
+                let currentDateTime = Date() // Get the current date
+                let deadLineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate) // Subtract 5 days from the expiry date
+                if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
+                    // The current date is suddenly after the deadline date. It will expire within 5 days
+                    // Show the api is about to expire alert
+                    
+                    apiTokenExpiryText = expiryDate.futureDateDisplay()
+                    mainViewState.showApiExpirationWarning = true
+                }
+            }
+            // If expires_at is null it will never expire
+        } catch {
+            // Panic
+            LoggingHelper().addLog(
+                importance: LogImportance.critical,
+                error: "Could not parse expiresAt",
+                method: "checkTokenExpiry",
+                extra: error.localizedDescription)
+        }
+    }
+
     
     /*
         This method checks if there are new failed deliveries
@@ -329,19 +317,20 @@ struct MainView: View {
         - There are more failed deliveries than the server cached last time (in which case the user should have got a notification)
          */
     
-    //TODO: Refresh button to refresh this?
-        private func checkForNewFailedDeliveries(){
-            NetworkHelper().getFailedDeliveries { (result, _) in
-                let currentFailedDeliveries = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
-                if (result?.data.count ?? 0 - currentFailedDeliveries) > 0 {
-                    DispatchQueue.main.async {
-                        withAnimation {
-                            self.mainViewState.newFailedDeliveries = (result?.data.count ?? 0) - currentFailedDeliveries
-                        }
-                    }
+    private func checkForNewFailedDeliveries() async {
+        do {
+            let result = try await NetworkHelper().getFailedDeliveries()
+            let currentFailedDeliveries = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
+            if (result?.data.count ?? 0 - currentFailedDeliveries) > 0 {
+                withAnimation {
+                    self.mainViewState.newFailedDeliveries = (result?.data.count ?? 0) - currentFailedDeliveries
                 }
             }
+        } catch {
+            print("Failed to get failed deliveries: \(error)")
+        }
     }
+
     
     func authenticate() {
         let context = LAContext()
@@ -374,25 +363,28 @@ struct MainView: View {
     
     
     private func refreshGeneralData(){
-        DispatchQueue.global(qos: .background).async {
-            checkForNewFailedDeliveries()
-            checkForUpdates()
-            checkTokenExpiry()
-            checkForSubscriptionExpiration()
+        Task {
+            await checkForUpdates()
+            await checkForSubscriptionExpiration()
+            await checkForNewFailedDeliveries()
+            await checkTokenExpiry()
         }
     }
     
-    private func checkForUpdates(){
+    private func checkForUpdates() async {
         if mainViewState.settingsManager.getSettingsBool(key: .notifyUpdates) {
-            Updater().isUpdateAvailable { updateAvailable, _, _, _ in
-                DispatchQueue.main.async {
+            do {
+                let (updateAvailable, _, _, _) = try await Updater().isUpdateAvailable()
                     withAnimation {
                         mainViewState.updateAvailable = updateAvailable
                     }
-                }
+                
+            } catch {
+                print("Failed to check for updates: \(error)")
             }
         }
-    }    
+    }
+
     
     func checkNotificationPermission() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in

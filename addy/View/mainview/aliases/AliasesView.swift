@@ -10,7 +10,7 @@ import addy_shared
 import UniformTypeIdentifiers
 
 struct AliasesView: View {
-
+    
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject var aliasesViewModel = AliasesViewModel()
     
@@ -41,7 +41,7 @@ struct AliasesView: View {
     
     @Binding var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)? = nil
-
+    
     
     @Environment(\.scenePhase) var scenePhase
     
@@ -159,16 +159,16 @@ struct AliasesView: View {
                                             
                                             if (alias.active){
                                                 Button {
-                                                    DispatchQueue.global(qos: .background).async {
-                                                        self.deactivateAlias(alias: alias)
+                                                    Task {
+                                                        await self.deactivateAlias(alias: alias)
                                                     }                                            } label: {
                                                         Label(String(localized: "disable_alias"), systemImage: "hand.raised")
                                                     }
                                             } else {
                                                 
                                                 Button {
-                                                    DispatchQueue.global(qos: .background).async {
-                                                        self.activateAlias(alias: alias)
+                                                    Task {
+                                                        await self.activateAlias(alias: alias)
                                                     }
                                                 } label: {
                                                     Label(String(localized: "enable_alias"), systemImage: "checkmark.circle")
@@ -198,7 +198,9 @@ struct AliasesView: View {
                                     .opacity(0)
                                     .onChange(of: shouldReloadDataInParent) {
                                         if shouldReloadDataInParent {
-                                            aliasesViewModel.getAliases(forceReload: true)
+                                            Task {
+                                                await aliasesViewModel.getAliases(forceReload: true)
+                                            }
                                             self.shouldReloadDataInParent = false
                                         }
                                     }
@@ -250,14 +252,14 @@ struct AliasesView: View {
             .refreshable {
                 // When refreshing aliases also ask the mainView to update general data
                 self.onRefreshGeneralData?()
-                self.aliasesViewModel.getAliases(forceReload: true)
+                await self.aliasesViewModel.getAliases(forceReload: true)
             }
             .onChange(of: scenePhase) { oldPhase, newPhase in
                 if newPhase == .active {
                     // User opened the app from background
                     
                     checkForAnyInteractiveActions()
-
+                    
                     
                 }
             }
@@ -268,20 +270,24 @@ struct AliasesView: View {
                 case .deleteAliases:
                     return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
                         
-                        DispatchQueue.global(qos: .background).async {
-                            self.deleteAlias(alias: aliasInContextMenu!)
+                        Task {
+                            await self.deleteAlias(alias: aliasInContextMenu!)
                         }
                     }, secondaryButton: .cancel(){
-                        aliasesViewModel.getAliases(forceReload: true)
+                        Task {
+                            await aliasesViewModel.getAliases(forceReload: true)
+                        }
                     })
                 case .restoreAlias:
                     return Alert(title: Text(String(localized: "restore_alias")), message: Text(String(localized: "restore_alias_confirmation_desc")), primaryButton: .default(Text(String(localized: "restore"))){
                         
-                        DispatchQueue.global(qos: .background).async {
-                            self.restoreAlias(alias: aliasInContextMenu!)
+                        Task {
+                            await self.restoreAlias(alias: aliasInContextMenu!)
                         }
                     }, secondaryButton: .cancel(){
-                        aliasesViewModel.getAliases(forceReload: true)
+                        Task {
+                            await aliasesViewModel.getAliases(forceReload: true)
+                        }
                     })
                 case .error:
                     return Alert(
@@ -322,7 +328,9 @@ struct AliasesView: View {
                             Text(aliasesViewModel.networkError)
                         } actions: {
                             Button(String(localized: "try_again")) {
-                                aliasesViewModel.getAliases(forceReload: true)
+                                Task {
+                                    await aliasesViewModel.getAliases(forceReload: true)
+                                }
                             }
                         }
                     } else {
@@ -384,7 +392,9 @@ struct AliasesView: View {
                         
                         // Hide dialog and refresh aliases
                         isPresentingFilterOptionsAliasBottomSheet = false
-                        aliasesViewModel.getAliases(forceReload: true)
+                        Task {
+                            await aliasesViewModel.getAliases(forceReload: true)
+                        }
                     }
                 }
                 .presentationDetents([.large])
@@ -408,7 +418,9 @@ struct AliasesView: View {
                     AddAliasBottomSheet(){
                         // Hide dialog and refresh aliases
                         isPresentingAddAliasBottomSheet = false
-                        aliasesViewModel.getAliases(forceReload: true)
+                        Task {
+                            await aliasesViewModel.getAliases(forceReload: true)
+                        }
                     }.environmentObject(mainViewState)
                     
                 }
@@ -419,10 +431,14 @@ struct AliasesView: View {
             
             if let aliasList = aliasesViewModel.aliasList{
                 if (aliasList.data.isEmpty) {
-                    aliasesViewModel.getAliases(forceReload: true)
+                    Task {
+                        await aliasesViewModel.getAliases(forceReload: true)
+                    }
                 }
             } else {
-                aliasesViewModel.getAliases(forceReload: true)
+                Task {
+                    await aliasesViewModel.getAliases(forceReload: true)
+                }
             }
             
             
@@ -501,7 +517,9 @@ struct AliasesView: View {
         
         SaveFilter(chipId: chipId, aliasSortFilterRequest: aliasesViewModel.aliasSortFilterRequest)
         
-        aliasesViewModel.getAliases(forceReload: true)
+        Task {
+            await aliasesViewModel.getAliases(forceReload: true)
+        }
     }
     
     func SaveFilter(chipId: String, aliasSortFilterRequest: AliasSortFilterRequest){
@@ -566,59 +584,62 @@ struct AliasesView: View {
         }
     }
     
-    private func activateAlias(alias:Aliases) {
+    private func activateAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
-        networkHelper.activateSpecificAlias(completion: { alias, error in
-            DispatchQueue.main.async {
-                
-                if alias != nil {
-                    // TODO can I update this item without full reload
-                    aliasesViewModel.getAliases(forceReload: true)
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_forgetting_alias")
-                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },aliasId: alias.id)
+        do {
+            let _ = try await networkHelper.activateSpecificAlias(aliasId: alias.id)
+            // TODO can I update this item without full reload
+            await aliasesViewModel.getAliases(forceReload: true)
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_forgetting_alias")
+            errorAlertMessage = error.localizedDescription
+        }
     }
     
-    private func deactivateAlias(alias:Aliases) {
+    private func deactivateAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deactivateSpecificAlias(completion: { result in
-            DispatchQueue.main.async {
-                
-                if result == "204" {
-                    // TODO can I update this item without full reload
-                    aliasesViewModel.getAliases(forceReload: true)
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_forgetting_alias")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.deactivateSpecificAlias(aliasId: alias.id)
+            if result == "204" {
+                // TODO can I update this item without full reload
+                await aliasesViewModel.getAliases(forceReload: true)
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_forgetting_alias")
+                errorAlertMessage = result
             }
-        },aliasId: alias.id)
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_forgetting_alias")
+            errorAlertMessage = error.localizedDescription
+        }
     }
     
-    private func deleteAlias(alias:Aliases) {
+    private func deleteAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deleteAlias(completion: { result in
-            DispatchQueue.main.async {
-                
-                if result == "204" {
-                    // TODO can I remove this item without full reload
-                    aliasesViewModel.getAliases(forceReload: true)
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_deleting_alias")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.deleteAlias(aliasId: alias.id)
+            if result == "204" {
+                // TODO can I remove this item without full reload
+                await aliasesViewModel.getAliases(forceReload: true)
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_deleting_alias")
+                errorAlertMessage = result
             }
-        },aliasId: alias.id)
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_deleting_alias")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+    
     
     func deleteAlias(at offsets: IndexSet) {
         for index in offsets.sorted(by: >) {
@@ -635,23 +656,27 @@ struct AliasesView: View {
         }
     }
     
-    private func restoreAlias(alias:Aliases) {
+    private func restoreAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
-        networkHelper.restoreAlias(completion: { alias, error in
-            DispatchQueue.main.async {
-                
-                if alias != nil {
-                    // TODO can I update this item without full reload
-                    aliasesViewModel.getAliases(forceReload: true)
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_restoring_alias")
-                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let restoredAlias = try await networkHelper.restoreAlias(aliasId: alias.id)
+            if restoredAlias != nil {
+                // TODO can I update this item without full reload
+                await aliasesViewModel.getAliases(forceReload: true)
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_restoring_alias")
+                errorAlertMessage = String(localized: "error_unknown_refer_to_logs")
             }
-        },aliasId: alias.id)
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_restoring_alias")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+    
     
     func GetFilterChips() -> [AddyChipModel]{
         return [

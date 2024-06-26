@@ -70,13 +70,12 @@ struct EditUsernameDescriptionBottomSheet: View {
                     if (descriptionValidationError == nil){
                         IsLoadingSaveButton = true;
                         
-                        DispatchQueue.global(qos: .background).async {
-                            self.editDescription(description: self.description)
+                        Task {
+                            await self.editDescription(description: self.description)
                         }
                     } else {
-                        DispatchQueue.main.async {
                             IsLoadingSaveButton = false
-                        }
+                        
                     }
                 }, isLoading: $IsLoadingSaveButton) {
                     Text(String(localized: "save")).foregroundColor(Color.white)
@@ -100,21 +99,19 @@ struct EditUsernameDescriptionBottomSheet: View {
     }
     
     
-    private func editDescription(description:String?) {
+    private func editDescription(description: String?) async {
         descriptionRequestError = nil
-        
         let networkHelper = NetworkHelper()
-        networkHelper.updateDescriptionSpecificUsername(completion: { username, error in
-            DispatchQueue.main.async {
-                if let username = username {
-                    self.descriptionEdited(username)
-                } else {
-                    IsLoadingSaveButton = false
-                    descriptionRequestError = error
-                }
+        do {
+            if let username = try await networkHelper.updateDescriptionSpecificUsername(usernameId: self.usernameId, description: description){
+                self.descriptionEdited(username)
             }
-        }, usernameId: self.usernameId, description: description)
+        } catch {
+            IsLoadingSaveButton = false
+            descriptionRequestError = error.localizedDescription
+        }
     }
+
 }
 
 #Preview {

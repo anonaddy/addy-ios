@@ -185,6 +185,7 @@ struct ProfileBottomSheet: View {
         }
     }
     
+    //TODO: What if the sheet is open and the user taps a notification? Should still trigger then.
     func checkForAnyInteractiveActions(){
         switch mainViewState.profileBottomSheetAction {
         case .settings:
@@ -197,6 +198,8 @@ struct ProfileBottomSheet: View {
             break
         }
         
+        // Return to nil to prevent the page from opening every time
+        mainViewState.profileBottomSheetAction = nil
     }
     
     private func getAddyIoVersion() ->String {

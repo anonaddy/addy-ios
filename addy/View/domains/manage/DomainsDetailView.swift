@@ -109,12 +109,12 @@ struct DomainsDetailView: View {
                                 self.isSwitchingisActiveState = true
                                 
                                 if (domain.active){
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.deactivateDomain(domain: domain)
+                                    Task {
+                                        await self.deactivateDomain(domain: domain)
                                     }
                                 } else {
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.activateDomain(domain: domain)
+                                    Task {
+                                        await self.activateDomain(domain: domain)
                                     }
                                 }
                             }
@@ -131,12 +131,12 @@ struct DomainsDetailView: View {
                                 self.isSwitchingCatchAllEnabledState = true
                                 
                                 if (domain.catch_all){
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.disableCatchAll(domain: domain)
+                                    Task {
+                                        await self.disableCatchAll(domain: domain)
                                     }
                                 } else {
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.enableCatchAll(domain: domain)
+                                    Task {
+                                        await self.enableCatchAll(domain: domain)
                                     }
                                 }
                             }
@@ -226,8 +226,8 @@ struct DomainsDetailView: View {
                                 return Alert(title: Text(String(localized: "delete_domain")), message: Text(String(localized: "delete_domain_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
                                     isDeletingDomain = true
     
-                                    DispatchQueue.global(qos: .background).async {
-                                        deleteDomain(domain: domain)
+                                    Task {
+                                        await deleteDomain(domain: domain)
                                     }
                                 }, secondaryButton: .cancel())
                             case .error:
@@ -261,7 +261,7 @@ struct DomainsDetailView: View {
                     }
                 }
             }.task {
-                getDomain(domainId: self.domainId)
+                await getDomain(domainId: self.domainId)
             }
             .navigationTitle(self.domainDomain)
             .navigationBarTitleDisplayMode(.inline)
@@ -278,84 +278,92 @@ struct DomainsDetailView: View {
     }
     
     
-    private func activateDomain(domain:Domains) {
+    private func activateDomain(domain: Domains) async {
         let networkHelper = NetworkHelper()
-        networkHelper.activateSpecificDomain(completion: { domain, result in
-            DispatchQueue.main.async {
-                self.isSwitchingisActiveState = false
-                
-                if let domain = domain {
-                    self.domain = domain
-                    self.isActive = true
-                } else {
-                    self.isActive = false
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },domainId: domain.id)
+        do {
+            let activatedDomain = try await networkHelper.activateSpecificDomain(domainId: domain.id)
+            self.isSwitchingisActiveState = false
+            self.domain = activatedDomain
+            self.isActive = true
+        } catch {
+            self.isSwitchingisActiveState = false
+            self.isActive = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
+    private func deactivateDomain(domain: Domains) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.deactivateSpecificDomain(domainId: domain.id)
+            self.isSwitchingisActiveState = false
+            if result == "204" {
+                self.domain?.active = false
+                self.isActive = false
+            } else {
+                self.isActive = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertMessage = result
+            }
+        } catch {
+            self.isSwitchingisActiveState = false
+            self.isActive = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
     
-    private func deactivateDomain(domain:Domains) {
+    private func enableCatchAll(domain: Domains) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deactivateSpecificDomain(completion: { result in
-            DispatchQueue.main.async {
-                self.isSwitchingisActiveState = false
-                
-                if result == "204" {
-                    self.domain?.active = false
-                    self.isActive = false
-                } else {
-                    self.isActive = true
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },domainId: domain.id)
+        do {
+            let enabledDomain = try await networkHelper.enableCatchAllSpecificDomain(domainId: domain.id)
+            self.isSwitchingCatchAllEnabledState = false
+            self.domain = enabledDomain
+            self.catchAllEnabled = true
+        } catch {
+            self.isSwitchingCatchAllEnabledState = false
+            self.catchAllEnabled = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_catch_all")
+            errorAlertMessage = error.localizedDescription
+        }
     }
-       private func enableCatchAll(domain:Domains) {
-        let networkHelper = NetworkHelper()
-        networkHelper.enableCatchAllSpecificDomain(completion: { domain, result in
-            DispatchQueue.main.async {
-                self.isSwitchingCatchAllEnabledState = false
-                
-                if let domain = domain {
-                    self.domain = domain
-                    self.catchAllEnabled = true
-                } else {
-                    self.catchAllEnabled = false
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_catch_all")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },domainId: domain.id)
-    }
+
     
-    private func disableCatchAll(domain:Domains) {
+    private func disableCatchAll(domain: Domains) async {
         let networkHelper = NetworkHelper()
-        networkHelper.disableCatchAllSpecificDomain(completion: { result in
-            DispatchQueue.main.async {
-                self.isSwitchingCatchAllEnabledState = false
-                
-                if result == "204" {
-                    self.domain?.catch_all = false
-                    self.catchAllEnabled = false
-                } else {
-                    self.catchAllEnabled = true
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_catch_all")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.disableCatchAllSpecificDomain(domainId: domain.id)
+            self.isSwitchingCatchAllEnabledState = false
+            if result == "204" {
+                self.domain?.catch_all = false
+                self.catchAllEnabled = false
+            } else {
+                self.catchAllEnabled = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_catch_all")
+                errorAlertMessage = result
             }
-        },domainId: domain.id)
+        } catch {
+            self.isSwitchingCatchAllEnabledState = false
+            self.catchAllEnabled = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_catch_all")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
           
 
     private func updateUi(aliasesArray: AliasesArray?){
@@ -393,69 +401,63 @@ struct DomainsDetailView: View {
     }
     
     
-    private func deleteDomain(domain:Domains) {
+    private func deleteDomain(domain: Domains) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deleteDomain(completion: { result in
-            DispatchQueue.main.async {
-                self.isDeletingDomain = false
-                
-                if result == "204" {
-                    shouldReloadDataInParent = true
-                    self.presentationMode.wrappedValue.dismiss()
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_deleting_domain")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },domainId: domain.id)
-    }
-    
-    
-    
-    private func getDomain(domainId: String) {
-        let networkHelper = NetworkHelper()
-        networkHelper.getSpecificDomain(completion: { domain, error in
-            
-            if let domain = domain {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.domain = domain
-                    }
-                }
-                
-                DispatchQueue.global(qos: .background).async {
-                    getAliasesAndAddThemToList(domain: domain)
-                }
+        do {
+            let result = try await networkHelper.deleteDomain(domainId: domain.id)
+            self.isDeletingDomain = false
+            if result == "204" {
+                shouldReloadDataInParent = true
+                self.presentationMode.wrappedValue.dismiss()
             } else {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.errorText = error
-                    }
-                }
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_deleting_domain")
+                errorAlertMessage = result
             }
-        },domainId: domainId)
+        } catch {
+            self.isDeletingDomain = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_deleting_domain")
+            errorAlertMessage = error.localizedDescription
+        }
     }
     
-    private func getAliasesAndAddThemToList(domain: Domains, workingAliasList: AliasesArray? = nil) {
+    
+    
+    private func getDomain(domainId: String) async {
         let networkHelper = NetworkHelper()
+        do {
+            if let domain = try await networkHelper.getSpecificDomain(domainId: domainId){
+                withAnimation {
+                    self.domain = domain
+                }
+                await getAliasesAndAddThemToList(domain: domain)
+            }
+        } catch {
+            withAnimation {
+                self.errorText = error.localizedDescription
+            }
+        }
+    }
 
-        networkHelper.getAliases(completion: { list, error in
-            if let list = list {
+    
+    private func getAliasesAndAddThemToList(domain: Domains, workingAliasList: AliasesArray? = nil) async {
+        let networkHelper = NetworkHelper()
+        let aliasSortFilterRequest = AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, sort: nil, sortDesc: false, filter: nil)
+        do {
+            if let list = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (workingAliasList?.meta?.current_page ?? 0) + 1, size: 100, domain: domainId){
                 addAliasesToList(domain: domain, aliasesArray: list, workingAliasListInbound: workingAliasList)
-            } else {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.errorText = error
-                    }
-                }
             }
-        },aliasSortFilterRequest: AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, sort: nil, sortDesc: false, filter: nil),
-                                 page: (workingAliasList?.meta?.current_page ?? 0) + 1,
-                                 size: 100,
-                                 domain: domainId)
+        } catch {
+                withAnimation {
+                    self.errorText = error.localizedDescription
+                }
+            
+        }
     }
+
     
     
     // Function to add aliases to the list
@@ -475,12 +477,13 @@ struct DomainsDetailView: View {
         // Check if there are more aliases to obtain (are there more pages)
         // If so, repeat.
         if (workingAliasList?.meta?.current_page ?? 0) < (workingAliasList?.meta?.last_page ?? 0) {
-            getAliasesAndAddThemToList(domain: domain, workingAliasList: workingAliasList)
+            Task {
+                await getAliasesAndAddThemToList(domain: domain, workingAliasList: workingAliasList)
+            }
         } else {
-            DispatchQueue.main.async {
                 // Else, set aliasList to update UI
                 updateUi(aliasesArray: workingAliasList)
-            }
+            
         }
     }
     

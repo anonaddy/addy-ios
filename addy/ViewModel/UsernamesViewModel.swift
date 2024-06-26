@@ -17,26 +17,31 @@ class UsernamesViewModel: ObservableObject{
     @Published var networkError:String = ""
     
     init(){
-        self.getUsernames()
-    }
-    
-    func getUsernames(){
-        if (!self.isLoading){
-            self.isLoading = true
-            self.networkError = ""
-            
-            let networkHelper = NetworkHelper()
-            networkHelper.getUsernames(completion: { usernames, error in
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-
-                        if let usernames = usernames {
-                            self.usernames = usernames
-                        } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
-                        }
-                    }
-            })
+        Task {
+            await self.getUsernames()
         }
     }
+    
+    func getUsernames() async {
+        if !self.isLoading {
+            DispatchQueue.main.async {
+                self.isLoading = true
+                self.networkError = ""
+            }
+            let networkHelper = NetworkHelper()
+            do {
+                let usernames = try await networkHelper.getUsernames()
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.usernames = usernames
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.networkError = String(format: String(localized: "details_about_error_s"), "\(error.localizedDescription)")
+                }
+            }
+        }
+    }
+
 }

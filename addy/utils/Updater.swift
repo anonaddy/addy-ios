@@ -9,22 +9,22 @@ import Foundation
 import addy_shared
 
 class Updater {
-    func isUpdateAvailable(callback: @escaping (Bool, String?, Bool, String?) -> Void) {
+    func isUpdateAvailable() async throws -> (Bool, String?, Bool, String?) {
         let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
-
         
         let networkHelper = NetworkHelper()
-        networkHelper.getGithubTags { feed, error in
-            if error == nil {
-                if let version = feed?.entries?.first?.title {
-                    let serverVersionCodeAsInt = Int(version.replacingOccurrences(of: "v", with: "").replacingOccurrences(of: ".", with: ""))!
-                    let appVersionCodeAsInt = Int(appVersion.replacingOccurrences(of: "v", with: "").replacingOccurrences(of: ".", with: ""))!
-                    callback(serverVersionCodeAsInt > appVersionCodeAsInt, version, appVersionCodeAsInt > serverVersionCodeAsInt, nil)
-                }
+        do {
+            let feed = try await networkHelper.getGithubTags()
+            if let version = feed?.entries?.first?.title {
+                let serverVersionCodeAsInt = Int(version.replacingOccurrences(of: "v", with: "").replacingOccurrences(of: ".", with: ""))!
+                let appVersionCodeAsInt = Int(appVersion.replacingOccurrences(of: "v", with: "").replacingOccurrences(of: ".", with: ""))!
+                return (serverVersionCodeAsInt > appVersionCodeAsInt, version, appVersionCodeAsInt > serverVersionCodeAsInt, nil)
+            } else {
+                return (false, nil, false, nil)
             }
-             else {
-                callback(false, nil, false, error)
-            }
+        } catch {
+            return (false, nil, false, error.localizedDescription)
         }
     }
+
 }

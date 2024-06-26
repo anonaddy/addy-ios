@@ -112,14 +112,16 @@ struct FailedDeliveriesView: View {
                     self.onRefreshGeneralData?()
                 }
                 
-                self.failedDeliveriesViewModel.getFailedDeliveries()
+                await self.failedDeliveriesViewModel.getFailedDeliveries()
             }
             .sheet(item: $failedDeliveryToShow) { failedDelivery in
                 NavigationStack {
                     FailedDeliveryBottomSheet(failedDelivery: failedDelivery){
                         self.failedDeliveryToShow = nil
                         
-                        failedDeliveriesViewModel.getFailedDeliveries()
+                        Task {
+                            await failedDeliveriesViewModel.getFailedDeliveries()
+                        }
                     }.onDisappear {
                         // Reset the aliasInContextMenu when the sheet disappears
                         self.failedDeliveryToShow = nil
@@ -131,11 +133,13 @@ struct FailedDeliveriesView: View {
                 switch activeAlert {
                 case .deleteFailedDelivery:
                     return Alert(title: Text(String(localized: "delete_failed_delivery")), message: Text(String(localized: "delete_failed_delivery_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
-                        DispatchQueue.global(qos: .background).async {
-                            self.deleteFailedDelivery(failedDelivery: self.failedDeliveryToDelete!)
+                        Task {
+                            await self.deleteFailedDelivery(failedDelivery: self.failedDeliveryToDelete!)
                         }
                     }, secondaryButton: .cancel(){
-                        failedDeliveriesViewModel.getFailedDeliveries()
+                        Task {
+                            await failedDeliveriesViewModel.getFailedDeliveries()
+                        }
                     })
                 case .error:
                     return Alert(
@@ -169,7 +173,9 @@ struct FailedDeliveriesView: View {
                             Text(failedDeliveriesViewModel.networkError)
                         } actions: {
                             Button(String(localized: "try_again")) {
-                                failedDeliveriesViewModel.getFailedDeliveries()
+                                Task {
+                                    await failedDeliveriesViewModel.getFailedDeliveries()
+                                }
                             }
                         }
                     } else {
@@ -209,7 +215,9 @@ struct FailedDeliveriesView: View {
         .onAppear(perform: {
             if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries{
                 if (failedDeliveries.data.isEmpty) {
-                    failedDeliveriesViewModel.getFailedDeliveries()
+                    Task {
+                        await failedDeliveriesViewModel.getFailedDeliveries()
+                    }
                 }
             }
         })
@@ -225,20 +233,24 @@ struct FailedDeliveriesView: View {
     }
     
     
-    private func deleteFailedDelivery(failedDelivery:FailedDeliveries) {
+    private func deleteFailedDelivery(failedDelivery: FailedDeliveries) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deleteFailedDelivery(completion: { result in
-            DispatchQueue.main.async {
-                if result == "204" {
-                    failedDeliveriesViewModel.getFailedDeliveries()
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_delete_failed_delivery")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.deleteFailedDelivery(failedDeliveryId: failedDelivery.id)
+            if result == "204" {
+                await failedDeliveriesViewModel.getFailedDeliveries()
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_delete_failed_delivery")
+                errorAlertMessage = result
             }
-        },failedDeliveryId: failedDelivery.id)
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_delete_failed_delivery")
+            errorAlertMessage = error.localizedDescription
+        }
     }
     
     

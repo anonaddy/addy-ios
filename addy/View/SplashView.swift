@@ -102,8 +102,8 @@ struct SplashView: View {
         })
         .sheet(isPresented: $isPresentUnsupportedVersionBottomDialog, onDismiss: {
                 isPresentUnsupportedVersionBottomDialog = false
-            DispatchQueue.global(qos: .background).async {
-                getUserResource()
+            Task {
+                await getUserResource()
             }
         }, content: {
             NavigationStack {
@@ -111,8 +111,8 @@ struct SplashView: View {
                     openURL(URL(string: "https://github.com/anonaddy/anonaddy/blob/master/SELF-HOSTING.md#updating")!)
                 } onClickIgnore: {
                     isPresentUnsupportedVersionBottomDialog = false
-                    DispatchQueue.global(qos: .background).async {
-                        getUserResource()
+                    Task {
+                        await getUserResource()
                     }
                 }
             }
@@ -132,38 +132,38 @@ struct SplashView: View {
             AddyIo.VERSIONMAJOR = 9999
             AddyIo.VERSIONSTRING = String(localized: "latest")
             
-            DispatchQueue.global(qos: .background).async {
-                getUserResource()
+            Task {
+                await getUserResource()
             }
         } else {
-            getAddyIoInstanceVersion()
+            Task {
+                await getAddyIoInstanceVersion()
+            }
         }
         
     }
     
-    private func getAddyIoInstanceVersion() {
-        networkHelper!.getAddyIoInstanceVersion { version, error in
-                DispatchQueue.main.async {
-                    if let version = version {
-                        AddyIo.VERSIONMAJOR = version.major
-                                            AddyIo.VERSIONMINOR = version.minor
-                                            AddyIo.VERSIONPATCH = version.patch
-                                            AddyIo.VERSIONSTRING = version.version ?? String(localized: "unknown")
-                        
-                        if (instanceHasTheMinimumRequiredVersion()){
-                            DispatchQueue.global(qos: .background).async {
-                                getUserResource()
-                            }
-                        } else {
-                            self.isPresentUnsupportedVersionBottomDialog = true
-                        }
-                    } else {
-                        self.detailedError = error
-                        self.showError = true
-                    }
+    private func getAddyIoInstanceVersion() async {
+        do {
+            let version = try await networkHelper!.getAddyIoInstanceVersion()
+            if let version = version {
+                AddyIo.VERSIONMAJOR = version.major
+                AddyIo.VERSIONMINOR = version.minor
+                AddyIo.VERSIONPATCH = version.patch
+                AddyIo.VERSIONSTRING = version.version ?? String(localized: "unknown")
+                
+                if instanceHasTheMinimumRequiredVersion() {
+                    await getUserResource()
+                } else {
+                    self.isPresentUnsupportedVersionBottomDialog = true
                 }
             }
+        } catch {
+            self.detailedError = error.localizedDescription
+            self.showError = true
         }
+    }
+
     
     private func instanceHasTheMinimumRequiredVersion() -> Bool {
         if (AddyIo.VERSIONMAJOR > AddyIo.MINIMUMVERSIONCODEMAJOR) {
@@ -181,30 +181,29 @@ struct SplashView: View {
     }
     
     
-    private func getUserResource() {
-        networkHelper!.getUserResource { userResource, error in
-                DispatchQueue.main.async {
-                    if let userResource = userResource {
-                        mainViewState.userResource = userResource
-                        
-                        // Fetch UserResourceExtended data
-                        networkHelper!.getSpecificRecipient(completion: { recipient, error in
-                            DispatchQueue.main.async {
-                                if let recipient = recipient {
-                                    mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
-                                } else if error != nil {
-                                    self.showError = true
-                                }
-                            }
-                        }, recipientId: userResource.default_recipient_id)
-                        
-                    } else {
-                        self.detailedError = error
-                        self.showError = true
-                    }
+    private func getUserResource() async {
+        let networkHelper = NetworkHelper()
+        do {
+            let userResource = try await networkHelper.getUserResource()
+            if let userResource = userResource {
+                mainViewState.userResource = userResource
+                
+                // Fetch UserResourceExtended data
+                let recipient = try await networkHelper.getSpecificRecipient(recipientId: userResource.default_recipient_id)
+                if let recipient = recipient {
+                    mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
+                } else {
+                    self.showError = true
                 }
+            } else {
+                self.showError = true
             }
+        } catch {
+            self.detailedError = error.localizedDescription
+            self.showError = true
         }
+    }
+
 }
 
 

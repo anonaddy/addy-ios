@@ -288,13 +288,13 @@ struct CreateRulesView: View {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             if (self.ruleId.isEmpty){
-                                DispatchQueue.global(qos: .background).async {
-                                    self.createRule()
+                                Task {
+                                    await self.createRule()
                                 }
                             } else {
                                 // ruleId is not empty, update rule instead
-                                DispatchQueue.global(qos: .background).async {
-                                    self.updateRule()
+                                Task {
+                                    await self.updateRule()
                                 }
                             }
                         } label: {
@@ -377,7 +377,7 @@ struct CreateRulesView: View {
             }.task {
                 // Only get rule if the ruleId is not empty
                 if (!self.ruleId.isEmpty){
-                    getRule(ruleId: self.ruleId)
+                    await getRule(ruleId: self.ruleId)
                 } else {
                     if let rule = self.rule {
                         updateUi(rule: rule)
@@ -408,26 +408,22 @@ struct CreateRulesView: View {
     }
     
     
-    private func getRule(ruleId: String) {
+    private func getRule(ruleId: String) async {
         let networkHelper = NetworkHelper()
-        networkHelper.getSpecificRule(completion: { rule, error in
-            
-            if let rule = rule {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.rule = rule
-                        updateUi(rule: rule)
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.errorText = error
-                    }
+        do {
+            if let rule = try await networkHelper.getSpecificRule(ruleId: ruleId){
+                withAnimation {
+                    self.rule = rule
+                    updateUi(rule: rule)
                 }
             }
-        },ruleId: ruleId)
+        } catch {
+            withAnimation {
+                self.errorText = error.localizedDescription
+            }
+        }
     }
+
     
     func updateRuleObject(){
         self.rule!.name = self.ruleName
@@ -437,46 +433,46 @@ struct CreateRulesView: View {
         self.rule!.sends = self.selectedChips.contains("sends")
     }
     
-    func updateRule(){
+    func updateRule() async {
         updateRuleObject()
         
         let networkHelper = NetworkHelper()
-        networkHelper.updateRule(completion: { result in
-            DispatchQueue.main.async {
-                
-                if result == "200" {
-                    shouldReloadDataInParent = true
-                    self.presentationMode.wrappedValue.dismiss()
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_creating_rule")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.updateRule(ruleId: self.rule!.id, rule: self.rule!)
+            if result == "200" {
+                shouldReloadDataInParent = true
+                self.presentationMode.wrappedValue.dismiss()
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_creating_rule")
+                errorAlertMessage = result
             }
-        },ruleId: self.rule!.id, rule: self.rule!)
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_creating_rule")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
     
-    func createRule(){
+    func createRule() async {
         updateRuleObject()
 
-        
         let networkHelper = NetworkHelper()
-        networkHelper.createRule(completion: { rule, error in
-            DispatchQueue.main.async {
-                
-                if rule != nil {
-                    shouldReloadDataInParent = true
-                    self.presentationMode.wrappedValue.dismiss()
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_creating_rule")
-                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        }, rule: self.rule!)
+        do {
+            _ = try await networkHelper.createRule(rule: self.rule!)
+            shouldReloadDataInParent = true
+            self.presentationMode.wrappedValue.dismiss()
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_creating_rule")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
 }
 
 //#Preview {

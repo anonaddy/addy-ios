@@ -17,26 +17,31 @@ class DomainsViewModel: ObservableObject{
     @Published var networkError:String = ""
     
     init(){
-        self.getDomains()
-    }
-    
-    func getDomains(){
-        if (!self.isLoading){
-            self.isLoading = true
-            self.networkError = ""
-            
-            let networkHelper = NetworkHelper()
-            networkHelper.getDomains(completion: { domains, error in
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-
-                        if let domains = domains {
-                            self.domains = domains
-                        } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
-                        }
-                    }
-            })
+        Task {
+            await self.getDomains()
         }
     }
+    
+    func getDomains() async {
+        if !self.isLoading {
+            DispatchQueue.main.async {
+                self.isLoading = true
+                self.networkError = ""
+            }
+            let networkHelper = NetworkHelper()
+            do {
+                let domains = try await networkHelper.getDomains()
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.domains = domains
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.networkError = String(format: String(localized: "details_about_error_s"), "\(error.localizedDescription)")
+                }
+            }
+        }
+    }
+
 }

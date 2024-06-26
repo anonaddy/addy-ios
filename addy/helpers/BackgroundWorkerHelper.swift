@@ -56,7 +56,6 @@ class BackgroundWorkerHelper {
     }
     
     func isThereWorkTodo() -> Bool {
-        let encryptedSettingsManager = SettingsManager(encrypted: true)
         let settingsManager = SettingsManager(encrypted: false)
         
         // Count amount of aliases to be watched

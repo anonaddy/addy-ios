@@ -70,13 +70,12 @@ struct EditAliasDescriptionBottomSheet: View {
                     if (descriptionValidationError == nil){
                         IsLoadingSaveButton = true;
                         
-                        DispatchQueue.global(qos: .background).async {
-                            self.editDescription(description: self.description)
+                        Task {
+                            await self.editDescription(description: self.description)
                         }
                     } else {
-                        DispatchQueue.main.async {
                             IsLoadingSaveButton = false
-                        }
+                        
                     }
                 }, isLoading: $IsLoadingSaveButton) {
                     Text(String(localized: "save")).foregroundColor(Color.white)
@@ -100,21 +99,19 @@ struct EditAliasDescriptionBottomSheet: View {
     }
     
     
-    private func editDescription(description:String?) {
+    private func editDescription(description: String?) async {
         descriptionRequestError = nil
-        
         let networkHelper = NetworkHelper()
-        networkHelper.updateDescriptionSpecificAlias(completion: { alias, error in
-            DispatchQueue.main.async {
-                if let alias = alias {
-                    self.descriptionEdited(alias)
-                } else {
-                    IsLoadingSaveButton = false
-                    descriptionRequestError = error
-                }
+        do {
+            if let alias = try await networkHelper.updateDescriptionSpecificAlias(aliasId: self.aliasId, description: description){
+                self.descriptionEdited(alias)
             }
-        }, aliasId: self.aliasId, description: description)
+        } catch {
+            IsLoadingSaveButton = false
+            descriptionRequestError = error.localizedDescription
+        }
     }
+
 }
 
 #Preview {

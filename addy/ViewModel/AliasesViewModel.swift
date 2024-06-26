@@ -60,28 +60,35 @@ class AliasesViewModel: ObservableObject{
         if searchQuery == ""{
             // Reset Data....
             self.aliasSortFilterRequest.filter = ""
-            self.getAliases(forceReload:true)
+            Task {
+                await self.getAliases(forceReload:true)
+            }
         }
         else {
             if (searchQuery.count >= 3){
                 // search Data
                 self.aliasSortFilterRequest.filter = searchQuery
-                self.getAliases(forceReload:true)
+                Task {
+                    await self.getAliases(forceReload:true)
+                }
             }
             // Don't search for searchTerms for < 3 chars
         }
     }
     
-    func getAliases(forceReload: Bool){
+    func getAliases(forceReload: Bool) async {
         if (!self.isLoading){
-            self.isLoading = true
-            self.networkError = ""
+            DispatchQueue.main.async {
+                self.isLoading = true
+                self.networkError = ""
+            }
             if (forceReload){
                 // This will make sure that the meta resets and jumps back to 0
                 // To prevent that the app continues loading from page X when performing a search after scrolling for a while
-                self.aliasList?.meta = nil
+                DispatchQueue.main.async {
+                    self.aliasList?.meta = nil
+                }
             }
-            
             
             let networkHelper = NetworkHelper()
             
@@ -95,65 +102,73 @@ class AliasesViewModel: ObservableObject{
                 let aliasesToWatch: [String] = Array(aliasWatcher.getAliasesToWatch())
                 
                 if !aliasesToWatch.isEmpty {
-                    networkHelper.bulkGetAlias (completion: { BulkAliasesArray, error in
-                            DispatchQueue.main.async {
-                                self.isLoading = false
+                    do {
+                        let BulkAliasesArray = try await networkHelper.bulkGetAlias(aliases: aliasesToWatch)
+                        self.isLoading = false
 
-                                if let BulkAliasesArray = BulkAliasesArray {
-                                    let aliasArray = AliasesArray(data: BulkAliasesArray.data)
-                                    self.aliasList = aliasArray
-                                    
-                                    // Since the bulkGetAlias func always returns everything we are always at the last page
-                                    self.hasArrivedAtTheLastPage = true
-                                } else {
-                                    self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
-                                }
-                            }
-                    }, aliases: aliasesToWatch)
+                        if let BulkAliasesArray = BulkAliasesArray {
+                            let aliasArray = AliasesArray(data: BulkAliasesArray.data)
+                            self.aliasList = aliasArray
+                            
+                            // Since the bulkGetAlias func always returns everything we are always at the last page
+                            self.hasArrivedAtTheLastPage = true
+                        } else {
+                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(String(localized: "error_unknown_refer_to_logs"))")
+                        }
+                    } catch {
+                        self.isLoading = false
+                        self.networkError = error.localizedDescription
+                    }
                 } else {
                     self.isLoading = false
                     // This could be triggered if you remove the last watched alias and then refresh
                     let aliasArray = AliasesArray(data: [])
                     self.aliasList = aliasArray
-                    // Since the bulkGetAlias func always returns everything we are always at the last page
-                    self.hasArrivedAtTheLastPage = true
+                    
                 }
 
             } else {
-                networkHelper.getAliases (completion: { aliasArray, error in
-                        DispatchQueue.main.async {
-                            self.isLoading = false
+                do {
+                    let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: self.aliasSortFilterRequest, page : (aliasList?.meta?.current_page ?? 0) + 1,size: 25)
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                    }
 
-                            if let aliasArray = aliasArray {
-                                
-                                if (self.aliasList == nil || forceReload){
-                                    // If aliasList is empty, assign it
-                                    self.aliasList = aliasArray
-                                } else {
-                                    // If aliasList is not empty, set the meta and links and append the retrieved aliases to the list (as pagination is being used)
-                                    self.aliasList?.meta = aliasArray.meta
-                                    self.aliasList?.links = aliasArray.links
-                                    self.aliasList?.data.append(contentsOf: aliasArray.data)
-                                }
-                                
-                                self.hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page
-                                
-                            } else {
-                                self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
+                    if let aliasArray = aliasArray {
+                        
+                        if (self.aliasList == nil || forceReload){
+                            // If aliasList is empty, assign it
+                            DispatchQueue.main.async {
+                                self.aliasList = aliasArray
                             }
+                        } else {
+                            // If aliasList is not empty, set the meta and links and append the retrieved aliases to the list (as pagination is being used)
+                            self.aliasList?.meta = aliasArray.meta
+                            self.aliasList?.links = aliasArray.links
+                            self.aliasList?.data.append(contentsOf: aliasArray.data)
                         }
-                },aliasSortFilterRequest: self.aliasSortFilterRequest, page : (aliasList?.meta?.current_page ?? 0) + 1,size: 25)
+                        DispatchQueue.main.async {
+                            self.hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page
+                        }
+                    } else {
+                        self.networkError = String(format: String(localized: "details_about_error_s"),"\(String(localized: "error_unknown_refer_to_logs"))")
+                    }
+                } catch {
+                    self.isLoading = false
+                    self.networkError = error.localizedDescription
+                }
             }
-            
+        }
+    }
 
-        }
-        
-        }
+
     
     
     func loadMoreContent(){
         if (!self.hasArrivedAtTheLastPage){
-            getAliases(forceReload: false)
+            Task {
+                await getAliases(forceReload: false)
+            }
         }
     }
     

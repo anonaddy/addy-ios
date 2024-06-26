@@ -66,13 +66,12 @@ struct AddRecipientBottomSheet: View {
                         if (recipientValidationError == nil){
                             IsLoadingAddButton = true;
                             
-                            DispatchQueue.global(qos: .background).async {
-                                self.addRecipientToAccount(address: self.address)
+                            Task {
+                                await self.addRecipientToAccount(address: self.address)
                             }
                         } else {
-                            DispatchQueue.main.async {
-                                IsLoadingAddButton = false
-                            }
+                            IsLoadingAddButton = false
+                            
                         }
                     }, isLoading: $IsLoadingAddButton) {
                         Text(String(localized: "add")).foregroundColor(Color.white)
@@ -100,21 +99,18 @@ struct AddRecipientBottomSheet: View {
     }
     
     
-    private func addRecipientToAccount(address:String) {
+    private func addRecipientToAccount(address: String) async {
         recipientRequestError = nil
-        
         let networkHelper = NetworkHelper()
-        networkHelper.addRecipient(completion: { recipient, error in
-            DispatchQueue.main.async {
-                if recipient != nil {
-                    self.onAdded()
-                } else {
-                    IsLoadingAddButton = false
-                    recipientRequestError = error
-                }
-            }
-        }, address: address)
+        do {
+            _ = try await networkHelper.addRecipient(address: address)
+            self.onAdded()
+        } catch {
+            IsLoadingAddButton = false
+            recipientRequestError = error.localizedDescription
+        }
     }
+
 }
 
 #Preview {

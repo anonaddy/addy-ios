@@ -63,7 +63,9 @@ struct AddApiBottomSheet: View {
                                 
                                 isLoadingSignIn = true
                                 // Call back to SetupView
-                                self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
+                                Task {
+                                    await self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
+                                }
                             } else {
                                 self.showInvalidQrAlert = true
                             }
@@ -130,13 +132,12 @@ struct AddApiBottomSheet: View {
                     if (instanceError == nil && apiKeyError == nil){
                         isLoadingSignIn = true;
                         
-                        DispatchQueue.global(qos: .background).async {
-                            self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
+                       Task {
+                            await self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
                         }
                     } else {
-                        DispatchQueue.main.async {
                             isLoadingSignIn = false
-                        }
+                        
                     }
                 }, isLoading: $isLoadingSignIn) {
                     Text(String(localized: "sign_in")).foregroundColor(Color.white)
@@ -175,20 +176,21 @@ struct AddApiBottomSheet: View {
     }
     
     
-    private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL) {
+    private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL) async {
         let networkHelper = NetworkHelper()
-        networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: apiKey) { result in
-            DispatchQueue.main.async {
-                if result == "200" {
-                    self.addKey(apiKey, baseUrl)
-                } else {
-                    isLoadingSignIn = false
-                    apiKeyError = String(localized: "api_invalid")
-                }
+        do {
+            let result = try await networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: apiKey)
+            if result == "200" {
+                self.addKey(apiKey, baseUrl)
+            } else {
+                isLoadingSignIn = false
+                apiKeyError = String(localized: "api_invalid")
             }
+        } catch {
+            print("Failed to verify API key: \(error)")
         }
     }
-    
+
     private func isQrCodeFormattedCorrect(text: String) -> Bool {
         return text.contains("|") && text.contains("http")
     }

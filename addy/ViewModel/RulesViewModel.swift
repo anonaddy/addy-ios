@@ -17,38 +17,36 @@ class RulesViewModel: ObservableObject{
     @Published var isLoading = false
     @Published var networkError:String = ""
     
-    init(){
-        self.getRules()
+    init() {
+        Task{
+            await self.getRules()
+        }
     }
     
-    func getRules(){
-        if (!self.isLoading){
+    func getRules() async {
+        if !self.isLoading {
             DispatchQueue.main.async {
                 self.isLoading = true
                 self.networkError = ""
-        }
+            }
             let networkHelper = NetworkHelper()
-            networkHelper.getRecipients(verifiedOnly: false, completion: { recipients, error in
-                if let recipients = recipients {
-                    networkHelper.getRules(completion: { rules, error in
-                        DispatchQueue.main.async {
-                            self.isLoading = false
-                            
-                            if let rules = rules {
-                                self.rules = rules
-                                self.recipients = recipients
-                            } else {
-                                self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
-                            }
-                        }
-                    })
-                } else {
+            do {
+                if let recipients = try await networkHelper.getRecipients(verifiedOnly: false){
+                    let rules = try await networkHelper.getRules()
                     DispatchQueue.main.async {
-                        self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
+                        self.isLoading = false
+                        self.rules = rules
+                        self.recipients = recipients
                     }
-                    }
-                
-            })
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.networkError = String(format: String(localized: "details_about_error_s"), "\(error.localizedDescription)")
+                }
+            }
         }
     }
+
+
 }

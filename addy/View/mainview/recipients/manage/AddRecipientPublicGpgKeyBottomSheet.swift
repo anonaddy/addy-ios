@@ -65,13 +65,12 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
                     if (publicGpgKeyValidationError == nil){
                         IsLoadingSaveButton = true;
                         
-                        DispatchQueue.global(qos: .background).async {
-                            self.addGpgKeyHttp(publicGpgKey: self.publicGpgKey)
+                        Task {
+                            await self.addGpgKeyHttp(publicGpgKey: self.publicGpgKey)
                         }
                     } else {
-                        DispatchQueue.main.async {
                             IsLoadingSaveButton = false
-                        }
+                    
                     }
                 }, isLoading: $IsLoadingSaveButton) {
                     Text(String(localized: "save")).foregroundColor(Color.white)
@@ -95,21 +94,19 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
     }
     
     
-    private func addGpgKeyHttp(publicGpgKey:String) {
+    private func addGpgKeyHttp(publicGpgKey: String) async {
         publicGpgKeyRequestError = nil
-        
         let networkHelper = NetworkHelper()
-        networkHelper.addEncryptionKeyRecipient(completion: { recipient, error in
-            DispatchQueue.main.async {
-                if let recipient = recipient {
-                    self.onKeyAdded(recipient)
-                } else {
-                    IsLoadingSaveButton = false
-                    publicGpgKeyRequestError = error
-                }
+        do {
+            if let recipient = try await networkHelper.addEncryptionKeyRecipient(recipientId: self.recipientId, keyData: publicGpgKey){
+                self.onKeyAdded(recipient)
             }
-        }, recipientId: self.recipientId, keyData: publicGpgKey)
+        } catch {
+            IsLoadingSaveButton = false
+            publicGpgKeyRequestError = error.localizedDescription
+        }
     }
+
 }
 
 #Preview {

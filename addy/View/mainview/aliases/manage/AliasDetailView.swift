@@ -76,7 +76,7 @@ struct AliasDetailView: View {
                                 .frame(maxWidth: .infinity)
                             Spacer()
                             
-                            VStack(alignment: .leading){
+                            VStack(alignment: .trailing){
                                 Spacer()
                                 
                                 Label(title: {
@@ -182,12 +182,12 @@ struct AliasDetailView: View {
                                 self.isSwitchingAliasActiveState = true
                                 
                                 if (alias.active){
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.deactivateAlias(alias: alias)
+                                    Task {
+                                        await self.deactivateAlias(alias: alias)
                                     }
                                 } else {
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.activateAlias(alias: alias)
+                                    Task {
+                                        await self.activateAlias(alias: alias)
                                     }
                                 }
                             }
@@ -292,8 +292,8 @@ struct AliasDetailView: View {
                     if alias.active {
                         self.isSwitchingAliasActiveState = true
                         
-                        DispatchQueue.global(qos: .background).async {
-                            self.deactivateAlias(alias: alias)
+                        Task {
+                            await self.deactivateAlias(alias: alias)
                         }
                     }
                     self.shouldDisableAlias = false
@@ -364,24 +364,24 @@ struct AliasDetailView: View {
                             return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
                                 isDeletingAlias = true
                                 
-                                DispatchQueue.global(qos: .background).async {
-                                    deleteAlias(alias: alias)
+                                Task {
+                                    await deleteAlias(alias: alias)
                                 }
                             }, secondaryButton: .cancel())
                         case .restoreAlias:
                             return Alert(title: Text(String(localized: "restore_alias")), message: Text(String(localized: "restore_alias_confirmation_desc")), primaryButton: .default(Text(String(localized: "restore"))){
                                 isRestoringAlias = true
                                 
-                                DispatchQueue.global(qos: .background).async {
-                                    restoreAlias(alias: alias)
+                                Task {
+                                    await restoreAlias(alias: alias)
                                 }
                             }, secondaryButton: .cancel())
                         case .forgetAlias:
                             return Alert(title: Text(String(localized: "forget_alias")), message: Text(String(localized: "forget_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "forget"))){
                                 isForgettingAlias = true
                                 
-                                DispatchQueue.global(qos: .background).async {
-                                    forgetAlias(alias: alias)
+                                Task {
+                                    await forgetAlias(alias: alias)
                                 }
                             }, secondaryButton: .cancel())
                         case .error:
@@ -415,7 +415,7 @@ struct AliasDetailView: View {
                     }
                 }
             }.task {
-                getAlias(aliasId: self.aliasId)
+                await getAlias(aliasId: self.aliasId)
             }
            
             .navigationTitle(self.aliasEmail)
@@ -548,126 +548,136 @@ struct AliasDetailView: View {
         
     }
     
-    private func activateAlias(alias:Aliases) {
+    private func activateAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
-        networkHelper.activateSpecificAlias(completion: { alias, error in
-            DispatchQueue.main.async {
-                self.isSwitchingAliasActiveState = false
-                
-                if let alias = alias {
-                    self.alias = alias
-                    self.isAliasActive = true
-                    shouldReloadDataInParent = true
-                } else {
-                    self.isAliasActive = false
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_forgetting_alias")
-                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },aliasId: alias.id)
+        do {
+            let activatedAlias = try await networkHelper.activateSpecificAlias(aliasId: alias.id)
+            self.isSwitchingAliasActiveState = false
+            self.alias = activatedAlias
+            self.isAliasActive = true
+            shouldReloadDataInParent = true
+        } catch {
+            self.isSwitchingAliasActiveState = false
+            self.isAliasActive = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_forgetting_alias")
+            errorAlertMessage = error.localizedDescription
+        }
     }
-    
-    private func deactivateAlias(alias:Aliases) {
-        let networkHelper = NetworkHelper()
-        networkHelper.deactivateSpecificAlias(completion: { result in
-            DispatchQueue.main.async {
-                self.isSwitchingAliasActiveState = false
-                
-                if result == "204" {
-                    self.alias?.active = false
-                    self.isAliasActive = false
-                    shouldReloadDataInParent = true
-                } else {
-                    self.isAliasActive = true
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_forgetting_alias")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },aliasId: alias.id)
-    }
-    
-    private func deleteAlias(alias:Aliases) {
-        let networkHelper = NetworkHelper()
-        networkHelper.deleteAlias(completion: { result in
-            DispatchQueue.main.async {
-                self.isDeletingAlias = false
-                
-                if result == "204" {
-                    shouldReloadDataInParent = true
-                    self.presentationMode.wrappedValue.dismiss()
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_deleting_alias")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },aliasId: alias.id)
-    }
-    
-    private func restoreAlias(alias:Aliases) {
-        let networkHelper = NetworkHelper()
-        networkHelper.restoreAlias(completion: { alias, error in
-            DispatchQueue.main.async {
-                self.isRestoringAlias = false
-                
-                if let alias = alias {
-                    self.alias = alias
-                    self.isAliasActive = alias.active
-                    shouldReloadDataInParent = true
 
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_restoring_alias")
-                    errorAlertMessage = error ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },aliasId: alias.id)
-    }
     
-    private func forgetAlias(alias:Aliases) {
-        let networkHelper = NetworkHelper()
-        networkHelper.forgetAlias(completion: { result in
-            DispatchQueue.main.async {
-                self.isForgettingAlias = false
-                
-                if result == "204" {
-                    shouldReloadDataInParent = true
-                    self.presentationMode.wrappedValue.dismiss()
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_forgetting_alias")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },aliasId: alias.id)
-    }
+
     
-    private func getAlias(aliasId: String) {
+    private func restoreAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
-        networkHelper.getSpecificAlias(completion: { alias, error in
-            DispatchQueue.main.async {
-                if let alias = alias {
-                    withAnimation {
-                        self.alias = alias
-                        self.aliasEmail = alias.email
-                        self.updateUi(alias: alias)
-                    }
-                    
-                } else {
-                    withAnimation {
-                        self.errorText = error
-                    }
+        do {
+            if let restoredAlias = try await networkHelper.restoreAlias(aliasId: alias.id) {
+                self.isRestoringAlias = false
+                self.alias = restoredAlias
+                self.isAliasActive = restoredAlias.active
+                shouldReloadDataInParent = true
+            }
+        } catch {
+            self.isRestoringAlias = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_restoring_alias")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    
+    private func forgetAlias(alias: Aliases) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.forgetAlias(aliasId: alias.id)
+            self.isForgettingAlias = false
+            if result == "204" {
+                shouldReloadDataInParent = true
+                self.presentationMode.wrappedValue.dismiss()
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_forgetting_alias")
+                errorAlertMessage = result
+            }
+        } catch {
+            self.isForgettingAlias = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_forgetting_alias")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    private func deactivateAlias(alias: Aliases) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.deactivateSpecificAlias(aliasId: alias.id)
+            self.isSwitchingAliasActiveState = false
+            if result == "204" {
+                self.alias?.active = false
+                self.isAliasActive = false
+                shouldReloadDataInParent = true
+            } else {
+                self.isAliasActive = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_forgetting_alias")
+                errorAlertMessage = result
+            }
+        } catch {
+            self.isSwitchingAliasActiveState = false
+            self.isAliasActive = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_forgetting_alias")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    private func deleteAlias(alias: Aliases) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.deleteAlias(aliasId: alias.id)
+            self.isDeletingAlias = false
+            if result == "204" {
+                shouldReloadDataInParent = true
+                self.presentationMode.wrappedValue.dismiss()
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_deleting_alias")
+                errorAlertMessage = result
+            }
+        } catch {
+            self.isDeletingAlias = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_deleting_alias")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    
+    private func getAlias(aliasId: String) async {
+        let networkHelper = NetworkHelper()
+        do {
+            if let alias = try await networkHelper.getSpecificAlias(aliasId: aliasId){
+                withAnimation {
+                    self.alias = alias
+                    self.aliasEmail = alias.email
+                    self.updateUi(alias: alias)
                 }
             }
-        },aliasId: aliasId)
+        } catch {
+            withAnimation {
+                self.errorText = error.localizedDescription
+            }
+        }
     }
+
 }
 
 

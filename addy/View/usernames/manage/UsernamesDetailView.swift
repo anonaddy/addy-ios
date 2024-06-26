@@ -107,12 +107,12 @@ struct UsernamesDetailView: View {
                                 self.isSwitchingisActiveState = true
                                 
                                 if (username.active){
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.deactivateUsername(username: username)
+                                    Task {
+                                        await self.deactivateUsername(username: username)
                                     }
                                 } else {
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.activateUsername(username: username)
+                                    Task {
+                                        await self.activateUsername(username: username)
                                     }
                                 }
                             }
@@ -129,12 +129,12 @@ struct UsernamesDetailView: View {
                                 self.isSwitchingCatchAllEnabledState = true
                                 
                                 if (username.catch_all){
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.disableCatchAll(username: username)
+                                    Task {
+                                        await self.disableCatchAll(username: username)
                                     }
                                 } else {
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.enableCatchAll(username: username)
+                                    Task {
+                                        await self.enableCatchAll(username: username)
                                     }
                                 }
                             }
@@ -152,12 +152,12 @@ struct UsernamesDetailView: View {
                                 self.isSwitchingCanLoginState = true
                                 
                                 if (username.can_login){
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.disableCanLogin(username: username)
+                                    Task {
+                                        await self.disableCanLogin(username: username)
                                     }
                                 } else {
-                                    DispatchQueue.global(qos: .background).async {
-                                        self.enableCanLogin(username: username)
+                                    Task {
+                                        await self.enableCanLogin(username: username)
                                     }
                                 }
                             }
@@ -246,8 +246,8 @@ struct UsernamesDetailView: View {
                                 return Alert(title: Text(String(localized: "delete_username")), message: Text(String(localized: "delete_username_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
                                     isDeletingUsername = true
     
-                                    DispatchQueue.global(qos: .background).async {
-                                        deleteUsername(username: username)
+                                    Task {
+                                        await deleteUsername(username: username)
                                     }
                                 }, secondaryButton: .cancel())
                             case .error:
@@ -281,7 +281,7 @@ struct UsernamesDetailView: View {
                     }
                 }
             }.task {
-                getUsername(usernameId: self.usernameId)
+                await getUsername(usernameId: self.usernameId)
             }
             .navigationTitle(self.usernameUsername)
             .navigationBarTitleDisplayMode(.inline)
@@ -298,124 +298,136 @@ struct UsernamesDetailView: View {
     }
     
     
-    private func activateUsername(username:Usernames) {
+    private func activateUsername(username: Usernames) async {
         let networkHelper = NetworkHelper()
-        networkHelper.activateSpecificUsername(completion: { username, result in
-            DispatchQueue.main.async {
-                self.isSwitchingisActiveState = false
-                
-                if let username = username {
-                    self.username = username
-                    self.isActive = true
-                } else {
-                    self.isActive = false
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },usernameId: username.id)
+        do {
+            let activatedUsername = try await networkHelper.activateSpecificUsername(usernameId: username.id)
+            self.isSwitchingisActiveState = false
+            self.username = activatedUsername
+            self.isActive = true
+        } catch {
+            self.isSwitchingisActiveState = false
+            self.isActive = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
     }
-    
-    private func deactivateUsername(username:Usernames) {
+
+    private func deactivateUsername(username: Usernames) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deactivateSpecificUsername(completion: { result in
-            DispatchQueue.main.async {
-                self.isSwitchingisActiveState = false
-                
-                if result == "204" {
-                    self.username?.active = false
-                    self.isActive = false
-                } else {
-                    self.isActive = true
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_active")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.deactivateSpecificUsername(usernameId: username.id)
+            self.isSwitchingisActiveState = false
+            if result == "204" {
+                self.username?.active = false
+                self.isActive = false
+            } else {
+                self.isActive = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertMessage = result
             }
-        },usernameId: username.id)
-    }     
-       private func enableCatchAll(username:Usernames) {
-        let networkHelper = NetworkHelper()
-        networkHelper.enableCatchAllSpecificUsername(completion: { username, result in
-            DispatchQueue.main.async {
-                self.isSwitchingCatchAllEnabledState = false
-                
-                if let username = username {
-                    self.username = username
-                    self.catchAllEnabled = true
-                } else {
-                    self.catchAllEnabled = false
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_catch_all")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },usernameId: username.id)
+        } catch {
+            self.isSwitchingisActiveState = false
+            self.isActive = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
     
-    private func disableCatchAll(username:Usernames) {
+    private func enableCatchAll(username: Usernames) async {
         let networkHelper = NetworkHelper()
-        networkHelper.disableCatchAllSpecificUsername(completion: { result in
-            DispatchQueue.main.async {
-                self.isSwitchingCatchAllEnabledState = false
-                
-                if result == "204" {
-                    self.username?.catch_all = false
-                    self.catchAllEnabled = false
-                } else {
-                    self.catchAllEnabled = true
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_catch_all")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let enabledUsername = try await networkHelper.enableCatchAllSpecificUsername(usernameId: username.id)
+            self.isSwitchingCatchAllEnabledState = false
+            self.username = enabledUsername
+            self.catchAllEnabled = true
+        } catch {
+            self.isSwitchingCatchAllEnabledState = false
+            self.catchAllEnabled = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_catch_all")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    
+    private func disableCatchAll(username: Usernames) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.disableCatchAllSpecificUsername(usernameId: username.id)
+            self.isSwitchingCatchAllEnabledState = false
+            if result == "204" {
+                self.username?.catch_all = false
+                self.catchAllEnabled = false
+            } else {
+                self.catchAllEnabled = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_catch_all")
+                errorAlertMessage = result
             }
-        },usernameId: username.id)
-    }     
+        } catch {
+            self.isSwitchingCatchAllEnabledState = false
+            self.catchAllEnabled = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_catch_all")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
           
-    private func enableCanLogin(username:Usernames) {
+    private func enableCanLogin(username: Usernames) async {
         let networkHelper = NetworkHelper()
-        networkHelper.enableCanLoginSpecificUsername(completion: { username, result in
-            DispatchQueue.main.async {
-                self.isSwitchingCanLoginState = false
-                
-                if let username = username {
-                    self.username = username
-                    self.canLogin = true
-                } else {
-                    self.canLogin = false
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_can_login")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },usernameId: username.id)
+        do {
+            let enabledUsername = try await networkHelper.enableCanLoginSpecificUsername(usernameId: username.id)
+            self.isSwitchingCanLoginState = false
+            self.username = enabledUsername
+            self.canLogin = true
+        } catch {
+            self.isSwitchingCanLoginState = false
+            self.canLogin = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_can_login")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
     
-    private func disableCanLogin(username:Usernames) {
+    private func disableCanLogin(username: Usernames) async {
         let networkHelper = NetworkHelper()
-        networkHelper.disableCanLoginSpecificUsername(completion: { result in
-            DispatchQueue.main.async {
-                self.isSwitchingCanLoginState = false
-                
-                if result == "204" {
-                    self.username?.can_login = false
-                    self.canLogin = false
-                } else {
-                    self.canLogin = true
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_edit_can_login")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.disableCanLoginSpecificUsername(usernameId: username.id)
+            self.isSwitchingCanLoginState = false
+            if result == "204" {
+                self.username?.can_login = false
+                self.canLogin = false
+            } else {
+                self.canLogin = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_can_login")
+                errorAlertMessage = result
             }
-        },usernameId: username.id)
-    }     
+        } catch {
+            self.isSwitchingCanLoginState = false
+            self.canLogin = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_can_login")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
     
    
     
@@ -454,69 +466,64 @@ struct UsernamesDetailView: View {
     }
     
     
-    private func deleteUsername(username:Usernames) {
+    private func deleteUsername(username: Usernames) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deleteUsername(completion: { result in
-            DispatchQueue.main.async {
-                self.isDeletingUsername = false
-                
-                if result == "204" {
-                    shouldReloadDataInParent = true
-                    self.presentationMode.wrappedValue.dismiss()
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_deleting_username")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
-            }
-        },usernameId: username.id)
-    }
-    
-    
-    
-    private func getUsername(usernameId: String) {
-        let networkHelper = NetworkHelper()
-        networkHelper.getSpecificUsername(completion: { username, error in
-            
-            if let username = username {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.username = username
-                    }
-                }
-                
-                DispatchQueue.global(qos: .background).async {
-                    getAliasesAndAddThemToList(username: username)
-                }
+        do {
+            let result = try await networkHelper.deleteUsername(usernameId: username.id)
+            self.isDeletingUsername = false
+            if result == "204" {
+                shouldReloadDataInParent = true
+                self.presentationMode.wrappedValue.dismiss()
             } else {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.errorText = error
-                    }
-                }
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_deleting_username")
+                errorAlertMessage = result
             }
-        },usernameId: usernameId)
+        } catch {
+            self.isDeletingUsername = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_deleting_username")
+            errorAlertMessage = error.localizedDescription
+        }
     }
-    
-    private func getAliasesAndAddThemToList(username: Usernames, workingAliasList: AliasesArray? = nil) {
-        let networkHelper = NetworkHelper()
 
-        networkHelper.getAliases(completion: { list, error in
-            if let list = list {
-                addAliasesToList(username: username, aliasesArray: list, workingAliasListInbound: workingAliasList)
-            } else {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.errorText = error
-                    }
+    
+    
+    
+    private func getUsername(usernameId: String) async {
+        let networkHelper = NetworkHelper()
+        do {
+            if let username = try await networkHelper.getSpecificUsername(usernameId: usernameId){
+                withAnimation {
+                    self.username = username
                 }
+                await getAliasesAndAddThemToList(username: username)
             }
-        },aliasSortFilterRequest: AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, sort: nil, sortDesc: false, filter: nil),
-                                 page: (workingAliasList?.meta?.current_page ?? 0) + 1,
-                                 size: 100,
-                                 username: usernameId)
+        } catch {
+            withAnimation {
+                self.errorText = error.localizedDescription
+            }
+        }
     }
+
+    
+    private func getAliasesAndAddThemToList(username: Usernames, workingAliasList: AliasesArray? = nil) async {
+        let networkHelper = NetworkHelper()
+        let aliasSortFilterRequest = AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, sort: nil, sortDesc: false, filter: nil)
+        do {
+            if let list = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (workingAliasList?.meta?.current_page ?? 0) + 1, size: 100, username: usernameId){
+                addAliasesToList(username: username, aliasesArray: list, workingAliasListInbound: workingAliasList)
+            }
+        } catch {
+                withAnimation {
+                    self.errorText = error.localizedDescription
+                }
+            
+        }
+    }
+
     
     
     // Function to add aliases to the list
@@ -536,12 +543,13 @@ struct UsernamesDetailView: View {
         // Check if there are more aliases to obtain (are there more pages)
         // If so, repeat.
         if (workingAliasList?.meta?.current_page ?? 0) < (workingAliasList?.meta?.last_page ?? 0) {
-            getAliasesAndAddThemToList(username: username, workingAliasList: workingAliasList)
+            Task {
+                await getAliasesAndAddThemToList(username: username, workingAliasList: workingAliasList)
+            }
         } else {
-            DispatchQueue.main.async {
                 // Else, set aliasList to update UI
                 updateUi(aliasesArray: workingAliasList)
-            }
+            
         }
     }
     

@@ -67,13 +67,11 @@ struct AddUsernameBottomSheet: View {
                         if (usernameValidationError == nil){
                             IsLoadingAddButton = true;
                             
-                            DispatchQueue.global(qos: .background).async {
-                                self.addUsernameToAccount(username: self.username)
+                            Task {
+                                await self.addUsernameToAccount(username: self.username)
                             }
                         } else {
-                            DispatchQueue.main.async {
                                 IsLoadingAddButton = false
-                            }
                         }
                     }, isLoading: $IsLoadingAddButton) {
                         Text(String(localized: "add")).foregroundColor(Color.white)
@@ -101,21 +99,18 @@ struct AddUsernameBottomSheet: View {
     }
     
     
-    private func addUsernameToAccount(username: String) {
+    private func addUsernameToAccount(username: String) async {
         usernameRequestError = nil
-        
         let networkHelper = NetworkHelper()
-        networkHelper.addUsername(completion: { username, error in
-            DispatchQueue.main.async {
-                if username != nil {
-                    self.onAdded()
-                } else {
-                    IsLoadingAddButton = false
-                    usernameRequestError = error
-                }
-            }
-        }, username: username)
+        do {
+            _ = try await networkHelper.addUsername(username: username)
+            self.onAdded()
+        } catch {
+            IsLoadingAddButton = false
+            usernameRequestError = error.localizedDescription
+        }
     }
+
 }
 
 #Preview {

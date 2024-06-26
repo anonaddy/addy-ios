@@ -48,7 +48,7 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
                 
             }
         }.task {
-            checkSubscriptionExpiry()
+            await checkSubscriptionExpiry()
         }
         
         .navigationTitle(String(localized: "feature_subscription_expiry_notification"))
@@ -86,21 +86,21 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
     }
     
     
-    private func checkSubscriptionExpiry() {
+    private func checkSubscriptionExpiry() async {
         if (AddyIo.VERSIONMAJOR == 9999) {
-            NetworkHelper().getUserResource { userResource, _ in
-                DispatchQueue.main.async {
-                    setSubscriptionInfoText(user: userResource)
-                }
+            do {
+                let userResource = try await NetworkHelper().getUserResource()
+                setSubscriptionInfoText(user: userResource)
+            } catch {
+                print("Failed to get user resource: \(error)")
             }
-            } else {
-                DispatchQueue.main.async {
-                    subscriptionExpiryText = String(localized: "subscription_expiry_date_self_hosted")
-                    toggleDescription = String(localized: "subscription_expiry_date_self_hosted")
-                    isToggleDisabled = true
-                }
-            }
+        } else {
+            subscriptionExpiryText = String(localized: "subscription_expiry_date_self_hosted")
+            toggleDescription = String(localized: "subscription_expiry_date_self_hosted")
+            isToggleDisabled = true
         }
+    }
+
     
 }
 

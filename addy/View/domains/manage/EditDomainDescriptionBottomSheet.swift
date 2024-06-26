@@ -70,13 +70,12 @@ struct EditDomainDescriptionBottomSheet: View {
                     if (descriptionValidationError == nil){
                         IsLoadingSaveButton = true;
                         
-                        DispatchQueue.global(qos: .background).async {
-                            self.editDescription(description: self.description)
+                        Task {
+                            await self.editDescription(description: self.description)
                         }
                     } else {
-                        DispatchQueue.main.async {
                             IsLoadingSaveButton = false
-                        }
+                        
                     }
                 }, isLoading: $IsLoadingSaveButton) {
                     Text(String(localized: "save")).foregroundColor(Color.white)
@@ -100,21 +99,19 @@ struct EditDomainDescriptionBottomSheet: View {
     }
     
     
-    private func editDescription(description:String?) {
+    private func editDescription(description: String?) async {
         descriptionRequestError = nil
-        
         let networkHelper = NetworkHelper()
-        networkHelper.updateDescriptionSpecificDomain(completion: { domain, error in
-            DispatchQueue.main.async {
-                if let domain = domain {
-                    self.descriptionEdited(domain)
-                } else {
-                    IsLoadingSaveButton = false
-                    descriptionRequestError = error
-                }
+        do {
+            if let domain = try await networkHelper.updateDescriptionSpecificDomain(domainId: self.domainId, description: description) {
+                self.descriptionEdited(domain)
             }
-        }, domainId: self.domainId, description: description)
+        } catch {
+            IsLoadingSaveButton = false
+            descriptionRequestError = error.localizedDescription
+        }
     }
+
 }
 
 #Preview {

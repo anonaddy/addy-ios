@@ -18,26 +18,32 @@ class RecipientsViewModel: ObservableObject{
     @Published var networkError:String = ""
     
     init(){
-        self.getRecipients()
-    }
-    
-    func getRecipients(){
-        if (!self.isLoading){
-            self.isLoading = true
-            self.networkError = ""
-            
-            let networkHelper = NetworkHelper()
-            networkHelper.getRecipients(verifiedOnly: verifiedOnly, completion: { recipients, error in
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-
-                        if let recipients = recipients {
-                            self.recipients = recipients
-                        } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
-                        }
-                    }
-            })
+        Task{
+            await self.getRecipients()
         }
     }
+    
+    func getRecipients() async {
+        if !self.isLoading {
+            DispatchQueue.main.async {
+                self.isLoading = true
+                self.networkError = ""
+            }
+            let networkHelper = NetworkHelper()
+            do {
+                let recipients = try await networkHelper.getRecipients(verifiedOnly: verifiedOnly)
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.recipients = recipients
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.networkError = String(format: String(localized: "details_about_error_s"), "\(error.localizedDescription)")
+                }
+            }
+        }
+    }
+
+
 }

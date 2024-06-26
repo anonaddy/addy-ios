@@ -74,8 +74,8 @@ struct FailedDeliveryBottomSheet: View {
 
                     isLoadingDeleteButton = true;
                     
-                    DispatchQueue.global(qos: .background).async {
-                        self.deleteFailedDelivery()
+                    Task {
+                        await self.deleteFailedDelivery()
                     }
                 
                 }, isLoading: $isLoadingDeleteButton, style: addyLoadingButtonDeleteStyle) {
@@ -100,20 +100,21 @@ struct FailedDeliveryBottomSheet: View {
     }
     
     
-    private func deleteFailedDelivery() {
+    private func deleteFailedDelivery() async {
         let networkHelper = NetworkHelper()
-        networkHelper.deleteFailedDelivery(completion: { result in
-            DispatchQueue.main.async {
-                self.isLoadingDeleteButton = false
-                
-                if result == "204" {
-                    self.onDeleted()
-                } else {
-                    isLoadingDeleteButton = false
-                    failedDeliveryRequestError = result
-                }
+        do {
+            let result = try await networkHelper.deleteFailedDelivery(failedDeliveryId: self.failedDelivery.id)
+            self.isLoadingDeleteButton = false
+            if result == "204" {
+                self.onDeleted()
+            } else {
+                isLoadingDeleteButton = false
+                failedDeliveryRequestError = result
             }
-        }, failedDeliveryId: self.failedDelivery.id)
+        } catch {
+            self.isLoadingDeleteButton = false
+            failedDeliveryRequestError = error.localizedDescription
+        }
     }
     
 }

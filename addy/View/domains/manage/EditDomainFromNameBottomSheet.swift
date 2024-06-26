@@ -70,13 +70,12 @@ struct EditDomainFromNameBottomSheet: View {
                         if (fromNameValidationError == nil){
                             IsLoadingSaveButton = true;
                             
-                            DispatchQueue.global(qos: .background).async {
-                                self.editFromName(fromName: self.fromName)
+                            Task {
+                                await self.editFromName(fromName: self.fromName)
                             }
                         } else {
-                            DispatchQueue.main.async {
                                 IsLoadingSaveButton = false
-                            }
+                            
                         }
                     }, isLoading: $IsLoadingSaveButton) {
                         Text(String(localized: "save")).foregroundColor(Color.white)
@@ -104,21 +103,19 @@ struct EditDomainFromNameBottomSheet: View {
     }
     
     
-    private func editFromName(fromName:String?) {
+    private func editFromName(fromName: String?) async {
         fromNameRequestError = nil
-        
         let networkHelper = NetworkHelper()
-        networkHelper.updateFromNameSpecificDomain(completion: { domain, error in
-            DispatchQueue.main.async {
-                if let domain = domain {
-                    self.fromNameEdited(domain)
-                } else {
-                    IsLoadingSaveButton = false
-                    fromNameRequestError = error
-                }
+        do {
+            if let domain = try await networkHelper.updateFromNameSpecificDomain(domainId: self.domainId, fromName: fromName){
+                self.fromNameEdited(domain)
             }
-        }, domainId: self.domainId, fromName: fromName)
+        } catch {
+            IsLoadingSaveButton = false
+            fromNameRequestError = error.localizedDescription
+        }
     }
+
 }
 
 #Preview {

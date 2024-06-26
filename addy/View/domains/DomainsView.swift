@@ -34,7 +34,7 @@ struct DomainsView: View {
     
     @Binding var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)? = nil
-
+    
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -56,16 +56,16 @@ struct DomainsView: View {
             
             if let domains = domainsViewModel.domains{
                 if (domains.data.isEmpty) {
-                    domainsViewModel.getDomains()
+                    Task {
+                        await domainsViewModel.getDomains()
+                    }
                     
                 }
             }
-            
-            DispatchQueue.global(qos: .background).async {
-                getUserResource()
-            }
         })
-        
+        .task {
+            await getUserResource()
+        }
     }
     
     private var domainsViewBody: some View {
@@ -105,10 +105,11 @@ struct DomainsView: View {
                             }
                             .onChange(of: shouldReloadDataInParent) {
                                 if shouldReloadDataInParent {
-                                    DispatchQueue.global(qos: .background).async {
-                                        domainsViewModel.getDomains()
-                                        getUserResource()
+                                    Task {
+                                        await getUserResource()
+                                        await domainsViewModel.getDomains()
                                     }
+                                    
                                     self.shouldReloadDataInParent = false
                                 }
                             }
@@ -145,16 +146,17 @@ struct DomainsView: View {
                 self.onRefreshGeneralData?()
             }
             
-            self.domainsViewModel.getDomains()
-            getUserResource()
+            await self.domainsViewModel.getDomains()
+            await getUserResource()
         }
         .sheet(isPresented: $isPresentingAddDomainBottomSheet) {
             NavigationStack {
                 AddDomainBottomSheet(){
-                    DispatchQueue.global(qos: .background).async {
-                        domainsViewModel.getDomains()
-                        getUserResource()
+                    Task {
+                        await getUserResource()
+                        await domainsViewModel.getDomains()
                     }
+                    
                     isPresentingAddDomainBottomSheet = false
                 }
             }
@@ -164,11 +166,13 @@ struct DomainsView: View {
             switch activeAlert {
             case .deleteDomain:
                 return Alert(title: Text(String(localized: "delete_domain")), message: Text(String(localized: "delete_domain_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
-                    DispatchQueue.global(qos: .background).async {
-                        self.deleteDomain(domain: self.domainToDelete!)
+                    Task {
+                        await self.deleteDomain(domain: self.domainToDelete!)
                     }
                 }, secondaryButton: .cancel(){
-                    domainsViewModel.getDomains()
+                    Task {
+                        await domainsViewModel.getDomains()
+                    }
                 })
             case .error:
                 return Alert(
@@ -202,10 +206,11 @@ struct DomainsView: View {
                         Text(domainsViewModel.networkError)
                     } actions: {
                         Button(String(localized: "try_again")) {
-                            DispatchQueue.global(qos: .background).async {
-                                domainsViewModel.getDomains()
-                                getUserResource()
+                            Task {
+                                await getUserResource()
+                                await domainsViewModel.getDomains()
                             }
+                            
                         }
                     }
                 } else {
@@ -246,23 +251,25 @@ struct DomainsView: View {
         })
     }
     
-    private func deleteDomain(domain:Domains) {
+    private func deleteDomain(domain: Domains) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deleteDomain(completion: { result in
-            DispatchQueue.main.async {
-                if result == "204" {
-                    DispatchQueue.global(qos: .background).async {
-                        domainsViewModel.getDomains()
-                        getUserResource()
-                    }
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_deleting_domain")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.deleteDomain(domainId: domain.id)
+            if result == "204" {
+                await getUserResource()
+                await domainsViewModel.getDomains()
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_deleting_domain")
+                errorAlertMessage = result
             }
-        },domainId: domain.id)
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_deleting_domain")
+            errorAlertMessage = error.localizedDescription
+        }
     }
     
     
@@ -281,20 +288,22 @@ struct DomainsView: View {
         }
     }
     
-    private func getUserResource() {
+    private func getUserResource() async {
         let networkHelper = NetworkHelper()
-        networkHelper.getUserResource { userResource, error in
-            DispatchQueue.main.async {
-                if let userResource = userResource {
-                    // Don't update mainView, this will refresh the entire view hiearchy
-                    domain_limit = userResource.active_domain_limit
-                    domain_count = userResource.active_domain_count
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                }
+        do {
+            let userResource = try await networkHelper.getUserResource()
+            if let userResource = userResource {
+                // Don't update mainView, this will refresh the entire view hierarchy
+                domain_limit = userResource.active_domain_limit
+                domain_count = userResource.active_domain_count
+            } else {
+                activeAlert = .error
+                showAlert = true
             }
+        } catch {
+            print("Failed to get user resource: \(error)")
         }
     }
+    
     
 }

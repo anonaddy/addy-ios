@@ -92,17 +92,16 @@ struct SetupView: View {
 
                                 isLoadingGetStarted = true
                                 
-                                DispatchQueue.global(qos: .background).async {
+                                Task {
                                     // AddyIo.API_BASE_URL is defaulted to the addy.io instance. If the API key is valid there it was meant to use that instance.
                                     // If the baseURL/API do not work or match it opens the API screen
-                                    self.verifyApiKey(apiKey: key)
+                                    await self.verifyApiKey(apiKey: key)
                                 }
                                 
                                 
                             } else {
-                                DispatchQueue.main.async {
                                     isLoadingGetStarted = false
-                                }
+                                
                                 isPresentingAddApiBottomSheet = true
                             }
                             
@@ -149,19 +148,21 @@ struct SetupView: View {
     }
     
     
-    private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL) {
+    private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL) async {
         let networkHelper = NetworkHelper()
-        networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: apiKey) { result in
-            DispatchQueue.main.async {
-                if result == "200" {
-                    self.addKey(apiKey: apiKey, baseUrl: baseUrl)
-                } else {
-                    isLoadingGetStarted = false
-                    isPresentingAddApiBottomSheet = true
-                }
+        do {
+            let result = try await networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: apiKey)
+            if result == "200" {
+                self.addKey(apiKey: apiKey, baseUrl: baseUrl)
+            } else {
+                isLoadingGetStarted = false
+                isPresentingAddApiBottomSheet = true
             }
+        } catch {
+            print("Failed to verify API key: \(error)")
         }
     }
+
     
     private func addKey(apiKey: String, baseUrl: String) {
         let encryptedSettingsManager = SettingsManager(encrypted: true)

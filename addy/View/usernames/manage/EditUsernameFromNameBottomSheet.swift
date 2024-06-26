@@ -67,13 +67,11 @@ struct EditUsernameFromNameBottomSheet: View {
                         if (fromNameValidationError == nil){
                             IsLoadingSaveButton = true;
                             
-                            DispatchQueue.global(qos: .background).async {
-                                self.editFromName(fromName: self.fromName)
+                            Task {
+                                await self.editFromName(fromName: self.fromName)
                             }
                         } else {
-                            DispatchQueue.main.async {
                                 IsLoadingSaveButton = false
-                            }
                         }
                     }, isLoading: $IsLoadingSaveButton) {
                         Text(String(localized: "save")).foregroundColor(Color.white)
@@ -101,21 +99,19 @@ struct EditUsernameFromNameBottomSheet: View {
     }
     
     
-    private func editFromName(fromName:String?) {
+    private func editFromName(fromName: String?) async {
         fromNameRequestError = nil
-        
         let networkHelper = NetworkHelper()
-        networkHelper.updateFromNameSpecificUsername(completion: { username, error in
-            DispatchQueue.main.async {
-                if let username = username {
-                    self.fromNameEdited(username)
-                } else {
-                    IsLoadingSaveButton = false
-                    fromNameRequestError = error
-                }
+        do {
+            if let username = try await networkHelper.updateFromNameSpecificUsername(usernameId: self.usernameId, fromName: fromName) {
+                self.fromNameEdited(username)
             }
-        }, usernameId: self.usernameId, fromName: fromName)
+        } catch {
+            IsLoadingSaveButton = false
+            fromNameRequestError = error.localizedDescription
+        }
     }
+
 }
 
 #Preview {

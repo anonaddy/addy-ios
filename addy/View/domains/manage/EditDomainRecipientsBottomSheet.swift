@@ -79,8 +79,8 @@ struct EditDomainRecipientsBottomSheet: View {
                 AddyLoadingButton(action: {
                         IsLoadingSaveButton = true;
                         
-                        DispatchQueue.global(qos: .background).async {
-                            self.editRecipients()
+                        Task {
+                            await self.editRecipients()
                         }
                     
                 }, isLoading: $IsLoadingSaveButton) {
@@ -102,7 +102,7 @@ struct EditDomainRecipientsBottomSheet: View {
                 }
             })
             .task{
-                getAllRecipients()
+                await getAllRecipients()
             }
         
     }
@@ -110,43 +110,39 @@ struct EditDomainRecipientsBottomSheet: View {
     
     
     
-    private func getAllRecipients() {
+    private func getAllRecipients() async {
         recipientsRequestError = nil
         let networkHelper = NetworkHelper()
-        networkHelper.getRecipients(verifiedOnly: true, completion: { recipients, error in
-            DispatchQueue.main.async {
+        do {
+            if let recipients = try await networkHelper.getRecipients(verifiedOnly: true){
                 recipientsChips = []
                 recipientsLoaded = true
-                if let recipients = recipients {
-                    withAnimation {
-                        recipients.forEach(){ recipient in
-                            recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
-                        }
+                withAnimation {
+                    recipients.forEach { recipient in
+                        recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
                     }
-
-                } else {
-                    recipientsRequestError = error
-                    //self.showError = true
                 }
             }
-        })
+        } catch {
+            recipientsRequestError = error.localizedDescription
+        }
     }
+
     
 
-    private func editRecipients() {
+    private func editRecipients() async {
         recipientsRequestError = nil
         let networkHelper = NetworkHelper()
-        networkHelper.updateDefaultRecipientForSpecificDomain(completion: { domain, error in
-            DispatchQueue.main.async {
-                if let domain = domain {
-                    self.recipientsEdited(domain)
-                } else {
-                    IsLoadingSaveButton = false
-                    recipientsRequestError = error
-                }
+        do {
+            if let domain = try await networkHelper.updateDefaultRecipientForSpecificDomain(domainId: self.domainId, recipientId: selectedRecipientChip.first){
+                self.recipientsEdited(domain)
             }
-        }, domainId: self.domainId, recipientId: selectedRecipientChip.first)
+        } catch {
+            IsLoadingSaveButton = false
+            recipientsRequestError = error.localizedDescription
+        }
     }
+
 }
 
 #Preview {

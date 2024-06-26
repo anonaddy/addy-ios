@@ -55,14 +55,16 @@ struct UsernamesView: View {
             
             if let usernames = usernamesViewModel.usernames{
                 if (usernames.data.isEmpty) {
-                    usernamesViewModel.getUsernames()
+                    Task {
+                        await usernamesViewModel.getUsernames()
+                    }
                     
                 }
             }
-            DispatchQueue.global(qos: .background).async {
-                getUserResource()
-            }
         })
+        .task {
+            await getUserResource()
+        }
         
     }
     
@@ -94,10 +96,10 @@ struct UsernamesView: View {
                             }
                             .onChange(of: shouldReloadDataInParent) {
                                 if shouldReloadDataInParent {
-                                    DispatchQueue.global(qos: .background).async {
-                                        usernamesViewModel.getUsernames()
-                                        getUserResource()
-                                    }
+                                    Task {
+                                                            await getUserResource()
+                                        await usernamesViewModel.getUsernames()
+                                                        }
                                     self.shouldReloadDataInParent = false
                                 }
                             }
@@ -134,16 +136,17 @@ struct UsernamesView: View {
                 self.onRefreshGeneralData?()
             }
             
-            self.usernamesViewModel.getUsernames()
-            getUserResource()
+            await self.usernamesViewModel.getUsernames()
+            await getUserResource()
         }
         .sheet(isPresented: $isPresentingAddUsernameBottomSheet) {
             NavigationStack {
                 AddUsernameBottomSheet(usernameLimit: mainViewState.userResource!.username_limit){
-                    DispatchQueue.global(qos: .background).async {
-                        usernamesViewModel.getUsernames()
-                        getUserResource()
-                    }
+                    Task {
+                                            await getUserResource()
+                        await usernamesViewModel.getUsernames()
+                                        }
+               
                     isPresentingAddUsernameBottomSheet = false
                 }
             }
@@ -153,11 +156,13 @@ struct UsernamesView: View {
             switch activeAlert {
             case .deleteUsername:
                 return Alert(title: Text(String(localized: "delete_username")), message: Text(String(localized: "delete_username_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
-                    DispatchQueue.global(qos: .background).async {
-                        self.deleteUsername(username: self.usernameToDelete!)
+                    Task {
+                        await self.deleteUsername(username: self.usernameToDelete!)
                     }
                 }, secondaryButton: .cancel(){
-                    usernamesViewModel.getUsernames()
+                    Task {
+                        await usernamesViewModel.getUsernames()
+                    }
                 })
             case .error:
                 return Alert(
@@ -195,9 +200,9 @@ struct UsernamesView: View {
                         Text(usernamesViewModel.networkError)
                     } actions: {
                         Button(String(localized: "try_again")) {
-                            DispatchQueue.global(qos: .background).async {
-                                usernamesViewModel.getUsernames()
-                                getUserResource()
+                            Task {
+                                await getUserResource()
+                                await usernamesViewModel.getUsernames()
                             }
                         }
                     }
@@ -258,24 +263,27 @@ struct UsernamesView: View {
     }
     
     
-    private func deleteUsername(username:Usernames) {
+    private func deleteUsername(username: Usernames) async {
         let networkHelper = NetworkHelper()
-        networkHelper.deleteUsername(completion: { result in
-            DispatchQueue.main.async {
-                if result == "204" {
-                    DispatchQueue.global(qos: .background).async {
-                        usernamesViewModel.getUsernames()
-                        getUserResource()
-                    }
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_deleting_username")
-                    errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
-                }
+        do {
+            let result = try await networkHelper.deleteUsername(usernameId: username.id)
+            if result == "204" {
+                await getUserResource()
+                await usernamesViewModel.getUsernames()
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_deleting_username")
+                errorAlertMessage = result
             }
-        },usernameId: username.id)
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_deleting_username")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
     
     
     func deleteUsername(at offsets: IndexSet) {
@@ -293,21 +301,23 @@ struct UsernamesView: View {
         }
     }
     
-    private func getUserResource() {
+    private func getUserResource() async {
         let networkHelper = NetworkHelper()
-        networkHelper.getUserResource { userResource, error in
-            DispatchQueue.main.async {
-                if let userResource = userResource {
-                    // Don't update mainView, this will refresh the entire view hiearchy
-                    username_limit = userResource.username_limit
-                    username_count = userResource.username_count
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                }
+        do {
+            let userResource = try await networkHelper.getUserResource()
+            if let userResource = userResource {
+                // Don't update mainView, this will refresh the entire view hierarchy
+                username_limit = userResource.username_limit
+                username_count = userResource.username_count
+            } else {
+                activeAlert = .error
+                showAlert = true
             }
+        } catch {
+            print("Failed to get user resource: \(error)")
         }
     }
+
     
 }
 

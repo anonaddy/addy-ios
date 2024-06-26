@@ -31,10 +31,7 @@ class BackgroundWorker: Operation {
             let networkHelper = NetworkHelper()
             
             // Stored if the network call succeeds its task
-            var userResourceNetworkCallResult = false
-            var aliasNetworkCallResult = false
             var aliasWatcherNetworkCallResult = false
-            var failedDeliveriesNetworkCallResult = false
             
             /**
              In this code, semaphore.signal() is called when each asynchronous function completes, and semaphore.wait() is used to block the current queue until the previous function has signaled completion.
@@ -44,62 +41,80 @@ class BackgroundWorker: Operation {
 
             DispatchQueue.global().async {
                 // Background work here
-                
-                networkHelper.cacheUserResourceForWidget { result in
-                    // Store the result if the data succeeded to update in a boolean
-                    userResourceNetworkCallResult = result
+
+#if DEBUG
+                print("BackgroundWorker task 1")
+                #endif
+                Task {
+                    await networkHelper.cacheUserResourceForWidget()
                     semaphore.signal()
                 }
                 semaphore.wait()
                 
-                
-            
-                networkHelper.cacheMostPopularAliasesDataForWidget { result in
-                    // Store the result if the data succeeded to update in a boolean
-                    aliasNetworkCallResult = result
+#if DEBUG
+                print("BackgroundWorker task 2")
+                #endif
+                Task {
+                    await networkHelper.cacheMostPopularAliasesDataForWidget()
                     semaphore.signal()
                 }
                 semaphore.wait()
+                
                 
                 
                 /**
                  ALIAS_WATCHER FUNCTIONALITY
                  **/
-                
-                self.aliasWatcherTask(networkHelper: networkHelper, settingsManager: encryptedSettingsManager) { result in
-                    aliasWatcherNetworkCallResult = result
+#if DEBUG
+                print("BackgroundWorker task 3")
+                #endif
+                Task {
+                    do {
+                        aliasWatcherNetworkCallResult = try await self.aliasWatcherTask(networkHelper: networkHelper, settingsManager: encryptedSettingsManager)
+                    } catch {
+                        print(error)
+                    }
                     semaphore.signal()
+                }
+                semaphore.wait()
+                
+                /*
+                 UPDATES
+                 */
 
+#if DEBUG
+                print("BackgroundWorker task 4")
+                #endif
+                Task {
+                    if settingsManager.getSettingsBool(key: .notifyUpdates) {
+                        do {
+                            let (updateAvailable, latestVersion, _, _) = try await Updater().isUpdateAvailable()
+                            if updateAvailable {
+                                if let version = latestVersion {
+                                    NotificationHelper().createUpdateNotification(version: version)
+                                }
+                            }
+                        } catch {
+                            print("Failed to check for updates: \(error)")
+                        }
+                    }
+                    semaphore.signal()
                 }
                 semaphore.wait()
 
                 
                 /*
-                 UPDATES
-                 */
-                
-                if settingsManager.getSettingsBool(key: .notifyUpdates) {
-                    Updater().isUpdateAvailable { (updateAvailable, latestVersion, _, _) in
-                        if updateAvailable {
-                            if let version = latestVersion {
-                                NotificationHelper().createUpdateNotification(version: version)
-                            }
-                        }
-                        semaphore.signal()
-                    }
-                    semaphore.wait()
-                }
-               
-
-                
-                /*
                  API TOKEN
                  */
-                
-                if settingsManager.getSettingsBool(key: .notifyApiTokenExpiry, default: true) {
-                    networkHelper.getApiTokenDetails { (apiTokenDetails, error) in
-                        if let expiresAt = apiTokenDetails?.expires_at {
-                            do {
+
+#if DEBUG
+                print("BackgroundWorker task 5")
+                #endif
+                Task {
+                    if settingsManager.getSettingsBool(key: .notifyApiTokenExpiry, default: true) {
+                        do {
+                            let apiTokenDetails = try await networkHelper.getApiTokenDetails()
+                            if let expiresAt = apiTokenDetails?.expires_at {
                                 let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(expiresAt) // Get the expiry date
                                 let currentDateTime = Date() // Get the current date
                                 let deadLineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate) // Subtract 5 days from the expiry date
@@ -117,62 +132,72 @@ class BackgroundWorker: Operation {
                                         NotificationHelper().createApiTokenExpiryNotification(daysLeft: expiryDate.futureDateDisplay())
                                     }
                                     
-                                } else {
-                                    // The current date is not yet after the deadline date.
                                 }
-                            } catch {
-                                // Panic
-                                LoggingHelper().addLog(
-                                    importance: LogImportance.critical,
-                                    error: "Could not parse expiresAt",
-                                    method: "BackgroundWorker",
-                                    extra: error.localizedDescription)
                             }
-                            
+                            // If expires_at is null it will never expire
+                        } catch {
+                            // Panic
+                            LoggingHelper().addLog(
+                                importance: LogImportance.critical,
+                                error: "Could not parse expiresAt",
+                                method: "BackgroundWorker",
+                                extra: error.localizedDescription)
                         }
-                        semaphore.signal()
-                        // If expires_at is null it will never expire
                     }
-                    semaphore.wait()
+                    semaphore.signal()
                 }
+                semaphore.wait()
+                
+
                 
                 
                 /*
                  DOMAIN ERRORS
                  */
-                
-                if settingsManager.getSettingsBool(key: .notifyDomainError, default: false) {
-                    networkHelper.getDomains { (domains, _) in
-                        if let domains = domains, !domains.data.isEmpty {
-                            // Check the amount of domains with MX errors
-                            let amountOfDomainsWithErrors = domains.data.filter { $0.domain_mx_validated_at == nil }.count
-                            if amountOfDomainsWithErrors > 0 {
-                                
-                                // Check if the notification has already been fired for this count of domains
-                                let previousNotificationLeftDays = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheDomainErrorCount)
-                                
-                                // If the domains with errors have been changed, fire a notification
-                                if previousNotificationLeftDays != amountOfDomainsWithErrors {
-                                    encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheDomainErrorCount, int: amountOfDomainsWithErrors)
-                                    NotificationHelper().createDomainErrorNotification(count: amountOfDomainsWithErrors)
+
+#if DEBUG
+                print("BackgroundWorker task 6")
+                #endif
+                Task {
+                    if settingsManager.getSettingsBool(key: .notifyDomainError, default: false) {
+                        do {
+                            let domains = try await networkHelper.getDomains()
+                            if let domains = domains, !domains.data.isEmpty {
+                                // Check the amount of domains with MX errors
+                                let amountOfDomainsWithErrors = domains.data.filter { $0.domain_mx_validated_at == nil }.count
+                                if amountOfDomainsWithErrors > 0 {
+                                    
+                                    // Check if the notification has already been fired for this count of domains
+                                    let previousNotificationLeftDays = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheDomainErrorCount)
+                                    
+                                    // If the domains with errors have been changed, fire a notification
+                                    if previousNotificationLeftDays != amountOfDomainsWithErrors {
+                                        encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheDomainErrorCount, int: amountOfDomainsWithErrors)
+                                        NotificationHelper().createDomainErrorNotification(count: amountOfDomainsWithErrors)
+                                    }
+                                    
                                 }
-                                
                             }
+                        } catch {
+                            print("Failed to get domains: \(error)")
                         }
-                        semaphore.signal()
                     }
-                    semaphore.wait()
+                    semaphore.signal()
                 }
-                
+                semaphore.wait()
                 
                 /*
                  SUBSCRIPTION EXPIRY
                  */
-                
-                if settingsManager.getSettingsBool(key: .notifySubscriptionExpiry, default: false) {
-                    networkHelper.getUserResource { (user, _) in
-                        if let subscriptionEndsAt = user?.subscription_ends_at {
-                            do {
+
+#if DEBUG
+                print("BackgroundWorker task 7")
+                #endif
+                Task {
+                    if settingsManager.getSettingsBool(key: .notifySubscriptionExpiry, default: false) {
+                        do {
+                            let user = try await networkHelper.getUserResource()
+                            if let subscriptionEndsAt = user?.subscription_ends_at {
                                 let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(subscriptionEndsAt) // Get the expiry date
                                 let currentDateTime = Date() // Get the current date
                                 let deadLineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate) // Subtract 7 days from the expiry date
@@ -191,20 +216,20 @@ class BackgroundWorker: Operation {
                                 } else {
                                     // The current date is not yet after the deadline date.
                                 }
-                            } catch {
-                                // Panic
-                                LoggingHelper().addLog(
-                                    importance: LogImportance.critical,
-                                    error: "Could not parse subscriptionEndsAt",
-                                    method: "BackgroundWorker",
-                                    extra: error.localizedDescription)
                             }
+                            // If expires_at is null it will never expire
+                        } catch {
+                            // Panic
+                            LoggingHelper().addLog(
+                                importance: LogImportance.critical,
+                                error: "Could not parse subscriptionEndsAt",
+                                method: "BackgroundWorker",
+                                extra: error.localizedDescription)
                         }
-                        semaphore.signal()
-                        // If expires_at is null it will never expire
                     }
-                    semaphore.wait()
+                    semaphore.signal()
                 }
+                semaphore.wait()
                 
                 
                 /*
@@ -231,25 +256,26 @@ class BackgroundWorker: Operation {
                 /*
                 FAILED DELIVERIES
                 */
-
-                if settingsManager.getSettingsBool(key: .notifyFailedDeliveries) {
-                    networkHelper.cacheFailedDeliveryCountForWidgetAndBackgroundService { (result) in
+                
+#if DEBUG
+                print("BackgroundWorker task 8")
+                #endif
+                Task {
+                    if settingsManager.getSettingsBool(key: .notifyFailedDeliveries) {
+                        let _ = await networkHelper.cacheFailedDeliveryCountForWidgetAndBackgroundService()
                         // Store the result if the data succeeded to update in a boolean
-                        failedDeliveriesNetworkCallResult = result
-                        semaphore.signal()
-                    }
-                    semaphore.wait()
 
-                    let currentFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
-                    let previousFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCountPrevious)
-                    // If the current failed delivery count is bigger than the previous list. That means there are new failed deliveries
-                    if currentFailedDeliveries > previousFailedDeliveries {
-                        NotificationHelper().createFailedDeliveryNotification(difference: currentFailedDeliveries - previousFailedDeliveries)
+                        let currentFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
+                        let previousFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCountPrevious)
+                        // If the current failed delivery count is bigger than the previous list. That means there are new failed deliveries
+                        if currentFailedDeliveries > previousFailedDeliveries {
+                            NotificationHelper().createFailedDeliveryNotification(difference: currentFailedDeliveries - previousFailedDeliveries)
+                        }
+                        
                     }
-                } else {
-                    // Not required so always success
-                    failedDeliveriesNetworkCallResult = true
+                    semaphore.signal()
                 }
+                semaphore.wait()
 
                 // If the aliasNetwork call was successful, perform the check
                if (aliasWatcherNetworkCallResult) {
@@ -274,8 +300,7 @@ class BackgroundWorker: Operation {
         
     }
     
-    private func aliasWatcherTask(networkHelper: NetworkHelper, settingsManager: SettingsManager, completion: @escaping (Bool) -> Void){
-        
+    private func aliasWatcherTask(networkHelper: NetworkHelper, settingsManager: SettingsManager) async throws -> Bool {
         /*
          This method loops through all the aliases that need to be watched and caches those aliases locally
          */
@@ -283,72 +308,67 @@ class BackgroundWorker: Operation {
         let aliasWatcher = AliasWatcher()
         let aliasesToWatch: [String] = Array(aliasWatcher.getAliasesToWatch())
         
-        
-        
         if !aliasesToWatch.isEmpty {
             // Get all aliases from the watchList
-            networkHelper.bulkGetAlias (completion: { result, _ in
-                if let result = result {
-                    
-                    // Get a copy of the current list
-                    let aliasesJson = settingsManager.getSettingsString(key: .backgroundServiceCacheWatchAliasData)
-                    let aliasesList = aliasesJson.flatMap { GsonTools.jsonToAliasObject(json: $0) }
-                    
-                    //region Save a copy of the list
-                    
-                    // When the call is successful, save a copy of the current CACHED version to `currentList`
-                    let currentList = settingsManager.getSettingsString(key: .backgroundServiceCacheWatchAliasData)
-                    
-                    // If the current CACHED list is not null, move the current list to the PREV position for AliasWatcher to compare
-                    // This CACHED list could be null if this would be the first time the service is running
-                    if let currentList = currentList {
-                        settingsManager.putSettingsString(
-                            key: .backgroundServiceCacheWatchAliasDataPrevious,
-                            string: currentList
-                        )
-                    }
-                    //endregion
-                    
-                    //region CLEANUP DELETED ALIASES
-                    // Let's say a user forgets this alias using the web-app, but this alias is watched. We need to make sure that the aliases we request
-                    // Are actually returned. If aliases requested are not returned we can assume the alias has been deleted thus we can delete this alias from the watchlist
-                    
-                    for id in aliasesToWatch {
-                        if !result.data.contains(where: { $0.id == id }) {
-                            // This alias is being watched but not returned, delete it from the watcher
-                            
-                            LoggingHelper().addLog(
-                                importance: .warning,
-                                error: String(format: String(localized: "notification_alias_watches_alias_does_not_exist_anymore_desc"),aliasesList?.first { $0.id == id }?.email ?? id
-                                             ),
-                                method: "aliasWatcherTask",
-                                extra: nil
-                            )
-                            
-                            NotificationHelper().createAliasWatcherAliasDoesNotExistAnymoreNotification(
-                                email: aliasesList?.first { $0.id == id }?.email ?? id
-                            )
-                            
-                            aliasWatcher.removeAliasToWatch(alias: id)
-                        }
-                    }
-                    //endregion
-                    
-                    
-                    // Turn the list into a json object
-                    let data = try? JSONEncoder().encode(result.data)
-                    
-                    // Store a copy of the just received data locally
-                    if let data = data {
-                        settingsManager.putSettingsString(key: .backgroundServiceCacheWatchAliasData, string: String(data: data, encoding: .utf8)!)
-                    }
-                } else {
-                    // The call failed, it will be logged in NetworkHelper. Try again later
+            if let result = try await networkHelper.bulkGetAlias(aliases: aliasesToWatch){
+                
+                // Get a copy of the current list
+                let aliasesJson = settingsManager.getSettingsString(key: .backgroundServiceCacheWatchAliasData)
+                let aliasesList = aliasesJson.flatMap { GsonTools.jsonToAliasObject(json: $0) }
+                
+                //region Save a copy of the list
+                
+                // When the call is successful, save a copy of the current CACHED version to `currentList`
+                let currentList = settingsManager.getSettingsString(key: .backgroundServiceCacheWatchAliasData)
+                
+                // If the current CACHED list is not null, move the current list to the PREV position for AliasWatcher to compare
+                // This CACHED list could be null if this would be the first time the service is running
+                if let currentList = currentList {
+                    settingsManager.putSettingsString(
+                        key: .backgroundServiceCacheWatchAliasDataPrevious,
+                        string: currentList
+                    )
                 }
-            }, aliases: aliasesToWatch)
+                //endregion
+                
+                //region CLEANUP DELETED ALIASES
+                // Let's say a user forgets this alias using the web-app, but this alias is watched. We need to make sure that the aliases we request
+                // Are actually returned. If aliases requested are not returned we can assume the alias has been deleted thus we can delete this alias from the watchlist
+                
+                for id in aliasesToWatch {
+                    if !result.data.contains(where: { $0.id == id }) {
+                        // This alias is being watched but not returned, delete it from the watcher
+                        
+                        LoggingHelper().addLog(
+                            importance: .warning,
+                            error: String(format: String(localized: "notification_alias_watches_alias_does_not_exist_anymore_desc"),aliasesList?.first { $0.id == id }?.email ?? id
+                                         ),
+                            method: "aliasWatcherTask",
+                            extra: nil
+                        )
+                        
+                        NotificationHelper().createAliasWatcherAliasDoesNotExistAnymoreNotification(
+                            email: aliasesList?.first { $0.id == id }?.email ?? id
+                        )
+                        
+                        aliasWatcher.removeAliasToWatch(alias: id)
+                    }
+                }
+                //endregion
+                
+                
+                // Turn the list into a json object
+                let data = try? JSONEncoder().encode(result.data)
+                
+                // Store a copy of the just received data locally
+                if let data = data {
+                    settingsManager.putSettingsString(key: .backgroundServiceCacheWatchAliasData, string: String(data: data, encoding: .utf8)!)
+                }
+            }
         }
         
-        completion(true)
+        return true
     }
+
     
 }

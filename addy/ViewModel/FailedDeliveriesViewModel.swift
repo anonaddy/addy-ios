@@ -17,26 +17,31 @@ class FailedDeliveriesViewModel: ObservableObject{
     @Published var networkError:String = ""
     
     init(){
-        self.getFailedDeliveries()
-    }
-    
-    func getFailedDeliveries(){
-        if (!self.isLoading){
-            self.isLoading = true
-            self.networkError = ""
-            
-            let networkHelper = NetworkHelper()
-            networkHelper.getFailedDeliveries(completion: { failedDeliveries, error in
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-
-                        if let failedDeliveries = failedDeliveries {
-                            self.failedDeliveries = failedDeliveries
-                        } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
-                        }
-                    }
-            })
+        Task {
+            await self.getFailedDeliveries()
         }
     }
+    
+    func getFailedDeliveries() async {
+        if !self.isLoading {
+            DispatchQueue.main.async {
+                self.isLoading = true
+                self.networkError = ""
+            }
+            let networkHelper = NetworkHelper()
+            do {
+                let failedDeliveries = try await networkHelper.getFailedDeliveries()
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.failedDeliveries = failedDeliveries
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.networkError = String(format: String(localized: "details_about_error_s"), "\(error.localizedDescription)")
+                }
+            }
+        }
+    }
+
 }

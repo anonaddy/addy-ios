@@ -67,13 +67,12 @@ struct EditAliasFromNameBottomSheet: View {
                         if (fromNameValidationError == nil){
                             IsLoadingSaveButton = true;
                             
-                            DispatchQueue.global(qos: .background).async {
-                                self.editFromName(fromName: self.fromName)
+                            Task {
+                                await self.editFromName(fromName: self.fromName)
                             }
                         } else {
-                            DispatchQueue.main.async {
                                 IsLoadingSaveButton = false
-                            }
+                            
                         }
                     }, isLoading: $IsLoadingSaveButton) {
                         Text(String(localized: "save")).foregroundColor(Color.white)
@@ -101,21 +100,19 @@ struct EditAliasFromNameBottomSheet: View {
     }
     
     
-    private func editFromName(fromName:String?) {
+    private func editFromName(fromName: String?) async {
         fromNameRequestError = nil
-        
         let networkHelper = NetworkHelper()
-        networkHelper.updateFromNameSpecificAlias(completion: { alias, error in
-            DispatchQueue.main.async {
-                if let alias = alias {
-                    self.fromNameEdited(alias)
-                } else {
-                    IsLoadingSaveButton = false
-                    fromNameRequestError = error
-                }
+        do {
+            if let alias = try await networkHelper.updateFromNameSpecificAlias(aliasId: self.aliasId, fromName: fromName){
+                self.fromNameEdited(alias)
             }
-        }, aliasId: self.aliasId, fromName: fromName)
+        } catch {
+            IsLoadingSaveButton = false
+            fromNameRequestError = error.localizedDescription
+        }
     }
+
 }
 
 #Preview {

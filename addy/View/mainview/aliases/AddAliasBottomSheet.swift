@@ -22,7 +22,7 @@ import addy_shared
 struct AddAliasBottomSheet: View {
     let onAdded: () -> Void
     @EnvironmentObject var mainViewState: MainViewState
-
+    
     
     init(onAdded: @escaping () -> Void) {
         self.onAdded = onAdded
@@ -125,7 +125,7 @@ struct AddAliasBottomSheet: View {
                             .padding([.horizontal], 0)
                             .onAppear{
                                 HapticHelper.playHapticFeedback(hapticType: .error)
-
+                                
                             }
                     }
                 }
@@ -134,7 +134,7 @@ struct AddAliasBottomSheet: View {
             Section {
                 ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError)
             } header: {
-                    Text(String(localized: "description"))
+                Text(String(localized: "description"))
             }
             
             Section {
@@ -151,7 +151,7 @@ struct AddAliasBottomSheet: View {
                     
                 }.disabled(!recipientsLoaded)
             } header: {
-                    Text(String(localized: "recipients"))
+                Text(String(localized: "recipients"))
                 
             }.listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
             
@@ -172,41 +172,41 @@ struct AddAliasBottomSheet: View {
             MainViewState.shared.showAddAliasBottomSheet = false
         })
         .navigationTitle(String(localized: "add_alias")).pickerStyle(.navigationLink)
-            .task {
-                if (domains.isEmpty){
-                    loadDomains()
-                }
-       
-                // By default there is 1 chip. (the loading recipients...)
-                if recipientsChips.contains(where: { $0.chipId == "loading_recipients" }) {
-                    getAllRecipients()
-                }
+        .task {
+            if (domains.isEmpty){
+                await loadDomains()
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text(String(localized: "cancel"))
-                    }
-                    
-                }
-                        })
-            .alert(isPresented: $showAlert) {
-                Alert(
-                    title: Text(errorAlertTitle),
-                    message: Text(errorAlertMessage)
-                )
+            
+            // By default there is 1 chip. (the loading recipients...)
+            if recipientsChips.contains(where: { $0.chipId == "loading_recipients" }) {
+                await getAllRecipients()
             }
-                       
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    dismiss()
+                } label: {
+                    Text(String(localized: "cancel"))
+                }
+                
+            }
+        })
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text(errorAlertTitle),
+                message: Text(errorAlertMessage)
+            )
+        }
+        
         
     }
     
     private func addAlias(){
         // Do all the check before creating the alias
         self.formatValidationError = false
-
+        
         
         if selectedFormat == "random_words" {
             if (self.mainViewState.userResource!.hasUserFreeSubscription()){
@@ -228,7 +228,7 @@ struct AddAliasBottomSheet: View {
                 // TODO: workaround, fix
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.isLoadingAddButton = false
-                } 
+                }
                 return
             }
             
@@ -245,85 +245,63 @@ struct AddAliasBottomSheet: View {
         }
         
         
-        DispatchQueue.global(qos: .background).async {
-            addAliasToAccount(selectedDomain: selectedDomain, description: description, selectedFormat: selectedFormat, localPart: localPart, selectedRecipients: selectedRecipientChips)
-        }
+            Task {
+                await addAliasToAccount(selectedDomain: selectedDomain, description: description, selectedFormat: selectedFormat, localPart: localPart, selectedRecipients: selectedRecipientChips)
+            }
+        
     }
     
-
     
-    private func addAliasToAccount(selectedDomain: String, description: String, selectedFormat:String, localPart: String, selectedRecipients:[String]){
+    
+    private func addAliasToAccount(selectedDomain: String, description: String, selectedFormat:String, localPart: String, selectedRecipients:[String]) async {
         let networkHelper = NetworkHelper()
-        networkHelper.addAlias(completion: { alias, result in
-            if let alias = alias {
+        do {
+            if let alias = try await networkHelper.addAlias(domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients){
                 //TODO:  let user know
                 UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
-                
-                DispatchQueue.main.async {
-                    self.onAdded()
-                }
-            } else {
-                isLoadingAddButton = false
-                showAlert = true
-                errorAlertTitle = String(localized: "error_adding_alias")
-                errorAlertMessage = result ?? String(localized: "error_unknown_refer_to_logs")
+                self.onAdded()
             }
-        }, domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients)
+        } catch {
+            isLoadingAddButton = false
+            showAlert = true
+            errorAlertTitle = String(localized: "error_adding_alias")
+            errorAlertMessage = error.localizedDescription
+        }
     }
+
     
-    private func loadDomains() {
+    private func loadDomains() async {
         let networkHelper = NetworkHelper()
-        networkHelper.getDomainOptions(completion: { domainOptions, _ in
-            
-            if let domainOptions = domainOptions {
-                DispatchQueue.main.async {
-                    domains = domainOptions.data
-                    sharedDomains = domainOptions.sharedDomains
-                    selectedDomain = domainOptions.defaultAliasDomain
-                    selectedFormat = domainOptions.defaultAliasFormat
-                }
+        do {
+            if let domainOptions = try await networkHelper.getDomainOptions() {
+                domains = domainOptions.data
+                sharedDomains = domainOptions.sharedDomains
+                selectedDomain = domainOptions.defaultAliasDomain
+                selectedFormat = domainOptions.defaultAliasFormat
             }
-        })
+        } catch {
+            print("Failed to load domains: \(error)")
+        }
     }
+
     
     
-    private func getAllRecipients() {
+    private func getAllRecipients() async {
         let networkHelper = NetworkHelper()
-        networkHelper.getRecipients(verifiedOnly: true, completion: { recipients, error in
-            DispatchQueue.main.async {
+        do {
+            if let recipients = try await networkHelper.getRecipients(verifiedOnly: true){
                 recipientsChips = []
                 recipientsLoaded = true
-                if let recipients = recipients {
-                    withAnimation {
-                        recipients.forEach(){ recipient in
-                            recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
-                        }
+                withAnimation {
+                    recipients.forEach { recipient in
+                        recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
                     }
-                    
-                } else {
-                    recipientsRequestError = error
                 }
             }
-        })
+        } catch {
+            recipientsRequestError = error.localizedDescription
+        }
     }
-    
-    
-    
-    //    private func editFromName(fromName:String?) {
-    //       addAliasRequestError = nil
-    //
-    //        let networkHelper = NetworkHelper()
-    //        networkHelper.updateFromNameSpecificAlias(completion: { alias, error in
-    //            DispatchQueue.main.async {
-    //                if let alias = alias {
-    //                    self.fromNameEdited(alias)
-    //                } else {
-    //                    IsLoadingSaveButton = false
-    //                    addAliasRequestError = error
-    //                }
-    //            }
-    //        }, aliasId: self.aliasId, fromName: fromName)
-    //    }
 }
 
 #Preview {
