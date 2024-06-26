@@ -5362,6 +5362,17 @@
         }
       }
     },
+    "version_s_update_available" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@ (Update available)"
+          }
+        }
+      }
+    },
     "view_details" : {
       "extractionState" : "manual",
       "localizations" : {

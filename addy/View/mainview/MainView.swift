@@ -16,18 +16,25 @@ class MainViewState: ObservableObject {
 
     static let shared = MainViewState() // Shared instance
     
-    // MARK: NOTIFICATION ACTIONS
+    // MARK: NOTIFICATION AND SHORTCUT ACTIONS
     @Published var aliasToDisable: String? = nil
     @Published var showAliasWithId: String? = nil
-    // MARK: END NOTIFICATION ACTIONS
+    // MARK: END NOTIFICATION AND SHORTCUT ACTIONS
+    
+    // MARK: SHORTCUT ACTIONS
+    @Published var showAddAliasBottomSheet = false
+    // MARK: END SHORTCUT ACTIONS
+
     
     @Published var isPresentingProfileBottomSheet = false
+    @Published var profileBottomSheetAction: Destination? = nil
     @Published var isPresentingFailedDeliveriesSheet = false
 
     @Published var selectedTab: Destination = .home
 
     @Published var newFailedDeliveries : Int? = nil
     @Published var updateAvailable : Bool = false
+    @Published var permissionsRequired : Bool = false
 
     @Published var showApiExpirationWarning = false
     @Published var showSubscriptionExpirationWarning = false
@@ -198,6 +205,8 @@ struct MainView: View {
                         mainViewState.selectedTab = .aliases
                     }
                     
+                    // Check this every time the app is come to foreground
+                    checkNotificationPermission()
                 }
             }
         } else {
@@ -244,7 +253,6 @@ struct MainView: View {
     
     
     private func checkForSubscriptionExpiration(){
-        if mainViewState.settingsManager.getSettingsBool(key: .notifySubscriptionExpiry, default: false) {
             NetworkHelper().getUserResource { (user, _) in
                 if let subscriptionEndsAt = user?.subscription_ends_at {
                     do {
@@ -274,7 +282,7 @@ struct MainView: View {
                 }
                 // If expires_at is null it will never expire
             }
-        }
+        
     }
     
     private func checkTokenExpiry(){
@@ -385,6 +393,14 @@ struct MainView: View {
             }
         }
     }    
+    
+    func checkNotificationPermission() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                mainViewState.permissionsRequired = settings.authorizationStatus != .authorized
+            }
+        }
+    }
 
     
     private var tabView: some View {

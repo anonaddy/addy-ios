@@ -54,12 +54,12 @@ public struct Rules: Identifiable, Codable {
     public var sends: Bool
     public let active: Bool
     public let applied: Int
-    let last_applied: String
+    let last_applied: String?
     let created_at: String
     let updated_at: String
     
     // This is all neccesary to be able to init this class
-    public init(id: String, user_id: String, name: String, order: Int, conditions: [Condition], actions: [Action], `operator`:String,forwards: Bool, replies: Bool, sends: Bool, active: Bool, applied: Int, last_applied: String, created_at: String, updated_at: String) {
+    public init(id: String, user_id: String, name: String, order: Int, conditions: [Condition], actions: [Action], `operator`:String,forwards: Bool, replies: Bool, sends: Bool, active: Bool, applied: Int, last_applied: String?, created_at: String, updated_at: String) {
         self.id = id
         self.user_id = user_id
         self.name = name

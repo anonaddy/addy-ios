@@ -108,8 +108,7 @@ struct ProfileBottomSheet: View {
                         }
                     }
                     
-                    let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
-                    AddySection(title: String(localized: "app_settings"), description: String(format: String(localized: "version_s"), appVersion), trailingSystemimage: "chevron.right") {
+                    AddySection(title: String(localized: "app_settings"), description: getAppVersionSectionDescription(), trailingSystemimage: "chevron.right") {
                         if horizontalSize == .regular {
                             self.onNavigate(Destination.settings)
                         } else {
@@ -167,9 +166,38 @@ struct ProfileBottomSheet: View {
                         
                     }
                 })
+        }.onAppear {
+            checkForAnyInteractiveActions()
         }
             
         }
+    
+    
+    private func getAppVersionSectionDescription() ->String {
+        let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
+
+        if mainViewState.permissionsRequired {
+            return String(localized: "permissions_required")
+        } else if mainViewState.updateAvailable {
+            return String(format: String(localized: "version_s_update_available"), appVersion)
+        } else {
+            return String(format: String(localized: "version_s"), appVersion)
+        }
+    }
+    
+    func checkForAnyInteractiveActions(){
+        switch mainViewState.profileBottomSheetAction {
+        case .settings:
+            isShowingAppSettingsView = true
+            break
+        case .domains:
+            isShowingDomainsView = true
+            break
+        default:
+            break
+        }
+        
+    }
     
     private func getAddyIoVersion() ->String {
         if (AddyIo.VERSIONMAJOR == 9999) {

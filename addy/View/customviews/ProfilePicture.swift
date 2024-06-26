@@ -18,7 +18,11 @@ struct ProfilePicture: View {
             mainViewState.isPresentingProfileBottomSheet = true
         } label: {
             ZStack(alignment: .center) {
-                if mainViewState.updateAvailable {
+                if mainViewState.permissionsRequired {
+                    Circle()
+                        .fill(LinearGradient(gradient: Gradient(colors: [Color.red.opacity(0.6), Color.red]), startPoint: .top, endPoint: .bottom))
+                        .frame(width: 24, height: 24)
+                } else if mainViewState.updateAvailable {
                     Circle()
                         .fill(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.6), Color.blue]), startPoint: .top, endPoint: .bottom))
                         .frame(width: 24, height: 24)

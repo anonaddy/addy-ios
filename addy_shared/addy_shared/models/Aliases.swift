@@ -9,6 +9,12 @@ public struct AliasesArray:Codable {
     public var data: [Aliases]
     public var links: Links?
     public var meta: Meta?
+    
+    public init(data: [Aliases], links: Links? = nil, meta: Meta? = nil) {
+        self.data = data
+        self.links = links
+        self.meta = meta
+    }
 }
 
 public struct BulkAliasesArray: Codable {

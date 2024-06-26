@@ -31,8 +31,8 @@ public class NetworkHelper {
         ]
     }
     
-    private func createAppResetDueToInvalidAPIKeyNotification(){
-        // TODO: Notify user
+    public func createAppResetDueToInvalidAPIKeyNotification(){
+        SharedNotificationHelper.createAppResetDueToInvalidAPIKeyNotification()
         
     }
     

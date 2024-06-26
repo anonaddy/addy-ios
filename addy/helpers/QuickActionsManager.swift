@@ -16,7 +16,8 @@ class QuickActionsManager: ObservableObject {
         print("SHORTCUT ITEM RECEIVED \(shortcutItem)")
 #endif
         if shortcutItem.type == "host.stjin.addy.shortcut_add_alias" {
-            MainViewState.shared.isPresentingFailedDeliveriesSheet = true
+            MainViewState.shared.showAddAliasBottomSheet = true
+            MainViewState.shared.selectedTab = .aliases
         } else if shortcutItem.type.starts(with: "host.stjin.addy.shortcut_open_alias_") {
             if let range = shortcutItem.type.range(of: "host.stjin.addy.shortcut_open_alias_") {
                 let aliasId = shortcutItem.type[range.upperBound...]

@@ -2,12 +2,13 @@
 //  SharedNotificationHelper.swift
 //  addy_shared
 //
-//  Created by Stijn van de Water on 24/06/2024.
+//  Created by Stijn van de Water on 26/06/2024.
 //
 
 import Foundation
+import UserNotifications
 
-public struct SharedNotificationHelper {
+public class SharedNotificationHelper {
     
     public static func createAppResetDueToInvalidAPIKeyNotification(){
         

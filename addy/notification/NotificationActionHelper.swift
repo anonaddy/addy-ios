@@ -58,10 +58,16 @@ class NotificationActionHelper {
         default:
             // Notification tap actions
             switch response.notification.request.identifier {
-                //TODO: on iPhone this should open the sheet.
-            case notificationActions.openSettings: MainViewState.shared.selectedTab = .settings
+                // It's hard to determine if we open this notification in regular or compact mode.
+                // iPad does not mean it cannot run in compact mode (split screen)
+                // Hence we always open in sheets.
+            case notificationActions.openSettings:
+                MainViewState.shared.isPresentingProfileBottomSheet = true
+                MainViewState.shared.profileBottomSheetAction = .settings
                 break
-            case notificationActions.openDomains: MainViewState.shared.selectedTab = .domains
+            case notificationActions.openDomains: 
+                MainViewState.shared.isPresentingProfileBottomSheet = true
+                MainViewState.shared.profileBottomSheetAction = .domains
                 break
             case notificationActions.openFailedDeliveries: MainViewState.shared.isPresentingFailedDeliveriesSheet = true
                 break

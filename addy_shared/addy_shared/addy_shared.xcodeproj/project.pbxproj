@@ -24,6 +24,7 @@
 		80B4F4D02BEA5BE60009E4CA /* UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4F4CF2BEA5BE60009E4CA /* UserAgent.swift */; };
 		80B4F4D22BEA5DCE0009E4CA /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B4F4D12BEA5DCE0009E4CA /* Version.swift */; };
 		80BB84152BF001AB005999C3 /* DateTimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BB84142BF001AB005999C3 /* DateTimeUtils.swift */; };
+		80E574C22C2C2B6A0036C5DB /* SharedNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E574C12C2C2B6A0036C5DB /* SharedNotificationHelper.swift */; };
 		80E849A62BEB93F900C8D68A /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849A52BEB93F900C8D68A /* Error.swift */; };
 		80E849B52BEBA9C900C8D68A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80E849B42BEBA9C900C8D68A /* Assets.xcassets */; };
 		80E84A312BEC11ED00C8D68A /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E84A302BEC11ED00C8D68A /* Aliases.swift */; };
@@ -52,7 +53,6 @@
 		806890952BFE7F7300CEB8C7 /* HapticHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticHelper.swift; sourceTree = "<group>"; };
 		80813B722C0DF349009C4E6A /* FailedDeliveries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveries.swift; sourceTree = "<group>"; };
 		809F87502C29E4C8002A89C0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		809F87542C29E9A7002A89C0 /* SharedNotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedNotificationHelper.swift; sourceTree = "<group>"; };
 		80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSortFilter.swift; sourceTree = "<group>"; };
 		80B4F4B82BEA52EE0009E4CA /* Logs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logs.swift; sourceTree = "<group>"; };
 		80B4F4BB2BEA531A0009E4CA /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
@@ -65,6 +65,7 @@
 		80B4F4CF2BEA5BE60009E4CA /* UserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgent.swift; sourceTree = "<group>"; };
 		80B4F4D12BEA5DCE0009E4CA /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		80BB84142BF001AB005999C3 /* DateTimeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeUtils.swift; sourceTree = "<group>"; };
+		80E574C12C2C2B6A0036C5DB /* SharedNotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedNotificationHelper.swift; sourceTree = "<group>"; };
 		80E849A52BEB93F900C8D68A /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		80E849B42BEBA9C900C8D68A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80E84A302BEC11ED00C8D68A /* Aliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
@@ -89,7 +90,7 @@
 		8001D9E62BEA513500AAD10E = {
 			isa = PBXGroup;
 			children = (
-				809F87522C29E916002A89C0 /* notification */,
+				80E574C42C2C2BAD0036C5DB /* notification */,
 				809F87502C29E4C8002A89C0 /* AppState.swift */,
 				80BB84132BF0019E005999C3 /* utils */,
 				80BB84122BF00099005999C3 /* models */,
@@ -108,14 +109,6 @@
 				8001D9F02BEA513500AAD10E /* addy_shared.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		809F87522C29E916002A89C0 /* notification */ = {
-			isa = PBXGroup;
-			children = (
-				809F87542C29E9A7002A89C0 /* SharedNotificationHelper.swift */,
-			);
-			path = notification;
 			sourceTree = "<group>";
 		};
 		80BB84102BF00077005999C3 /* managers */ = {
@@ -163,6 +156,14 @@
 				80BB84142BF001AB005999C3 /* DateTimeUtils.swift */,
 			);
 			path = utils;
+			sourceTree = "<group>";
+		};
+		80E574C42C2C2BAD0036C5DB /* notification */ = {
+			isa = PBXGroup;
+			children = (
+				80E574C12C2C2B6A0036C5DB /* SharedNotificationHelper.swift */,
+			);
+			path = notification;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +258,7 @@
 				80E84A312BEC11ED00C8D68A /* Aliases.swift in Sources */,
 				80E9B2322C0B646400C7EF99 /* Usernames.swift in Sources */,
 				80F3C6672BFB73AF0028A486 /* Domains.swift in Sources */,
+				80E574C22C2C2B6A0036C5DB /* SharedNotificationHelper.swift in Sources */,
 				80B4F4C32BEA53530009E4CA /* SettingsManager.swift in Sources */,
 				80E849A62BEB93F900C8D68A /* Error.swift in Sources */,
 				80B4F4BC2BEA531A0009E4CA /* NetworkHelper.swift in Sources */,

@@ -53,96 +53,94 @@ struct AliasRowView: View {
         let _ = Self._printChanges()
 #endif
         if isPreview {
-            // Preview (long press) view
-            VStack(alignment: .leading){
-                Text(verbatim: alias.email)
-                    .font(.title3)
-                    .bold()
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0))
+            
+            VStack(alignment: .leading) {
                 
-                HStack{
-                    BarChart()
-                        .data(chartData)
-                        .chartStyle(ChartStyle(backgroundColor: .white,
-                                               foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
-                                                                 ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
-                                                                 ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
-                                                                 ColorGradient(.softRed, .softRed.opacity(0.7))]))
-                        .frame(maxWidth: .infinity)
+                VStack(alignment: .trailing) {
+                    Text(verbatim: alias.email)
+                        .font(.title3)
+                        .bold()
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                     
+                HStack(alignment: .center) {
+                    Color.clear
+                        .aspectRatio(1, contentMode: .fill)
+                            .overlay(
+                                BarChart()
+                                    .data(chartData)
+                                    .chartStyle(ChartStyle(backgroundColor: .white,
+                                                           foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
+                                                                             ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
+                                                                             ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
+                                                                             ColorGradient(.softRed, .softRed.opacity(0.7))]))
+                                    .padding(.horizontal).padding(.top)
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 13))
+                            .frame(maxWidth: 100)
                     
+                   
                     Spacer()
                     
-                    VStack(alignment: .leading){
-                        Spacer()
                         
-                        Label(title: {
-                            Text(String(format: String(localized: "d_forwarded"), "\(alias.emails_forwarded)"))
-                                .font(.subheadline)
-                                .foregroundStyle(Color.gray)
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                            
-                        }, icon: {
-                            Image(systemName: "tray")
-                                .foregroundColor(.portalOrange)
-                                .font(.system(size: 18, weight: .bold))
-                        } )
-                        Spacer()
-                        Label(title: {
-                            Text(String(format: String(localized: "d_replied"), "\(alias.emails_replied)"))
-                                .font(.subheadline)
-                                .foregroundStyle(Color.gray)
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                            
-                        }, icon: {
-                            Image(systemName: "arrow.turn.up.left")
-                                .foregroundColor(.easternBlue)
-                                .font(.system(size: 18, weight: .bold))
-                        } )
-                        Spacer()
-                        Label(title: {
-                            Text(String(format: String(localized: "d_sent"), "\(alias.emails_sent)"))
-                                .font(.subheadline)
-                                .foregroundStyle(Color.gray)
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                            
-                        }, icon: {
-                            Image(systemName: "paperplane")
-                                .foregroundColor(.portalBlue)
-                                .font(.system(size: 18, weight: .bold))
-                        } )
-                        Spacer()
-                        Label(title: {
-                            Text(String(format: String(localized: "d_blocked"), "\(alias.emails_blocked)"))
-                                .font(.subheadline)
-                                .foregroundStyle(Color.gray)
-                                .minimumScaleFactor(0.5)
-                                .lineLimit(1)
-                            
-                        }, icon: {
-                            Image(systemName: "slash.circle")
-                                .foregroundColor(.softRed)
-                                .font(.system(size: 18, weight: .bold))
-                        } )
-                        Spacer()
-                        
-                        
+                        VStack(alignment: .trailing){
+                            Label(title: {
+                                Text(String(format: String(localized: "d_forwarded"), "\(alias.emails_forwarded)"))
+                                    .font(.subheadline)
+                                    .foregroundStyle(Color.gray)
+                                    .lineLimit(1)
+                                
+                            }, icon: {
+                                Image(systemName: "tray")
+                                    .foregroundColor(.portalOrange)
+                                    .font(.system(size: 18, weight: .bold))
+                            } )
+                            Label(title: {
+                                Text(String(format: String(localized: "d_replied"), "\(alias.emails_replied)"))
+                                    .font(.subheadline)
+                                    .foregroundStyle(Color.gray)
+                                    .lineLimit(1)
+                                
+                            }, icon: {
+                                Image(systemName: "arrow.turn.up.left")
+                                    .foregroundColor(.easternBlue)
+                                    .font(.system(size: 18, weight: .bold))
+                            } )
+                            Label(title: {
+                                Text(String(format: String(localized: "d_sent"), "\(alias.emails_sent)"))
+                                    .font(.subheadline)
+                                    .foregroundStyle(Color.gray)
+                                    .lineLimit(1)
+                                
+                            }, icon: {
+                                Image(systemName: "paperplane")
+                                    .foregroundColor(.portalBlue)
+                                    .font(.system(size: 18, weight: .bold))
+                            } )
+                            Label(title: {
+                                Text(String(format: String(localized: "d_blocked"), "\(alias.emails_blocked)"))
+                                    .font(.subheadline)
+                                    .foregroundStyle(Color.gray)
+                                    .lineLimit(1)
+                                
+                            }, icon: {
+                                Image(systemName: "slash.circle")
+                                    .foregroundColor(.softRed)
+                                    .font(.system(size: 18, weight: .bold))
+                            } )
+                        }
+                        .labelStyle(MyAliasLabelStyle())
                     }
-                    .padding(.leading, 15)
-                    .labelStyle(MyAliasLabelStyle())
-                }.frame(idealHeight: 200, maxHeight: 300)
-                
+                    
+                }
+                if (AliasWatcher().getAliasesToWatch().contains(alias.id)){
+                    Label(String(localized: "you_ll_be_notified_if_this_alias_has_activity"), systemImage: "eyes")
+                        .foregroundColor(.gray.opacity(0.4))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .padding(.top)
+                }
             }.padding()
-            
-            if (AliasWatcher().getAliasesToWatch().contains(alias.id)){
-                Label(String(localized: "you_ll_be_notified_if_this_alias_has_activity"), systemImage: "eyes").foregroundColor(.gray.opacity(0.4)).padding(.horizontal).padding(.bottom,16)
-            }
-            
         } else {
             VStack() {
                 HStack{

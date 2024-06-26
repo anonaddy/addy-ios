@@ -91,6 +91,7 @@
 		80E1946A2BF8C840005175EA /* EditAliasFromNameBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E194692BF8C840005175EA /* EditAliasFromNameBottomSheet.swift */; };
 		80E1946E2BF8DCE0005175EA /* AddySectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E1946D2BF8DCE0005175EA /* AddySectionButton.swift */; };
 		80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E512502C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift */; };
+		80E574C82C2C2D7F0036C5DB /* PlayGround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E574C72C2C2D7F0036C5DB /* PlayGround.swift */; };
 		80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499A2BEB73D900C8D68A /* MainView.swift */; };
 		80E8499F2BEB802D00C8D68A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E8499E2BEB802D00C8D68A /* HomeView.swift */; };
 		80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E849A02BEB803400C8D68A /* AliasesView.swift */; };
@@ -267,6 +268,7 @@
 		80E194692BF8C840005175EA /* EditAliasFromNameBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasFromNameBottomSheet.swift; sourceTree = "<group>"; };
 		80E1946D2BF8DCE0005175EA /* AddySectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySectionButton.swift; sourceTree = "<group>"; };
 		80E512502C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipientPublicGpgKeyBottomSheet.swift; sourceTree = "<group>"; };
+		80E574C72C2C2D7F0036C5DB /* PlayGround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayGround.swift; sourceTree = "<group>"; };
 		80E8499A2BEB73D900C8D68A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		80E8499E2BEB802D00C8D68A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		80E849A02BEB803400C8D68A /* AliasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesView.swift; sourceTree = "<group>"; };
@@ -529,6 +531,7 @@
 				806F21382BE8F1B200EBEBC8 /* Assets.xcassets */,
 				806F213A2BE8F1B200EBEBC8 /* Preview Content */,
 				801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */,
+				80E574C72C2C2D7F0036C5DB /* PlayGround.swift */,
 			);
 			path = addy;
 			sourceTree = "<group>";
@@ -1120,6 +1123,7 @@
 				80DCF3B02BF137610022690F /* EditAliasDescriptionBottomSheet.swift in Sources */,
 				80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */,
 				80DCF3A22BF117720022690F /* AliasWatcher.swift in Sources */,
+				80E574C82C2C2D7F0036C5DB /* PlayGround.swift in Sources */,
 				80676D652C18CD64008FC147 /* LogViewerView.swift in Sources */,
 				809CB9502C2358CA00DBBD03 /* FailedDeliveriesIcon.swift in Sources */,
 				80F22F8A2BEE34EE001176B4 /* ViewSizeData.swift in Sources */,

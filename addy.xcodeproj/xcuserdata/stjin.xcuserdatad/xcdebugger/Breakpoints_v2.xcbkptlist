@@ -158,8 +158,8 @@
             filePath = "addy/View/mainview/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
+            startingLineNumber = "527"
+            endingLineNumber = "527"
             landmarkName = "LoadFilter()"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             filePath = "addy/View/mainview/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "543"
-            endingLineNumber = "543"
+            startingLineNumber = "548"
+            endingLineNumber = "548"
             landmarkName = "LoadFilter()"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,8 +190,8 @@
             filePath = "addy/View/mainview/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "523"
-            endingLineNumber = "523"
+            startingLineNumber = "528"
+            endingLineNumber = "528"
             landmarkName = "LoadFilter()"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "addy/View/mainview/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "529"
-            endingLineNumber = "529"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
             landmarkName = "LoadFilter()"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "addy/View/mainview/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "424"
-            endingLineNumber = "424"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -238,8 +238,8 @@
             filePath = "addy/View/mainview/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "426"
-            endingLineNumber = "426"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -254,8 +254,8 @@
             filePath = "addy/View/mainview/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "425"
-            endingLineNumber = "425"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -270,8 +270,8 @@
             filePath = "addy/View/mainview/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -286,8 +286,8 @@
             filePath = "addy/View/mainview/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -334,8 +334,8 @@
             filePath = "addy/View/mainview/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "542"
-            endingLineNumber = "542"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
             landmarkName = "LoadFilter()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1166,8 +1166,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
+            startingLineNumber = "341"
+            endingLineNumber = "341"
             landmarkName = "checkForNewFailedDeliveries()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1182,8 +1182,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "328"
-            endingLineNumber = "328"
+            startingLineNumber = "336"
+            endingLineNumber = "336"
             landmarkName = "checkForNewFailedDeliveries()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1198,8 +1198,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
+            startingLineNumber = "335"
+            endingLineNumber = "335"
             landmarkName = "checkForNewFailedDeliveries()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1326,8 +1326,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
             landmarkName = "MainViewState"
             landmarkType = "3">
          </BreakpointContent>
@@ -2126,8 +2126,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
             landmarkName = "checkForNewFailedDeliveries()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2487,22 +2487,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3EB4CD66-E7A6-41D8-B9EB-8F9753F9C892"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/notification/NotificationActionHelper.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "handleNotificationActions(response:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "37677B75-783E-41C9-A0A2-9242772F9A77"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -2510,8 +2494,8 @@
             filePath = "addy/notification/NotificationActionHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "handleNotificationActions(response:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2593,6 +2577,86 @@
             startingLineNumber = "329"
             endingLineNumber = "329"
             landmarkName = "getRuleDescription(rule:recipients:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "38E7F670-6F1E-493F-9895-FB14169EB274"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/ViewModel/AliasesViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "getAliases(forceReload:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D2F2ED39-5E97-44F6-B930-DB9D4412A3E7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/ViewModel/AliasesViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "getAliases(forceReload:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6619A0B3-10D6-4FB1-B138-DE0F12D03F03"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/ViewModel/AliasesViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "getAliases(forceReload:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A0AC6E4A-9C3E-477D-AAEC-CCAB058CCE12"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/ViewModel/AliasesViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "getAliases(forceReload:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0D70D9C3-5280-428E-BDEA-4FCA7636F5FB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/ViewModel/AliasesViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "getAliases(forceReload:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

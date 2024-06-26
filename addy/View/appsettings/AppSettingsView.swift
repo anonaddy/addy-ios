@@ -19,7 +19,6 @@ struct AppSettingsView: View {
     @State private var biometricEnabled: Bool = false
     
     
-    @State private var hasNotificationPermission = false
     @State private var isShowingResetAppConfirmationAlert = false
     
     @Environment(\.openURL) var openURL
@@ -40,16 +39,12 @@ struct AppSettingsView: View {
                 appSettingsViewBody
             }
         }
-            
-        .onAppear(perform: {
-            checkNotificationPermission()
-        })
     }
     
     private var appSettingsViewBody: some View {
         List {
             
-            if !hasNotificationPermission {
+            if mainViewState.permissionsRequired {
                 Section {
                     AddySection(title: String(localized: "permissions_required"), description: String(localized: "notification_permissions_required_desc"), leadingSystemimage: "bell.fill", leadingSystemimageColor: .red){
                         requestNotificationPermission()
@@ -221,26 +216,28 @@ struct AppSettingsView: View {
         }
     }
     
-    func checkNotificationPermission() {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            DispatchQueue.main.async {
-                self.hasNotificationPermission = settings.authorizationStatus == .authorized
-            }
-        }
-    }
-    
     func requestNotificationPermission() {
         
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
-            self.hasNotificationPermission = granted
             if granted {
                 print("Permission granted for local notifications")
             } else {
                 if let error = error {
                     print("Error requesting permission: \(error.localizedDescription)")
+                    
+                    DispatchQueue.main.async {
+                        if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
+                            UIApplication.shared.open(appSettings)
+                        }
+                    }
                 } else {
                     print("Permission denied for local notifications")
+                    DispatchQueue.main.async {
+                        if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
+                            UIApplication.shared.open(appSettings)
+                        }
+                    }
                 }
             }
         }

@@ -298,6 +298,10 @@ struct AliasDetailView: View {
                     }
                     self.shouldDisableAlias = false
                 }
+                
+                // Reset this value to prevent re-opening the AliasDetailView when coming back to the app later
+                mainViewState.showAliasWithId = nil
+                mainViewState.aliasToDisable = nil
             })
             .disabled(isDeletingAlias || isRestoringAlias || isForgettingAlias)
             .navigationTitle(self.aliasEmail)

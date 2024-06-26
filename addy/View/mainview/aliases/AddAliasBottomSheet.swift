@@ -166,7 +166,12 @@ struct AddAliasBottomSheet: View {
             
             
             
-        }.navigationTitle(String(localized: "add_alias")).pickerStyle(.navigationLink)
+        }
+        .onAppear(perform: {
+            // Reset this value to prevent re-opening the AddAliasBottomSheet when coming back to the app later
+            MainViewState.shared.showAddAliasBottomSheet = false
+        })
+        .navigationTitle(String(localized: "add_alias")).pickerStyle(.navigationLink)
             .task {
                 if (domains.isEmpty){
                     loadDomains()

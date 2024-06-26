@@ -25,9 +25,10 @@ struct AliasesView: View {
     @State private var showAlert: Bool = false
     
     @State private var shouldReloadDataInParent = false
-    @State private var isShowingDomainsView = false
     
     @State private var isShowingAliasDetailView = false
+    @State private var aliasToDisable: String? = nil
+    @State private var showAliasWithId: String? = nil
     
     @State private var aliasInContextMenu: Aliases? = nil
     @State private var aliasToSendMailFrom: Aliases? = nil
@@ -186,7 +187,7 @@ struct AliasesView: View {
                                 {
                                     AliasRowView(alias: alias, isPreview: true).onAppear {
                                         self.aliasInContextMenu = alias
-                                    }
+                                    }.frame(minWidth: 350, idealWidth: 350, maxWidth: 350, minHeight: 200, idealHeight: 200, maxHeight: 200, alignment: .center)
                                 }
                                 
                                 
@@ -255,11 +256,8 @@ struct AliasesView: View {
                 if newPhase == .active {
                     // User opened the app from background
                     
-                    // If there is an aliasToDisable or an showAliasWithId after opening the app
-                    // eg. when tapping a notification action while the app is inactive but this tab was last open
-                    if mainViewState.aliasToDisable != nil || mainViewState.showAliasWithId != nil {
-                        isShowingDomainsView = true
-                    }
+                    checkForAnyInteractiveActions()
+
                     
                 }
             }
@@ -365,15 +363,13 @@ struct AliasesView: View {
             }
             .autocorrectionDisabled(true)
             .textInputAutocapitalization(.never)
-            .navigationDestination(isPresented: $isShowingDomainsView) {
-                
-                if let aliasToDisable = mainViewState.aliasToDisable {
+            .navigationDestination(isPresented: $isShowingAliasDetailView) {
+                if let aliasToDisable = self.aliasToDisable {
                     NavigationStack(){
                         AliasDetailView(aliasId: aliasToDisable, aliasEmail: nil, shouldReloadDataInParent: nil, shouldDisableAlias: true)
                             .environmentObject(mainViewState)
                     }
-                    .presentationDetents([.large])
-                } else if let showAliasWithId = mainViewState.showAliasWithId {
+                } else if let showAliasWithId = self.showAliasWithId {
                     NavigationStack(){
                         AliasDetailView(aliasId: showAliasWithId, aliasEmail: nil, shouldReloadDataInParent: nil)
                             .environmentObject(mainViewState)
@@ -430,12 +426,7 @@ struct AliasesView: View {
             }
             
             
-            // If there is an aliasToDisable or an showAliasWithId after switching to this tab
-            // eg. when tapping a notification action while the app is active
-            if mainViewState.aliasToDisable != nil || mainViewState.showAliasWithId != nil {
-                // Show the domainsView
-                isShowingDomainsView = true
-            }
+            checkForAnyInteractiveActions()
             
         })
         
@@ -443,6 +434,20 @@ struct AliasesView: View {
         
     }
     
+    func checkForAnyInteractiveActions(){
+        // If there is an aliasToDisable or an showAliasWithId after switching to this tab
+        // eg. when tapping a notification action while the app is active
+        if mainViewState.aliasToDisable != nil || mainViewState.showAliasWithId != nil {
+            // Show the domainsView
+            isShowingAliasDetailView = true
+            self.aliasToDisable = mainViewState.aliasToDisable
+            self.showAliasWithId = mainViewState.showAliasWithId
+        }
+        
+        if mainViewState.showAddAliasBottomSheet {
+            self.isPresentingAddAliasBottomSheet = true
+        }
+    }
     
     func ApplyFilter(chipId: String){
         
