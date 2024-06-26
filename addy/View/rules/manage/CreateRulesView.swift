@@ -81,6 +81,8 @@ struct CreateRulesView: View {
                 replies: true,
                 sends: true,
                 active: true,
+                applied: 0,
+                last_applied: "",
                 created_at: "",
                 updated_at: ""
             )

@@ -53,11 +53,13 @@ public struct Rules: Identifiable, Codable {
     public var replies: Bool
     public var sends: Bool
     public let active: Bool
+    public let applied: Int
+    let last_applied: String
     let created_at: String
     let updated_at: String
     
     // This is all neccesary to be able to init this class
-    public init(id: String, user_id: String, name: String, order: Int, conditions: [Condition], actions: [Action], `operator`:String,forwards: Bool, replies: Bool, sends: Bool, active: Bool, created_at: String, updated_at: String) {
+    public init(id: String, user_id: String, name: String, order: Int, conditions: [Condition], actions: [Action], `operator`:String,forwards: Bool, replies: Bool, sends: Bool, active: Bool, applied: Int, last_applied: String, created_at: String, updated_at: String) {
         self.id = id
         self.user_id = user_id
         self.name = name
@@ -69,6 +71,8 @@ public struct Rules: Identifiable, Codable {
         self.replies = replies
         self.sends = sends
         self.active = active
+        self.applied = applied
+        self.last_applied = last_applied
         self.created_at = created_at
         self.updated_at = updated_at
     }
