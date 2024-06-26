@@ -104,26 +104,34 @@ class AliasesViewModel: ObservableObject{
                 if !aliasesToWatch.isEmpty {
                     do {
                         let BulkAliasesArray = try await networkHelper.bulkGetAlias(aliases: aliasesToWatch)
-                        self.isLoading = false
-
-                        if let BulkAliasesArray = BulkAliasesArray {
-                            let aliasArray = AliasesArray(data: BulkAliasesArray.data)
-                            self.aliasList = aliasArray
+                        
+                        DispatchQueue.main.async {
+                            self.isLoading = false
                             
-                            // Since the bulkGetAlias func always returns everything we are always at the last page
-                            self.hasArrivedAtTheLastPage = true
-                        } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(String(localized: "error_unknown_refer_to_logs"))")
+                            if let BulkAliasesArray = BulkAliasesArray {
+                                let aliasArray = AliasesArray(data: BulkAliasesArray.data)
+                                self.aliasList = aliasArray
+                                
+                                // Since the bulkGetAlias func always returns everything we are always at the last page
+                                self.hasArrivedAtTheLastPage = true
+                            } else {
+                                self.networkError = String(format: String(localized: "details_about_error_s"),"\(String(localized: "error_unknown_refer_to_logs"))")
+                            }
                         }
                     } catch {
-                        self.isLoading = false
-                        self.networkError = error.localizedDescription
+                        DispatchQueue.main.async {
+                            self.isLoading = false
+                            self.networkError = error.localizedDescription
+                        }
                     }
                 } else {
-                    self.isLoading = false
-                    // This could be triggered if you remove the last watched alias and then refresh
-                    let aliasArray = AliasesArray(data: [])
-                    self.aliasList = aliasArray
+                    DispatchQueue.main.async {
+                        self.hasArrivedAtTheLastPage = true
+                        self.isLoading = false
+                        // This could be triggered if you remove the last watched alias and then refresh
+                        let aliasArray = AliasesArray(data: [])
+                        self.aliasList = aliasArray
+                    }
                     
                 }
 
@@ -132,27 +140,27 @@ class AliasesViewModel: ObservableObject{
                     let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: self.aliasSortFilterRequest, page : (aliasList?.meta?.current_page ?? 0) + 1,size: 25)
                     DispatchQueue.main.async {
                         self.isLoading = false
-                    }
-
+                    
+                    
                     if let aliasArray = aliasArray {
                         
                         if (self.aliasList == nil || forceReload){
                             // If aliasList is empty, assign it
-                            DispatchQueue.main.async {
-                                self.aliasList = aliasArray
-                            }
+                            self.aliasList = aliasArray
+                            
                         } else {
                             // If aliasList is not empty, set the meta and links and append the retrieved aliases to the list (as pagination is being used)
                             self.aliasList?.meta = aliasArray.meta
                             self.aliasList?.links = aliasArray.links
                             self.aliasList?.data.append(contentsOf: aliasArray.data)
                         }
-                        DispatchQueue.main.async {
-                            self.hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page
-                        }
+                        
+                        self.hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page
+                        
                     } else {
                         self.networkError = String(format: String(localized: "details_about_error_s"),"\(String(localized: "error_unknown_refer_to_logs"))")
                     }
+                }
                 } catch {
                     self.isLoading = false
                     self.networkError = error.localizedDescription
