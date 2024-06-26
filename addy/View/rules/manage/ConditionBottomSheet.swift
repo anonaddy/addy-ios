@@ -18,26 +18,8 @@ struct ConditionBottomSheet: View {
     
     
     @State private var selectedConditionType = "sender"
-    let conditionsType = ["sender", "subject", "alias"]
-    let conditionsTypeName = [
-        NSLocalizedString("the_sender", comment: ""),
-        NSLocalizedString("the_subject", comment: ""),
-        NSLocalizedString("the_alias", comment: "")
-    ]
-    
     @State private var selectedConditionMatch = "contains"
-    let conditionsMatch = ["contains", "does not contain", "is exactly", "is not", "starts with", "does not start with", "ends with", "does not end with"]
-    let conditionsMatchName = [
-        NSLocalizedString("contains", comment: ""),
-        NSLocalizedString("does_not_contain", comment: ""),
-        NSLocalizedString("is_exactly", comment: ""),
-        NSLocalizedString("is_not", comment: ""),
-        NSLocalizedString("starts_with", comment: ""),
-        NSLocalizedString("does_not_start_with", comment: ""),
-        NSLocalizedString("ends_with", comment: ""),
-        NSLocalizedString("does_not_end_with", comment: "")
-    ]
-    
+
     
     private var conditionEditObject:Condition?
     
@@ -60,17 +42,17 @@ struct ConditionBottomSheet: View {
                 
                 //TODO: The checkmark next to selected pickeritems is at default value instead of the selected item
                 Picker(selection: $selectedConditionType, label: Text(String(localized: "select"))) {
-                    ForEach(conditionsTypeName, id: \.self) {
-                        let typeIndex = conditionsTypeName.firstIndex(of: $0) ?? 0
-                        let tag = conditionsType[typeIndex]
+                    ForEach(RulesOption.conditionsTypeName, id: \.self) {
+                        let typeIndex = RulesOption.conditionsTypeName.firstIndex(of: $0) ?? 0
+                        let tag = RulesOption.conditionsType[typeIndex]
                         Text($0).tag(tag)
                     }
                 }.pickerStyle(.menu)
                 
                 Picker(selection: $selectedConditionMatch, label: Text(String(localized: "match"))) {
-                    ForEach(conditionsMatchName, id: \.self) {
-                        let typeIndex = conditionsMatchName.firstIndex(of: $0) ?? 0
-                        let tag = conditionsMatch[typeIndex]
+                    ForEach(RulesOption.conditionsMatchName, id: \.self) {
+                        let typeIndex = RulesOption.conditionsMatchName.firstIndex(of: $0) ?? 0
+                        let tag = RulesOption.conditionsMatch[typeIndex]
                         Text($0).tag(tag)
                     }
                 }.pickerStyle(.menu)

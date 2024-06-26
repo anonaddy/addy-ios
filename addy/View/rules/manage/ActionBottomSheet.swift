@@ -18,31 +18,28 @@ struct ActionBottomSheet: View {
     
     
     @State private var selectedActionsType = "subject"
-    let actionsType = ["subject", "displayFrom", "encryption", "banner", "block"]
-    let actionsTypeName = [
-        NSLocalizedString("replace_the_subject_with", comment: ""),
-        NSLocalizedString("replace_the_from_name_with", comment: ""),
-        NSLocalizedString("turn_PGP_encryption_off", comment: ""),
-        NSLocalizedString("set_the_banner_information_location_to", comment: ""),
-        NSLocalizedString("block_the_email", comment: "")
-    ]
-    
     @State private var selectedBannerLocationOptions = "top"
-    let bannerLocationOptions = ["top", "bottom", "off"]
-    let bannerLocationOptionName = [
-        NSLocalizedString("rule_bannerlocation_top", comment: ""),
-        NSLocalizedString("rule_bannerlocation_bottom", comment: ""),
-        NSLocalizedString("rule_bannerlocation_off", comment: "")
-    ]
     
+    
+    @State var selectedRecipientChip:[String]
+    @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
+
     
     private var actionEditObject:Action?
+    private var recipients: [Recipients]
     
     let onAddedAction: (Action?, Action) -> Void
     
-    init(actionEditObject: Action?, onAddedAction: @escaping (Action?, Action) -> Void) {
+    init(recipients: [Recipients], actionEditObject: Action?, onAddedAction: @escaping (Action?, Action) -> Void) {
         self.onAddedAction = onAddedAction
         self.actionEditObject = actionEditObject
+        self.recipients = recipients
+
+        if actionEditObject?.type == "forwardTo"{
+            self.selectedRecipientChip = [actionEditObject?.value ?? ""]
+        } else {
+            self.selectedRecipientChip = []
+        }
     }
     
     @Environment(\.dismiss) var dismiss
@@ -57,18 +54,18 @@ struct ActionBottomSheet: View {
                 
                 
                 Picker(selection: $selectedActionsType, label: Text(String(localized: "select"))) {
-                    ForEach(actionsTypeName, id: \.self) {
-                        let typeIndex = actionsTypeName.firstIndex(of: $0) ?? 0
-                        let tag = actionsType[typeIndex]
+                    ForEach(RulesOption.actionsTypeName, id: \.self) {
+                        let typeIndex = RulesOption.actionsTypeName.firstIndex(of: $0) ?? 0
+                        let tag = RulesOption.actionsType[typeIndex]
                         Text($0).tag(tag)
                     }
                 }.pickerStyle(.menu)
                 
                 if (selectedActionsType == "banner"){
                     Picker(selection: $selectedBannerLocationOptions, label: Text(String(localized: "banner_location"))) {
-                        ForEach(bannerLocationOptionName, id: \.self) {
-                            let bannerLocationOptionIndex = bannerLocationOptionName.firstIndex(of: $0) ?? 0
-                            let tag = bannerLocationOptions[bannerLocationOptionIndex]
+                        ForEach(RulesOption.bannerLocationOptionName, id: \.self) {
+                            let bannerLocationOptionIndex = RulesOption.bannerLocationOptionName.firstIndex(of: $0) ?? 0
+                            let tag = RulesOption.bannerLocationOptions[bannerLocationOptionIndex]
                             Text($0).tag(tag)
                         }
                     }.pickerStyle(.menu)
@@ -78,6 +75,37 @@ struct ActionBottomSheet: View {
                     selectedActionsType == "displayFrom"){
                     ValidatingTextField(value: self.$value, placeholder: self.$valuePlaceHolder, fieldType: .text, error: $valuePlaceHolderValidationError)
                     
+                }
+                
+                if (selectedActionsType == "forwardTo"){
+                    VStack(alignment: .leading) {
+                        
+
+                    AddyMultiSelectChipView(chips: $recipientsChips, selectedChips: $selectedRecipientChip, singleLine: false) { onTappedChip in
+                        withAnimation {
+                            if (selectedRecipientChip.contains(onTappedChip.chipId)){
+                                // If the chip is already selected, remove all
+                                selectedRecipientChip.removeAll()
+                            } else {
+                                // Else Remove all and select the tapped chip
+                                selectedRecipientChip.removeAll()
+                                selectedRecipientChip.append(onTappedChip.chipId)
+                            }
+                        }
+                        
+                    }
+                    
+                    if selectedRecipientChip.isEmpty{
+                        Text(String(localized: "select_a_recipient"))
+                            .foregroundColor(.red)
+                            .font(.system(size: 15))
+                            .multilineTextAlignment(.leading)
+                            .padding([.horizontal], 0)
+                            .onAppear{
+                                HapticHelper.playHapticFeedback(hapticType: .error)
+                            }
+                    }
+                    }
                 }
                 
             } header: {
@@ -105,6 +133,18 @@ struct ActionBottomSheet: View {
                     // If the type is set to turn off PGP send a true
                     else if (selectedActionsType == "encryption"){
                         newAction.value = String(true)
+                    }
+                    // If the type is set to remove attachments send a true
+                    else if (selectedActionsType == "removeAttachments"){
+                        newAction.value = String(true)
+                    }
+                    // If the type is set to forward to send selected recipientID
+                    else if (selectedActionsType == "forwardTo"){
+                        if selectedRecipientChip.isEmpty{
+                            return
+                        } else {
+                            newAction.value = selectedRecipientChip.first!
+                        }
                     }
                     else {
                         // Else just get the textfield value
@@ -141,6 +181,15 @@ struct ActionBottomSheet: View {
                     self.value = actionEditObject.value
                     
                 }
+                
+                // Load recipients
+                
+                recipientsChips = []
+                recipients.forEach(){ recipient in
+                    if recipient.email_verified_at != nil {
+                        recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
+                    }
+                }
             })
         
         
@@ -149,7 +198,7 @@ struct ActionBottomSheet: View {
 }
 
 #Preview {
-    ActionBottomSheet(actionEditObject: nil, onAddedAction: { oldAction, modifiedAction in
+    ActionBottomSheet(recipients: [], actionEditObject: nil, onAddedAction: { oldAction, modifiedAction in
         // Dummy function for preview
     })
 }

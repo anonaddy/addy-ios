@@ -9,6 +9,45 @@
 import SwiftUI
 import addy_shared
 
+public struct RulesOption {
+    public static let bannerLocationOptions = ["top", "bottom", "off"]
+    public static let bannerLocationOptionName = [
+        NSLocalizedString("rule_bannerlocation_top", comment: ""),
+        NSLocalizedString("rule_bannerlocation_bottom", comment: ""),
+        NSLocalizedString("rule_bannerlocation_off", comment: "")
+    ]
+    
+    public static let conditionsType = ["sender", "subject", "alias", "alias_description"]
+    public static let conditionsTypeName = [
+        NSLocalizedString("the_sender", comment: ""),
+        NSLocalizedString("the_subject", comment: ""),
+        NSLocalizedString("the_alias", comment: ""),
+        NSLocalizedString("the_alias_description", comment: "")
+    ]
+    public static let conditionsMatch = ["contains", "does not contain", "is exactly", "is not", "starts with", "does not start with", "ends with", "does not end with"]
+    public static let conditionsMatchName = [
+        NSLocalizedString("contains", comment: ""),
+        NSLocalizedString("does_not_contain", comment: ""),
+        NSLocalizedString("is_exactly", comment: ""),
+        NSLocalizedString("is_not", comment: ""),
+        NSLocalizedString("starts_with", comment: ""),
+        NSLocalizedString("does_not_start_with", comment: ""),
+        NSLocalizedString("ends_with", comment: ""),
+        NSLocalizedString("does_not_end_with", comment: "")
+    ]
+    
+    public static let actionsType = ["subject", "displayFrom", "encryption", "banner", "block", "removeAttachments", "forwardTo"]
+    public static let actionsTypeName = [
+        NSLocalizedString("replace_the_subject_with", comment: ""),
+        NSLocalizedString("replace_the_from_name_with", comment: ""),
+        NSLocalizedString("turn_PGP_encryption_off", comment: ""),
+        NSLocalizedString("set_the_banner_information_location_to", comment: ""),
+        NSLocalizedString("block_the_email", comment: ""),
+        NSLocalizedString("remove_attachments", comment: ""),
+        NSLocalizedString("forward_to", comment: "")
+    ]
+}
+
 struct RulesView: View {
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject var rulesViewModel = RulesViewModel()
@@ -20,6 +59,11 @@ struct RulesView: View {
     @State private var showAlert: Bool = false
     
     @State private var ruleToDelete: Rules? = nil
+    
+    
+    
+    @State private var selectedActionsType = "subject"
+    @State private var selectedBannerLocationOptions = "top"
     
     
     // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
@@ -72,7 +116,7 @@ struct RulesView: View {
                     Section {
                         
                         ForEach (rules.data) { rule in
-                            NavigationLink(destination: CreateRulesView(ruleId: rule.id, ruleName: rule.name ,shouldReloadDataInParent: $shouldReloadDataInParent)
+                            NavigationLink(destination: CreateRulesView(recipients: self.rulesViewModel.recipients, ruleId: rule.id, ruleName: rule.name ,shouldReloadDataInParent: $shouldReloadDataInParent)
                                 .environmentObject(mainViewState)){
                                     
                                     HStack {
@@ -96,7 +140,7 @@ struct RulesView: View {
                                             
                                             
                                             if (rule.active) {
-                                                Text(getRuleDescription(rule: rule))
+                                                Text(getRuleDescription(rule: rule, recipients: self.rulesViewModel.recipients))
                                                     .font(.caption)
                                                     .opacity(0.625)
                                                     .lineLimit(1)
@@ -264,7 +308,7 @@ struct RulesView: View {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
             }
-            .navigationBarItems(trailing: NavigationLink(destination: CreateRulesView(ruleId: nil, ruleName: "", shouldReloadDataInParent: $shouldReloadDataInParent)) {
+            .navigationBarItems(trailing: NavigationLink(destination: CreateRulesView(recipients: self.rulesViewModel.recipients, ruleId: nil, ruleName: "", shouldReloadDataInParent: $shouldReloadDataInParent)) {
                 
                 Image(systemName: "plus")
                     .frame(width: 24, height: 24)
@@ -273,13 +317,31 @@ struct RulesView: View {
                               rule_count >= rule_limit! /* Cannot be nil since subscription is not nil */ )
             })
     }
+   
     
-    private func getRuleDescription(rule: Rules) -> String{
-        let descConditions = "\(rule.conditions[0].type) \(rule.conditions[0].match) \(rule.conditions[0].values[0])"
-        let descActions = "\(rule.actions[0].type) \(rule.actions[0].value)"
+    private func getRuleDescription(rule: Rules, recipients: [Recipients]) -> String{
+        // Get this from array (make alias_description "alias description) like ANdroid
+        
+        let conditionTypeIndex = RulesOption.conditionsType.firstIndex(of: rule.conditions[0].type) ?? 0
+        let conditionMatchIndex = RulesOption.conditionsMatch.firstIndex(of: rule.conditions[0].match) ?? 0
+        
+        let typeText = RulesOption.conditionsTypeName[conditionTypeIndex]
+        let matchText = RulesOption.conditionsMatchName[conditionMatchIndex]
+        
+        let descConditions = "\(typeText) \(matchText) \(rule.conditions[0].values[0])"
+        
+        
+        let actionTypeIndex = RulesOption.actionsType.firstIndex(of: rule.actions[0].type) ?? 0
+        let actionTypeText = RulesOption.actionsTypeName[actionTypeIndex]
+        
+        let descActions = if rule.actions[0].type == "forwardTo" && !recipients.isEmpty {
+            "\(actionTypeText) \(recipients.first(where: {$0.id == rule.actions[0].value})!.email)"
+        } else {
+            "\(actionTypeText) \(rule.actions[0].value)"
+        }
+        
         
         return String(format: NSLocalizedString("manage_rules_list_desc", comment: ""), descConditions, descActions)
-        
     }
     
     

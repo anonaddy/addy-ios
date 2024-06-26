@@ -10,41 +10,14 @@ import addy_shared
 import Lottie
 
 struct CreateRulesView: View {
-    
-    
-    let conditionsType = ["sender", "subject", "alias"]
-    let conditionsTypeName = [
-        NSLocalizedString("the_sender", comment: ""),
-        NSLocalizedString("the_subject", comment: ""),
-        NSLocalizedString("the_alias", comment: "")
-    ]
-    let conditionsMatch = ["contains", "does not contain", "is exactly", "is not", "starts with", "does not start with", "ends with", "does not end with"]
-    let conditionsMatchName = [
-        NSLocalizedString("contains", comment: ""),
-        NSLocalizedString("does_not_contain", comment: ""),
-        NSLocalizedString("is_exactly", comment: ""),
-        NSLocalizedString("is_not", comment: ""),
-        NSLocalizedString("starts_with", comment: ""),
-        NSLocalizedString("does_not_start_with", comment: ""),
-        NSLocalizedString("ends_with", comment: ""),
-        NSLocalizedString("does_not_end_with", comment: "")
-    ]
-    
-    let actionsType = ["subject", "displayFrom", "encryption", "banner", "block"]
-    let actionsTypeName = [
-        NSLocalizedString("replace_the_subject_with", comment: ""),
-        NSLocalizedString("replace_the_from_name_with", comment: ""),
-        NSLocalizedString("turn_PGP_encryption_off", comment: ""),
-        NSLocalizedString("set_the_banner_information_location_to", comment: ""),
-        NSLocalizedString("block_the_email", comment: "")
-    ]
-    
+
     
     enum ActiveAlert {
         case error
     }
     
     let ruleId: String
+    var recipients: [Recipients] = []
     @State var ruleName: String
     @State var ruleNamePlaceholder: String = String(localized: "enter_name")
     
@@ -81,7 +54,10 @@ struct CreateRulesView: View {
     @State private var isPresentingAddNewActionBottomSheet = false
     @State private var isPresentingAddNewConditionBottomSheet = false
     
-    init(ruleId: String?, ruleName: String, shouldReloadDataInParent: Binding<Bool>) {
+    
+    init(recipients: [Recipients], ruleId: String?, ruleName: String, shouldReloadDataInParent: Binding<Bool>) {
+        self.recipients = recipients
+
         if let ruleId = ruleId {
             self.ruleId = ruleId
             self.ruleName = ruleName
@@ -168,11 +144,11 @@ struct CreateRulesView: View {
                                     Spacer().frame(width: 10)
                                     VStack {
                                         
-                                        let typeIndex = conditionsType.firstIndex(of: condition.type) ?? 0
-                                        let matchIndex = conditionsMatch.firstIndex(of: condition.match) ?? 0
+                                        let typeIndex = RulesOption.conditionsType.firstIndex(of: condition.type) ?? 0
+                                        let matchIndex = RulesOption.conditionsMatch.firstIndex(of: condition.match) ?? 0
                                         
-                                        let typeText = conditionsTypeName[typeIndex]
-                                        let matchText = conditionsMatchName[matchIndex]
+                                        let typeText = RulesOption.conditionsTypeName[typeIndex]
+                                        let matchText = RulesOption.conditionsMatchName[matchIndex]
                                         
                                         Text(String(format: String(localized: "rule_if_"), "`\(typeText)` \(matchText)..."))
                                             .fontWeight(.medium)
@@ -189,7 +165,6 @@ struct CreateRulesView: View {
                                     VStack {
                                         Button {
                                             self.rule!.conditions.remove(at: self.rule!.conditions.firstIndex(where: {$0 == condition})!)
-                                            
                                         } label: {
                                             Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                         }.buttonStyle(PlainButtonStyle())
@@ -246,14 +221,17 @@ struct CreateRulesView: View {
                                 HStack {
                                     Spacer().frame(width: 10)
                                     VStack {
-                                        let typeIndex = actionsType.firstIndex(of: action.type) ?? 0
-                                        let typeText = actionsTypeName[typeIndex]
+                                        let typeIndex = RulesOption.actionsType.firstIndex(of: action.type) ?? 0
+                                        let typeText = RulesOption.actionsTypeName[typeIndex]
                                         
                                         Text(typeText)
                                             .fontWeight(.medium)
                                             .multilineTextAlignment(.center)
                                             .padding(.bottom, 1)
-                                        Text(action.value)
+                                        
+                                        let value = action.type == "forwardTo" ? recipients.first(where: {$0.id == action.value})!.email : action.value
+                                
+                                        Text(value)
                                             .font(.system(size: 14))
                                             .multilineTextAlignment(.center)
                                             .lineLimit(3)
@@ -325,7 +303,7 @@ struct CreateRulesView: View {
                 })
                 .sheet(item: $actionToEdit) { action in
                     NavigationStack {
-                        ActionBottomSheet(actionEditObject: action){ oldAction, modifiedAction in
+                        ActionBottomSheet(recipients: recipients, actionEditObject: action){ oldAction, modifiedAction in
                             
                             if let index = self.rule?.actions.firstIndex(where: { $0.id == oldAction?.id }) {
                                 self.rule?.actions[index] = modifiedAction
@@ -336,7 +314,7 @@ struct CreateRulesView: View {
                     }.presentationDetents([.large])
                 }.sheet(isPresented: $isPresentingAddNewActionBottomSheet) {
                     NavigationStack {
-                        ActionBottomSheet(actionEditObject: nil){ oldAction, modifiedAction in
+                        ActionBottomSheet(recipients: recipients, actionEditObject: nil){ oldAction, modifiedAction in
                             self.rule!.actions.append(modifiedAction)
                             isPresentingAddNewActionBottomSheet = false
                         }

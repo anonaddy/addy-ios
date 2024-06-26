@@ -2720,6 +2720,17 @@
         }
       }
     },
+    "forward_to" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forward to"
+          }
+        }
+      }
+    },
     "forwarded_blocked_stat" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3947,6 +3958,17 @@
         }
       }
     },
+    "remove_attachments" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove attachments"
+          }
+        }
+      }
+    },
     "remove_public_key" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4304,6 +4326,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select"
+          }
+        }
+      }
+    },
+    "select_a_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a recipient"
           }
         }
       }
@@ -5019,6 +5052,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "the alias"
+          }
+        }
+      }
+    },
+    "the_alias_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the alias description"
           }
         }
       }

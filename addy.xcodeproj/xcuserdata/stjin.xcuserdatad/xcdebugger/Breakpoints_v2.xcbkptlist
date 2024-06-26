@@ -1336,15 +1336,15 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "7FB481AC-E0EE-4276-BAAF-1021E62D5358"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "init(ruleId:ruleName:shouldReloadDataInParent:)"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1352,15 +1352,15 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "487E74CD-1215-474C-B7C4-A4C4F8144422"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "init(ruleId:ruleName:shouldReloadDataInParent:)"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1368,15 +1368,15 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "08F2A07F-7AD2-46C6-9804-0D8AB38AF5BC"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "init(ruleId:ruleName:shouldReloadDataInParent:)"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1390,9 +1390,9 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "init(ruleId:ruleName:shouldReloadDataInParent:)"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1406,9 +1406,9 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "init(ruleId:ruleName:shouldReloadDataInParent:)"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1422,9 +1422,9 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "init(ruleId:ruleName:shouldReloadDataInParent:)"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1438,9 +1438,9 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "init(ruleId:ruleName:shouldReloadDataInParent:)"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1448,14 +1448,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "29A5A786-96F4-4877-A803-E4B3780FA59A"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
+            startingLineNumber = "377"
+            endingLineNumber = "377"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1464,14 +1464,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "528CD89E-9C92-4D5C-9049-B6AB8689FCB1"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1480,14 +1480,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "62113F9A-5F97-42B6-A454-9400ED2E6D47"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1496,14 +1496,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A51C5FEE-964A-4978-9728-6E56515259DF"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1512,14 +1512,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "622F247D-1EF3-40B4-A9A8-95E811E71D10"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "403"
-            endingLineNumber = "403"
+            startingLineNumber = "381"
+            endingLineNumber = "381"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1528,14 +1528,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "4AE4E1BB-0574-43C4-9232-E7B8D68F4307"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "404"
-            endingLineNumber = "404"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1544,14 +1544,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "4F2D9940-3A2D-4AD3-88DD-03D26D12E884"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1560,14 +1560,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "45C68E20-7F53-4CC3-B631-CB02AF879BFE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1576,14 +1576,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D4608A40-7A2B-47A6-9EE0-CDF46B39A24A"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1592,14 +1592,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "75A7AC48-7A73-4231-97BB-2A520CACBE78"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1640,14 +1640,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "0710E0BA-919F-4A09-AD78-DAABFBEDE435"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "435"
-            endingLineNumber = "435"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "getRule(ruleId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1656,14 +1656,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B3971623-70A6-488C-9841-BBBBC6E48706"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "436"
-            endingLineNumber = "436"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
             landmarkName = "getRule(ruleId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1672,14 +1672,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "366C21D5-DC86-4628-B924-5E89256670C7"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "437"
-            endingLineNumber = "437"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
             landmarkName = "getRule(ruleId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1688,15 +1688,15 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "1687DF7E-1222-4E03-9685-B3219C01B18C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "init(ruleId:ruleName:shouldReloadDataInParent:)"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1710,9 +1710,9 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "init(ruleId:ruleName:shouldReloadDataInParent:)"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1720,14 +1720,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "731FC1E7-DEC9-476F-9E7E-E00C6D40C8D9"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "438"
-            endingLineNumber = "438"
+            startingLineNumber = "416"
+            endingLineNumber = "416"
             landmarkName = "getRule(ruleId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1736,14 +1736,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "71572A8B-2B80-41FC-92F1-92C4C9E3C5FD"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "439"
-            endingLineNumber = "439"
+            startingLineNumber = "417"
+            endingLineNumber = "417"
             landmarkName = "getRule(ruleId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1752,14 +1752,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2F3A44B6-7E8B-4AE4-B7FF-A611F9F7B192"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1768,14 +1768,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C44D46EE-3861-4A24-A9A6-B4663AD12B00"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1784,14 +1784,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "DFF0FE4D-9667-4AE1-B0C3-4FDBFF628E6D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1800,14 +1800,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B0237EE0-CE72-4F30-AEBC-189034889D74"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "356"
+            endingLineNumber = "356"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1816,14 +1816,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9DFE6D72-023E-4053-A44E-62754F1450E8"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "387"
-            endingLineNumber = "387"
+            startingLineNumber = "365"
+            endingLineNumber = "365"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1832,14 +1832,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "8A015F24-B747-47FB-B49C-A1CFE9A625E1"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1848,14 +1848,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "7701ADA2-FD20-4E3E-9244-B205C3B2EA35"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "388"
-            endingLineNumber = "388"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1864,14 +1864,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A0CADD46-CBFB-414E-A6AE-87A115F9318C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "389"
-            endingLineNumber = "389"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1880,14 +1880,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "8072EF43-B2EC-4714-8759-4968A8B69788"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "rulesViewBody"
             landmarkType = "24">
          </BreakpointContent>
@@ -1896,167 +1896,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "BF66E6BD-BBA7-4031-96C6-B883E28D8766"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/rules/RulesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "rulesViewBody"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2ACE26A1-AEB8-4972-AC4F-AA6539AC902A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/rules/RulesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "rulesViewBody"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B3AA9668-37F2-4A52-B311-1AD804189B8A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/rules/RulesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "rulesViewBody"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DAE21191-AB4A-4D7E-8AC6-C4FE8AD3B6CF"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/rules/RulesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "rulesViewBody"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3303F68A-E026-4BB2-B4B5-D9D9E6067F24"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/rules/RulesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "rulesViewBody"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8A92E697-8EBF-4E0D-9427-4E67F401E219"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/rules/RulesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "rulesViewBody"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "441A6DA2-C129-4DC9-A65F-5C84B50BCA71"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/rules/RulesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "rulesViewBody"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "ADBA2164-E2FF-4CFE-9831-D9FAFD5FCAB5"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/rules/RulesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "rulesViewBody"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "91C90CD2-A29F-47E6-BB20-355B288E817A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/rules/RulesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "rulesViewBody"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B85DB689-23CF-4DD4-86E4-292EC800EBEA"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/rules/RulesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "rulesViewBody"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3364C2A9-335B-4E80-9A1D-777F778654D5"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/rules/RulesView.swift"
@@ -2071,6 +1911,166 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "2ACE26A1-AEB8-4972-AC4F-AA6539AC902A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "rulesViewBody"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B3AA9668-37F2-4A52-B311-1AD804189B8A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "rulesViewBody"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DAE21191-AB4A-4D7E-8AC6-C4FE8AD3B6CF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "rulesViewBody"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3303F68A-E026-4BB2-B4B5-D9D9E6067F24"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "rulesViewBody"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8A92E697-8EBF-4E0D-9427-4E67F401E219"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "rulesViewBody"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "441A6DA2-C129-4DC9-A65F-5C84B50BCA71"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "rulesViewBody"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ADBA2164-E2FF-4CFE-9831-D9FAFD5FCAB5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "rulesViewBody"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "91C90CD2-A29F-47E6-BB20-355B288E817A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "rulesViewBody"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B85DB689-23CF-4DD4-86E4-292EC800EBEA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "rulesViewBody"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3364C2A9-335B-4E80-9A1D-777F778654D5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "rulesViewBody"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "A0AC3B3A-7D85-45F6-9A3D-D8145211B89D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -2078,9 +2078,9 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
-            landmarkName = "getRuleDescription(rule:)"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
+            landmarkName = "getRuleDescription(rule:recipients:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2094,9 +2094,9 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
-            landmarkName = "getRuleDescription(rule:)"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
+            landmarkName = "getRuleDescription(rule:recipients:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2110,9 +2110,9 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
-            landmarkName = "getRuleDescription(rule:)"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
+            landmarkName = "getRuleDescription(rule:recipients:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2200,7 +2200,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A5574CE9-D475-4949-ACB7-A71EADF23567"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
@@ -2216,7 +2216,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "223211A6-4ADE-43EF-8B57-30CEF3151C72"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
@@ -2232,7 +2232,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "8CF1E892-79D6-4754-A32E-9A569D569CC0"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
@@ -2296,7 +2296,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C7BA53D4-D680-4203-A122-D9C09CA19C98"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
@@ -2312,7 +2312,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A50800B9-54A7-4402-84B3-E6F3B43623F1"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
@@ -2529,6 +2529,70 @@
             startingLineNumber = "60"
             endingLineNumber = "60"
             landmarkName = "handleNotificationActions(response:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "073A07B9-D653-4F65-AF07-3E094DC0425B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
+            landmarkName = "getRuleDescription(rule:recipients:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0B456D31-EB5B-42E4-A136-FB2A8ABD2ED1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "326"
+            endingLineNumber = "326"
+            landmarkName = "getRuleDescription(rule:recipients:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8404264C-2880-455D-B089-C2ED1650972B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
+            landmarkName = "getRuleDescription(rule:recipients:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2B711603-B383-413F-836D-89B0A1B44BA9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/rules/RulesView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
+            landmarkName = "getRuleDescription(rule:recipients:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

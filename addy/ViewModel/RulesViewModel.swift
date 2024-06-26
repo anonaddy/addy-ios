@@ -12,6 +12,7 @@ import addy_shared
 class RulesViewModel: ObservableObject{
     
     @Published var rules: RulesArray? = nil
+    @Published var recipients: [Recipients] = []
 
     @Published var isLoading = false
     @Published var networkError:String = ""
@@ -22,20 +23,31 @@ class RulesViewModel: ObservableObject{
     
     func getRules(){
         if (!self.isLoading){
-            self.isLoading = true
-            self.networkError = ""
-            
+            DispatchQueue.main.async {
+                self.isLoading = true
+                self.networkError = ""
+        }
             let networkHelper = NetworkHelper()
-            networkHelper.getRules(completion: { rules, error in
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-
-                        if let rules = rules {
-                            self.rules = rules
-                        } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
+            networkHelper.getRecipients(verifiedOnly: false, completion: { recipients, error in
+                if let recipients = recipients {
+                    networkHelper.getRules(completion: { rules, error in
+                        DispatchQueue.main.async {
+                            self.isLoading = false
+                            
+                            if let rules = rules {
+                                self.rules = rules
+                                self.recipients = recipients
+                            } else {
+                                self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
+                            }
                         }
+                    })
+                } else {
+                    DispatchQueue.main.async {
+                        self.networkError = String(format: String(localized: "details_about_error_s"),"\(error ?? String(localized: "error_unknown_refer_to_logs"))")
                     }
+                    }
+                
             })
         }
     }
