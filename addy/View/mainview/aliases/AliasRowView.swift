@@ -43,7 +43,7 @@ struct AliasRowView: View {
             self.aliasDescription =  String(format: String(localized: "s_s"),
                                             String(format: NSLocalizedString("created_at_s", comment: ""),
                                                    DateTimeUtils.turnStringIntoLocalString(alias.created_at)),
-                                            String(format: String(localized: "created_at_s"),
+                                            String(format: String(localized: "updated_at_s"),
                                                    DateTimeUtils.turnStringIntoLocalString(alias.updated_at)))
         }
     }

@@ -57,9 +57,15 @@ class AliasesViewModel: ObservableObject{
     func searchAliases(searchQuery: String){
         // When something is being searched cancel the loading to make sure that the networkCall will succeed
         self.isLoading = false
+    
+        
         if searchQuery == ""{
             // Reset Data....
             self.aliasSortFilterRequest.filter = ""
+            
+            // When changing the search query, always reset the self.aliasList object to prevent pagenumbers from staying
+            self.aliasList = nil
+            
             Task {
                 await self.getAliases(forceReload:true)
             }
@@ -68,6 +74,10 @@ class AliasesViewModel: ObservableObject{
             if (searchQuery.count >= 3){
                 // search Data
                 self.aliasSortFilterRequest.filter = searchQuery
+                
+                // When changing the search query, always reset the self.aliasList object to prevent pagenumbers from staying
+                self.aliasList = nil
+                
                 Task {
                     await self.getAliases(forceReload:true)
                 }
@@ -155,9 +165,10 @@ class AliasesViewModel: ObservableObject{
                             self.aliasList?.data.append(contentsOf: aliasArray.data)
                         }
                         
-                        self.hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page
+                        self.hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page || self.aliasList?.data.isEmpty == true
                         
                     } else {
+                        self.hasArrivedAtTheLastPage = true
                         self.networkError = String(format: String(localized: "details_about_error_s"),"\(String(localized: "error_unknown_refer_to_logs"))")
                     }
                 }

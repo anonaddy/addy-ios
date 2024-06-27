@@ -66,7 +66,7 @@ class BackgroundWorkerHelper {
         let shouldCheckForUpdates = settingsManager.getSettingsBool(key: .notifyUpdates)
         let shouldCheckForFailedDeliveries = settingsManager.getSettingsBool(key: .notifyFailedDeliveries)
         let shouldCheckApiTokenExpiry = settingsManager.getSettingsBool(key: .notifyApiTokenExpiry, default: true)
-        let shouldMakePeriodicBackups = settingsManager.getSettingsBool(key:  .periodicBackups)
+        //let shouldMakePeriodicBackups = settingsManager.getSettingsBool(key:  .periodicBackups)
         
         // If there are
         // -aliases to be watched
@@ -80,7 +80,7 @@ class BackgroundWorkerHelper {
 #endif
 
         
-        return (!aliasToWatch.isEmpty || amountOfWidgets > 0 || shouldCheckForUpdates || shouldCheckForFailedDeliveries || shouldCheckApiTokenExpiry || shouldMakePeriodicBackups)
+        return (!aliasToWatch.isEmpty || amountOfWidgets > 0 || shouldCheckForUpdates || shouldCheckForFailedDeliveries || shouldCheckApiTokenExpiry)
     }
     
 }
