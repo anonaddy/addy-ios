@@ -149,7 +149,7 @@ struct FilterOptionsAliasBottomSheet: View {
                     }
                     
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
                     
                     Menu(content: {
                         Button(String(localized: "clear_filter")) {

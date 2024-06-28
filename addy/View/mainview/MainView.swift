@@ -238,7 +238,8 @@ struct MainView: View {
                     
                 }
                 Button(String(localized: "reset_app"), role: .destructive) {
-                    // TODO: RESET THE APP
+                    let settingsManager = SettingsManager(encrypted: true)
+                    settingsManager.clearSettingsAndCloseApp()
                 }
                 
             }

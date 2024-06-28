@@ -51,9 +51,8 @@ struct AliasesView: View {
 #endif
         NavigationStack(){
             List {
-                if let aliasList = aliasesViewModel.aliasList{
-                    
-                    
+                
+                if aliasesViewModel.networkError == "" {
                     Section {
                         AddyRoundedChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
                             withAnimation {
@@ -63,11 +62,9 @@ struct AliasesView: View {
                             ApplyFilter(chipId: onTappedChip.chipId)
                         }
                     }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-                    
-                    
-                    
-                    
-                    
+                }
+                
+                if let aliasList = aliasesViewModel.aliasList{
                     
                     // Only show the stats when the user is NOT searching and there is NO error
                     if (aliasesViewModel.searchQuery == "" &&
@@ -193,7 +190,10 @@ struct AliasesView: View {
                                 
                                 NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email, shouldReloadDataInParent: $shouldReloadDataInParent)
                                     .environmentObject(mainViewState)){
-                                        EmptyView()
+                                        EmptyView().onTapGesture {
+                                            // Dismiss the search controller when a result is selected
+                                            aliasesViewModel.searchQuery = ""
+                                        }
                                     }
                                     .opacity(0)
                                     .onChange(of: shouldReloadDataInParent) {
@@ -392,7 +392,9 @@ struct AliasesView: View {
                         
                         // Hide dialog and refresh aliases
                         isPresentingFilterOptionsAliasBottomSheet = false
+                        
                         Task {
+                            print("TIME TO GET ALIASES")
                             await aliasesViewModel.getAliases(forceReload: true)
                         }
                     }
@@ -506,6 +508,7 @@ struct AliasesView: View {
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_custom":
             isPresentingFilterOptionsAliasBottomSheet = true
+            return // Nothing to save yet so let's return
             
         default:
             aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
@@ -536,7 +539,6 @@ struct AliasesView: View {
             SettingsManager(encrypted: false).putSettingsString(key: .aliasSortFilter, string: jsonString)
         }
         
-        
         LoadFilter()
         
     }
@@ -564,7 +566,6 @@ struct AliasesView: View {
         // But after loading always try to get the searchQuery back into the filter so the user can continue searching.
         
         aliasesViewModel.aliasSortFilterRequest.filter = self.aliasesViewModel.searchQuery
-        
     }
     
     private func onPressSend(toString: String) {

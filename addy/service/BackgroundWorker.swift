@@ -39,26 +39,20 @@ class BackgroundWorker: Operation {
             
             let semaphore = DispatchSemaphore(value: 0)
 
-            DispatchQueue.global().async {
+            Task {
                 // Background work here
 
 #if DEBUG
                 print("BackgroundWorker task 1")
                 #endif
-                Task {
                     await networkHelper.cacheUserResourceForWidget()
-                    semaphore.signal()
-                }
-                semaphore.wait()
+                    
                 
 #if DEBUG
                 print("BackgroundWorker task 2")
                 #endif
-                Task {
                     await networkHelper.cacheMostPopularAliasesDataForWidget()
-                    semaphore.signal()
-                }
-                semaphore.wait()
+                    
                 
                 
                 
@@ -68,15 +62,12 @@ class BackgroundWorker: Operation {
 #if DEBUG
                 print("BackgroundWorker task 3")
                 #endif
-                Task {
                     do {
                         aliasWatcherNetworkCallResult = try await self.aliasWatcherTask(networkHelper: networkHelper, settingsManager: encryptedSettingsManager)
                     } catch {
                         print(error)
                     }
-                    semaphore.signal()
-                }
-                semaphore.wait()
+                
                 
                 /*
                  UPDATES
@@ -85,7 +76,6 @@ class BackgroundWorker: Operation {
 #if DEBUG
                 print("BackgroundWorker task 4")
                 #endif
-                Task {
                     if settingsManager.getSettingsBool(key: .notifyUpdates) {
                         do {
                             let (updateAvailable, latestVersion, _, _) = try await Updater().isUpdateAvailable()
@@ -98,9 +88,7 @@ class BackgroundWorker: Operation {
                             print("Failed to check for updates: \(error)")
                         }
                     }
-                    semaphore.signal()
-                }
-                semaphore.wait()
+                
 
                 
                 /*
@@ -110,7 +98,6 @@ class BackgroundWorker: Operation {
 #if DEBUG
                 print("BackgroundWorker task 5")
                 #endif
-                Task {
                     if settingsManager.getSettingsBool(key: .notifyApiTokenExpiry, default: true) {
                         do {
                             let apiTokenDetails = try await networkHelper.getApiTokenDetails()
@@ -144,9 +131,7 @@ class BackgroundWorker: Operation {
                                 extra: error.localizedDescription)
                         }
                     }
-                    semaphore.signal()
-                }
-                semaphore.wait()
+                
                 
 
                 
@@ -193,7 +178,6 @@ class BackgroundWorker: Operation {
 #if DEBUG
                 print("BackgroundWorker task 7")
                 #endif
-                Task {
                     if settingsManager.getSettingsBool(key: .notifySubscriptionExpiry, default: false) {
                         do {
                             let user = try await networkHelper.getUserResource()
@@ -227,9 +211,7 @@ class BackgroundWorker: Operation {
                                 extra: error.localizedDescription)
                         }
                     }
-                    semaphore.signal()
-                }
-                semaphore.wait()
+                
                 
                 
                 /*
@@ -260,7 +242,6 @@ class BackgroundWorker: Operation {
 #if DEBUG
                 print("BackgroundWorker task 8")
                 #endif
-                Task {
                     if settingsManager.getSettingsBool(key: .notifyFailedDeliveries) {
                         let _ = await networkHelper.cacheFailedDeliveryCountForWidgetAndBackgroundService()
                         // Store the result if the data succeeded to update in a boolean
@@ -273,9 +254,7 @@ class BackgroundWorker: Operation {
                         }
                         
                     }
-                    semaphore.signal()
-                }
-                semaphore.wait()
+                
 
                 // If the aliasNetwork call was successful, perform the check
                if (aliasWatcherNetworkCallResult) {

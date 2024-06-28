@@ -63,8 +63,6 @@ class AliasesViewModel: ObservableObject{
             // Reset Data....
             self.aliasSortFilterRequest.filter = ""
             
-            // When changing the search query, always reset the self.aliasList object to prevent pagenumbers from staying
-            self.aliasList = nil
             
             Task {
                 await self.getAliases(forceReload:true)
@@ -74,9 +72,6 @@ class AliasesViewModel: ObservableObject{
             if (searchQuery.count >= 3){
                 // search Data
                 self.aliasSortFilterRequest.filter = searchQuery
-                
-                // When changing the search query, always reset the self.aliasList object to prevent pagenumbers from staying
-                self.aliasList = nil
                 
                 Task {
                     await self.getAliases(forceReload:true)
@@ -92,13 +87,17 @@ class AliasesViewModel: ObservableObject{
                 self.isLoading = true
                 self.networkError = ""
             }
+            
             if (forceReload){
                 // This will make sure that the meta resets and jumps back to 0
                 // To prevent that the app continues loading from page X when performing a search after scrolling for a while
-                DispatchQueue.main.async {
-                    self.aliasList?.meta = nil
+                await MainActor.run {
+                    self.aliasList = nil
                 }
             }
+            
+            print ("page is \(aliasList?.meta?.current_page ?? 0)")
+
             
             let networkHelper = NetworkHelper()
             
@@ -154,7 +153,7 @@ class AliasesViewModel: ObservableObject{
                     
                     if let aliasArray = aliasArray {
                         
-                        if (self.aliasList == nil || forceReload){
+                        if (self.aliasList == nil){
                             // If aliasList is empty, assign it
                             self.aliasList = aliasArray
                             
