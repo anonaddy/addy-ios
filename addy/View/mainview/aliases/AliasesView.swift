@@ -401,7 +401,6 @@ struct AliasesView: View {
                 }
                 .presentationDetents([.large])
             }
-            // Replace the current .sheet modifier with this one
             .sheet(item: $aliasToSendMailFrom) { alias in
                 NavigationStack {
                     EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email) { addresses in

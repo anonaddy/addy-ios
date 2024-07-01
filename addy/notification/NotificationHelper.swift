@@ -14,7 +14,7 @@ class NotificationHelper{
 
 
     
-    public func createAliasWatcherNotification(emailDifference: Int, id: String, email: String){
+    func createAliasWatcherNotification(emailDifference: Int, id: String, email: String){
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_new_emails")
         
@@ -50,7 +50,7 @@ class NotificationHelper{
         
     }
     
-    public func createAliasWatcherAliasDoesNotExistAnymoreNotification(email: String){
+    func createAliasWatcherAliasDoesNotExistAnymoreNotification(email: String){
         
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_alias_watches_alias_does_not_exist_anymore")
@@ -74,7 +74,7 @@ class NotificationHelper{
         UNUserNotificationCenter.current().add(request)
     }
  
-    public func createUpdateNotification(version: String){
+    func createUpdateNotification(version: String){
         
         let content = UNMutableNotificationContent()
         content.title = String(localized: "new_update_available")
@@ -102,7 +102,7 @@ class NotificationHelper{
     
     
     
-    public func createApiTokenExpiryNotification(daysLeft: String){
+    func createApiTokenExpiryNotification(daysLeft: String){
         
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_api_token_about_to_expire")
@@ -127,7 +127,7 @@ class NotificationHelper{
         
         
     }       
-    public func createSubscriptionExpiryNotification(daysLeft: String){
+    func createSubscriptionExpiryNotification(daysLeft: String){
         
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_subscription_about_to_expire")
@@ -152,7 +152,7 @@ class NotificationHelper{
         
         
     }   
-    public func createDomainErrorNotification(count: Int){
+    func createDomainErrorNotification(count: Int){
         
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_domain_error")
@@ -176,7 +176,7 @@ class NotificationHelper{
         
     }
     
-    public func createFailedDeliveryNotification(difference: Int){
+    func createFailedDeliveryNotification(difference: Int){
 
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_new_failed_delivery")

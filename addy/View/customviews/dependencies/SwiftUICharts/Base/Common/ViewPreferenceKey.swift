@@ -1,7 +1,7 @@
 import SwiftUI
 
-public protocol ViewPreferenceKey: PreferenceKey where Value == [ViewSizeData] {
-    
+public protocol ViewPreferenceKey: PreferenceKey {
+    typealias Value = [ViewSizeData]
 }
 
 public extension ViewPreferenceKey {

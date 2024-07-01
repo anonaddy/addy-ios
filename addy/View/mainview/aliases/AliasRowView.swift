@@ -74,6 +74,7 @@ struct AliasRowView: View {
                                                                              ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
                                                                              ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
                                                                              ColorGradient(.softRed, .softRed.opacity(0.7))]))
+                                    .allowsHitTesting(false)
                                     .padding(.horizontal).padding(.top)
                             )
                             .clipShape(RoundedRectangle(cornerRadius: 13))
@@ -152,6 +153,7 @@ struct AliasRowView: View {
                                                                  ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
                                                                  ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
                                                                  ColorGradient(.softRed, .softRed.opacity(0.7))]))
+                        .allowsHitTesting(false)
                         .frame(width: 60)
                         .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 12))
                         .grayscale(alias.active ? 0 : 1)

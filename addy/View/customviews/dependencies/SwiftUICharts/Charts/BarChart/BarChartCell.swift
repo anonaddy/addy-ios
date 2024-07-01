@@ -20,8 +20,7 @@ public struct BarChartCell: View {
 
     public var body: some View {
         BarChartCellShape(value: didCellAppear ? value : 0.0)
-        .fill(gradientColor.linearGradient(from: .bottom, to: .top))        
-        .onAppear {
+        .fill(gradientColor.linearGradient(from: .bottom, to: .top))        .onAppear {
             self.didCellAppear = true
         }
         .onDisappear {

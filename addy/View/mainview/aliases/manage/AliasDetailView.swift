@@ -73,6 +73,7 @@ struct AliasDetailView: View {
                                                                          ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
                                                                          ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
                                                                          ColorGradient(.softRed, .softRed.opacity(0.7))]))
+                                .allowsHitTesting(false)
                                 .frame(maxWidth: .infinity)
                             Spacer()
                             

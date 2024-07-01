@@ -9,23 +9,23 @@
 import SwiftUI
 import addy_shared
 
-public struct RulesOption {
-    public static let bannerLocationOptions = ["top", "bottom", "off"]
-    public static let bannerLocationOptionName = [
+struct RulesOption {
+    static let bannerLocationOptions = ["top", "bottom", "off"]
+    static let bannerLocationOptionName = [
         NSLocalizedString("rule_bannerlocation_top", comment: ""),
         NSLocalizedString("rule_bannerlocation_bottom", comment: ""),
         NSLocalizedString("rule_bannerlocation_off", comment: "")
     ]
     
-    public static let conditionsType = ["sender", "subject", "alias", "alias_description"]
-    public static let conditionsTypeName = [
+    static let conditionsType = ["sender", "subject", "alias", "alias_description"]
+    static let conditionsTypeName = [
         NSLocalizedString("the_sender", comment: ""),
         NSLocalizedString("the_subject", comment: ""),
         NSLocalizedString("the_alias", comment: ""),
         NSLocalizedString("the_alias_description", comment: "")
     ]
-    public static let conditionsMatch = ["contains", "does not contain", "is exactly", "is not", "starts with", "does not start with", "ends with", "does not end with"]
-    public static let conditionsMatchName = [
+    static let conditionsMatch = ["contains", "does not contain", "is exactly", "is not", "starts with", "does not start with", "ends with", "does not end with"]
+    static let conditionsMatchName = [
         NSLocalizedString("contains", comment: ""),
         NSLocalizedString("does_not_contain", comment: ""),
         NSLocalizedString("is_exactly", comment: ""),
@@ -36,8 +36,8 @@ public struct RulesOption {
         NSLocalizedString("does_not_end_with", comment: "")
     ]
     
-    public static let actionsType = ["subject", "displayFrom", "encryption", "banner", "block", "removeAttachments", "forwardTo"]
-    public static let actionsTypeName = [
+    static let actionsType = ["subject", "displayFrom", "encryption", "banner", "block", "removeAttachments", "forwardTo"]
+    static let actionsTypeName = [
         NSLocalizedString("replace_the_subject_with", comment: ""),
         NSLocalizedString("replace_the_from_name_with", comment: ""),
         NSLocalizedString("turn_PGP_encryption_off", comment: ""),
@@ -59,12 +59,6 @@ struct RulesView: View {
     @State private var showAlert: Bool = false
     
     @State private var ruleToDelete: Rules? = nil
-    
-    
-    
-    @State private var selectedActionsType = "subject"
-    @State private var selectedBannerLocationOptions = "top"
-    
     
     // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
     @State private var rule_count: Int = 0

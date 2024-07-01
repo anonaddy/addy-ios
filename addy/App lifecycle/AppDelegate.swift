@@ -10,14 +10,11 @@ import SwiftUI
 import BackgroundTasks
 import addy_shared
 
-
-
-
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     
-    
+
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         if let shortcutItem = options.shortcutItem {
             QuickActionsManager.instance.handleQaItem(shortcutItem)
@@ -100,5 +97,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         QuickActionsManager.instance.handleQaItem(shortcutItem)
+    }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let url = URLContexts.first?.url {
+            if url.scheme == "mailto" {
+                // Handle the email URL
+                let email = url.path
+                MainViewState.shared.mailToActionSheetData = MailToActionSheetData(value: url.absoluteString)
+                return
+            }
+        }
+    }
+    
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        if let urlContext = connectionOptions.urlContexts.first {
+            let url = urlContext.url
+            if url.scheme?.lowercased() == "mailto" {
+                // Handle mailto URL
+                let email = url.path
+                MainViewState.shared.mailToActionSheetData = MailToActionSheetData(value: url.absoluteString)
+
+            }
+        }
     }
 }

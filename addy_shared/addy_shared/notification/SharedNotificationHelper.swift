@@ -8,9 +8,9 @@
 import Foundation
 import UserNotifications
 
-public class SharedNotificationHelper {
+class SharedNotificationHelper {
     
-    public static func createAppResetDueToInvalidAPIKeyNotification(){
+    static func createAppResetDueToInvalidAPIKeyNotification(){
         
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_app_reset")

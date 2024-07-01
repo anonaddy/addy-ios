@@ -8,7 +8,7 @@
 import UserNotifications
 import addy_shared
 
-public struct notificationActions {
+struct notificationActions {
     static let openSettings = "openSettings"
     static let openAlias = "openAlias"
     static let disableAlias = "disableAlias"
@@ -30,7 +30,7 @@ public struct notificationActions {
 class NotificationActionHelper {
     
     
-    public func handleNotificationActions(response: UNNotificationResponse){
+    func handleNotificationActions(response: UNNotificationResponse){
         
         // Notification button actions
         switch response.actionIdentifier {

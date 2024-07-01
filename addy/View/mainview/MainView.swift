@@ -12,7 +12,6 @@ import LocalAuthentication
 
 class MainViewState: ObservableObject {
     
-    @Environment(\.horizontalSizeClass) var horizontalSize
 
     static let shared = MainViewState() // Shared instance
     
@@ -24,6 +23,10 @@ class MainViewState: ObservableObject {
     // MARK: SHORTCUT ACTIONS
     @Published var showAddAliasBottomSheet = false
     // MARK: END SHORTCUT ACTIONS
+    
+    // MARK: Share sheet AND MailTo tap action
+    @Published var mailToActionSheetData: MailToActionSheetData? = nil
+    // MARK: END Share sheet AND MailTo tap action
 
     
     @Published var isPresentingProfileBottomSheet = false
@@ -110,9 +113,6 @@ struct MainView: View {
     @State var isShowingFailedDeliveriesView = false
     @State var isShowingDomainsView = false
     @State private var isPresentingChangelogBottomSheet = false
-    @State private var isShowingUsernamesView = false
-    @State private var isShowingRulesView = false
-    @State private var navigationPath = NavigationPath()
     @State private var showBiometricsNotAvailableAlert = false
     @State var isShowingAddApiBottomSheet: Bool = false
     @Environment(\.horizontalSizeClass) var horizontalSize
@@ -175,6 +175,12 @@ struct MainView: View {
                                 FailedDeliveriesView(horizontalSize: horizontalSize)
                             }
                             .presentationDetents([.large])
+                        }
+                        .sheet(item: $mainViewState.mailToActionSheetData) { data in
+                            // Has its own navigationStack
+                            MailToActionSheet(mailToActionSheetData: mainViewState.mailToActionSheetData!, openedThroughShareSheet: false)
+                            .presentationDetents([.fraction(0.2)])
+                            .presentationDragIndicator(.visible)
                         }
                         .sheet(isPresented: $isPresentingChangelogBottomSheet, content: {
                             NavigationStack {

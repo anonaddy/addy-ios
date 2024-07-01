@@ -3430,28 +3430,6 @@
         }
       }
     },
-    "notification_app_reset" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "App has been reset"
-          }
-        }
-      }
-    },
-    "notification_app_reset_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The API key for addy.io expired or was revoked, to protect user data the app has been reset"
-          }
-        }
-      }
-    },
     "notification_domain_error" : {
       "extractionState" : "manual",
       "localizations" : {

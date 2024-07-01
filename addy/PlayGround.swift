@@ -21,6 +21,7 @@ struct PlayGround: View {
                                                                          ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
                                                                          ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
                                                                          ColorGradient(.softRed, .softRed.opacity(0.7))]))
+                                .allowsHitTesting(false)
                                 .padding(.horizontal).padding(.top)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 13))

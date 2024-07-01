@@ -37,21 +37,19 @@ class BackgroundWorker: Operation {
              In this code, semaphore.signal() is called when each asynchronous function completes, and semaphore.wait() is used to block the current queue until the previous function has signaled completion.
              */
             
-            let semaphore = DispatchSemaphore(value: 0)
-
             Task {
                 // Background work here
 
 #if DEBUG
                 print("BackgroundWorker task 1")
                 #endif
-                    await networkHelper.cacheUserResourceForWidget()
+                    _ = await networkHelper.cacheUserResourceForWidget()
                     
                 
 #if DEBUG
                 print("BackgroundWorker task 2")
                 #endif
-                    await networkHelper.cacheMostPopularAliasesDataForWidget()
+                _ = await networkHelper.cacheMostPopularAliasesDataForWidget()
                     
                 
                 
@@ -63,7 +61,7 @@ class BackgroundWorker: Operation {
                 print("BackgroundWorker task 3")
                 #endif
                     do {
-                        aliasWatcherNetworkCallResult = try await self.aliasWatcherTask(networkHelper: networkHelper, settingsManager: encryptedSettingsManager)
+                        _ = try await self.aliasWatcherTask(networkHelper: networkHelper, settingsManager: encryptedSettingsManager)
                     } catch {
                         print(error)
                     }
@@ -167,9 +165,7 @@ class BackgroundWorker: Operation {
                             print("Failed to get domains: \(error)")
                         }
                     }
-                    semaphore.signal()
                 }
-                semaphore.wait()
                 
                 /*
                  SUBSCRIPTION EXPIRY
@@ -256,11 +252,9 @@ class BackgroundWorker: Operation {
                     }
                 
 
-                // If the aliasNetwork call was successful, perform the check
-               if (aliasWatcherNetworkCallResult) {
-                   // Now the data has been updated, perform the AliasWatcher check
-                   AliasWatcher().watchAliasesForDifferences()
-               }
+               // Now the data has been updated, perform the AliasWatcher check
+               AliasWatcher().watchAliasesForDifferences()
+               
                 
                 // Now the data has been updated, we can update the widget as well
                 WidgetCenter.shared.reloadAllTimelines()

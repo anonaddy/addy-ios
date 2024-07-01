@@ -25,7 +25,6 @@ public class SettingsManager {
         case periodicBackups
         case backupsLocation
         case notifyFailedDeliveries
-        case manageMultipleAliases
         case notifyApiTokenExpiry
         case notifyDomainError
         case notifySubscriptionExpiry
@@ -39,18 +38,11 @@ public class SettingsManager {
         case backupsPassword
         case userResource
         case userResourceExtended
-        case wearosSkipAliasCreateGuide
-        case wearosFavoriteAliases
-        case disableWearosQuickSetupDialog
-        case selectedWearosDevice
+        // WearOS
         case backgroundServiceCacheFavoriteAliasesData
         case backgroundServiceCacheMostActiveAliasesData
         case backgroundServiceCacheLastUpdatedAliasesData
-        case backgroundServiceCacheDomainCount
         case backgroundServiceCacheUserResource
-        case backgroundServiceCacheUsernameCount
-        case backgroundServiceCacheRulesCount
-        case backgroundServiceCacheRecipientCount
         case backgroundServiceCacheFailedDeliveriesCount
         case backgroundServiceCacheApiKeyExpiryLeftCount
         case backgroundServiceCacheSubscriptionExpiryLeftCount
@@ -208,6 +200,13 @@ public class SettingsManager {
             UserDefaults.standard.removePersistentDomain(forName: domain)
             UserDefaults.standard.synchronize()
         }
+
+        #if DEBUG
+        // Don't clear logs on debug
+#else
+        LoggingHelper().clearLogs()
+#endif
+        
     }
     
         /*
