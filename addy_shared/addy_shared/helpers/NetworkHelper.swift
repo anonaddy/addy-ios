@@ -116,7 +116,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -167,7 +167,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -227,7 +227,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -274,7 +274,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -322,7 +322,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -369,7 +369,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -416,7 +416,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -463,7 +463,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -510,7 +510,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -559,7 +559,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -607,7 +607,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -655,7 +655,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -702,7 +702,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -751,7 +751,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -799,7 +799,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -847,7 +847,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -896,7 +896,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -944,7 +944,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1000,7 +1000,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1051,7 +1051,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1104,7 +1104,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1159,7 +1159,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1211,7 +1211,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1262,7 +1262,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1308,7 +1308,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1355,7 +1355,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1407,7 +1407,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1453,7 +1453,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1506,7 +1506,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1558,7 +1558,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1604,7 +1604,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1650,7 +1650,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1696,7 +1696,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1742,7 +1742,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1788,7 +1788,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1835,7 +1835,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1886,7 +1886,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1933,7 +1933,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -1980,7 +1980,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2031,7 +2031,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2083,7 +2083,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2131,7 +2131,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2187,7 +2187,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2241,7 +2241,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2293,7 +2293,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2344,7 +2344,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2403,7 +2403,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2459,7 +2459,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2507,7 +2507,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2553,7 +2553,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2599,7 +2599,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2645,7 +2645,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2691,7 +2691,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2737,7 +2737,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2783,7 +2783,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2835,7 +2835,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2886,7 +2886,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2938,7 +2938,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -2990,7 +2990,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -3041,7 +3041,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -3092,7 +3092,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -3143,7 +3143,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -3194,7 +3194,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -3245,7 +3245,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -3335,7 +3335,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -3387,7 +3387,7 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: "401, app will reset",
                 method: #function,
-                extra: "data: \(data), headers: \(getHeaders().description)")
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()

@@ -19,7 +19,8 @@ public struct BarChartRow: View {
             HStack(alignment: .bottom,
                    spacing: geometry.frame(in: .local).width / CGFloat(chartData.data.count * 3)) {
                     ForEach(0..<chartData.data.count, id: \.self) { index in
-                        BarChartCell(value: chartData.normalisedPoints[index],
+                        // chartData.normalisedPoints[index] > 0.1 to make sure to set the minimum bar to 10% so it looks good to the user
+                                    BarChartCell(value: chartData.normalisedPoints[index] > 0.1 ? chartData.normalisedPoints[index] : 0.1,
                                      index: index,
                                      gradientColor: self.style.foregroundColor.rotate(for: index),
                                      touchLocation: self.touchLocation)
