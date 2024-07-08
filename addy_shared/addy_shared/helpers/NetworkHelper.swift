@@ -962,7 +962,7 @@ public class NetworkHelper {
     }
     
     
-    public func addAlias(domain: String, description: String, format: String, localPart: String, recipients: [String]) async throws -> Aliases? {
+    public func addAlias(domain: String, description: String, format: String, localPart: String, recipients: [String]?) async throws -> Aliases? {
 #if DEBUG
         print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
 #endif
@@ -975,7 +975,7 @@ public class NetworkHelper {
                                    "description": description,
                                    "format": format,
                                    "local_part": localPart,
-                                   "recipient_ids": recipients]
+                                   "recipient_ids": recipients ?? []]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         request.httpBody = jsonData
         

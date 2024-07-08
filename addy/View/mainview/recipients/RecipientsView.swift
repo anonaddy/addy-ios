@@ -36,7 +36,7 @@ struct RecipientsView: View {
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     
-    @State var selectedFilterChip:String? = "all"
+    @State var selectedFilterChip:String = "all"
     @State var filterChips: [AddyChipModel] = []
     
     

@@ -1,40 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "cancel" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancel"
-          }
-        }
-      }
-    },
-    "Hello, World!" : {
-
-    },
-    "integration_mailto_alias" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Email action integration"
-          }
-        }
-      }
-    },
-    "intent_checking_address" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Checking address…"
-          }
-        }
-      }
-    },
     "logs_cleared" : {
       "localizations" : {
         "en" : {
@@ -64,6 +30,9 @@
           }
         }
       }
+    },
+    "system_default" : {
+
     }
   },
   "version" : "1.0"

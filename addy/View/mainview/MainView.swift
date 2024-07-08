@@ -130,6 +130,10 @@ struct MainView: View {
                     SplashView()
                 } else {
                     tabView
+                        .onOpenURL { url in
+                            // handle the in coming url or call a function
+                            handleURL(url: url)
+                        }
                         .onAppear(perform: {
                             
                             // Schedule background tasks
@@ -168,6 +172,7 @@ struct MainView: View {
                                                    horizontalSize:  horizontalSize)
                                 .environmentObject(mainViewState)
                             }
+                            .interactiveDismissDisabled()
                             .presentationDetents([.large])
                         }
                         .sheet(isPresented: $mainViewState.isPresentingFailedDeliveriesSheet) {
@@ -178,8 +183,20 @@ struct MainView: View {
                         }
                         .sheet(item: $mainViewState.mailToActionSheetData) { data in
                             // Has its own navigationStack
-                            MailToActionSheet(mailToActionSheetData: mainViewState.mailToActionSheetData!, openedThroughShareSheet: false)
-                            .presentationDetents([.fraction(0.2)])
+                            MailToActionSheet(mailToActionSheetData: mainViewState.mailToActionSheetData!, openedThroughShareSheet: false, returnToApp: { aliasId in
+                                mainViewState.mailToActionSheetData = nil
+                                
+                                    MainViewState.shared.showAliasWithId = aliasId
+                                    MainViewState.shared.selectedTab = .aliases
+                                
+                            }, close: {
+                                mainViewState.mailToActionSheetData = nil
+                            }, openMailToShareSheet: { url in
+                                UIApplication.shared.open(url, options: [:], completionHandler: { _ in 
+                                    mainViewState.mailToActionSheetData = nil
+                                })
+                            })
+                            .presentationDetents([.large])
                             .presentationDragIndicator(.visible)
                         }
                         .sheet(isPresented: $isPresentingChangelogBottomSheet, content: {
@@ -257,6 +274,17 @@ struct MainView: View {
         
     }
     
+    
+    private func handleURL(url: URL) {
+        switch url.host {
+        case "alias":
+            // change the selected tab from the tabbar
+            MainViewState.shared.showAliasWithId = url.lastPathComponent
+            MainViewState.shared.selectedTab = .aliases
+        default:
+            break
+        }
+    }
     
     
     private func checkForSubscriptionExpiration() async {

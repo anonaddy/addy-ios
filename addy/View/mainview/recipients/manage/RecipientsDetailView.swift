@@ -1,5 +1,5 @@
 //
-//  AliasDetailView.swift
+//  RecipientsDetailView.swift
 //  addy
 //
 //  Created by Stijn van de Water on 08/05/2024.

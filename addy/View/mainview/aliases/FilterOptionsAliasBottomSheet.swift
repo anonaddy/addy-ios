@@ -25,7 +25,7 @@ struct FilterOptionsAliasBottomSheet: View {
     @State private var sortSelection: Int = 0
     @State private var aliasSortFilterRequest: AliasSortFilterRequest
     
-    @State var selectedOrderChip:String? = "created_at"
+    @State var selectedOrderChip:String = "created_at"
     @State var orderChips: [AddyChipModel] = [
         AddyChipModel(chipId: "local_part",label: String(localized: "sort_localpart")),
         AddyChipModel(chipId: "domain",label: String(localized: "sort_domain")),

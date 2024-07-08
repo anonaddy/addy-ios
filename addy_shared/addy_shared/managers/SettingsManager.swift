@@ -66,19 +66,30 @@ public class SettingsManager {
     public init(encrypted: Bool, user: Int = 1) {
         self.user = user
         self.useKeychain = encrypted
-        
+#if DEBUG
+        let suiteName = "group.host.stjin.addy.debug.dev"
+
+        #else
+        let suiteName = "group.host.stjin.addy"
+#endif
+        keychain.accessGroup = suiteName
+
         if encrypted {
+            
             self.prefs = nil
         } else {
-            self.prefs = UserDefaults.standard
+            self.prefs = UserDefaults(suiteName: suiteName)
         }
+        
+        print("SettingsManager initialized with suiteName: \(suiteName)")
+
     }
     
     public func putSettingsBool(key: Prefs, boolean: Bool) {
         let userKey = "\(user)_\(key)"
         
         if useKeychain {
-            keychain.set(boolean, forKey: userKey)
+            keychain.set(boolean, forKey: userKey, withAccess: .accessibleAfterFirstUnlock)
         } else {
             prefs?.set(boolean, forKey: userKey)
         }
@@ -97,7 +108,7 @@ public class SettingsManager {
     public func putSettingsString(key: Prefs, string: String) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
-            keychain.set(string, forKey: userKey)
+            keychain.set(string, forKey: userKey, withAccess: .accessibleAfterFirstUnlock)
         } else {
             prefs?.set(string, forKey: userKey)
         }
@@ -115,7 +126,7 @@ public class SettingsManager {
     public func putSettingsInt(key: Prefs, int: Int) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
-            keychain.set("\(int)", forKey: userKey)
+            keychain.set("\(int)", forKey: userKey, withAccess: .accessibleAfterFirstUnlock)
         } else {
             prefs?.set(int, forKey: userKey)
         }
@@ -124,7 +135,6 @@ public class SettingsManager {
     public func getSettingsInt(key: Prefs, default: Int = 0) -> Int {
         let userKey = "\(user)_\(key)"
         if useKeychain {
-            let test = keychain.get(userKey)
             return Int(keychain.get(userKey) ?? String(`default`)) ?? `default`
         } else {
             if let value = prefs?.object(forKey: userKey) as? Int {
@@ -140,7 +150,7 @@ public class SettingsManager {
     func putSettingsFloat(key: Prefs, float: Float) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
-            keychain.set("\(float)", forKey: userKey)
+            keychain.set("\(float)", forKey: userKey, withAccess: .accessibleAfterFirstUnlock)
         } else {
             prefs?.set(float, forKey: userKey)
         }
@@ -160,7 +170,7 @@ public class SettingsManager {
         if useKeychain {
             let array = Array(mutableSet)
             if let data = try? JSONEncoder().encode(array) {
-                keychain.set(data, forKey: userKey)
+                keychain.set(data, forKey: userKey, withAccess: .accessibleAfterFirstUnlock)
             }
         } else {
             prefs?.set(Array(mutableSet), forKey: userKey)

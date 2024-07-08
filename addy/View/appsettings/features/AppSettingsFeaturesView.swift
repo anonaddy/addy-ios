@@ -30,7 +30,7 @@ struct AppSettingsFeaturesView: View {
                 }
                 
                 NavigationLink(destination: AppSettingsFeaturesNotifyDomainErrorView()){
-                    AddySection(title: String(localized: "feature_domain_error_notification"), description: String(localized: "feature_domain_error_notification_desc"), leadingSystemimage: "exclamationmark.icloud.fill", leadingSystemimageColor: .red)
+                    AddySection(title: String(localized: "feature_domain_error_notification"), description: String(localized: "notify_domain_error_feature_section_desc"), leadingSystemimage: "exclamationmark.icloud.fill", leadingSystemimageColor: .red)
                 }
                NavigationLink(destination: AppSettingsFeaturesNotifySubscriptionExpiryView()){
                    AddySection(title: String(localized: "feature_subscription_expiry_notification"), description: String(localized: "feature_subscription_expiry_notification_desc"), leadingSystemimage: "creditcard.fill", leadingSystemimageColor: .green)
@@ -41,7 +41,9 @@ struct AppSettingsFeaturesView: View {
             }
             
             Section {
-                
+                NavigationLink(destination: AppSettingsFeaturesMailToView()){
+                    AddySection(title: String(localized: "integration_mailto_alias"), description: String(localized: "integration_mailto_alias_desc"), leadingSystemimage: "square.and.arrow.up", leadingSystemimageColor: .blue)
+                 }
             } header: {
                 Text(String(localized: "integrations"))
             }

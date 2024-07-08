@@ -23,6 +23,7 @@
 		804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */; };
 		804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A72BE95B49001DDC8A /* AddyButton.swift */; };
 		804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */; };
+		8054592E2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8054592D2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift */; };
 		8058AD992C32B2470004AF81 /* ColorGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD772C32B2470004AF81 /* ColorGradient.swift */; };
 		8058AD9A2C32B2470004AF81 /* RingsChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD942C32B2470004AF81 /* RingsChart.swift */; };
 		8058AD9B2C32B2470004AF81 /* AxisLablesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD542C32B2470004AF81 /* AxisLablesData.swift */; };
@@ -98,8 +99,6 @@
 		806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F21382BE8F1B200EBEBC8 /* Assets.xcassets */; };
 		806F213C2BE8F1B200EBEBC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */; };
 		807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */; };
-		807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */; };
 		807515102C26C69E00DE2AC7 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */; };
 		807DB4832C1764620051DD8A /* AppearanceBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */; };
 		807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */; };
@@ -119,7 +118,32 @@
 		80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2042BECD840001A984B /* AliasesViewModel.swift */; };
 		80A7F2072BECFA5B001A984B /* AliasRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F2062BECFA5B001A984B /* AliasRowView.swift */; };
 		80AC67082BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */; };
-		80AC670C2BFB5DC1004D227D /* AnonAddyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC670B2BFB5DC1004D227D /* AnonAddyUtils.swift */; };
+		80B2FB462C3C425A009977B6 /* SendMailRecipientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB432C3C425A009977B6 /* SendMailRecipientView.swift */; };
+		80B2FB472C3C425A009977B6 /* MailToActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB442C3C425A009977B6 /* MailToActionSheet.swift */; };
+		80B2FB482C3C425A009977B6 /* MailToActionSheetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB422C3C425A009977B6 /* MailToActionSheetData.swift */; };
+		80B2FB6E2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB6D2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift */; };
+		80B2FB732C3C4328009977B6 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB6F2C3C4328009977B6 /* ValidatingFieldModel.swift */; };
+		80B2FB742C3C4328009977B6 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB712C3C4328009977B6 /* ValidatingTextField.swift */; };
+		80B2FB772C3C4331009977B6 /* CopiedToClipboardOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB762C3C4331009977B6 /* CopiedToClipboardOverlay.swift */; };
+		80B2FB782C3C4331009977B6 /* AddyRoundedChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */; };
+		80B2FB942C3C4388009977B6 /* AddyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB792C3C4388009977B6 /* AddyChipModel.swift */; };
+		80B2FB982C3C4452009977B6 /* MailToActionSheetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB422C3C425A009977B6 /* MailToActionSheetData.swift */; };
+		80B2FB992C3C4455009977B6 /* SendMailRecipientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB432C3C425A009977B6 /* SendMailRecipientView.swift */; };
+		80B2FB9A2C3C4461009977B6 /* MailToActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB442C3C425A009977B6 /* MailToActionSheet.swift */; };
+		80B2FB9B2C3C4466009977B6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
+		80B2FB9D2C3C4480009977B6 /* SendMailRecipientSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB6D2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift */; };
+		80B2FB9E2C3C4499009977B6 /* AddyRoundedChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */; };
+		80B2FB9F2C3C449E009977B6 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB712C3C4328009977B6 /* ValidatingTextField.swift */; };
+		80B2FBA02C3C44AF009977B6 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB6F2C3C4328009977B6 /* ValidatingFieldModel.swift */; };
+		80B2FBA12C3C44C3009977B6 /* CopiedToClipboardOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB762C3C4331009977B6 /* CopiedToClipboardOverlay.swift */; };
+		80B2FBAE2C3C4543009977B6 /* File.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80B2FBAD2C3C4543009977B6 /* File.txt */; };
+		80B2FBB02C3C48BA009977B6 /* File 2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80B2FBAF2C3C48BA009977B6 /* File 2.txt */; };
+		80B2FBB92C3C4C0A009977B6 /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBB82C3C4C0A009977B6 /* Apply.swift */; };
+		80B2FBBA2C3C4C18009977B6 /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBB82C3C4C0A009977B6 /* Apply.swift */; };
+		80B2FBBC2C3C4C4E009977B6 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 80B2FBBB2C3C4C4E009977B6 /* WrappingHStack */; };
+		80B2FBC82C3C4E6D009977B6 /* AnonAddyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBC72C3C4E6D009977B6 /* AnonAddyUtils.swift */; };
+		80B2FBC92C3C4E96009977B6 /* AnonAddyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBC72C3C4E6D009977B6 /* AnonAddyUtils.swift */; };
+		80B2FBCA2C3C4EB4009977B6 /* AddyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB792C3C4388009977B6 /* AddyChipModel.swift */; };
 		80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */; };
 		80CE87DD2C209CAD001ECF5C /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CE87DC2C209CA9001ECF5C /* ProfilePicture.swift */; };
 		80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */; };
@@ -128,7 +152,6 @@
 		80D4F2DB2C17084E00D313EC /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4F2DA2C17084E00D313EC /* AppSettingsView.swift */; };
 		80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */; };
 		80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */; };
-		80D8C7A62BF3D4E700933ED8 /* AddyRoundedChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D8C7A52BF3D4E700933ED8 /* AddyRoundedChipView.swift */; };
 		80DB9DB32C0DC7F2002B6486 /* DomainsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB9DB22C0DC7F2002B6486 /* DomainsViewModel.swift */; };
 		80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF39E2BF1095B0022690F /* AddyToggle.swift */; };
 		80DCF3A22BF117720022690F /* AliasWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCF3A12BF117720022690F /* AliasWatcher.swift */; };
@@ -232,6 +255,9 @@
 		804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupOnboarding.swift; sourceTree = "<group>"; };
 		804BE7A72BE95B49001DDC8A /* AddyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButton.swift; sourceTree = "<group>"; };
 		804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButtonStyle.swift; sourceTree = "<group>"; };
+		805459142C3975290087A170 /* addy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = addy.entitlements; sourceTree = "<group>"; };
+		805459152C39757A0087A170 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
+		8054592D2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesMailToView.swift; sourceTree = "<group>"; };
 		8058AD502C32B2470004AF81 /* AxisLabels+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AxisLabels+Extension.swift"; sourceTree = "<group>"; };
 		8058AD522C32B2470004AF81 /* AxisLabelsPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisLabelsPosition.swift; sourceTree = "<group>"; };
 		8058AD532C32B2470004AF81 /* AxisLabelsStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisLabelsStyle.swift; sourceTree = "<group>"; };
@@ -308,8 +334,6 @@
 		806F21342BE8F1B100EBEBC8 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		806F21382BE8F1B200EBEBC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingFieldModel.swift; sourceTree = "<group>"; };
-		807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
 		8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceBottomSheet.swift; sourceTree = "<group>"; };
 		807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipientBottomSheet.swift; sourceTree = "<group>"; };
@@ -329,7 +353,19 @@
 		80A7F2042BECD840001A984B /* AliasesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesViewModel.swift; sourceTree = "<group>"; };
 		80A7F2062BECFA5B001A984B /* AliasRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasRowView.swift; sourceTree = "<group>"; };
 		80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasSendMailRecipientBottomSheet.swift; sourceTree = "<group>"; };
-		80AC670B2BFB5DC1004D227D /* AnonAddyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonAddyUtils.swift; sourceTree = "<group>"; };
+		80B2FB422C3C425A009977B6 /* MailToActionSheetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailToActionSheetData.swift; sourceTree = "<group>"; };
+		80B2FB432C3C425A009977B6 /* SendMailRecipientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMailRecipientView.swift; sourceTree = "<group>"; };
+		80B2FB442C3C425A009977B6 /* MailToActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailToActionSheet.swift; sourceTree = "<group>"; };
+		80B2FB6D2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMailRecipientSearchViewModel.swift; sourceTree = "<group>"; };
+		80B2FB6F2C3C4328009977B6 /* ValidatingFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingFieldModel.swift; sourceTree = "<group>"; };
+		80B2FB712C3C4328009977B6 /* ValidatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
+		80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyRoundedChipView.swift; sourceTree = "<group>"; };
+		80B2FB762C3C4331009977B6 /* CopiedToClipboardOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopiedToClipboardOverlay.swift; sourceTree = "<group>"; };
+		80B2FB792C3C4388009977B6 /* AddyChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyChipModel.swift; sourceTree = "<group>"; };
+		80B2FBAD2C3C4543009977B6 /* File.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = File.txt; sourceTree = "<group>"; };
+		80B2FBAF2C3C48BA009977B6 /* File 2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "File 2.txt"; sourceTree = "<group>"; };
+		80B2FBB82C3C4C0A009977B6 /* Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apply.swift; sourceTree = "<group>"; };
+		80B2FBC72C3C4E6D009977B6 /* AnonAddyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonAddyUtils.swift; sourceTree = "<group>"; };
 		80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAliasLabelStyle.swift; sourceTree = "<group>"; };
 		80CE87DC2C209CA9001ECF5C /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
 		80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsViewModel.swift; sourceTree = "<group>"; };
@@ -338,7 +374,6 @@
 		80D4F2DA2C17084E00D313EC /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		80D82DC12BE95BAF009440DC /* AddyLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButton.swift; sourceTree = "<group>"; };
 		80D82DC22BE95BAF009440DC /* AddyLoadingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyLoadingButtonStyle.swift; sourceTree = "<group>"; };
-		80D8C7A52BF3D4E700933ED8 /* AddyRoundedChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyRoundedChipView.swift; sourceTree = "<group>"; };
 		80DB9DB22C0DC7F2002B6486 /* DomainsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainsViewModel.swift; sourceTree = "<group>"; };
 		80DCF39E2BF1095B0022690F /* AddyToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyToggle.swift; sourceTree = "<group>"; };
 		80DCF3A12BF117720022690F /* AliasWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasWatcher.swift; sourceTree = "<group>"; };
@@ -379,6 +414,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80B2FBBC2C3C4C4E009977B6 /* WrappingHStack in Frameworks */,
 				8042E07F2C3318E3001E8366 /* addy_shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +471,7 @@
 		8042E0722C3318DA001E8366 /* ShareExtension */ = {
 			isa = PBXGroup;
 			children = (
+				805459152C39757A0087A170 /* ShareExtension.entitlements */,
 				8042E0732C3318DA001E8366 /* ShareViewController.swift */,
 				8042E0782C3318DA001E8366 /* Info.plist */,
 			);
@@ -692,6 +729,7 @@
 			isa = PBXGroup;
 			children = (
 				805D66A22C1F4C860085CCED /* PrettyTime.swift */,
+				80B2FBB82C3C4C0A009977B6 /* Apply.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -721,6 +759,7 @@
 				806AE69E2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift */,
 				806AE6A02C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift */,
 				805D669F2C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift */,
+				8054592D2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift */,
 			);
 			path = features;
 			sourceTree = "<group>";
@@ -738,16 +777,17 @@
 		806D5F2B2BE94C3F00C5C109 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */,
+				80B2FB762C3C4331009977B6 /* CopiedToClipboardOverlay.swift */,
+				80B2FB722C3C4328009977B6 /* ValidatingTextField */,
 				809CB94F2C2358C900DBBD03 /* FailedDeliveriesIcon.swift */,
 				80CE87DC2C209CA9001ECF5C /* ProfilePicture.swift */,
 				80F22F352BEE34E1001176B4 /* dependencies */,
-				807338012BEA81DA00D0D7E0 /* ValidatingTextField */,
 				80D82DC32BE95BAF009440DC /* AddyLoadingButton */,
 				804BE7A92BE95B49001DDC8A /* AddyButton */,
 				80DCF39E2BF1095B0022690F /* AddyToggle.swift */,
 				80DCF3AD2BF1347F0022690F /* AddySection.swift */,
 				80E1946D2BF8DCE0005175EA /* AddySectionButton.swift */,
-				80D8C7A52BF3D4E700933ED8 /* AddyRoundedChipView.swift */,
 				80E194642BF8AE0C005175EA /* AddyMultiSelectChipView.swift */,
 				80E082632BF7D36700B51FB8 /* AddyBugFound.swift */,
 				806AE69B2C1A194800F3CA92 /* AddySettingsHeader.swift */,
@@ -790,6 +830,9 @@
 		806F21312BE8F1B100EBEBC8 /* addy */ = {
 			isa = PBXGroup;
 			children = (
+				80B2FB882C3C4388009977B6 /* models */,
+				805459142C3975290087A170 /* addy.entitlements */,
+				80B2FB452C3C425A009977B6 /* ShareExtension.Actions */,
 				805D66A12C1F4C810085CCED /* extensions */,
 				80ECA1022C1DADAF00788D75 /* App lifecycle */,
 				80AC67092BFB5DAC004D227D /* utils */,
@@ -803,6 +846,8 @@
 				806F21382BE8F1B200EBEBC8 /* Assets.xcassets */,
 				806F213A2BE8F1B200EBEBC8 /* Preview Content */,
 				801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */,
+				80B2FBAF2C3C48BA009977B6 /* File 2.txt */,
+				80B2FBAD2C3C4543009977B6 /* File.txt */,
 				80E574C72C2C2D7F0036C5DB /* PlayGround.swift */,
 			);
 			path = addy;
@@ -814,23 +859,6 @@
 				806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		807337FE2BEA7D1D00D0D7E0 /* models */ = {
-			isa = PBXGroup;
-			children = (
-				807337FF2BEA7D3500D0D7E0 /* ValidatingFieldModel.swift */,
-			);
-			path = models;
-			sourceTree = "<group>";
-		};
-		807338012BEA81DA00D0D7E0 /* ValidatingTextField */ = {
-			isa = PBXGroup;
-			children = (
-				807337FE2BEA7D1D00D0D7E0 /* models */,
-				807338022BEA81FC00D0D7E0 /* ValidatingTextField.swift */,
-			);
-			path = ValidatingTextField;
 			sourceTree = "<group>";
 		};
 		80813B6F2C0DF288009C4E6A /* faileddeliveries */ = {
@@ -860,9 +888,53 @@
 			isa = PBXGroup;
 			children = (
 				806AE6882C19EA3400F3CA92 /* Updater.swift */,
-				80AC670B2BFB5DC1004D227D /* AnonAddyUtils.swift */,
+				80B2FBC72C3C4E6D009977B6 /* AnonAddyUtils.swift */,
 			);
 			path = utils;
+			sourceTree = "<group>";
+		};
+		80B2FB452C3C425A009977B6 /* ShareExtension.Actions */ = {
+			isa = PBXGroup;
+			children = (
+				80B2FB9C2C3C4478009977B6 /* ViewModel */,
+				80B2FB422C3C425A009977B6 /* MailToActionSheetData.swift */,
+				80B2FB432C3C425A009977B6 /* SendMailRecipientView.swift */,
+				80B2FB442C3C425A009977B6 /* MailToActionSheet.swift */,
+			);
+			path = ShareExtension.Actions;
+			sourceTree = "<group>";
+		};
+		80B2FB702C3C4328009977B6 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				80B2FB6F2C3C4328009977B6 /* ValidatingFieldModel.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		80B2FB722C3C4328009977B6 /* ValidatingTextField */ = {
+			isa = PBXGroup;
+			children = (
+				80B2FB702C3C4328009977B6 /* models */,
+				80B2FB712C3C4328009977B6 /* ValidatingTextField.swift */,
+			);
+			path = ValidatingTextField;
+			sourceTree = "<group>";
+		};
+		80B2FB882C3C4388009977B6 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				80B2FB792C3C4388009977B6 /* AddyChipModel.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		80B2FB9C2C3C4478009977B6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				80B2FB6D2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		80BB84162BF00AAF005999C3 /* styles */ = {
@@ -1061,6 +1133,9 @@
 			dependencies = (
 			);
 			name = ShareExtension;
+			packageProductDependencies = (
+				80B2FBBB2C3C4C4E009977B6 /* WrappingHStack */,
+			);
 			productName = ShareExtension;
 			productReference = 8042E0712C3318DA001E8366 /* ShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1154,6 +1229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80B2FB9B2C3C4466009977B6 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1161,10 +1237,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80B2FBAE2C3C4543009977B6 /* File.txt in Resources */,
 				806AE6992C1A0D5700F3CA92 /* Settings.bundle in Resources */,
 				801B929F2BE8FF6800179EB5 /* Launch Screen.storyboard in Resources */,
 				806D5F252BE925C600C5C109 /* ic_loading_logo.shapeshifter.json in Resources */,
 				807515102C26C69E00DE2AC7 /* InfoPlist.xcstrings in Resources */,
+				80B2FBB02C3C48BA009977B6 /* File 2.txt in Resources */,
 				806F213C2BE8F1B200EBEBC8 /* Preview Assets.xcassets in Resources */,
 				801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */,
 				806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */,
@@ -1202,7 +1280,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80B2FB9D2C3C4480009977B6 /* SendMailRecipientSearchViewModel.swift in Sources */,
+				80B2FBCA2C3C4EB4009977B6 /* AddyChipModel.swift in Sources */,
+				80B2FB9F2C3C449E009977B6 /* ValidatingTextField.swift in Sources */,
+				80B2FBA12C3C44C3009977B6 /* CopiedToClipboardOverlay.swift in Sources */,
 				8042E0742C3318DA001E8366 /* ShareViewController.swift in Sources */,
+				80B2FB9E2C3C4499009977B6 /* AddyRoundedChipView.swift in Sources */,
+				80B2FB982C3C4452009977B6 /* MailToActionSheetData.swift in Sources */,
+				80B2FBA02C3C44AF009977B6 /* ValidatingFieldModel.swift in Sources */,
+				80B2FB992C3C4455009977B6 /* SendMailRecipientView.swift in Sources */,
+				80B2FBBA2C3C4C18009977B6 /* Apply.swift in Sources */,
+				80B2FBC92C3C4E96009977B6 /* AnonAddyUtils.swift in Sources */,
+				80B2FB9A2C3C4461009977B6 /* MailToActionSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1222,6 +1311,8 @@
 				80DCF3A22BF117720022690F /* AliasWatcher.swift in Sources */,
 				80E574C82C2C2D7F0036C5DB /* PlayGround.swift in Sources */,
 				80676D652C18CD64008FC147 /* LogViewerView.swift in Sources */,
+				80B2FB942C3C4388009977B6 /* AddyChipModel.swift in Sources */,
+				80B2FBC82C3C4E6D009977B6 /* AnonAddyUtils.swift in Sources */,
 				809CB9502C2358CA00DBBD03 /* FailedDeliveriesIcon.swift in Sources */,
 				80E082692BF7DA8200B51FB8 /* FilterOptionsAliasBottomSheet.swift in Sources */,
 				80813B752C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift in Sources */,
@@ -1236,11 +1327,11 @@
 				806AE6A12C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift in Sources */,
 				80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */,
 				80813B682C0DE234009C4E6A /* EditDomainFromNameBottomSheet.swift in Sources */,
+				80B2FB6E2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift in Sources */,
 				80ECA1012C1DA00100788D75 /* BackgroundWorkerHelper.swift in Sources */,
 				809F874F2C29D892002A89C0 /* QuickActionsManager.swift in Sources */,
 				805A74552C1F5FC200C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift in Sources */,
 				80DCF3AC2BF12E760022690F /* BackgroundWorker.swift in Sources */,
-				807338002BEA7D3500D0D7E0 /* ValidatingFieldModel.swift in Sources */,
 				80813B662C0DE21A009C4E6A /* EditDomainDescriptionBottomSheet.swift in Sources */,
 				80E9B23A2C0B9D8600C7EF99 /* GsonTools.swift in Sources */,
 				80E1946E2BF8DCE0005175EA /* AddySectionButton.swift in Sources */,
@@ -1248,6 +1339,9 @@
 				80E194632BF8A9BB005175EA /* EditAliasRecipientsBottomSheet.swift in Sources */,
 				809AB1C82C1F10FE0054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift in Sources */,
 				80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */,
+				80B2FB462C3C425A009977B6 /* SendMailRecipientView.swift in Sources */,
+				80B2FB472C3C425A009977B6 /* MailToActionSheet.swift in Sources */,
+				80B2FB482C3C425A009977B6 /* MailToActionSheetData.swift in Sources */,
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
 				80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */,
 				80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */,
@@ -1266,14 +1360,12 @@
 				805A74532C1F5C1600C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift in Sources */,
 				80477DDE2C12225D00E52AF8 /* RulesView.swift in Sources */,
 				804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */,
-				80AC670C2BFB5DC1004D227D /* AnonAddyUtils.swift in Sources */,
 				80CE87DD2C209CAD001ECF5C /* ProfilePicture.swift in Sources */,
 				80E9B2382C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift in Sources */,
 				80813B6E2C0DF23B009C4E6A /* FailedDeliveriesView.swift in Sources */,
 				80E84A2F2BEC119500C8D68A /* AliasDetailView.swift in Sources */,
 				80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */,
 				80DB9DB32C0DC7F2002B6486 /* DomainsViewModel.swift in Sources */,
-				80D8C7A62BF3D4E700933ED8 /* AddyRoundedChipView.swift in Sources */,
 				8058AD992C32B2470004AF81 /* ColorGradient.swift in Sources */,
 				8058AD9A2C32B2470004AF81 /* RingsChart.swift in Sources */,
 				8058AD9B2C32B2470004AF81 /* AxisLablesData.swift in Sources */,
@@ -1322,19 +1414,23 @@
 				8058ADC62C32B2470004AF81 /* ViewGeometry.swift in Sources */,
 				8058ADC72C32B2470004AF81 /* LineStyle.swift in Sources */,
 				8058ADC82C32B2470004AF81 /* IndicatorPoint.swift in Sources */,
+				80B2FB732C3C4328009977B6 /* ValidatingFieldModel.swift in Sources */,
+				80B2FB742C3C4328009977B6 /* ValidatingTextField.swift in Sources */,
 				8058ADC92C32B2470004AF81 /* Shape+Extension.swift in Sources */,
 				8058ADCA2C32B2470004AF81 /* PieChartHelpers.swift in Sources */,
 				8058ADCB2C32B2470004AF81 /* LineChartProperties.swift in Sources */,
 				8058ADCC2C32B2470004AF81 /* CardView.swift in Sources */,
 				805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */,
+				80B2FB772C3C4331009977B6 /* CopiedToClipboardOverlay.swift in Sources */,
+				80B2FB782C3C4331009977B6 /* AddyRoundedChipView.swift in Sources */,
 				80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */,
 				805D66A32C1F4C870085CCED /* PrettyTime.swift in Sources */,
 				80813B642C0DE1FF009C4E6A /* DomainsDetailView.swift in Sources */,
 				8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */,
 				80E9B22D2C0B238900C7EF99 /* AddUsernameBottomSheet.swift in Sources */,
+				8054592E2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift in Sources */,
 				806F21352BE8F1B100EBEBC8 /* SplashView.swift in Sources */,
 				80E082672BF7DA2B00B51FB8 /* AddApiBottomSheet.swift in Sources */,
-				807338032BEA81FC00D0D7E0 /* ValidatingTextField.swift in Sources */,
 				80E9B22E2C0B238900C7EF99 /* UsernamesView.swift in Sources */,
 				806F21332BE8F1B100EBEBC8 /* addyApp.swift in Sources */,
 				80676D672C18D27C008FC147 /* LogsViewModel.swift in Sources */,
@@ -1347,6 +1443,7 @@
 				807DB4832C1764620051DD8A /* AppearanceBottomSheet.swift in Sources */,
 				806D5F272BE92AB200C5C109 /* SetupView.swift in Sources */,
 				80813B712C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift in Sources */,
+				80B2FBB92C3C4C0A009977B6 /* Apply.swift in Sources */,
 				8062CFE02C1487B600EFFB4C /* ActionBottomSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1365,6 +1462,7 @@
 		8042E07D2C3318DA001E8366 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1394,6 +1492,7 @@
 		8042E07E2C3318DA001E8366 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1552,6 +1651,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1591,6 +1691,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1599,7 +1700,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = addy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
+				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for settings up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
@@ -1693,6 +1794,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 801B92A02BE905BB00179EB5 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		80B2FBBB2C3C4C4E009977B6 /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80E082792BF7F03C00B51FB8 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
 		};
 		80E0827A2BF7F03C00B51FB8 /* WrappingHStack */ = {
 			isa = XCSwiftPackageProductDependency;

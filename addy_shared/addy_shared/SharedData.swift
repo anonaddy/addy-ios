@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SharedData {
+public class SharedData {
     static let shared = SharedData()
         
     private init() {
@@ -16,10 +16,10 @@ class SharedData {
         let bundle = Bundle.main
 
         // Get the app's bundle identifier
-        let userAgentApplicationID = bundle.bundleIdentifier ?? "Unknown"
+        let userAgentApplicationID = bundle.bundleIdentifier ?? "UNKNOWN"
 
         // Get the app version
-        let userAgentVersion = bundle.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+        let userAgentVersion = bundle.infoDictionary?["CFBundleShortVersionString"] as? String ?? "UNKNOWN"
 
         // Get the app build number (similar to versionCode in Android)
         let userAgentVersionCode = Int(bundle.infoDictionary?["CFBundleVersion"] as? String ?? "0") ?? 0

@@ -1,5 +1,5 @@
 //
-//  CommonTextField.swift
+//  ValidatingTextField.swift
 //  addy
 //
 //  Created by Stijn van de Water on 07/05/2024.
@@ -8,13 +8,22 @@
 import SwiftUI
 import addy_shared
 
-struct ValidatingTextField: View {
+public struct ValidatingTextField: View {
     @Binding var value: String
     @Binding var placeholder: String
-    var fieldType: FieldType
+    public var fieldType: FieldType
     @Binding var error: String?
     
-    var body: some View {
+    // Add a public initializer
+    public init(value: Binding<String>, placeholder: Binding<String>, fieldType: FieldType, error: Binding<String?>) {
+        self._value = value
+        self._placeholder = placeholder
+        self.fieldType = fieldType
+        self._error = error
+    }
+    
+    
+    public var body: some View {
 
         VStack(alignment: .leading){
             if (fieldType == .bigText){

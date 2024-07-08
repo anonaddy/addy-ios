@@ -9,3 +9,5 @@ https://github.com/AppPear/ChartView (local)
 Lottie!
 https://github.com/ksemianov/WrappingHStack
 https://github.com/nmdias/FeedKit.git
+https://github.com/markiv/SwiftUI-Shimmer
+https://github.com/vtourraine/ThirdPartyMailer (local)

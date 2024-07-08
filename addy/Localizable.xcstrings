@@ -222,7 +222,6 @@
       }
     },
     "addresses" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1168,6 +1167,17 @@
         }
       }
     },
+    "copied_to_clipboard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copied to clipboard"
+          }
+        }
+      }
+    },
     "copy_alias" : {
       "localizations" : {
         "en" : {
@@ -2107,7 +2117,6 @@
       }
     },
     "error_adding_alias" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2430,7 +2439,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Receive a notification when a domain has configuration errors"
+            "value" : "Domain error notification"
           }
         }
       }
@@ -2910,6 +2919,28 @@
         }
       }
     },
+    "integration_mailto_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email action integration"
+          }
+        }
+      }
+    },
+    "integration_mailto_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create aliases on the go and send emails from an alias by highlighting an email address or tapping a mailto hyperlink.\n\nHighlight an email address that doesn't exist with your domain name and tap share, followed by the addy.io app icon to create this alias."
+          }
+        }
+      }
+    },
     "integrations" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2917,6 +2948,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Integrations"
+          }
+        }
+      }
+    },
+    "intent_alias_already_exists" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias already exists, opening alias settings…"
+          }
+        }
+      }
+    },
+    "intent_checking_address" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking address…"
+          }
+        }
+      }
+    },
+    "intent_creating_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creating alias %@…"
+          }
+        }
+      }
+    },
+    "intent_opening_send_mail_dialog" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opening send mail dialog…"
           }
         }
       }
@@ -3018,6 +3093,17 @@
         }
       }
     },
+    "loading_suggestions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading suggestions…"
+          }
+        }
+      }
+    },
     "logs" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3025,17 +3111,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Logs"
-          }
-        }
-      }
-    },
-    "logs_cleared" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Logs cleared"
           }
         }
       }
@@ -3353,6 +3428,17 @@
     "no_rules_desc" : {
 
     },
+    "no_suggestions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No suggestions"
+          }
+        }
+      }
+    },
     "not_a_valid_address" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3612,7 +3698,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This shouldn't take long..."
+            "value" : "This shouldn't take long…"
           }
         }
       }
@@ -3645,7 +3731,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Obtaining information..."
+            "value" : "Obtaining information…"
           }
         }
       }
@@ -4319,6 +4405,17 @@
         }
       }
     },
+    "select_mail_client" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select mail client"
+          }
+        }
+      }
+    },
     "select_menu_item" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4342,7 +4439,6 @@
       }
     },
     "send" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4353,7 +4449,6 @@
       }
     },
     "send_mail" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4370,6 +4465,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter the email addresses (comma separated) of the recipients you’d like to send an email to from %@.\n\nThe mail app on your device opens with the correct to addresses entered. Note that you must send this email from one of your verified recipients email address."
+          }
+        }
+      }
+    },
+    "send_mail_from_alias_from_intent_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the email addresses (comma separated) of the recipients you’d like to send an email to from an alias.\n\nAliases you enter that do not exist will be created automatically.\n\nThe mail app on your device opens with the correct to addresses entered. Note that you must send this email from one of your verified recipients email address.\n\nLeaving the alias field empty allows you to send emails from your own email address (not an alias)."
           }
         }
       }
@@ -4561,6 +4667,28 @@
         }
       }
     },
+    "show_suggestions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show suggestions"
+          }
+        }
+      }
+    },
+    "show_suggestions_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When searching for an alias, show suggestions for domains you own"
+          }
+        }
+      }
+    },
     "sign_in" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4584,23 +4712,14 @@
       }
     },
     "something_went_wrong_retrieving_aliases" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Something went wrong retrieving aliases"
-          }
-        }
-      }
+
     },
     "something_went_wrong_retrieving_domains" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Something went wrong retrieving domains"
+            "value" : "Something went wrong while retrieving the domains"
           }
         }
       }
@@ -4858,6 +4977,17 @@
         }
       }
     },
+    "start_typing_to_show_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start typing to show aliases"
+          }
+        }
+      }
+    },
     "starts_with" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5008,6 +5138,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Subscription expires on %@"
+          }
+        }
+      }
+    },
+    "suggestions_will_appear_when_typing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suggestions will start to appear as you start typing"
+          }
+        }
+      }
+    },
+    "system_default" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System Default"
           }
         }
       }
@@ -5446,6 +5598,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Whoops!"
+          }
+        }
+      }
+    },
+    "you_do_not_own_this_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You do not own this domain"
           }
         }
       }

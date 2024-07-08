@@ -99,6 +99,10 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
         QuickActionsManager.instance.handleQaItem(shortcutItem)
     }
     
+    /**
+     NOTE: Please note that even thought addy.io is able to parse mailto: URI's, it cannot be the default mail handler on iOS due to limitation with Apple's OS
+     https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_mail-client
+     */
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let url = URLContexts.first?.url {
             if url.scheme == "mailto" {

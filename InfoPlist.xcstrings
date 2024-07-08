@@ -8,7 +8,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "addy.io"
+            "value" : "addy.io (DEBUG)"
           }
         }
       }
@@ -49,7 +49,7 @@
         }
       }
     },
-    "SHORTCUT_ADD_ALIAS" : {
+    "shortcut_add_alias" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

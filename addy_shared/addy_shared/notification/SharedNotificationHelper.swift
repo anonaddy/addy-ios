@@ -13,8 +13,8 @@ class SharedNotificationHelper {
     static func createAppResetDueToInvalidAPIKeyNotification(){
         
         let content = UNMutableNotificationContent()
-        content.title = String(localized: "notification_app_reset")
-        content.subtitle = String(localized: "notification_app_reset_desc")
+        content.title = NSLocalizedString("notification_app_reset", bundle: Bundle(for: SharedNotificationHelper.self), comment: "")
+        content.subtitle = NSLocalizedString("notification_app_reset_desc", bundle: Bundle(for: SharedNotificationHelper.self), comment: "")
         content.sound = .default
         
         // show this notification five seconds from now

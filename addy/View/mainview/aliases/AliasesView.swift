@@ -36,12 +36,14 @@ struct AliasesView: View {
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     
-    @State var selectedFilterChip:String? = "filter_all_aliases"
+    @State var selectedFilterChip:String = "filter_all_aliases"
     @State var filterChips: [AddyChipModel] = []
     
     @Binding var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)? = nil
     
+    @State private var copiedToClipboard = false
+
     
     @Environment(\.scenePhase) var scenePhase
     
@@ -136,6 +138,8 @@ struct AliasesView: View {
                                     .contextMenu {
                                         Button {
                                             UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
+                                            showCopiedToClipboardAnimation()
+
                                         } label: {
                                             Label(String(localized: "copy_alias"), systemImage: "clipboard")
                                         }
@@ -207,6 +211,8 @@ struct AliasesView: View {
                                     .swipeActions(edge: .leading) {
                                         Button {
                                             UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
+                                            showCopiedToClipboardAnimation()
+
                                         } label: {
                                             Label(String(localized: "copy_alias"), systemImage: "clipboard")
                                         }.tint(Color.accentColor)
@@ -249,6 +255,10 @@ struct AliasesView: View {
                 }
                 
             }
+            .overlay {
+                CopiedToClipboardOverlay(copiedToClipboard: $copiedToClipboard)
+
+                    }
             .refreshable {
                 // When refreshing aliases also ask the mainView to update general data
                 self.onRefreshGeneralData?()
@@ -419,6 +429,8 @@ struct AliasesView: View {
                     AddAliasBottomSheet(){
                         // Hide dialog and refresh aliases
                         isPresentingAddAliasBottomSheet = false
+                        showCopiedToClipboardAnimation()
+
                         Task {
                             await aliasesViewModel.getAliases(forceReload: true)
                         }
@@ -450,6 +462,17 @@ struct AliasesView: View {
         
         
     }
+    
+    public func showCopiedToClipboardAnimation(){
+            withAnimation(.snappy) {
+                    copiedToClipboard = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    withAnimation(.snappy) {
+                        copiedToClipboard = false
+                    }
+                }
+        }
     
     func checkForAnyInteractiveActions(){
         // If there is an aliasToDisable or an showAliasWithId after switching to this tab
@@ -568,12 +591,13 @@ struct AliasesView: View {
     }
     
     private func onPressSend(toString: String) {
-        guard let alias = aliasInContextMenu else { return }
+        guard let alias = aliasToSendMailFrom else { return }
         // Get recipients
-        let recipients = AnonAddyUtils.getSendAddress(recipientEmails: toString, alias: alias)
+        let recipients = AnonAddyUtils.getSendAddress(recipientEmails: toString.split(separator: ",").map { String($0) }, alias: alias)
         
         // Copy the email addresses to clipboard
         UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
+        showCopiedToClipboardAnimation()
         
         // Prepare mailto URL
         let mailtoURL = AnonAddyUtils.createMailtoURL(recipients: recipients)

@@ -1,5 +1,5 @@
 //
-//  AddyCHip.swift
+//  AddyChipModel.swift
 //  addy
 //
 //  Created by Stijn van de Water on 14/05/2024.
@@ -9,25 +9,21 @@ import SwiftUI
 import WrappingHStack
 import addy_shared
 
-class AddyChipModel:Identifiable{
-    let id = UUID()
-    let chipId: String
-    let label:String
-    
-    init(chipId:String, label: String) {
-        self.chipId = chipId
-        self.label = label
-    }
-}
-
-struct AddyRoundedChipView: View {
+public struct AddyRoundedChipView: View {
     @Binding var chips: [AddyChipModel]
-    @Binding var selectedChip:String?
+    @Binding var selectedChip:String
     var singleLine:Bool
     
     let onTap: (AddyChipModel) -> Void
     
-    var body: some View {
+    public init(chips: Binding<[AddyChipModel]>, selectedChip: Binding<String>, singleLine: Bool, onTap: @escaping (AddyChipModel) -> Void) {
+        self._chips = chips
+        self._selectedChip = selectedChip
+        self.singleLine = singleLine
+        self.onTap = onTap
+    }
+    
+    public var body: some View {
 
         if (self.singleLine){
             ScrollView(.horizontal, showsIndicators: false) {
@@ -75,7 +71,7 @@ struct AddyChip_Preview: PreviewProvider{
         
         NavigationView {
                     VStack {
-                        @State var selectedChip:String? = "test3"
+                        @State var selectedChip:String = "test3"
                         @State var chips = [
                             AddyChipModel(chipId: "test",label: "test"),
                             AddyChipModel(chipId: "test2",label: "test2"),

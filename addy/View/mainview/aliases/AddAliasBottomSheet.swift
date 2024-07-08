@@ -1,14 +1,5 @@
 //
-//  EditAliasDescriptionBottomSheet.swift
-//  addy
-//
-//  Created by Stijn van de Water on 12/05/2024.
-//
-
-import SwiftUI
-
-//
-//  AddApiBottomSHeet.swift
+//  AddAliasBottomSheet.swift
 //  addy
 //
 //  Created by Stijn van de Water on 07/05/2024.
@@ -257,7 +248,6 @@ struct AddAliasBottomSheet: View {
         let networkHelper = NetworkHelper()
         do {
             if let alias = try await networkHelper.addAlias(domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients){
-                //TODO:  let user know
                 UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
                 self.onAdded()
             }

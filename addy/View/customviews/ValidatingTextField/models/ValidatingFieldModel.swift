@@ -12,7 +12,7 @@ protocol FieldValidatorProtocol {
     func validate(value: String)->String?
 }
 
-enum FieldType: FieldValidatorProtocol {
+public enum FieldType: FieldValidatorProtocol {
     case email
     case commaSeperatedEmails
     case url

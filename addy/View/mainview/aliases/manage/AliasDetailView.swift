@@ -19,9 +19,9 @@ struct AliasDetailView: View {
     let aliasId: String
     @State var aliasEmail: String
     @State var shouldDisableAlias: Bool = false
-        
+    
     @Binding var shouldReloadDataInParent: Bool
-
+    
     @State private var activeAlert: ActiveAlert = .reachedMaxAliases
     @State private var showAlert: Bool = false
     @State private var isDeletingAlias: Bool = false
@@ -32,7 +32,7 @@ struct AliasDetailView: View {
     @State private var errorAlertMessage = ""
     @EnvironmentObject var mainViewState: MainViewState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+    
     @State private var alias: Aliases? = nil
     @State private var errorText: String? = nil
     
@@ -53,7 +53,7 @@ struct AliasDetailView: View {
         self.aliasEmail = aliasEmail ?? ""
         self.shouldDisableAlias = shouldDisableAlias
         _shouldReloadDataInParent = shouldReloadDataInParent ?? .constant(false)
-
+        
     }
     
     
@@ -221,22 +221,22 @@ struct AliasDetailView: View {
                         }
                     
                     AddySection(title: String(localized: "description"), description: alias.description ?? String(localized: "alias_no_description"), leadingSystemimage: nil, trailingSystemimage: "pencil"){
-                            isPresentingEditAliasDescriptionBottomSheet = true
-                        }
+                        isPresentingEditAliasDescriptionBottomSheet = true
+                    }
                     
                     
                     
                     AddySection(title: String(localized: "recipients"), description: getRecipients(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil"){
-                            isPresentingEditAliasRecipientsBottomSheet = true
-                        }
+                        isPresentingEditAliasRecipientsBottomSheet = true
+                    }
                     
                     AddySection(title: String(localized: "from_name"), description: getFromName(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil"){
-                            if !mainViewState.userResource!.hasUserFreeSubscription(){
-                                isPresentingEditAliasFromNameBottomSheet = true
-                            } else {
-                                HapticHelper.playHapticFeedback(hapticType: .error)
-                            }
+                        if !mainViewState.userResource!.hasUserFreeSubscription(){
+                            isPresentingEditAliasFromNameBottomSheet = true
+                        } else {
+                            HapticHelper.playHapticFeedback(hapticType: .error)
                         }
+                    }
                     
                     AddySection(title: String(localized: "last_forwarded"),
                                 description: alias.last_forwarded != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_forwarded) : String(localized: "unknown"),
@@ -287,6 +287,10 @@ struct AliasDetailView: View {
                 }
                 
             }
+            .overlay {
+                CopiedToClipboardOverlay(copiedToClipboard: $copiedToClipboard)
+                
+            }
             .onAppear(perform: {
                 if shouldDisableAlias {
                     
@@ -316,7 +320,7 @@ struct AliasDetailView: View {
                         // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
                         // So we update the list when coming back
                         shouldReloadDataInParent = true
-
+                        
                     }
                 }
                 .presentationDetents([.large])
@@ -358,53 +362,53 @@ struct AliasDetailView: View {
                 .presentationDetents([.large])
             }
             .alert(isPresented: $showAlert) {
-                        switch activeAlert {
-                        case .reachedMaxAliases:
-                            return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood"))))
-                        case .deleteAliases:
-                            return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
-                                isDeletingAlias = true
-                                
-                                Task {
-                                    await deleteAlias(alias: alias)
-                                }
-                            }, secondaryButton: .cancel())
-                        case .restoreAlias:
-                            return Alert(title: Text(String(localized: "restore_alias")), message: Text(String(localized: "restore_alias_confirmation_desc")), primaryButton: .default(Text(String(localized: "restore"))){
-                                isRestoringAlias = true
-                                
-                                Task {
-                                    await restoreAlias(alias: alias)
-                                }
-                            }, secondaryButton: .cancel())
-                        case .forgetAlias:
-                            return Alert(title: Text(String(localized: "forget_alias")), message: Text(String(localized: "forget_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "forget"))){
-                                isForgettingAlias = true
-                                
-                                Task {
-                                    await forgetAlias(alias: alias)
-                                }
-                            }, secondaryButton: .cancel())
-                        case .error:
-                            return Alert(
-                                title: Text(errorAlertTitle),
-                                message: Text(errorAlertMessage)
-                            )
+                switch activeAlert {
+                case .reachedMaxAliases:
+                    return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood"))))
+                case .deleteAliases:
+                    return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
+                        isDeletingAlias = true
+                        
+                        Task {
+                            await deleteAlias(alias: alias)
                         }
-                    }
+                    }, secondaryButton: .cancel())
+                case .restoreAlias:
+                    return Alert(title: Text(String(localized: "restore_alias")), message: Text(String(localized: "restore_alias_confirmation_desc")), primaryButton: .default(Text(String(localized: "restore"))){
+                        isRestoringAlias = true
+                        
+                        Task {
+                            await restoreAlias(alias: alias)
+                        }
+                    }, secondaryButton: .cancel())
+                case .forgetAlias:
+                    return Alert(title: Text(String(localized: "forget_alias")), message: Text(String(localized: "forget_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "forget"))){
+                        isForgettingAlias = true
+                        
+                        Task {
+                            await forgetAlias(alias: alias)
+                        }
+                    }, secondaryButton: .cancel())
+                case .error:
+                    return Alert(
+                        title: Text(errorAlertTitle),
+                        message: Text(errorAlertMessage)
+                    )
+                }
+            }
             
         } else {
-
+            
             VStack {
                 if let errorText = errorText
                 {
                     ContentUnavailableView {
-                       Label(String(localized: "error_obtaining_alias"), systemImage: "questionmark")
-                   } description: {
-                       Text(errorText)
-                   }.onAppear{
-                       HapticHelper.playHapticFeedback(hapticType: .error)
-                   }
+                        Label(String(localized: "error_obtaining_alias"), systemImage: "questionmark")
+                    } description: {
+                        Text(errorText)
+                    }.onAppear{
+                        HapticHelper.playHapticFeedback(hapticType: .error)
+                    }
                 } else {
                     VStack(spacing: 20) {
                         LottieView(animation: .named("gray_ic_loading_logo.shapeshifter"))
@@ -418,7 +422,7 @@ struct AliasDetailView: View {
             }.task {
                 await getAlias(aliasId: self.aliasId)
             }
-           
+            
             .navigationTitle(self.aliasEmail)
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -485,21 +489,22 @@ struct AliasDetailView: View {
     }
     
     private func onPressSend(toString: String) {
-            guard let alias = alias else { return }
-            // Get recipients
-            let recipients = AnonAddyUtils.getSendAddress(recipientEmails: toString, alias: alias)
-            
-            // Copy the email addresses to clipboard
-            UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
-
-            // Prepare mailto URL
+        guard let alias = alias else { return }
+        // Get recipients
+        let recipients = AnonAddyUtils.getSendAddress(recipientEmails: toString.split(separator: ",").map { String($0) }, alias: alias)
+        
+        // Copy the email addresses to clipboard
+        UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
+        showCopiedToClipboardAnimation()
+        
+        // Prepare mailto URL
         let mailtoURL = AnonAddyUtils.createMailtoURL(recipients: recipients)
-            
-            // Open mailto URL
-            if let url = mailtoURL {
-                UIApplication.shared.open(url)
-            }
+        
+        // Open mailto URL
+        if let url = mailtoURL {
+            UIApplication.shared.open(url)
         }
+    }
     
     func getRecipients(alias: Aliases) -> String{
         // Set recipients
@@ -533,8 +538,20 @@ struct AliasDetailView: View {
         return recipients
     }
     
+    public func showCopiedToClipboardAnimation(){
+        withAnimation(.snappy) {
+            copiedToClipboard = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            withAnimation(.snappy) {
+                copiedToClipboard = false
+            }
+        }
+    }
+    
     func copyToClipboard(alias: Aliases) {
         UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
+        showCopiedToClipboardAnimation()
         
         
         withAnimation {
@@ -566,9 +583,9 @@ struct AliasDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
     
-
+    
+    
     
     private func restoreAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
@@ -587,7 +604,7 @@ struct AliasDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     
     private func forgetAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
@@ -611,7 +628,7 @@ struct AliasDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     private func deactivateAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
         do {
@@ -637,7 +654,7 @@ struct AliasDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     private func deleteAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
         do {
@@ -660,7 +677,7 @@ struct AliasDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     
     private func getAlias(aliasId: String) async {
         let networkHelper = NetworkHelper()
@@ -678,7 +695,7 @@ struct AliasDetailView: View {
             }
         }
     }
-
+    
 }
 
 

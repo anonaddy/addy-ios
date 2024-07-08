@@ -96,8 +96,9 @@ class AliasesViewModel: ObservableObject{
                 }
             }
             
+            #if DEBUG
             print ("page is \(aliasList?.meta?.current_page ?? 0)")
-
+            #endif
             
             let networkHelper = NetworkHelper()
             
@@ -172,8 +173,10 @@ class AliasesViewModel: ObservableObject{
                     }
                 }
                 } catch {
-                    self.isLoading = false
-                    self.networkError = error.localizedDescription
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                        self.networkError = error.localizedDescription
+                    }
                 }
             }
         }
