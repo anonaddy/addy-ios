@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import addy_shared
 
 struct AddySection: View {
     

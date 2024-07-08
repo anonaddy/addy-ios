@@ -42,68 +42,68 @@ struct FailedDeliveriesView: View {
         NavigationStack{
             List {
                 if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries{
-                    
-                    Section {
-                        
-                        ForEach (failedDeliveries.data) { failedDelivery in
-                            VStack {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(String(localized: "alias"))
-                                            .font(.system(size: 16, weight: .medium))
-                                        Text(failedDelivery.alias_email ?? "")
-                                            .font(.system(size: 14))
-                                            .foregroundColor(.gray)
-                                    }
-                                    Spacer()
-                                    VStack(alignment: .trailing) {
-                                        Text(String(localized: "created"))
-                                            .font(.system(size: 16, weight: .medium))
-                                        Text(DateTimeUtils.turnStringIntoLocalString(failedDelivery.created_at))
-                                            .font(.system(size: 14))
-                                            .foregroundColor(.gray)
-                                    }
-                                }
-                                HStack {
-                                    Text(String(localized: "code"))
-                                        .font(.system(size: 16, weight: .medium))
-                                    Text(failedDelivery.code)
-                                        .font(.system(size: 14))
-                                        .foregroundColor(.gray)
-                                        .lineLimit(1)
-                                }.padding(.top,5)
-                                Button(action: {
-                                    self.failedDeliveryToShow = failedDelivery
-                                }) {
+                    if !failedDeliveries.data.isEmpty {
+                        Section {
+                            
+                            ForEach (failedDeliveries.data) { failedDelivery in
+                                VStack {
                                     HStack {
-                                        Text(String(localized: "view_details"))
-                                            .font(.system(size: 16, weight: .medium))
+                                        VStack(alignment: .leading) {
+                                            Text(String(localized: "alias"))
+                                                .font(.system(size: 16, weight: .medium))
+                                            Text(failedDelivery.alias_email ?? "")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(.gray)
+                                        }
                                         Spacer()
-                                        Image(systemName: "text.justify.leading")
+                                        VStack(alignment: .trailing) {
+                                            Text(String(localized: "created"))
+                                                .font(.system(size: 16, weight: .medium))
+                                            Text(DateTimeUtils.turnStringIntoLocalString(failedDelivery.created_at))
+                                                .font(.system(size: 14))
+                                                .foregroundColor(.gray)
+                                        }
                                     }
-                                    .padding(.horizontal).padding(.vertical, 10)
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.secondary.opacity(0.2))
-                                    .cornerRadius(8)
+                                    HStack {
+                                        Text(String(localized: "code"))
+                                            .font(.system(size: 16, weight: .medium))
+                                        Text(failedDelivery.code)
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.gray)
+                                            .lineLimit(1)
+                                    }.padding(.top,5)
+                                    Button(action: {
+                                        self.failedDeliveryToShow = failedDelivery
+                                    }) {
+                                        HStack {
+                                            Text(String(localized: "view_details"))
+                                                .font(.system(size: 16, weight: .medium))
+                                            Spacer()
+                                            Image(systemName: "text.justify.leading")
+                                        }
+                                        .padding(.horizontal).padding(.vertical, 10)
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color.secondary.opacity(0.2))
+                                        .cornerRadius(8)
+                                    }
+                                }
+                            }.onDelete(perform: deleteFailedDelivery)
+                        }header: {
+                            HStack(spacing: 6){
+                                Text(String(localized: "all_failed_deliveries"))
+                                
+                                
+                                if (failedDeliveriesViewModel.isLoading){
+                                    ProgressView()
+                                        .frame(maxHeight: 4)
+                                    
                                 }
                             }
-                        }.onDelete(perform: deleteFailedDelivery)
-                    }header: {
-                        HStack(spacing: 6){
-                            Text(String(localized: "all_failed_deliveries"))
-                            
-                            
-                            if (failedDeliveriesViewModel.isLoading){
-                                ProgressView()
-                                    .frame(maxHeight: 4)
-                                
-                            }
-                        }
-                        // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
-                    }.onAppear(perform: {
-                        updateTheCacheFDCount(count: failedDeliveries.data.count)
-                    })
-                    
+                            // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
+                        }.onAppear(perform: {
+                            updateTheCacheFDCount(count: failedDeliveries.data.count)
+                        })
+                    }
                 }
                 
             }.refreshable {

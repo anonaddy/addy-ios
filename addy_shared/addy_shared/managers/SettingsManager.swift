@@ -75,7 +75,6 @@ public class SettingsManager {
         keychain.accessGroup = suiteName
 
         if encrypted {
-            
             self.prefs = nil
         } else {
             self.prefs = UserDefaults(suiteName: suiteName)
@@ -206,9 +205,19 @@ public class SettingsManager {
         if useKeychain {
             keychain.clear()
         } else {
-            let domain = Bundle.main.bundleIdentifier!
-            UserDefaults.standard.removePersistentDomain(forName: domain)
-            UserDefaults.standard.synchronize()
+            
+#if DEBUG
+        let suiteName = "group.host.stjin.addy.debug.dev"
+
+        #else
+        let suiteName = "group.host.stjin.addy"
+#endif
+            
+            let keys = UserDefaults(suiteName: suiteName)?.dictionaryRepresentation().keys
+            for key in keys! {
+                prefs?.removeObject(forKey: key)
+            }
+
         }
 
         #if DEBUG
@@ -224,9 +233,13 @@ public class SettingsManager {
          */
 
     public func clearSettingsAndCloseApp(){
-        SettingsManager(encrypted: true).clearAllData()
-        SettingsManager(encrypted: false).clearAllData()
         
+        // Clear shortcuts
+        UIApplication.shared.shortcutItems = []
+        
+        SettingsManager(encrypted: false).clearAllData()
+        SettingsManager(encrypted: true).clearAllData()
+
         DispatchQueue.main.async {
             // remove API from memory (will also reset the viewstate)
             AppState.shared.apiKey = nil

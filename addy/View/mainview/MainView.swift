@@ -159,7 +159,7 @@ struct MainView: View {
                         .sheet(isPresented: $isShowingAddApiBottomSheet) {
                             let baseUrl = MainViewState.shared.encryptedSettingsManager.getSettingsString(key: .baseUrl)
                             NavigationStack {
-                                AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:baseUrl:))
+                                AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:_:))
                             }
                             .presentationDetents([.large])
                         }
@@ -391,7 +391,7 @@ struct MainView: View {
     }
     
     
-    private func addKey(apiKey: String, baseUrl: String) {
+    private func addKey(apiKey: String, _: String) {
         mainViewState.encryptedSettingsManager.putSettingsString(key: .apiKey, string: apiKey)
         isShowingAddApiBottomSheet = false
     }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-public struct MailToActionSheetData: Identifiable {
-    public let id = UUID()
-    public let value: String
+struct MailToActionSheetData: Identifiable {
+    let id = UUID()
+    let value: String
 
-    public init(value: String) {
+    init(value: String) {
         self.value = value
     }
 }

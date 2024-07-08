@@ -8,14 +8,14 @@
 import SwiftUI
 import addy_shared
 
-public struct ValidatingTextField: View {
+struct ValidatingTextField: View {
     @Binding var value: String
     @Binding var placeholder: String
     public var fieldType: FieldType
     @Binding var error: String?
     
     // Add a public initializer
-    public init(value: Binding<String>, placeholder: Binding<String>, fieldType: FieldType, error: Binding<String?>) {
+    init(value: Binding<String>, placeholder: Binding<String>, fieldType: FieldType, error: Binding<String?>) {
         self._value = value
         self._placeholder = placeholder
         self.fieldType = fieldType
@@ -23,7 +23,7 @@ public struct ValidatingTextField: View {
     }
     
     
-    public var body: some View {
+    var body: some View {
 
         VStack(alignment: .leading){
             if (fieldType == .bigText){

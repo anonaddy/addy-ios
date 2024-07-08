@@ -109,6 +109,7 @@ struct RulesView: View {
     private var rulesViewBody: some View {
             List {
                 if let rules = rulesViewModel.rules{
+                    if !rules.data.isEmpty {
                     Section {
                         
                         ForEach (rules.data) { rule in
@@ -159,9 +160,9 @@ struct RulesView: View {
                                 .onChange(of: shouldReloadDataInParent) {
                                     if shouldReloadDataInParent {
                                         Task {
-                                                                await getUserResource()
+                                            await getUserResource()
                                             await rulesViewModel.getRules()
-                                                            }
+                                        }
                                         
                                         self.shouldReloadDataInParent = false
                                     }
@@ -190,7 +191,7 @@ struct RulesView: View {
                                 }
                             
                         }.onMove(perform: moveRule)
-                        .onDelete(perform: deleteRule)
+                            .onDelete(perform: deleteRule)
                         
                     } header: {
                         HStack(spacing: 6){
@@ -217,7 +218,7 @@ struct RulesView: View {
                         }.padding(.top)
                         
                     }
-                    
+                }
                 }
                 
             }.refreshable {
@@ -419,7 +420,6 @@ struct RulesView: View {
         let networkHelper = NetworkHelper()
         do {
             _ = try await networkHelper.activateSpecificRule(ruleId: rule.id)
-            // TODO can I update this item without full reload
             await rulesViewModel.getRules()
         } catch {
                 activeAlert = .error
@@ -436,7 +436,6 @@ struct RulesView: View {
         do {
             let result = try await networkHelper.deactivateSpecificRule(ruleId: rule.id)
             if result == "204" {
-                // TODO can I update this item without full reload
                 await rulesViewModel.getRules()
             } else {
                 activeAlert = .error

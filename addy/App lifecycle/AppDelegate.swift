@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 import BackgroundTasks
-import addy_shared
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     

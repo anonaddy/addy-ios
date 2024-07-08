@@ -8,7 +8,7 @@
 import SwiftUI
 import AVFoundation
 import addy_shared
-public struct MailToActionSheet: View {
+struct MailToActionSheet: View {
     
     @State private var sendMailRecipientView: SendMailRecipientView? = nil
     @State private var mailToActionSheetData: MailToActionSheetData
@@ -21,7 +21,7 @@ public struct MailToActionSheet: View {
     private let openMailToShareSheet: (URL) -> Void
 
     
-    public init(mailToActionSheetData: MailToActionSheetData, openedThroughShareSheet: Bool, returnToApp: @escaping (String) -> Void, close: @escaping () -> Void, openMailToShareSheet: @escaping (URL) -> Void) {
+    init(mailToActionSheetData: MailToActionSheetData, openedThroughShareSheet: Bool, returnToApp: @escaping (String) -> Void, close: @escaping () -> Void, openMailToShareSheet: @escaping (URL) -> Void) {
         self.mailToActionSheetData = mailToActionSheetData
         self.openedThroughShareSheet = openedThroughShareSheet
         self.returnToApp = returnToApp
@@ -29,7 +29,7 @@ public struct MailToActionSheet: View {
         self.openMailToShareSheet = openMailToShareSheet
     }
     
-    public var body: some View {
+    var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
 #endif
@@ -176,9 +176,6 @@ public struct MailToActionSheet: View {
                     }
                 }
                 
-            } else {
-                //TODO: Let the user know
-                print(String(localized: "something_went_wrong_retrieving_domains"))
             }
         } catch {
             //TODO: Let the user know
@@ -221,9 +218,6 @@ public struct MailToActionSheet: View {
                 }
 
                 
-            } else {
-                //TODO: let user know
-                print(String(localized: "something_went_wrong_retrieving_aliases"))
             }
         
         } catch {
@@ -240,9 +234,6 @@ public struct MailToActionSheet: View {
                 DispatchQueue.main.async {
                     self.close()
                 }
-            } else {
-                //TODO: Let the user know
-                print(String(localized: "error_adding_alias"))
             }
         } catch {
             //TODO: Let the user know

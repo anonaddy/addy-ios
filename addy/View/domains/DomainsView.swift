@@ -71,6 +71,7 @@ struct DomainsView: View {
     private var domainsViewBody: some View {
         List {
             if let domains = domainsViewModel.domains{
+                if !domains.data.isEmpty {
                 Section {
                     
                     ForEach (domains.data) { domain in
@@ -137,6 +138,7 @@ struct DomainsView: View {
                     }.padding(.top)
                     
                 }
+            }
                 
             }
             

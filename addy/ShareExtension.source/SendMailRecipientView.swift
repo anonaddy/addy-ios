@@ -42,7 +42,6 @@ struct SendMailRecipientView: View {
     @State private var copiedToClipboard = false
     
     @State private var clients: [ThirdPartyMailClient] = []
-    @State private var selectedClient: ThirdPartyMailClient = ThirdPartyMailClient.systemDefault
     
     
     init(openedThroughShareSheet: Bool, recipients: [String], validCcRecipients: [String], validBccRecipients: [String], emailSubject: String, emailBody: String, domainOptions: [String], close: @escaping () -> Void, openMailToShareSheet: @escaping (URL) -> Void){
@@ -199,7 +198,6 @@ struct SendMailRecipientView: View {
                         
                         let composeUrl = self.clients[0].composeURL(to: anonaddyRecipientAddresses, subject: emailSubject, body: emailBody, cc: anonaddyCcRecipientAddresses, bcc: anonaddyBccRecipientAddresses)
                         
-                        //TODO: Let users know
                         UIPasteboard.general.setValue(anonaddyRecipientAddresses,forPasteboardType: UTType.plainText.identifier)
                         showCopiedToClipboardAnimation()
                         self.openMailToShareSheet(composeUrl)
@@ -254,7 +252,7 @@ struct SendMailRecipientView: View {
         return nil
     }
     
-    public func showCopiedToClipboardAnimation(){
+    func showCopiedToClipboardAnimation(){
         withAnimation(.snappy) {
                 copiedToClipboard = true
             }

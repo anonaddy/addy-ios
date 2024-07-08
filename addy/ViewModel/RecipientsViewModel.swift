@@ -1,5 +1,5 @@
 //
-//  AliasesViewModel.swift
+//  RecipientsViewModel.swift
 //  addy
 //
 //  Created by Stijn van de Water on 09/05/2024.

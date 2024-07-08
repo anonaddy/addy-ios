@@ -94,6 +94,11 @@ struct AppSettingsView: View {
                 .onChange(of: privacyMode) {
                     MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .privacyMode, boolean: privacyMode)
                     
+                    if privacyMode {
+                        // Clear shortcuts
+                        UIApplication.shared.shortcutItems = []
+                    }
+                    
                 }
             } header: {
                 Text(String(localized: "general"))

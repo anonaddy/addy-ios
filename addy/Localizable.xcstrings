@@ -3018,15 +3018,6 @@
         }
       }
     },
-    "Key" : {
-      "extractionState" : "manual"
-    },
-    "Key 1" : {
-      "extractionState" : "manual"
-    },
-    "Key 2" : {
-      "extractionState" : "manual"
-    },
     "last_blocked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3423,10 +3414,24 @@
       }
     },
     "no_rules" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to see here"
+          }
+        }
+      }
     },
     "no_rules_desc" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have no rules, what about creating one?"
+          }
+        }
+      }
     },
     "no_suggestions" : {
       "extractionState" : "manual",

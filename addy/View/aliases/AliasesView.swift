@@ -463,7 +463,7 @@ struct AliasesView: View {
         
     }
     
-    public func showCopiedToClipboardAnimation(){
+    func showCopiedToClipboardAnimation(){
             withAnimation(.snappy) {
                     copiedToClipboard = true
                 }
@@ -612,7 +612,6 @@ struct AliasesView: View {
         let networkHelper = NetworkHelper()
         do {
             let _ = try await networkHelper.activateSpecificAlias(aliasId: alias.id)
-            // TODO can I update this item without full reload
             await aliasesViewModel.getAliases(forceReload: true)
         } catch {
             activeAlert = .error
@@ -627,7 +626,6 @@ struct AliasesView: View {
         do {
             let result = try await networkHelper.deactivateSpecificAlias(aliasId: alias.id)
             if result == "204" {
-                // TODO can I update this item without full reload
                 await aliasesViewModel.getAliases(forceReload: true)
             } else {
                 activeAlert = .error
@@ -648,7 +646,6 @@ struct AliasesView: View {
         do {
             let result = try await networkHelper.deleteAlias(aliasId: alias.id)
             if result == "204" {
-                // TODO can I remove this item without full reload
                 await aliasesViewModel.getAliases(forceReload: true)
             } else {
                 activeAlert = .error
@@ -685,7 +682,6 @@ struct AliasesView: View {
         do {
             let restoredAlias = try await networkHelper.restoreAlias(aliasId: alias.id)
             if restoredAlias != nil {
-                // TODO can I update this item without full reload
                 await aliasesViewModel.getAliases(forceReload: true)
             } else {
                 activeAlert = .error

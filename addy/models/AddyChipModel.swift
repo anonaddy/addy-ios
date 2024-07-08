@@ -7,12 +7,12 @@
 
 import Foundation
 
-public class AddyChipModel:Identifiable{
-    public let id = UUID()
-    public let chipId: String
-    public let label:String
+class AddyChipModel:Identifiable{
+    let id = UUID()
+    let chipId: String
+    let label:String
     
-    public init(chipId:String, label: String) {
+    init(chipId:String, label: String) {
         self.chipId = chipId
         self.label = label
     }

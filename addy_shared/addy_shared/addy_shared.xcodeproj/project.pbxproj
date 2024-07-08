@@ -107,18 +107,18 @@
 			isa = PBXGroup;
 			children = (
 				805F1FA42C3C041300469BCE /* addy-shared-Info.plist */,
+				80B4F4C42BEA55760009E4CA /* AddyIo.swift */,
+				809F87502C29E4C8002A89C0 /* AppState.swift */,
+				80B4F4CB2BEA58A20009E4CA /* SharedData.swift */,
+				80E849B42BEBA9C900C8D68A /* Assets.xcassets */,
 				8042E08B2C331DD8001E8366 /* Localizable.xcstrings */,
 				80B2FBB52C3C4B78009977B6 /* dependencies */,
-				80E574C42C2C2BAD0036C5DB /* notification */,
-				809F87502C29E4C8002A89C0 /* AppState.swift */,
-				80BB84132BF0019E005999C3 /* utils */,
-				80BB84122BF00099005999C3 /* models */,
 				80BB84112BF0008A005999C3 /* helpers */,
 				80BB84102BF00077005999C3 /* managers */,
-				80E849B42BEBA9C900C8D68A /* Assets.xcassets */,
-				80B4F4CB2BEA58A20009E4CA /* SharedData.swift */,
-				80B4F4C42BEA55760009E4CA /* AddyIo.swift */,
+				80BB84122BF00099005999C3 /* models */,
+				80E574C42C2C2BAD0036C5DB /* notification */,
 				8001D9F12BEA513500AAD10E /* Products */,
+				80BB84132BF0019E005999C3 /* utils */,
 			);
 			sourceTree = "<group>";
 		};

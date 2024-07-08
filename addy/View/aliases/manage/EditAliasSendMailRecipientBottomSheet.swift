@@ -8,7 +8,6 @@
 
 import SwiftUI
 import AVFoundation
-import addy_shared
 
 struct EditAliasSendMailRecipientBottomSheet: View {
     @State private var aliasEmail: String

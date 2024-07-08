@@ -128,7 +128,9 @@ struct SetupView: View {
                 
             }
             
-        }.sheet(isPresented: $isPresentingAddApiBottomSheet) {
+        }.sheet(isPresented: $isPresentingAddApiBottomSheet, onDismiss: {
+            isLoadingGetStarted = false
+        }) {
             NavigationStack {
                 AddApiBottomSheet(apiBaseUrl: nil, addKey: addKey(apiKey:baseUrl:))
             }

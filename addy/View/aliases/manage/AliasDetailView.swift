@@ -144,9 +144,9 @@ struct AliasDetailView: View {
                             Button(action: {
                                 self.copyToClipboard(alias: alias)
                             }) {
-                                Label(copiedToClipboard ? String(localized: "copied") : String(localized: "copy_alias"), systemImage: "clipboard")
+                                Label(String(localized: "copy_alias"), systemImage: "clipboard")
                                     .foregroundColor(.white)
-                                    .frame(maxWidth:.infinity, maxHeight: 20).frame(alignment: .leading)
+                                    .frame(maxWidth:.infinity, maxHeight: 24).frame(alignment: .leading)
                                     .font(.system(size: 14))
                             }
                             .buttonStyle(.borderedProminent)
@@ -158,7 +158,7 @@ struct AliasDetailView: View {
                             }) {
                                 Label(String(localized: "send_mail"), systemImage: "paperplane")
                                     .foregroundColor(.white)
-                                    .frame(maxWidth:.infinity, maxHeight: 20).frame(alignment: .leading)
+                                    .frame(maxWidth:.infinity, maxHeight: 24).frame(alignment: .leading)
                                     .font(.system(size: 14))
                             }
                             .buttonStyle(.borderedProminent)
@@ -303,10 +303,6 @@ struct AliasDetailView: View {
                     }
                     self.shouldDisableAlias = false
                 }
-                
-                // Reset this value to prevent re-opening the AliasDetailView when coming back to the app later
-                mainViewState.showAliasWithId = nil
-                mainViewState.aliasToDisable = nil
             })
             .disabled(isDeletingAlias || isRestoringAlias || isForgettingAlias)
             .navigationTitle(self.aliasEmail)
@@ -419,7 +415,12 @@ struct AliasDetailView: View {
                         
                     }
                 }
-            }.task {
+            }.onAppear(perform: {
+                                
+                // Reset this value to prevent re-opening the AliasDetailView when coming back to the app later. Even if the alias failed to load
+                mainViewState.showAliasWithId = nil
+                mainViewState.aliasToDisable = nil
+            }).task {
                 await getAlias(aliasId: self.aliasId)
             }
             
@@ -430,9 +431,12 @@ struct AliasDetailView: View {
     }
     
     private func addQuickActions(alias: Aliases) {
-        UIApplication.shared.shortcutItems = [
-            UIApplicationShortcutItem(type: "host.stjin.addy.shortcut_open_alias_\(alias.id)", localizedTitle: alias.email, localizedSubtitle: nil, icon: UIApplicationShortcutIcon.init(type: .time)),
-        ]
+        if !mainViewState.encryptedSettingsManager.getSettingsBool(key: .privacyMode){
+            // Only add shortcuts when PRIVACY_MODE is disabled to hide aliases
+            UIApplication.shared.shortcutItems = [
+                UIApplicationShortcutItem(type: "host.stjin.addy.shortcut_open_alias_\(alias.id)", localizedTitle: alias.email, localizedSubtitle: nil, icon: UIApplicationShortcutIcon.init(type: .time)),
+            ]
+        }
     }
     
     private func getRecipientsIds(recipients: [Recipients]?) -> [String] {
@@ -538,7 +542,7 @@ struct AliasDetailView: View {
         return recipients
     }
     
-    public func showCopiedToClipboardAnimation(){
+    private func showCopiedToClipboardAnimation(){
         withAnimation(.snappy) {
             copiedToClipboard = true
         }
@@ -549,21 +553,9 @@ struct AliasDetailView: View {
         }
     }
     
-    func copyToClipboard(alias: Aliases) {
+    private func copyToClipboard(alias: Aliases) {
         UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
         showCopiedToClipboardAnimation()
-        
-        
-        withAnimation {
-            self.copiedToClipboard = true
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            withAnimation {
-                self.copiedToClipboard = false
-            }
-        }
-        
     }
     
     private func activateAlias(alias: Aliases) async {

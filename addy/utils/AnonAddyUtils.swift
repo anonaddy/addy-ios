@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 import addy_shared
 
-public class AnonAddyUtils {
-    public static func getSendAddress(recipientEmails: [String], alias: Aliases) -> [String] {
+class AnonAddyUtils {
+    static func getSendAddress(recipientEmails: [String], alias: Aliases) -> [String] {
         var toAddresses = [String]()
 
         
@@ -26,7 +26,7 @@ public class AnonAddyUtils {
         return toAddresses
     }
     
-    public static func createMailtoURL(recipients: [String]) -> URL? {
+    static func createMailtoURL(recipients: [String]) -> URL? {
         let recipientsString = recipients.joined(separator: ",")
         var components = URLComponents()
         components.scheme = "mailto"

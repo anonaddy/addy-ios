@@ -8,11 +8,8 @@
 import Foundation
 import UIKit
 
-protocol FieldValidatorProtocol {
-    func validate(value: String)->String?
-}
 
-public enum FieldType: FieldValidatorProtocol {
+enum FieldType {
     case email
     case commaSeperatedEmails
     case url

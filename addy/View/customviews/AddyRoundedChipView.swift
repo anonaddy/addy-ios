@@ -9,21 +9,21 @@ import SwiftUI
 import WrappingHStack
 import addy_shared
 
-public struct AddyRoundedChipView: View {
+struct AddyRoundedChipView: View {
     @Binding var chips: [AddyChipModel]
     @Binding var selectedChip:String
     var singleLine:Bool
     
     let onTap: (AddyChipModel) -> Void
     
-    public init(chips: Binding<[AddyChipModel]>, selectedChip: Binding<String>, singleLine: Bool, onTap: @escaping (AddyChipModel) -> Void) {
+    init(chips: Binding<[AddyChipModel]>, selectedChip: Binding<String>, singleLine: Bool, onTap: @escaping (AddyChipModel) -> Void) {
         self._chips = chips
         self._selectedChip = selectedChip
         self.singleLine = singleLine
         self.onTap = onTap
     }
     
-    public var body: some View {
+    var body: some View {
 
         if (self.singleLine){
             ScrollView(.horizontal, showsIndicators: false) {

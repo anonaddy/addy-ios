@@ -183,7 +183,9 @@ struct AddApiBottomSheet: View {
             if result == "200" {
                 self.addKey(apiKey, baseUrl)
             } else {
-                isLoadingSignIn = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    isLoadingSignIn = false
+                }
                 apiKeyError = String(localized: "api_invalid")
             }
         } catch {
