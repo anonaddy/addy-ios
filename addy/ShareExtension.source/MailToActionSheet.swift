@@ -8,11 +8,17 @@
 import SwiftUI
 import AVFoundation
 import addy_shared
+import LocalAuthentication
 struct MailToActionSheet: View {
     
+    @Environment(\.scenePhase) var scenePhase
+
+    @State private var showBiometricsNotAvailableScreen = false
+
     @State private var sendMailRecipientView: SendMailRecipientView? = nil
     @State private var mailToActionSheetData: MailToActionSheetData
     @State private var openedThroughShareSheet: Bool
+    @State private var isUnlocked: Bool = false
     @State private var showSendMailRecipientView: Bool = false
     @State private var loadingStatusText = String(localized: "intent_checking_address")
     private let networkHelper = NetworkHelper()
@@ -35,80 +41,115 @@ struct MailToActionSheet: View {
 #endif
         
         NavigationStack{
-            
-            Group {
-                loadingView
-            }.navigationTitle(String(localized: "integration_mailto_alias"))
-                .pickerStyle(.navigationLink)
-                .navigationBarTitleDisplayMode(.inline)
-                .apply {
-                    if openedThroughShareSheet {
-                        $0.toolbar {
-                            Button(String(localized: "cancel")) {
-                                self.close()
+            if !SettingsManager(encrypted: true).getSettingsBool(key: .biometricEnabled) || self.isUnlocked {
+                Group {
+                    loadingView
+                }.navigationTitle(String(localized: "integration_mailto_alias"))
+                    .pickerStyle(.navigationLink)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .apply {
+                        if openedThroughShareSheet {
+                            $0.toolbar {
+                                Button(String(localized: "cancel")) {
+                                    self.close()
+                                }
                             }
+                        } else {
+                            $0
                         }
-                    } else {
-                        $0
+                        
                     }
-                    
-                }
-                .navigationDestination(isPresented: $showSendMailRecipientView, destination: {
-                    sendMailRecipientView
-                    .navigationBarBackButtonHidden(true)
-                })
-            
-                .onAppear {
-                    // TODO: Check ifAuthenticated
-                    
-                    let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-                    var emailBody = ""
-                    var emailSubject = ""
-                    
-                    
-                        var recipients = mailToActionSheetData.value.components(separatedBy: "?").first?.dropFirst(7).replacingOccurrences(of: ";", with: ",").split(separator: ",")
-                        if ((recipients?.isEmpty) != nil) {
-                            // If the recipients in the mailto: are nil (e.g. when sharing text instead of using a mailto link. Set the selected share text as recipient(s)
-                            recipients = mailToActionSheetData.value.replacingOccurrences(of: ";", with: ",").split(separator: ",")
-                        }
-                        emailSubject = getParameter(mailToActionSheetData.value, parameter: "subject") ?? ""
-                        let ccRecipients = getParameter(mailToActionSheetData.value, parameter: "cc")?.replacingOccurrences(of: ";", with: ",").split(separator: ",")
-                        let bccRecipients = getParameter(mailToActionSheetData.value, parameter: "bcc")?.replacingOccurrences(of: ";", with: ",").split(separator: ",")
-                        emailBody = getParameter(mailToActionSheetData.value, parameter: "body") ?? mailToActionSheetData.value // Get body from mailto: else just take the raw value (as it will be the selected text for sharing
-                        
-                        // Filter out invalid email addresses
-                        var validEmails: [String] = []
-                        var validCcRecipients: [String] = []
-                        var validBccRecipients: [String] = []
-                        
-                        
-                        if let recipients = recipients {
+                    .navigationDestination(isPresented: $showSendMailRecipientView, destination: {
+                        sendMailRecipientView
+                            .navigationBarBackButtonHidden(true)
+                    })
+                    .onAppear {
+                        if isUnlocked {
+                            
+                            let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+                            var emailBody = ""
+                            var emailSubject = ""
+                            
+                            
+                            var recipients = mailToActionSheetData.value.components(separatedBy: "?").first?.dropFirst(7).replacingOccurrences(of: ";", with: ",").split(separator: ",") ?? []
+                            if (recipients.isEmpty) {
+                                // If the recipients in the mailto: are nil (e.g. when sharing text instead of using a mailto link. Set the selected share text as recipient(s)
+                                recipients = mailToActionSheetData.value.replacingOccurrences(of: ";", with: ",").split(separator: ",")
+                            }
+                            emailSubject = getParameter(mailToActionSheetData.value, parameter: "subject") ?? ""
+                            let ccRecipients = getParameter(mailToActionSheetData.value, parameter: "cc")?.replacingOccurrences(of: ";", with: ",").split(separator: ",")
+                            let bccRecipients = getParameter(mailToActionSheetData.value, parameter: "bcc")?.replacingOccurrences(of: ";", with: ",").split(separator: ",")
+                            emailBody = getParameter(mailToActionSheetData.value, parameter: "body") ?? mailToActionSheetData.value // Get body from mailto: else just take the raw value (as it will be the selected text for sharing
+                            
+                            // Filter out invalid email addresses
+                            var validEmails: [String] = []
+                            var validCcRecipients: [String] = []
+                            var validBccRecipients: [String] = []
+                            
+                            
                             for email in recipients {
                                 if email.range(of: emailRegex, options: .regularExpression) != nil {
                                     validEmails.append(String(email))
                                 }
                             }
-                        }
-                                             if let ccRecipients = ccRecipients {
-                            for email in ccRecipients {
-                                if email.range(of: emailRegex, options: .regularExpression) != nil {
-                                    validCcRecipients.append(String(email))
+                            
+                            
+                            if let ccRecipients = ccRecipients {
+                                for email in ccRecipients {
+                                    if email.range(of: emailRegex, options: .regularExpression) != nil {
+                                        validCcRecipients.append(String(email))
+                                    }
                                 }
                             }
-                        }
-                        
-                        if let bccRecipients = bccRecipients {
-                            for email in bccRecipients {
-                                if email.range(of: emailRegex, options: .regularExpression) != nil {
-                                    validBccRecipients.append(String(email))
+                            
+                            if let bccRecipients = bccRecipients {
+                                for email in bccRecipients {
+                                    if email.range(of: emailRegex, options: .regularExpression) != nil {
+                                        validBccRecipients.append(String(email))
+                                    }
                                 }
                             }
+                            
+                            Task {
+                                await figureOutNextAction(emails: validEmails, validCcRecipients: validCcRecipients, validBccRecipients: validBccRecipients, emailSubject: emailSubject, emailBody: emailBody)
+                            }
+                        } else {
+                            authenticate()
                         }
-                        
-                    Task {
-                        await figureOutNextAction(emails: validEmails, validCcRecipients: validCcRecipients, validBccRecipients: validBccRecipients, emailSubject: emailSubject, emailBody: emailBody)
+                    }
+            } else {
+                Group {
+                    if showBiometricsNotAvailableScreen {
+                        ContentUnavailableView {
+                            Label(String(localized: "addyio_locked"), systemImage: "lock.fill")
+                        } description: {
+                            Text(String(localized: "addyio_locked_desc"))
+                        } actions: {
+                            Button(String(localized: "unlock")) {
+                                authenticate()
+                            }
+                        }
+                    } else {
+                        ContentUnavailableView {
+                            Label(String(localized: "addyio_locked"), systemImage: "lock.fill")
+                        } description: {
+                            Text(String(localized: "biometric_error"))
+                        } actions: {
+                            Button(String(localized: "unlock")) {
+                                authenticate()
+                            }
+                        }
                     }
                 }
+                .onAppear {
+                    if SettingsManager(encrypted: true).getSettingsBool(key: .biometricEnabled){
+                        authenticate()
+                    } else {
+                        self.isUnlocked = true
+                    }
+                                    
+                }
+            }
         }
         
     }
@@ -238,6 +279,29 @@ struct MailToActionSheet: View {
         } catch {
             //TODO: Let the user know
             print("Failed to add alias: \(error)")
+        }
+    }
+    
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        // check whether biometric authentication is possible
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            // it's possible, so go ahead and use it
+            let reason = String(localized: "addyio_locked")
+            
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
+                // authentication has now completed
+                if success {
+                    DispatchQueue.main.async {
+                        self.isUnlocked = true
+
+                                }
+                }
+            }
+        } else {
+            //showBiometricsNotAvailableAlert = true
         }
     }
 

@@ -44,6 +44,10 @@ struct AppSettingsFeaturesView: View {
                 NavigationLink(destination: AppSettingsFeaturesMailToView()){
                     AddySection(title: String(localized: "integration_mailto_alias"), description: String(localized: "integration_mailto_alias_desc"), leadingSystemimage: "square.and.arrow.up", leadingSystemimageColor: .blue)
                  }
+                
+                NavigationLink(destination: AppSettingsFeaturesWebintentResolutionView()){
+                    AddySection(title: String(localized: "integration_webintent_resolution"), description: String(localized: "integration_webintent_resolution_desc"), leadingSystemimage: "link", leadingSystemimageColor: .gray)
+                 }
             } header: {
                 Text(String(localized: "integrations"))
             }

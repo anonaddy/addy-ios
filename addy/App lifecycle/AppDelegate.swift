@@ -13,6 +13,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     var window: UIWindow?
     
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+              let url = userActivity.webpageURL,
+              let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
+              let pathComponents = components.path?.components(separatedBy: "/") else {
+            return false
+        }
+
+        //TODO test if this works
+        // Check if the URL is in the expected format
+        if pathComponents.count > 2 && pathComponents[1] == "deactivate" {
+            let id = pathComponents[2]
+            MainViewState.shared.aliasToDisable = id
+            MainViewState.shared.selectedTab = .aliases
+        }
+
+        return true
+    }
+
+
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         if let shortcutItem = options.shortcutItem {

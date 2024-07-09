@@ -2941,6 +2941,28 @@
         }
       }
     },
+    "integration_webintent_resolution" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Web intent resolution"
+          }
+        }
+      }
+    },
+    "integration_webintent_resolution_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the addy.io app instead of the website for easy access and quick actions such as deactivating your alias via the link in the email banner.\n\nDue to limitations within iOS it is only possible to use this integration on the hosted instance found at app.addy.io or app.anonaddy.com."
+          }
+        }
+      }
+    },
     "integrations" : {
       "extractionState" : "manual",
       "localizations" : {

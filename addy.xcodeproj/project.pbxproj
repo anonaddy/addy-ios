@@ -10,6 +10,7 @@
 		8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8001D9D12BEA1E3600AAD10E /* CodeScanner */; };
 		8001DA012BEA516000AAD10E /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
 		8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003C36A2C1A27D90005D742 /* AppDelegate.swift */; };
+		80195D1A2C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80195D192C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift */; };
 		801B929F2BE8FF6800179EB5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */; };
 		801B92A22BE905BB00179EB5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 801B92A12BE905BB00179EB5 /* Lottie */; };
 		801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
@@ -241,6 +242,7 @@
 /* Begin PBXFileReference section */
 		8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = addy_shared.xcodeproj; path = addy_shared/addy_shared/addy_shared.xcodeproj; sourceTree = "<group>"; };
 		8003C36A2C1A27D90005D742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		80195D192C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesWebintentResolutionView.swift; sourceTree = "<group>"; };
 		801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		8042E0712C3318DA001E8366 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -757,6 +759,7 @@
 				806AE6A02C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift */,
 				805D669F2C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift */,
 				8054592D2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift */,
+				80195D192C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift */,
 			);
 			path = features;
 			sourceTree = "<group>";
@@ -1363,6 +1366,7 @@
 				8058AD9F2C32B2470004AF81 /* ViewSizeData.swift in Sources */,
 				8058ADA02C32B2470004AF81 /* RingsChartRow.swift in Sources */,
 				8058ADA12C32B2470004AF81 /* LineShapeView.swift in Sources */,
+				80195D1A2C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift in Sources */,
 				8058ADA22C32B2470004AF81 /* AxisLabelsPosition.swift in Sources */,
 				8058ADA32C32B2470004AF81 /* Path+QuadCurve.swift in Sources */,
 				8058ADA42C32B2470004AF81 /* Line.swift in Sources */,

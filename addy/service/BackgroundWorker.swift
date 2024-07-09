@@ -30,9 +30,6 @@ class BackgroundWorker: Operation {
         if (backgroundWorkerHelper.isThereWorkTodo()){
             let networkHelper = NetworkHelper()
             
-            // Stored if the network call succeeds its task
-            var aliasWatcherNetworkCallResult = false
-            
             /**
              In this code, semaphore.signal() is called when each asynchronous function completes, and semaphore.wait() is used to block the current queue until the previous function has signaled completion.
              */
