@@ -6,6 +6,8 @@
 	<array>
 		<string>host.stjin.addy.backgroundworker</string>
 	</array>
+	<key>CFBundleSpokenName</key>
+	<string>Addy</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

@@ -14,6 +14,7 @@
 		801B929F2BE8FF6800179EB5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */; };
 		801B92A22BE905BB00179EB5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 801B92A12BE905BB00179EB5 /* Lottie */; };
 		801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
+		802FC8CF2C42C2EA00E3E134 /* AppShortcuts.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 802FC8CE2C42C2EA00E3E134 /* AppShortcuts.xcstrings */; };
 		8042E0742C3318DA001E8366 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8042E0732C3318DA001E8366 /* ShareViewController.swift */; };
 		8042E07B2C3318DA001E8366 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8042E0712C3318DA001E8366 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8042E07F2C3318E3001E8366 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
@@ -112,6 +113,8 @@
 		80813B6E2C0DF23B009C4E6A /* FailedDeliveriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B6D2C0DF23B009C4E6A /* FailedDeliveriesView.swift */; };
 		80813B712C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */; };
 		80813B752C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */; };
+		8084AAD12C429F0A00CC7E3B /* CreateNewAliasIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084AAD02C429F0A00CC7E3B /* CreateNewAliasIntent.swift */; };
+		8084AAD42C42A25500CC7E3B /* AddyShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084AAD32C42A25500CC7E3B /* AddyShortcuts.swift */; };
 		809AB1C82C1F10FE0054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809AB1C72C1F10F80054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift */; };
 		809CB9502C2358CA00DBBD03 /* FailedDeliveriesIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CB94F2C2358C900DBBD03 /* FailedDeliveriesIcon.swift */; };
 		809F874F2C29D892002A89C0 /* QuickActionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F874E2C29D892002A89C0 /* QuickActionsManager.swift */; };
@@ -182,6 +185,8 @@
 		80E9B2382C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E9B2372C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift */; };
 		80E9B23A2C0B9D8600C7EF99 /* GsonTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E9B2392C0B9D8600C7EF99 /* GsonTools.swift */; };
 		80ECA1012C1DA00100788D75 /* BackgroundWorkerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ECA1002C1DA00100788D75 /* BackgroundWorkerHelper.swift */; };
+		80ED9BB12C42EBDC0062FCB7 /* AppSettingsFeaturesAppIntentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED9BB02C42EBDC0062FCB7 /* AppSettingsFeaturesAppIntentsView.swift */; };
+		80ED9BB42C42FD670062FCB7 /* CreateNewCustomAliasIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED9BB32C42FD670062FCB7 /* CreateNewCustomAliasIntent.swift */; };
 		80F0D7E72BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json in Resources */ = {isa = PBXBuildFile; fileRef = 80F0D7E62BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json */; };
 		80F3C6642BFB6E6D0028A486 /* AddAliasBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F3C6632BFB6E6D0028A486 /* AddAliasBottomSheet.swift */; };
 /* End PBXBuildFile section */
@@ -245,6 +250,7 @@
 		80195D192C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesWebintentResolutionView.swift; sourceTree = "<group>"; };
 		801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		802FC8CE2C42C2EA00E3E134 /* AppShortcuts.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = AppShortcuts.xcstrings; sourceTree = "<group>"; };
 		8042E0712C3318DA001E8366 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8042E0732C3318DA001E8366 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		8042E0782C3318DA001E8366 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -345,6 +351,8 @@
 		80813B6D2C0DF23B009C4E6A /* FailedDeliveriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveriesView.swift; sourceTree = "<group>"; };
 		80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveriesViewModel.swift; sourceTree = "<group>"; };
 		80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveryBottomSheet.swift; sourceTree = "<group>"; };
+		8084AAD02C429F0A00CC7E3B /* CreateNewAliasIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAliasIntent.swift; sourceTree = "<group>"; };
+		8084AAD32C42A25500CC7E3B /* AddyShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyShortcuts.swift; sourceTree = "<group>"; };
 		809AB1C72C1F10F80054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyFailedDeliveriesView.swift; sourceTree = "<group>"; };
 		809CB94F2C2358C900DBBD03 /* FailedDeliveriesIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveriesIcon.swift; sourceTree = "<group>"; };
 		809F874E2C29D892002A89C0 /* QuickActionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsManager.swift; sourceTree = "<group>"; };
@@ -401,6 +409,8 @@
 		80E9B2372C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUsernameRecipientsBottomSheet.swift; sourceTree = "<group>"; };
 		80E9B2392C0B9D8600C7EF99 /* GsonTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GsonTools.swift; sourceTree = "<group>"; };
 		80ECA1002C1DA00100788D75 /* BackgroundWorkerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundWorkerHelper.swift; sourceTree = "<group>"; };
+		80ED9BB02C42EBDC0062FCB7 /* AppSettingsFeaturesAppIntentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesAppIntentsView.swift; sourceTree = "<group>"; };
+		80ED9BB32C42FD670062FCB7 /* CreateNewCustomAliasIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCustomAliasIntent.swift; sourceTree = "<group>"; };
 		80F0D7E62BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gray_ic_loading_logo.shapeshifter.json; sourceTree = "<group>"; };
 		80F3C6632BFB6E6D0028A486 /* AddAliasBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAliasBottomSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -760,6 +770,7 @@
 				805D669F2C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift */,
 				8054592D2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift */,
 				80195D192C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift */,
+				80ED9BB02C42EBDC0062FCB7 /* AppSettingsFeaturesAppIntentsView.swift */,
 			);
 			path = features;
 			sourceTree = "<group>";
@@ -829,10 +840,13 @@
 		806F21312BE8F1B100EBEBC8 /* addy */ = {
 			isa = PBXGroup;
 			children = (
+				802FC8CE2C42C2EA00E3E134 /* AppShortcuts.xcstrings */,
+				8084AAD22C42A23D00CC7E3B /* AppShortcutsProvider */,
 				805459142C3975290087A170 /* addy.entitlements */,
 				806F21382BE8F1B200EBEBC8 /* Assets.xcassets */,
 				801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */,
 				806D5F1B2BE91B9700C5C109 /* anims */,
+				8084AACE2C429EDF00CC7E3B /* AppIntent */,
 				80ECA1022C1DADAF00788D75 /* App lifecycle */,
 				80F22F352BEE34E1001176B4 /* dependencies */,
 				805D66A12C1F4C810085CCED /* extensions */,
@@ -865,6 +879,23 @@
 				80813B742C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift */,
 			);
 			path = faileddeliveries;
+			sourceTree = "<group>";
+		};
+		8084AACE2C429EDF00CC7E3B /* AppIntent */ = {
+			isa = PBXGroup;
+			children = (
+				8084AAD02C429F0A00CC7E3B /* CreateNewAliasIntent.swift */,
+				80ED9BB32C42FD670062FCB7 /* CreateNewCustomAliasIntent.swift */,
+			);
+			path = AppIntent;
+			sourceTree = "<group>";
+		};
+		8084AAD22C42A23D00CC7E3B /* AppShortcutsProvider */ = {
+			isa = PBXGroup;
+			children = (
+				8084AAD32C42A25500CC7E3B /* AddyShortcuts.swift */,
+			);
+			path = AppShortcutsProvider;
 			sourceTree = "<group>";
 		};
 		80A7F2012BECD7D3001A984B /* ViewModel */ = {
@@ -1234,6 +1265,7 @@
 				806AE6992C1A0D5700F3CA92 /* Settings.bundle in Resources */,
 				801B929F2BE8FF6800179EB5 /* Launch Screen.storyboard in Resources */,
 				806D5F252BE925C600C5C109 /* ic_loading_logo.shapeshifter.json in Resources */,
+				802FC8CF2C42C2EA00E3E134 /* AppShortcuts.xcstrings in Resources */,
 				807515102C26C69E00DE2AC7 /* InfoPlist.xcstrings in Resources */,
 				806F213C2BE8F1B200EBEBC8 /* Preview Assets.xcassets in Resources */,
 				801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */,
@@ -1370,6 +1402,7 @@
 				8058ADA22C32B2470004AF81 /* AxisLabelsPosition.swift in Sources */,
 				8058ADA32C32B2470004AF81 /* Path+QuadCurve.swift in Sources */,
 				8058ADA42C32B2470004AF81 /* Line.swift in Sources */,
+				8084AAD42C42A25500CC7E3B /* AddyShortcuts.swift in Sources */,
 				8058ADA52C32B2470004AF81 /* PieChartRow.swift in Sources */,
 				8058ADA62C32B2470004AF81 /* CGPoint+Extension.swift in Sources */,
 				8058ADA72C32B2470004AF81 /* LineBackgroundShape.swift in Sources */,
@@ -1400,6 +1433,7 @@
 				8058ADC02C32B2470004AF81 /* BarChartCellShape.swift in Sources */,
 				8058ADC12C32B2470004AF81 /* AxisLabelsStyle.swift in Sources */,
 				8058ADC22C32B2470004AF81 /* ChartValue.swift in Sources */,
+				80ED9BB42C42FD670062FCB7 /* CreateNewCustomAliasIntent.swift in Sources */,
 				8058ADC32C32B2470004AF81 /* ChartData.swift in Sources */,
 				8058ADC42C32B2470004AF81 /* ChartGrid.swift in Sources */,
 				8058ADC52C32B2470004AF81 /* AxisLabels+Extension.swift in Sources */,
@@ -1411,6 +1445,7 @@
 				8058ADC92C32B2470004AF81 /* Shape+Extension.swift in Sources */,
 				8058ADCA2C32B2470004AF81 /* PieChartHelpers.swift in Sources */,
 				8058ADCB2C32B2470004AF81 /* LineChartProperties.swift in Sources */,
+				80ED9BB12C42EBDC0062FCB7 /* AppSettingsFeaturesAppIntentsView.swift in Sources */,
 				8058ADCC2C32B2470004AF81 /* CardView.swift in Sources */,
 				805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */,
 				80B2FB772C3C4331009977B6 /* CopiedToClipboardOverlay.swift in Sources */,
@@ -1430,6 +1465,7 @@
 				806AE69C2C1A194800F3CA92 /* AddySettingsHeader.swift in Sources */,
 				806AE69F2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift in Sources */,
 				80D4F2DB2C17084E00D313EC /* AppSettingsView.swift in Sources */,
+				8084AAD12C429F0A00CC7E3B /* CreateNewAliasIntent.swift in Sources */,
 				80813B6A2C0DE24C009C4E6A /* EditDomainRecipientsBottomSheet.swift in Sources */,
 				80E1946A2BF8C840005175EA /* EditAliasFromNameBottomSheet.swift in Sources */,
 				807DB4832C1764620051DD8A /* AppearanceBottomSheet.swift in Sources */,

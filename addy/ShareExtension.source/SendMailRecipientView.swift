@@ -175,7 +175,7 @@ struct SendMailRecipientView: View {
             
             // Check if alias is empty, if alias is empty just forward the recipient to the default mail app without generating an alias
             if viewModel.searchQuery.isEmpty {
-                let composeUrl = self.clients[0].composeURL(to: addresses.split(separator: ",").map(String.init), subject: emailSubject, body: emailBody, cc: validCcRecipients, bcc: validBccRecipients)
+                let composeUrl = client!.composeURL(to: addresses.split(separator: ",").map(String.init), subject: emailSubject, body: emailBody, cc: validCcRecipients, bcc: validBccRecipients)
                 self.openMailToShareSheet(composeUrl)
             } else {
                 // As we can dynamically create aliases, we need to check if the entered alias has a domain name that we can use
@@ -196,7 +196,7 @@ struct SendMailRecipientView: View {
                         let anonaddyBccRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: self.validBccRecipients, alias: alias)
                         
                         
-                        let composeUrl = self.clients[0].composeURL(to: anonaddyRecipientAddresses, subject: emailSubject, body: emailBody, cc: anonaddyCcRecipientAddresses, bcc: anonaddyBccRecipientAddresses)
+                        let composeUrl = client!.composeURL(to: anonaddyRecipientAddresses, subject: emailSubject, body: emailBody, cc: anonaddyCcRecipientAddresses, bcc: anonaddyBccRecipientAddresses)
                         
                         UIPasteboard.general.setValue(anonaddyRecipientAddresses,forPasteboardType: UTType.plainText.identifier)
                         showCopiedToClipboardAnimation()
@@ -216,7 +216,7 @@ struct SendMailRecipientView: View {
                                 let anonaddyCcRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: validCcRecipients, alias: alias)
                                 let anonaddyBccRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: self.validBccRecipients, alias: alias)
                                 
-                                let composeUrl = self.clients[0].composeURL(to: anonaddyRecipientAddresses, subject: emailSubject, body: emailBody, cc: anonaddyCcRecipientAddresses, bcc: anonaddyBccRecipientAddresses)
+                                let composeUrl = client!.composeURL(to: anonaddyRecipientAddresses, subject: emailSubject, body: emailBody, cc: anonaddyCcRecipientAddresses, bcc: anonaddyBccRecipientAddresses)
                                 
                                 UIPasteboard.general.setValue(anonaddyRecipientAddresses,forPasteboardType: UTType.plainText.identifier)
                                 showCopiedToClipboardAnimation()

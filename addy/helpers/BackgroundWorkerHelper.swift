@@ -65,7 +65,7 @@ class BackgroundWorkerHelper {
         
         let shouldCheckForUpdates = settingsManager.getSettingsBool(key: .notifyUpdates)
         let shouldCheckForFailedDeliveries = settingsManager.getSettingsBool(key: .notifyFailedDeliveries)
-        let shouldCheckApiTokenExpiry = settingsManager.getSettingsBool(key: .notifyApiTokenExpiry, default: true)
+        let shouldCheckApiTokenExpiry = settingsManager.getSettingsBool(key: .notifyApiTokenExpiry)
         //let shouldMakePeriodicBackups = settingsManager.getSettingsBool(key:  .periodicBackups)
         
         // If there are

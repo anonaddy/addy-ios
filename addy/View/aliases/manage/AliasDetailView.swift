@@ -36,6 +36,8 @@ struct AliasDetailView: View {
     @State private var alias: Aliases? = nil
     @State private var errorText: String? = nil
     
+    @State private var sendToRecipients: String? = nil
+    
     @State private var isAliasActive: Bool = false
     @State private var isSwitchingAliasActiveState: Bool = false
     @State private var isAliasBeingWatched: Bool = false
@@ -47,6 +49,10 @@ struct AliasDetailView: View {
     @State private var copiedToClipboard: Bool = false
     
     @State private var chartData: [Double] = [0,0,0,0]
+    
+    @State private var clients: [ThirdPartyMailClient] = []
+    @State private var isPresentingEmailSelectionDialog: Bool = false
+
     
     init(aliasId: String, aliasEmail: String?, shouldReloadDataInParent: Binding<Bool>? = nil, shouldDisableAlias: Bool = false) {
         self.aliasId = aliasId
@@ -291,7 +297,23 @@ struct AliasDetailView: View {
                 CopiedToClipboardOverlay(copiedToClipboard: $copiedToClipboard)
                 
             }
+            .confirmationDialog(String(localized: "send_mail"), isPresented: $isPresentingEmailSelectionDialog) {
+                
+                ForEach(clients, id: \.self) { item in
+                    Button(item.name) {
+                        self.onPressSend(client: item, sendToRecipients: self.sendToRecipients ?? "")
+                    }
+                }
+                
+                Button(String(localized: "cancel"), role: .cancel) { }
+            } message: {
+                Text(String(localized: "select_mail_client"))
+            }
             .onAppear(perform: {
+                // Get the available mail clients
+                self.clients = ThirdPartyMailClient.clients.filter( {ThirdPartyMailer.isMailClientAvailable($0)})
+                self.clients.append(ThirdPartyMailClient.systemDefault)
+                
                 if shouldDisableAlias {
                     
                     if alias.active {
@@ -350,7 +372,7 @@ struct AliasDetailView: View {
             .sheet(isPresented: $isPresentingEditAliasSendMailRecipientBottomSheet) {
                 NavigationStack {
                     EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email){ addresses in
-                        self.onPressSend(toString: addresses)
+                        self.onPressSend(client: nil, sendToRecipients: addresses)
                         isPresentingEditAliasSendMailRecipientBottomSheet = false
                         
                     }
@@ -492,21 +514,26 @@ struct AliasDetailView: View {
         
     }
     
-    private func onPressSend(toString: String) {
+    private func onPressSend(client: ThirdPartyMailClient? = nil, sendToRecipients: String) {
         guard let alias = alias else { return }
-        // Get recipients
-        let recipients = AnonAddyUtils.getSendAddress(recipientEmails: toString.split(separator: ",").map { String($0) }, alias: alias)
         
-        // Copy the email addresses to clipboard
-        UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
-        showCopiedToClipboardAnimation()
-        
-        // Prepare mailto URL
-        let mailtoURL = AnonAddyUtils.createMailtoURL(recipients: recipients)
-        
-        // Open mailto URL
-        if let url = mailtoURL {
-            UIApplication.shared.open(url)
+        if client == nil {
+            isPresentingEmailSelectionDialog = true
+            self.sendToRecipients = sendToRecipients
+        } else {
+            // Get recipients
+            let recipients = AnonAddyUtils.getSendAddress(recipientEmails: sendToRecipients.split(separator: ",").map { String($0) }, alias: alias)
+            
+            // Copy the email addresses to clipboard
+            UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
+            showCopiedToClipboardAnimation()
+            
+            // Prepare mailto URL
+            let mailtoURL = client!.composeURL(to: recipients)
+            
+            // Open mailto URL
+            UIApplication.shared.open(mailtoURL)
+            
         }
     }
     

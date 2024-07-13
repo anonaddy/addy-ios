@@ -9,6 +9,7 @@ import SwiftUI
 import AVFoundation
 import CodeScanner
 import addy_shared
+import _AppIntents_SwiftUI
 
 struct AddAliasBottomSheet: View {
     let onAdded: () -> Void
@@ -29,6 +30,7 @@ struct AddAliasBottomSheet: View {
     
     @State private var domains: [String] = []
     @State private var sharedDomains: [String] = []
+    
     @State private var formats: [[String]] =
     [[String(localized: "domains_format_random_characters", comment: ""), "random_characters"],
      [String(localized: "domains_format_uuid", comment: ""), "uuid"],
@@ -61,6 +63,7 @@ struct AddAliasBottomSheet: View {
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
     
     @State var isLoadingAddButton: Bool = false
+    
     
     @Environment(\.dismiss) var dismiss
     
@@ -155,6 +158,12 @@ struct AddAliasBottomSheet: View {
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
             
+            SiriTipView(
+            intent: CreateNewAliasIntent())
+            .siriTipViewStyle(.automatic)
+            .onDisappear(perform: {
+                print("BYE!!")
+            })
             
             
         }

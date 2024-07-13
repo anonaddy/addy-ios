@@ -75,7 +75,7 @@ public struct ThirdPartyMailClient: Hashable {
 
         if URLRecipientKey == nil {
             if let recipient = recipient {
-                components = URLComponents(string: "\(URLScheme):\(URLRoot ?? "")\(recipient)")
+                components = URLComponents(string: "\(URLScheme):\(URLRoot ?? "")\(recipient.joined(separator: ","))")
             }
         }
 

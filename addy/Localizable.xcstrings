@@ -750,6 +750,158 @@
         }
       }
     },
+    "app_intent_add_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a new alias"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_custom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a new alias with a custom local part"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creates a new alias based on your addy.io account’s preferences"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_custom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias local part"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_custom_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the part of the alias that should appear before the ‘@‘"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select domain"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_domain_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For which domain do you want to create an alias?"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_format" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select format"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_format_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What format would you like to use?"
+          }
+        }
+      }
+    },
+    "app_intent_alias_added_no_copy%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Here’s your alias:  %@. I am sorry but I couldn’t copy it to your clipboard."
+          }
+        }
+      }
+    },
+    "app_intent_alias_added%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Here’s your alias:  %@. I've also gone ahead and copied this alias to your clipboard."
+          }
+        }
+      }
+    },
+    "app_intent_category_name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage your aliases"
+          }
+        }
+      }
+    },
+    "app_intent_parameter_summary_domain${domain}_custom${localPart}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create an alias for ${domain} with local part ${localPart}"
+          }
+        }
+      }
+    },
+    "app_intent_parameter_summary_domain${domain}_format${format}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create an alias for ${domain} with${format} format"
+          }
+        }
+      }
+    },
     "app_name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -761,6 +913,28 @@
         }
       }
     },
+    "app_not_setup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App has not been setup"
+          }
+        }
+      }
+    },
+    "app_not_setup_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the addy.io app and setup your account to use this feature"
+          }
+        }
+      }
+    },
     "app_settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -768,6 +942,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "App settings"
+          }
+        }
+      }
+    },
+    "app_setup_required" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The addy.io app has not been set-up yet, open the app and add an API key to begin."
           }
         }
       }
@@ -1209,6 +1393,9 @@
           }
         }
       }
+    },
+    "create" : {
+
     },
     "created" : {
       "extractionState" : "manual",
@@ -1973,6 +2160,9 @@
         }
       }
     },
+    "email" : {
+
+    },
     "emails_forwarded" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2729,6 +2919,9 @@
         }
       }
     },
+    "format" : {
+
+    },
     "forward_to" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2915,6 +3108,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ignore and continue"
+          }
+        }
+      }
+    },
+    "integration_app_intents" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siri & Shortcuts"
+          }
+        }
+      }
+    },
+    "integration_app_intents_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create aliases from anywhere by using Shortcuts, Siri and Control Centre controls. The default alias settings from your addy.io account are beings used unless specified otherwise in the shortcuts."
           }
         }
       }
@@ -4739,7 +4954,14 @@
       }
     },
     "something_went_wrong_retrieving_aliases" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving failed aliases"
+          }
+        }
+      }
     },
     "something_went_wrong_retrieving_domains" : {
       "localizations" : {

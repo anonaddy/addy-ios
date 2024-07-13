@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 import addy_shared
 
+
 @main
 struct addyApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate

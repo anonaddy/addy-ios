@@ -38,6 +38,7 @@ public class SettingsManager {
         case backupsPassword
         case userResource
         case userResourceExtended
+        
         // WearOS
         case backgroundServiceCacheFavoriteAliasesData
         case backgroundServiceCacheMostActiveAliasesData
@@ -94,13 +95,13 @@ public class SettingsManager {
         }
     }
     
-    public func getSettingsBool(key: Prefs, default: Bool = false) -> Bool {
+    public func getSettingsBool(key: Prefs) -> Bool {
         let userKey = "\(user)_\(key)"
         
         if useKeychain {
-            return keychain.getBool(userKey) ?? `default`
+            return keychain.getBool(userKey) ?? false
         } else {
-            return prefs?.bool(forKey: userKey) ?? `default`
+            return prefs?.bool(forKey: userKey) ?? false
         }
     }
     

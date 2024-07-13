@@ -37,9 +37,9 @@ enum FieldType {
     func getKeyboardType() -> UIKeyboardType {
         switch self {
         case .email:
-            return UIKeyboardType.emailAddress
+            return UIKeyboardType.default // Not UIKeyboardType.emailAddress as it won't have the option to comma seperate
         case .commaSeperatedEmails:
-            return UIKeyboardType.emailAddress
+            return UIKeyboardType.default  // Not UIKeyboardType.emailAddress as it won't have the option to comma seperate
         case .url:
             return UIKeyboardType.URL
         case .text:

@@ -138,6 +138,7 @@ struct MainView: View {
                             
                             // Schedule background tasks
                             BackgroundWorkerHelper().scheduleBackgroundWorker()
+
                             
                             // Check for changelog
                             let dictionary = Bundle.main.infoDictionary!
@@ -403,6 +404,19 @@ struct MainView: View {
             await checkForSubscriptionExpiration()
             await checkForNewFailedDeliveries()
             await checkTokenExpiry()
+            await getUserResource()
+        }
+    }
+    
+    private func getUserResource() async {
+        let networkHelper = NetworkHelper()
+        do {
+            let userResource = try await networkHelper.getUserResource()
+            if let userResource = userResource {
+                mainViewState.userResource = userResource
+            }
+        } catch {
+            print("Failed to get user resource: \(error)")
         }
     }
     

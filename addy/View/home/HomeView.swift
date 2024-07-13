@@ -8,6 +8,7 @@
 import SwiftUI
 import addy_shared
 import Charts
+import _AppIntents_SwiftUI
 
 
 struct HomeView: View {
@@ -20,6 +21,7 @@ struct HomeView: View {
     }
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
+    
     
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
@@ -52,6 +54,7 @@ struct HomeView: View {
                         
                     }
                 }
+                
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(LinearGradient(gradient: Gradient(colors: [Color("SecondaryColor"), Color("AccentColor")]),
                                        startPoint: .top, endPoint: .bottom))

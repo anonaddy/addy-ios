@@ -93,7 +93,7 @@ class BackgroundWorker: Operation {
 #if DEBUG
                 print("BackgroundWorker task 5")
                 #endif
-                    if settingsManager.getSettingsBool(key: .notifyApiTokenExpiry, default: true) {
+                    if settingsManager.getSettingsBool(key: .notifyApiTokenExpiry) {
                         do {
                             let apiTokenDetails = try await networkHelper.getApiTokenDetails()
                             if let expiresAt = apiTokenDetails?.expires_at {
@@ -139,7 +139,7 @@ class BackgroundWorker: Operation {
                 print("BackgroundWorker task 6")
                 #endif
                 Task {
-                    if settingsManager.getSettingsBool(key: .notifyDomainError, default: false) {
+                    if settingsManager.getSettingsBool(key: .notifyDomainError) {
                         do {
                             let domains = try await networkHelper.getDomains()
                             if let domains = domains, !domains.data.isEmpty {
@@ -171,7 +171,7 @@ class BackgroundWorker: Operation {
 #if DEBUG
                 print("BackgroundWorker task 7")
                 #endif
-                    if settingsManager.getSettingsBool(key: .notifySubscriptionExpiry, default: false) {
+                    if settingsManager.getSettingsBool(key: .notifySubscriptionExpiry) {
                         do {
                             let user = try await networkHelper.getUserResource()
                             if let subscriptionEndsAt = user?.subscription_ends_at {

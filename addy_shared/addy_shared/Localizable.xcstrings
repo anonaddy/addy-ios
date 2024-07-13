@@ -32,7 +32,14 @@
       }
     },
     "system_default" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System default"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

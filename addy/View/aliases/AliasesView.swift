@@ -267,10 +267,7 @@ struct AliasesView: View {
             .onChange(of: scenePhase) { oldPhase, newPhase in
                 if newPhase == .active {
                     // User opened the app from background
-                    
                     checkForAnyInteractiveActions()
-                    
-                    
                 }
             }
             .alert(isPresented: $showAlert) {
@@ -381,6 +378,7 @@ struct AliasesView: View {
             }
             .autocorrectionDisabled(true)
             .textInputAutocapitalization(.never)
+            //TODO: Check if this properly works on iOS18 platform stability (opening aliases from shortcute multiple times)
             .navigationDestination(isPresented: $isShowingAliasDetailView) {
                 if let aliasToDisable = self.aliasToDisable {
                     NavigationStack(){

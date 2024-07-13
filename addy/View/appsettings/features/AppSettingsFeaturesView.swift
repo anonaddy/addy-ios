@@ -48,6 +48,11 @@ struct AppSettingsFeaturesView: View {
                 NavigationLink(destination: AppSettingsFeaturesWebintentResolutionView()){
                     AddySection(title: String(localized: "integration_webintent_resolution"), description: String(localized: "integration_webintent_resolution_desc"), leadingSystemimage: "link", leadingSystemimageColor: .gray)
                  }
+                
+                NavigationLink(destination: AppSettingsFeaturesAppIntentsView()){
+                    AddySection(title: String(localized: "integration_app_intents"), description: String(localized: "integration_app_intents_desc"), leadingSystemimage: "square.3.layers.3d.top.filled", leadingSystemimageColor: .pink)
+                 }
+                
             } header: {
                 Text(String(localized: "integrations"))
             }

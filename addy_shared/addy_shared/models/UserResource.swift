@@ -39,8 +39,8 @@ public struct UserResource: Codable {
     public var username_limit: Int
     var default_username_id: String
     public var default_recipient_id: String
-    var default_alias_domain: String
-    var default_alias_format: String
+    public var default_alias_domain: String
+    public var default_alias_format: String
     public var subscription: String? // Can be nil on selfhosted
     public var subscription_ends_at: String? // Can be nil on selfhosted
     var bandwidth_limit: Int64

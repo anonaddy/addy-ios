@@ -18,7 +18,7 @@ class NotificationHelper{
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_new_emails")
         
-        if SettingsManager(encrypted: true).getSettingsBool(key: .privacyMode, default: false){
+        if SettingsManager(encrypted: true).getSettingsBool(key: .privacyMode){
             content.subtitle = String(format: String(localized: "notification_new_emails_desc"), String(emailDifference), String(localized: "one_of_your_aliases"))
         } else {
             content.subtitle = String(format: String(localized: "notification_new_emails_desc"), String(emailDifference), email)
@@ -56,7 +56,7 @@ class NotificationHelper{
         content.title = String(localized: "notification_alias_watches_alias_does_not_exist_anymore")
         
         
-        if SettingsManager(encrypted: true).getSettingsBool(key: .privacyMode, default: false){
+        if SettingsManager(encrypted: true).getSettingsBool(key: .privacyMode){
             content.subtitle = String(format: String(localized: "notification_alias_watches_alias_does_not_exist_anymore_desc"), String(localized: "one_of_your_aliases"))
         } else {
             content.subtitle = String(format: String(localized: "notification_alias_watches_alias_does_not_exist_anymore_desc"), email)
