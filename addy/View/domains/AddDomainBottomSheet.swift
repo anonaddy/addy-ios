@@ -38,7 +38,7 @@ struct AddDomainBottomSheet: View {
         Group {
             if isWaitingForDomainVerification {
                 Text(domainVerificationStatusText).transition(.opacity).multilineTextAlignment(.center)
-                //TODO: Add spinner
+                ProgressView()
             } else {
                 VStack{
                     

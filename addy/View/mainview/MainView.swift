@@ -498,7 +498,7 @@ enum Destination: Hashable, CaseIterable {
     var systemImage: String {
         switch self {
         case .home: return "house"
-        case .aliases: return "at.circle"
+        case .aliases: return "at.circle.fill"
         case .recipients: return "person.2"
         case .usernames: return "person.crop.circle.fill"
         case .domains: return "globe"

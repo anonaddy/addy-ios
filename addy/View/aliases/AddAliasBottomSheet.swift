@@ -157,20 +157,15 @@ struct AddAliasBottomSheet: View {
                 }.frame(minHeight: 56)
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
-            
-            SiriTipView(
-            intent: CreateNewAliasIntent())
-            .siriTipViewStyle(.automatic)
-            .onDisappear(perform: {
-                print("BYE!!")
-            })
+            Section {
+                
+                SiriTipView(
+                intent: CreateNewAliasIntent())
+                .siriTipViewStyle(.automatic)
+            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
             
         }
-        .onAppear(perform: {
-            // Reset this value to prevent re-opening the AddAliasBottomSheet when coming back to the app later
-            MainViewState.shared.showAddAliasBottomSheet = false
-        })
         .navigationTitle(String(localized: "add_alias")).pickerStyle(.navigationLink)
         .task {
             if (domains.isEmpty){

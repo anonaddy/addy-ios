@@ -8,6 +8,15 @@
 import Foundation
 
 public struct AddyChartData: Codable {
+    
+    public init(forwardsData: [Int], labels: [String], outboundMessageTotals: [Int], repliesData: [Int], sendsData: [Int]) {
+        self.forwardsData = forwardsData
+        self.labels = labels
+        self.outboundMessageTotals = outboundMessageTotals
+        self.repliesData = repliesData
+        self.sendsData = sendsData
+    }
+    
     public var forwardsData: [Int]
     public var labels: [String]
     public var outboundMessageTotals: [Int]

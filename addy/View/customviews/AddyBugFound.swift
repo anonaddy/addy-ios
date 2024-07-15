@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct AddyBugFound: View {
+    @Environment(\.openURL) var openURL
+
     var body: some View {
         ContentUnavailableView {
             Label(String(localized: "bug_found"), systemImage: "ladybug")
         } description: {
             Text(String(localized: "bug_found_desc"))
+        } actions: {
+            Button(String(localized: "report_an_issue")) {
+                openURL(URL(string: "https://github.com/anonaddy/addy-ios/issues/new")!)
+            }
         }
-        
-        //TODO: Add button to the github issues page
     }
 }
 

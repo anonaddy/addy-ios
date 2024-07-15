@@ -72,15 +72,22 @@ struct AliasDetailView: View {
                 Section {
                     VStack(alignment: .leading){
                         HStack{
-                            BarChart()
-                                .data(chartData)
-                                .chartStyle(ChartStyle(backgroundColor: .white,
-                                                       foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
-                                                                         ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
-                                                                         ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
-                                                                         ColorGradient(.softRed, .softRed.opacity(0.7))]))
-                                .allowsHitTesting(false)
-                                .frame(maxWidth: .infinity)
+                            
+                            Color.clear
+                                .aspectRatio(1, contentMode: .fill)
+                                    .overlay(
+                                        BarChart()
+                                            .data(chartData)
+                                            .chartStyle(ChartStyle(backgroundColor: .white,
+                                                                   foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
+                                                                                     ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
+                                                                                     ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
+                                                                                     ColorGradient(.softRed, .softRed.opacity(0.7))]))
+                                            .allowsHitTesting(false)
+                                            .padding(.horizontal).padding(.top)
+                                    )
+                                    .clipShape(RoundedRectangle(cornerRadius: 13))
+                                    .frame(maxWidth: 150)
                             Spacer()
                             
                             VStack(alignment: .trailing){
@@ -155,9 +162,6 @@ struct AliasDetailView: View {
                                     .frame(maxWidth:.infinity, maxHeight: 24).frame(alignment: .leading)
                                     .font(.system(size: 14))
                             }
-                            .buttonStyle(.borderedProminent)
-                            .tint(.accentColor)
-                            .contentTransition(.symbolEffect(.replace))
                             Spacer()
                             Button(action: {
                                 isPresentingEditAliasSendMailRecipientBottomSheet = true
@@ -167,13 +171,10 @@ struct AliasDetailView: View {
                                     .frame(maxWidth:.infinity, maxHeight: 24).frame(alignment: .leading)
                                     .font(.system(size: 14))
                             }
-                            .buttonStyle(.borderedProminent)
-                            .tint(.accentColor)
-                            .contentTransition(.symbolEffect(.replace))
-                        }.padding(.top, 8)
+                        }.padding(.top, 8).buttonStyle(.borderedProminent)
                         
                         
-                    }.frame(height: 200)}.buttonStyle(PlainButtonStyle())
+                    }.frame(height: 200)}
                 
                 Section {
                     
@@ -440,7 +441,7 @@ struct AliasDetailView: View {
             }.onAppear(perform: {
                                 
                 // Reset this value to prevent re-opening the AliasDetailView when coming back to the app later. Even if the alias failed to load
-                mainViewState.showAliasWithId = nil
+                //mainViewState.showAliasWithId = nil
                 mainViewState.aliasToDisable = nil
             }).task {
                 await getAlias(aliasId: self.aliasId)

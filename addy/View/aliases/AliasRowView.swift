@@ -143,21 +143,27 @@ struct AliasRowView: View {
                 }
             }.padding()
         } else {
-            VStack() {
                 HStack{
  
-                    BarChart()
-                        .data(chartData)
-                        .chartStyle(ChartStyle(backgroundColor: .white,
-                                               foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
-                                                                 ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
-                                                                 ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
-                                                                 ColorGradient(.softRed, .softRed.opacity(0.7))]))
-                        .allowsHitTesting(false)
-                        .frame(width: 60)
-                        .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 12))
-                        .grayscale(alias.active ? 0 : 1)
                     
+                    Color.clear
+                        .aspectRatio(1, contentMode: .fill)
+                            .overlay(
+                                BarChart()
+                                    .data(chartData)
+                                    .chartStyle(ChartStyle(backgroundColor: .white,
+                                                           foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
+                                                                             ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
+                                                                             ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
+                                                                             ColorGradient(.softRed, .softRed.opacity(0.7))]))
+                                    .allowsHitTesting(false)
+                                    .padding(.horizontal).padding(.top)
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 13))
+                            .frame(maxWidth: 50)
+                            .grayscale(alias.active ? 0 : 1)
+                            .padding(.trailing)
+
                     Spacer()
                     
                     VStack(alignment: .leading){
@@ -168,24 +174,12 @@ struct AliasRowView: View {
                         Text(aliasDescription)
                             .font(.subheadline)
                             .lineLimit(2)
-                    }
-                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 12, trailing: 0))
+                    }.frame(maxWidth: .infinity)
                     
                     Spacer()
                     
-                    //Spacer()
-                    
-                    
-                    //                Button(String(localized: "copy")) {
-                    //                    copyToClipboard()
-                    //
-                    //                }
-                    //                        .buttonStyle(.borderedProminent)
-                    //                        .controlSize(.mini)
-                    //
-                    
-                }
-            }.frame(height: 100)
+                }.frame(height: 90)
+            
             
             
             

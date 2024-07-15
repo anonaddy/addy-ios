@@ -22,6 +22,8 @@
 		80477DDE2C12225D00E52AF8 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DDD2C12225D00E52AF8 /* RulesView.swift */; };
 		80477DE02C1222AE00E52AF8 /* RulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DDF2C1222AE00E52AF8 /* RulesViewModel.swift */; };
 		80477DE52C12261300E52AF8 /* CreateRulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DE42C12261300E52AF8 /* CreateRulesView.swift */; };
+		8047EA6A2C454D4700A04D28 /* GradientProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047EA692C454D4700A04D28 /* GradientProgressBar.swift */; };
+		8047EA6D2C454F1B00A04D28 /* HomeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047EA6C2C454F1B00A04D28 /* HomeCardView.swift */; };
 		804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */; };
 		804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A72BE95B49001DDC8A /* AddyButton.swift */; };
 		804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */; };
@@ -257,6 +259,8 @@
 		80477DDD2C12225D00E52AF8 /* RulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesView.swift; sourceTree = "<group>"; };
 		80477DDF2C1222AE00E52AF8 /* RulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewModel.swift; sourceTree = "<group>"; };
 		80477DE42C12261300E52AF8 /* CreateRulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRulesView.swift; sourceTree = "<group>"; };
+		8047EA692C454D4700A04D28 /* GradientProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressBar.swift; sourceTree = "<group>"; };
+		8047EA6C2C454F1B00A04D28 /* HomeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardView.swift; sourceTree = "<group>"; };
 		804BE7A52BE95715001DDC8A /* SetupOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupOnboarding.swift; sourceTree = "<group>"; };
 		804BE7A72BE95B49001DDC8A /* AddyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButton.swift; sourceTree = "<group>"; };
 		804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddyButtonStyle.swift; sourceTree = "<group>"; };
@@ -788,6 +792,7 @@
 		806D5F2B2BE94C3F00C5C109 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				8047EA6C2C454F1B00A04D28 /* HomeCardView.swift */,
 				80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */,
 				80B2FB762C3C4331009977B6 /* CopiedToClipboardOverlay.swift */,
 				80B2FB722C3C4328009977B6 /* ValidatingTextField */,
@@ -801,6 +806,7 @@
 				80E194642BF8AE0C005175EA /* AddyMultiSelectChipView.swift */,
 				80E082632BF7D36700B51FB8 /* AddyBugFound.swift */,
 				806AE69B2C1A194800F3CA92 /* AddySettingsHeader.swift */,
+				8047EA692C454D4700A04D28 /* GradientProgressBar.swift */,
 			);
 			path = customviews;
 			sourceTree = "<group>";
@@ -1368,6 +1374,7 @@
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
 				80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */,
 				80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */,
+				8047EA6A2C454D4700A04D28 /* GradientProgressBar.swift in Sources */,
 				80E849B32BEBA82A00C8D68A /* RecipientsView.swift in Sources */,
 				806AE6962C1A085100F3CA92 /* ChangelogBottomSheet.swift in Sources */,
 				806AE6892C19EA3600F3CA92 /* Updater.swift in Sources */,
@@ -1424,6 +1431,7 @@
 				8058ADB72C32B2470004AF81 /* ViewPreferenceKey.swift in Sources */,
 				8058ADB82C32B2470004AF81 /* PieChartCell.swift in Sources */,
 				8058ADB92C32B2470004AF81 /* MarkerShape.swift in Sources */,
+				8047EA6D2C454F1B00A04D28 /* HomeCardView.swift in Sources */,
 				8058ADBA2C32B2470004AF81 /* Array+Extension.swift in Sources */,
 				8058ADBB2C32B2470004AF81 /* GridOptions.swift in Sources */,
 				8058ADBC2C32B2470004AF81 /* LineShape.swift in Sources */,

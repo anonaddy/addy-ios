@@ -15,7 +15,6 @@ struct AliasesView: View {
     @StateObject var aliasesViewModel = AliasesViewModel()
     
     @State private var isPresentingFilterOptionsAliasBottomSheet = false
-    @State private var isPresentingAddAliasBottomSheet = false
     
     enum ActiveAlert {
         case reachedMaxAliases, deleteAliases, restoreAlias, error
@@ -25,10 +24,6 @@ struct AliasesView: View {
     @State private var showAlert: Bool = false
     
     @State private var shouldReloadDataInParent = false
-    
-    @State private var isShowingAliasDetailView = false
-    @State private var aliasToDisable: String? = nil
-    @State private var showAliasWithId: String? = nil
     
     @State private var aliasInContextMenu: Aliases? = nil
     @State private var aliasToSendMailFrom: Aliases? = nil
@@ -43,7 +38,7 @@ struct AliasesView: View {
     var onRefreshGeneralData: (() -> Void)? = nil
     
     @State private var copiedToClipboard = false
-
+    
     
     @Environment(\.scenePhase) var scenePhase
     
@@ -67,165 +62,29 @@ struct AliasesView: View {
                 }
                 
                 if let aliasList = aliasesViewModel.aliasList{
-                    
-                    // Only show the stats when the user is NOT searching and there is NO error
-                    if (aliasesViewModel.searchQuery == "" &&
-                        aliasesViewModel.networkError == "" && !aliasList.data.isEmpty){
-                        Section {
-                            
-                            HStack{
-                                
-                                
-                                VStack {
-                                    RoundedRectangle(cornerRadius: 16)
-                                        .fill(Color.accentColor)
-                                        .frame(width: 50, height: 50)
-                                        .overlay(
-                                            Image(systemName: "at.circle.fill")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 25, height: 25)
-                                                .foregroundColor(.white)
-                                        )
-                                    
-                                    Text(String(localized: "emails_forwarded"))
-                                        .font(.subheadline)
-                                        .multilineTextAlignment(.center)
-                                    
-                                    Text(String(format: String(localized: "forwarded_blocked_stat"), "\(mainViewState.userResource!.total_emails_forwarded)", "\(mainViewState.userResource!.total_emails_blocked)"))
-                                        .font(.caption)
-                                        .multilineTextAlignment(.center)
-                                }
-                                Spacer()
-                                Divider().padding(.vertical,24)
-                                Spacer()
-                                
-                                VStack {
-                                    RoundedRectangle(cornerRadius: 16)
-                                        .fill(Color.accentColor)
-                                        .frame(width: 50, height: 50)
-                                        .overlay(
-                                            Image(systemName: "tray.and.arrow.up.fill")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 25, height: 25)
-                                                .foregroundColor(.white)
-                                        )
-                                    Text(String(localized: "emails_forwarded"))
-                                        .font(.subheadline)
-                                        .multilineTextAlignment(.center)
-                                    
-                                    Text(String(format: String(localized: "forwarded_blocked_stat"), "\(mainViewState.userResource!.total_emails_forwarded)", "\(mainViewState.userResource!.total_emails_blocked)"))
-                                        .font(.caption)
-                                        .multilineTextAlignment(.center)
-                                    
-                                }
-                                
-                                
-                            }.padding(12)
-                        } header: {
-                            Text(String(localized: "statistics"))
-                        }
-                    }
-                    
-                    
                     Section {
                         
-                        ForEach (aliasList.data) { alias in
-                            ZStack {
-                                AliasRowView(alias: alias,isPreview: false)
-                                    .listRowBackground(Color.clear)
-                                    .contextMenu {
-                                        Button {
-                                            UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
-                                            showCopiedToClipboardAnimation()
-
-                                        } label: {
-                                            Label(String(localized: "copy_alias"), systemImage: "clipboard")
-                                        }
-                                        Button {
-                                            self.aliasToSendMailFrom = alias
-                                        } label: {
-                                            Label(String(localized: "send_mail"), systemImage: "paperplane")
-                                        }
-                                        
-                                        if (alias.deleted_at != nil){
-                                            Button() {
-                                                self.activeAlert = .restoreAlias
-                                                self.showAlert = true
-                                            } label: {
-                                                Label(String(localized: "restore_alias"), systemImage: "arrow.up.trash")
-                                            }
-                                        } else {
-                                            
-                                            if (alias.active){
-                                                Button {
-                                                    Task {
-                                                        await self.deactivateAlias(alias: alias)
-                                                    }                                            } label: {
-                                                        Label(String(localized: "disable_alias"), systemImage: "hand.raised")
-                                                    }
-                                            } else {
-                                                
-                                                Button {
-                                                    Task {
-                                                        await self.activateAlias(alias: alias)
-                                                    }
-                                                } label: {
-                                                    Label(String(localized: "enable_alias"), systemImage: "checkmark.circle")
-                                                }
-                                            }
-                                            
-                                            Button(role: .destructive) {
-                                                self.activeAlert = .deleteAliases
-                                                self.showAlert = true
-                                            } label: {
-                                                Label(String(localized: "delete_alias"), systemImage: "trash")
-                                            }
-                                        }
-                                        
-                                    } preview:
-                                {
-                                    AliasRowView(alias: alias, isPreview: true).onAppear {
-                                        self.aliasInContextMenu = alias
-                                    }.frame(minWidth: 350, idealWidth: 350, maxWidth: 350, minHeight: 200, idealHeight: 200, maxHeight: 200, alignment: .center)
-                                }
-                                
-                                
-                                NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email, shouldReloadDataInParent: $shouldReloadDataInParent)
-                                    .environmentObject(mainViewState)){
-                                        EmptyView().onTapGesture {
-                                            // Dismiss the search controller when a result is selected
-                                            aliasesViewModel.searchQuery = ""
-                                        }
-                                    }
-                                    .opacity(0)
-                                    .onChange(of: shouldReloadDataInParent) {
-                                        if shouldReloadDataInParent {
-                                            Task {
-                                                await aliasesViewModel.getAliases(forceReload: true)
-                                            }
-                                            self.shouldReloadDataInParent = false
-                                        }
-                                    }
-                                    .swipeActions(edge: .leading) {
-                                        Button {
-                                            UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
-                                            showCopiedToClipboardAnimation()
-
-                                        } label: {
-                                            Label(String(localized: "copy_alias"), systemImage: "clipboard")
-                                        }.tint(Color.accentColor)
-                                        Button {
-                                            self.aliasToSendMailFrom = alias
-                                        } label: {
-                                            Label(String(localized: "send_mail"), systemImage: "paperplane")
-                                        }.tint(Color.accentColor.opacity(0.8))
-                                        
-                                    }
-                                
-                            }
-                        }.onDelete(perform: deleteAlias)
+                        
+                        if horizontalSize == .regular { // iPad and larger devices
+                            
+                            //TODO: make iPad layout
+                            
+                            ForEach(aliasList.data) { alias in
+                                createAliasRow(alias: alias)
+                            }.onDelete(perform: deleteAlias)
+                            
+                            
+//                            let columns = Array(repeating: GridItem(.flexible(), spacing: 20), count: 2)
+//                            LazyVGrid(columns: columns, spacing: 20) {
+//                                ForEach(aliasList.data) { alias in
+//                                    createAliasRow(alias: alias)
+//                                }.onDelete(perform: deleteAlias)
+//                            }
+                        } else { // iPhone and smaller devices
+                            ForEach(aliasList.data) { alias in
+                                createAliasRow(alias: alias)
+                            }.onDelete(perform: deleteAlias)
+                        }
                         
                     }header: {
                         HStack(spacing: 6){
@@ -257,19 +116,19 @@ struct AliasesView: View {
             }
             .overlay {
                 CopiedToClipboardOverlay(copiedToClipboard: $copiedToClipboard)
-
-                    }
+                
+            }
             .refreshable {
                 // When refreshing aliases also ask the mainView to update general data
                 self.onRefreshGeneralData?()
                 await self.aliasesViewModel.getAliases(forceReload: true)
             }
-            .onChange(of: scenePhase) { oldPhase, newPhase in
-                if newPhase == .active {
-                    // User opened the app from background
-                    checkForAnyInteractiveActions()
-                }
-            }
+//            .onChange(of: scenePhase) { oldPhase, newPhase in
+//                if newPhase == .active {
+//                    // User opened the app from background
+//                    checkForAnyInteractiveActions()
+//                }
+//            }
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
                 case .reachedMaxAliases:
@@ -365,7 +224,7 @@ struct AliasesView: View {
             }
             .navigationBarItems(trailing: HStack{
                 Button(action: {
-                    self.isPresentingAddAliasBottomSheet = true
+                    mainViewState.showAddAliasBottomSheet = true
                 } ) {
                     Image(systemName: "plus")
                         .frame(width: 24, height: 24)
@@ -378,20 +237,18 @@ struct AliasesView: View {
             }
             .autocorrectionDisabled(true)
             .textInputAutocapitalization(.never)
-            //TODO: Check if this properly works on iOS18 platform stability (opening aliases from shortcute multiple times)
-            .navigationDestination(isPresented: $isShowingAliasDetailView) {
-                if let aliasToDisable = self.aliasToDisable {
-                    NavigationStack(){
-                        AliasDetailView(aliasId: aliasToDisable, aliasEmail: nil, shouldReloadDataInParent: nil, shouldDisableAlias: true)
-                            .environmentObject(mainViewState)
-                    }
-                } else if let showAliasWithId = self.showAliasWithId {
-                    NavigationStack(){
-                        AliasDetailView(aliasId: showAliasWithId, aliasEmail: nil, shouldReloadDataInParent: nil)
-                            .environmentObject(mainViewState)
-                    }
-                }
+            .navigationDestination(item: $mainViewState.aliasToDisable, destination: { aliasToDisable in
+                NavigationStack(){
+                AliasDetailView(aliasId: aliasToDisable, aliasEmail: nil, shouldReloadDataInParent: nil, shouldDisableAlias: true)
+                    .environmentObject(mainViewState)
             }
+            })
+            .navigationDestination(item: $mainViewState.showAliasWithId, destination: { showAliasWithId in
+                NavigationStack(){
+                    AliasDetailView(aliasId: showAliasWithId, aliasEmail: nil, shouldReloadDataInParent: nil)
+                        .environmentObject(mainViewState)
+                }
+            })
             .sheet(isPresented: $isPresentingFilterOptionsAliasBottomSheet) {
                 NavigationStack {
                     FilterOptionsAliasBottomSheet(aliasSortFilterRequest: self.aliasesViewModel.aliasSortFilterRequest){ aliasSortFilterRequest in
@@ -402,7 +259,6 @@ struct AliasesView: View {
                         isPresentingFilterOptionsAliasBottomSheet = false
                         
                         Task {
-                            print("TIME TO GET ALIASES")
                             await aliasesViewModel.getAliases(forceReload: true)
                         }
                     }
@@ -422,13 +278,13 @@ struct AliasesView: View {
                 .presentationDetents([.large])
                 
             }
-            .sheet(isPresented: $isPresentingAddAliasBottomSheet) {
+            .sheet(isPresented: $mainViewState.showAddAliasBottomSheet) {
                 NavigationStack {
                     AddAliasBottomSheet(){
                         // Hide dialog and refresh aliases
-                        isPresentingAddAliasBottomSheet = false
+                        mainViewState.showAddAliasBottomSheet = false
                         showCopiedToClipboardAnimation()
-
+                        
                         Task {
                             await aliasesViewModel.getAliases(forceReload: true)
                         }
@@ -452,38 +308,117 @@ struct AliasesView: View {
                 }
             }
             
-            
-            checkForAnyInteractiveActions()
-            
         })
         
         
         
     }
     
-    func showCopiedToClipboardAnimation(){
-            withAnimation(.snappy) {
-                    copiedToClipboard = true
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                    withAnimation(.snappy) {
-                        copiedToClipboard = false
+    @ViewBuilder
+    func createAliasRow(alias: Aliases) -> some View {
+        ZStack {
+            AliasRowView(alias: alias,isPreview: false)
+                .listRowBackground(Color.clear)
+                .contextMenu {
+                    Button {
+                        UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
+                        showCopiedToClipboardAnimation()
+                        
+                    } label: {
+                        Label(String(localized: "copy_alias"), systemImage: "clipboard")
+                    }
+                    Button {
+                        self.aliasToSendMailFrom = alias
+                    } label: {
+                        Label(String(localized: "send_mail"), systemImage: "paperplane")
+                    }
+                    
+                    if (alias.deleted_at != nil){
+                        Button() {
+                            self.activeAlert = .restoreAlias
+                            self.showAlert = true
+                        } label: {
+                            Label(String(localized: "restore_alias"), systemImage: "arrow.up.trash")
+                        }
+                    } else {
+                        
+                        if (alias.active){
+                            Button {
+                                Task {
+                                    await self.deactivateAlias(alias: alias)
+                                }                                            } label: {
+                                    Label(String(localized: "disable_alias"), systemImage: "hand.raised")
+                                }
+                        } else {
+                            
+                            Button {
+                                Task {
+                                    await self.activateAlias(alias: alias)
+                                }
+                            } label: {
+                                Label(String(localized: "enable_alias"), systemImage: "checkmark.circle")
+                            }
+                        }
+                        
+                        Button(role: .destructive) {
+                            self.activeAlert = .deleteAliases
+                            self.showAlert = true
+                        } label: {
+                            Label(String(localized: "delete_alias"), systemImage: "trash")
+                        }
+                    }
+                    
+                } preview:
+            {
+                AliasRowView(alias: alias, isPreview: true).onAppear {
+                    self.aliasInContextMenu = alias
+                }.frame(minWidth: 350, idealWidth: 350, maxWidth: 350, minHeight: 200, idealHeight: 200, maxHeight: 200, alignment: .center)
+            }
+            
+            
+            NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email, shouldReloadDataInParent: $shouldReloadDataInParent)
+                .environmentObject(mainViewState)){
+                    EmptyView().onTapGesture {
+                        // Dismiss the search controller when a result is selected
+                        aliasesViewModel.searchQuery = ""
                     }
                 }
+                .opacity(0)
+                .onChange(of: shouldReloadDataInParent) {
+                    if shouldReloadDataInParent {
+                        Task {
+                            await aliasesViewModel.getAliases(forceReload: true)
+                        }
+                        self.shouldReloadDataInParent = false
+                    }
+                }
+                .swipeActions(edge: .leading) {
+                    Button {
+                        UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
+                        showCopiedToClipboardAnimation()
+                        
+                    } label: {
+                        Label(String(localized: "copy_alias"), systemImage: "clipboard")
+                    }.tint(Color.accentColor)
+                    Button {
+                        self.aliasToSendMailFrom = alias
+                    } label: {
+                        Label(String(localized: "send_mail"), systemImage: "paperplane")
+                    }.tint(Color.accentColor.opacity(0.8))
+                    
+                }
+            
         }
+    }
     
-    func checkForAnyInteractiveActions(){
-        // If there is an aliasToDisable or an showAliasWithId after switching to this tab
-        // eg. when tapping a notification action while the app is active
-        if mainViewState.aliasToDisable != nil || mainViewState.showAliasWithId != nil {
-            // Show the domainsView
-            isShowingAliasDetailView = true
-            self.aliasToDisable = mainViewState.aliasToDisable
-            self.showAliasWithId = mainViewState.showAliasWithId
+    func showCopiedToClipboardAnimation(){
+        withAnimation(.snappy) {
+            copiedToClipboard = true
         }
-        
-        if mainViewState.showAddAliasBottomSheet {
-            self.isPresentingAddAliasBottomSheet = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            withAnimation(.snappy) {
+                copiedToClipboard = false
+            }
         }
     }
     

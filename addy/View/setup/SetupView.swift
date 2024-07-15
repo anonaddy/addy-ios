@@ -18,9 +18,9 @@ struct SetupView: View {
     
     @State private var showOnboarding = false
     @State private var isPresentingAddApiBottomSheet = false
-
     
-
+    
+    
     
     var body: some View {
 #if DEBUG
@@ -84,12 +84,12 @@ struct SetupView: View {
                     
                     VStack {
                         
-                                               
+                        
                         AddyLoadingButton(action: {
                             let pasteboardString: String? = UIPasteboard.general.string
                             if let key = pasteboardString, key.count == 56 {
                                 // A 56 length string found. This is most likely the API key
-
+                                
                                 isLoadingGetStarted = true
                                 
                                 Task {
@@ -97,11 +97,9 @@ struct SetupView: View {
                                     // If the baseURL/API do not work or match it opens the API screen
                                     await self.verifyApiKey(apiKey: key)
                                 }
-                                
-                                
+
                             } else {
-                                    isLoadingGetStarted = false
-                                
+                                isLoadingGetStarted = false
                                 isPresentingAddApiBottomSheet = true
                             }
                             
@@ -164,7 +162,7 @@ struct SetupView: View {
             print("Failed to verify API key: \(error)")
         }
     }
-
+    
     
     private func addKey(apiKey: String, baseUrl: String) {
         let encryptedSettingsManager = SettingsManager(encrypted: true)

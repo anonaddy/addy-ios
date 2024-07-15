@@ -247,10 +247,11 @@ struct DomainsView: View {
             
             Image(systemName: "plus")
                 .frame(width: 24, height: 24)
-            // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
-                .disabled(mainViewState.userResource!.subscription != nil &&
-                          domain_count >= domain_limit! /* Cannot be nil since subscription is not nil */ )
-        })
+          
+        }
+                            // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
+                                .disabled(mainViewState.userResource!.subscription != nil &&
+                                          domain_count >= domain_limit! /* Cannot be nil since subscription is not nil */ ))
     }
     
     private func deleteDomain(domain: Domains) async {

@@ -34,7 +34,7 @@ public struct UserResource: Codable {
     var from_name: String?
     var email_subject: String?
     var banner_location: String
-    var bandwidth: Int64
+    public var bandwidth: Int64
     public var username_count: Int
     public var username_limit: Int
     var default_username_id: String
@@ -43,7 +43,7 @@ public struct UserResource: Codable {
     public var default_alias_format: String
     public var subscription: String? // Can be nil on selfhosted
     public var subscription_ends_at: String? // Can be nil on selfhosted
-    var bandwidth_limit: Int64
+    public var bandwidth_limit: Int64
     public var recipient_count: Int
     public var recipient_limit: Int? // Can be nil on selfhosted
     public var active_domain_count: Int
@@ -56,10 +56,10 @@ public struct UserResource: Codable {
     public var total_emails_blocked: Int
     public var total_emails_replied: Int
     public var total_emails_sent: Int
-    var total_aliases: Int
-    var total_active_aliases: Int
-    var total_inactive_aliases: Int
-    var total_deleted_aliases: Int
+    public var total_aliases: Int
+    public var total_active_aliases: Int
+    public var total_inactive_aliases: Int
+    public var total_deleted_aliases: Int
     var created_at: String
     var updated_at: String
     

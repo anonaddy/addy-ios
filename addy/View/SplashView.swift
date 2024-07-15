@@ -186,12 +186,18 @@ struct SplashView: View {
         do {
             let userResource = try await networkHelper.getUserResource()
             if let userResource = userResource {
+                
                 mainViewState.userResource = userResource
                 
                 // Fetch UserResourceExtended data
                 let recipient = try await networkHelper.getSpecificRecipient(recipientId: userResource.default_recipient_id)
                 if let recipient = recipient {
-                    mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
+                    DispatchQueue.main.async {
+                                withAnimation {
+                                    // Since this is the last change before the view changes, make this withAnimation
+                                    mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
+                                }
+                            }
                 } else {
                     self.showError = true
                 }

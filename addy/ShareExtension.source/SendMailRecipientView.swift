@@ -77,7 +77,7 @@ struct SendMailRecipientView: View {
                 } else if viewModel.networkError != "" {
                     Text(viewModel.networkError)
                 } else if viewModel.isLoading {
-                    Text(String(localized: "loading_suggestions")).shimmering()
+                    Text(String(localized: "loading_suggestions")).shimmering().shimmering()
                 } else if viewModel.suggestionChips.isEmpty {
                     Text(String(localized: "no_suggestions"))
                 } else {
@@ -204,9 +204,7 @@ struct SendMailRecipientView: View {
                         
                         
                     } else {
-                        // This alias does not exist (in the current searchQuery)
-                        // TODO: Check what happens if alias already exists (check in Android as well) Returns 422
-                        
+                        // This alias does not exist (in the current searchQuery)                        
                         isCreatingAlias = true
                         Task {
                             if let alias = await addAliasToAccount(domain: String(splittedEmailAddress[1]), description: "", format: "custom", localPart: String(splittedEmailAddress[0])) {

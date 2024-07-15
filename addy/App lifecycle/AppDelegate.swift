@@ -126,7 +126,6 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let url = URLContexts.first?.url {
             if url.scheme == "mailto" {
                 // Handle the email URL
-                let email = url.path
                 MainViewState.shared.mailToActionSheetData = MailToActionSheetData(value: url.absoluteString)
                 return
             }
@@ -138,7 +137,6 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
             let url = urlContext.url
             if url.scheme?.lowercased() == "mailto" {
                 // Handle mailto URL
-                let email = url.path
                 MainViewState.shared.mailToActionSheetData = MailToActionSheetData(value: url.absoluteString)
 
             }

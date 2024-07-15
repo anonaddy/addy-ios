@@ -45,6 +45,17 @@
         }
       }
     },
+    "active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active"
+          }
+        }
+      }
+    },
     "add" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1778,6 +1789,17 @@
         }
       }
     },
+    "deleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleted"
+          }
+        }
+      }
+    },
     "deleting_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2163,6 +2185,28 @@
     "email" : {
 
     },
+    "email_replies" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email replies"
+          }
+        }
+      }
+    },
+    "emails_blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emails blocked"
+          }
+        }
+      }
+    },
     "emails_forwarded" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2170,6 +2214,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Emails forwarded"
+          }
+        }
+      }
+    },
+    "emails_sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email sent"
           }
         }
       }
@@ -3054,9 +3109,6 @@
         }
       }
     },
-    "Hello, World!" : {
-
-    },
     "hold_the_drag_handle_and_drag_to_change_order" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3075,6 +3127,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Home"
+          }
+        }
+      }
+    },
+    "home_bandwidth_text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@MB / %@MB"
           }
         }
       }
@@ -3108,6 +3171,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ignore and continue"
+          }
+        }
+      }
+    },
+    "inactive" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inactive"
           }
         }
       }
@@ -3481,6 +3555,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Menu"
+          }
+        }
+      }
+    },
+    "monthly_bandwidth" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monthly Bandwidth"
           }
         }
       }
@@ -4194,17 +4279,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Camera permissions are required in order to scan the QR code, tap the scanning area to open settings"
-          }
-        }
-      }
-    },
-    "qr_permissions_required_short" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cannot open camera"
           }
         }
       }
@@ -5475,6 +5549,27 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This field cannot be empty"
+          }
+        }
+      }
+    },
+    "total_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total aliases"
+          }
+        }
+      }
+    },
+    "total_recipients" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total recipients"
           }
         }
       }

@@ -35,8 +35,6 @@ struct addyApp: App {
             }
             .transition(.asymmetric(insertion: AnyTransition.scale(scale: 1.1).combined(with: .opacity), removal: AnyTransition.opacity.animation(.easeInOut(duration: 0.5))))
             .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
-            
-            //TODO: make animation fancier
         }
     }
 }

@@ -64,35 +64,39 @@ struct MailToActionSheet: View {
                             .navigationBarBackButtonHidden(true)
                     })
                     .onAppear {
-                        if isUnlocked {
                             
                             let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
                             var emailBody = ""
                             var emailSubject = ""
+
+                        
+                            // mailto: contains 7 chars
+                            // mailto:test@stjinchan123.anonaddy.com?subject=hello&body=beepboop BECOMES test@stjinchan123.anonaddy.com
+                            // If not mailto, extract the email addresses directly
+
+                            let recipients = mailToActionSheetData.value.starts(with: "mailto:") ?
+                            mailToActionSheetData.value.components(separatedBy: "?").first?.dropFirst(7).replacingOccurrences(of: ";", with: ",").split(separator: ",") ?? [] :
+                            mailToActionSheetData.value.components(separatedBy: "?").first?.replacingOccurrences(of: ";", with: ",").split(separator: ",") ?? []
                             
-                            
-                            var recipients = mailToActionSheetData.value.components(separatedBy: "?").first?.dropFirst(7).replacingOccurrences(of: ";", with: ",").split(separator: ",") ?? []
-                            if (recipients.isEmpty) {
-                                // If the recipients in the mailto: are nil (e.g. when sharing text instead of using a mailto link. Set the selected share text as recipient(s)
-                                recipients = mailToActionSheetData.value.replacingOccurrences(of: ";", with: ",").split(separator: ",")
-                            }
                             emailSubject = getParameter(mailToActionSheetData.value, parameter: "subject") ?? ""
                             let ccRecipients = getParameter(mailToActionSheetData.value, parameter: "cc")?.replacingOccurrences(of: ";", with: ",").split(separator: ",")
                             let bccRecipients = getParameter(mailToActionSheetData.value, parameter: "bcc")?.replacingOccurrences(of: ";", with: ",").split(separator: ",")
                             emailBody = getParameter(mailToActionSheetData.value, parameter: "body") ?? mailToActionSheetData.value // Get body from mailto: else just take the raw value (as it will be the selected text for sharing
                             
+                            
+                        
                             // Filter out invalid email addresses
                             var validEmails: [String] = []
                             var validCcRecipients: [String] = []
                             var validBccRecipients: [String] = []
-                            
-                            
+                        
+                            // Verify if any email address has been captured
                             for email in recipients {
                                 if email.range(of: emailRegex, options: .regularExpression) != nil {
                                     validEmails.append(String(email))
                                 }
                             }
-                            
+                          
                             
                             if let ccRecipients = ccRecipients {
                                 for email in ccRecipients {
@@ -113,9 +117,7 @@ struct MailToActionSheet: View {
                             Task {
                                 await figureOutNextAction(emails: validEmails, validCcRecipients: validCcRecipients, validBccRecipients: validBccRecipients, emailSubject: emailSubject, emailBody: emailBody)
                             }
-                        } else {
-                            authenticate()
-                        }
+                        
                     }
             } else {
                 Group {

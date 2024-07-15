@@ -30,13 +30,14 @@ struct AddApiBottomSheet: View {
     @State private var apiKey:String
     @State private var apiKeyPlaceholder = String(localized: "APIKey_desc")
     @State private var cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-
+    
     
     @State var isLoadingSignIn: Bool = false
     @Environment(\.dismiss) var dismiss
     @Environment(\.openURL) var openURL
-
-
+    @Environment(\.scenePhase) var scenePhase
+    
+    
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -47,7 +48,7 @@ struct AddApiBottomSheet: View {
             Section {
                 
                 ZStack(alignment: .center) {
-                   
+                    
                     
                     CodeScannerView(codeTypes: [.qr], scanMode: .continuous) { response in
                         if case let .success(result) = response {
@@ -81,15 +82,7 @@ struct AddApiBottomSheet: View {
                             Alert(title: Text(String(localized: "api_setup_qr_code_scan_wrong")), message: Text(String(localized: "api_setup_qr_code_scan_wrong_desc")), dismissButton: .default(Text(String(localized: "understood"))))
                         })
                     
-                    if (cameraAuthorizationStatus != .authorized){
-                        Text(String(localized: "qr_permissions_required_short"))
-                            .font(.system(.body, design: .rounded))
-                            .opacity(0.7)
-                            .fontWeight(.medium)
-                    }
-                   
                     
-                   
                     
                 }.frame(height: 200).listRowInsets(EdgeInsets())
                 
@@ -124,7 +117,7 @@ struct AddApiBottomSheet: View {
                 }
             } footer: {
                 Text(String(localized: "api_obtain_desc"))
-                   
+                
             }
             
             Section {
@@ -132,45 +125,51 @@ struct AddApiBottomSheet: View {
                     if (instanceError == nil && apiKeyError == nil){
                         isLoadingSignIn = true;
                         
-                       Task {
+                        Task {
                             await self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
                         }
                     } else {
-                            isLoadingSignIn = false
+                        isLoadingSignIn = false
                         
                     }
                 }, isLoading: $isLoadingSignIn) {
                     Text(String(localized: "sign_in")).foregroundColor(Color.white)
                 }.frame(minHeight: 56)}.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
-        }.navigationTitle(String(localized: "APIKey")).pickerStyle(.navigationLink)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text(String(localized: "cancel"))
-                    }
-                    
-                }
-                
-                ToolbarItem(placement: .topBarLeading) {
-                    
-                    Menu(content: {
-                        Button(String(localized: "get_my_key")) {
-                            openURL(URL(string: "\(instance)/settings/api")!)
-                        }
-                    }, label: {
-                        Label(String(localized: "menu"), systemImage: "ellipsis.circle")
-                    })
-                    
-                }
-                
-            })
-            .onAppear{
+        }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            if newPhase == .active {
                 cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
             }
+        }
+        .navigationTitle(String(localized: "APIKey")).pickerStyle(.navigationLink)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    dismiss()
+                } label: {
+                    Text(String(localized: "cancel"))
+                }
+                
+            }
+            
+            ToolbarItem(placement: .topBarLeading) {
+                
+                Menu(content: {
+                    Button(String(localized: "get_my_key")) {
+                        openURL(URL(string: "\(instance)/settings/api")!)
+                    }
+                }, label: {
+                    Label(String(localized: "menu"), systemImage: "ellipsis.circle")
+                })
+                
+            }
+            
+        })
+        .onAppear{
+            cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        }
         
         
     }
@@ -192,7 +191,7 @@ struct AddApiBottomSheet: View {
             print("Failed to verify API key: \(error)")
         }
     }
-
+    
     private func isQrCodeFormattedCorrect(text: String) -> Bool {
         return text.contains("|") && text.contains("http")
     }
