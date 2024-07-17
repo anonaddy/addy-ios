@@ -164,7 +164,6 @@ struct AliasRowView: View {
                             .grayscale(alias.active ? 0 : 1)
                             .padding(.trailing)
 
-                    Spacer()
                     
                     VStack(alignment: .leading){
                         Text(alias.email)
@@ -174,9 +173,9 @@ struct AliasRowView: View {
                         Text(aliasDescription)
                             .font(.subheadline)
                             .lineLimit(2)
-                    }.frame(maxWidth: .infinity)
+
+                    }.frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Spacer()
                     
                 }.frame(height: 90)
             
