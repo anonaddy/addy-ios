@@ -1055,6 +1055,16 @@
         }
       }
     },
+    "blocked" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocked"
+          }
+        }
+      }
+    },
     "bug_found" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1306,6 +1316,9 @@
           }
         }
       }
+    },
+    "Configuration" : {
+
     },
     "configuration_error" : {
       "extractionState" : "manual",
@@ -2656,6 +2669,9 @@
         }
       }
     },
+    "Favorite Emoji" : {
+
+    },
     "feature_api_token_expiry_notification" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2984,6 +3000,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Forward to"
+          }
+        }
+      }
+    },
+    "forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forwarded"
           }
         }
       }
@@ -4393,6 +4420,17 @@
         }
       }
     },
+    "replied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replied"
+          }
+        }
+      }
+    },
     "replied_sent_stat" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4803,6 +4841,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sends"
+          }
+        }
+      }
+    },
+    "sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sent"
           }
         }
       }
@@ -5541,6 +5590,9 @@
           }
         }
       }
+    },
+    "This is an example widget." : {
+
     },
     "this_field_cannot_be_empty" : {
       "extractionState" : "manual",

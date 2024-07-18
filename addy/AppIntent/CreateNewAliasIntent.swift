@@ -42,7 +42,7 @@ struct CreateNewAliasIntent: AppIntent {
     @MainActor
     func perform() async throws -> some IntentResult & ProvidesDialog {
 
-        if let userResource = getUseResource() {
+        if let userResource = getUserResource() {
             do {
                 if let alias = try await NetworkHelper().addAlias(domain: domain ?? userResource.default_alias_domain, description: "", format: (format != nil) ?
                                                                   (format?.rawValue == "custom" ? " " : format?.rawValue)! :
@@ -93,7 +93,7 @@ struct CreateNewAliasIntent: AppIntent {
         
     }
     
-    func getUseResource() -> UserResource?{
+    func getUserResource() -> UserResource?{
         let encryptedSettingsManager = SettingsManager(encrypted: true)
 
         if let jsonString = encryptedSettingsManager.getSettingsString(key: .userResource),

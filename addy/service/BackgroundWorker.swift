@@ -26,28 +26,29 @@ class BackgroundWorker: Operation {
         let encryptedSettingsManager = SettingsManager(encrypted: true)
         let backgroundWorkerHelper = BackgroundWorkerHelper()
         
-        // True if there are aliases to be watched, widgets to be updated or checked for updates
-        if (backgroundWorkerHelper.isThereWorkTodo()){
-            let networkHelper = NetworkHelper()
+        Task {
             
-            /**
-             In this code, semaphore.signal() is called when each asynchronous function completes, and semaphore.wait() is used to block the current queue until the previous function has signaled completion.
-             */
-            
-            Task {
+            // True if there are aliases to be watched, widgets to be updated or checked for updates
+            if (await backgroundWorkerHelper.isThereWorkTodo()){
+                let networkHelper = NetworkHelper()
+                
+                /**
+                 In this code, semaphore.signal() is called when each asynchronous function completes, and semaphore.wait() is used to block the current queue until the previous function has signaled completion.
+                 */
+                
                 // Background work here
-
+                
 #if DEBUG
                 print("BackgroundWorker task 1")
-                #endif
-                    _ = await networkHelper.cacheUserResourceForWidget()
-                    
+#endif
+                _ = await networkHelper.cacheUserResourceForWidget()
+                
                 
 #if DEBUG
                 print("BackgroundWorker task 2")
-                #endif
+#endif
                 _ = await networkHelper.cacheMostPopularAliasesDataForWidget()
-                    
+                
                 
                 
                 
@@ -56,88 +57,88 @@ class BackgroundWorker: Operation {
                  **/
 #if DEBUG
                 print("BackgroundWorker task 3")
-                #endif
-                    do {
-                        _ = try await self.aliasWatcherTask(networkHelper: networkHelper, settingsManager: encryptedSettingsManager)
-                    } catch {
-                        print(error)
-                    }
+#endif
+                do {
+                    _ = try await self.aliasWatcherTask(networkHelper: networkHelper, settingsManager: encryptedSettingsManager)
+                } catch {
+                    print(error)
+                }
                 
                 
                 /*
                  UPDATES
                  */
-
+                
 #if DEBUG
                 print("BackgroundWorker task 4")
-                #endif
-                    if settingsManager.getSettingsBool(key: .notifyUpdates) {
-                        do {
-                            let (updateAvailable, latestVersion, _, _) = try await Updater().isUpdateAvailable()
-                            if updateAvailable {
-                                if let version = latestVersion {
-                                    NotificationHelper().createUpdateNotification(version: version)
-                                }
+#endif
+                if settingsManager.getSettingsBool(key: .notifyUpdates) {
+                    do {
+                        let (updateAvailable, latestVersion, _, _) = try await Updater().isUpdateAvailable()
+                        if updateAvailable {
+                            if let version = latestVersion {
+                                NotificationHelper().createUpdateNotification(version: version)
                             }
-                        } catch {
-                            print("Failed to check for updates: \(error)")
                         }
+                    } catch {
+                        print("Failed to check for updates: \(error)")
                     }
+                }
                 
-
+                
                 
                 /*
                  API TOKEN
                  */
-
+                
 #if DEBUG
                 print("BackgroundWorker task 5")
-                #endif
-                    if settingsManager.getSettingsBool(key: .notifyApiTokenExpiry) {
-                        do {
-                            let apiTokenDetails = try await networkHelper.getApiTokenDetails()
-                            if let expiresAt = apiTokenDetails?.expires_at {
-                                let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(expiresAt) // Get the expiry date
-                                let currentDateTime = Date() // Get the current date
-                                let deadLineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate) // Subtract 5 days from the expiry date
-                                if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
-                                    // The current date is suddenly after the deadline date. It will expire within 5 days
-                                    // Show the api is about to expire card
+#endif
+                if settingsManager.getSettingsBool(key: .notifyApiTokenExpiry) {
+                    do {
+                        let apiTokenDetails = try await networkHelper.getApiTokenDetails()
+                        if let expiresAt = apiTokenDetails?.expires_at {
+                            let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(expiresAt) // Get the expiry date
+                            let currentDateTime = Date() // Get the current date
+                            let deadLineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate) // Subtract 5 days from the expiry date
+                            if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
+                                // The current date is suddenly after the deadline date. It will expire within 5 days
+                                // Show the api is about to expire card
+                                
+                                // Check if the notification has already been fired for this day
+                                let previousNotificationLeftDays = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheApiKeyExpiryLeftCount)
+                                let currentLeftDays = Calendar.current.dateComponents([.day], from: currentDateTime, to: deadLineDate).day!
+                                
+                                if previousNotificationLeftDays != currentLeftDays {
+                                    encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheApiKeyExpiryLeftCount, int: currentLeftDays)
                                     
-                                    // Check if the notification has already been fired for this day
-                                    let previousNotificationLeftDays = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheApiKeyExpiryLeftCount)
-                                    let currentLeftDays = Calendar.current.dateComponents([.day], from: currentDateTime, to: deadLineDate).day!
-                                    
-                                    if previousNotificationLeftDays != currentLeftDays {
-                                        encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheApiKeyExpiryLeftCount, int: currentLeftDays)
-                                        
-                                        NotificationHelper().createApiTokenExpiryNotification(daysLeft: expiryDate.futureDateDisplay())
-                                    }
-                                    
+                                    NotificationHelper().createApiTokenExpiryNotification(daysLeft: expiryDate.futureDateDisplay())
                                 }
+                                
                             }
-                            // If expires_at is null it will never expire
-                        } catch {
-                            // Panic
-                            LoggingHelper().addLog(
-                                importance: LogImportance.critical,
-                                error: "Could not parse expiresAt",
-                                method: "BackgroundWorker",
-                                extra: error.localizedDescription)
                         }
+                        // If expires_at is null it will never expire
+                    } catch {
+                        // Panic
+                        LoggingHelper().addLog(
+                            importance: LogImportance.critical,
+                            error: "Could not parse expiresAt",
+                            method: "BackgroundWorker",
+                            extra: error.localizedDescription)
                     }
+                }
                 
                 
-
+                
                 
                 
                 /*
                  DOMAIN ERRORS
                  */
-
+                
 #if DEBUG
                 print("BackgroundWorker task 6")
-                #endif
+#endif
                 Task {
                     if settingsManager.getSettingsBool(key: .notifyDomainError) {
                         do {
@@ -167,101 +168,101 @@ class BackgroundWorker: Operation {
                 /*
                  SUBSCRIPTION EXPIRY
                  */
-
+                
 #if DEBUG
                 print("BackgroundWorker task 7")
-                #endif
-                    if settingsManager.getSettingsBool(key: .notifySubscriptionExpiry) {
-                        do {
-                            let user = try await networkHelper.getUserResource()
-                            if let subscriptionEndsAt = user?.subscription_ends_at {
-                                let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(subscriptionEndsAt) // Get the expiry date
-                                let currentDateTime = Date() // Get the current date
-                                let deadLineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate) // Subtract 7 days from the expiry date
-                                if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
-                                    // The current date is suddenly after the deadline date. It will expire within 7 days
-                                    // Show the subscription is about to expire card
-                                    
-                                    // Check if the notification has already been fired for this day
-                                    let previousNotificationLeftDays = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheSubscriptionExpiryLeftCount)
-                                    let currentLeftDays = Calendar.current.dateComponents([.day], from: currentDateTime, to: deadLineDate).day!
-                                    
-                                    if previousNotificationLeftDays != currentLeftDays {
-                                        encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheSubscriptionExpiryLeftCount, int: currentLeftDays)
-                                        NotificationHelper().createSubscriptionExpiryNotification(daysLeft: expiryDate.futureDateDisplay())
-                                    }
-                                } else {
-                                    // The current date is not yet after the deadline date.
+#endif
+                if settingsManager.getSettingsBool(key: .notifySubscriptionExpiry) {
+                    do {
+                        let user = try await networkHelper.getUserResource()
+                        if let subscriptionEndsAt = user?.subscription_ends_at {
+                            let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(subscriptionEndsAt) // Get the expiry date
+                            let currentDateTime = Date() // Get the current date
+                            let deadLineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate) // Subtract 7 days from the expiry date
+                            if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
+                                // The current date is suddenly after the deadline date. It will expire within 7 days
+                                // Show the subscription is about to expire card
+                                
+                                // Check if the notification has already been fired for this day
+                                let previousNotificationLeftDays = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheSubscriptionExpiryLeftCount)
+                                let currentLeftDays = Calendar.current.dateComponents([.day], from: currentDateTime, to: deadLineDate).day!
+                                
+                                if previousNotificationLeftDays != currentLeftDays {
+                                    encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheSubscriptionExpiryLeftCount, int: currentLeftDays)
+                                    NotificationHelper().createSubscriptionExpiryNotification(daysLeft: expiryDate.futureDateDisplay())
                                 }
+                            } else {
+                                // The current date is not yet after the deadline date.
                             }
-                            // If expires_at is null it will never expire
-                        } catch {
-                            // Panic
-                            LoggingHelper().addLog(
-                                importance: LogImportance.critical,
-                                error: "Could not parse subscriptionEndsAt",
-                                method: "BackgroundWorker",
-                                extra: error.localizedDescription)
                         }
+                        // If expires_at is null it will never expire
+                    } catch {
+                        // Panic
+                        LoggingHelper().addLog(
+                            importance: LogImportance.critical,
+                            error: "Could not parse subscriptionEndsAt",
+                            method: "BackgroundWorker",
+                            extra: error.localizedDescription)
                     }
+                }
                 
                 
                 
                 /*
-                BACKUPS
-                */
-
-//                if settingsManager.getSettingsBool(key: .periodicBackups) {
-//                    let backupHelper = BackupHelper()
-//                    let date = backupHelper.getLatestBackupDate()?.addingTimeInterval(TimeInterval(Zone.current.secondsFromGMT()))
-//                    let today = Date()
-//                    // If the previous backup is *older* than 1 day OR if there is no backup at-all. Create a new backup
-//                    // Else don't make a new backup
-//                    if date?.addingTimeInterval(60*60*24) ?? Date.distantPast < today {
-//                        if backupHelper.createBackup() {
-//                            // When the backup is successful delete backups older than 30 days
-//                            backupHelper.deleteBackupsOlderThanXDays(30)
-//                        } else {
-//                            NotificationHelper.createFailedBackupNotification(in: appContext)
-//                        }
-//                    }
-//                }
-
+                 BACKUPS
+                 */
+                
+                //                if settingsManager.getSettingsBool(key: .periodicBackups) {
+                //                    let backupHelper = BackupHelper()
+                //                    let date = backupHelper.getLatestBackupDate()?.addingTimeInterval(TimeInterval(Zone.current.secondsFromGMT()))
+                //                    let today = Date()
+                //                    // If the previous backup is *older* than 1 day OR if there is no backup at-all. Create a new backup
+                //                    // Else don't make a new backup
+                //                    if date?.addingTimeInterval(60*60*24) ?? Date.distantPast < today {
+                //                        if backupHelper.createBackup() {
+                //                            // When the backup is successful delete backups older than 30 days
+                //                            backupHelper.deleteBackupsOlderThanXDays(30)
+                //                        } else {
+                //                            NotificationHelper.createFailedBackupNotification(in: appContext)
+                //                        }
+                //                    }
+                //                }
+                
                 
                 /*
-                FAILED DELIVERIES
-                */
+                 FAILED DELIVERIES
+                 */
                 
 #if DEBUG
                 print("BackgroundWorker task 8")
-                #endif
-                    if settingsManager.getSettingsBool(key: .notifyFailedDeliveries) {
-                        let _ = await networkHelper.cacheFailedDeliveryCountForWidgetAndBackgroundService()
-                        // Store the result if the data succeeded to update in a boolean
-
-                        let currentFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
-                        let previousFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCountPrevious)
-                        // If the current failed delivery count is bigger than the previous list. That means there are new failed deliveries
-                        if currentFailedDeliveries > previousFailedDeliveries {
-                            NotificationHelper().createFailedDeliveryNotification(difference: currentFailedDeliveries - previousFailedDeliveries)
-                        }
-                        
+#endif
+                if settingsManager.getSettingsBool(key: .notifyFailedDeliveries) {
+                    let _ = await networkHelper.cacheFailedDeliveryCountForWidgetAndBackgroundService()
+                    // Store the result if the data succeeded to update in a boolean
+                    
+                    let currentFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
+                    let previousFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCountPrevious)
+                    // If the current failed delivery count is bigger than the previous list. That means there are new failed deliveries
+                    if currentFailedDeliveries > previousFailedDeliveries {
+                        NotificationHelper().createFailedDeliveryNotification(difference: currentFailedDeliveries - previousFailedDeliveries)
                     }
+                    
+                }
                 
-
-               // Now the data has been updated, perform the AliasWatcher check
-               AliasWatcher().watchAliasesForDifferences()
-               
+                
+                // Now the data has been updated, perform the AliasWatcher check
+                AliasWatcher().watchAliasesForDifferences()
+                
                 
                 // Now the data has been updated, we can update the widget as well
                 WidgetCenter.shared.reloadAllTimelines()
+                
+                
+                
+            } else {
+                backgroundWorkerHelper.cancelScheduledBackgroundWorker()
             }
-            
-             
-        } else {
-            backgroundWorkerHelper.cancelScheduledBackgroundWorker()
         }
-        
         
         
         if isCancelled {
@@ -339,6 +340,6 @@ class BackgroundWorker: Operation {
         
         return true
     }
-
+    
     
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,10 @@
 		801B92A22BE905BB00179EB5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 801B92A12BE905BB00179EB5 /* Lottie */; };
 		801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
 		802FC8CF2C42C2EA00E3E134 /* AppShortcuts.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 802FC8CE2C42C2EA00E3E134 /* AppShortcuts.xcstrings */; };
+		8036F1442C499148008627C3 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1432C499148008627C3 /* WidgetKit.framework */; };
+		8036F1462C499148008627C3 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1452C499148008627C3 /* SwiftUI.framework */; };
+		8036F1572C499149008627C3 /* AddyStatisticWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8036F1422C499148008627C3 /* AddyStatisticWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8036F1602C49990C008627C3 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
 		8042E0742C3318DA001E8366 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8042E0732C3318DA001E8366 /* ShareViewController.swift */; };
 		8042E07B2C3318DA001E8366 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8042E0712C3318DA001E8366 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8042E07F2C3318E3001E8366 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
@@ -201,6 +205,13 @@
 			remoteGlobalIDString = 8001D9F02BEA513500AAD10E;
 			remoteInfo = addy_shared;
 		};
+		8036F1552C499149008627C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 806F21272BE8F1B100EBEBC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8036F1412C499148008627C3;
+			remoteInfo = AddyStatisticWidgetExtension;
+		};
 		8042E0792C3318DA001E8366 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 806F21272BE8F1B100EBEBC8 /* Project object */;
@@ -240,6 +251,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				8042E07B2C3318DA001E8366 /* ShareExtension.appex in Embed Foundation Extensions */,
+				8036F1572C499149008627C3 /* AddyStatisticWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +265,10 @@
 		801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		802FC8CE2C42C2EA00E3E134 /* AppShortcuts.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = AppShortcuts.xcstrings; sourceTree = "<group>"; };
+		8036F1422C499148008627C3 /* AddyStatisticWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AddyStatisticWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8036F1432C499148008627C3 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		8036F1452C499148008627C3 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		8036F15D2C499757008627C3 /* AddyStatisticWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AddyStatisticWidgetExtension.entitlements; sourceTree = "<group>"; };
 		8042E0712C3318DA001E8366 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8042E0732C3318DA001E8366 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		8042E0782C3318DA001E8366 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -419,7 +435,30 @@
 		80F3C6632BFB6E6D0028A486 /* AddAliasBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAliasBottomSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8036F15A2C499149008627C3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8036F1412C499148008627C3 /* AddyStatisticWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8036F1472C499148008627C3 /* AddyStatisticWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8036F15A2C499149008627C3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AddyStatisticWidget; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		8036F13F2C499148008627C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8036F1462C499148008627C3 /* SwiftUI.framework in Frameworks */,
+				8036F1442C499148008627C3 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8042E06E2C3318DA001E8366 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -455,6 +494,8 @@
 			isa = PBXGroup;
 			children = (
 				8058ADD42C32DFBA0004AF81 /* UniformTypeIdentifiers.framework */,
+				8036F1432C499148008627C3 /* WidgetKit.framework */,
+				8036F1452C499148008627C3 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -824,11 +865,13 @@
 		806F21262BE8F1B100EBEBC8 = {
 			isa = PBXGroup;
 			children = (
+				8036F15D2C499757008627C3 /* AddyStatisticWidgetExtension.entitlements */,
 				8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */,
 				806AE6982C1A0D5700F3CA92 /* Settings.bundle */,
 				8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */,
 				806F21312BE8F1B100EBEBC8 /* addy */,
 				8042E0722C3318DA001E8366 /* ShareExtension */,
+				8036F1472C499148008627C3 /* AddyStatisticWidget */,
 				8001DA002BEA515C00AAD10E /* Frameworks */,
 				806F21302BE8F1B100EBEBC8 /* Products */,
 			);
@@ -839,6 +882,7 @@
 			children = (
 				806F212F2BE8F1B100EBEBC8 /* addy.app */,
 				8042E0712C3318DA001E8366 /* ShareExtension.appex */,
+				8036F1422C499148008627C3 /* AddyStatisticWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1150,6 +1194,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8036F1412C499148008627C3 /* AddyStatisticWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8036F15B2C499149008627C3 /* Build configuration list for PBXNativeTarget "AddyStatisticWidgetExtension" */;
+			buildPhases = (
+				8036F13E2C499148008627C3 /* Sources */,
+				8036F13F2C499148008627C3 /* Frameworks */,
+				8036F1402C499148008627C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8036F1472C499148008627C3 /* AddyStatisticWidget */,
+			);
+			name = AddyStatisticWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = AddyStatisticWidgetExtension;
+			productReference = 8036F1422C499148008627C3 /* AddyStatisticWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8042E0702C3318DA001E8366 /* ShareExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8042E07C2C3318DA001E8366 /* Build configuration list for PBXNativeTarget "ShareExtension" */;
@@ -1186,6 +1252,7 @@
 			);
 			dependencies = (
 				8042E07A2C3318DA001E8366 /* PBXTargetDependency */,
+				8036F1562C499149008627C3 /* PBXTargetDependency */,
 			);
 			name = addy;
 			packageProductDependencies = (
@@ -1207,6 +1274,9 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
+					8036F1412C499148008627C3 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					8042E0702C3318DA001E8366 = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -1240,6 +1310,7 @@
 			projectRoot = "";
 			targets = (
 				806F212E2BE8F1B100EBEBC8 /* addy */,
+				8036F1412C499148008627C3 /* AddyStatisticWidgetExtension */,
 				8042E0702C3318DA001E8366 /* ShareExtension */,
 			);
 		};
@@ -1256,6 +1327,14 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8036F1402C499148008627C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8036F1602C49990C008627C3 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8042E06F2C3318DA001E8366 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1306,6 +1385,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8036F13E2C499148008627C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8042E06D2C3318DA001E8366 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1487,6 +1573,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8036F1562C499149008627C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8036F1412C499148008627C3 /* AddyStatisticWidgetExtension */;
+			targetProxy = 8036F1552C499149008627C3 /* PBXContainerItemProxy */;
+		};
 		8042E07A2C3318DA001E8366 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8042E0702C3318DA001E8366 /* ShareExtension */;
@@ -1495,6 +1586,69 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		8036F1582C499149008627C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 68LAMW5ZY8;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AddyStatisticWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Alias statistics";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.dev.AddyStatisticWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8036F1592C499149008627C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AddyStatisticWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Alias statistics";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.dev.AddyStatisticWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		8042E07D2C3318DA001E8366 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1764,6 +1918,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8036F15B2C499149008627C3 /* Build configuration list for PBXNativeTarget "AddyStatisticWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8036F1582C499149008627C3 /* Debug */,
+				8036F1592C499149008627C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8042E07C2C3318DA001E8366 /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

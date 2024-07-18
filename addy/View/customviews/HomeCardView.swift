@@ -44,6 +44,8 @@ struct HomeCardView: View {
                         .lineSpacing(24)
                         .foregroundColor(.white)
                         .minimumScaleFactor(0.01)
+                        .contentTransition(.numericText())
+                            .animation(.spring(duration: 0.2), value: value)
                 }
                 
                 

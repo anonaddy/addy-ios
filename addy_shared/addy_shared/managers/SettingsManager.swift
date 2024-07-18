@@ -20,7 +20,6 @@ public class SettingsManager {
     public enum Prefs {
         case storeLogs
         case versionCode
-        case widgetsActive
         case notifyUpdates
         case periodicBackups
         case backupsLocation

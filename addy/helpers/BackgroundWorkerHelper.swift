@@ -8,7 +8,7 @@
 import Foundation
 import BackgroundTasks
 import addy_shared
-
+import WidgetKit
 class BackgroundWorkerHelper {
     
     
@@ -55,14 +55,25 @@ class BackgroundWorkerHelper {
         
     }
     
-    func isThereWorkTodo() -> Bool {
+    
+    func isThereWorkTodo() async -> Bool {
         let settingsManager = SettingsManager(encrypted: false)
         
         // Count amount of aliases to be watched
         let aliasToWatch = AliasWatcher().getAliasesToWatch()
         // Count amount of widgets
-        let amountOfWidgets = settingsManager.getSettingsInt(key: .widgetsActive)
+        var amountOfWidgets = 0
+
         
+        do {
+            let result = try await WidgetCenter.shared.currentConfigurations()
+            amountOfWidgets = result.count
+        } catch {
+            print(error)
+        }
+        
+        
+                
         let shouldCheckForUpdates = settingsManager.getSettingsBool(key: .notifyUpdates)
         let shouldCheckForFailedDeliveries = settingsManager.getSettingsBool(key: .notifyFailedDeliveries)
         let shouldCheckApiTokenExpiry = settingsManager.getSettingsBool(key: .notifyApiTokenExpiry)

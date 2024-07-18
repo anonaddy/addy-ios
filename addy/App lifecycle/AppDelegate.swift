@@ -45,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return sceneConfiguration
     }
     
+    
+    //TODO check if this gets called
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         UNUserNotificationCenter.current().delegate = self
@@ -60,14 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return true
     }
     
-    
-    func applicationDidEnterBackground(_ application: UIApplication) {
-#if DEBUG
-        print("App hit background")
-#endif
-        
-        BackgroundWorkerHelper().scheduleBackgroundWorker()
-    }
     
     
     func handleAppRefresh(task: BGAppRefreshTask) {
@@ -116,6 +110,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         QuickActionsManager.instance.handleQaItem(shortcutItem)
+    }
+    
+    func sceneDidEnterBackground(_ scene: UIScene) {
+#if DEBUG
+        print("Scene hit background")
+#endif
+        
+        BackgroundWorkerHelper().scheduleBackgroundWorker()
     }
     
     /**
