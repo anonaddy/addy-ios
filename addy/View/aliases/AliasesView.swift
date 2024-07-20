@@ -115,7 +115,7 @@ struct AliasesView: View {
                 
             }
             .overlay {
-                CopiedToClipboardOverlay(copiedToClipboard: $copiedToClipboard)
+                ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
                 
             }
             .refreshable {

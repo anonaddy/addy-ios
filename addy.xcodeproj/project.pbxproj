@@ -15,14 +15,16 @@
 		801B92A22BE905BB00179EB5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 801B92A12BE905BB00179EB5 /* Lottie */; };
 		801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
 		802FC8CF2C42C2EA00E3E134 /* AppShortcuts.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 802FC8CE2C42C2EA00E3E134 /* AppShortcuts.xcstrings */; };
-		8036F1442C499148008627C3 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1432C499148008627C3 /* WidgetKit.framework */; };
-		8036F1462C499148008627C3 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1452C499148008627C3 /* SwiftUI.framework */; };
 		8036F1572C499149008627C3 /* AddyStatisticWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8036F1422C499148008627C3 /* AddyStatisticWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8036F1602C49990C008627C3 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
 		8042E0742C3318DA001E8366 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8042E0732C3318DA001E8366 /* ShareViewController.swift */; };
 		8042E07B2C3318DA001E8366 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8042E0712C3318DA001E8366 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8042E07F2C3318E3001E8366 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
 		8042E0802C3318E3001E8366 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		80433AC02C4C272400609208 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
+		80433AC12C4C272400609208 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		80433AC32C4C27BC00609208 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1432C499148008627C3 /* WidgetKit.framework */; };
+		80433AC52C4C27BD00609208 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1452C499148008627C3 /* SwiftUI.framework */; };
 		80477DDE2C12225D00E52AF8 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DDD2C12225D00E52AF8 /* RulesView.swift */; };
 		80477DE02C1222AE00E52AF8 /* RulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DDF2C1222AE00E52AF8 /* RulesViewModel.swift */; };
 		80477DE52C12261300E52AF8 /* CreateRulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DE42C12261300E52AF8 /* CreateRulesView.swift */; };
@@ -32,28 +34,18 @@
 		804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A72BE95B49001DDC8A /* AddyButton.swift */; };
 		804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */; };
 		8054592E2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8054592D2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift */; };
-		805535562C4BCA6F00886256 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
 		805535582C4BE8A100886256 /* MainViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805535572C4BE8A100886256 /* MainViewState.swift */; };
 		805535612C4BF10500886256 /* IdentifiableURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805535602C4BF10500886256 /* IdentifiableURL.swift */; };
 		805535622C4BF10500886256 /* IdentifiableURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805535602C4BF10500886256 /* IdentifiableURL.swift */; };
 		805535642C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805535632C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift */; };
 		8058AD992C32B2470004AF81 /* ColorGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD772C32B2470004AF81 /* ColorGradient.swift */; };
-		8058AD9A2C32B2470004AF81 /* RingsChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD942C32B2470004AF81 /* RingsChart.swift */; };
 		8058AD9B2C32B2470004AF81 /* AxisLablesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD542C32B2470004AF81 /* AxisLablesData.swift */; };
 		8058AD9C2C32B2470004AF81 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD782C32B2470004AF81 /* Colors.swift */; };
-		8058AD9D2C32B2470004AF81 /* LineBackgroundShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD882C32B2470004AF81 /* LineBackgroundShapeView.swift */; };
-		8058AD9E2C32B2470004AF81 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD8E2C32B2470004AF81 /* PieChart.swift */; };
 		8058AD9F2C32B2470004AF81 /* ViewSizeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD602C32B2470004AF81 /* ViewSizeData.swift */; };
-		8058ADA02C32B2470004AF81 /* RingsChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD952C32B2470004AF81 /* RingsChartRow.swift */; };
-		8058ADA12C32B2470004AF81 /* LineShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD8B2C32B2470004AF81 /* LineShapeView.swift */; };
 		8058ADA22C32B2470004AF81 /* AxisLabelsPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD522C32B2470004AF81 /* AxisLabelsPosition.swift */; };
 		8058ADA32C32B2470004AF81 /* Path+QuadCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD672C32B2470004AF81 /* Path+QuadCurve.swift */; };
-		8058ADA42C32B2470004AF81 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD862C32B2470004AF81 /* Line.swift */; };
-		8058ADA52C32B2470004AF81 /* PieChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD912C32B2470004AF81 /* PieChartRow.swift */; };
 		8058ADA62C32B2470004AF81 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD632C32B2470004AF81 /* CGPoint+Extension.swift */; };
-		8058ADA72C32B2470004AF81 /* LineBackgroundShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD872C32B2470004AF81 /* LineBackgroundShape.swift */; };
 		8058ADA82C32B2470004AF81 /* ChartBase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD652C32B2470004AF81 /* ChartBase+Extension.swift */; };
-		8058ADA92C32B2470004AF81 /* LineChart+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD802C32B2470004AF81 /* LineChart+Extension.swift */; };
 		8058ADAA2C32B2470004AF81 /* ChartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD742C32B2470004AF81 /* ChartLabel.swift */; };
 		8058ADAB2C32B2470004AF81 /* BarChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD7C2C32B2470004AF81 /* BarChartCell.swift */; };
 		8058ADAC2C32B2470004AF81 /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD7B2C32B2470004AF81 /* BarChart.swift */; };
@@ -62,19 +54,14 @@
 		8058ADAF2C32B2470004AF81 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD6A2C32B2470004AF81 /* View+Extension.swift */; };
 		8058ADB02C32B2470004AF81 /* BarChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD7E2C32B2470004AF81 /* BarChartRow.swift */; };
 		8058ADB12C32B2470004AF81 /* ChartStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD762C32B2470004AF81 /* ChartStyle.swift */; };
-		8058ADB22C32B2470004AF81 /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD892C32B2470004AF81 /* LineChart.swift */; };
 		8058ADB32C32B2470004AF81 /* ChartGridBaseShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD712C32B2470004AF81 /* ChartGridBaseShape.swift */; };
 		8058ADB42C32B2470004AF81 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD662C32B2470004AF81 /* Color+Extension.swift */; };
 		8058ADB52C32B2470004AF81 /* ChartGridShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD722C32B2470004AF81 /* ChartGridShape.swift */; };
 		8058ADB62C32B2470004AF81 /* Range+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD682C32B2470004AF81 /* Range+Extension.swift */; };
 		8058ADB72C32B2470004AF81 /* ViewPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD5F2C32B2470004AF81 /* ViewPreferenceKey.swift */; };
-		8058ADB82C32B2470004AF81 /* PieChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD8F2C32B2470004AF81 /* PieChartCell.swift */; };
-		8058ADB92C32B2470004AF81 /* MarkerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD8C2C32B2470004AF81 /* MarkerShape.swift */; };
 		8058ADBA2C32B2470004AF81 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD622C32B2470004AF81 /* Array+Extension.swift */; };
 		8058ADBB2C32B2470004AF81 /* GridOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD6E2C32B2470004AF81 /* GridOptions.swift */; };
-		8058ADBC2C32B2470004AF81 /* LineShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD8A2C32B2470004AF81 /* LineShape.swift */; };
 		8058ADBD2C32B2470004AF81 /* Grid+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD6C2C32B2470004AF81 /* Grid+Extension.swift */; };
-		8058ADBE2C32B2470004AF81 /* Ring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD932C32B2470004AF81 /* Ring.swift */; };
 		8058ADBF2C32B2470004AF81 /* CGRect+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD642C32B2470004AF81 /* CGRect+Extension.swift */; };
 		8058ADC02C32B2470004AF81 /* BarChartCellShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD7D2C32B2470004AF81 /* BarChartCellShape.swift */; };
 		8058ADC12C32B2470004AF81 /* AxisLabelsStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD532C32B2470004AF81 /* AxisLabelsStyle.swift */; };
@@ -83,11 +70,7 @@
 		8058ADC42C32B2470004AF81 /* ChartGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD702C32B2470004AF81 /* ChartGrid.swift */; };
 		8058ADC52C32B2470004AF81 /* AxisLabels+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD502C32B2470004AF81 /* AxisLabels+Extension.swift */; };
 		8058ADC62C32B2470004AF81 /* ViewGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD5E2C32B2470004AF81 /* ViewGeometry.swift */; };
-		8058ADC72C32B2470004AF81 /* LineStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD832C32B2470004AF81 /* LineStyle.swift */; };
-		8058ADC82C32B2470004AF81 /* IndicatorPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD852C32B2470004AF81 /* IndicatorPoint.swift */; };
 		8058ADC92C32B2470004AF81 /* Shape+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD692C32B2470004AF81 /* Shape+Extension.swift */; };
-		8058ADCA2C32B2470004AF81 /* PieChartHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD902C32B2470004AF81 /* PieChartHelpers.swift */; };
-		8058ADCB2C32B2470004AF81 /* LineChartProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD822C32B2470004AF81 /* LineChartProperties.swift */; };
 		8058ADCC2C32B2470004AF81 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD582C32B2470004AF81 /* CardView.swift */; };
 		805A74532C1F5C1600C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805A74522C1F5C1500C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift */; };
 		805A74552C1F5FC200C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805A74542C1F5FC100C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift */; };
@@ -139,7 +122,7 @@
 		80B2FB6E2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB6D2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift */; };
 		80B2FB732C3C4328009977B6 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB6F2C3C4328009977B6 /* ValidatingFieldModel.swift */; };
 		80B2FB742C3C4328009977B6 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB712C3C4328009977B6 /* ValidatingTextField.swift */; };
-		80B2FB772C3C4331009977B6 /* CopiedToClipboardOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB762C3C4331009977B6 /* CopiedToClipboardOverlay.swift */; };
+		80B2FB772C3C4331009977B6 /* ToastOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB762C3C4331009977B6 /* ToastOverlay.swift */; };
 		80B2FB782C3C4331009977B6 /* AddyRoundedChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */; };
 		80B2FB942C3C4388009977B6 /* AddyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB792C3C4388009977B6 /* AddyChipModel.swift */; };
 		80B2FB982C3C4452009977B6 /* MailToActionSheetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB422C3C425A009977B6 /* MailToActionSheetData.swift */; };
@@ -150,7 +133,7 @@
 		80B2FB9E2C3C4499009977B6 /* AddyRoundedChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */; };
 		80B2FB9F2C3C449E009977B6 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB712C3C4328009977B6 /* ValidatingTextField.swift */; };
 		80B2FBA02C3C44AF009977B6 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB6F2C3C4328009977B6 /* ValidatingFieldModel.swift */; };
-		80B2FBA12C3C44C3009977B6 /* CopiedToClipboardOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB762C3C4331009977B6 /* CopiedToClipboardOverlay.swift */; };
+		80B2FBA12C3C44C3009977B6 /* ToastOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB762C3C4331009977B6 /* ToastOverlay.swift */; };
 		80B2FBB92C3C4C0A009977B6 /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBB82C3C4C0A009977B6 /* Apply.swift */; };
 		80B2FBBA2C3C4C18009977B6 /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBB82C3C4C0A009977B6 /* Apply.swift */; };
 		80B2FBBC2C3C4C4E009977B6 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 80B2FBBB2C3C4C4E009977B6 /* WrappingHStack */; };
@@ -248,6 +231,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		80433AC22C4C272400609208 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				80433AC12C4C272400609208 /* addy_shared.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8058ADE52C32DFBA0004AF81 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -324,24 +318,6 @@
 		8058AD7C2C32B2470004AF81 /* BarChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartCell.swift; sourceTree = "<group>"; };
 		8058AD7D2C32B2470004AF81 /* BarChartCellShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartCellShape.swift; sourceTree = "<group>"; };
 		8058AD7E2C32B2470004AF81 /* BarChartRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartRow.swift; sourceTree = "<group>"; };
-		8058AD802C32B2470004AF81 /* LineChart+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LineChart+Extension.swift"; sourceTree = "<group>"; };
-		8058AD822C32B2470004AF81 /* LineChartProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartProperties.swift; sourceTree = "<group>"; };
-		8058AD832C32B2470004AF81 /* LineStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineStyle.swift; sourceTree = "<group>"; };
-		8058AD852C32B2470004AF81 /* IndicatorPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorPoint.swift; sourceTree = "<group>"; };
-		8058AD862C32B2470004AF81 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
-		8058AD872C32B2470004AF81 /* LineBackgroundShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineBackgroundShape.swift; sourceTree = "<group>"; };
-		8058AD882C32B2470004AF81 /* LineBackgroundShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineBackgroundShapeView.swift; sourceTree = "<group>"; };
-		8058AD892C32B2470004AF81 /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
-		8058AD8A2C32B2470004AF81 /* LineShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineShape.swift; sourceTree = "<group>"; };
-		8058AD8B2C32B2470004AF81 /* LineShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineShapeView.swift; sourceTree = "<group>"; };
-		8058AD8C2C32B2470004AF81 /* MarkerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerShape.swift; sourceTree = "<group>"; };
-		8058AD8E2C32B2470004AF81 /* PieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
-		8058AD8F2C32B2470004AF81 /* PieChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartCell.swift; sourceTree = "<group>"; };
-		8058AD902C32B2470004AF81 /* PieChartHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartHelpers.swift; sourceTree = "<group>"; };
-		8058AD912C32B2470004AF81 /* PieChartRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartRow.swift; sourceTree = "<group>"; };
-		8058AD932C32B2470004AF81 /* Ring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ring.swift; sourceTree = "<group>"; };
-		8058AD942C32B2470004AF81 /* RingsChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingsChart.swift; sourceTree = "<group>"; };
-		8058AD952C32B2470004AF81 /* RingsChartRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingsChartRow.swift; sourceTree = "<group>"; };
 		8058ADD42C32DFBA0004AF81 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		805A74522C1F5C1500C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyDomainErrorView.swift; sourceTree = "<group>"; };
 		805A74542C1F5FC100C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifySubscriptionExpiryView.swift; sourceTree = "<group>"; };
@@ -394,7 +370,7 @@
 		80B2FB6F2C3C4328009977B6 /* ValidatingFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingFieldModel.swift; sourceTree = "<group>"; };
 		80B2FB712C3C4328009977B6 /* ValidatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
 		80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyRoundedChipView.swift; sourceTree = "<group>"; };
-		80B2FB762C3C4331009977B6 /* CopiedToClipboardOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopiedToClipboardOverlay.swift; sourceTree = "<group>"; };
+		80B2FB762C3C4331009977B6 /* ToastOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastOverlay.swift; sourceTree = "<group>"; };
 		80B2FB792C3C4388009977B6 /* AddyChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyChipModel.swift; sourceTree = "<group>"; };
 		80B2FBB82C3C4C0A009977B6 /* Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apply.swift; sourceTree = "<group>"; };
 		80B2FBC72C3C4E6D009977B6 /* AnonAddyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonAddyUtils.swift; sourceTree = "<group>"; };
@@ -463,9 +439,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				805535562C4BCA6F00886256 /* addy_shared.framework in Frameworks */,
-				8036F1462C499148008627C3 /* SwiftUI.framework in Frameworks */,
-				8036F1442C499148008627C3 /* WidgetKit.framework in Frameworks */,
+				80433AC32C4C27BC00609208 /* WidgetKit.framework in Frameworks */,
+				80433AC52C4C27BD00609208 /* SwiftUI.framework in Frameworks */,
+				80433AC02C4C272400609208 /* addy_shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -715,68 +691,10 @@
 			path = BarChart;
 			sourceTree = "<group>";
 		};
-		8058AD812C32B2470004AF81 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				8058AD802C32B2470004AF81 /* LineChart+Extension.swift */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
-		8058AD842C32B2470004AF81 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				8058AD822C32B2470004AF81 /* LineChartProperties.swift */,
-				8058AD832C32B2470004AF81 /* LineStyle.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		8058AD8D2C32B2470004AF81 /* LineChart */ = {
-			isa = PBXGroup;
-			children = (
-				8058AD812C32B2470004AF81 /* Extension */,
-				8058AD842C32B2470004AF81 /* Model */,
-				8058AD852C32B2470004AF81 /* IndicatorPoint.swift */,
-				8058AD862C32B2470004AF81 /* Line.swift */,
-				8058AD872C32B2470004AF81 /* LineBackgroundShape.swift */,
-				8058AD882C32B2470004AF81 /* LineBackgroundShapeView.swift */,
-				8058AD892C32B2470004AF81 /* LineChart.swift */,
-				8058AD8A2C32B2470004AF81 /* LineShape.swift */,
-				8058AD8B2C32B2470004AF81 /* LineShapeView.swift */,
-				8058AD8C2C32B2470004AF81 /* MarkerShape.swift */,
-			);
-			path = LineChart;
-			sourceTree = "<group>";
-		};
-		8058AD922C32B2470004AF81 /* PieChart */ = {
-			isa = PBXGroup;
-			children = (
-				8058AD8E2C32B2470004AF81 /* PieChart.swift */,
-				8058AD8F2C32B2470004AF81 /* PieChartCell.swift */,
-				8058AD902C32B2470004AF81 /* PieChartHelpers.swift */,
-				8058AD912C32B2470004AF81 /* PieChartRow.swift */,
-			);
-			path = PieChart;
-			sourceTree = "<group>";
-		};
-		8058AD962C32B2470004AF81 /* RingsChart */ = {
-			isa = PBXGroup;
-			children = (
-				8058AD932C32B2470004AF81 /* Ring.swift */,
-				8058AD942C32B2470004AF81 /* RingsChart.swift */,
-				8058AD952C32B2470004AF81 /* RingsChartRow.swift */,
-			);
-			path = RingsChart;
-			sourceTree = "<group>";
-		};
 		8058AD972C32B2470004AF81 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
 				8058AD7F2C32B2470004AF81 /* BarChart */,
-				8058AD8D2C32B2470004AF81 /* LineChart */,
-				8058AD922C32B2470004AF81 /* PieChart */,
-				8058AD962C32B2470004AF81 /* RingsChart */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -846,7 +764,7 @@
 			children = (
 				8047EA6C2C454F1B00A04D28 /* HomeCardView.swift */,
 				80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */,
-				80B2FB762C3C4331009977B6 /* CopiedToClipboardOverlay.swift */,
+				80B2FB762C3C4331009977B6 /* ToastOverlay.swift */,
 				80B2FB722C3C4328009977B6 /* ValidatingTextField */,
 				809CB94F2C2358C900DBBD03 /* FailedDeliveriesIcon.swift */,
 				80CE87DC2C209CA9001ECF5C /* ProfilePicture.swift */,
@@ -1216,6 +1134,7 @@
 				8036F13E2C499148008627C3 /* Sources */,
 				8036F13F2C499148008627C3 /* Frameworks */,
 				8036F1402C499148008627C3 /* Resources */,
+				80433AC22C4C272400609208 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1414,7 +1333,7 @@
 				80B2FB9D2C3C4480009977B6 /* SendMailRecipientSearchViewModel.swift in Sources */,
 				80B2FBCA2C3C4EB4009977B6 /* AddyChipModel.swift in Sources */,
 				80B2FB9F2C3C449E009977B6 /* ValidatingTextField.swift in Sources */,
-				80B2FBA12C3C44C3009977B6 /* CopiedToClipboardOverlay.swift in Sources */,
+				80B2FBA12C3C44C3009977B6 /* ToastOverlay.swift in Sources */,
 				8042E0742C3318DA001E8366 /* ShareViewController.swift in Sources */,
 				80B2FB9E2C3C4499009977B6 /* AddyRoundedChipView.swift in Sources */,
 				80B2FB982C3C4452009977B6 /* MailToActionSheetData.swift in Sources */,
@@ -1500,24 +1419,15 @@
 				80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */,
 				80DB9DB32C0DC7F2002B6486 /* DomainsViewModel.swift in Sources */,
 				8058AD992C32B2470004AF81 /* ColorGradient.swift in Sources */,
-				8058AD9A2C32B2470004AF81 /* RingsChart.swift in Sources */,
 				8058AD9B2C32B2470004AF81 /* AxisLablesData.swift in Sources */,
 				8058AD9C2C32B2470004AF81 /* Colors.swift in Sources */,
-				8058AD9D2C32B2470004AF81 /* LineBackgroundShapeView.swift in Sources */,
-				8058AD9E2C32B2470004AF81 /* PieChart.swift in Sources */,
 				8058AD9F2C32B2470004AF81 /* ViewSizeData.swift in Sources */,
-				8058ADA02C32B2470004AF81 /* RingsChartRow.swift in Sources */,
-				8058ADA12C32B2470004AF81 /* LineShapeView.swift in Sources */,
 				80195D1A2C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift in Sources */,
 				8058ADA22C32B2470004AF81 /* AxisLabelsPosition.swift in Sources */,
 				8058ADA32C32B2470004AF81 /* Path+QuadCurve.swift in Sources */,
-				8058ADA42C32B2470004AF81 /* Line.swift in Sources */,
 				8084AAD42C42A25500CC7E3B /* AddyShortcuts.swift in Sources */,
-				8058ADA52C32B2470004AF81 /* PieChartRow.swift in Sources */,
 				8058ADA62C32B2470004AF81 /* CGPoint+Extension.swift in Sources */,
-				8058ADA72C32B2470004AF81 /* LineBackgroundShape.swift in Sources */,
 				8058ADA82C32B2470004AF81 /* ChartBase+Extension.swift in Sources */,
-				8058ADA92C32B2470004AF81 /* LineChart+Extension.swift in Sources */,
 				8058ADAA2C32B2470004AF81 /* ChartLabel.swift in Sources */,
 				8058ADAB2C32B2470004AF81 /* BarChartCell.swift in Sources */,
 				8058ADAC2C32B2470004AF81 /* BarChart.swift in Sources */,
@@ -1526,20 +1436,15 @@
 				8058ADAF2C32B2470004AF81 /* View+Extension.swift in Sources */,
 				8058ADB02C32B2470004AF81 /* BarChartRow.swift in Sources */,
 				8058ADB12C32B2470004AF81 /* ChartStyle.swift in Sources */,
-				8058ADB22C32B2470004AF81 /* LineChart.swift in Sources */,
 				8058ADB32C32B2470004AF81 /* ChartGridBaseShape.swift in Sources */,
 				8058ADB42C32B2470004AF81 /* Color+Extension.swift in Sources */,
 				8058ADB52C32B2470004AF81 /* ChartGridShape.swift in Sources */,
 				8058ADB62C32B2470004AF81 /* Range+Extension.swift in Sources */,
 				8058ADB72C32B2470004AF81 /* ViewPreferenceKey.swift in Sources */,
-				8058ADB82C32B2470004AF81 /* PieChartCell.swift in Sources */,
-				8058ADB92C32B2470004AF81 /* MarkerShape.swift in Sources */,
 				8047EA6D2C454F1B00A04D28 /* HomeCardView.swift in Sources */,
 				8058ADBA2C32B2470004AF81 /* Array+Extension.swift in Sources */,
 				8058ADBB2C32B2470004AF81 /* GridOptions.swift in Sources */,
-				8058ADBC2C32B2470004AF81 /* LineShape.swift in Sources */,
 				8058ADBD2C32B2470004AF81 /* Grid+Extension.swift in Sources */,
-				8058ADBE2C32B2470004AF81 /* Ring.swift in Sources */,
 				8058ADBF2C32B2470004AF81 /* CGRect+Extension.swift in Sources */,
 				8058ADC02C32B2470004AF81 /* BarChartCellShape.swift in Sources */,
 				8058ADC12C32B2470004AF81 /* AxisLabelsStyle.swift in Sources */,
@@ -1549,17 +1454,13 @@
 				8058ADC42C32B2470004AF81 /* ChartGrid.swift in Sources */,
 				8058ADC52C32B2470004AF81 /* AxisLabels+Extension.swift in Sources */,
 				8058ADC62C32B2470004AF81 /* ViewGeometry.swift in Sources */,
-				8058ADC72C32B2470004AF81 /* LineStyle.swift in Sources */,
-				8058ADC82C32B2470004AF81 /* IndicatorPoint.swift in Sources */,
 				80B2FB732C3C4328009977B6 /* ValidatingFieldModel.swift in Sources */,
 				80B2FB742C3C4328009977B6 /* ValidatingTextField.swift in Sources */,
 				8058ADC92C32B2470004AF81 /* Shape+Extension.swift in Sources */,
-				8058ADCA2C32B2470004AF81 /* PieChartHelpers.swift in Sources */,
-				8058ADCB2C32B2470004AF81 /* LineChartProperties.swift in Sources */,
 				80ED9BB12C42EBDC0062FCB7 /* AppSettingsFeaturesAppIntentsView.swift in Sources */,
 				8058ADCC2C32B2470004AF81 /* CardView.swift in Sources */,
 				805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */,
-				80B2FB772C3C4331009977B6 /* CopiedToClipboardOverlay.swift in Sources */,
+				80B2FB772C3C4331009977B6 /* ToastOverlay.swift in Sources */,
 				80B2FB782C3C4331009977B6 /* AddyRoundedChipView.swift in Sources */,
 				80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */,
 				805D66A32C1F4C870085CCED /* PrettyTime.swift in Sources */,

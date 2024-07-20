@@ -55,6 +55,13 @@ class BackgroundWorkerHelper {
         
     }
     
+    public func currentConfigurationsAsync() async throws -> [WidgetInfo] {
+        try await withCheckedThrowingContinuation { continuation in
+            WidgetCenter.shared.getCurrentConfigurations { result in
+                continuation.resume(with: result)
+            }
+        }
+    }
     
     func isThereWorkTodo() async -> Bool {
         let settingsManager = SettingsManager(encrypted: false)
@@ -64,13 +71,16 @@ class BackgroundWorkerHelper {
         // Count amount of widgets
         var amountOfWidgets = 0
 
-        
         do {
-            let result = try await WidgetCenter.shared.currentConfigurations()
-            amountOfWidgets = result.count
+            amountOfWidgets = try await currentConfigurationsAsync().count
         } catch {
-            print(error)
+            LoggingHelper().addLog(
+                importance: LogImportance.critical,
+                error: "Could not obtain currentConfigurationsAsync",
+                method: "isThereWorkTodo",
+                extra: error.localizedDescription)
         }
+        
         
         
                 

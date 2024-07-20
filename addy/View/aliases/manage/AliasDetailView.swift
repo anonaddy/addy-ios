@@ -47,6 +47,7 @@ struct AliasDetailView: View {
     @State private var isPresentingEditAliasSendMailRecipientBottomSheet = false
     
     @State private var copiedToClipboard: Bool = false
+    @State private var aliasDeactivatedOverlayShown: Bool = false
     
     @State private var chartData: [Double] = [0,0,0,0]
     
@@ -295,8 +296,8 @@ struct AliasDetailView: View {
                 
             }
             .overlay {
-                CopiedToClipboardOverlay(copiedToClipboard: $copiedToClipboard)
-                
+                ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
+                ToastOverlay(showToast: $aliasDeactivatedOverlayShown, text: String(localized: "alias_deactivated"))
             }
             .confirmationDialog(String(localized: "send_mail"), isPresented: $isPresentingEmailSelectionDialog) {
                 
@@ -321,7 +322,7 @@ struct AliasDetailView: View {
                         self.isSwitchingAliasActiveState = true
                         
                         Task {
-                            await self.deactivateAlias(alias: alias)
+                            await self.deactivateAlias(alias: alias, shouldShowToastOnFinished: true)
                         }
                     }
                     self.shouldDisableAlias = false
@@ -527,7 +528,7 @@ struct AliasDetailView: View {
             
             // Copy the email addresses to clipboard
             UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
-            showCopiedToClipboardAnimation()
+            showCopiedToClipboardToast()
             
             // Prepare mailto URL
             let mailtoURL = client!.composeURL(to: recipients)
@@ -570,7 +571,7 @@ struct AliasDetailView: View {
         return recipients
     }
     
-    private func showCopiedToClipboardAnimation(){
+    private func showCopiedToClipboardToast(){
         withAnimation(.snappy) {
             copiedToClipboard = true
         }
@@ -581,9 +582,20 @@ struct AliasDetailView: View {
         }
     }
     
+    private func showAliasDeactivatedToast(){
+        withAnimation(.snappy) {
+            aliasDeactivatedOverlayShown = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            withAnimation(.snappy) {
+                aliasDeactivatedOverlayShown = false
+            }
+        }
+    }
+    
     private func copyToClipboard(alias: Aliases) {
         UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
-        showCopiedToClipboardAnimation()
+        showCopiedToClipboardToast()
     }
     
     private func activateAlias(alias: Aliases) async {
@@ -649,7 +661,7 @@ struct AliasDetailView: View {
         }
     }
     
-    private func deactivateAlias(alias: Aliases) async {
+    private func deactivateAlias(alias: Aliases, shouldShowToastOnFinished: Bool = false) async {
         let networkHelper = NetworkHelper()
         do {
             let result = try await networkHelper.deactivateSpecificAlias(aliasId: alias.id)
@@ -658,6 +670,9 @@ struct AliasDetailView: View {
                 self.alias?.active = false
                 self.isAliasActive = false
                 shouldReloadDataInParent = true
+                if shouldShowToastOnFinished {
+                    showAliasDeactivatedToast()
+                }
             } else {
                 self.isAliasActive = true
                 activeAlert = .error

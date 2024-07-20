@@ -9,6 +9,19 @@ import WidgetKit
 import SwiftUI
 import addy_shared
 
+
+
+
+private func getUserResource() -> UserResource? {
+    return CacheHelper.getBackgroundServiceCacheUserResource()
+    
+}
+
+private func getMostActiveAliasesData() -> [Aliases]? {
+    let aliases = CacheHelper.getBackgroundServiceCacheMostActiveAliasesData()
+    return Array(aliases?.prefix(4) ?? [])
+}
+
 struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
@@ -51,17 +64,17 @@ struct AddyStatisticWidgetEntryView : View {
         if let userResource = getUserResource() {
             
             switch family {
-                case .accessoryCircular:
+            case .accessoryCircular:
                 
                 Gauge(
-                   value: Double(userResource.bandwidth), in: 0...Double(userResource.bandwidth_limit),
-                   label: { Text(String(localized: "widget_1_bandwidth_gauge")) },
-                   currentValueLabel: { Text(String(userResource.bandwidth/1024/1024)) },
-                   minimumValueLabel: { Text("0") },
-                   maximumValueLabel: { Text(userResource.bandwidth_limit == 0 ? "∞" : String(userResource.bandwidth_limit/1024/1024)) }
+                    value: Double(userResource.bandwidth), in: 0...Double(userResource.bandwidth_limit),
+                    label: { Text(String(localized: "widget_1_bandwidth_gauge")) },
+                    currentValueLabel: { Text(String(userResource.bandwidth/1024/1024)) },
+                    minimumValueLabel: { Text("0") },
+                    maximumValueLabel: { Text(userResource.bandwidth_limit == 0 ? "∞" : String(userResource.bandwidth_limit/1024/1024)) }
                 ).gaugeStyle(.accessoryCircular)
                 
-                case .accessoryRectangular:
+            case .accessoryRectangular:
                 VStack(alignment: .leading) {
                     Image("AddyLogo")
                         .resizable()
@@ -70,84 +83,27 @@ struct AddyStatisticWidgetEntryView : View {
                     Text(String(localized: "monthly_bandwidth")).frame(maxHeight: .infinity)
                     Gauge(
                         value: Double(userResource.bandwidth), in: 0...Double(userResource.bandwidth_limit),
-                       label: { Text(String(localized: "widget_1_bandwidth_gauge")) },
-                       currentValueLabel: { Text(String(userResource.bandwidth/1024/1024)) },
-                       minimumValueLabel: { Text("0") },
-                       maximumValueLabel: { Text(userResource.bandwidth_limit == 0 ? "∞" : String(userResource.bandwidth_limit/1024/1024)) }
+                        label: { Text(String(localized: "widget_1_bandwidth_gauge")) },
+                        currentValueLabel: { Text(String(userResource.bandwidth/1024/1024)) },
+                        minimumValueLabel: { Text("0") },
+                        maximumValueLabel: { Text(userResource.bandwidth_limit == 0 ? "∞" : String(userResource.bandwidth_limit/1024/1024)) }
                     ).gaugeStyle(.accessoryLinear)
                     
                 }
             case .accessoryInline:
                 Text(String(format: String(localized: "widget_1_inline_text"), "\(userResource.total_emails_forwarded)")).frame(maxHeight: .infinity)
                     .contentTransition(.numericText())
-                .animation(.spring(duration: 0.2), value: userResource.total_emails_forwarded)
+                    .animation(.spring(duration: 0.2), value: userResource.total_emails_forwarded)
                 //case .systemSmall:
                 // Fall back to default for unknown sizes
             case .systemLarge:
-                VStack {
-                    HStack(alignment: .center) {
-                        Text(String(localized: "most_active_aliases")).font(.system(size: 18)).fontWeight(.medium).minimumScaleFactor(0.1).lineLimit(1).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
-                        Spacer()
-                        Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30)
-                        
-                    }.frame(maxWidth: .infinity, minHeight: 30)
-                    
-                    VStack(spacing: 0) {
-                        
-                        if let aliases = getMostActiveAliasesData() {
-                            ForEach(aliases, id: \.self) { alias in
-                                AliasWidgetRowView(alias: alias, entry: entry)
-                                
-                                // Don't show divider on last Alias
-                                if (aliases.last != alias){
-                                    Divider().background(entry.configuration.colorfulBackground ? .white : .gray.opacity(0.1))
-                                }
-                                
-                                
-                                
-                            }
-                        }
-                        
-                        
-                    }
-                    .background(ContainerRelativeShape().fill(entry.configuration.colorfulBackground ? .white.opacity(0.15) : .cardViewLightModeDarkMode))
-                    .frame(maxHeight: .infinity)
-                }
+                largeWidgetSize(userResource: userResource, entry: entry)
+                
+            case .systemExtraLarge:
+                mediumWidgetSize(userResource: userResource, entry: entry)
                 
             case .systemMedium:
-                HStack(alignment: .top) {
-                    VStack(spacing: 4) {
-                        HStack(alignment: .center) {
-                            Text(userResource.total_emails_forwarded, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
-                                .contentTransition(.numericText())
-                                .animation(.spring(duration: 0.2), value: userResource.total_emails_forwarded)
-                            Text("forwarded").minimumScaleFactor(0.1).lineLimit(1)
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                        HStack(alignment: .center) {
-                            Text(userResource.total_emails_blocked, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
-                                .contentTransition(.numericText())
-                                .animation(.spring(duration: 0.2), value: userResource.total_emails_blocked)
-                            Text("blocked").minimumScaleFactor(0.1).lineLimit(1)
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                        HStack(alignment: .center) {
-                            Text(userResource.total_emails_sent, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
-                                .contentTransition(.numericText())
-                                .animation(.spring(duration: 0.2), value: userResource.total_emails_sent)
-                            Text("sent").minimumScaleFactor(0.1).lineLimit(1)
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                        HStack(alignment: .center) {
-                            Text(userResource.total_emails_replied, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
-                                .contentTransition(.numericText())
-                                .animation(.spring(duration: 0.2), value: userResource.total_emails_replied)
-                            Text("replied").minimumScaleFactor(0.1).lineLimit(1)
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                    }.frame(maxWidth: .infinity).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
-                    
-                    VStack {
-                        Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30).frame(alignment: .trailing)
-                    }
-                }
-                
+                mediumWidgetSize(userResource: userResource, entry: entry)
                 
             default:
                 VStack {
@@ -172,16 +128,86 @@ struct AddyStatisticWidgetEntryView : View {
         }
     }
     
-    func getUserResource() -> UserResource? {
-        return CacheHelper.getBackgroundServiceCacheUserResource()
-        
-    }
+}
+
+
+struct mediumWidgetSize: View {
+    var userResource: UserResource
+    var entry: Provider.Entry
     
-    func getMostActiveAliasesData() -> [Aliases]? {
-        let aliases = CacheHelper.getBackgroundServiceCacheMostActiveAliasesData()
-        return Array(aliases?.prefix(4) ?? [])
+    var body: some View {
+        HStack(alignment: .top) {
+            VStack(spacing: 4) {
+                HStack(alignment: .center) {
+                    Text(userResource.total_emails_forwarded, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
+                        .contentTransition(.numericText())
+                        .animation(.spring(duration: 0.2), value: userResource.total_emails_forwarded)
+                    Text("forwarded").minimumScaleFactor(0.1).lineLimit(1)
+                }.frame(maxWidth: .infinity, alignment: .leading)
+                HStack(alignment: .center) {
+                    Text(userResource.total_emails_blocked, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
+                        .contentTransition(.numericText())
+                        .animation(.spring(duration: 0.2), value: userResource.total_emails_blocked)
+                    Text("blocked").minimumScaleFactor(0.1).lineLimit(1)
+                }.frame(maxWidth: .infinity, alignment: .leading)
+                HStack(alignment: .center) {
+                    Text(userResource.total_emails_sent, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
+                        .contentTransition(.numericText())
+                        .animation(.spring(duration: 0.2), value: userResource.total_emails_sent)
+                    Text("sent").minimumScaleFactor(0.1).lineLimit(1)
+                }.frame(maxWidth: .infinity, alignment: .leading)
+                HStack(alignment: .center) {
+                    Text(userResource.total_emails_replied, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
+                        .contentTransition(.numericText())
+                        .animation(.spring(duration: 0.2), value: userResource.total_emails_replied)
+                    Text("replied").minimumScaleFactor(0.1).lineLimit(1)
+                }.frame(maxWidth: .infinity, alignment: .leading)
+            }.frame(maxWidth: .infinity).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
+            
+            VStack {
+                Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30).frame(alignment: .trailing)
+            }
+        }
     }
 }
+
+struct largeWidgetSize: View {
+    var userResource: UserResource
+    var entry: Provider.Entry
+    
+    var body: some View {
+        VStack {
+            HStack(alignment: .center) {
+                Text(String(localized: "most_active_aliases")).font(.system(size: 18)).fontWeight(.medium).minimumScaleFactor(0.1).lineLimit(1).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
+                Spacer()
+                Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30)
+                
+            }.frame(maxWidth: .infinity, minHeight: 30)
+            
+            VStack(spacing: 0) {
+                
+                if let aliases = getMostActiveAliasesData() {
+                    ForEach(aliases, id: \.self) { alias in
+                        AliasWidgetRowView(alias: alias, entry: entry)
+                        
+                        // Don't show divider on last Alias
+                        if (aliases.last != alias){
+                            Divider().background(entry.configuration.colorfulBackground ? .white : .gray.opacity(0.1))
+                        }
+                        
+                        
+                        
+                    }
+                }
+                
+                
+            }
+            .background(ContainerRelativeShape().fill(entry.configuration.colorfulBackground ? .white.opacity(0.15) : .cardViewLightModeDarkMode))
+            .frame(maxHeight: .infinity)
+        }
+    }
+}
+
 
 
 struct AliasWidgetRowView: View {
@@ -226,7 +252,7 @@ struct AliasWidgetRowView: View {
                 Image(systemName: "chevron.right")
                     .foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
             }
-            .padding()
+            .padding(10)
         }
         
     }

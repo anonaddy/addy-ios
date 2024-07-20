@@ -46,9 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     
-    //TODO check if this gets called
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         UNUserNotificationCenter.current().delegate = self
         
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "host.stjin.addy.backgroundworker", using: nil) { task in
@@ -120,6 +118,7 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
         BackgroundWorkerHelper().scheduleBackgroundWorker()
     }
     
+
     /**
      NOTE: Please note that even thought addy.io is able to parse mailto: URI's, it cannot be the default mail handler on iOS due to limitation with Apple's OS
      https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_mail-client
@@ -134,7 +133,12 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
+    
+    // This function is called when your app launches.
+    // Check to see if our app was launched with a universal link.
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+
+        
         if let urlContext = connectionOptions.urlContexts.first {
             let url = urlContext.url
             if url.scheme?.lowercased() == "mailto" {
@@ -143,5 +147,6 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             }
         }
+        
     }
 }

@@ -97,7 +97,7 @@ struct SendMailRecipientView: View {
             
         }
         .overlay {
-            CopiedToClipboardOverlay(copiedToClipboard: $copiedToClipboard)
+            ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
         }
         .disabled(isCreatingAlias)
         .confirmationDialog(String(localized: "send_mail"), isPresented: $isPresentingEmailSelectionDialog) {

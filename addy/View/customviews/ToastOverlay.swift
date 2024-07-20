@@ -1,5 +1,5 @@
 //
-//  CopiedToClipboardOverlay.swift
+//  ToastOverlay.swift
 //  addy_shared
 //
 //  Created by Stijn van de Water on 08/07/2024.
@@ -7,16 +7,18 @@
 
 import SwiftUI
 
-struct CopiedToClipboardOverlay: View {
-    @Binding private var copiedToClipboard: Bool
+struct ToastOverlay: View {
+    @Binding private var showToast: Bool
+    private var text: String
     
-    init(copiedToClipboard: Binding<Bool>) {
-            self._copiedToClipboard = copiedToClipboard
+    init(showToast: Binding<Bool>, text: String) {
+            self._showToast = showToast
+            self.text = text
         }
     
     var body: some View {
-        if copiedToClipboard {
-            Text(String(localized: "copied_to_clipboard"))
+        if showToast {
+            Text(text)
                 .font(.system(.body, design: .rounded, weight: .semibold))
                 .foregroundStyle(.white)
                 .padding()
@@ -31,5 +33,5 @@ struct CopiedToClipboardOverlay: View {
 }
 
 #Preview {
-    CopiedToClipboardOverlay(copiedToClipboard: .constant(true))
+    ToastOverlay(showToast: .constant(true), text: String(localized: "copied_to_clipboard"))
 }
