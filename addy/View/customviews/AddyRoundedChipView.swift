@@ -10,6 +10,7 @@ import WrappingHStack
 import addy_shared
 
 struct AddyRoundedChipView: View {
+
     @Binding var chips: [AddyChipModel]
     @Binding var selectedChip:String
     var singleLine:Bool
@@ -27,20 +28,20 @@ struct AddyRoundedChipView: View {
 
         if (self.singleLine){
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(chips) { chip in
-                        Text(chip.label)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(Capsule().fill(self.selectedChip == chip.chipId ? Color.accentColor.opacity(0.7) : Color.gray.opacity(0.7)))
-                            .foregroundColor(.white.opacity(0.8))
-                            .onTapGesture{
-                                HapticHelper.playHapticFeedback(hapticType: .tap)
-                                self.onTap(chip)
+                            HStack {
+                                ForEach(chips) { chip in
+                                    Text(chip.label)
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 6)
+                                        .background(Capsule().fill(self.selectedChip == chip.chipId ? Color.accentColor.opacity(0.7) : Color.gray.opacity(0.7)))
+                                        .foregroundColor(.white.opacity(0.8))
+                                        .onTapGesture{
+                                            HapticHelper.playHapticFeedback(hapticType: .tap)
+                                            self.onTap(chip)
+                                        }
+                                }
                             }
-                    }
-                }
-            }.scrollClipDisabled()
+                        }.scrollClipDisabled()
         } else {
             WrappingHStack(alignment: .leading) {
                     ForEach(chips) { chip in
@@ -88,9 +89,15 @@ struct AddyChip_Preview: PreviewProvider{
                             AddyChipModel(chipId: "test6",label: "test6"),
                         ]
                         
-                        AddyRoundedChipView(chips: $chips, selectedChip: $selectedChip, singleLine: false) { onTappedChip in
-                            print("\(onTappedChip.label) is selected")
-                            selectedChip = onTappedChip.label
+                        VStack(spacing: 0){
+
+                            AddyRoundedChipView(chips: $chips, selectedChip: $selectedChip, singleLine: true) { onTappedChip in
+                                print("\(onTappedChip.label) is selected")
+                                selectedChip = onTappedChip.label
+                            }
+                            
+                            Text("TEST")
+                            Spacer()
                         }
                     }
                 }

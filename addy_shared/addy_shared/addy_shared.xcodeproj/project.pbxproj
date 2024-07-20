@@ -18,6 +18,8 @@
 		806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806890952BFE7F7300CEB8C7 /* HapticHelper.swift */; };
 		806AE68F2C19EB9E00F3CA92 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 806AE68E2C19EB9E00F3CA92 /* FeedKit */; };
 		80813B732C0DF349009C4E6A /* FailedDeliveries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B722C0DF349009C4E6A /* FailedDeliveries.swift */; };
+		80958FE92C4AE81F00833EB7 /* GsonTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80958FE82C4AE81F00833EB7 /* GsonTools.swift */; };
+		80958FEB2C4AE91200833EB7 /* CacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80958FEA2C4AE91200833EB7 /* CacheHelper.swift */; };
 		809F87512C29E4C9002A89C0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F87502C29E4C8002A89C0 /* AppState.swift */; };
 		80A7F2002BECD122001A984B /* AliasSortFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */; };
 		80B2FBCF2C3C4EE8009977B6 /* AddyChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBCE2C3C4EE8009977B6 /* AddyChartData.swift */; };
@@ -65,6 +67,8 @@
 		805F1FA42C3C041300469BCE /* addy-shared-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "addy-shared-Info.plist"; sourceTree = "<group>"; };
 		806890952BFE7F7300CEB8C7 /* HapticHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticHelper.swift; sourceTree = "<group>"; };
 		80813B722C0DF349009C4E6A /* FailedDeliveries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveries.swift; sourceTree = "<group>"; };
+		80958FE82C4AE81F00833EB7 /* GsonTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GsonTools.swift; sourceTree = "<group>"; };
+		80958FEA2C4AE91200833EB7 /* CacheHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheHelper.swift; sourceTree = "<group>"; };
 		809F87502C29E4C8002A89C0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasSortFilter.swift; sourceTree = "<group>"; };
 		80B2FBCE2C3C4EE8009977B6 /* AddyChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyChartData.swift; sourceTree = "<group>"; };
@@ -183,7 +187,9 @@
 		80BB84132BF0019E005999C3 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				80958FE82C4AE81F00833EB7 /* GsonTools.swift */,
 				80BB84142BF001AB005999C3 /* DateTimeUtils.swift */,
+				80958FEA2C4AE91200833EB7 /* CacheHelper.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -306,11 +312,13 @@
 				80B4F4D22BEA5DCE0009E4CA /* Version.swift in Sources */,
 				80BB84152BF001AB005999C3 /* DateTimeUtils.swift in Sources */,
 				80E84A332BEC122900C8D68A /* Recipients.swift in Sources */,
+				80958FEB2C4AE91200833EB7 /* CacheHelper.swift in Sources */,
 				80B2FBCF2C3C4EE8009977B6 /* AddyChartData.swift in Sources */,
 				80B4F4C52BEA55760009E4CA /* AddyIo.swift in Sources */,
 				8047EA792C4565D600A04D28 /* ThirdPartyMailer.swift in Sources */,
 				8047EA7A2C4565D600A04D28 /* ThirdPartyMailClient.swift in Sources */,
 				806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */,
+				80958FE92C4AE81F00833EB7 /* GsonTools.swift in Sources */,
 				809F87512C29E4C9002A89C0 /* AppState.swift in Sources */,
 				80813B732C0DF349009C4E6A /* FailedDeliveries.swift in Sources */,
 				80B4F4B92BEA52EE0009E4CA /* Logs.swift in Sources */,
@@ -375,7 +383,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -436,7 +444,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -454,10 +462,12 @@
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -475,7 +485,7 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = "host.stjin.addy-shared";
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.shared;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -491,10 +501,12 @@
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -512,7 +524,7 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = "host.stjin.addy-shared";
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.shared;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -13,14 +13,14 @@ struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
     }
-
+    
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
         SimpleEntry(date: Date(), configuration: configuration)
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
         var entries: [SimpleEntry] = []
-
+        
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
@@ -28,13 +28,13 @@ struct Provider: AppIntentTimelineProvider {
             let entry = SimpleEntry(date: entryDate, configuration: configuration)
             entries.append(entry)
         }
-
+        
         return Timeline(entries: entries, policy: .atEnd)
     }
-
-//    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
+    
+    //    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
+    //        // Generate a list containing the contexts this widget is relevant in.
+    //    }
 }
 
 struct SimpleEntry: TimelineEntry {
@@ -45,63 +45,121 @@ struct SimpleEntry: TimelineEntry {
 struct AddyStatisticWidgetEntryView : View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
-
+    
     var body: some View {
         
         if let userResource = getUserResource() {
             
             switch family {
-                    //case .accessoryCircular:
-                        // Code to construct the view for the circular accessory widget or watch complication.
-                    //case .accessoryRectangular:
-                        // Code to construct the view for the rectangular accessory widget or watch complication.
-                    //case .accessoryInline:
-                        // Code to construct the view for the inline accessory widget or watch complication.
-                    //case .systemSmall:
-                        // Code to construct the view for the small widget.
-                    //case .systemLarge:
-                        // Code to construct the view for the large widget.
-                    case .systemMedium:
-                HStack {
-                    VStack {
-                        Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30).frame(maxWidth: .infinity, alignment: .leading)
-                        Text(userResource.total_emails_forwarded, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading)
-                            .contentTransition(.numericText())
-                            .animation(.spring(duration: 0.2), value: userResource.total_emails_forwarded)
-                        Text("emails_forwarded").minimumScaleFactor(0.1).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading)
+                case .accessoryCircular:
+                
+                Gauge(
+                   value: Double(userResource.bandwidth), in: 0...Double(userResource.bandwidth_limit),
+                   label: { Text(String(localized: "widget_1_bandwidth_gauge")) },
+                   currentValueLabel: { Text(String(userResource.bandwidth/1024/1024)) },
+                   minimumValueLabel: { Text("0") },
+                   maximumValueLabel: { Text(userResource.bandwidth_limit == 0 ? "∞" : String(userResource.bandwidth_limit/1024/1024)) }
+                ).gaugeStyle(.accessoryCircular)
+                
+                case .accessoryRectangular:
+                VStack(alignment: .leading) {
+                    Image("AddyLogo")
+                        .resizable()
+                        .resizable().scaledToFit().frame(maxHeight: 16)
+                        .widgetAccentable()
+                    Text(String(localized: "monthly_bandwidth")).frame(maxHeight: .infinity)
+                    Gauge(
+                        value: Double(userResource.bandwidth), in: 0...Double(userResource.bandwidth_limit),
+                       label: { Text(String(localized: "widget_1_bandwidth_gauge")) },
+                       currentValueLabel: { Text(String(userResource.bandwidth/1024/1024)) },
+                       minimumValueLabel: { Text("0") },
+                       maximumValueLabel: { Text(userResource.bandwidth_limit == 0 ? "∞" : String(userResource.bandwidth_limit/1024/1024)) }
+                    ).gaugeStyle(.accessoryLinear)
+                    
+                }
+            case .accessoryInline:
+                Text(String(format: String(localized: "widget_1_inline_text"), "\(userResource.total_emails_forwarded)")).frame(maxHeight: .infinity)
+                    .contentTransition(.numericText())
+                .animation(.spring(duration: 0.2), value: userResource.total_emails_forwarded)
+                //case .systemSmall:
+                // Fall back to default for unknown sizes
+            case .systemLarge:
+                VStack {
+                    HStack(alignment: .center) {
+                        Text(String(localized: "most_active_aliases")).font(.system(size: 18)).fontWeight(.medium).minimumScaleFactor(0.1).lineLimit(1).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
+                        Spacer()
+                        Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30)
+                        
+                    }.frame(maxWidth: .infinity, minHeight: 30)
+                    
+                    VStack(spacing: 0) {
+                        
+                        if let aliases = getMostActiveAliasesData() {
+                            ForEach(aliases, id: \.self) { alias in
+                                AliasWidgetRowView(alias: alias, entry: entry)
+                                
+                                // Don't show divider on last Alias
+                                if (aliases.last != alias){
+                                    Divider().background(entry.configuration.colorfulBackground ? .white : .gray.opacity(0.1))
+                                }
+                                
+                                
+                                
+                            }
+                        }
+                        
+                        
                     }
-                    VStack(spacing: 16) {
+                    .background(ContainerRelativeShape().fill(entry.configuration.colorfulBackground ? .white.opacity(0.15) : .cardViewLightModeDarkMode))
+                    .frame(maxHeight: .infinity)
+                }
+                
+            case .systemMedium:
+                HStack(alignment: .top) {
+                    VStack(spacing: 4) {
                         HStack(alignment: .center) {
-                            Text(userResource.total_emails_blocked, format: .number).font(.system(size: 20)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
+                            Text(userResource.total_emails_forwarded, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
+                                .contentTransition(.numericText())
+                                .animation(.spring(duration: 0.2), value: userResource.total_emails_forwarded)
+                            Text("forwarded").minimumScaleFactor(0.1).lineLimit(1)
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                        HStack(alignment: .center) {
+                            Text(userResource.total_emails_blocked, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
                                 .contentTransition(.numericText())
                                 .animation(.spring(duration: 0.2), value: userResource.total_emails_blocked)
                             Text("blocked").minimumScaleFactor(0.1).lineLimit(1)
-                        }.frame(maxWidth: .infinity, alignment: .trailing)
+                        }.frame(maxWidth: .infinity, alignment: .leading)
                         HStack(alignment: .center) {
-                            Text(userResource.total_emails_sent, format: .number).font(.system(size: 20)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
+                            Text(userResource.total_emails_sent, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
                                 .contentTransition(.numericText())
                                 .animation(.spring(duration: 0.2), value: userResource.total_emails_sent)
                             Text("sent").minimumScaleFactor(0.1).lineLimit(1)
-                        }.frame(maxWidth: .infinity, alignment: .trailing)
+                        }.frame(maxWidth: .infinity, alignment: .leading)
                         HStack(alignment: .center) {
-                            Text(userResource.total_emails_replied, format: .number).font(.system(size: 20)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
+                            Text(userResource.total_emails_replied, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).lineLimit(1)
                                 .contentTransition(.numericText())
                                 .animation(.spring(duration: 0.2), value: userResource.total_emails_replied)
                             Text("replied").minimumScaleFactor(0.1).lineLimit(1)
-                        }.frame(maxWidth: .infinity, alignment: .trailing)
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                    }.frame(maxWidth: .infinity).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
+                    
+                    VStack {
+                        Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30).frame(alignment: .trailing)
                     }
                 }
-                        
-                    default:
-                        VStack {
-                            Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30).frame(maxWidth: .infinity, alignment: .leading)
-                            Spacer()
-                            Text(userResource.total_emails_forwarded, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).frame(maxWidth: .infinity, alignment: .leading)
-                                .contentTransition(.numericText())
-                                    .animation(.spring(duration: 0.2), value: userResource.total_emails_forwarded)
-                            Text("emails_forwarded").minimumScaleFactor(0.1).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                    }
+                
+                
+            default:
+                VStack {
+                    Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30).frame(maxWidth: .infinity, alignment: .trailing)
+                    Spacer()
+                    Text(userResource.total_emails_forwarded, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).frame(maxWidth: .infinity, alignment: .leading)
+                        .contentTransition(.numericText())
+                        .animation(.spring(duration: 0.2), value: userResource.total_emails_forwarded).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
+                    Text("emails_forwarded").minimumScaleFactor(0.1).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
+                }
+                
+            }
             
             
             
@@ -114,39 +172,117 @@ struct AddyStatisticWidgetEntryView : View {
         }
     }
     
-    func getUserResource() -> UserResource?{
-        let encryptedSettingsManager = SettingsManager(encrypted: true)
-
-        if let jsonString = encryptedSettingsManager.getSettingsString(key: .userResource),
-           let jsonData = jsonString.data(using: .utf8) {
-            let decoder = JSONDecoder()
-            return try? decoder.decode(UserResource.self, from: jsonData)
-        }
-        return nil
+    func getUserResource() -> UserResource? {
+        return CacheHelper.getBackgroundServiceCacheUserResource()
+        
     }
+    
+    func getMostActiveAliasesData() -> [Aliases]? {
+        let aliases = CacheHelper.getBackgroundServiceCacheMostActiveAliasesData()
+        return Array(aliases?.prefix(4) ?? [])
+    }
+}
+
+
+struct AliasWidgetRowView: View {
+    @State var alias: Aliases
+    @State var aliasDescription: String = ""
+    var entry: Provider.Entry
+    
+    
+    var body: some View {
+        Link(destination: URL(string: "addyio://alias/\(alias.id)")!) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(SettingsManager(encrypted: true).getSettingsBool(key: .privacyMode) ? String(localized: "alias_hidden") : alias.email)
+                        .font(.headline)
+                        .foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
+                        .lineLimit(1)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text(aliasDescription)
+                        .font(.subheadline)
+                        .foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
+                        .lineLimit(1)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .onAppear {
+                            if let description = alias.description {
+                                aliasDescription =  String(format: String(localized: "s_s_s"),
+                                                           description,
+                                                           String(format: NSLocalizedString("created_at_s", comment: ""),
+                                                                  DateTimeUtils.turnStringIntoLocalString(alias.created_at)),
+                                                           String(format: String(localized: "updated_at_s"),
+                                                                  DateTimeUtils.turnStringIntoLocalString(alias.updated_at)))
+                            } else {
+                                aliasDescription =  String(format: String(localized: "s_s"),
+                                                           String(format: NSLocalizedString("created_at_s", comment: ""),
+                                                                  DateTimeUtils.turnStringIntoLocalString(alias.created_at)),
+                                                           String(format: String(localized: "updated_at_s"),
+                                                                  DateTimeUtils.turnStringIntoLocalString(alias.updated_at)))
+                            }
+                        }
+                }
+                
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
+            }
+            .padding()
+        }
+        
+    }
+    
 }
 
 struct AddyStatisticWidget: Widget {
     let kind: String = "AddyStatisticWidget"
-
+    
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             AddyStatisticWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+                .containerBackground(entry.configuration.colorfulBackground ? LinearGradient(
+                    gradient: Gradient(colors: [
+                        Color(red: 0.30, green: 0.60, blue: 0.71),
+                        Color(red: 0.24, green: 0.28, blue: 0.51)
+                    ]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                ) : LinearGradient(
+                    gradient: Gradient(colors: [
+                        Color(UIColor.tertiarySystemFill),
+                        Color(UIColor.tertiarySystemFill)
+                    ]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                ), for: .widget)
+            
+            
         }
+        .configurationDisplayName(String(localized: "widget_1_name"))
+        .description(String(localized: "widget_1_description"))
+        .supportedFamilies(
+            [
+                .systemSmall,
+                .systemMedium,
+                .systemLarge,
+                .systemExtraLarge,
+                .accessoryInline,
+                .accessoryCircular,
+                .accessoryRectangular
+            ]
+        )
     }
 }
 
 extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
+    fileprivate static var plain: ConfigurationAppIntent {
         let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
+        intent.colorfulBackground = false
         return intent
     }
     
-    fileprivate static var starEyes: ConfigurationAppIntent {
+    fileprivate static var colorful: ConfigurationAppIntent {
         let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
+        intent.colorfulBackground = true
         return intent
     }
 }
@@ -156,6 +292,6 @@ extension ConfigurationAppIntent {
 #Preview(as: .systemSmall) {
     AddyStatisticWidget()
 } timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
+    SimpleEntry(date: .now, configuration: .plain)
+    SimpleEntry(date: .now, configuration: .colorful)
 }

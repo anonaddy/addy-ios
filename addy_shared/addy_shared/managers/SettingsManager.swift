@@ -29,6 +29,7 @@ public class SettingsManager {
         case notifySubscriptionExpiry
         case mailtoActivityShowSuggestions
         case aliasSortFilter
+        case pendingURLFromShareViewController
         case biometricEnabled
         case privacyMode
         case apiKey
@@ -37,12 +38,15 @@ public class SettingsManager {
         case backupsPassword
         case userResource
         case userResourceExtended
+        case backgroundServiceCacheMostActiveAliasesData
+
         
         // WearOS
         case backgroundServiceCacheFavoriteAliasesData
-        case backgroundServiceCacheMostActiveAliasesData
         case backgroundServiceCacheLastUpdatedAliasesData
-        case backgroundServiceCacheUserResource
+
+        
+        //case backgroundServiceCacheUserResource // Is .userResource in Android version
         case backgroundServiceCacheFailedDeliveriesCount
         case backgroundServiceCacheApiKeyExpiryLeftCount
         case backgroundServiceCacheSubscriptionExpiryLeftCount
@@ -67,7 +71,7 @@ public class SettingsManager {
         self.user = user
         self.useKeychain = encrypted
 #if DEBUG
-        let suiteName = "group.host.stjin.addy.debug.dev"
+        let suiteName = "group.host.stjin.addy.debug"
 
         #else
         let suiteName = "group.host.stjin.addy"
@@ -192,8 +196,8 @@ public class SettingsManager {
         }
     }
     
-    private func removeSetting(value: Prefs) {
-        let userKey = "\(user)_\(value)"
+    public func removeSetting(key: Prefs) {
+        let userKey = "\(user)_\(key)"
         if useKeychain {
             keychain.delete(userKey)
         } else {
@@ -207,7 +211,7 @@ public class SettingsManager {
         } else {
             
 #if DEBUG
-        let suiteName = "group.host.stjin.addy.debug.dev"
+        let suiteName = "group.host.stjin.addy.debug"
 
         #else
         let suiteName = "group.host.stjin.addy"

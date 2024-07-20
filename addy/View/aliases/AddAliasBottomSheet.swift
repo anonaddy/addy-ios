@@ -216,15 +216,19 @@ struct AddAliasBottomSheet: View {
                 return
             }
         } else if selectedFormat == "custom" {
-            if sharedDomains.contains(selectedDomain){
-                self.aliasError = String(localized: "domains_format_custom_not_available_for_this_domain")
-                self.formatValidationError = true
-                
-                // TODO: workaround, fix
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.isLoadingAddButton = false
+            
+            // Only check on hosted instance
+            if (AddyIo.VERSIONMAJOR == 9999) {
+                if sharedDomains.contains(selectedDomain){
+                    self.aliasError = String(localized: "domains_format_custom_not_available_for_this_domain")
+                    self.formatValidationError = true
+                    
+                    // TODO: workaround, fix
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.isLoadingAddButton = false
+                    }
+                    return
                 }
-                return
             }
             
             if localPart.isEmpty {

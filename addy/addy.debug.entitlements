@@ -9,11 +9,11 @@
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.host.stjin.addy</string>
+		<string>group.host.stjin.addy.debug</string>
 	</array>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)group.host.stjin.addy</string>
+		<string>$(AppIdentifierPrefix)group.host.stjin.addy.debug</string>
 	</array>
 </dict>
 </plist>

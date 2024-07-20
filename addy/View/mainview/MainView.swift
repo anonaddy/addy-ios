@@ -10,100 +10,13 @@ import addy_shared
 import Lottie
 import LocalAuthentication
 
-class MainViewState: ObservableObject {
-    
-
-    static let shared = MainViewState() // Shared instance
-    
-    // MARK: NOTIFICATION AND SHORTCUT ACTIONS
-    @Published var aliasToDisable: String? = nil
-    @Published var showAliasWithId: String? = nil
-    // MARK: END NOTIFICATION AND SHORTCUT ACTIONS
-    
-    // MARK: SHORTCUT ACTIONS
-    @Published var showAddAliasBottomSheet = false
-    // MARK: END SHORTCUT ACTIONS
-    
-    // MARK: Share sheet AND MailTo tap action
-    @Published var mailToActionSheetData: MailToActionSheetData? = nil
-    // MARK: END Share sheet AND MailTo tap action
-
-    
-    @Published var isPresentingProfileBottomSheet = false
-    @Published var profileBottomSheetAction: Destination? = nil
-    @Published var isPresentingFailedDeliveriesSheet = false
-
-    @Published var selectedTab: Destination = .home
-
-    @Published var newFailedDeliveries : Int? = nil
-    @Published var updateAvailable : Bool = false
-    @Published var permissionsRequired : Bool = false
-
-    @Published var showApiExpirationWarning = false
-    @Published var showSubscriptionExpirationWarning = false
-    @Published var isUnlocked = false
-    
-
-    @Published var encryptedSettingsManager = SettingsManager(encrypted: true)
-    @Published var settingsManager = SettingsManager(encrypted: false)
-    
-    @Published var userResourceData: String? {
-        didSet {
-            userResourceData.map { encryptedSettingsManager.putSettingsString(key: .userResource, string: $0) }
-        }
-    }
-    
-    var userResource: UserResource? {
-        get {
-            if let jsonString = userResourceData,
-               let jsonData = jsonString.data(using: .utf8) {
-                let decoder = JSONDecoder()
-                return try? decoder.decode(UserResource.self, from: jsonData)
-            }
-            return nil
-        }
-        set {
-            if let newValue = newValue {
-                let encoder = JSONEncoder()
-                if let jsonData = try? encoder.encode(newValue),
-                   let jsonString = String(data: jsonData, encoding: .utf8) {
-                    userResourceData = jsonString
-                }
-            }
-        }
-    }
-    
-    
-    @Published var userResourceExtendedData: String? {
-        didSet {
-            userResourceExtendedData.map { encryptedSettingsManager.putSettingsString(key: .userResourceExtended, string: $0) }
-        }
-    }
-    
-    var userResourceExtended: UserResourceExtended? {
-        get {
-            if let jsonString = userResourceExtendedData,
-               let jsonData = jsonString.data(using: .utf8) {
-                let decoder = JSONDecoder()
-                return try? decoder.decode(UserResourceExtended.self, from: jsonData)
-            }
-            return nil
-        }
-        set {
-            if let newValue = newValue {
-                let encoder = JSONEncoder()
-                if let jsonData = try? encoder.encode(newValue),
-                   let jsonString = String(data: jsonData, encoding: .utf8) {
-                    userResourceExtendedData = jsonString
-                }
-            }
-        }
-    }
-    
-}
-
 struct MainView: View {
     @EnvironmentObject var mainViewState: MainViewState
+
+    // MARK: Share sheet AND MailTo tap action
+    @State var pendingURLFromShareViewController: IdentifiableURL? = nil
+    // MARK: END Share sheet AND MailTo tap action
+
     @Environment(\.scenePhase) var scenePhase
     
     @State private var apiTokenExpiryText = ""
@@ -163,6 +76,12 @@ struct MainView: View {
                                 AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:_:))
                             }
                             .presentationDetents([.large])
+                        }
+                        .sheet(item: $pendingURLFromShareViewController) { identifiableURL in
+                            NavigationStack {
+                                ShareViewControllerPendingUrlView(pendingURLFromShareViewController: identifiableURL)
+                            }
+                            .presentationDetents([.fraction(0.3)])
                         }
                         .sheet(isPresented: $mainViewState.isPresentingProfileBottomSheet) {
                             NavigationStack {
@@ -229,6 +148,20 @@ struct MainView: View {
                         mainViewState.selectedTab = .aliases
                     }
                     
+                    
+                    // Check if there are pendingURLFromShareViewController
+                    if let url = SettingsManager(encrypted: true).getSettingsString(key: .pendingURLFromShareViewController) {
+                        
+                        if url.starts(with: "addyio://") {
+                            UIApplication.shared.open(URL(string: "\(url)")!, options: [:], completionHandler: nil)
+                        } else {
+                            pendingURLFromShareViewController = IdentifiableURL(url: URL(string: "\(url)")!)
+                        }
+                        
+                        // Remove to prevent any future references
+                        SettingsManager(encrypted: true).removeSetting(key: .pendingURLFromShareViewController)
+                    }
+                    
                     // Check this every time the app is come to foreground
                     checkNotificationPermission()
                 }
@@ -289,27 +222,30 @@ struct MainView: View {
     
     
     private func checkForSubscriptionExpiration() async {
-        do {
-            let user = try await NetworkHelper().getUserResource()
-            if let subscriptionEndsAt = user?.subscription_ends_at {
-                let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(subscriptionEndsAt) // Get the expiry date
-                let currentDateTime = Date() // Get the current date
-                let deadLineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate) // Subtract 7 days from the expiry date
-                if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
-                    // The current date is suddenly after the deadline date. It will expire within 7 days
-                    // Show the subscription is about to expire card
-                    subscriptionExpiryText = expiryDate.futureDateDisplay()
-                    mainViewState.showSubscriptionExpirationWarning = true
+        // Only check on hosted instance
+        if (AddyIo.VERSIONMAJOR == 9999) {
+            do {
+                let user = try await NetworkHelper().getUserResource()
+                if let subscriptionEndsAt = user?.subscription_ends_at {
+                    let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(subscriptionEndsAt) // Get the expiry date
+                    let currentDateTime = Date() // Get the current date
+                    let deadLineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate) // Subtract 7 days from the expiry date
+                    if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
+                        // The current date is suddenly after the deadline date. It will expire within 7 days
+                        // Show the subscription is about to expire card
+                        subscriptionExpiryText = expiryDate.futureDateDisplay()
+                        mainViewState.showSubscriptionExpirationWarning = true
+                    }
                 }
+                // If expires_at is null it will never expire
+            } catch {
+                // Panic
+                LoggingHelper().addLog(
+                    importance: LogImportance.critical,
+                    error: "Could not parse subscriptionEndsAt",
+                    method: "checkForSubscriptionExpiration",
+                    extra: error.localizedDescription)
             }
-            // If expires_at is null it will never expire
-        } catch {
-            // Panic
-            LoggingHelper().addLog(
-                importance: LogImportance.critical,
-                error: "Could not parse subscriptionEndsAt",
-                method: "checkForSubscriptionExpiration",
-                extra: error.localizedDescription)
         }
     }
 

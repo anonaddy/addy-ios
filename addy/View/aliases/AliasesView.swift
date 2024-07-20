@@ -58,7 +58,7 @@ struct AliasesView: View {
                             
                             ApplyFilter(chipId: onTappedChip.chipId)
                         }
-                    }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+                    }.listRowBackground(Color.clear).frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
                 if let aliasList = aliasesViewModel.aliasList{

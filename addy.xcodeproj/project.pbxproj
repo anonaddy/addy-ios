@@ -32,6 +32,11 @@
 		804BE7AA2BE95B49001DDC8A /* AddyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A72BE95B49001DDC8A /* AddyButton.swift */; };
 		804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804BE7A82BE95B49001DDC8A /* AddyButtonStyle.swift */; };
 		8054592E2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8054592D2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift */; };
+		805535562C4BCA6F00886256 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
+		805535582C4BE8A100886256 /* MainViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805535572C4BE8A100886256 /* MainViewState.swift */; };
+		805535612C4BF10500886256 /* IdentifiableURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805535602C4BF10500886256 /* IdentifiableURL.swift */; };
+		805535622C4BF10500886256 /* IdentifiableURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805535602C4BF10500886256 /* IdentifiableURL.swift */; };
+		805535642C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805535632C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift */; };
 		8058AD992C32B2470004AF81 /* ColorGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD772C32B2470004AF81 /* ColorGradient.swift */; };
 		8058AD9A2C32B2470004AF81 /* RingsChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD942C32B2470004AF81 /* RingsChart.swift */; };
 		8058AD9B2C32B2470004AF81 /* AxisLablesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058AD542C32B2470004AF81 /* AxisLablesData.swift */; };
@@ -189,7 +194,6 @@
 		80E9B2342C0B7D2D00C7EF99 /* EditUsernameDescriptionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E9B2332C0B7D2D00C7EF99 /* EditUsernameDescriptionBottomSheet.swift */; };
 		80E9B2362C0B7E5C00C7EF99 /* EditUsernameFromNameBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E9B2352C0B7E5C00C7EF99 /* EditUsernameFromNameBottomSheet.swift */; };
 		80E9B2382C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E9B2372C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift */; };
-		80E9B23A2C0B9D8600C7EF99 /* GsonTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E9B2392C0B9D8600C7EF99 /* GsonTools.swift */; };
 		80ECA1012C1DA00100788D75 /* BackgroundWorkerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ECA1002C1DA00100788D75 /* BackgroundWorkerHelper.swift */; };
 		80ED9BB12C42EBDC0062FCB7 /* AppSettingsFeaturesAppIntentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED9BB02C42EBDC0062FCB7 /* AppSettingsFeaturesAppIntentsView.swift */; };
 		80ED9BB42C42FD670062FCB7 /* CreateNewCustomAliasIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED9BB32C42FD670062FCB7 /* CreateNewCustomAliasIntent.swift */; };
@@ -283,6 +287,9 @@
 		805459142C3975290087A170 /* addy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = addy.entitlements; sourceTree = "<group>"; };
 		805459152C39757A0087A170 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		8054592D2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesMailToView.swift; sourceTree = "<group>"; };
+		805535572C4BE8A100886256 /* MainViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewState.swift; sourceTree = "<group>"; };
+		805535602C4BF10500886256 /* IdentifiableURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableURL.swift; sourceTree = "<group>"; };
+		805535632C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewControllerPendingUrlView.swift; sourceTree = "<group>"; };
 		8058AD502C32B2470004AF81 /* AxisLabels+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AxisLabels+Extension.swift"; sourceTree = "<group>"; };
 		8058AD522C32B2470004AF81 /* AxisLabelsPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisLabelsPosition.swift; sourceTree = "<group>"; };
 		8058AD532C32B2470004AF81 /* AxisLabelsStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisLabelsStyle.swift; sourceTree = "<group>"; };
@@ -406,6 +413,9 @@
 		80DCF3AB2BF12E760022690F /* BackgroundWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundWorker.swift; sourceTree = "<group>"; };
 		80DCF3AD2BF1347F0022690F /* AddySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySection.swift; sourceTree = "<group>"; };
 		80DCF3AF2BF137610022690F /* EditAliasDescriptionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasDescriptionBottomSheet.swift; sourceTree = "<group>"; };
+		80DF3F532C4BC22F00A533BE /* addy.debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = addy.debug.entitlements; sourceTree = "<group>"; };
+		80DF3F542C4BC2EA00A533BE /* AddyStatisticWidgetExtension.debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AddyStatisticWidgetExtension.debug.entitlements; sourceTree = "<group>"; };
+		80DF3F552C4BC32700A533BE /* ShareExtension.debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.debug.entitlements; sourceTree = "<group>"; };
 		80E082632BF7D36700B51FB8 /* AddyBugFound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyBugFound.swift; sourceTree = "<group>"; };
 		80E082662BF7DA2B00B51FB8 /* AddApiBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApiBottomSheet.swift; sourceTree = "<group>"; };
 		80E082682BF7DA8100B51FB8 /* FilterOptionsAliasBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionsAliasBottomSheet.swift; sourceTree = "<group>"; };
@@ -427,7 +437,6 @@
 		80E9B2332C0B7D2D00C7EF99 /* EditUsernameDescriptionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUsernameDescriptionBottomSheet.swift; sourceTree = "<group>"; };
 		80E9B2352C0B7E5C00C7EF99 /* EditUsernameFromNameBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUsernameFromNameBottomSheet.swift; sourceTree = "<group>"; };
 		80E9B2372C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUsernameRecipientsBottomSheet.swift; sourceTree = "<group>"; };
-		80E9B2392C0B9D8600C7EF99 /* GsonTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GsonTools.swift; sourceTree = "<group>"; };
 		80ECA1002C1DA00100788D75 /* BackgroundWorkerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundWorkerHelper.swift; sourceTree = "<group>"; };
 		80ED9BB02C42EBDC0062FCB7 /* AppSettingsFeaturesAppIntentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesAppIntentsView.swift; sourceTree = "<group>"; };
 		80ED9BB32C42FD670062FCB7 /* CreateNewCustomAliasIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCustomAliasIntent.swift; sourceTree = "<group>"; };
@@ -454,6 +463,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				805535562C4BCA6F00886256 /* addy_shared.framework in Frameworks */,
 				8036F1462C499148008627C3 /* SwiftUI.framework in Frameworks */,
 				8036F1442C499148008627C3 /* WidgetKit.framework in Frameworks */,
 			);
@@ -525,6 +535,7 @@
 		8042E0722C3318DA001E8366 /* ShareExtension */ = {
 			isa = PBXGroup;
 			children = (
+				80DF3F552C4BC32700A533BE /* ShareExtension.debug.entitlements */,
 				805459152C39757A0087A170 /* ShareExtension.entitlements */,
 				8042E0732C3318DA001E8366 /* ShareViewController.swift */,
 				8042E0782C3318DA001E8366 /* Info.plist */,
@@ -865,6 +876,7 @@
 		806F21262BE8F1B100EBEBC8 = {
 			isa = PBXGroup;
 			children = (
+				80DF3F542C4BC2EA00A533BE /* AddyStatisticWidgetExtension.debug.entitlements */,
 				8036F15D2C499757008627C3 /* AddyStatisticWidgetExtension.entitlements */,
 				8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */,
 				806AE6982C1A0D5700F3CA92 /* Settings.bundle */,
@@ -890,9 +902,10 @@
 		806F21312BE8F1B100EBEBC8 /* addy */ = {
 			isa = PBXGroup;
 			children = (
+				805459142C3975290087A170 /* addy.entitlements */,
+				80DF3F532C4BC22F00A533BE /* addy.debug.entitlements */,
 				802FC8CE2C42C2EA00E3E134 /* AppShortcuts.xcstrings */,
 				8084AAD22C42A23D00CC7E3B /* AppShortcutsProvider */,
-				805459142C3975290087A170 /* addy.entitlements */,
 				806F21382BE8F1B200EBEBC8 /* Assets.xcassets */,
 				801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */,
 				806D5F1B2BE91B9700C5C109 /* anims */,
@@ -1002,6 +1015,7 @@
 		80B2FB882C3C4388009977B6 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				805535602C4BF10500886256 /* IdentifiableURL.swift */,
 				80B2FB792C3C4388009977B6 /* AddyChipModel.swift */,
 			);
 			path = models;
@@ -1088,7 +1102,6 @@
 			isa = PBXGroup;
 			children = (
 				809F874E2C29D892002A89C0 /* QuickActionsManager.swift */,
-				80E9B2392C0B9D8600C7EF99 /* GsonTools.swift */,
 				80ECA1002C1DA00100788D75 /* BackgroundWorkerHelper.swift */,
 			);
 			path = helpers;
@@ -1118,6 +1131,8 @@
 		80E849992BEB73CE00C8D68A /* mainview */ = {
 			isa = PBXGroup;
 			children = (
+				805535632C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift */,
+				805535572C4BE8A100886256 /* MainViewState.swift */,
 				80E8499A2BEB73D900C8D68A /* MainView.swift */,
 				80D306012C079DF800C801EE /* ProfileBottomSheet.swift */,
 			);
@@ -1407,6 +1422,7 @@
 				80B2FB992C3C4455009977B6 /* SendMailRecipientView.swift in Sources */,
 				80B2FBBA2C3C4C18009977B6 /* Apply.swift in Sources */,
 				80B2FBC92C3C4E96009977B6 /* AnonAddyUtils.swift in Sources */,
+				805535612C4BF10500886256 /* IdentifiableURL.swift in Sources */,
 				80B2FB9A2C3C4461009977B6 /* MailToActionSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1448,9 +1464,9 @@
 				805A74552C1F5FC200C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift in Sources */,
 				80DCF3AC2BF12E760022690F /* BackgroundWorker.swift in Sources */,
 				80813B662C0DE21A009C4E6A /* EditDomainDescriptionBottomSheet.swift in Sources */,
-				80E9B23A2C0B9D8600C7EF99 /* GsonTools.swift in Sources */,
 				80E1946E2BF8DCE0005175EA /* AddySectionButton.swift in Sources */,
 				80D306022C079DF800C801EE /* ProfileBottomSheet.swift in Sources */,
+				805535622C4BF10500886256 /* IdentifiableURL.swift in Sources */,
 				80E194632BF8A9BB005175EA /* EditAliasRecipientsBottomSheet.swift in Sources */,
 				809AB1C82C1F10FE0054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift in Sources */,
 				80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */,
@@ -1458,6 +1474,7 @@
 				80B2FB472C3C425A009977B6 /* MailToActionSheet.swift in Sources */,
 				80B2FB482C3C425A009977B6 /* MailToActionSheetData.swift in Sources */,
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
+				805535642C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift in Sources */,
 				80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */,
 				80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */,
 				8047EA6A2C454D4700A04D28 /* GradientProgressBar.swift in Sources */,
@@ -1567,6 +1584,7 @@
 				80813B712C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift in Sources */,
 				80B2FBB92C3C4C0A009977B6 /* Apply.swift in Sources */,
 				8062CFE02C1487B600EFFB4C /* ActionBottomSheet.swift in Sources */,
+				805535582C4BE8A100886256 /* MainViewState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1591,15 +1609,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 68LAMW5ZY8;
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AddyStatisticWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Alias statistics";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1608,7 +1627,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.dev.AddyStatisticWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1624,13 +1643,14 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AddyStatisticWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Alias statistics";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1639,7 +1659,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.dev.AddyStatisticWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -1652,11 +1672,11 @@
 		8042E07D2C3318DA001E8366 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 68LAMW5ZY8;
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -1670,8 +1690,9 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.dev.ShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1684,9 +1705,9 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -1700,7 +1721,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.dev.ShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -1841,12 +1862,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
+				CODE_SIGN_ENTITLEMENTS = addy/addy.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
-				DEVELOPMENT_TEAM = 68LAMW5ZY8;
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = addy/Info.plist;
@@ -1866,7 +1887,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1883,14 +1904,14 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = addy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
+				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for settings up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
@@ -1906,7 +1927,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

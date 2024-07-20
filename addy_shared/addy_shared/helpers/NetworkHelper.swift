@@ -3422,7 +3422,7 @@ public class NetworkHelper {
             let jsonString = String(data: data, encoding: .utf8)!
             
             // Store a copy of the just received data locally
-            self.encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheUserResource, string: jsonString)
+            self.encryptedSettingsManager.putSettingsString(key: .userResource, string: jsonString)
             
             // Stored data, return true to let the caller know the task succeeded
             return true
@@ -3457,7 +3457,7 @@ public class NetworkHelper {
         do {
             let list = try await getAliases(aliasSortFilterRequest: aliasSortFilterRequest, size: amountOfAliasesToCache)
             // Turn the list into a json object
-            let data = try JSONEncoder().encode(list)
+            let data = try JSONEncoder().encode(list?.data)
             let jsonString = String(data: data, encoding: .utf8)!
             // Store a copy of the just received data locally
             self.encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheMostActiveAliasesData, string: jsonString)

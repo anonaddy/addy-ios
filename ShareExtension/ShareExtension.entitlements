@@ -4,11 +4,11 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.host.stjin.addy.debug.dev</string>
+		<string>group.host.stjin.addy</string>
 	</array>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)group.host.stjin.addy.debug.dev</string>
+		<string>$(AppIdentifierPrefix)group.host.stjin.addy</string>
 	</array>
 </dict>
 </plist>

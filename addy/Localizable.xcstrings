@@ -12,6 +12,9 @@
         }
       }
     },
+    "0" : {
+
+    },
     "actions" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -435,6 +438,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alias format"
+          }
+        }
+      }
+    },
+    "alias_hidden" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias hidden"
           }
         }
       }
@@ -1011,6 +1024,17 @@
         }
       }
     },
+    "bandwidth" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bandwidth"
+          }
+        }
+      }
+    },
     "banner_location" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1317,8 +1341,16 @@
         }
       }
     },
-    "Configuration" : {
-
+    "configuration" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration"
+          }
+        }
+      }
     },
     "configuration_error" : {
       "extractionState" : "manual",
@@ -2669,9 +2701,6 @@
         }
       }
     },
-    "Favorite Emoji" : {
-
-    },
     "feature_api_token_expiry_notification" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3604,6 +3633,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "More"
+          }
+        }
+      }
+    },
+    "most_active_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Most active aliases"
           }
         }
       }
@@ -5032,6 +5072,57 @@
         }
       }
     },
+    "shareviewcontroller_pending_alias_scheduled" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the app to continue"
+          }
+        }
+      }
+    },
+    "shareviewcontroller_pending_alias_scheduled_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due to certain limitations, it’s not possible to open your existing alias from this sheet. However, your alias has been successfully forwarded to the addy.io app. Please open the app to view your alias"
+          }
+        }
+      }
+    },
+    "shareviewcontroller_pending_url_open" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have a pending email from the share extension, do you want to send this email?"
+          }
+        }
+      }
+    },
+    "shareviewcontroller_pending_url_scheduled" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the app to continue"
+          }
+        }
+      }
+    },
+    "shareviewcontroller_pending_url_scheduled_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due to certain limitations, it’s not possible to send an email directly from this sheet. However, your email has been successfully forwarded to the addy.io app. Please open the app to send your email"
+          }
+        }
+      }
+    },
     "show_suggestions" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5591,9 +5682,6 @@
         }
       }
     },
-    "This is an example widget." : {
-
-    },
     "this_field_cannot_be_empty" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5994,6 +6082,68 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Whoops!"
+          }
+        }
+      }
+    },
+    "widget_1_bandwidth_gauge" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bandwidth"
+          }
+        }
+      }
+    },
+    "widget_1_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An overview of your addy.io stats that dynamically adapts to size"
+          }
+        }
+      }
+    },
+    "widget_1_inline_text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ emails forwarded"
+          }
+        }
+      }
+    },
+    "widget_1_name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics overview"
+          }
+        }
+      }
+    },
+    "widget_configuration_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configure the looks of the widget"
+          }
+        }
+      }
+    },
+    "widget_configuration_parameter_colorful_background" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colorful background"
           }
         }
       }

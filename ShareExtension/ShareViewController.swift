@@ -40,8 +40,7 @@ class ShareViewController: UIViewController {
                         DispatchQueue.main.async {
                             // host the SwiftUI view
                             let contentView = UIHostingController(rootView: MailToActionSheet(mailToActionSheetData: MailToActionSheetData(value: text), openedThroughShareSheet: true, returnToApp: { aliasId in
-                                self.open(url: URL(string: "addyio://alias/\(aliasId)")!)
-                                self.close()
+                                self.openAliasInApp(url: URL(string: "addyio://alias/\(aliasId)")!)
                             }, close: {
                                 self.close()
                             }, openMailToShareSheet: { url in
@@ -77,13 +76,11 @@ class ShareViewController: UIViewController {
                         DispatchQueue.main.async {
                             // host the SwiftUI view
                             let contentView = UIHostingController(rootView: MailToActionSheet(mailToActionSheetData: MailToActionSheetData(value: text!.absoluteString), openedThroughShareSheet: true, returnToApp: { aliasId in
-                                self.open(url: URL(string: "addyio://alias/\(aliasId)")!)
-                                self.close()
+                                self.openAliasInApp(url: URL(string: "addyio://alias/\(aliasId)")!)
                             }, close: {
                                 self.close()
                             }, openMailToShareSheet: { url in
                                 self.open(url: url)
-                                self.close()
                             }))
                             self.addChild(contentView)
                             self.view.addSubview(contentView.view)
@@ -103,7 +100,7 @@ class ShareViewController: UIViewController {
                 }
                 
             } else {
-                close()
+                self.close()
                 return
             }
             
@@ -134,27 +131,6 @@ class ShareViewController: UIViewController {
         
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        for item in extensionContext!.inputItems as! [NSExtensionItem] {
-//            if let attachments = item.attachments {
-//                for itemProvider in attachments {
-//                    if itemProvider.hasItemConformingToTypeIdentifier("public.url") {
-//                        itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (item, error) in
-//                            let url = (item as! NSURL).absoluteURL!
-//
-//                            self.open(url: url)
-//                            self.extensionContext!.completeRequest(returningItems: nil, completionHandler: nil)
-//                        })
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    
-    
-    //TODO: This is not working on iOS18DB3
     
     /// Close the Share Extension
     private func close() {
@@ -164,22 +140,34 @@ class ShareViewController: UIViewController {
     
     
     private func open(url: URL) {
-            var responder: UIResponder? = self as UIResponder
-            let selector = #selector(openURL(_:))
+        SettingsManager(encrypted: true).putSettingsString(key: .pendingURLFromShareViewController, string: url.absoluteString)
 
-            while responder != nil {
-                if responder!.responds(to: selector) && responder != self {
-                    responder!.perform(selector, with: url)
+        // Create an alert
+        let alert = UIAlertController(title: String(localized: "shareviewcontroller_pending_url_scheduled"), message: String(localized: "shareviewcontroller_pending_url_scheduled_desc"), preferredStyle: .alert)
+        
+        // Add an action to the alert
+        alert.addAction(UIAlertAction(title: String(localized: "understood"), style: .default, handler: { _ in
+            self.close()
+        }))
+        
+        // Present the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+     private func openAliasInApp(url: URL) {
+        SettingsManager(encrypted: true).putSettingsString(key: .pendingURLFromShareViewController, string: url.absoluteString)
 
-                    return
-                }
-
-                responder = responder?.next
-            }
-        }
-
-        @objc
-        private func openURL(_ url: URL) {
-            return
-        }
+        // Create an alert
+        let alert = UIAlertController(title: String(localized: "shareviewcontroller_pending_alias_scheduled"), message: String(localized: "shareviewcontroller_pending_alias_scheduled_desc"), preferredStyle: .alert)
+        
+        // Add an action to the alert
+        alert.addAction(UIAlertAction(title: String(localized: "understood"), style: .default, handler: { _ in
+            self.close()
+        }))
+        
+        // Present the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
 }

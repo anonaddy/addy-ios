@@ -13,7 +13,7 @@ struct SingleRecipient:Codable {
     let data: Recipients
 }
 
-public struct Recipients:Identifiable, Codable {
+public struct Recipients:Identifiable, Codable, Equatable, Hashable {
     public let id: String
     let user_id: String
     public let email: String

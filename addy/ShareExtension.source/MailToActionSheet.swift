@@ -18,6 +18,8 @@ struct MailToActionSheet: View {
     @State private var sendMailRecipientView: SendMailRecipientView? = nil
     @State private var mailToActionSheetData: MailToActionSheetData
     @State private var openedThroughShareSheet: Bool
+    @State private var errorTitle: String = ""
+    @State private var errorMessage: String = ""
     @State private var isUnlocked: Bool = false
     @State private var showSendMailRecipientView: Bool = false
     @State private var loadingStatusText = String(localized: "intent_checking_address")
@@ -43,7 +45,15 @@ struct MailToActionSheet: View {
         NavigationStack{
             if !SettingsManager(encrypted: true).getSettingsBool(key: .biometricEnabled) || self.isUnlocked {
                 Group {
-                    loadingView
+                    if (!errorMessage.isEmpty){
+                        ContentUnavailableView {
+                            Label(errorTitle, systemImage: "exclamationmark.triangle.fill")
+                        } description: {
+                            Text(errorMessage)
+                        }
+                    } else {
+                        loadingView
+                    }
                 }.navigationTitle(String(localized: "integration_mailto_alias"))
                     .pickerStyle(.navigationLink)
                     .navigationBarTitleDisplayMode(.inline)
@@ -221,8 +231,8 @@ struct MailToActionSheet: View {
                 
             }
         } catch {
-            //TODO: Let the user know
-            print("Failed to load domains: \(error)")
+            errorTitle = String(localized:"something_went_wrong_retrieving_domains")
+            errorMessage = error.localizedDescription
         }
     }
     
@@ -264,8 +274,8 @@ struct MailToActionSheet: View {
             }
         
         } catch {
-            //TODO: let user know
-            print("Failed to load aliases: \(error)")
+            errorTitle = String(localized:"something_went_wrong_retrieving_aliases")
+            errorMessage = error.localizedDescription
         }
     }
     
@@ -279,8 +289,8 @@ struct MailToActionSheet: View {
                 }
             }
         } catch {
-            //TODO: Let the user know
-            print("Failed to add alias: \(error)")
+            errorTitle = String(localized:"error_adding_alias")
+            errorMessage = error.localizedDescription
         }
     }
     

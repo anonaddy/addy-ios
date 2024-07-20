@@ -25,7 +25,7 @@ struct SingleAlias: Codable {
     let data: Aliases
 }
 
-public struct Aliases:Identifiable,Codable {
+public struct Aliases: Identifiable, Codable, Hashable {
     public let id: String
     let user_id: String
     let aliasable_id: String?
@@ -50,6 +50,7 @@ public struct Aliases:Identifiable,Codable {
     public let updated_at: String
     public var deleted_at: String?
 }
+
 
 public struct Meta:Codable {
     public let current_page: Int
