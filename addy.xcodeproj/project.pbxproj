@@ -95,6 +95,7 @@
 		806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F21382BE8F1B200EBEBC8 /* Assets.xcassets */; };
 		806F213C2BE8F1B200EBEBC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */; };
 		807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		807433622C4C3F0E007DF9F5 /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBB82C3C4C0A009977B6 /* Apply.swift */; };
 		807515102C26C69E00DE2AC7 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */; };
 		807DB4832C1764620051DD8A /* AppearanceBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */; };
 		807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */; };
@@ -1206,7 +1207,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					8036F1412C499148008627C3 = {
 						CreatedOnToolsVersion = 16.0;
@@ -1323,6 +1324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				807433622C4C3F0E007DF9F5 /* Apply.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

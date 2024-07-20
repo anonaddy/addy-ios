@@ -77,9 +77,19 @@ struct AddyStatisticWidgetEntryView : View {
             case .accessoryRectangular:
                 VStack(alignment: .leading) {
                     Image("AddyLogo")
-                        .resizable()
-                        .resizable().scaledToFit().frame(maxHeight: 16)
-                        .widgetAccentable()
+                        .apply {
+                            if entry.configuration.colorfulBackground {
+                                $0.renderingMode(.template).resizable()
+                                    .resizable().scaledToFit().frame(maxHeight: 16)
+                                    .widgetAccentable()
+                                    .foregroundColor(.white)
+                            } else {
+                                $0.resizable()
+                                    .resizable().scaledToFit().frame(maxHeight: 16)
+                                    .widgetAccentable()
+                            }
+                        }
+                        
                     Text(String(localized: "monthly_bandwidth")).frame(maxHeight: .infinity)
                     Gauge(
                         value: Double(userResource.bandwidth), in: 0...Double(userResource.bandwidth_limit),
@@ -107,7 +117,13 @@ struct AddyStatisticWidgetEntryView : View {
                 
             default:
                 VStack {
-                    Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30).frame(maxWidth: .infinity, alignment: .trailing)
+                    Image("AddyLogo").apply {
+                        if entry.configuration.colorfulBackground {
+                            $0.renderingMode(.template).resizable().scaledToFit().frame(maxHeight: 30).frame(maxWidth: .infinity, alignment: .trailing).foregroundColor(.white)
+                        } else {
+                            $0.resizable().scaledToFit().frame(maxHeight: 30).frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                    }
                     Spacer()
                     Text(userResource.total_emails_forwarded, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).frame(maxWidth: .infinity, alignment: .leading)
                         .contentTransition(.numericText())
@@ -165,7 +181,13 @@ struct mediumWidgetSize: View {
             }.frame(maxWidth: .infinity).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
             
             VStack {
-                Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30).frame(alignment: .trailing)
+                Image("AddyLogo").apply {
+                    if entry.configuration.colorfulBackground {
+                        $0.renderingMode(.template).resizable().scaledToFit().frame(maxHeight: 30).frame(alignment: .trailing).foregroundColor(.white)
+                    } else {
+                        $0.resizable().scaledToFit().frame(maxHeight: 30).frame(alignment: .trailing)
+                    }
+                }
             }
         }
     }
@@ -180,7 +202,14 @@ struct largeWidgetSize: View {
             HStack(alignment: .center) {
                 Text(String(localized: "most_active_aliases")).font(.system(size: 18)).fontWeight(.medium).minimumScaleFactor(0.1).lineLimit(1).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
                 Spacer()
-                Image("AddyLogo").resizable().scaledToFit().frame(maxHeight: 30)
+                Image("AddyLogo").apply {
+                    if entry.configuration.colorfulBackground {
+                        $0.renderingMode(.template).resizable().scaledToFit().frame(maxHeight: 30).foregroundColor(.white)
+                    } else {
+                        $0.resizable().scaledToFit().frame(maxHeight: 30)
+                    }
+                }
+                
                 
             }.frame(maxWidth: .infinity, minHeight: 30)
             
