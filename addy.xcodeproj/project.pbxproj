@@ -20,9 +20,7 @@
 		8042E0742C3318DA001E8366 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8042E0732C3318DA001E8366 /* ShareViewController.swift */; };
 		8042E07B2C3318DA001E8366 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8042E0712C3318DA001E8366 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8042E07F2C3318E3001E8366 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
-		8042E0802C3318E3001E8366 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80433AC02C4C272400609208 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
-		80433AC12C4C272400609208 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80433AC32C4C27BC00609208 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1432C499148008627C3 /* WidgetKit.framework */; };
 		80433AC52C4C27BD00609208 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1452C499148008627C3 /* SwiftUI.framework */; };
 		80477DDE2C12225D00E52AF8 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DDD2C12225D00E52AF8 /* RulesView.swift */; };
@@ -217,28 +215,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8042E0812C3318E3001E8366 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				8042E0802C3318E3001E8366 /* addy_shared.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		80433AC22C4C272400609208 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				80433AC12C4C272400609208 /* addy_shared.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1135,7 +1111,6 @@
 				8036F13E2C499148008627C3 /* Sources */,
 				8036F13F2C499148008627C3 /* Frameworks */,
 				8036F1402C499148008627C3 /* Resources */,
-				80433AC22C4C272400609208 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1158,7 +1133,6 @@
 				8042E06D2C3318DA001E8366 /* Sources */,
 				8042E06E2C3318DA001E8366 /* Frameworks */,
 				8042E06F2C3318DA001E8366 /* Resources */,
-				8042E0812C3318E3001E8366 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
