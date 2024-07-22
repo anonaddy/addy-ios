@@ -167,9 +167,6 @@ struct AddApiBottomSheet: View {
             }
             
         })
-        .onAppear{
-            cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-        }
         
         
     }

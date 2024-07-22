@@ -38,6 +38,7 @@ struct ValidatingTextField: View {
                                 }
                             }
                             .frame(height: 150)
+                            .scrollContentBackground(.hidden)
                             .disableAutocorrection(true)
                             .keyboardType(fieldType.getKeyboardType())
                     }
@@ -84,5 +85,17 @@ struct ValidatingTextField: View {
             }
             
         }
+    }
+}
+
+
+struct ValidatingTextField_Previews: PreviewProvider {
+    static var previews: some View {
+        @State var addressesPlaceholder:String = String(localized: "addresses")
+        @State var addressesValidationError:String?
+        @State var addresses:String = ""
+        
+        ValidatingTextField(value: $addresses, placeholder: $addressesPlaceholder, fieldType: .bigText, error: $addressesValidationError)
+
     }
 }

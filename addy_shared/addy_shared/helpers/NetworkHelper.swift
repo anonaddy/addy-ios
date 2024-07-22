@@ -3506,7 +3506,7 @@ public class NetworkHelper {
 #if DEBUG
         print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
 #endif
-        let url = URL(string: AddyIo.GITLAB_TAGS_RSS_FEED)!
+        let url = URL(string: AddyIo.GITHUB_TAGS_RSS_FEED)!
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard let httpResponse = response as? HTTPURLResponse else {
@@ -3514,7 +3514,7 @@ public class NetworkHelper {
             self.loggingHelper.addLog(
                 importance: LogImportance.critical,
                 error: error.localizedDescription,
-                method: "getGitlabTags",
+                method: "getGithubTags",
                 extra: error.failureURLString)
             throw error
         }
@@ -3531,7 +3531,7 @@ public class NetworkHelper {
             self.loggingHelper.addLog(
                 importance: LogImportance.critical,
                 error: errorMessage,
-                method: "getGitlabTags",
+                method: "getGithubTags",
                 extra: nil
             )
             

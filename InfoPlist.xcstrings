@@ -44,7 +44,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Scan QR codes for settings up the app"
+            "value" : "This allows for scanning the QR code so that you can quickly set-up the app"
           }
         }
       }

@@ -23,6 +23,10 @@
 		80433AC02C4C272400609208 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
 		80433AC32C4C27BC00609208 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1432C499148008627C3 /* WidgetKit.framework */; };
 		80433AC52C4C27BD00609208 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1452C499148008627C3 /* SwiftUI.framework */; };
+		8046331D2C4ED4C300192FA6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8046331B2C4ED4C300192FA6 /* LICENSE */; };
+		8046331E2C4ED4C300192FA6 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 8046331A2C4ED4C300192FA6 /* CHANGELOG.md */; };
+		8046331F2C4ED4C300192FA6 /* PrivacyPolicy.md in Resources */ = {isa = PBXBuildFile; fileRef = 8046331C2C4ED4C300192FA6 /* PrivacyPolicy.md */; };
+		804633212C4ED51300192FA6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 804633202C4ED51300192FA6 /* README.md */; };
 		80477DDE2C12225D00E52AF8 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DDD2C12225D00E52AF8 /* RulesView.swift */; };
 		80477DE02C1222AE00E52AF8 /* RulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DDF2C1222AE00E52AF8 /* RulesViewModel.swift */; };
 		80477DE52C12261300E52AF8 /* CreateRulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80477DE42C12261300E52AF8 /* CreateRulesView.swift */; };
@@ -247,6 +251,10 @@
 		8042E0712C3318DA001E8366 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8042E0732C3318DA001E8366 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		8042E0782C3318DA001E8366 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8046331A2C4ED4C300192FA6 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		8046331B2C4ED4C300192FA6 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		8046331C2C4ED4C300192FA6 /* PrivacyPolicy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PrivacyPolicy.md; sourceTree = "<group>"; };
+		804633202C4ED51300192FA6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		80477DDD2C12225D00E52AF8 /* RulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesView.swift; sourceTree = "<group>"; };
 		80477DDF2C1222AE00E52AF8 /* RulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewModel.swift; sourceTree = "<group>"; };
 		80477DE42C12261300E52AF8 /* CreateRulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRulesView.swift; sourceTree = "<group>"; };
@@ -771,6 +779,10 @@
 		806F21262BE8F1B100EBEBC8 = {
 			isa = PBXGroup;
 			children = (
+				8046331A2C4ED4C300192FA6 /* CHANGELOG.md */,
+				804633202C4ED51300192FA6 /* README.md */,
+				8046331B2C4ED4C300192FA6 /* LICENSE */,
+				8046331C2C4ED4C300192FA6 /* PrivacyPolicy.md */,
 				80DF3F542C4BC2EA00A533BE /* AddyStatisticWidgetExtension.debug.entitlements */,
 				8036F15D2C499757008627C3 /* AddyStatisticWidgetExtension.entitlements */,
 				8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */,
@@ -1266,6 +1278,10 @@
 				806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */,
 				80E849B02BEBA66100C8D68A /* ic_loading_logo_error.shapeshifter.json in Resources */,
 				80F0D7E72BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json in Resources */,
+				804633212C4ED51300192FA6 /* README.md in Resources */,
+				8046331D2C4ED4C300192FA6 /* LICENSE in Resources */,
+				8046331E2C4ED4C300192FA6 /* CHANGELOG.md in Resources */,
+				8046331F2C4ED4C300192FA6 /* PrivacyPolicy.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1742,7 +1758,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -1750,7 +1766,7 @@
 				INFOPLIST_FILE = addy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for settings up the app";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This allows for scanning the QR code so that you can quickly set-up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1763,7 +1779,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.0 INTERNAL (202407-01)";
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1782,7 +1798,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -1790,7 +1806,7 @@
 				INFOPLIST_FILE = addy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for settings up the app";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This allows for scanning the QR code so that you can quickly set-up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1803,7 +1819,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.0 INTERNAL (202407-01)";
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

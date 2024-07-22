@@ -51,6 +51,6 @@ public struct AddyIo {
     static var API_URL_APP_VERSION: String { "\(API_BASE_URL)/api/v1/app-version" }
     static var API_URL_CHART_DATA: String { "\(API_BASE_URL)/api/v1/chart-data" }
 
-    // Gitlab built-in updater
-    static let GITLAB_TAGS_RSS_FEED = "https://gitlab.com/Stjin/anonaddy-android/-/tags?feed_token=QQ9pQKWGBdsYzCrqkdBN&format=atom"
+    // Github built-in updater
+    static let GITHUB_TAGS_RSS_FEED = "https://github.com/anonaddy/addy-ios/releases.atom"
 }
