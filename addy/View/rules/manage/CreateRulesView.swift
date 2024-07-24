@@ -274,11 +274,8 @@ struct CreateRulesView: View {
                 } header: {
                     Text(String(localized: "actions_then"))
                 } footer: {
-                    Label {
-                        Text(String(localized: "rules_create_info"))
-                    } icon: {
-                        Image(systemName: "info.circle")
-                    }.padding(.top)
+                    Text(String(localized: "rules_create_info")).padding(.top)
+
                 }
                 
             }.disabled(isSavingRule)

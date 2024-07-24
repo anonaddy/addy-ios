@@ -134,11 +134,7 @@ struct RecipientsView: View {
                         }
                         
                     } footer: {
-                        Label {
-                            Text(String(format: String(localized: "you_ve_used_d_out_of_d_recipients"), String(recipient_count), (mainViewState.userResource!.subscription != nil ? String(recipient_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited"))))
-                        } icon: {
-                            Image(systemName: "info.circle")
-                        }.padding(.top)
+                        Text(String(format: String(localized: "you_ve_used_d_out_of_d_recipients"), String(recipient_count), (mainViewState.userResource!.subscription != nil ? String(recipient_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited")))).padding(.top)
                         
                     }
                     

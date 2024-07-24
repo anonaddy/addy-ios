@@ -20,11 +20,7 @@ struct AppSettingsFeaturesWatchAliasView: View {
             Section {
                 AddyToggle(isOn: $watchAlias, title: String(localized: "enable_feature"), description: String(localized: "enable_feature_always")).disabled(true)
             } footer: {
-                Label {
-                    Text(String(localized: "watch_alias_feature_desc"))
-                } icon: {
-                    Image(systemName: "info.circle")
-                }.padding(.top)
+                Text(String(localized: "watch_alias_feature_desc")).padding(.top)
                 
             }
         }

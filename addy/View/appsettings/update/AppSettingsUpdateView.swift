@@ -62,12 +62,8 @@ struct AppSettingsUpdateView: View {
             } header: {
                 Text(String(localized: "changelog"))
             } footer: {
-                Label {
-                    let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
-                    Text(String(format: String(localized: "version_s"), appVersion))
-                } icon: {
-                    Image(systemName: "info.circle")
-                }.padding(.top)
+                let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
+                Text(String(format: String(localized: "version_s"), appVersion)).padding(.top)
                 
             }
             

@@ -38,15 +38,11 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
                     isShowingAddApiBottomSheet = true
                 }
             } footer: {
-                Label {
-                    VStack(alignment: .leading){
-                        Text(String(localized: "feature_api_token_expiry_notification_desc"))
-                        Spacer()
-                        Spacer()
-                        Text(apiExpiryText)
-                    }
-                } icon: {
-                    Image(systemName: "info.circle")
+                VStack(alignment: .leading){
+                    Text(String(localized: "feature_api_token_expiry_notification_desc"))
+                    Spacer()
+                    Spacer()
+                    Text(apiExpiryText)
                 }.padding(.top)
                 
             }

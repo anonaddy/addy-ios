@@ -36,11 +36,7 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
                     isShowingFailedDeliveriesView = true
                     }
             } footer: {
-                Label {
-                    Text(String(localized: "notify_failed_deliveries_feature_desc"))
-                } icon: {
-                    Image(systemName: "info.circle")
-                }.padding(.top)
+                Text(String(localized: "notify_failed_deliveries_feature_desc")).padding(.top)
                 
             }
         }.sheet(isPresented: $isShowingFailedDeliveriesView) {

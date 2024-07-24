@@ -31,11 +31,7 @@ struct AppSettingsFeaturesMailToView: View {
                         }
                     }
             } footer: {
-                Label {
-                    Text(String(localized: "integration_mailto_alias_desc"))
-                } icon: {
-                    Image(systemName: "info.circle")
-                }.padding(.top)
+                Text(String(localized: "integration_mailto_alias_desc")).padding(.top)
                 
             }
         }

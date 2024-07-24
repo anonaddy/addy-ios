@@ -17,7 +17,7 @@ struct AliasesView: View {
     @State private var isPresentingFilterOptionsAliasBottomSheet = false
     
     enum ActiveAlert {
-        case reachedMaxAliases, deleteAliases, restoreAlias, error
+        case reachedMaxAliases, deleteAlias, forgetAlias, forgetAliasConfirmation, restoreAlias, error
     }
     
     @State private var activeAlert: ActiveAlert = .reachedMaxAliases
@@ -58,7 +58,7 @@ struct AliasesView: View {
                             
                             ApplyFilter(chipId: onTappedChip.chipId)
                         }
-                    }.listRowBackground(Color.clear).frame(maxWidth: .infinity, alignment: .leading)
+                    }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
                 }
                 
                 if let aliasList = aliasesViewModel.aliasList{
@@ -133,11 +133,34 @@ struct AliasesView: View {
                 switch activeAlert {
                 case .reachedMaxAliases:
                     return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood"))))
-                case .deleteAliases:
+                case .deleteAlias:
                     return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
                         
                         Task {
                             await self.deleteAlias(alias: aliasInContextMenu!)
+                        }
+                    }, secondaryButton: .cancel(){
+                        Task {
+                            await aliasesViewModel.getAliases(forceReload: true)
+                        }
+                    })
+                case .forgetAlias:
+                    return Alert(title: Text(String(localized: "forget_alias")), message: Text(String(localized: "forget_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "forget"))){
+                        self.activeAlert = .forgetAliasConfirmation
+                        // Workaround
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.showAlert = true
+                        }
+                    }, secondaryButton: .cancel(){
+                        Task {
+                            await aliasesViewModel.getAliases(forceReload: true)
+                        }
+                    })
+                case .forgetAliasConfirmation:
+                    return Alert(title: Text(String(localized: "forget_alias")), message: Text(String(localized: "forget_alias_are_you_sure_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "forget"))){
+                        
+                        Task {
+                            await self.forgetAlias(alias: aliasInContextMenu!)
                         }
                     }, secondaryButton: .cancel(){
                         Task {
@@ -361,7 +384,7 @@ struct AliasesView: View {
                         }
                         
                         Button(role: .destructive) {
-                            self.activeAlert = .deleteAliases
+                            self.activeAlert = .deleteAlias
                             self.showAlert = true
                         } label: {
                             Label(String(localized: "delete_alias"), systemImage: "trash")
@@ -575,9 +598,31 @@ struct AliasesView: View {
     }
     
     private func deleteAlias(alias: Aliases) async {
+            let networkHelper = NetworkHelper()
+            do {
+                let result = try await networkHelper.deleteAlias(aliasId: alias.id)
+                if result == "204" {
+                    await aliasesViewModel.getAliases(forceReload: true)
+                } else {
+                    activeAlert = .error
+                    showAlert = true
+                    errorAlertTitle = String(localized: "error_forgetting_alias")
+                    errorAlertMessage = result
+                }
+            } catch {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_forgetting_alias")
+                errorAlertMessage = error.localizedDescription
+            }
+        
+        
+    }
+    
+    private func forgetAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteAlias(aliasId: alias.id)
+            let result = try await networkHelper.forgetAlias(aliasId: alias.id)
             if result == "204" {
                 await aliasesViewModel.getAliases(forceReload: true)
             } else {
@@ -600,7 +645,13 @@ struct AliasesView: View {
             if let aliases = aliasesViewModel.aliasList?.data {
                 let item = aliases[index]
                 aliasInContextMenu = item
-                activeAlert = .deleteAliases
+                                
+                if item.deleted_at != nil {
+                    // Alias already deleted, prompt user to forget alias
+                    activeAlert = .forgetAlias
+                } else {
+                    activeAlert = .deleteAlias
+                }
                 showAlert = true
                 
                 // Remove from the collection for the smooth animation

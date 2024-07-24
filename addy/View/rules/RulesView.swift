@@ -206,15 +206,11 @@ struct RulesView: View {
                         }
                         
                     } footer: {
-                        Label {
-                            VStack(alignment: .leading) {
-                                
-                                
-                                Text(String(format: String(localized: "you_ve_used_d_out_of_d_rules"),  String(rule_count), (mainViewState.userResource!.subscription != nil ? String(rule_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited"))))
-                                Text(String(localized: "hold_the_drag_handle_and_drag_to_change_order"))
-                            }
-                        } icon: {
-                            Image(systemName: "info.circle")
+                        VStack(alignment: .leading) {
+                            
+                            
+                            Text(String(format: String(localized: "you_ve_used_d_out_of_d_rules"),  String(rule_count), (mainViewState.userResource!.subscription != nil ? String(rule_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited"))))
+                            Text(String(localized: "hold_the_drag_handle_and_drag_to_change_order"))
                         }.padding(.top)
                         
                     }

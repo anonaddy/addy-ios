@@ -35,15 +35,11 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
                         }
                     }
             } footer: {
-                Label {
-                    VStack(alignment: .leading){
-                        Text(String(localized: "feature_subscription_expiry_notification_desc"))
-                        Spacer()
-                        Spacer()
-                        Text(subscriptionExpiryText)
-                    }
-                } icon: {
-                    Image(systemName: "info.circle")
+                VStack(alignment: .leading){
+                    Text(String(localized: "feature_subscription_expiry_notification_desc"))
+                    Spacer()
+                    Spacer()
+                    Text(subscriptionExpiryText)
                 }.padding(.top)
                 
             }

@@ -25,11 +25,7 @@ struct AppSettingsFeaturesAppIntentsView: View {
                 }
                 
             } footer: {
-                Label {
-                    Text(String(localized: "integration_app_intents_desc"))
-                } icon: {
-                    Image(systemName: "info.circle")
-                }.padding(.top)
+                Text(String(localized: "integration_app_intents_desc")).padding(.top)
                 
             }.listRowInsets(EdgeInsets()).listRowBackground(Color.clear)
         }

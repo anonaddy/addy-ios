@@ -31,11 +31,8 @@ struct AppSettingsFeaturesNotifyDomainErrorView: View {
                         }
                     }
             } footer: {
-                Label {
-                    Text(String(localized: "feature_domain_error_notification_desc"))
-                } icon: {
-                    Image(systemName: "info.circle")
-                }.padding(.top)
+                Text(String(localized: "feature_domain_error_notification_desc"))
+                    .padding(.top)
                 
             }
         }

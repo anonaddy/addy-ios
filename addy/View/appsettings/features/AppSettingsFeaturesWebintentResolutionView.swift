@@ -15,17 +15,12 @@ struct AppSettingsFeaturesWebintentResolutionView: View {
         let _ = Self._printChanges()
 #endif
         List {
-            //TODO: New images
-            Image("feature_mailto").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
+            Image("integration_web_intent_resolution").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
             
             Section {
                 AddyToggle(isOn: $webIntentResolutionEnabled, title: String(localized: "enable_feature"), description: String(localized: "enable_feature_always")).disabled(true)
             } footer: {
-                Label {
-                    Text(String(localized: "integration_webintent_resolution_desc"))
-                } icon: {
-                    Image(systemName: "info.circle")
-                }.padding(.top)
+                Text(String(localized: "integration_webintent_resolution_desc")).padding(.top)
                 
             }
         }

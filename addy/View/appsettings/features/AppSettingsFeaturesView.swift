@@ -55,6 +55,9 @@ struct AppSettingsFeaturesView: View {
                 
             } header: {
                 Text(String(localized: "integrations"))
+            } footer: {
+                Text(String(localized: "ios_background_limitations_note")).padding(.top)
+                
             }
         }
             .navigationTitle(String(localized: "features_and_integrations"))

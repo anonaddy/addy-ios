@@ -2986,6 +2986,17 @@
         }
       }
     },
+    "forget_alias_are_you_sure_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This will PERMANENTLY DELETE your alias and all the statistics.\n\nIf this alias uses a shared domain then it can never be restored or used again so make sure you are certain. If it is a standard alias then it can be created again since it will be as if it never existed."
+          }
+        }
+      }
+    },
     "forget_alias_confirmation_desc" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3359,6 +3370,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Opening send mail dialog…"
+          }
+        }
+      }
+    },
+    "ios_background_limitations_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please note that due to inherent limitations on the iOS platform, the timely delivery of notifications for some features cannot be guaranteed."
           }
         }
       }

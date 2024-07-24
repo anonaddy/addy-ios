@@ -120,11 +120,8 @@ struct UsernamesView: View {
                     }
                     
                 } footer: {
-                    Label {
-                        Text(String(format: String(localized: "you_ve_used_d_out_of_d_usernames"), String(username_count), String(username_limit)))
-                    } icon: {
-                        Image(systemName: "info.circle")
-                    }.padding(.top)
+                    Text(String(format: String(localized: "you_ve_used_d_out_of_d_usernames"), String(username_count), String(username_limit))).padding(.top)
+
                     
                 }
                 
