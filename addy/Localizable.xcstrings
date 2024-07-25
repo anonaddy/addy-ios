@@ -48,6 +48,17 @@
         }
       }
     },
+    "activate_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activate alias"
+          }
+        }
+      }
+    },
     "active" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1628,6 +1639,17 @@
         }
       }
     },
+    "deactivate_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deactivate alias"
+          }
+        }
+      }
+    },
     "default_base_url" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1885,17 +1907,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Details about the error:\n%@"
-          }
-        }
-      }
-    },
-    "disable_alias" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Disable alias"
           }
         }
       }
@@ -2270,17 +2281,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Email sent"
-          }
-        }
-      }
-    },
-    "enable_alias" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enable alias"
           }
         }
       }

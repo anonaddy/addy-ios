@@ -30,7 +30,7 @@ class NotificationHelper{
         content.userInfo = ["aliasId": id]
 
         
-        let action1 = UNNotificationAction(identifier: notificationActions.disableAlias, title: String(localized: "disable_alias"), options: [.foreground])
+        let action1 = UNNotificationAction(identifier: notificationActions.disableAlias, title: String(localized: "deactivate_alias"), options: [.foreground])
         let action2 = UNNotificationAction(identifier: notificationActions.stopWatching, title: String(localized: "stop_watching"), options: [])
         let category = UNNotificationCategory(identifier: notificationActions.openAlias, actions: [action1,action2], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])

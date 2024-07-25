@@ -370,7 +370,7 @@ struct AliasesView: View {
                                 Task {
                                     await self.deactivateAlias(alias: alias)
                                 }                                            } label: {
-                                    Label(String(localized: "disable_alias"), systemImage: "hand.raised")
+                                    Label(String(localized: "deactivate_alias"), systemImage: "hand.raised")
                                 }
                         } else {
                             
@@ -379,7 +379,7 @@ struct AliasesView: View {
                                     await self.activateAlias(alias: alias)
                                 }
                             } label: {
-                                Label(String(localized: "enable_alias"), systemImage: "checkmark.circle")
+                                Label(String(localized: "activate_alias"), systemImage: "checkmark.circle")
                             }
                         }
                         

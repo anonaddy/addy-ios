@@ -76,19 +76,24 @@ struct AddyStatisticWidgetEntryView : View {
                 
             case .accessoryRectangular:
                 VStack(alignment: .leading) {
-                    Image("AddyLogo")
-                        .apply {
-                            if entry.configuration.colorfulBackground {
-                                $0.renderingMode(.template).resizable()
-                                    .resizable().scaledToFit().frame(maxHeight: 16)
-                                    .widgetAccentable()
-                                    .foregroundColor(.white)
-                            } else {
-                                $0.resizable()
-                                    .resizable().scaledToFit().frame(maxHeight: 16)
-                                    .widgetAccentable()
+                    Label {
+                        Text(String(localized: "app_name"))
+                    } icon: {
+                        Image("AddyLogo")
+                            .apply {
+                                if entry.configuration.colorfulBackground {
+                                    $0.renderingMode(.template).resizable()
+                                        .resizable().scaledToFit().frame(maxHeight: 16)
+                                        .widgetAccentable()
+                                        .foregroundColor(.white)
+                                } else {
+                                    $0.resizable()
+                                        .resizable().scaledToFit().frame(maxHeight: 16)
+                                        .widgetAccentable()
+                                }
                             }
-                        }
+                    }
+                    
                         
                     Text(String(localized: "monthly_bandwidth")).frame(maxHeight: .infinity)
                     Gauge(
