@@ -766,8 +766,8 @@
             filePath = "addy/View/domains/manage/DomainsDetailView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "init(domainId:domainDomain:shouldReloadDataInParent:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -782,8 +782,8 @@
             filePath = "addy/View/domains/manage/DomainsDetailView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "init(domainId:domainDomain:shouldReloadDataInParent:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1454,8 +1454,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3270"
-            endingLineNumber = "3270"
+            startingLineNumber = "3375"
+            endingLineNumber = "3375"
             landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1470,8 +1470,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3272"
-            endingLineNumber = "3272"
+            startingLineNumber = "3377"
+            endingLineNumber = "3377"
             landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1486,9 +1486,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3318"
-            endingLineNumber = "3318"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            startingLineNumber = "3423"
+            endingLineNumber = "3423"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1502,9 +1502,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3328"
-            endingLineNumber = "3328"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            startingLineNumber = "3433"
+            endingLineNumber = "3433"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1518,9 +1518,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3329"
-            endingLineNumber = "3329"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            startingLineNumber = "3434"
+            endingLineNumber = "3434"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1534,9 +1534,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3332"
-            endingLineNumber = "3332"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            startingLineNumber = "3437"
+            endingLineNumber = "3437"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1550,9 +1550,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3331"
-            endingLineNumber = "3331"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            startingLineNumber = "3436"
+            endingLineNumber = "3436"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1566,9 +1566,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3330"
-            endingLineNumber = "3330"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            startingLineNumber = "3435"
+            endingLineNumber = "3435"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1582,9 +1582,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3315"
-            endingLineNumber = "3315"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            startingLineNumber = "3420"
+            endingLineNumber = "3420"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1598,9 +1598,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3314"
-            endingLineNumber = "3314"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            startingLineNumber = "3419"
+            endingLineNumber = "3419"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1614,9 +1614,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3312"
-            endingLineNumber = "3312"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            startingLineNumber = "3417"
+            endingLineNumber = "3417"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2382,8 +2382,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "441"
-            endingLineNumber = "441"
+            startingLineNumber = "443"
+            endingLineNumber = "443"
             landmarkName = "getDomainOptions()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2398,8 +2398,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "442"
-            endingLineNumber = "442"
+            startingLineNumber = "444"
+            endingLineNumber = "444"
             landmarkName = "getDomainOptions()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2414,8 +2414,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "443"
-            endingLineNumber = "443"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
             landmarkName = "getDomainOptions()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4190,9 +4190,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3463"
-            endingLineNumber = "3463"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            startingLineNumber = "3568"
+            endingLineNumber = "3568"
+            landmarkName = "getGithubTags()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4206,9 +4206,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3461"
-            endingLineNumber = "3461"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            startingLineNumber = "3566"
+            endingLineNumber = "3566"
+            landmarkName = "getGithubTags()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4222,9 +4222,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3460"
-            endingLineNumber = "3460"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            startingLineNumber = "3565"
+            endingLineNumber = "3565"
+            landmarkName = "getGithubTags()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4238,9 +4238,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3458"
-            endingLineNumber = "3458"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            startingLineNumber = "3563"
+            endingLineNumber = "3563"
+            landmarkName = "getGithubTags()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4606,9 +4606,9 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3462"
-            endingLineNumber = "3462"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            startingLineNumber = "3567"
+            endingLineNumber = "3567"
+            landmarkName = "getGithubTags()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

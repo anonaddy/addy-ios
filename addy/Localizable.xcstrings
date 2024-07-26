@@ -1024,6 +1024,28 @@
         }
       }
     },
+    "auto_create_regex" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto create regex"
+          }
+        }
+      }
+    },
+    "auto_create_regex_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regex pattern"
+          }
+        }
+      }
+    },
     "back" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1954,7 +1976,7 @@
         }
       }
     },
-    "does_not_matches_regex" : {
+    "does_not_match_regex" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2025,6 +2047,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The list below shows all verified recipients. Select which recipient you want to set as default recipient for this domain"
+          }
+        }
+      }
+    },
+    "domain_no_auto_create_regex" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This domain has no auto create regex set. Tap here to add one"
           }
         }
       }
@@ -2146,6 +2179,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ aliases"
+          }
+        }
+      }
+    },
+    "edit_auto_create_regex" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit auto create regex"
+          }
+        }
+      }
+    },
+    "edit_auto_create_regex_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you wish to create aliases on-the-fly but don't want to enable catch-all then you can enter a regular expression pattern below. If a new alias' local part matches the pattern then it will still be created on-the-fly even though catch-all is disabled.\n\n**Note: Catch-All must be disabled** to use alias automatic creation with regex.\n\nFor example, if you only want aliases that start with \"prefix\" to be automatically created, use the regex `^prefix`\n\nIf you only want aliases that end with \"suffix\" to be automatically created, use the regex `suffix$`\n\nIf you want to make sure the local part is fully matched you can start your regex with `^` and end it with `$` e.g. `^prefix.*suffix$` which would match \"prefix-anything-here-suffix\"\n\nYou can use regex101.com to help you write your regular expressions.\n"
           }
         }
       }
@@ -5927,6 +5982,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The list below shows all verified recipients. Select which recipient you want to set as default recipient for this username"
+          }
+        }
+      }
+    },
+    "username_no_auto_create_regex" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This username has no auto create regex set. Tap here to add one"
           }
         }
       }

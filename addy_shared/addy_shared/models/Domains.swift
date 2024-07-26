@@ -23,6 +23,7 @@ public struct Domains:Identifiable, Codable {
     public let default_recipient: Recipients?
     public var active: Bool
     public var catch_all: Bool
+    public var auto_create_regex: String?
     public let domain_verified_at: String?
     public let domain_mx_validated_at: String?
     public let domain_sending_verified_at: String?

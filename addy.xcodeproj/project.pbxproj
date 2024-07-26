@@ -10,6 +10,8 @@
 		8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8001D9D12BEA1E3600AAD10E /* CodeScanner */; };
 		8001DA012BEA516000AAD10E /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
 		8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003C36A2C1A27D90005D742 /* AppDelegate.swift */; };
+		8012019A2C542FC7006F4FE6 /* EditUsernameAutoCreateRegexBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801201992C542FC7006F4FE6 /* EditUsernameAutoCreateRegexBottomSheet.swift */; };
+		8012019C2C5431EC006F4FE6 /* EditDomainAutoCreateRegexBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8012019B2C5431EC006F4FE6 /* EditDomainAutoCreateRegexBottomSheet.swift */; };
 		80195D1A2C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80195D192C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift */; };
 		801B929F2BE8FF6800179EB5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */; };
 		801B92A22BE905BB00179EB5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 801B92A12BE905BB00179EB5 /* Lottie */; };
@@ -241,6 +243,8 @@
 /* Begin PBXFileReference section */
 		8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = addy_shared.xcodeproj; path = addy_shared/addy_shared/addy_shared.xcodeproj; sourceTree = "<group>"; };
 		8003C36A2C1A27D90005D742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		801201992C542FC7006F4FE6 /* EditUsernameAutoCreateRegexBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUsernameAutoCreateRegexBottomSheet.swift; sourceTree = "<group>"; };
+		8012019B2C5431EC006F4FE6 /* EditDomainAutoCreateRegexBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDomainAutoCreateRegexBottomSheet.swift; sourceTree = "<group>"; };
 		80195D192C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesWebintentResolutionView.swift; sourceTree = "<group>"; };
 		801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -995,6 +999,7 @@
 				80813B672C0DE234009C4E6A /* EditDomainFromNameBottomSheet.swift */,
 				80813B632C0DE1FF009C4E6A /* DomainsDetailView.swift */,
 				80813B692C0DE24C009C4E6A /* EditDomainRecipientsBottomSheet.swift */,
+				8012019B2C5431EC006F4FE6 /* EditDomainAutoCreateRegexBottomSheet.swift */,
 			);
 			path = manage;
 			sourceTree = "<group>";
@@ -1086,6 +1091,7 @@
 				80E9B2352C0B7E5C00C7EF99 /* EditUsernameFromNameBottomSheet.swift */,
 				80E9B2332C0B7D2D00C7EF99 /* EditUsernameDescriptionBottomSheet.swift */,
 				80E9B2272C0B238900C7EF99 /* UsernamesDetailView.swift */,
+				801201992C542FC7006F4FE6 /* EditUsernameAutoCreateRegexBottomSheet.swift */,
 			);
 			path = manage;
 			sourceTree = "<group>";
@@ -1384,8 +1390,10 @@
 				80E194632BF8A9BB005175EA /* EditAliasRecipientsBottomSheet.swift in Sources */,
 				809AB1C82C1F10FE0054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift in Sources */,
 				80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */,
+				8012019C2C5431EC006F4FE6 /* EditDomainAutoCreateRegexBottomSheet.swift in Sources */,
 				80B2FB462C3C425A009977B6 /* SendMailRecipientView.swift in Sources */,
 				80B2FB472C3C425A009977B6 /* MailToActionSheet.swift in Sources */,
+				8012019A2C542FC7006F4FE6 /* EditUsernameAutoCreateRegexBottomSheet.swift in Sources */,
 				80B2FB482C3C425A009977B6 /* MailToActionSheetData.swift in Sources */,
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
 				805535642C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift in Sources */,

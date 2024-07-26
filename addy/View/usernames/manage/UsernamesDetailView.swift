@@ -45,6 +45,7 @@ struct UsernamesDetailView: View {
     @State private var isPresentingEditUsernameDescriptionBottomSheet: Bool = false
     @State private var isPresentingEditUsernameFromNameBottomSheet: Bool = false
     @State private var isPresentingEditUsernameRecipientsBottomSheet: Bool = false
+    @State private var isPresentingEditUsernameAutoCreateRegexBottomSheet: Bool = false
     
     @State private var aliasList: [String] = []
  
@@ -175,6 +176,13 @@ struct UsernamesDetailView: View {
                                 HapticHelper.playHapticFeedback(hapticType: .error)
                             }
                         }
+                     AddySection(title: String(localized: "auto_create_regex"), description: getAutoCreateRegex(username: username), leadingSystemimage: nil, trailingSystemimage: "pencil"){
+                            if !mainViewState.userResource!.hasUserFreeSubscription(){
+                                isPresentingEditUsernameAutoCreateRegexBottomSheet = true
+                            } else {
+                                HapticHelper.playHapticFeedback(hapticType: .error)
+                            }
+                        }
                     
                     AddySection(title: String(localized: "recipients"), description: getDefaultRecipient(username: username), leadingSystemimage: nil, trailingSystemimage: "pencil"){
                             isPresentingEditUsernameRecipientsBottomSheet = true
@@ -215,6 +223,20 @@ struct UsernamesDetailView: View {
                         EditUsernameFromNameBottomSheet(usernameId: username.id, username: username.username, fromName: username.from_name){ username in
                             self.username = username
                             isPresentingEditUsernameFromNameBottomSheet = false
+                            
+                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // So we update the list when coming back
+                            shouldReloadDataInParent = true
+
+                        }
+                    }
+                    .presentationDetents([.large])
+                }
+                .sheet(isPresented: $isPresentingEditUsernameAutoCreateRegexBottomSheet) {
+                    NavigationStack {
+                        EditUsernameAutoCreateRegexBottomSheet(usernameId: username.id, username: username.username, autoCreateRegex: username.auto_create_regex){ username in
+                            self.username = username
+                            isPresentingEditUsernameAutoCreateRegexBottomSheet = false
                             
                             // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
                             // So we update the list when coming back
@@ -460,6 +482,22 @@ struct UsernamesDetailView: View {
                 return fromName
             } else {
                 return String(localized: "username_no_from_name")
+            }
+        }
+        
+    }
+        private func getAutoCreateRegex(username: Usernames) -> String {
+        
+        
+        if mainViewState.userResource!.hasUserFreeSubscription() {
+            return String(localized: "feature_not_available_subscription")
+        }
+        else {
+            // Set description based on alias.auto_create_regex and initialize the bottom dialog fragment
+            if let autoCreateRegex = username.auto_create_regex {
+                return autoCreateRegex
+            } else {
+                return String(localized: "username_no_auto_create_regex")
             }
         }
         

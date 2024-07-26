@@ -35,7 +35,7 @@ struct RulesOption {
         NSLocalizedString("ends_with", comment: ""),
         NSLocalizedString("does_not_end_with", comment: ""),
         NSLocalizedString("matches_regex", comment: ""),
-        NSLocalizedString("does_not_matches_regex", comment: "")
+        NSLocalizedString("does_not_match_regex", comment: "")
     ]
     
     static let actionsType = ["subject", "displayFrom", "encryption", "banner", "block", "removeAttachments", "forwardTo"]

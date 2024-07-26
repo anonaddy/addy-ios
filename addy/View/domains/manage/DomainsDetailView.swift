@@ -43,6 +43,7 @@ struct DomainsDetailView: View {
     @State private var isPresentingEditDomainDescriptionBottomSheet: Bool = false
     @State private var isPresentingEditDomainFromNameBottomSheet: Bool = false
     @State private var isPresentingEditDomainRecipientsBottomSheet: Bool = false
+    @State private var isPresentingEditDomainAutoCreateRegexBottomSheet: Bool = false
     
     @State private var aliasList: [String] = []
  
@@ -157,6 +158,14 @@ struct DomainsDetailView: View {
                             }
                         }
                     
+                    AddySection(title: String(localized: "auto_create_regex"), description: getAutoCreateRegex(domain: domain), leadingSystemimage: nil, trailingSystemimage: "pencil"){
+                            if !mainViewState.userResource!.hasUserFreeSubscription(){
+                                isPresentingEditDomainAutoCreateRegexBottomSheet = true
+                            } else {
+                                HapticHelper.playHapticFeedback(hapticType: .error)
+                            }
+                        }
+                    
                     AddySection(title: String(localized: "recipients"), description: getDefaultRecipient(domain: domain), leadingSystemimage: nil, trailingSystemimage: "pencil"){
                             isPresentingEditDomainRecipientsBottomSheet = true
                         }
@@ -196,6 +205,20 @@ struct DomainsDetailView: View {
                         EditDomainFromNameBottomSheet(domainId: domain.id, domain: domain.domain, fromName: domain.from_name){ domain in
                             self.domain = domain
                             isPresentingEditDomainFromNameBottomSheet = false
+                            
+                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // So we update the list when coming back
+                            shouldReloadDataInParent = true
+
+                        }
+                    }
+                    .presentationDetents([.large])
+                }
+                .sheet(isPresented: $isPresentingEditDomainAutoCreateRegexBottomSheet) {
+                    NavigationStack {
+                        EditDomainAutoCreateRegexBottomSheet(domainId: domain.id, domain: domain.domain, autoCreateRegex: domain.auto_create_regex){ domain in
+                            self.domain = domain
+                            isPresentingEditDomainAutoCreateRegexBottomSheet = false
                             
                             // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
                             // So we update the list when coming back
@@ -400,6 +423,22 @@ struct DomainsDetailView: View {
         
     }
     
+    private func getAutoCreateRegex(domain: Domains) -> String {
+        
+        
+        if mainViewState.userResource!.hasUserFreeSubscription() {
+            return String(localized: "feature_not_available_subscription")
+        }
+        else {
+            // Set description based on alias.auto_create_regex and initialize the bottom dialog fragment
+            if let autoCreateRegex = domain.auto_create_regex {
+                return autoCreateRegex
+            } else {
+                return String(localized: "domain_no_auto_create_regex")
+            }
+        }
+        
+    }
     
     private func deleteDomain(domain: Domains) async {
         let networkHelper = NetworkHelper()

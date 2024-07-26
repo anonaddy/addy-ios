@@ -293,6 +293,8 @@ public class NetworkHelper {
     
     
     
+    
+    
     public func getRules() async throws -> RulesArray? {
 #if DEBUG
         print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
@@ -2904,6 +2906,57 @@ public class NetworkHelper {
     }
     
     
+    public func updateAutoCreateRegexSpecificUsername(usernameId: String, autoCreateRegex: String?) async throws -> Usernames? {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        let url = URL(string: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any?] = ["auto_create_regex": autoCreateRegex]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "updateAutoCreateRegexSpecificUsername",
+                extra: error.failureURLString)
+            throw error
+        }
+        
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleUsername.self, from: data)
+            return addyIoData.data
+        case 401:
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
+            
+            self.createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired)
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "updateAutoCreateRegexSpecificUsername",
+                extra: ErrorHelper.getErrorMessage(data: data))
+            throw URLError(.badServerResponse)
+        }
+    }
+    
+    
     
     public func updateDescriptionSpecificDomain(domainId: String, description: String?) async throws -> Domains? {
 #if DEBUG
@@ -2950,6 +3003,58 @@ public class NetworkHelper {
                 importance: LogImportance.critical,
                 error: errorMessage,
                 method: "updateDescriptionSpecificDomain",
+                extra: ErrorHelper.getErrorMessage(data: data))
+            throw URLError(.badServerResponse)
+        }
+    }
+    
+    
+    
+    public func updateAutoCreateRegexSpecificDomain(domainId: String, autoCreateRegex: String?) async throws -> Domains? {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        let url = URL(string: "\(AddyIo.API_URL_DOMAINS)/\(domainId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any?] = ["auto_create_regex": autoCreateRegex]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "updateAutoCreateRegexSpecificDomain",
+                extra: error.failureURLString)
+            throw error
+        }
+        
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleDomain.self, from: data)
+            return addyIoData.data
+        case 401:
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
+            
+            self.createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired)
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "updateAutoCreateRegexSpecificDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
             throw URLError(.badServerResponse)
         }

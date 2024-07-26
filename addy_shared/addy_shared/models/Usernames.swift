@@ -23,6 +23,7 @@ public struct Usernames:Identifiable, Codable {
     public let default_recipient: Recipients?
     public var active: Bool
     public var catch_all: Bool
+    public var auto_create_regex: String?
     public var can_login: Bool
     public let created_at: String
     public let updated_at: String
