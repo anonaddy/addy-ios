@@ -24,7 +24,7 @@ struct RulesOption {
         NSLocalizedString("the_alias", comment: ""),
         NSLocalizedString("the_alias_description", comment: "")
     ]
-    static let conditionsMatch = ["contains", "does not contain", "is exactly", "is not", "starts with", "does not start with", "ends with", "does not end with"]
+    static let conditionsMatch = ["contains", "does not contain", "is exactly", "is not", "starts with", "does not start with", "ends with", "does not end with", "matches regex", "does not match regex"]
     static let conditionsMatchName = [
         NSLocalizedString("contains", comment: ""),
         NSLocalizedString("does_not_contain", comment: ""),
@@ -33,7 +33,9 @@ struct RulesOption {
         NSLocalizedString("starts_with", comment: ""),
         NSLocalizedString("does_not_start_with", comment: ""),
         NSLocalizedString("ends_with", comment: ""),
-        NSLocalizedString("does_not_end_with", comment: "")
+        NSLocalizedString("does_not_end_with", comment: ""),
+        NSLocalizedString("matches_regex", comment: ""),
+        NSLocalizedString("does_not_matches_regex", comment: "")
     ]
     
     static let actionsType = ["subject", "displayFrom", "encryption", "banner", "block", "removeAttachments", "forwardTo"]

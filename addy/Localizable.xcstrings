@@ -1954,6 +1954,16 @@
         }
       }
     },
+    "does_not_matches_regex" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "does not match regex"
+          }
+        }
+      }
+    },
     "does_not_start_with" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3622,6 +3632,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Match"
+          }
+        }
+      }
+    },
+    "matches_regex" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "matches regex"
           }
         }
       }
