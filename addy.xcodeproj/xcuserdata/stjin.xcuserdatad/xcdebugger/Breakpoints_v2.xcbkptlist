@@ -1102,10 +1102,10 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
-            landmarkName = "getRuleDescription(rule:recipients:)"
-            landmarkType = "7">
+            startingLineNumber = "352"
+            endingLineNumber = "352"
+            landmarkName = "RulesView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1118,8 +1118,8 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
             landmarkName = "getRuleDescription(rule:recipients:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1134,9 +1134,9 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            startingLineNumber = "353"
+            endingLineNumber = "353"
+            landmarkName = "deleteRule(rule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1150,8 +1150,8 @@
             filePath = "addy/View/faileddeliveries/FailedDeliveriesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1166,8 +1166,8 @@
             filePath = "addy/View/faileddeliveries/FailedDeliveriesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1182,8 +1182,8 @@
             filePath = "addy/View/faileddeliveries/FailedDeliveriesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1198,8 +1198,8 @@
             filePath = "addy/View/faileddeliveries/FailedDeliveriesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1358,8 +1358,8 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
             landmarkName = "getRuleDescription(rule:recipients:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1374,8 +1374,8 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
+            startingLineNumber = "335"
+            endingLineNumber = "335"
             landmarkName = "getRuleDescription(rule:recipients:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1390,8 +1390,8 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "326"
-            endingLineNumber = "326"
+            startingLineNumber = "337"
+            endingLineNumber = "337"
             landmarkName = "getRuleDescription(rule:recipients:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1406,8 +1406,8 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "getRuleDescription(rule:recipients:)"
             landmarkType = "7">
          </BreakpointContent>

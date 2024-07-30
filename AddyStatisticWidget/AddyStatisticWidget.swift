@@ -93,8 +93,6 @@ struct AddyStatisticWidgetEntryView : View {
                                 }
                             }
                     }
-                    
-                        
                     Text(String(localized: "monthly_bandwidth")).frame(maxHeight: .infinity)
                     Gauge(
                         value: Double(userResource.bandwidth), in: 0...Double(userResource.bandwidth_limit),
@@ -128,7 +126,7 @@ struct AddyStatisticWidgetEntryView : View {
                         } else {
                             $0.resizable().scaledToFit().frame(maxHeight: 30).frame(maxWidth: .infinity, alignment: .trailing)
                         }
-                    }
+                    }.widgetAccentable()
                     Spacer()
                     Text(userResource.total_emails_forwarded, format: .number).font(.system(size: 40)).fontWeight(.bold).minimumScaleFactor(0.1).frame(maxWidth: .infinity, alignment: .leading)
                         .contentTransition(.numericText())
@@ -192,7 +190,7 @@ struct mediumWidgetSize: View {
                     } else {
                         $0.resizable().scaledToFit().frame(maxHeight: 30).frame(alignment: .trailing)
                     }
-                }
+                }.widgetAccentable()
             }
         }
     }
@@ -213,7 +211,7 @@ struct largeWidgetSize: View {
                     } else {
                         $0.resizable().scaledToFit().frame(maxHeight: 30)
                     }
-                }
+                }.widgetAccentable()
                 
                 
             }.frame(maxWidth: .infinity, minHeight: 30)
@@ -236,7 +234,7 @@ struct largeWidgetSize: View {
                 
                 
             }
-            .background(ContainerRelativeShape().fill(entry.configuration.colorfulBackground ? .white.opacity(0.15) : .cardViewLightModeDarkMode))
+            .background(ContainerRelativeShape().fill(.white.opacity(0.15)))
             .frame(maxHeight: .infinity)
         }
     }

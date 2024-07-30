@@ -253,12 +253,23 @@ struct RulesView: View {
                 // If there is an rules (aka, if the list is visible)
                 if let rules = rulesViewModel.rules{
                     
+                    
                     if rules.data.isEmpty {
-                        ContentUnavailableView {
-                            Label(String(localized: "no_rules"), systemImage: "checklist")
-                        } description: {
-                            Text(String(localized: "no_rules_desc"))
+                        if mainViewState.userResource!.hasUserFreeSubscription() {
+                            // Error screen
+                            ContentUnavailableView {
+                                Label(String(localized: "no_rules"), systemImage: "checklist")
+                            } description: {
+                                Text(String(localized: "feature_not_available_subscription"))
+                            }
+                        } else {
+                            ContentUnavailableView {
+                                Label(String(localized: "no_rules"), systemImage: "checklist")
+                            } description: {
+                                Text(String(localized: "no_rules_desc"))
+                            }
                         }
+                        
                     }
                     
                 } else {

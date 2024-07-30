@@ -166,18 +166,29 @@ struct FailedDeliveriesView: View {
                     
                     // No failedDeliveries, check if there is an error
                     if (failedDeliveriesViewModel.networkError != ""){
-                        // Error screen
-                        ContentUnavailableView {
-                            Label(String(localized: "something_went_wrong_retrieving_failed_deliveries"), systemImage: "wifi.slash")
-                        } description: {
-                            Text(failedDeliveriesViewModel.networkError)
-                        } actions: {
-                            Button(String(localized: "try_again")) {
-                                Task {
-                                    await failedDeliveriesViewModel.getFailedDeliveries()
+                        
+                        if mainViewState.userResource!.hasUserFreeSubscription() {
+                            // Error screen
+                            ContentUnavailableView {
+                                Label(String(localized: "no_failed_deliveries"), systemImage: "exclamationmark.triangle.fill")
+                            } description: {
+                                Text(String(localized: "feature_not_available_subscription"))
+                            }
+                        } else {
+                            // Error screen
+                            ContentUnavailableView {
+                                Label(String(localized: "something_went_wrong_retrieving_failed_deliveries"), systemImage: "wifi.slash")
+                            } description: {
+                                Text(failedDeliveriesViewModel.networkError)
+                            } actions: {
+                                Button(String(localized: "try_again")) {
+                                    Task {
+                                        await failedDeliveriesViewModel.getFailedDeliveries()
+                                    }
                                 }
                             }
                         }
+                        
                     } else {
                         // No failedDeliveries and no error. It must still be loading...
                         VStack(alignment: .center, spacing: 0) {
