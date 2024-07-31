@@ -31,7 +31,7 @@ struct ProfilePicture: View {
                         .fill(LinearGradient(gradient: Gradient(colors: [Color.secondary.opacity(0.6), Color.secondary]), startPoint: .top, endPoint: .bottom))
                         .frame(width: 24, height: 24)
                 }
-                Text(MainViewState.shared.userResource!.username.prefix(2).uppercased())
+                Text(mainViewState.userResource!.username.prefix(2).uppercased())
                     .font(.system(size: 12))
                     .fontWeight(.bold)
                     .foregroundColor(.white)

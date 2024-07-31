@@ -439,12 +439,7 @@ struct AliasDetailView: View {
                         
                     }
                 }
-            }.onAppear(perform: {
-                                
-                // Reset this value to prevent re-opening the AliasDetailView when coming back to the app later. Even if the alias failed to load
-                //mainViewState.showAliasWithId = nil
-                mainViewState.aliasToDisable = nil
-            }).task {
+            }.task {
                 await getAlias(aliasId: self.aliasId)
             }
             
@@ -725,6 +720,11 @@ struct AliasDetailView: View {
                 }
             }
         } catch {
+            
+            // Reset this value to prevent re-opening the AliasDetailView when coming back to the app later if the alias failed to load
+            mainViewState.showAliasWithId = nil
+            mainViewState.aliasToDisable = nil
+            
             withAnimation {
                 self.errorText = error.localizedDescription
             }
