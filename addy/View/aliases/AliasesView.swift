@@ -27,6 +27,7 @@ struct AliasesView: View {
     
     @State private var aliasInContextMenu: Aliases? = nil
     @State private var aliasToSendMailFrom: Aliases? = nil
+    @State private var aliasToSendMailFromCopy: Aliases? = nil
     
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
@@ -39,6 +40,10 @@ struct AliasesView: View {
     
     @State private var copiedToClipboard = false
     
+    @State private var sendToRecipients: String? = nil
+    @State private var clients: [ThirdPartyMailClient] = []
+    @State private var isPresentingEmailSelectionDialog: Bool = false
+
     
     @Environment(\.scenePhase) var scenePhase
     
@@ -116,19 +121,24 @@ struct AliasesView: View {
             }
             .overlay {
                 ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
-                
             }
             .refreshable {
                 // When refreshing aliases also ask the mainView to update general data
                 self.onRefreshGeneralData?()
                 await self.aliasesViewModel.getAliases(forceReload: true)
             }
-//            .onChange(of: scenePhase) { oldPhase, newPhase in
-//                if newPhase == .active {
-//                    // User opened the app from background
-//                    checkForAnyInteractiveActions()
-//                }
-//            }
+            .confirmationDialog(String(localized: "send_mail"), isPresented: $isPresentingEmailSelectionDialog) {
+                ForEach(clients, id: \.self) { item in
+                    Button(item.name) {
+                        self.onPressSend(client: item, sendToRecipients: self.sendToRecipients ?? "")
+                    }
+                }
+                
+                Button(String(localized: "cancel"), role: .cancel) { }
+            } message: {
+                Text(String(localized: "select_mail_client"))
+            }
+            
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
                 case .reachedMaxAliases:
@@ -186,8 +196,6 @@ struct AliasesView: View {
                 }
             }
             .overlay(Group {
-                
-                
                 // If there is an aliasList (aka, if the list is visible)
                 if let aliasList = aliasesViewModel.aliasList{
                     
@@ -291,11 +299,7 @@ struct AliasesView: View {
             .sheet(item: $aliasToSendMailFrom) { alias in
                 NavigationStack {
                     EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email) { addresses in
-                        self.onPressSend(toString: addresses)
-                    }
-                    .onDisappear {
-                        // Reset the aliasInContextMenu when the sheet disappears
-                        self.aliasToSendMailFrom = nil
+                        self.onPressSend(client:nil, sendToRecipients: addresses)
                     }
                 }
                 .presentationDetents([.large])
@@ -317,6 +321,10 @@ struct AliasesView: View {
                 .presentationDetents([.large])
             }
         }.onAppear(perform: {
+            // Get the available mail clients
+            self.clients = ThirdPartyMailClient.clients.filter( {ThirdPartyMailer.isMailClientAvailable($0)})
+            self.clients.append(ThirdPartyMailClient.systemDefault)
+            
             LoadFilter()
             
             if let aliasList = aliasesViewModel.aliasList{
@@ -454,35 +462,35 @@ struct AliasesView: View {
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = "created_at"
+            aliasesViewModel.aliasSortFilterRequest.sort = nil
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_active_aliases":
             aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = true
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = "created_at"
+            aliasesViewModel.aliasSortFilterRequest.sort = nil
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_inactive_aliases":
             aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = true
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = "created_at"
+            aliasesViewModel.aliasSortFilterRequest.sort = nil
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_deleted_aliases":
             aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = true
-            aliasesViewModel.aliasSortFilterRequest.sort = "created_at"
+            aliasesViewModel.aliasSortFilterRequest.sort = nil
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_watched_only":
             aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = true
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = "created_at"
+            aliasesViewModel.aliasSortFilterRequest.sort = nil
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_custom":
             isPresentingFilterOptionsAliasBottomSheet = true
@@ -546,21 +554,36 @@ struct AliasesView: View {
         aliasesViewModel.aliasSortFilterRequest.filter = self.aliasesViewModel.searchQuery
     }
     
-    private func onPressSend(toString: String) {
-        guard let alias = aliasToSendMailFrom else { return }
-        // Get recipients
-        let recipients = AnonAddyUtils.getSendAddress(recipientEmails: toString.split(separator: ",").map { String($0) }, alias: alias)
+
+    
+    private func onPressSend(client: ThirdPartyMailClient? = nil, sendToRecipients: String) {
         
-        // Copy the email addresses to clipboard
-        UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
-        showCopiedToClipboardAnimation()
+        // aliasToSendMailFrom will be set to nil when the EditAliasSendMailRecipientBottomSheet gets dismissed, therefore we make a copy of the item and
+        // return if both are nil
+        guard let alias = aliasToSendMailFrom ?? aliasToSendMailFromCopy else {return}
         
-        // Prepare mailto URL
-        let mailtoURL = AnonAddyUtils.createMailtoURL(recipients: recipients)
-        
-        // Open mailto URL
-        if let url = mailtoURL {
-            UIApplication.shared.open(url)
+
+        if client == nil {
+            isPresentingEmailSelectionDialog = true
+            self.sendToRecipients = sendToRecipients
+            self.aliasToSendMailFromCopy = alias
+        } else {
+            // Get recipients
+            let recipients = AnonAddyUtils.getSendAddress(recipientEmails: sendToRecipients.split(separator: ",").map { String($0) }, alias: alias)
+            
+            // Copy the email addresses to clipboard
+            UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
+            showCopiedToClipboardAnimation()
+            
+            // Prepare mailto URL
+            let mailtoURL = client!.composeURL(to: recipients)
+            
+            // Open mailto URL
+            UIApplication.shared.open(mailtoURL)
+            
+            // Set aliasToSendMailFromCopy to nil
+            aliasToSendMailFromCopy = nil
+            
         }
     }
     

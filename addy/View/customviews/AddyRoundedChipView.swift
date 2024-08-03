@@ -92,7 +92,7 @@ struct AddyChip_Preview: PreviewProvider{
                         VStack(spacing: 0){
 
                             AddyRoundedChipView(chips: $chips, selectedChip: $selectedChip, singleLine: true) { onTappedChip in
-                                print("\(onTappedChip.label) is selected")
+                                //print("\(onTappedChip.label) is selected")
                                 selectedChip = onTappedChip.label
                             }
                             

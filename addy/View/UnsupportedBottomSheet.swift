@@ -1,5 +1,5 @@
 //
-//  AddRecipientBottomSheet.swift
+//  UnsupportedBottomSheet.swift
 //  addy
 //
 //  Created by Stijn van de Water on 12/05/2024.

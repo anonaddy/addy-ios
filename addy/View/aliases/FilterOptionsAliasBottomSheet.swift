@@ -66,18 +66,7 @@ struct FilterOptionsAliasBottomSheet: View {
         Form{
             
             Section{
-                
-                //                    AddySegmentedControl(selection: $filter1Selection, size: CGSize(width: UIScreen.main.bounds.width - (mainPadding * 2), height: 48), segmentLabels:
-                //                                            [String(localized: "filter_all_aliases"),
-                //                                             String(localized: "filter_active_aliases"),
-                //                                             String(localized: "filter_inactive_aliases"),
-                //                                             String(localized: "filter_deleted_aliases")])
-                //
-                //
-                //                    AddySegmentedControl(selection: $filter2Selection, size: CGSize(width: UIScreen.main.bounds.width - (mainPadding * 2), height: 48), segmentLabels:
-                //                                            [String(localized: "all_aliases"),
-                //                                             String(localized: "filter_watched_only")])
-                
+
                 VStack {
                     Picker(selection: $filter1Selection, label: Text(String(localized:"all_aliases"))) {
                         Text(String(localized: "filter_all_aliases")).tag(0)

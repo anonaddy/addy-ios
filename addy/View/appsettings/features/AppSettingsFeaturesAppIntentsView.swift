@@ -16,9 +16,6 @@ struct AppSettingsFeaturesAppIntentsView: View {
         let _ = Self._printChanges()
 #endif
         List {
-            //Image("integration_app_intents").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
-            
-            
             Section {
                 HStack(alignment: .center){
                     ShortcutsLink().shortcutsLinkStyle((colorScheme == .dark) ? .darkOutline : .lightOutline).frame(maxWidth: .infinity)

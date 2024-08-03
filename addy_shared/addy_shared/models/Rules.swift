@@ -7,31 +7,77 @@
 
 import Foundation
 
+// The Action struct represents an action with a unique identifier (UUID), type, and value.
 public struct Action: Identifiable, Hashable, Codable {
-    public var id: Self { self }
-
+    // The id is a unique identifier for each action. It's a UUID which is a universally unique identifier.
+    public var id: UUID
+    // The type of the action.
     public var type: String
+    // The value of the action.
     public var value: String
     
+    // CodingKeys enum is used to specify which keys we want to decode from the JSON.
+    // The id is not included because it's not present in the JSON.
+    enum CodingKeys: String, CodingKey {
+        case type, value
+    }
+    
+    // This initializer is used when creating a new Action.
+    // It generates a new UUID for the id.
     public init(type: String, value: String) {
+        self.id = UUID()
         self.type = type
         self.value = value
     }
+    
+    // This initializer is used when decoding an Action from JSON.
+    // It generates a new UUID for the id because the id is not present in the JSON.
+    // It decodes the type and value from the JSON.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = UUID()
+        self.type = try container.decode(String.self, forKey: .type)
+        self.value = try container.decode(String.self, forKey: .value)
+    }
 }
 
-public struct Condition: Identifiable, Hashable, Codable {
-    public var id: Self { self }
 
+
+// The Condition struct represents a condition with a unique identifier (UUID), type, match, and values.
+public struct Condition: Identifiable, Hashable, Codable {
+    // The id is a unique identifier for each condition. It's a UUID which is a universally unique identifier.
+    public var id: UUID
     public let type: String
     public let match: String
     public let values: [String]
     
+    // CodingKeys enum is used to specify which keys we want to decode from the JSON.
+    // The id is not included because it's not present in the JSON.
+    enum CodingKeys: String, CodingKey {
+        case type, match, values
+    }
+    
+    // This initializer is used when creating a new Condition.
+    // It generates a new UUID for the id.
     public init(type: String, match: String, values: [String]) {
+        self.id = UUID()
         self.type = type
         self.match = match
         self.values = values
     }
+    
+    // This initializer is used when decoding a Condition from JSON.
+    // It generates a new UUID for the id because the id is not present in the JSON.
+    // It decodes the type, match, and values from the JSON.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = UUID()
+        self.type = try container.decode(String.self, forKey: .type)
+        self.match = try container.decode(String.self, forKey: .match)
+        self.values = try container.decode([String].self, forKey: .values)
+    }
 }
+
 
 struct SingleRule: Codable {
     var data: Rules

@@ -146,9 +146,16 @@ struct RecipientsDetailView: View {
                                         await self.disableEncryption(recipient: recipient)
                                     }
                                 } else {
-                                    Task {
-                                        await self.enableEncryption(recipient: recipient)
+                                    if (self.recipient?.fingerprint != nil) {
+                                        Task {
+                                            await self.enableEncryption(recipient: recipient)
+                                        }
+                                    } else {
+                                        self.isSwitchingRecipientShouldEncryptState = false
+                                        self.shouldEncrypt = false
+                                        isPresentingAddRecipientPublicGpgKeyBottomSheet = true
                                     }
+                                    
                                 }
                             }
                             
@@ -232,6 +239,7 @@ struct RecipientsDetailView: View {
                     NavigationStack {
                         AddRecipientPublicGpgKeyBottomSheet(recipientId: recipient.id){ recipient in
                             self.recipient = recipient
+                            self.shouldEncrypt = recipient.should_encrypt
                             isPresentingAddRecipientPublicGpgKeyBottomSheet = false
                         }
                     }

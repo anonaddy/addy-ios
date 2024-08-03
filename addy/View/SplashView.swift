@@ -29,68 +29,9 @@ struct SplashView: View {
 #endif
         Group {
             if showError {
-                Color.accentColor
-                    .ignoresSafeArea(.container) // Ignore just for the color
-                    .overlay(
-                        VStack() {
-                                VStack{
-                                    Text(String(localized: "whoops"))
-                                        .foregroundStyle(.white)
-                                        .font(.title)
-                                        .fontWeight(.heavy)
-                                        .padding(.bottom)
-                                    Text(String(localized: "addyio_load_error"))
-                                        .foregroundStyle(.white)
-                                        .font(.subheadline)
-                                        .multilineTextAlignment(.center)
-                                        .padding(.bottom)
-                                    Text(String(localized: "tap_here_to_see_the_error"))
-                                        .foregroundStyle(.red)
-                                        .font(.subheadline)
-                                        .multilineTextAlignment(.center)
-                                        .onTapGesture {
-                                            isShowingDetailedErrorAlert = true
-                                        }
-                                }.padding()
-                                Spacer()
-                                LottieView(animation: .named("ic_loading_logo_error.shapeshifter"))
-                                    .playbackMode(.playing(.toProgress(1, loopMode: .playOnce)))
-                                    .animationSpeed(Double(2))
-                                    .frame(maxHeight: 128)
-                                    .opacity(0.5)
-                                Spacer()
-                                Spacer()
-                                HStack{
-                                    AddyButton(action: {
-                                        loadDataAndStartApp()
-                   
-                                    }, style: AddyButtonStyle(backgroundColor: .easternBlue)) {
-                                        Text(String(localized: "try_again")).foregroundColor(Color.white)
-                                    }
-                                    
-                                    AddyButton(action: {
-                                        let settingsManager = SettingsManager(encrypted: true)
-                                        settingsManager.clearSettingsAndCloseApp()
-                   
-                                    }, style: AddyButtonStyle(backgroundColor: .easternBlue)) {
-                                        Text(String(localized: "reset_app")).foregroundColor(Color.white)
-                                    }
-                                }.padding()
-                            
-                        })
-                
+                errorView
             } else {
-                Color.accentColor
-                    .ignoresSafeArea(.container) // Ignore just for the color
-                    .overlay(
-                        VStack(spacing: 20) {
-                            LottieView(animation: .named("ic_loading_logo.shapeshifter"))
-                                .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
-                                .animationSpeed(Double(2))
-                                .frame(maxHeight: 128)
-                                .opacity(0.5)
-                            
-                        })
+                loadingView
             }
         }.task {
             loadDataAndStartApp()
@@ -120,6 +61,74 @@ struct SplashView: View {
             // No cancel button so a drag indicator is a nice to have
             .presentationDragIndicator(.visible)
         })
+    }
+    
+    
+    private var loadingView: some View {
+        Color.accentColor
+            .ignoresSafeArea(.container) // Ignore just for the color
+            .overlay(
+                VStack(spacing: 20) {
+                    LottieView(animation: .named("ic_loading_logo.shapeshifter"))
+                        .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
+                        .animationSpeed(Double(2))
+                        .frame(maxHeight: 128)
+                        .opacity(0.5)
+                    
+                })
+    }
+    
+    private var errorView: some View {
+            Color.accentColor
+                .ignoresSafeArea(.container) // Ignore just for the color
+                .overlay(
+                    VStack() {
+                        VStack{
+                            Text(String(localized: "whoops"))
+                                .foregroundStyle(.white)
+                                .font(.title)
+                                .fontWeight(.heavy)
+                                .padding(.bottom)
+                            Text(String(localized: "addyio_load_error"))
+                                .foregroundStyle(.white)
+                                .font(.subheadline)
+                                .multilineTextAlignment(.center)
+                                .padding(.bottom)
+                            Text(String(localized: "tap_here_to_see_the_error"))
+                                .foregroundStyle(.red)
+                                .font(.subheadline)
+                                .multilineTextAlignment(.center)
+                                .onTapGesture {
+                                    isShowingDetailedErrorAlert = true
+                                }
+                        }.padding()
+                        Spacer()
+                        LottieView(animation: .named("ic_loading_logo_error.shapeshifter"))
+                            .playbackMode(.playing(.toProgress(1, loopMode: .playOnce)))
+                            .animationSpeed(Double(2))
+                            .frame(maxHeight: 128)
+                            .opacity(0.5)
+                        Spacer()
+                        Spacer()
+                        HStack{
+                            AddyButton(action: {
+                                loadDataAndStartApp()
+                                
+                            }, style: AddyButtonStyle(backgroundColor: .easternBlue)) {
+                                Text(String(localized: "try_again")).foregroundColor(Color.white)
+                            }
+                            
+                            AddyButton(action: {
+                                let settingsManager = SettingsManager(encrypted: true)
+                                settingsManager.clearSettingsAndCloseApp()
+                                
+                            }, style: AddyButtonStyle(backgroundColor: .easternBlue)) {
+                                Text(String(localized: "reset_app")).foregroundColor(Color.white)
+                            }
+                        }.padding()
+                        
+                    })
+        
     }
     
     private func loadDataAndStartApp(){
@@ -217,3 +226,5 @@ struct SplashView: View {
 #Preview {
     SplashView()
 }
+
+

@@ -39,7 +39,7 @@ struct CreateNewCustomAliasIntent: AppIntent {
      */
     
     @MainActor
-    func perform() async throws -> some IntentResult & ProvidesDialog {
+    func perform() async throws -> some IntentResult & ReturnsValue<String> & ProvidesDialog {
 
         if let userResource = getUserResource() {
             do {
@@ -47,24 +47,19 @@ struct CreateNewCustomAliasIntent: AppIntent {
                     
                     UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
 
-                    if UIPasteboard.general.hasStrings{
-                        let localizedString = LocalizedStringResource("app_intent_alias_added\(alias.email)")
-                        return .result(dialog: IntentDialog(localizedString))
-                    } else {
-                        let localizedString = LocalizedStringResource("app_intent_alias_added_no_copy\(alias.email)")
-                        return .result(dialog: IntentDialog(localizedString))
-                    }
+                    let localizedString = LocalizedStringResource("app_intent_alias_added\(alias.email)")
+                    return .result(value: alias.email, dialog: IntentDialog(localizedString))
                     
                 } else {
-                    return .result(dialog: "error_adding_alias")
+                    return .result(value: "", dialog: "error_adding_alias")
                 }
             } catch {
-                return .result(dialog: "error_adding_alias")
+                return .result(value: "", dialog: "error_adding_alias")
             }
             
         } else {
               /// Return an empty result, indicating that the intent is complete.
-            return .result(dialog: "app_setup_required")
+            return .result(value: "", dialog: "app_setup_required")
         }
 
     }

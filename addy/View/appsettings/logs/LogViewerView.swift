@@ -56,10 +56,6 @@ struct LogViewerView: View {
             
         }.refreshable {
             self.logsViewModel.getLogs()
-        }.alert(isPresented: $showAlert) {
-            Alert(title: Text(String(localized: "forget_alias")), message: Text(String(localized: "forget_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "forget"))){
-                //isForgettingAlias = true
-            }, secondaryButton: .cancel())
         }.overlay(Group {
             
             if let logs = logsViewModel.logs{
@@ -87,8 +83,7 @@ struct LogViewerView: View {
         })
         .navigationTitle(String(localized: "logs"))
         .navigationBarTitleDisplayMode(.inline)
-        
-        
+
         .toolbar(content: {
             
             ToolbarItem(placement: .topBarTrailing) {

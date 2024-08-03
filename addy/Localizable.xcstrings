@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "_more" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -884,23 +887,24 @@
         }
       }
     },
-    "app_intent_alias_added_no_copy%@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Here’s your alias:  %@. I am sorry but I couldn’t copy it to your clipboard."
-          }
-        }
-      }
-    },
     "app_intent_alias_added%@" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Here’s your alias:  %@. I've also gone ahead and copied this alias to your clipboard."
+            "value" : "Here’s your alias:  %@"
+          }
+        }
+      }
+    },
+    "app_intent_alias_output" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "new alias email address"
           }
         }
       }
@@ -1286,6 +1290,39 @@
         }
       }
     },
+    "check_dns" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check DNS"
+          }
+        }
+      }
+    },
+    "check_dns_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verify DNS configuration"
+          }
+        }
+      }
+    },
+    "check_dns_desc_incorrect" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your domain has configuration errors. Tap here to check the DNS records"
+          }
+        }
+      }
+    },
     "check_for_updates" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1484,7 +1521,14 @@
       }
     },
     "create" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "create"
+          }
+        }
+      }
     },
     "created" : {
       "extractionState" : "manual",
@@ -2304,7 +2348,14 @@
       }
     },
     "email" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "email"
+          }
+        }
+      }
     },
     "email_replies" : {
       "extractionState" : "manual",
@@ -3096,7 +3147,14 @@
       }
     },
     "format" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "format"
+          }
+        }
+      }
     },
     "forward_to" : {
       "extractionState" : "manual",
@@ -3357,7 +3415,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create aliases on the go and send emails from an alias by highlighting an email address or tapping a mailto hyperlink.\n\nHighlight an email address that doesn't exist with your domain name and tap share, followed by the addy.io app icon to create this alias."
+            "value" : "Create aliases on the go and send emails from an alias by highlighting an email address.\n\nHighlight an email address that doesn't exist with your domain name and tap share, followed by the addy.io app icon to create this alias.\n\nHighlight any other email address, tap share, followed by the addy.io app icon to send an email to this address using one of your aliases."
           }
         }
       }
@@ -5713,17 +5771,6 @@
         }
       }
     },
-    "system_default" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "System Default"
-          }
-        }
-      }
-    },
     "tap_here_to_see_the_error" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6178,7 +6225,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Keep track of emails being forwarded through a specific alias. Open the management page of an alias and enable  \"Watch alias\" to be notified of a new forwarded message.\n\nUse the \"Background service interval\" option in the app settings to determine how often to check for new forwarded messages.\n\nYou can watch a maximum of 25 aliases."
+            "value" : "Keep track of emails being forwarded through a specific alias. Open the management page of an alias and enable  \"Watch alias\" to be notified of a new forwarded message.\n\nYou can watch a maximum of 25 aliases."
           }
         }
       }

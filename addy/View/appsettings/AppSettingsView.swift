@@ -221,7 +221,6 @@ struct AppSettingsView: View {
                         MainViewState.shared.isUnlocked = true
                     }
                     
-                    
                     MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .biometricEnabled, boolean: shouldEnableBiometrics)
                 }else{
                     biometricEnabled = !shouldEnableBiometrics

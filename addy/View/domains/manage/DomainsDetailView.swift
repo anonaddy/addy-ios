@@ -60,7 +60,8 @@ struct DomainsDetailView: View {
         _shouldReloadDataInParent = shouldReloadDataInParent
     }
     
-    
+    @Environment(\.openURL) var openURL
+
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -168,6 +169,10 @@ struct DomainsDetailView: View {
                     
                     AddySection(title: String(localized: "recipients"), description: getDefaultRecipient(domain: domain), leadingSystemimage: nil, trailingSystemimage: "pencil"){
                             isPresentingEditDomainRecipientsBottomSheet = true
+                        }
+                    
+                    AddySection(title: String(localized: "check_dns"), description: getCheckDns(domain: domain), leadingSystemimage: nil, trailingSystemimage: nil){
+                        openURL(URL(string: "\(AddyIo.API_BASE_URL)/domains")!)
                         }
                     
                     
@@ -436,6 +441,16 @@ struct DomainsDetailView: View {
             } else {
                 return String(localized: "domain_no_auto_create_regex")
             }
+        }
+        
+    }
+        
+    private func getCheckDns(domain: Domains) -> String {
+        if domain.domain_sending_verified_at == nil {
+            return String(localized: "check_dns_desc_incorrect")
+        }
+        else {
+            return String(localized: "check_dns_desc")
         }
         
     }

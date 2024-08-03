@@ -158,7 +158,7 @@ struct DomainsView: View {
                     isPresentingAddDomainBottomSheet = false
                 }
             }
-            .presentationDetents([.medium, .large])
+            .presentationDetents([.medium])
         }
         .alert(isPresented: $showAlert) {
             switch activeAlert {
@@ -301,6 +301,7 @@ struct DomainsView: View {
             }
         } catch {
             print("Failed to get user resource: \(error)")
+            // viewModel will take care of putting this error into a var
         }
     }
     

@@ -139,7 +139,8 @@ struct AliasRowView: View {
                         .foregroundColor(.gray.opacity(0.4))
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
-                        .padding(.top)
+                        .padding(.top,4)
+                        .padding(.bottom,4)
                 }
             }.padding()
         } else {

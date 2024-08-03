@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -166,20 +166,20 @@
 		80BB84122BF00099005999C3 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				80E9B2312C0B646400C7EF99 /* Usernames.swift */,
-				80B4F4B82BEA52EE0009E4CA /* Logs.swift */,
-				80B4F4CD2BEA598A0009E4CA /* UserResource.swift */,
-				80B4F4CF2BEA5BE60009E4CA /* UserAgent.swift */,
-				80B4F4D12BEA5DCE0009E4CA /* Version.swift */,
-				80E849A52BEB93F900C8D68A /* Error.swift */,
-				80E84A302BEC11ED00C8D68A /* Aliases.swift */,
-				80E84A322BEC122900C8D68A /* Recipients.swift */,
-				80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */,
-				80F3C6662BFB73AF0028A486 /* Domains.swift */,
-				80813B722C0DF349009C4E6A /* FailedDeliveries.swift */,
-				80477DE12C12232C00E52AF8 /* Rules.swift */,
-				80ECA1032C1DCB5E00788D75 /* ApiTokenDetails.swift */,
 				80B2FBCE2C3C4EE8009977B6 /* AddyChartData.swift */,
+				80E84A302BEC11ED00C8D68A /* Aliases.swift */,
+				80A7F1FF2BECD122001A984B /* AliasSortFilter.swift */,
+				80ECA1032C1DCB5E00788D75 /* ApiTokenDetails.swift */,
+				80F3C6662BFB73AF0028A486 /* Domains.swift */,
+				80E849A52BEB93F900C8D68A /* Error.swift */,
+				80813B722C0DF349009C4E6A /* FailedDeliveries.swift */,
+				80B4F4B82BEA52EE0009E4CA /* Logs.swift */,
+				80E84A322BEC122900C8D68A /* Recipients.swift */,
+				80477DE12C12232C00E52AF8 /* Rules.swift */,
+				80B4F4CF2BEA5BE60009E4CA /* UserAgent.swift */,
+				80E9B2312C0B646400C7EF99 /* Usernames.swift */,
+				80B4F4CD2BEA598A0009E4CA /* UserResource.swift */,
+				80B4F4D12BEA5DCE0009E4CA /* Version.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -255,7 +255,7 @@
 				};
 			};
 			buildConfigurationList = 8001D9EA2BEA513500AAD10E /* Build configuration list for PBXProject "addy_shared" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (

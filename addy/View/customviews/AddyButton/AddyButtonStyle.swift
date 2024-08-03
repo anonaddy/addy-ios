@@ -1,10 +1,3 @@
-//
-//  SwiftUIView.swift
-//  
-//
-//  Created by 변경민 on 2020/12/02.
-//
-
 import SwiftUI
 
 /// A Fully Configuarable Button Style

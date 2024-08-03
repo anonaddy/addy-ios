@@ -81,26 +81,24 @@ struct AddAliasBottomSheet: View {
                     }
                 }
                 
-                
-                
                 Picker(String(localized: "alias_format"), selection: $selectedFormat) {
                     ForEach(formats, id: \.self) { format in
                         Text(format[0]).tag(format[1])
                     }
-                }.foregroundColor(formatValidationError ? .red : nil)
-                    .onChange(of: selectedFormat){
-                        // When selecting another format it should reset the error
-                        formatValidationError = false
-                        aliasError = ""
-                    }
+                    
+                }
+                .foregroundColor(formatValidationError ? .red : nil)
+                .onChange(of: selectedFormat){
+                    // When selecting another format it should reset the error
+                    formatValidationError = false
+                    aliasError = ""
+                }
                 
                 
                 if (selectedFormat == "custom"){
                     ValidatingTextField(value: self.$localPart, placeholder: self.$localPartPlaceholder, fieldType: .text, error: $localPartValidationError)
                         .foregroundColor(localPartError ? .red : nil)
                 }
-                
-                
                 
             } header: {
                 VStack(alignment: .leading){
@@ -125,6 +123,8 @@ struct AddAliasBottomSheet: View {
                 }
                 
             }
+            
+            
             Section {
                 ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError)
             } header: {
@@ -160,7 +160,7 @@ struct AddAliasBottomSheet: View {
             Section {
                 
                 SiriTipView(
-                intent: CreateNewAliasIntent())
+                    intent: CreateNewAliasIntent())
                 .siriTipViewStyle(.automatic)
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
@@ -244,9 +244,9 @@ struct AddAliasBottomSheet: View {
         }
         
         
-            Task {
-                await addAliasToAccount(selectedDomain: selectedDomain, description: description, selectedFormat: selectedFormat, localPart: localPart, selectedRecipients: selectedRecipientChips)
-            }
+        Task {
+            await addAliasToAccount(selectedDomain: selectedDomain, description: description, selectedFormat: selectedFormat, localPart: localPart, selectedRecipients: selectedRecipientChips)
+        }
         
     }
     
@@ -266,7 +266,7 @@ struct AddAliasBottomSheet: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     
     private func loadDomains() async {
         let networkHelper = NetworkHelper()
@@ -279,9 +279,10 @@ struct AddAliasBottomSheet: View {
             }
         } catch {
             print("Failed to load domains: \(error)")
+            // Error will be logged when user has enabled this
         }
     }
-
+    
     
     
     private func getAllRecipients() async {

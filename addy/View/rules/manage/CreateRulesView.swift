@@ -10,7 +10,7 @@ import addy_shared
 import Lottie
 
 struct CreateRulesView: View {
-
+    
     
     enum ActiveAlert {
         case error
@@ -23,7 +23,7 @@ struct CreateRulesView: View {
     
     @State private var actionToEdit: Action? = nil
     @State private var conditionToEdit: Condition? = nil
-
+    
     
     @Binding var shouldReloadDataInParent: Bool
     @State private var activeAlert: ActiveAlert = .error
@@ -57,7 +57,7 @@ struct CreateRulesView: View {
     
     init(recipients: [Recipients], ruleId: String?, ruleName: String, shouldReloadDataInParent: Binding<Bool>) {
         self.recipients = recipients
-
+        
         if let ruleId = ruleId {
             self.ruleId = ruleId
             self.ruleName = ruleName
@@ -142,37 +142,37 @@ struct CreateRulesView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                     } else {
                         ForEach(rule.conditions, id:\.self) { condition in
-                                HStack {
-                                    Spacer().frame(width: 10)
-                                    VStack {
-                                        
-                                        let typeIndex = RulesOption.conditionsType.firstIndex(of: condition.type) ?? 0
-                                        let matchIndex = RulesOption.conditionsMatch.firstIndex(of: condition.match) ?? 0
-                                        
-                                        let typeText = RulesOption.conditionsTypeName[typeIndex]
-                                        let matchText = RulesOption.conditionsMatchName[matchIndex]
-                                        
-                                        Text(String(format: String(localized: "rule_if_"), "`\(typeText)` \(matchText)..."))
-                                            .fontWeight(.medium)
-                                            .multilineTextAlignment(.center)
-                                            .padding(.bottom, 1)
-                                        Text(condition.values.joined(separator: ", "))
-                                            .font(.system(size: 14))
-                                            .multilineTextAlignment(.center)
-                                            .lineLimit(3)
-                                            .opacity(0.7)
-                                    }.onTapGesture {
-                                        conditionToEdit = condition
-                                    }.padding(EdgeInsets()).frame(maxWidth: .infinity)
-                                    VStack {
-                                        Button {
-                                            self.rule!.conditions.remove(at: self.rule!.conditions.firstIndex(where: {$0 == condition})!)
-                                        } label: {
-                                            Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
-                                        }.buttonStyle(PlainButtonStyle())
-                                    }.frame(width: 10)
-                                }.listRowSeparator(.hidden).padding()
-                                
+                            HStack {
+                                Spacer().frame(width: 10)
+                                VStack {
+                                    
+                                    let typeIndex = RulesOption.conditionsType.firstIndex(of: condition.type) ?? 0
+                                    let matchIndex = RulesOption.conditionsMatch.firstIndex(of: condition.match) ?? 0
+                                    
+                                    let typeText = RulesOption.conditionsTypeName[typeIndex]
+                                    let matchText = RulesOption.conditionsMatchName[matchIndex]
+                                    
+                                    Text(String(format: String(localized: "rule_if_"), "`\(typeText)` \(matchText)..."))
+                                        .fontWeight(.medium)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.bottom, 1)
+                                    Text(condition.values.joined(separator: ", "))
+                                        .font(.system(size: 14))
+                                        .multilineTextAlignment(.center)
+                                        .lineLimit(3)
+                                        .opacity(0.7)
+                                }.onTapGesture {
+                                    conditionToEdit = condition
+                                }.padding(EdgeInsets()).frame(maxWidth: .infinity)
+                                VStack {
+                                    Button {
+                                        self.rule!.conditions.remove(at: self.rule!.conditions.firstIndex(where: {$0 == condition})!)
+                                    } label: {
+                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
+                                    }.buttonStyle(PlainButtonStyle())
+                                }.frame(width: 10)
+                            }.listRowSeparator(.hidden).padding()
+                            
                             
                             VStack {
                                 Capsule()
@@ -220,36 +220,36 @@ struct CreateRulesView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                     } else {
                         ForEach(rule.actions, id:\.self) { action in
-                                HStack {
-                                    Spacer().frame(width: 10)
-                                    VStack {
-                                        let typeIndex = RulesOption.actionsType.firstIndex(of: action.type) ?? 0
-                                        let typeText = RulesOption.actionsTypeName[typeIndex]
-                                        
-                                        Text(typeText)
-                                            .fontWeight(.medium)
-                                            .multilineTextAlignment(.center)
-                                            .padding(.bottom, 1)
-                                        
-                                        let value = action.type == "forwardTo" ? recipients.first(where: {$0.id == action.value})!.email : action.value
-                                
-                                        Text(value)
-                                            .font(.system(size: 14))
-                                            .multilineTextAlignment(.center)
-                                            .lineLimit(3)
-                                            .opacity(0.7)
-                                    }.onTapGesture {
-                                        actionToEdit = action
-                                    }.padding(EdgeInsets()).frame(maxWidth: .infinity)
-                                    VStack {
-                                        Button {
-                                            self.rule!.actions.remove(at: self.rule!.actions.firstIndex(where: {$0 == action})!)
-                                        } label: {
-                                            Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
-                                        }.buttonStyle(PlainButtonStyle())
-                                    }.frame(width: 10)
-                                }.listRowSeparator(.hidden).padding()
-                                
+                            HStack {
+                                Spacer().frame(width: 10)
+                                VStack {
+                                    let typeIndex = RulesOption.actionsType.firstIndex(of: action.type) ?? 0
+                                    let typeText = RulesOption.actionsTypeName[typeIndex]
+                                    
+                                    Text(typeText)
+                                        .fontWeight(.medium)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.bottom, 1)
+                                    
+                                    let value = action.type == "forwardTo" ? recipients.first(where: {$0.id == action.value})!.email : action.value
+                                    
+                                    Text(value)
+                                        .font(.system(size: 14))
+                                        .multilineTextAlignment(.center)
+                                        .lineLimit(3)
+                                        .opacity(0.7)
+                                }.onTapGesture {
+                                    actionToEdit = action
+                                }.padding(EdgeInsets()).frame(maxWidth: .infinity)
+                                VStack {
+                                    Button {
+                                        self.rule!.actions.remove(at: self.rule!.actions.firstIndex(where: {$0 == action})!)
+                                    } label: {
+                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
+                                    }.buttonStyle(PlainButtonStyle())
+                                }.frame(width: 10)
+                            }.listRowSeparator(.hidden).padding()
+                            
                             
                             
                             VStack {
@@ -275,28 +275,34 @@ struct CreateRulesView: View {
                     Text(String(localized: "actions_then"))
                 } footer: {
                     Text(String(localized: "rules_create_info")).padding(.top)
-
+                    
                 }
                 
-            }.disabled(isSavingRule)
+            }.disabled(self.isSavingRule)
                 .navigationTitle(self.ruleName)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            if (self.ruleId.isEmpty){
-                                Task {
-                                    await self.createRule()
+                        if self.isSavingRule {
+                            ProgressView()
+                        } else {
+                            Button {
+                                self.isSavingRule = true
+                                if (self.ruleId.isEmpty){
+                                    Task {
+                                        await self.createRule()
+                                    }
+                                } else {
+                                    // ruleId is not empty, update rule instead
+                                    Task {
+                                        await self.updateRule()
+                                    }
                                 }
-                            } else {
-                                // ruleId is not empty, update rule instead
-                                Task {
-                                    await self.updateRule()
-                                }
-                            }
-                        } label: {
-                            Text(String(localized: "save"))
-                        }.disabled(isSavingRule || self.ruleName.isEmpty)
+                            } label: {
+                                Text(String(localized: "save"))
+                            }.disabled(self.ruleName.isEmpty)
+                        }
+                        
                         
                     }
                 })
@@ -326,7 +332,7 @@ struct CreateRulesView: View {
                             if let index = self.rule?.conditions.firstIndex(where: { $0.id == oldCondition?.id }) {
                                 self.rule?.conditions[index] = modifiedCondition
                             }
-
+                            
                             
                             self.conditionToEdit = nil
                         }
@@ -390,7 +396,7 @@ struct CreateRulesView: View {
     private func updateUi(rule: Rules){
         
         self.conditionOperator = self.rule!.`operator`
-
+        
         if rule.forwards{
             self.selectedChips.append("forwards")
         }
@@ -400,7 +406,7 @@ struct CreateRulesView: View {
         if rule.sends{
             self.selectedChips.append("sends")
         }
-            
+        
         
     }
     
@@ -420,7 +426,7 @@ struct CreateRulesView: View {
             }
         }
     }
-
+    
     
     func updateRuleObject(){
         self.rule!.name = self.ruleName
@@ -450,13 +456,14 @@ struct CreateRulesView: View {
             showAlert = true
             errorAlertTitle = String(localized: "error_creating_rule")
             errorAlertMessage = error.localizedDescription
+            self.isSavingRule = false
         }
     }
-
+    
     
     func createRule() async {
         updateRuleObject()
-
+        
         let networkHelper = NetworkHelper()
         do {
             _ = try await networkHelper.createRule(rule: self.rule!)
@@ -467,9 +474,10 @@ struct CreateRulesView: View {
             showAlert = true
             errorAlertTitle = String(localized: "error_creating_rule")
             errorAlertMessage = error.localizedDescription
+            self.isSavingRule = false
         }
     }
-
+    
 }
 
 //#Preview {

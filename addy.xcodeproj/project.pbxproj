@@ -6,6 +6,35 @@
 	objectVersion = 70;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		80274F952C5E223300C8C6A1 /* Privacy Manifest */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 80274F962C5E223300C8C6A1 /* Build configuration list for PBXAggregateTarget "Privacy Manifest" */;
+			buildPhases = (
+				80274F992C5E223900C8C6A1 /* Create XCPrivacyManifest */,
+			);
+			dependencies = (
+			);
+			name = "Privacy Manifest";
+			packageProductDependencies = (
+			);
+			productName = "Privacy Manifest";
+		};
+		80F6B29C2C5E1DBE002E1238 /* Periphery */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 80F6B29D2C5E1DBE002E1238 /* Build configuration list for PBXAggregateTarget "Periphery" */;
+			buildPhases = (
+				80F6B2A02C5E1DD2002E1238 /* Periphery */,
+			);
+			dependencies = (
+			);
+			name = Periphery;
+			packageProductDependencies = (
+			);
+			productName = Periphery;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8001D9D12BEA1E3600AAD10E /* CodeScanner */; };
 		8001DA012BEA516000AAD10E /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
@@ -818,16 +847,16 @@
 			children = (
 				805459142C3975290087A170 /* addy.entitlements */,
 				80DF3F532C4BC22F00A533BE /* addy.debug.entitlements */,
+				806D5F1B2BE91B9700C5C109 /* anims */,
+				80ECA1022C1DADAF00788D75 /* App lifecycle */,
+				8084AACE2C429EDF00CC7E3B /* AppIntent */,
 				802FC8CE2C42C2EA00E3E134 /* AppShortcuts.xcstrings */,
 				8084AAD22C42A23D00CC7E3B /* AppShortcutsProvider */,
 				806F21382BE8F1B200EBEBC8 /* Assets.xcassets */,
-				801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */,
-				806D5F1B2BE91B9700C5C109 /* anims */,
-				8084AACE2C429EDF00CC7E3B /* AppIntent */,
-				80ECA1022C1DADAF00788D75 /* App lifecycle */,
 				80F22F352BEE34E1001176B4 /* dependencies */,
 				805D66A12C1F4C810085CCED /* extensions */,
 				80DCF3A32BF118900022690F /* helpers */,
+				801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */,
 				80B2FB882C3C4388009977B6 /* models */,
 				80DCF3A82BF12DEA0022690F /* notification */,
 				806F213A2BE8F1B200EBEBC8 /* Preview Content */,
@@ -1204,6 +1233,9 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					80274F952C5E223300C8C6A1 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					8036F1412C499148008627C3 = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -1213,10 +1245,13 @@
 					806F212E2BE8F1B100EBEBC8 = {
 						CreatedOnToolsVersion = 15.3;
 					};
+					80F6B29C2C5E1DBE002E1238 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 				};
 			};
 			buildConfigurationList = 806F212A2BE8F1B100EBEBC8 /* Build configuration list for PBXProject "addy" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1242,6 +1277,8 @@
 				806F212E2BE8F1B100EBEBC8 /* addy */,
 				8036F1412C499148008627C3 /* AddyStatisticWidgetExtension */,
 				8042E0702C3318DA001E8366 /* ShareExtension */,
+				80F6B29C2C5E1DBE002E1238 /* Periphery */,
+				80274F952C5E223300C8C6A1 /* Privacy Manifest */,
 			);
 		};
 /* End PBXProject section */
@@ -1297,6 +1334,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		80274F992C5E223900C8C6A1 /* Create XCPrivacyManifest */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Create XCPrivacyManifest";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Make sure the following is installed on your device\n# https://github.com/stelabouras/privacy-manifest\n# You should be able to create /usr/local/bin yourself by executing sudo mkdir -p -m 775 /usr/local/bin from the terminal. \n# If /usr/local/bin is not in your $PATH environmental variable, you can update it by appending export PATH=$PATH:/usr/local/bin to the file $HOME/.bash_profile.\n# Close your current terminal, and open a new one for testing.\nprivacy-manifest analyze --project /Users/stjin/Documents/Projects/iOS_addy.io/addy  --reveal-occurrences --output /Users/stjin/Documents/Projects/iOS_addy.io/addy\n\n";
+		};
 		806AE69A2C1A0EC800F3CA92 /* Update version number in settings Root.plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -1315,6 +1370,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "settings_plist=\"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Settings.bundle/Root.plist\"\nCFBundleShortVersionString=`/usr/libexec/PlistBuddy -c \"Print :CFBundleShortVersionString\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Info.plist\"`\nCFBundleVersion=`/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Info.plist\"`\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:0:DefaultValue '${CFBundleShortVersionString} (${CFBundleVersion})'\" \"$settings_plist\"\n";
+		};
+		80F6B2A02C5E1DD2002E1238 /* Periphery */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Periphery;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ ! $PATH =~ /opt/homebrew/bin: ]] ; then \nPATH=/opt/homebrew/bin/:/opt/homebrew/sbin:${PATH}\nfi\n\nperiphery scan --format xcode\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1509,6 +1582,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		80274F972C5E223300C8C6A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		80274F982C5E223300C8C6A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		8036F1582C499149008627C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1780,7 +1869,6 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows for scanning the QR code so that you can quickly set-up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1816,11 +1904,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = addy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
+				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows for scanning the QR code so that you can quickly set-up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1841,9 +1928,34 @@
 			};
 			name = Release;
 		};
+		80F6B29E2C5E1DBE002E1238 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		80F6B29F2C5E1DBE002E1238 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		80274F962C5E223300C8C6A1 /* Build configuration list for PBXAggregateTarget "Privacy Manifest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80274F972C5E223300C8C6A1 /* Debug */,
+				80274F982C5E223300C8C6A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8036F15B2C499149008627C3 /* Build configuration list for PBXNativeTarget "AddyStatisticWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1876,6 +1988,15 @@
 			buildConfigurations = (
 				806F21402BE8F1B200EBEBC8 /* Debug */,
 				806F21412BE8F1B200EBEBC8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		80F6B29D2C5E1DBE002E1238 /* Build configuration list for PBXAggregateTarget "Periphery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80F6B29E2C5E1DBE002E1238 /* Debug */,
+				80F6B29F2C5E1DBE002E1238 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

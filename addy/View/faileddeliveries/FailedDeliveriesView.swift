@@ -122,9 +122,6 @@ struct FailedDeliveriesView: View {
                         Task {
                             await failedDeliveriesViewModel.getFailedDeliveries()
                         }
-                    }.onDisappear {
-                        // Reset the aliasInContextMenu when the sheet disappears
-                        self.failedDeliveryToShow = nil
                     }
                 }
                 .presentationDetents([.large])

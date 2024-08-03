@@ -83,9 +83,9 @@ public class SettingsManager {
         } else {
             self.prefs = UserDefaults(suiteName: suiteName)
         }
-        
+#if DEBUG
         print("SettingsManager initialized with suiteName: \(suiteName)")
-
+#endif
     }
     
     public func putSettingsBool(key: Prefs, boolean: Bool) {

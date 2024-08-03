@@ -143,7 +143,7 @@ struct AddDomainBottomSheet: View {
         
         
         self.timer?.invalidate()
-        self.timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) { _ in
+        self.timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
             Task {
                 await self.addDomainToAccount(domain: self.domain)
             }

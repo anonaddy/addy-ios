@@ -103,7 +103,7 @@ struct AddyMultiSelectChipView_Preview: PreviewProvider{
                         ]
                         
                         AddyMultiSelectChipView(chips: $chips, selectedChips: $selectedChips, singleLine: false) { onTappedChip in
-                            print("\(onTappedChip.label) is selected")
+                            //print("\(onTappedChip.label) is selected")
                             if (selectedChips.contains(onTappedChip.chipId)){
                                 if let index = selectedChips.firstIndex(of: onTappedChip.chipId) {
                                     selectedChips.remove(at: index)

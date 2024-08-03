@@ -15,7 +15,7 @@ struct addyApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     @StateObject private var appState = AppState.shared
-    @StateObject private var mainViewState = MainViewState.init()
+    @StateObject private var mainViewState = MainViewState.shared // Needs to be shared so that notifications work
     var body: some Scene {
         WindowGroup(for: UUID.self) { _ in
             
@@ -25,15 +25,13 @@ struct addyApp: App {
                         .environmentObject(mainViewState)
                         .transition(.asymmetric(insertion: AnyTransition.scale(scale: 1.1).combined(with: .opacity), removal: AnyTransition.opacity.animation(.easeInOut(duration: 0.5))))
                                     .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
-                                    .onOpenURL {url in
-                                        
+                                    .onOpenURL { url in
                                         if url.pathComponents.count > 2 && url.pathComponents[1] == "deactivate" {
                                             let id = url.pathComponents[2]
                                             mainViewState.aliasToDisable = id
                                             mainViewState.selectedTab = .aliases
                                         }
                                     }
-                    
                 } else {
                     SetupView()
                         .environmentObject(appState)

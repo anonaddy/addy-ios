@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import addy_shared
 
 struct AddySection: View {
     
@@ -58,20 +59,6 @@ struct AddySection: View {
                 }
                 
             }
-            //TODO: Fix this issue (scrolling will be blocked)
-//            .onLongPressGesture(perform: {
-//                HapticHelper.playHapticFeedback(hapticType: .tap)
-//
-//                withAnimation {
-//                    if (self.lineLimit == nil){
-//                        self.lineLimit = 3
-//
-//                    } else {
-//                        self.lineLimit = nil
-//                    }
-//                }
-//                
-//            })
         }
     }
 }

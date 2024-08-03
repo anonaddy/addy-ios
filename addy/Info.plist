@@ -39,6 +39,13 @@
 		<string>fastmail</string>
 		<string>protonmail</string>
 	</array>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict/>
+	</dict>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>

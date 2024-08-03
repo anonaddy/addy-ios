@@ -158,7 +158,7 @@ struct RecipientsView: View {
                     }
                 }
                 // This one has a bit more text, medium doesnt quite fit
-                .presentationDetents([.fraction(0.6), .large])
+                .presentationDetents([.fraction(0.6)])
             }
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
@@ -387,6 +387,8 @@ struct RecipientsView: View {
             }
         } catch {
             print("Failed to get user resource: \(error)")
+            // viewModel will take care of putting this error into a var
+
         }
     }
     

@@ -475,6 +475,7 @@ struct RulesView: View {
             }
         } catch {
             print("Failed to get user resource: \(error)")
+            // viewModel will take care of putting this error into a var
         }
     }
 

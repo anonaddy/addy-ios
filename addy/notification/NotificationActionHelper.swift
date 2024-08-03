@@ -23,7 +23,7 @@ struct notificationActions {
     static let openDomains = "openDomains"
     static let stopSubscriptionExpiryCheck = "stopSubscriptionExpiryCheck"
     
-    static let STOP_PERIODIC_BACKUPS = "stop_periodic_backups"
+    //static let STOP_PERIODIC_BACKUPS = "stop_periodic_backups"
 }
 
 
@@ -72,7 +72,7 @@ class NotificationActionHelper {
             case notificationActions.openFailedDeliveries: MainViewState.shared.isPresentingFailedDeliveriesSheet = true
                 break
             case notificationActions.openApiExpirationWarning: MainViewState.shared.showApiExpirationWarning = true
-                break            
+                break
             case notificationActions.openSubscriptionExpirationWarning: MainViewState.shared.showSubscriptionExpirationWarning = true
                 break
             case notificationActions.openAlias:

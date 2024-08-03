@@ -264,7 +264,7 @@ struct AliasDetailView: View {
                     
                 }header: {
                     Text(String(localized: "general"))
-                }.disabled(alias.deleted_at != nil) // If alias is deleted, disable the entire section
+                }.disabled(alias.deleted_at != nil).opacity(alias.deleted_at != nil ? 0.5 : 1.0) // If alias is deleted, disable the entire section and set opacity
                 
                 Section {
                     
@@ -472,7 +472,6 @@ struct AliasDetailView: View {
     
     private func getFromName(alias: Aliases) -> String {
         
-        
         if mainViewState.userResource!.hasUserFreeSubscription() {
             return String(localized: "feature_not_available_subscription")
         }
@@ -483,13 +482,6 @@ struct AliasDetailView: View {
             } else {
                 return String(localized: "alias_no_from_name")
             }
-            
-            //            // Initialize the bottom dialog fragment
-            //            editAliasFromNameBottomDialogFragment = EditAliasFromNameBottomDialogFragment.newInstance(
-            //                alias.id,
-            //                alias.email,
-            //                alias.fromName
-            //            )
         }
         
     }
@@ -722,8 +714,8 @@ struct AliasDetailView: View {
         } catch {
             
             // Reset this value to prevent re-opening the AliasDetailView when coming back to the app later if the alias failed to load
-            mainViewState.showAliasWithId = nil
-            mainViewState.aliasToDisable = nil
+            MainViewState.shared.showAliasWithId = nil
+            MainViewState.shared.aliasToDisable = nil
             
             withAnimation {
                 self.errorText = error.localizedDescription

@@ -25,7 +25,6 @@ struct HomeView: View {
     
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-    //@State private var chartData: AddyChartData? = nil
     @State private var progress: Float = 0.7
     
     var onRefreshGeneralData: (() -> Void)? = nil
@@ -73,7 +72,8 @@ struct HomeView: View {
                                         .apply {
                                             // Apply the shimmering effect when no limit
                                             if (userResource.bandwidth_limit == 0) {
-                                                $0.shimmering()
+                                                $0.shimmering(animation: .easeInOut(duration: 7).repeatForever(),
+                                                              gradient: Gradient(colors: [.white.opacity(0.6), .white.opacity(0.5), .white.opacity(0.5), .white.opacity(0.6), .white.opacity(0.5)]))
                                             } else {
                                                 $0
                                             }
@@ -168,31 +168,8 @@ struct HomeView: View {
                 )
             }
         }
-//        .task {
-//            await getChartData()
-//        }
-        
-        
-        
         
     }
-    
-//    private func getChartData() async {
-//        let networkHelper = NetworkHelper()
-//        do {
-//            let chartData = try await networkHelper.getChartData()
-//            if let chartData = chartData {
-//                withAnimation {
-//                    self.chartData = chartData
-//                }
-//            } else {
-//                activeAlert = .error
-//                showAlert = true
-//            }
-//        } catch {
-//            print("Failed to get chartData: \(error)")
-//        }
-//    }
 }
 
 

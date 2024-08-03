@@ -41,6 +41,7 @@ class MainViewState: ObservableObject {
 
     @Published var showApiExpirationWarning = false
     @Published var showSubscriptionExpirationWarning = false
+    
     @Published var isUnlocked = false
     
 

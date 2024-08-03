@@ -78,9 +78,9 @@ struct AddApiBottomSheet: View {
                             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                         }
                     }.frame(maxHeight: .infinity)
-                        .alert(isPresented: $showInvalidQrAlert, content: {
-                            Alert(title: Text(String(localized: "api_setup_qr_code_scan_wrong")), message: Text(String(localized: "api_setup_qr_code_scan_wrong_desc")), dismissButton: .default(Text(String(localized: "understood"))))
-                        })
+                    .alert(isPresented: $showInvalidQrAlert, content: {
+                        Alert(title: Text(String(localized: "api_setup_qr_code_scan_wrong")), message: Text(String(localized: "api_setup_qr_code_scan_wrong_desc")), dismissButton: .default(Text(String(localized: "understood"))))
+                    })
                     
                     
                     
@@ -186,6 +186,11 @@ struct AddApiBottomSheet: View {
             }
         } catch {
             print("Failed to verify API key: \(error)")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isLoadingSignIn = false
+            }
+            apiKeyError = "\(error)"
         }
     }
     
