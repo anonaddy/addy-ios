@@ -15,7 +15,7 @@ import UniformTypeIdentifiers
 struct CreateNewCustomAliasIntent: AppIntent {
     
     static var title: LocalizedStringResource = "app_intent_add_alias_custom"
-    static var description: IntentDescription = .init("app_intent_add_alias_desc", categoryName: "app_intent_category_name", searchKeywords: ["add", "create", "alias", "email"])
+    static var description: IntentDescription = .init("app_intent_add_alias_desc", categoryName: "app_intent_category_name", searchKeywords: ["add", "create", "alias", "email"], resultValueName: "app_intent_alias_output")
     static var openAppWhenRun: Bool = false
     
     @Parameter(title: "app_intent_add_alias_parameter_domain",

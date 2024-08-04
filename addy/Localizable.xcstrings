@@ -904,7 +904,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "new alias email address"
+            "value" : "email address"
           }
         }
       }
@@ -3299,17 +3299,6 @@
         }
       }
     },
-    "hold_the_drag_handle_and_drag_to_change_order" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hold the drag handle and drag to change order"
-          }
-        }
-      }
-    },
     "home" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4857,6 +4846,17 @@
         }
       }
     },
+    "rules_view_explanation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold the drag handle and drag to change order\nSwipe right on a rule to enable or disable this rule"
+          }
+        }
+      }
+    },
     "run_rule_on" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5767,6 +5767,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Suggestions will start to appear as you start typing"
+          }
+        }
+      }
+    },
+    "system_default" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System default"
           }
         }
       }

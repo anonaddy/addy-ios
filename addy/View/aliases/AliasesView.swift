@@ -43,7 +43,7 @@ struct AliasesView: View {
     @State private var sendToRecipients: String? = nil
     @State private var clients: [ThirdPartyMailClient] = []
     @State private var isPresentingEmailSelectionDialog: Bool = false
-
+    
     
     @Environment(\.scenePhase) var scenePhase
     
@@ -76,19 +76,56 @@ struct AliasesView: View {
                             
                             ForEach(aliasList.data) { alias in
                                 createAliasRow(alias: alias)
-                            }.onDelete(perform: deleteAlias)
+                                    .swipeActions {
+                                        Button(role: .destructive) {
+                                            if let index = aliasList.data.firstIndex(of: alias) {
+                                                if alias.deleted_at != nil {
+                                                    forgetAlias(at: IndexSet(integer: index))
+                                                } else {
+                                                    deleteAlias(at: IndexSet(integer: index))
+                                                }
+                                            }
+                                        } label: {
+                                            if alias.deleted_at != nil {
+                                                Text(String(localized: "forget"))
+                                            } else {
+                                                Text(String(localized: "delete"))
+                                            }
+                                            
+                                        }
+                                    }
+                            }
                             
                             
-//                            let columns = Array(repeating: GridItem(.flexible(), spacing: 20), count: 2)
-//                            LazyVGrid(columns: columns, spacing: 20) {
-//                                ForEach(aliasList.data) { alias in
-//                                    createAliasRow(alias: alias)
-//                                }.onDelete(perform: deleteAlias)
-//                            }
+                            //                            let columns = Array(repeating: GridItem(.flexible(), spacing: 20), count: 2)
+                            //                            LazyVGrid(columns: columns, spacing: 20) {
+                            //                                ForEach(aliasList.data) { alias in
+                            //                                    createAliasRow(alias: alias)
+                            //                                }.onDelete(perform: deleteAlias)
+                            //                            }
                         } else { // iPhone and smaller devices
                             ForEach(aliasList.data) { alias in
                                 createAliasRow(alias: alias)
-                            }.onDelete(perform: deleteAlias)
+                                    .swipeActions {
+                                        Button(role: .destructive) {
+                                            if let index = aliasList.data.firstIndex(of: alias) {
+                                                if alias.deleted_at != nil {
+                                                    forgetAlias(at: IndexSet(integer: index))
+                                                } else {
+                                                    deleteAlias(at: IndexSet(integer: index))
+                                                }
+                                            }
+                                        } label: {
+                                            if alias.deleted_at != nil {
+                                                Text(String(localized: "forget"))
+                                            } else {
+                                                Text(String(localized: "delete"))
+                                            }
+                                            
+                                        }
+                                    }
+                            }
+                            
                         }
                         
                     }header: {
@@ -270,9 +307,9 @@ struct AliasesView: View {
             .textInputAutocapitalization(.never)
             .navigationDestination(item: $mainViewState.aliasToDisable, destination: { aliasToDisable in
                 NavigationStack(){
-                AliasDetailView(aliasId: aliasToDisable, aliasEmail: nil, shouldReloadDataInParent: nil, shouldDisableAlias: true)
-                    .environmentObject(mainViewState)
-            }
+                    AliasDetailView(aliasId: aliasToDisable, aliasEmail: nil, shouldReloadDataInParent: nil, shouldDisableAlias: true)
+                        .environmentObject(mainViewState)
+                }
             })
             .navigationDestination(item: $mainViewState.showAliasWithId, destination: { showAliasWithId in
                 NavigationStack(){
@@ -554,7 +591,7 @@ struct AliasesView: View {
         aliasesViewModel.aliasSortFilterRequest.filter = self.aliasesViewModel.searchQuery
     }
     
-
+    
     
     private func onPressSend(client: ThirdPartyMailClient? = nil, sendToRecipients: String) {
         
@@ -562,7 +599,7 @@ struct AliasesView: View {
         // return if both are nil
         guard let alias = aliasToSendMailFrom ?? aliasToSendMailFromCopy else {return}
         
-
+        
         if client == nil {
             isPresentingEmailSelectionDialog = true
             self.sendToRecipients = sendToRecipients
@@ -621,23 +658,23 @@ struct AliasesView: View {
     }
     
     private func deleteAlias(alias: Aliases) async {
-            let networkHelper = NetworkHelper()
-            do {
-                let result = try await networkHelper.deleteAlias(aliasId: alias.id)
-                if result == "204" {
-                    await aliasesViewModel.getAliases(forceReload: true)
-                } else {
-                    activeAlert = .error
-                    showAlert = true
-                    errorAlertTitle = String(localized: "error_forgetting_alias")
-                    errorAlertMessage = result
-                }
-            } catch {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.deleteAlias(aliasId: alias.id)
+            if result == "204" {
+                await aliasesViewModel.getAliases(forceReload: true)
+            } else {
                 activeAlert = .error
                 showAlert = true
                 errorAlertTitle = String(localized: "error_forgetting_alias")
-                errorAlertMessage = error.localizedDescription
+                errorAlertMessage = result
             }
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_forgetting_alias")
+            errorAlertMessage = error.localizedDescription
+        }
         
         
     }
@@ -661,25 +698,37 @@ struct AliasesView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-    
-    
-    func deleteAlias(at offsets: IndexSet) {
+
+        
+        
+    private func deleteAlias(at offsets: IndexSet) {
         for index in offsets.sorted(by: >) {
+            
             if let aliases = aliasesViewModel.aliasList?.data {
                 let item = aliases[index]
                 aliasInContextMenu = item
-                                
-                if item.deleted_at != nil {
-                    // Alias already deleted, prompt user to forget alias
-                    activeAlert = .forgetAlias
-                } else {
-                    activeAlert = .deleteAlias
-                }
+                
+                activeAlert = .deleteAlias
                 showAlert = true
                 
                 // Remove from the collection for the smooth animation
                 aliasesViewModel.aliasList?.data.remove(atOffsets: offsets)
+            }
+        }
+    }
+    
+    private func forgetAlias(at offsets: IndexSet) {
+        for index in offsets.sorted(by: >) {
+            
+            if let aliases = aliasesViewModel.aliasList?.data {
+                let item = aliases[index]
+                aliasInContextMenu = item
                 
+                activeAlert = .forgetAlias
+                showAlert = true
+                
+                // Remove from the collection for the smooth animation
+                aliasesViewModel.aliasList?.data.remove(atOffsets: offsets)
             }
         }
     }

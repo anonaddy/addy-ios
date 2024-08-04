@@ -212,7 +212,7 @@ struct RulesView: View {
                             
                             
                             Text(String(format: String(localized: "you_ve_used_d_out_of_d_rules"),  String(rule_count), (mainViewState.userResource!.subscription != nil ? String(rule_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited"))))
-                            Text(String(localized: "hold_the_drag_handle_and_drag_to_change_order"))
+                            Text(String(localized: "rules_view_explanation")).padding(.top)
                         }.padding(.top)
                         
                     }

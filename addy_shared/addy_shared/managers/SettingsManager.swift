@@ -239,7 +239,6 @@ public class SettingsManager {
     public func clearSettingsAndCloseApp(){
         
         // Clear shortcuts
-        
         DispatchQueue.main.async {
             UIApplication.shared.shortcutItems = []
         }
