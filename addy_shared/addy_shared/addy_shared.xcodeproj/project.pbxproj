@@ -14,7 +14,6 @@
 		8047EA7B2C4565D600A04D28 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8047EA752C4565D600A04D28 /* README.md */; };
 		805459232C3989B30087A170 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 805459222C3989B30087A170 /* WrappingHStack */; };
 		8054592C2C3991C60087A170 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 8054592B2C3991C60087A170 /* Shimmer */; };
-		805F1FA52C3C041300469BCE /* addy-shared-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 805F1FA42C3C041300469BCE /* addy-shared-Info.plist */; };
 		806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806890952BFE7F7300CEB8C7 /* HapticHelper.swift */; };
 		806AE68F2C19EB9E00F3CA92 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 806AE68E2C19EB9E00F3CA92 /* FeedKit */; };
 		80813B732C0DF349009C4E6A /* FailedDeliveries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B722C0DF349009C4E6A /* FailedDeliveries.swift */; };
@@ -282,7 +281,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				805F1FA52C3C041300469BCE /* addy-shared-Info.plist in Resources */,
 				8042E08C2C331DD8001E8366 /* Localizable.xcstrings in Resources */,
 				8047EA7B2C4565D600A04D28 /* README.md in Resources */,
 				80E849B52BEBA9C900C8D68A /* Assets.xcassets in Resources */,
@@ -466,7 +464,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -491,6 +489,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -505,7 +504,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -529,6 +528,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

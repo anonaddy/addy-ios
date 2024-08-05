@@ -38,7 +38,7 @@ struct SetupOnboarding: View {
                 }
                 
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(LinearGradient(gradient: Gradient(colors: [Color("SecondaryColor"), Color("AccentColor")]),
+                .background(LinearGradient(gradient: Gradient(colors: [Color("AddySecondaryColor"), Color("AccentColor")]),
                                            startPoint: .top, endPoint: .bottom))
                 .edgesIgnoringSafeArea(.all)
                 .navigationTitle(String(localized: "getting_started"))

@@ -146,7 +146,7 @@ struct HomeView: View {
                 }
                 
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(LinearGradient(gradient: Gradient(colors: [Color("SecondaryColor"), Color("AccentColor")]),
+                .background(LinearGradient(gradient: Gradient(colors: [Color("AddySecondaryColor"), Color("AccentColor")]),
                                            startPoint: .top, endPoint: .bottom))
                 .navigationTitle(String(localized: "home"))
                 .toolbar {

@@ -20,15 +20,21 @@ public struct BarChartCell: View {
 
     public var body: some View {
         BarChartCellShape(value: didCellAppear ? value : 0.0)
-        .fill(gradientColor.linearGradient(from: .bottom, to: .top))        .onAppear {
-            self.didCellAppear = true
+        .fill(gradientColor.linearGradient(from: .bottom, to: .top))
+        .onAppear {
+            withAnimation {
+                self.didCellAppear = true
+            }
         }
         .onDisappear {
-            self.didCellAppear = false
+            withAnimation {
+                self.didCellAppear = false
+            }
         }
         .transition(.slide)
-        .animation(Animation.spring().delay(self.touchLocation < 0 || !didCellAppear ? Double(self.index) * 0.04 : 0))
+        .animation(Animation.spring().delay(self.touchLocation < 0 || !didCellAppear ? Double(self.index) * 0.04 : 0), value: self.didCellAppear)
     }
+
 }
 
 struct BarChartCell_Previews: PreviewProvider {

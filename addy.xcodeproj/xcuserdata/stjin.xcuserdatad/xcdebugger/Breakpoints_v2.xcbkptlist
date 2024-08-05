@@ -1454,8 +1454,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3375"
-            endingLineNumber = "3375"
+            startingLineNumber = "3376"
+            endingLineNumber = "3376"
             landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1470,8 +1470,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3377"
-            endingLineNumber = "3377"
+            startingLineNumber = "3378"
+            endingLineNumber = "3378"
             landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1486,8 +1486,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3423"
-            endingLineNumber = "3423"
+            startingLineNumber = "3424"
+            endingLineNumber = "3424"
             landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1496,22 +1496,6 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A4C8BC6F-DBEF-4231-A2B3-0C2B0BD16FE6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3433"
-            endingLineNumber = "3433"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "954C8770-4128-4A0F-A5CD-C701CA9CFE2D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1527,39 +1511,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E968EEBC-0B8B-43FD-8783-6DFD05AB3E47"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3437"
-            endingLineNumber = "3437"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D0E33637-1687-456D-A9E5-D8A727A1EF0C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3436"
-            endingLineNumber = "3436"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D7198885-8DF1-4E6F-9CB2-D70031BA5D08"
+            uuid = "954C8770-4128-4A0F-A5CD-C701CA9CFE2D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1575,7 +1527,71 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "E968EEBC-0B8B-43FD-8783-6DFD05AB3E47"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3438"
+            endingLineNumber = "3438"
+            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D0E33637-1687-456D-A9E5-D8A727A1EF0C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3437"
+            endingLineNumber = "3437"
+            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D7198885-8DF1-4E6F-9CB2-D70031BA5D08"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3436"
+            endingLineNumber = "3436"
+            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "EA6D88D9-0AAC-4F30-81AE-44018335D56D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3421"
+            endingLineNumber = "3421"
+            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A336ED06-64F4-4A55-A8FE-10F70E4E02B1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1591,22 +1607,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A336ED06-64F4-4A55-A8FE-10F70E4E02B1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3419"
-            endingLineNumber = "3419"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "6CDA5DA5-F1A9-49C4-B085-040095C5CF00"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1614,8 +1614,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3417"
-            endingLineNumber = "3417"
+            startingLineNumber = "3418"
+            endingLineNumber = "3418"
             landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2366,22 +2366,6 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "443"
-            endingLineNumber = "443"
-            landmarkName = "getDomainOptions()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6AC83AD8-0B10-41F8-9720-390FCA7861F6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "444"
             endingLineNumber = "444"
             landmarkName = "getDomainOptions()"
@@ -2391,7 +2375,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B1C9D796-E0A1-4C28-A773-F620083D55ED"
+            uuid = "6AC83AD8-0B10-41F8-9720-390FCA7861F6"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -2407,6 +2391,22 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "B1C9D796-E0A1-4C28-A773-F620083D55ED"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "446"
+            endingLineNumber = "446"
+            landmarkName = "getDomainOptions()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "F367DAE2-B1BA-41DF-ADC1-D8BD7FB329DA"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -2414,8 +2414,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "getHeaders(apiKey:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2430,8 +2430,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "getHeaders(apiKey:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4174,8 +4174,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3568"
-            endingLineNumber = "3568"
+            startingLineNumber = "3569"
+            endingLineNumber = "3569"
             landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4184,6 +4184,22 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "EA4C3ACC-0223-43C5-AAE5-92067A058ED0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3567"
+            endingLineNumber = "3567"
+            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2302AF87-9CE8-42CA-84B0-822671328DCE"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -4199,22 +4215,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2302AF87-9CE8-42CA-84B0-822671328DCE"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3565"
-            endingLineNumber = "3565"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "83584B7D-FFF3-4FA3-9F5A-88FF8E45B80C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -4222,8 +4222,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3563"
-            endingLineNumber = "3563"
+            startingLineNumber = "3564"
+            endingLineNumber = "3564"
             landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4254,10 +4254,8 @@
             filePath = "ShareExtension/ShareViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "openAliasInApp(url:)"
-            landmarkType = "7">
+            startingLineNumber = "177"
+            endingLineNumber = "177">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4590,8 +4588,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3567"
-            endingLineNumber = "3567"
+            startingLineNumber = "3568"
+            endingLineNumber = "3568"
             landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5102,6 +5100,22 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3403"
+            endingLineNumber = "3403"
+            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C8577EE3-6CE6-408C-9B82-2B7F4C0DDBB1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3402"
             endingLineNumber = "3402"
             landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
@@ -5111,7 +5125,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C8577EE3-6CE6-408C-9B82-2B7F4C0DDBB1"
+            uuid = "827E0EC4-0A79-4E85-8AA2-114F62219CE2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -5127,22 +5141,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "827E0EC4-0A79-4E85-8AA2-114F62219CE2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3400"
-            endingLineNumber = "3400"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "C106250A-319C-4442-925B-56F0CCDFCC67"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -5150,8 +5148,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3393"
-            endingLineNumber = "3393"
+            startingLineNumber = "3394"
+            endingLineNumber = "3394"
             landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5166,8 +5164,8 @@
             filePath = "addy_shared/addy_shared/helpers/NetworkHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3389"
-            endingLineNumber = "3389"
+            startingLineNumber = "3390"
+            endingLineNumber = "3390"
             landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
             landmarkType = "7">
          </BreakpointContent>
