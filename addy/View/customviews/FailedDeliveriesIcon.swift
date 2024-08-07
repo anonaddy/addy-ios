@@ -15,6 +15,7 @@ struct FailedDeliveriesIcon: View {
 #if DEBUG
         let _ = Self._printChanges()
 #endif
+        if horizontalSize == .compact {
         Button {
             withAnimation {
                 mainViewState.newFailedDeliveries = 0
@@ -39,5 +40,6 @@ struct FailedDeliveriesIcon: View {
             .allowsHitTesting(false)
             .offset(x: 10, y: -10)
         )
+    }
     }
 }

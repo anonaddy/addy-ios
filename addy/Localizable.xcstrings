@@ -5595,6 +5595,9 @@
         }
       }
     },
+    "start animation" : {
+
+    },
     "start_typing_to_show_aliases" : {
       "extractionState" : "manual",
       "localizations" : {
