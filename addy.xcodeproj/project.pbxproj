@@ -131,6 +131,7 @@
 		807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		807433622C4C3F0E007DF9F5 /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBB82C3C4C0A009977B6 /* Apply.swift */; };
 		807515102C26C69E00DE2AC7 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */; };
+		8078485E2C77822400194B1A /* Shiny in Frameworks */ = {isa = PBXBuildFile; productRef = 8078485D2C77822400194B1A /* Shiny */; };
 		807DB4832C1764620051DD8A /* AppearanceBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */; };
 		807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */; };
 		80813B622C0DE1DA009C4E6A /* DomainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B612C0DE1DA009C4E6A /* DomainsView.swift */; };
@@ -481,6 +482,7 @@
 				80E0827B2BF7F03C00B51FB8 /* WrappingHStack in Frameworks */,
 				8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */,
 				8001DA012BEA516000AAD10E /* addy_shared.framework in Frameworks */,
+				8078485E2C77822400194B1A /* Shiny in Frameworks */,
 				801B92A22BE905BB00179EB5 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1218,6 +1220,7 @@
 				801B92A12BE905BB00179EB5 /* Lottie */,
 				8001D9D12BEA1E3600AAD10E /* CodeScanner */,
 				80E0827A2BF7F03C00B51FB8 /* WrappingHStack */,
+				8078485D2C77822400194B1A /* Shiny */,
 			);
 			productName = addy;
 			productReference = 806F212F2BE8F1B100EBEBC8 /* addy.app */;
@@ -1263,6 +1266,7 @@
 				801B92A02BE905BB00179EB5 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				8001D9D02BEA1E3600AAD10E /* XCRemoteSwiftPackageReference "CodeScanner" */,
 				80E082792BF7F03C00B51FB8 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+				8078485C2C7781FE00194B1A /* XCRemoteSwiftPackageReference "shiny" */,
 			);
 			productRefGroup = 806F21302BE8F1B100EBEBC8 /* Products */;
 			projectDirPath = "";
@@ -2026,6 +2030,14 @@
 				minimumVersion = 4.4.3;
 			};
 		};
+		8078485C2C7781FE00194B1A /* XCRemoteSwiftPackageReference "shiny" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maustinstar/shiny";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		80E082792BF7F03C00B51FB8 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ksemianov/WrappingHStack";
@@ -2046,6 +2058,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 801B92A02BE905BB00179EB5 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		8078485D2C77822400194B1A /* Shiny */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8078485C2C7781FE00194B1A /* XCRemoteSwiftPackageReference "shiny" */;
+			productName = Shiny;
 		};
 		80B2FBBB2C3C4C4E009977B6 /* WrappingHStack */ = {
 			isa = XCSwiftPackageProductDependency;

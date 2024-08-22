@@ -10,6 +10,7 @@ import SwiftUI
 import AVFoundation
 import CodeScanner
 import addy_shared
+import Shiny
 
 struct ProfileBottomSheet: View {
     @Binding var isPresentingProfileBottomSheet: Bool
@@ -22,16 +23,16 @@ struct ProfileBottomSheet: View {
     @State var isShowingAppSettingsView = false
     
     let onNavigate: (Destination) -> Void
-
+    
     init(onNavigate: @escaping (Destination) -> Void, isPresentingProfileBottomSheet: Binding<Bool>, horizontalSize: UserInterfaceSizeClass?) {
         self.onNavigate = onNavigate
         self._isPresentingProfileBottomSheet = isPresentingProfileBottomSheet
         self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact // In case horizontalSize cannot be determined, go with the compact mode (iPhone)
     }
-
+    
     @Environment(\.dismiss) var dismiss
     @Environment(\.openURL) var openURL
-
+    
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -58,6 +59,14 @@ struct ProfileBottomSheet: View {
                             Text(String(format: String(localized: "subscription_user"), mainViewState.userResource!.subscription!))
                                 .font(.subheadline)
                                 .opacity(0.6)
+                                .apply {
+                                    if !(mainViewState.userResource?.hasUserFreeSubscription())! {
+                                        $0.shiny()
+                                    } else {
+                                        $0
+                                    }
+                                }
+                            
                             
                             if (mainViewState.userResource!.subscription_ends_at != nil) {
                                 Text(getSubscriptionUntilText())
@@ -67,11 +76,11 @@ struct ProfileBottomSheet: View {
                                     .multilineTextAlignment(.center)
                             }
                         }
-
+                        
                         
                         AddyButton(action: {
                             openURL(URL(string: "\(AddyIo.API_BASE_URL)/settings")!)
-
+                            
                         }, style: AddyButtonStyle(backgroundColor: Color(.accent).opacity(0.5))) {
                             Text(String(localized: "addyio_settings")).foregroundColor(Color.white)
                         }.padding(.top).buttonStyle(PlainButtonStyle())
@@ -79,7 +88,7 @@ struct ProfileBottomSheet: View {
                 }.listRowBackground(Color.clear)
                 
                 Section{
-                                        
+                    
                     AddySection(title: String(localized: "manage_domains"), description: String(localized: "manage_domains_desc"), trailingSystemimage: "chevron.right") {
                         
                         if horizontalSize == .regular {
@@ -89,7 +98,7 @@ struct ProfileBottomSheet: View {
                         }
                         
                     }
-
+                    
                     AddySection(title: String(localized: "manage_rules"), description: String(localized: "manage_rules_desc"), trailingSystemimage: "chevron.right") {
                         if horizontalSize == .regular {
                             self.onNavigate(Destination.rules)
@@ -97,7 +106,7 @@ struct ProfileBottomSheet: View {
                             self.isShowingRulesView = true
                         }
                     }
-
+                    
                     AddySection(title: String(localized: "manage_usernames"), description: String(localized: "manage_usernames_desc"), trailingSystemimage: "chevron.right") {
                         if horizontalSize == .regular {
                             self.onNavigate(Destination.usernames)
@@ -113,7 +122,7 @@ struct ProfileBottomSheet: View {
                             self.isShowingAppSettingsView = true
                         }
                     }
-
+                    
                     
                 } footer: {
                     VStack {
@@ -142,38 +151,38 @@ struct ProfileBottomSheet: View {
             .navigationTitle(String(localized: "addyio_account"))
             .navigationDestination(isPresented: $isShowingDomainsView) {
                 DomainsView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                    }
+            }
             .navigationDestination(isPresented: $isShowingRulesView) {
-                    RulesView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                    }
+                RulesView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+            }
             .navigationDestination(isPresented: $isShowingUsernamesView) {
                 UsernamesView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                    }
+            }
             .navigationDestination(isPresented: $isShowingAppSettingsView) {
                 AppSettingsView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                    }
+            }
             .listSectionSpacing(.compact)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar(content: {
-                    ToolbarItem() {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
-                        }
-                        
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem() {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
                     }
-                })
+                    
+                }
+            })
         }.onAppear {
             checkForAnyInteractiveActions()
         }
-            
-        }
+        
+    }
     
     
     private func getAppVersionSectionDescription() ->String {
         let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
-
+        
         if mainViewState.permissionsRequired {
             return String(localized: "permissions_required")
         } else if mainViewState.updateAvailable {
@@ -210,11 +219,11 @@ struct ProfileBottomSheet: View {
     
     
     private func getSubscriptionUntilText() ->String {
-            return String(format: String(localized: "subscription_user_until"), DateTimeUtils.turnStringIntoLocalString(
-                mainViewState.userResource!.subscription_ends_at,
-                dateTimeFormat: DateTimeUtils.DateTimeFormat.date)
-                          )
-    
+        return String(format: String(localized: "subscription_user_until"), DateTimeUtils.turnStringIntoLocalString(
+            mainViewState.userResource!.subscription_ends_at,
+            dateTimeFormat: DateTimeUtils.DateTimeFormat.date)
+        )
+        
     }
 }
 

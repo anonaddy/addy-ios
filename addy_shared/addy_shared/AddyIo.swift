@@ -13,10 +13,10 @@ public struct AddyIo {
     // The versioncode is a combination of MAJOR MINOR PATCH
     //TODO: Update on every release
 
-    // 1.2.2
+    // 1.2.3
     public static let MINIMUMVERSIONCODEMAJOR = 1
     public static let MINIMUMVERSIONCODEMINOR = 2
-    public static let MINIMUMVERSIONCODEPATCH = 2
+    public static let MINIMUMVERSIONCODEPATCH = 3
 
     public static var VERSIONMAJOR = 0
     public static var VERSIONMINOR = 0
@@ -53,4 +53,8 @@ public struct AddyIo {
 
     // Github built-in updater
     static let GITHUB_TAGS_RSS_FEED = "https://github.com/anonaddy/addy-ios/releases.atom"
+    
+    
+    // Hosted only
+    static var API_URL_ACCOUNT_NOTIFICATIONS: String { "\(API_BASE_URL)/api/v1/account-notifications" }
 }

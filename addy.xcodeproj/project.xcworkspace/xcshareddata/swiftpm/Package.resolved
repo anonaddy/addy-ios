@@ -1,5 +1,5 @@
 {
-  "originHash" : "d39dd9e62dac7bff9130012105aa3cfb9dc9091f6f102cef54fc25a9ba5958cf",
+  "originHash" : "79eda6a107e54669a3ea8fc1e8462d1cd4213b564e80a80654da0450dbb228b9",
   "pins" : [
     {
       "identity" : "codescanner",
@@ -26,6 +26,15 @@
       "state" : {
         "revision" : "1d29eccc24cc8b75bff9f6804155112c0ffc9605",
         "version" : "4.4.3"
+      }
+    },
+    {
+      "identity" : "shiny",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/maustinstar/shiny",
+      "state" : {
+        "branch" : "master",
+        "revision" : "862360b8ab6b9ea9eb1156569a30f154b22625a5"
       }
     },
     {

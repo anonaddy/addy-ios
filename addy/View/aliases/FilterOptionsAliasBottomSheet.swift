@@ -38,6 +38,7 @@ struct FilterOptionsAliasBottomSheet: View {
         AddyChipModel(chipId: "last_blocked",label: String(localized: "sort_last_blocked")),
         AddyChipModel(chipId: "last_replied",label: String(localized: "sort_last_replied")),
         AddyChipModel(chipId: "last_sent",label: String(localized: "sort_last_sent")),
+        AddyChipModel(chipId: "last_used",label: String(localized: "sort_last_used")),
         AddyChipModel(chipId: "active",label: String(localized: "sort_active")),
         AddyChipModel(chipId: "created_at",label: String(localized: "sort_created_at")),
         AddyChipModel(chipId: "updated_at",label: String(localized: "sort_updated_at")),

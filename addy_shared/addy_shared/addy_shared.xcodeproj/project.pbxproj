@@ -16,6 +16,7 @@
 		8054592C2C3991C60087A170 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 8054592B2C3991C60087A170 /* Shimmer */; };
 		806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806890952BFE7F7300CEB8C7 /* HapticHelper.swift */; };
 		806AE68F2C19EB9E00F3CA92 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 806AE68E2C19EB9E00F3CA92 /* FeedKit */; };
+		807848612C7786B000194B1A /* AccountNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807848602C7786B000194B1A /* AccountNotifications.swift */; };
 		80813B732C0DF349009C4E6A /* FailedDeliveries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B722C0DF349009C4E6A /* FailedDeliveries.swift */; };
 		80958FE92C4AE81F00833EB7 /* GsonTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80958FE82C4AE81F00833EB7 /* GsonTools.swift */; };
 		80958FEB2C4AE91200833EB7 /* CacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80958FEA2C4AE91200833EB7 /* CacheHelper.swift */; };
@@ -65,6 +66,7 @@
 		8047EA772C4565D600A04D28 /* ThirdPartyMailer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyMailer.swift; sourceTree = "<group>"; };
 		805F1FA42C3C041300469BCE /* addy-shared-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "addy-shared-Info.plist"; sourceTree = "<group>"; };
 		806890952BFE7F7300CEB8C7 /* HapticHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticHelper.swift; sourceTree = "<group>"; };
+		807848602C7786B000194B1A /* AccountNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotifications.swift; sourceTree = "<group>"; };
 		80813B722C0DF349009C4E6A /* FailedDeliveries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedDeliveries.swift; sourceTree = "<group>"; };
 		80958FE82C4AE81F00833EB7 /* GsonTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GsonTools.swift; sourceTree = "<group>"; };
 		80958FEA2C4AE91200833EB7 /* CacheHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheHelper.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				80E9B2312C0B646400C7EF99 /* Usernames.swift */,
 				80B4F4CD2BEA598A0009E4CA /* UserResource.swift */,
 				80B4F4D12BEA5DCE0009E4CA /* Version.swift */,
+				807848602C7786B000194B1A /* AccountNotifications.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				80E849A62BEB93F900C8D68A /* Error.swift in Sources */,
 				80B4F4BC2BEA531A0009E4CA /* NetworkHelper.swift in Sources */,
 				80B4F4D02BEA5BE60009E4CA /* UserAgent.swift in Sources */,
+				807848612C7786B000194B1A /* AccountNotifications.swift in Sources */,
 				80477DE22C12232C00E52AF8 /* Rules.swift in Sources */,
 				80B4F4CE2BEA598A0009E4CA /* UserResource.swift in Sources */,
 				80ECA1042C1DCB5E00788D75 /* ApiTokenDetails.swift in Sources */,

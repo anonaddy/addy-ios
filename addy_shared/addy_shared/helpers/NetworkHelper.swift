@@ -3645,4 +3645,51 @@ public class NetworkHelper {
     }
     
     
+    public func getAllAccountNotifications() async throws -> AccountNotificationsArray? {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        let url = URL(string: AddyIo.API_URL_ACCOUNT_NOTIFICATIONS)!
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "getAllAccountNotifications",
+                extra: error.failureURLString)
+            throw error
+        }
+        
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(AccountNotificationsArray.self, from: data)
+            return addyIoData
+        case 401:
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
+            
+            self.createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired)
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "getAllAccountNotifications",
+                extra: ErrorHelper.getErrorMessage(data: data))
+            throw URLError(.badServerResponse)
+        }
+    }
+    
+    
 }

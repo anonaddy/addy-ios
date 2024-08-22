@@ -39,7 +39,7 @@ struct PlayGround: View {
         "CO.MI.NG0T",
         "O0.YO.UR0I",
         "PH.ON.E0NE",
-        "XT.0M.ONTH",
+        "XT.0W.EEK0",
         "15.09.2024"]
     
     @State private var animationTitleTextArray2 = [
@@ -73,7 +73,6 @@ struct PlayGround: View {
         "XT.0M.ONTH",
         "15.09.2024"]
     @State private var animationTitleText1Bold = false
-    @State private var showAnimationImage1 = false
     @State private var animationTitleText1Size = 36
     @State private var isBlurred = false
     @State private var isFaded = false
@@ -81,8 +80,6 @@ struct PlayGround: View {
     var animationViewFlavor1: some View {
         
         Group {
-            
-            
             
             Text(animationTitleText1)
                 .font(.system(size: CGFloat(animationTitleText1Size)))
@@ -121,7 +118,7 @@ struct PlayGround: View {
                     for text in animationTitleTextArray1 {
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + textArrayDelayTime) {
-                            withAnimation(.default.speed(0.6)) {
+                            withAnimation(.default.speed(0.65)) {
                                 
                                 isBlurred = false
                                 isFaded = false
@@ -132,33 +129,25 @@ struct PlayGround: View {
                         }
                         
 
-                        textArrayDelayTime += 0.2
+                        textArrayDelayTime += 0.35
                     }
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
-                        withAnimation {
-                            showAnimationImage1 = true
-                        }
-                    }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 9.0) {
-                        withAnimation {
+                        withAnimation(.default.speed(0.65)) {
                             isMonoSpaced = false
                             animationTitleText1 = "ready?"
                         }
                     }
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 9.9) {
-                        withAnimation {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 11.0) {
+                        withAnimation(.default.speed(0.65)) {
                             animationTitleText1 = "15.09.2024"
                         }
                     }
                 }
             
-                Image("collaboration_logo").resizable().scaledToFit().frame(maxWidth: 350, alignment: .center)
-                    .blur(radius: showAnimationImage1 ? 0 : 10)
-                    .opacity(showAnimationImage1 ? 1 : 0)
-            
+ 
 
             
             
@@ -271,19 +260,7 @@ struct PlayGround: View {
                         print("All animations are done!")
                     }
                 }
-                
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
-                    withAnimation {
-                        showAnimationImage1 = true
-                    }
-                }
             }
-            
-            
-            
-                            Image("collaboration_logo").resizable().scaledToFit().frame(maxWidth: 350, alignment: .center)
-            
             
         }
         

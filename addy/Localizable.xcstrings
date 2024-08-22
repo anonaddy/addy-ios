@@ -5562,6 +5562,17 @@
         }
       }
     },
+    "sort_last_used" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last used"
+          }
+        }
+      }
+    },
     "sort_localpart" : {
       "extractionState" : "manual",
       "localizations" : {
