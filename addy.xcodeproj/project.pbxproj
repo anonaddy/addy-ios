@@ -2034,8 +2034,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maustinstar/shiny";
 			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 1.0.0;
+				kind = exactVersion;
+				version = 0.0.1;
 			};
 		};
 		80E082792BF7F03C00B51FB8 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {

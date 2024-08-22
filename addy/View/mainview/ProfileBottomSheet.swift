@@ -57,7 +57,7 @@ struct ProfileBottomSheet: View {
                         
                         if (mainViewState.userResource!.subscription != nil){
                             Text(String(format: String(localized: "subscription_user"), mainViewState.userResource!.subscription!))
-                                .font(.subheadline)
+                                .font(.headline)
                                 .opacity(0.6)
                                 .apply {
                                     if !(mainViewState.userResource?.hasUserFreeSubscription())! {

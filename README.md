@@ -16,7 +16,7 @@ Easily create and manage your addy.io aliases, recipients and more from your pho
 
 > addy.io
 
-- addy.io instance running v1.2.2 or higher (current version of the addy.io app has been tested with v1.2.2)
+- addy.io instance running v1.2.3 or higher (current version of the addy.io app has been tested with v1.2.3)
 
 > iOS and iPadOS
 
@@ -87,6 +87,7 @@ Third party libraries used:
 - [FeedKit](https://github.com/nmdias/FeedKit.git)
 - [SwiftUI-Shimmer](https://github.com/markiv/SwiftUI-Shimmer)
 - [ThirdPartyMailer](https://github.com/vtourraine/ThirdPartyMailer) (locally, modified it to fit my needs)
+- [Shiny](https://github.com/maustinstar/shiny)
 
 ## Feedback and contribution
 
