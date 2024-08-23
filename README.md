@@ -8,7 +8,7 @@ Easily create and manage your addy.io aliases, recipients and more from your pho
 </p>
 
 <p align="center">
-<a href='https://apps.apple.com/app/addy-io/id6563138633'><img alt='Download on the APp Store' src='static/app-store.svg'  height="80"/></a>
+<a href='https://apps.apple.com/app/addy-io/id6563138633'><img alt='Download on the App Store' src='static/app-store.svg'  height="80"/></a>
 </a>
 </p>
 
