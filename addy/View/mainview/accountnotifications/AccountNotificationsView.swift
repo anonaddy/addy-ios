@@ -170,19 +170,13 @@ struct AccountNotificationsView: View {
                     
                 }
             })
-            .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
+            .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(String(localized: "account_notifications"))
             .toolbar {
-                if horizontalSize == .regular {
-                                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                                AccountNotificationsIcon().environmentObject(mainViewState)
-                                ProfilePicture().environmentObject(mainViewState)
-                } else {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
-                    }
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
                 }
             }
             

@@ -31,6 +31,12 @@ struct AccountNotificationBottomSheet: View {
                 let formattedString = String.localizedStringWithFormat(accountNotification.textAsMarkdown())
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)
+            } footer: {
+                Text(DateTimeUtils.turnStringIntoLocalString(accountNotification.created_at))
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
+                    .italic()
+                    .padding(.bottom, 4)
             }
             
             Section {

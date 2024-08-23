@@ -11,7 +11,7 @@ import addy_shared
 import UserNotifications
 import WidgetKit
 
-class BackgroundWorker: Operation {
+class BackgroundWorker: Operation, @unchecked Sendable {
     
     override func main() {
         if isCancelled {
