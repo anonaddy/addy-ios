@@ -25,12 +25,16 @@ struct AppSettingsFeaturesView: View {
                     AddySection(title: String(localized: "feature_notify_failed_deliveries"), description: String(localized: "notify_failed_deliveries_feature_section_desc"), leadingSystemimage: "exclamationmark.triangle.fill", leadingSystemimageColor: .orange)
                 }
                 
+                NavigationLink(destination: AppSettingsFeaturesNotifyAccountNotificationsView()){
+                    AddySection(title: String(localized: "feature_notify_account_notifications"), description: String(localized: "notify_account_notifications_feature_section_desc"), leadingSystemimage: "bell.badge.fill", leadingSystemimageColor: .red)
+                }
+                
                 NavigationLink(destination: AppSettingsFeaturesNotifyApiTokenExpiryView()){
                     AddySection(title: String(localized: "feature_api_token_expiry_notification"), description: String(localized: "notify_api_token_expiry_feature_section_desc"), leadingSystemimage: "textformat", leadingSystemimageColor: .cyan)
                 }
                 
                 NavigationLink(destination: AppSettingsFeaturesNotifyDomainErrorView()){
-                    AddySection(title: String(localized: "feature_domain_error_notification"), description: String(localized: "notify_domain_error_feature_section_desc"), leadingSystemimage: "exclamationmark.icloud.fill", leadingSystemimageColor: .red)
+                    AddySection(title: String(localized: "feature_domain_error_notification"), description: String(localized: "notify_domain_error_feature_section_desc"), leadingSystemimage: "exclamationmark.icloud.fill", leadingSystemimageColor: .yellow)
                 }
                NavigationLink(destination: AppSettingsFeaturesNotifySubscriptionExpiryView()){
                    AddySection(title: String(localized: "feature_subscription_expiry_notification"), description: String(localized: "feature_subscription_expiry_notification_desc"), leadingSystemimage: "creditcard.fill", leadingSystemimageColor: .green)

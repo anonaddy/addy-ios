@@ -150,8 +150,9 @@ struct HomeView: View {
                                            startPoint: .top, endPoint: .bottom))
                 .navigationTitle(String(localized: "home"))
                 .toolbar {
-                    ProfilePicture().environmentObject(mainViewState)
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    AccountNotificationsIcon().environmentObject(mainViewState)
+                    ProfilePicture().environmentObject(mainViewState)
                 }
         }.refreshable {
             // When refreshing aliases also ask the mainView to update general data

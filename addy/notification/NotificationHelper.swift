@@ -199,4 +199,27 @@ class NotificationHelper{
         UNUserNotificationCenter.current().add(request)
         
     }
+    
+    func createAccountNotification(difference: Int){
+        let content = UNMutableNotificationContent()
+        content.title = String(localized: "notification_new_account_notifications")
+        content.subtitle = String(format: String(localized: "notification_new_account_notifications_desc"), String(difference))
+        content.sound = .default
+
+        let action1 = UNNotificationAction(identifier: notificationActions.stopAccountNotificationsCheck, title: String(localized: "stop_checking"), options: [])
+        let category = UNNotificationCategory(identifier: notificationActions.openAccountNotifications, actions: [action1], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        content.categoryIdentifier = notificationActions.openAccountNotifications
+
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: notificationActions.openAccountNotifications, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+        
+    }
 }

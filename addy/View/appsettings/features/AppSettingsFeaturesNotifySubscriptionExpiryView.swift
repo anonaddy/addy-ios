@@ -84,7 +84,7 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
     
     private func checkSubscriptionExpiry() async {
         // Only hosted instance will have subscriptions
-        if (AddyIo.VERSIONMAJOR == 9999) {
+        if (AddyIo.isUsingHostedInstance()) {
             do {
                 let userResource = try await NetworkHelper().getUserResource()
                 setSubscriptionInfoText(user: userResource)

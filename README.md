@@ -88,6 +88,7 @@ Third party libraries used:
 - [SwiftUI-Shimmer](https://github.com/markiv/SwiftUI-Shimmer)
 - [ThirdPartyMailer](https://github.com/vtourraine/ThirdPartyMailer) (locally, modified it to fit my needs)
 - [Shiny](https://github.com/maustinstar/shiny)
+- [SwiftHTMLToMarkdown](https://github.com/ActuallyTaylor/SwiftHTMLToMarkdown)
 
 ## Feedback and contribution
 

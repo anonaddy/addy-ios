@@ -129,6 +129,11 @@
 		806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F21382BE8F1B200EBEBC8 /* Assets.xcassets */; };
 		806F213C2BE8F1B200EBEBC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */; };
 		807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8073C9412C78717600DE3640 /* AccountNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8073C9402C78717600DE3640 /* AccountNotificationsView.swift */; };
+		8073C9432C78718100DE3640 /* AccountNotificationBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8073C9422C78718100DE3640 /* AccountNotificationBottomSheet.swift */; };
+		8073C9472C78727E00DE3640 /* AccountNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8073C9462C78727E00DE3640 /* AccountNotificationsViewModel.swift */; };
+		8073C9492C7878CA00DE3640 /* AccountNotificationsIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8073C9482C7878CA00DE3640 /* AccountNotificationsIcon.swift */; };
+		8073C9512C78893000DE3640 /* AppSettingsFeaturesNotifyAccountNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8073C9502C78893000DE3640 /* AppSettingsFeaturesNotifyAccountNotificationsView.swift */; };
 		807433622C4C3F0E007DF9F5 /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBB82C3C4C0A009977B6 /* Apply.swift */; };
 		807515102C26C69E00DE2AC7 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */; };
 		8078485E2C77822400194B1A /* Shiny in Frameworks */ = {isa = PBXBuildFile; productRef = 8078485D2C77822400194B1A /* Shiny */; };
@@ -363,6 +368,11 @@
 		806F21342BE8F1B100EBEBC8 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		806F21382BE8F1B200EBEBC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8073C9402C78717600DE3640 /* AccountNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotificationsView.swift; sourceTree = "<group>"; };
+		8073C9422C78718100DE3640 /* AccountNotificationBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotificationBottomSheet.swift; sourceTree = "<group>"; };
+		8073C9462C78727E00DE3640 /* AccountNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotificationsViewModel.swift; sourceTree = "<group>"; };
+		8073C9482C7878CA00DE3640 /* AccountNotificationsIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotificationsIcon.swift; sourceTree = "<group>"; };
+		8073C9502C78893000DE3640 /* AppSettingsFeaturesNotifyAccountNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyAccountNotificationsView.swift; sourceTree = "<group>"; };
 		8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		807DB4822C1764620051DD8A /* AppearanceBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceBottomSheet.swift; sourceTree = "<group>"; };
 		807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipientBottomSheet.swift; sourceTree = "<group>"; };
@@ -759,6 +769,7 @@
 		806AE69D2C1A1A1600F3CA92 /* features */ = {
 			isa = PBXGroup;
 			children = (
+				8073C9502C78893000DE3640 /* AppSettingsFeaturesNotifyAccountNotificationsView.swift */,
 				805A74542C1F5FC100C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift */,
 				805A74522C1F5C1500C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift */,
 				809AB1C72C1F10F80054AD3A /* AppSettingsFeaturesNotifyFailedDeliveriesView.swift */,
@@ -785,6 +796,7 @@
 		806D5F2B2BE94C3F00C5C109 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				8073C9482C7878CA00DE3640 /* AccountNotificationsIcon.swift */,
 				8047EA6C2C454F1B00A04D28 /* HomeCardView.swift */,
 				80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */,
 				80B2FB762C3C4331009977B6 /* ToastOverlay.swift */,
@@ -880,6 +892,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		8073C93F2C78716900DE3640 /* accountnotifications */ = {
+			isa = PBXGroup;
+			children = (
+				8073C9422C78718100DE3640 /* AccountNotificationBottomSheet.swift */,
+				8073C9402C78717600DE3640 /* AccountNotificationsView.swift */,
+			);
+			path = accountnotifications;
+			sourceTree = "<group>";
+		};
 		80813B6F2C0DF288009C4E6A /* faileddeliveries */ = {
 			isa = PBXGroup;
 			children = (
@@ -909,6 +930,7 @@
 		80A7F2012BECD7D3001A984B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				8073C9462C78727E00DE3640 /* AccountNotificationsViewModel.swift */,
 				80DB9DB22C0DC7F2002B6486 /* DomainsViewModel.swift */,
 				80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */,
 				80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */,
@@ -1077,6 +1099,7 @@
 		80E849992BEB73CE00C8D68A /* mainview */ = {
 			isa = PBXGroup;
 			children = (
+				8073C93F2C78716900DE3640 /* accountnotifications */,
 				805535632C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift */,
 				805535572C4BE8A100886256 /* MainViewState.swift */,
 				80E8499A2BEB73D900C8D68A /* MainView.swift */,
@@ -1435,6 +1458,8 @@
 				805D66A02C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift in Sources */,
 				80F3C6642BFB6E6D0028A486 /* AddAliasBottomSheet.swift in Sources */,
 				80DCF3AA2BF12DF00022690F /* NotificationHelper.swift in Sources */,
+				8073C9472C78727E00DE3640 /* AccountNotificationsViewModel.swift in Sources */,
+				8073C9512C78893000DE3640 /* AppSettingsFeaturesNotifyAccountNotificationsView.swift in Sources */,
 				80DCF3B02BF137610022690F /* EditAliasDescriptionBottomSheet.swift in Sources */,
 				80E8499B2BEB73D900C8D68A /* MainView.swift in Sources */,
 				80DCF3A22BF117720022690F /* AliasWatcher.swift in Sources */,
@@ -1457,6 +1482,7 @@
 				80813B682C0DE234009C4E6A /* EditDomainFromNameBottomSheet.swift in Sources */,
 				80B2FB6E2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift in Sources */,
 				80ECA1012C1DA00100788D75 /* BackgroundWorkerHelper.swift in Sources */,
+				8073C9412C78717600DE3640 /* AccountNotificationsView.swift in Sources */,
 				809F874F2C29D892002A89C0 /* QuickActionsManager.swift in Sources */,
 				805A74552C1F5FC200C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift in Sources */,
 				80DCF3AC2BF12E760022690F /* BackgroundWorker.swift in Sources */,
@@ -1493,6 +1519,7 @@
 				80477DDE2C12225D00E52AF8 /* RulesView.swift in Sources */,
 				804BE7AB2BE95B49001DDC8A /* AddyButtonStyle.swift in Sources */,
 				80CE87DD2C209CAD001ECF5C /* ProfilePicture.swift in Sources */,
+				8073C9492C7878CA00DE3640 /* AccountNotificationsIcon.swift in Sources */,
 				80E9B2382C0B80AF00C7EF99 /* EditUsernameRecipientsBottomSheet.swift in Sources */,
 				80813B6E2C0DF23B009C4E6A /* FailedDeliveriesView.swift in Sources */,
 				80E84A2F2BEC119500C8D68A /* AliasDetailView.swift in Sources */,
@@ -1543,6 +1570,7 @@
 				805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */,
 				80B2FB772C3C4331009977B6 /* ToastOverlay.swift in Sources */,
 				80B2FB782C3C4331009977B6 /* AddyRoundedChipView.swift in Sources */,
+				8073C9432C78718100DE3640 /* AccountNotificationBottomSheet.swift in Sources */,
 				80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */,
 				805D66A32C1F4C870085CCED /* PrettyTime.swift in Sources */,
 				80813B642C0DE1FF009C4E6A /* DomainsDetailView.swift in Sources */,

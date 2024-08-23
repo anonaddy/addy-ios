@@ -7,7 +7,6 @@
 
 import SwiftUI
 import AVFoundation
-import CodeScanner
 import addy_shared
 import _AppIntents_SwiftUI
 
@@ -218,7 +217,7 @@ struct AddAliasBottomSheet: View {
         } else if selectedFormat == "custom" {
             
             // Only check on hosted instance
-            if (AddyIo.VERSIONMAJOR == 9999) {
+            if (AddyIo.isUsingHostedInstance()) {
                 if sharedDomains.contains(selectedDomain){
                     self.aliasError = String(localized: "domains_format_custom_not_available_for_this_domain")
                     self.formatValidationError = true

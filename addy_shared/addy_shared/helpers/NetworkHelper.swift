@@ -3645,6 +3645,30 @@ public class NetworkHelper {
     }
     
     
+    public func cacheAccountNotificationsCountForWidgetAndBackgroundService() async -> Bool {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        do {
+            let result = try await getAllAccountNotifications()
+            guard let result = result else {
+                // Result is null, return false to let the caller know the task failed.
+                return false
+            }
+            
+            // Store a copy of the just received data locally
+            self.encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheAccountNotificationsCountPrevious, int: self.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheAccountNotificationsCount))
+            self.encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheAccountNotificationsCount, int: result.data.count)
+            
+            // Stored data, return true to let the caller know the task succeeded
+            return true
+        } catch {
+            print("Failed to cache account notification count for widget and background service: \(error)")
+            return false
+        }
+    }
+    
+    
     public func getAllAccountNotifications() async throws -> AccountNotificationsArray? {
 #if DEBUG
         print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")

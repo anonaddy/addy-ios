@@ -86,6 +86,7 @@ class BackgroundWorkerHelper {
                 
         let shouldCheckForUpdates = settingsManager.getSettingsBool(key: .notifyUpdates)
         let shouldCheckForFailedDeliveries = settingsManager.getSettingsBool(key: .notifyFailedDeliveries)
+        let shouldCheckForAccountNotifications = settingsManager.getSettingsBool(key: .notifyAccountNotifications)
         let shouldCheckApiTokenExpiry = settingsManager.getSettingsBool(key: .notifyApiTokenExpiry)
         //let shouldMakePeriodicBackups = settingsManager.getSettingsBool(key:  .periodicBackups)
         
@@ -97,11 +98,11 @@ class BackgroundWorkerHelper {
         // --return true
         
 #if DEBUG            
-        print("isThereWorkTodo: aliasToWatch=\(aliasToWatch);amountOfWidgets=\(amountOfWidgets);NOTIFY_UPDATES=\(shouldCheckForUpdates);NOTIFY_FAILED_DELIVERIES=\(shouldCheckForFailedDeliveries)")
+        print("isThereWorkTodo: aliasToWatch=\(aliasToWatch);amountOfWidgets=\(amountOfWidgets);NOTIFY_UPDATES=\(shouldCheckForUpdates);NOTIFY_FAILED_DELIVERIES=\(shouldCheckForFailedDeliveries);NOTIFY_ACCOUNT_NOTIFICATIONS=\(shouldCheckForAccountNotifications)")
 #endif
 
         
-        return (!aliasToWatch.isEmpty || amountOfWidgets > 0 || shouldCheckForUpdates || shouldCheckForFailedDeliveries || shouldCheckApiTokenExpiry)
+        return (!aliasToWatch.isEmpty || amountOfWidgets > 0 || shouldCheckForUpdates || shouldCheckForFailedDeliveries || shouldCheckForAccountNotifications || shouldCheckApiTokenExpiry)
     }
     
 }

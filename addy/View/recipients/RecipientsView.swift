@@ -244,8 +244,9 @@ struct RecipientsView: View {
             })
             .navigationTitle(String(localized: "recipients"))
             .toolbar {
-                ProfilePicture().environmentObject(mainViewState)
                 FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                AccountNotificationsIcon().environmentObject(mainViewState)
+                ProfilePicture().environmentObject(mainViewState)
             }
             .navigationBarItems(trailing: HStack {
                 Button(action: {

@@ -22,6 +22,10 @@ public struct AddyIo {
     public static var VERSIONMINOR = 0
     public static var VERSIONPATCH = 0
     public static var VERSIONSTRING = ""
+    
+    public static func isUsingHostedInstance() -> Bool {
+            return VERSIONMAJOR == 9999
+        }
 
     // API endpoints
     static var API_URL_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/recipients" }

@@ -8,7 +8,6 @@
 
 import SwiftUI
 import AVFoundation
-import CodeScanner
 import addy_shared
 import Shiny
 
@@ -60,7 +59,8 @@ struct ProfileBottomSheet: View {
                                 .font(.headline)
                                 .opacity(0.6)
                                 .apply {
-                                    if !(mainViewState.userResource?.hasUserFreeSubscription())! {
+                                    // Apply a shiny effect when the user does not have a free subcription. (So Lite or Pro)
+                                    if !(mainViewState.userResource!.hasUserFreeSubscription()) {
                                         $0.shiny()
                                     } else {
                                         $0
@@ -210,7 +210,7 @@ struct ProfileBottomSheet: View {
     }
     
     private func getAddyIoVersion() ->String {
-        if (AddyIo.VERSIONMAJOR == 9999) {
+        if (AddyIo.isUsingHostedInstance()) {
             return String(localized: "hosted_instance")
         } else {
             return String(format: String(localized: "self_hosted_instance_s"), AddyIo.VERSIONSTRING)

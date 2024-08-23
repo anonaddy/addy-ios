@@ -190,8 +190,9 @@ struct AppSettingsView: View {
             .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
             .toolbar {
                 if horizontalSize == .regular {
-                    ProfilePicture().environmentObject(mainViewState)
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    AccountNotificationsIcon().environmentObject(mainViewState)
+                    ProfilePicture().environmentObject(mainViewState)
                 }
             }
             .alert(isPresented: $isShowingResetAppConfirmationAlert, content: {

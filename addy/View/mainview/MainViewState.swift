@@ -32,10 +32,12 @@ class MainViewState: ObservableObject {
     @Published var isPresentingProfileBottomSheet = false
     @Published var profileBottomSheetAction: Destination? = nil
     @Published var isPresentingFailedDeliveriesSheet = false
+    @Published var isPresentingAccountNotificationsSheet = false
 
     @Published var selectedTab: Destination = .home
 
     @Published var newFailedDeliveries : Int? = nil
+    @Published var newAccountNotifications : Int = 0
     @Published var updateAvailable : Bool = false
     @Published var permissionsRequired : Bool = false
 

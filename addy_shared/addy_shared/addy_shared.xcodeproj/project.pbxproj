@@ -16,6 +16,7 @@
 		8054592C2C3991C60087A170 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 8054592B2C3991C60087A170 /* Shimmer */; };
 		806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806890952BFE7F7300CEB8C7 /* HapticHelper.swift */; };
 		806AE68F2C19EB9E00F3CA92 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 806AE68E2C19EB9E00F3CA92 /* FeedKit */; };
+		8073C94F2C7881D000DE3640 /* SwiftHTMLtoMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = 8073C94E2C7881D000DE3640 /* SwiftHTMLtoMarkdown */; };
 		807848612C7786B000194B1A /* AccountNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807848602C7786B000194B1A /* AccountNotifications.swift */; };
 		80813B732C0DF349009C4E6A /* FailedDeliveries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B722C0DF349009C4E6A /* FailedDeliveries.swift */; };
 		80958FE92C4AE81F00833EB7 /* GsonTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80958FE82C4AE81F00833EB7 /* GsonTools.swift */; };
@@ -102,6 +103,7 @@
 				8054592C2C3991C60087A170 /* Shimmer in Frameworks */,
 				805459232C3989B30087A170 /* WrappingHStack in Frameworks */,
 				806AE68F2C19EB9E00F3CA92 /* FeedKit in Frameworks */,
+				8073C94F2C7881D000DE3640 /* SwiftHTMLtoMarkdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +238,7 @@
 				806AE68E2C19EB9E00F3CA92 /* FeedKit */,
 				805459222C3989B30087A170 /* WrappingHStack */,
 				8054592B2C3991C60087A170 /* Shimmer */,
+				8073C94E2C7881D000DE3640 /* SwiftHTMLtoMarkdown */,
 			);
 			productName = addy_shared;
 			productReference = 8001D9F02BEA513500AAD10E /* addy_shared.framework */;
@@ -269,6 +272,7 @@
 				806AE68D2C19EB9E00F3CA92 /* XCRemoteSwiftPackageReference "FeedKit" */,
 				805459212C3989B30087A170 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				8054592A2C3991C60087A170 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
+				8073C94D2C7881D000DE3640 /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */,
 			);
 			productRefGroup = 8001D9F12BEA513500AAD10E /* Products */;
 			projectDirPath = "";
@@ -586,6 +590,14 @@
 				minimumVersion = 9.1.2;
 			};
 		};
+		8073C94D2C7881D000DE3640 /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ActuallyTaylor/SwiftHTMLToMarkdown";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -603,6 +615,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 806AE68D2C19EB9E00F3CA92 /* XCRemoteSwiftPackageReference "FeedKit" */;
 			productName = FeedKit;
+		};
+		8073C94E2C7881D000DE3640 /* SwiftHTMLtoMarkdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8073C94D2C7881D000DE3640 /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */;
+			productName = SwiftHTMLtoMarkdown;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -8,7 +8,6 @@
 
 import SwiftUI
 import AVFoundation
-import CodeScanner
 import addy_shared
 
 struct EditDomainFromNameBottomSheet: View {

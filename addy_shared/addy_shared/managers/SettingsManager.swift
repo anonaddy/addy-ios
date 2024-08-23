@@ -24,6 +24,7 @@ public class SettingsManager {
         case periodicBackups
         case backupsLocation
         case notifyFailedDeliveries
+        case notifyAccountNotifications
         case notifyApiTokenExpiry
         case notifyDomainError
         case notifySubscriptionExpiry
@@ -48,10 +49,12 @@ public class SettingsManager {
         
         //case backgroundServiceCacheUserResource // Is .userResource in Android version
         case backgroundServiceCacheFailedDeliveriesCount
+        case backgroundServiceCacheAccountNotificationsCount
         case backgroundServiceCacheApiKeyExpiryLeftCount
         case backgroundServiceCacheSubscriptionExpiryLeftCount
         case backgroundServiceCacheDomainErrorCount
         case backgroundServiceCacheFailedDeliveriesCountPrevious
+        case backgroundServiceCacheAccountNotificationsCountPrevious
         case backgroundServiceWatchAliasList
         case backgroundServiceCacheWatchAliasData
         case backgroundServiceCacheWatchAliasDataPrevious

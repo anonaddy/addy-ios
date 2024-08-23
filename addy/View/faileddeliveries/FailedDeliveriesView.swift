@@ -208,8 +208,9 @@ struct FailedDeliveriesView: View {
             .navigationTitle(String(localized: "failed_deliveries"))
             .toolbar {
                 if horizontalSize == .regular {
-                                ProfilePicture().environmentObject(mainViewState)
-                                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    AccountNotificationsIcon().environmentObject(mainViewState)
+                    ProfilePicture().environmentObject(mainViewState)
                 } else {
                     Button {
                         dismiss()

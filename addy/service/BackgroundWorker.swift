@@ -249,6 +249,26 @@ class BackgroundWorker: Operation {
                     
                 }
                 
+                /*
+                 ACCOUNT NOTIFICATIONS
+                 */
+                
+#if DEBUG
+                print("BackgroundWorker task 9")
+#endif
+                if settingsManager.getSettingsBool(key: .notifyAccountNotifications) {
+                    let _ = await networkHelper.cacheAccountNotificationsCountForWidgetAndBackgroundService()
+                    // Store the result if the data succeeded to update in a boolean
+                    
+                    let currentAccountNotifications = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheAccountNotificationsCount)
+                    let previousAccountNotifications = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheAccountNotificationsCountPrevious)
+                    // If the current account notifications count is bigger than the previous list. That means there are new account notifications
+                    if currentAccountNotifications > previousAccountNotifications {
+                        NotificationHelper().createAccountNotification(difference: currentAccountNotifications - previousAccountNotifications)
+                    }
+                    
+                }
+                
                 
                 // Now the data has been updated, perform the AliasWatcher check
                 AliasWatcher().watchAliasesForDifferences()

@@ -14,8 +14,10 @@ struct notificationActions {
     static let disableAlias = "disableAlias"
     static let stopWatching = "stopWatching"
     static let stopUpdateCheck = "stopUpdateCheck"
-    static let openFailedDeliveries = "stopUpdateCheck"
+    static let openFailedDeliveries = "openFailedDeliveries"
+    static let openAccountNotifications = "openAccountNotifications"
     static let stopFailedDeliveriesCheck = "stopFailedDeliveryCheck"
+    static let stopAccountNotificationsCheck = "stopAccountNotificationsCheck"
     static let stopApiExpiryCheck = "stopApiExpiryCheck"
     static let openApiExpirationWarning = "openApiExpirationWarning"
     static let openSubscriptionExpirationWarning = "openSubscriptionExpirationWarning"
@@ -39,6 +41,8 @@ class NotificationActionHelper {
         case notificationActions.stopDomainErrorCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyDomainError, boolean: false)
             break
         case notificationActions.stopFailedDeliveriesCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyFailedDeliveries, boolean: false)
+            break
+        case notificationActions.stopAccountNotificationsCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyAccountNotifications, boolean: false)
             break
         case notificationActions.stopSubscriptionExpiryCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifySubscriptionExpiry, boolean: false)
             break
@@ -70,6 +74,8 @@ class NotificationActionHelper {
                 MainViewState.shared.profileBottomSheetAction = .domains
                 break
             case notificationActions.openFailedDeliveries: MainViewState.shared.isPresentingFailedDeliveriesSheet = true
+                break
+            case notificationActions.openAccountNotifications: MainViewState.shared.isPresentingAccountNotificationsSheet = true
                 break
             case notificationActions.openApiExpirationWarning: MainViewState.shared.showApiExpirationWarning = true
                 break

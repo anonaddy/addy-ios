@@ -16,7 +16,6 @@ import SwiftUI
 
 import SwiftUI
 import AVFoundation
-import CodeScanner
 import addy_shared
 
 struct FilterOptionsAliasBottomSheet: View {

@@ -117,6 +117,12 @@ struct MainView: View {
                         }
                         .presentationDetents([.large])
                     }
+                    .sheet(isPresented: $mainViewState.isPresentingAccountNotificationsSheet) {
+                        NavigationStack {
+                            AccountNotificationsView(horizontalSize: horizontalSize)
+                        }
+                        .presentationDetents([.large])
+                    }
                     .sheet(item: $mainViewState.mailToActionSheetData) { data in
                         // Has its own navigationStack
                         MailToActionSheet(mailToActionSheetData: mainViewState.mailToActionSheetData!, openedThroughShareSheet: false, returnToApp: { aliasId in
@@ -146,6 +152,7 @@ struct MainView: View {
                         await checkTokenExpiry()
                         await checkForSubscriptionExpiration()
                         await checkForNewFailedDeliveries()
+                        await checkForNewAccountNotifications()
                     }
             }
         }
@@ -235,7 +242,7 @@ private func handleURL(url: URL) {
 
 private func checkForSubscriptionExpiration() async {
     // Only check on hosted instance
-    if (AddyIo.VERSIONMAJOR == 9999) {
+    if (AddyIo.isUsingHostedInstance()) {
         do {
             let user = try await NetworkHelper().getUserResource()
             if let subscriptionEndsAt = user?.subscription_ends_at {
@@ -316,6 +323,32 @@ private func checkForNewFailedDeliveries() async {
     }
 }
 
+    
+/*
+ This method checks if there are new account notifications
+ It does this by getting the current account notifications count, if that count is bigger than the account notifications in the cache that means there are new notifications
+ 
+ As backgroundServiceCacheAccountNotificationsCount is only updated in the service and in the AccountNotificationsView that means that the red
+ indicator is only visible if:
+ 
+ - The activity has not been opened since there were new items.
+ - There are more account notifications than the server cached last time (in which case the user should have got a notification)
+ */
+
+private func checkForNewAccountNotifications() async {
+    do {
+        let result = try await NetworkHelper().getAllAccountNotifications()
+        let currentAccountNotifications = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheAccountNotificationsCount)
+        if (result?.data.count ?? 0 - currentAccountNotifications) > 0 {
+            withAnimation {
+                self.mainViewState.newAccountNotifications = (result?.data.count ?? 0) - currentAccountNotifications
+            }
+        }
+    } catch {
+        print("Failed to get account notifications: \(error)")
+        // Error will be logged when user has enabled this
+    }
+}
 
 func authenticate() {
     let context = LAContext()
@@ -355,6 +388,7 @@ private func refreshGeneralData(){
         await checkForUpdates()
         await checkForSubscriptionExpiration()
         await checkForNewFailedDeliveries()
+        await checkForNewAccountNotifications()
         await checkTokenExpiry()
         await getUserResource()
     }
