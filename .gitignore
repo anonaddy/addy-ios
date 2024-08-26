@@ -19,3 +19,7 @@ xcuserdata/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode
+# Ignore specific plist files in builds/ and all subdirectories
+builds/**/ExportOptions.plist
+builds/**/DistributionSummary.plist
+builds/**/Packaging.log

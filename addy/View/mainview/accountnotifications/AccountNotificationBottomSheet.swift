@@ -39,14 +39,16 @@ struct AccountNotificationBottomSheet: View {
                     .padding(.bottom, 4)
             }
             
-            Section {
-                AddyButton(action: {
-                    openURL(URL(string: accountNotification.link)!)
-                    dismiss()
-                }) {
-                    Text(accountNotification.link_text).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+            if accountNotification.link != nil {
+                Section {
+                    AddyButton(action: {
+                        openURL(URL(string: accountNotification.link!)!)
+                        dismiss()
+                    }) {
+                        Text(accountNotification.link_text ?? String(localized: "open_link")).foregroundColor(Color.white)
+                    }.frame(minHeight: 56)
+                }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+            }
             
         }.navigationTitle(accountNotification.title).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)

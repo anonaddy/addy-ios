@@ -68,64 +68,26 @@ struct AliasesView: View {
                 
                 if let aliasList = aliasesViewModel.aliasList{
                     Section {
-                        
-                        
-                        if horizontalSize == .regular { // iPad and larger devices
-                            
-                            //TODO: make iPad layout
-                            
-                            ForEach(aliasList.data) { alias in
-                                createAliasRow(alias: alias)
-                                    .swipeActions {
-                                        Button(role: .destructive) {
-                                            if let index = aliasList.data.firstIndex(of: alias) {
-                                                if alias.deleted_at != nil {
-                                                    forgetAlias(at: IndexSet(integer: index))
-                                                } else {
-                                                    deleteAlias(at: IndexSet(integer: index))
-                                                }
-                                            }
-                                        } label: {
+                        ForEach(aliasList.data) { alias in
+                            createAliasRow(alias: alias)
+                                .swipeActions {
+                                    Button(role: .destructive) {
+                                        if let index = aliasList.data.firstIndex(of: alias) {
                                             if alias.deleted_at != nil {
-                                                Text(String(localized: "forget"))
+                                                forgetAlias(at: IndexSet(integer: index))
                                             } else {
-                                                Text(String(localized: "delete"))
+                                                deleteAlias(at: IndexSet(integer: index))
                                             }
-                                            
                                         }
-                                    }
-                            }
-                            
-                            
-                            //                            let columns = Array(repeating: GridItem(.flexible(), spacing: 20), count: 2)
-                            //                            LazyVGrid(columns: columns, spacing: 20) {
-                            //                                ForEach(aliasList.data) { alias in
-                            //                                    createAliasRow(alias: alias)
-                            //                                }.onDelete(perform: deleteAlias)
-                            //                            }
-                        } else { // iPhone and smaller devices
-                            ForEach(aliasList.data) { alias in
-                                createAliasRow(alias: alias)
-                                    .swipeActions {
-                                        Button(role: .destructive) {
-                                            if let index = aliasList.data.firstIndex(of: alias) {
-                                                if alias.deleted_at != nil {
-                                                    forgetAlias(at: IndexSet(integer: index))
-                                                } else {
-                                                    deleteAlias(at: IndexSet(integer: index))
-                                                }
-                                            }
-                                        } label: {
-                                            if alias.deleted_at != nil {
-                                                Text(String(localized: "forget"))
-                                            } else {
-                                                Text(String(localized: "delete"))
-                                            }
-                                            
+                                    } label: {
+                                        if alias.deleted_at != nil {
+                                            Text(String(localized: "forget"))
+                                        } else {
+                                            Text(String(localized: "delete"))
                                         }
+                                        
                                     }
-                            }
-                            
+                                }
                         }
                         
                     }header: {

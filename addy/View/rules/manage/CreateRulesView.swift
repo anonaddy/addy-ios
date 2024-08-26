@@ -257,7 +257,6 @@ struct CreateRulesView: View {
                                     .fill(rule.actions.last == action ? Color.accentColor : Color.gray)
                                     .frame(width: 3, height: 50)
                                 
-                                //TODO: When having 2 actions (or conditions) with the same content it will show the create button on both
                                 if (rule.actions.last == action) {
                                     Button {
                                         isPresentingAddNewActionBottomSheet = true

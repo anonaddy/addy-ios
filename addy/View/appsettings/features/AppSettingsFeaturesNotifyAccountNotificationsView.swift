@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import addy_shared
 
 struct AppSettingsFeaturesNotifyAccountNotificationsView: View {
     
@@ -20,7 +21,7 @@ struct AppSettingsFeaturesNotifyAccountNotificationsView: View {
             Image("feature_account_notifications").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
             
             Section {
-                AddyToggle(isOn: $notifyAccountNotifications, title: String(localized: "enable_feature"), description: String(localized: "notify_account_notifications_feature_section_desc"))
+                AddyToggle(isOn: $notifyAccountNotifications, title: String(localized: "enable_feature"), description: AddyIo.isUsingHostedInstance() ? String(localized: "notify_account_notifications_feature_section_desc") : String(localized: "feature_not_available_hosted")).disabled(!AddyIo.isUsingHostedInstance())
                     .onAppear {
                         self.notifyAccountNotifications = MainViewState.shared.settingsManager.getSettingsBool(key: .notifyAccountNotifications)
                     }
@@ -32,9 +33,11 @@ struct AppSettingsFeaturesNotifyAccountNotificationsView: View {
                         }
                     }
                 
-                AddySection(title: String(localized: "view_account_notifications"), description: String(localized: "view_account_notifications_desc")){
-                    isShowingAccountNotificationsView = true
+                if AddyIo.isUsingHostedInstance() {
+                    AddySection(title: String(localized: "view_account_notifications"), description: String(localized: "view_account_notifications_desc")){
+                        isShowingAccountNotificationsView = true
                     }
+                }
             } footer: {
                 Text(String(localized: "notify_account_notifications_feature_section_desc")).padding(.top)
                 

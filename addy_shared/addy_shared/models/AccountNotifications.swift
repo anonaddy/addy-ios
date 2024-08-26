@@ -17,14 +17,14 @@ public struct AccountNotifications: Identifiable, Codable {
     let category: String
     public let created_at: String
     public let id: String
-    public let link: String
-    public let link_text: String
+    public let link: String?
+    public let link_text: String?
     public let text: String
     public let title: String
     
     public func textAsMarkdown() -> String {
         do {
-            var document = BasicHTML(rawHTML: "The additional <b>usernames</b> limit <u>has</u> just been increased from 1 to 5 for the Lite plan and from 10 to 20 for the Pro plan.")
+            var document = BasicHTML(rawHTML: text)
             try document.parse()
             let markdown = try document.asMarkdown()
             return markdown.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)

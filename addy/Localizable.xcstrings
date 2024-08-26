@@ -794,7 +794,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**A swifty start!**\n\n**Features**\n- So much cool stuff!"
+            "value" : "🚀 **Launch Day!** - We've blasted off into the iOS universe with addy.io app for iOS and iPadOS!\n\n- **Core Functionality Unleashed**: \n  - Organize your aliases, domains, recipients, rules and more like a pro...\n  - Enjoy app exclusive features such as watching aliases, Siri and Shortcuts integration and many, many more!\n\n- **Design & Aesthetics**: \n  - Feast your eyes on our minimalist design. Because who needs clutter when you have clean lines and a splash of color?\n  - Dark mode for those nocturnal productivity bursts or just because it looks cool.\n\n- **User Experience**: \n  - Swipe, tap, and maybe even double-tap (just for fun) your way through the addy.io app. It's like dancing, but with less chance of stepping on someone's toes.\n  \n- **Privacy & Security**: \n  - Your data is more secure than your grandma's secret cookie recipe. We've got the locks, the bolts, and the digital dogs guarding your info.\n\n- **Bugs**: \n  - We've squashed some, but let's be real, some might still be lurking. Report them, and we'll turn them into features... or at least fix them.\n\n- **Future Promises**: \n  - This is just the beginning. Expect updates, enhancements, and maybe even a feature you didn't know you needed but can't live without.\n\n**Thank you for joining us on this journey!** Let's make organizing life's little details not just bearable, but actually kind of fun. \n\nStay tuned, stay organized, and keep those addy.io vibes alive! 🌟"
           }
         }
       }
@@ -2883,6 +2883,17 @@
         }
       }
     },
+    "feature_not_available_hosted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This feature is only available on hosted instances"
+          }
+        }
+      }
+    },
     "feature_not_available_subscription" : {
       "localizations" : {
         "en" : {
@@ -4424,6 +4435,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "one of your aliases"
+          }
+        }
+      }
+    },
+    "open_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open link"
           }
         }
       }
