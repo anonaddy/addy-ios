@@ -183,7 +183,7 @@ struct ProfileBottomSheet: View {
     private func getAppVersionSectionDescription() ->String {
         let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
         
-        if mainViewState.permissionsRequired {
+        if mainViewState.permissionsRequired || mainViewState.backgroundAppRefreshDenied {
             return String(localized: "permissions_required")
         } else if mainViewState.updateAvailable {
             return String(format: String(localized: "version_s_update_available"), appVersion)

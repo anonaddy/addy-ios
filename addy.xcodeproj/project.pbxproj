@@ -118,7 +118,6 @@
 		806AE6892C19EA3600F3CA92 /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6882C19EA3400F3CA92 /* Updater.swift */; };
 		806AE6922C19ED1700F3CA92 /* AppSettingsUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6912C19ED1000F3CA92 /* AppSettingsUpdateView.swift */; };
 		806AE6962C1A085100F3CA92 /* ChangelogBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6952C1A085100F3CA92 /* ChangelogBottomSheet.swift */; };
-		806AE6992C1A0D5700F3CA92 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 806AE6982C1A0D5700F3CA92 /* Settings.bundle */; };
 		806AE69C2C1A194800F3CA92 /* AddySettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE69B2C1A194800F3CA92 /* AddySettingsHeader.swift */; };
 		806AE69F2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE69E2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift */; };
 		806AE6A12C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806AE6A02C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift */; };
@@ -357,7 +356,6 @@
 		806AE6882C19EA3400F3CA92 /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
 		806AE6912C19ED1000F3CA92 /* AppSettingsUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsUpdateView.swift; sourceTree = "<group>"; };
 		806AE6952C1A085100F3CA92 /* ChangelogBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangelogBottomSheet.swift; sourceTree = "<group>"; };
-		806AE6982C1A0D5700F3CA92 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		806AE69B2C1A194800F3CA92 /* AddySettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySettingsHeader.swift; sourceTree = "<group>"; };
 		806AE69E2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesView.swift; sourceTree = "<group>"; };
 		806AE6A02C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesWatchAliasView.swift; sourceTree = "<group>"; };
@@ -836,7 +834,6 @@
 				80DF3F542C4BC2EA00A533BE /* AddyStatisticWidgetExtension.debug.entitlements */,
 				8036F15D2C499757008627C3 /* AddyStatisticWidgetExtension.entitlements */,
 				8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */,
-				806AE6982C1A0D5700F3CA92 /* Settings.bundle */,
 				8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */,
 				806F21312BE8F1B100EBEBC8 /* addy */,
 				8042E0722C3318DA001E8366 /* ShareExtension */,
@@ -1230,7 +1227,6 @@
 				806F212D2BE8F1B100EBEBC8 /* Resources */,
 				8001DA032BEA516000AAD10E /* Embed Frameworks */,
 				8058ADE52C32DFBA0004AF81 /* Embed Foundation Extensions */,
-				806AE69A2C1A0EC800F3CA92 /* Update version number in settings Root.plist */,
 			);
 			buildRules = (
 			);
@@ -1341,7 +1337,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				806AE6992C1A0D5700F3CA92 /* Settings.bundle in Resources */,
 				801B929F2BE8FF6800179EB5 /* Launch Screen.storyboard in Resources */,
 				806D5F252BE925C600C5C109 /* ic_loading_logo.shapeshifter.json in Resources */,
 				802FC8CF2C42C2EA00E3E134 /* AppShortcuts.xcstrings in Resources */,
@@ -1378,25 +1373,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Make sure the following is installed on your device\n# https://github.com/stelabouras/privacy-manifest\n# You should be able to create /usr/local/bin yourself by executing sudo mkdir -p -m 775 /usr/local/bin from the terminal. \n# If /usr/local/bin is not in your $PATH environmental variable, you can update it by appending export PATH=$PATH:/usr/local/bin to the file $HOME/.bash_profile.\n# Close your current terminal, and open a new one for testing.\nprivacy-manifest analyze --project /Users/stjin/Documents/Projects/iOS_addy.io/addy  --reveal-occurrences --output /Users/stjin/Documents/Projects/iOS_addy.io/addy\n\n";
-		};
-		806AE69A2C1A0EC800F3CA92 /* Update version number in settings Root.plist */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Update version number in settings Root.plist";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "settings_plist=\"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Settings.bundle/Root.plist\"\nCFBundleShortVersionString=`/usr/libexec/PlistBuddy -c \"Print :CFBundleShortVersionString\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Info.plist\"`\nCFBundleVersion=`/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Info.plist\"`\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:0:DefaultValue '${CFBundleShortVersionString} (${CFBundleVersion})'\" \"$settings_plist\"\n";
 		};
 		80F6B2A02C5E1DD2002E1238 /* Periphery */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1638,7 +1614,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1652,7 +1628,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1671,7 +1647,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1685,7 +1661,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1703,7 +1679,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1717,7 +1693,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1735,7 +1711,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1749,7 +1725,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1895,7 +1871,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -1915,7 +1891,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1935,7 +1911,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -1955,7 +1931,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

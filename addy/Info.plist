@@ -57,5 +57,10 @@
 			<string>host.stjin.addy.shortcut_add_alias</string>
 		</dict>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+	</array>
 </dict>
 </plist>

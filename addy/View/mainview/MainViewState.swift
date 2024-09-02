@@ -40,6 +40,7 @@ class MainViewState: ObservableObject {
     @Published var newAccountNotifications : Int = 0
     @Published var updateAvailable : Bool = false
     @Published var permissionsRequired : Bool = false
+    @Published var backgroundAppRefreshDenied : Bool = false
 
     @Published var showApiExpirationWarning = false
     @Published var showSubscriptionExpirationWarning = false

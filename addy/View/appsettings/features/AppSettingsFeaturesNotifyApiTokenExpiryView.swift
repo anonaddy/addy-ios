@@ -30,7 +30,7 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
                         // Only fire when the value is NOT the same as the value already in the model
                         if (notifyApiTokenExpiry != MainViewState.shared.settingsManager.getSettingsBool(key: .notifyApiTokenExpiry)){
                             MainViewState.shared.settingsManager.putSettingsBool(key: .notifyApiTokenExpiry, boolean: notifyApiTokenExpiry)
-                            BackgroundWorkerHelper().scheduleBackgroundWorker()
+                            BackgroundWorkerHelper().scheduleAppRefresh()
                         }
                     }
                 

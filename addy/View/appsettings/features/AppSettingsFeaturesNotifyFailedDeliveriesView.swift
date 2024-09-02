@@ -28,7 +28,7 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
                         // Only fire when the value is NOT the same as the value already in the model
                         if (notifyFailedDeliveries != MainViewState.shared.settingsManager.getSettingsBool(key: .notifyFailedDeliveries)){
                             MainViewState.shared.settingsManager.putSettingsBool(key: .notifyFailedDeliveries, boolean: notifyFailedDeliveries)
-                            BackgroundWorkerHelper().scheduleBackgroundWorker()
+                            BackgroundWorkerHelper().scheduleAppRefresh()
                         }
                     }
                 

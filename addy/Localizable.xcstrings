@@ -1083,6 +1083,17 @@
         }
       }
     },
+    "background_app_refresh_denied_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background App Refresh is denied. Tap here to allow the addy.io app to run in the background. You retain control over what the app does in the background."
+          }
+        }
+      }
+    },
     "bandwidth" : {
       "extractionState" : "manual",
       "localizations" : {

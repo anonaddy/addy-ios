@@ -29,6 +29,9 @@ struct MainView: View {
     @State private var isPresentingChangelogBottomSheet = false
     @State private var showBiometricsNotAvailableAlert = false
     @State var isShowingAddApiBottomSheet: Bool = false
+    
+    @State var lastGeneralRefresh = Date.now
+    
     @Environment(\.horizontalSizeClass) var horizontalSize
     
     
@@ -49,10 +52,12 @@ struct MainView: View {
                             handleURL(url: url)
                         }
                         .onAppear(perform: {
-                            
-                            // Schedule background tasks
-                            BackgroundWorkerHelper().scheduleBackgroundWorker()
-                            
+                            // Also perform BGTask immediately when opening the app
+                            BackgroundWorkerHelper.backgroundWorker.performRequest { error in
+                                // Schedule background tasks after it was executed
+                                BackgroundWorkerHelper().scheduleAppRefresh()
+                                
+                            }
                             
                             // Check for changelog
                             let dictionary = Bundle.main.infoDictionary!
@@ -186,7 +191,14 @@ struct MainView: View {
                     }
                     
                     // Check this every time the app is come to foreground
-                    checkNotificationPermission()
+                    checkForAlerts()
+                    
+                    if lastGeneralRefresh.timeIntervalSinceNow < -300 { // -300 seconds is 5 minutes
+                        //print("More than 5 minutes have passed since the last general refresh.")
+                        // Refresh general data when coming back from the background to the foreground
+                        refreshGeneralData()
+                    }
+
                 }
             }
     } else {
@@ -392,6 +404,8 @@ private func refreshGeneralData(){
         await checkTokenExpiry()
         await getUserResource()
     }
+    
+    self.lastGeneralRefresh = Date.now
 }
 
 private func getUserResource() async {
@@ -423,13 +437,16 @@ private func checkForUpdates() async {
 }
 
 
-func checkNotificationPermission() {
+func checkForAlerts() {
     UNUserNotificationCenter.current().getNotificationSettings { settings in
         DispatchQueue.main.async {
             mainViewState.permissionsRequired = settings.authorizationStatus != .authorized
         }
     }
+    
+    mainViewState.backgroundAppRefreshDenied = !BackgroundWorkerHelper().checkBackgroundRefreshStatus()
 }
+    
 
 
 private var tabView: some View {

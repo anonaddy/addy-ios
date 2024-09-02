@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import BackgroundTasks
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
@@ -48,33 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         UNUserNotificationCenter.current().delegate = self
         
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "host.stjin.addy.backgroundworker", using: nil) { task in
-            // Handle the task
-#if DEBUG
-            print("handleAppRefresh is gonna get called now")
-#endif
-            self.handleAppRefresh(task: task as! BGAppRefreshTask)
-        }
+        BackgroundWorkerHelper.shared.register()
         
         return true
-    }
-    
-    
-    
-    func handleAppRefresh(task: BGAppRefreshTask) {
-        // Schedule the next refresh task.
-        BackgroundWorkerHelper().scheduleBackgroundWorker()
-        
-        // Create an operation that performs the refresh.
-        let operation = BackgroundWorker()
-        
-        // Provide the completion block for the operation.
-        operation.completionBlock = {
-            task.setTaskCompleted(success: !operation.isCancelled)
-        }
-        
-        // Add the operation to an operation queue.
-        OperationQueue.main.addOperation(operation)
     }
     
     
@@ -114,7 +89,11 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
         print("Scene hit background")
 #endif
         
-        BackgroundWorkerHelper().scheduleBackgroundWorker()
+        // Called as the scene transitions from the foreground to the background.
+        // Use this method to save data, release shared resources, and store enough scene-specific state information
+        // to restore the scene back to its current state.
+
+        BackgroundWorkerHelper.shared.scheduleAppRefresh()
     }
     
 

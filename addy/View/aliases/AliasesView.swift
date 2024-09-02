@@ -250,7 +250,6 @@ struct AliasesView: View {
             .navigationTitle(String(localized: "aliases"))
             .toolbar {
                 FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                AccountNotificationsIcon().environmentObject(mainViewState)
                 ProfilePicture().environmentObject(mainViewState)
             }
             .navigationBarItems(trailing: HStack{

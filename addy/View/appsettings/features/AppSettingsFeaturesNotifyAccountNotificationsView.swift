@@ -29,7 +29,7 @@ struct AppSettingsFeaturesNotifyAccountNotificationsView: View {
                         // Only fire when the value is NOT the same as the value already in the model
                         if (notifyAccountNotifications != MainViewState.shared.settingsManager.getSettingsBool(key: .notifyAccountNotifications)){
                             MainViewState.shared.settingsManager.putSettingsBool(key: .notifyAccountNotifications, boolean: notifyAccountNotifications)
-                            BackgroundWorkerHelper().scheduleBackgroundWorker()
+                            BackgroundWorkerHelper().scheduleAppRefresh()
                         }
                     }
                 

@@ -19,7 +19,7 @@ private func getUserResource() -> UserResource? {
 
 private func getMostActiveAliasesData() -> [Aliases]? {
     let aliases = CacheHelper.getBackgroundServiceCacheMostActiveAliasesData()
-    return Array(aliases?.prefix(4) ?? [])
+    return Array(aliases?.prefix(5) ?? [])
 }
 
 struct Provider: AppIntentTimelineProvider {
@@ -253,13 +253,13 @@ struct AliasWidgetRowView: View {
             HStack {
                 VStack(alignment: .leading) {
                     Text(SettingsManager(encrypted: true).getSettingsBool(key: .privacyMode) ? String(localized: "alias_hidden") : alias.email)
-                        .font(.headline)
+                        .font(.system(size: 16))
                         .foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
                         .lineLimit(1)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     Text(aliasDescription)
-                        .font(.subheadline)
+                        .font(.system(size: 13))
                         .foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
                         .lineLimit(1)
                         .frame(maxWidth: .infinity, alignment: .leading)

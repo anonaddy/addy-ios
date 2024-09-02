@@ -64,7 +64,7 @@ class AliasWatcher {
         if aliasList.contains(alias) {
             aliasList.remove(alias)
             encryptedSettingsManager.putStringSet(key: SettingsManager.Prefs.backgroundServiceWatchAliasList, mutableSet: aliasList)
-            BackgroundWorkerHelper().scheduleBackgroundWorker()
+            BackgroundWorkerHelper().scheduleAppRefresh()
         }
     }
     
@@ -78,7 +78,7 @@ class AliasWatcher {
             if !aliasList.contains(alias) {
                 aliasList.insert(alias)
                 encryptedSettingsManager.putStringSet(key: SettingsManager.Prefs.backgroundServiceWatchAliasList, mutableSet: aliasList)
-                BackgroundWorkerHelper().scheduleBackgroundWorker()
+                BackgroundWorkerHelper().scheduleAppRefresh()
             }
             return true
         }

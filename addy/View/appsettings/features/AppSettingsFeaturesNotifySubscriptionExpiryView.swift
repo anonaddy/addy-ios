@@ -31,7 +31,7 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
                         // Only fire when the value is NOT the same as the value already in the model
                         if (notifySubscriptionExpiry != MainViewState.shared.settingsManager.getSettingsBool(key: .notifySubscriptionExpiry)){
                             MainViewState.shared.settingsManager.putSettingsBool(key: .notifySubscriptionExpiry, boolean: notifySubscriptionExpiry)
-                            BackgroundWorkerHelper().scheduleBackgroundWorker()
+                            BackgroundWorkerHelper().scheduleAppRefresh()
                         }
                     }
             } footer: {

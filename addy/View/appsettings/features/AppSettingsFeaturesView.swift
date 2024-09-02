@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import BackgroundTasks
 
 struct AppSettingsFeaturesView: View {
     
@@ -60,13 +61,19 @@ struct AppSettingsFeaturesView: View {
             } header: {
                 Text(String(localized: "integrations"))
             } footer: {
-                Text(String(localized: "ios_background_limitations_note")).padding(.top)
+                Text(String(localized: "ios_background_limitations_note")).padding(.top).onLongPressGesture {
+#if DEBUG
+                    BackgroundWorkerHelper().listPendingTasks()
+                    #endif
+                }
                 
             }
         }
             .navigationTitle(String(localized: "features_and_integrations"))
             .navigationBarTitleDisplayMode(.inline)
     }
+    
+    
 }
 
 #Preview {
