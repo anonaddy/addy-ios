@@ -140,9 +140,9 @@ struct AddyStatisticWidgetEntryView : View {
             
         } else {
             ContentUnavailableView {
-                Text(String(localized: "app_not_setup")).minimumScaleFactor(0.1)
+                Text(String(localized: "app_not_setup")).minimumScaleFactor(0.1).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
             } description: {
-                Text("app_not_setup_desc").minimumScaleFactor(0.1)
+                Text("app_not_setup_desc").minimumScaleFactor(0.1).foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
             }
         }
     }

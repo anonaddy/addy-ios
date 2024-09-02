@@ -46,7 +46,7 @@ struct FailedDeliveriesView: View {
                         Section {
                             
                             ForEach (failedDeliveries.data) { failedDelivery in
-                                VStack {
+                                VStack(alignment: .leading) {
                                     HStack {
                                         VStack(alignment: .leading) {
                                             Text(String(localized: "alias"))

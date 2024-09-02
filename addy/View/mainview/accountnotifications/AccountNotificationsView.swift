@@ -46,7 +46,7 @@ struct AccountNotificationsView: View {
                         Section {
                             
                             ForEach (accountNotifications.data) { accountNotification in
-                                VStack {
+                                VStack(alignment: .leading) {
                                     VStack(alignment: .leading) {
                                         Text(accountNotification.title)
                                             .font(.system(size: 16, weight: .medium))
@@ -61,7 +61,7 @@ struct AccountNotificationsView: View {
                                             .font(.system(size: 14))
                                             .foregroundColor(.gray)
                                             .lineLimit(4)
-                                    }
+                                    }.padding(EdgeInsets())
                                     Button(action: {
                                         self.accountNotificationToShow = accountNotification
                                     }) {
@@ -202,4 +202,3 @@ struct AccountNotificationsView: View {
     }
     
 }
-
