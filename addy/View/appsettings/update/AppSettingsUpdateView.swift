@@ -122,7 +122,6 @@ struct AppSettingsUpdateView: View {
             }
             
         } catch {
-            print("Failed to check for updates: \(error)")
             errorAlertMessage = "\(error)"
             showAlert = true
         }

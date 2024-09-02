@@ -277,7 +277,8 @@ struct AddAliasBottomSheet: View {
                 selectedFormat = domainOptions.defaultAliasFormat
             }
         } catch {
-            print("Failed to load domains: \(error)")
+            //TODO: Let user know
+            //print("Failed to load domains: \(error)")
             // Error will be logged when user has enabled this
         }
     }

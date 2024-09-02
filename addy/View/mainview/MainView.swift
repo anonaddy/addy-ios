@@ -330,7 +330,9 @@ private func checkForNewFailedDeliveries() async {
             }
         }
     } catch {
-        print("Failed to get failed deliveries: \(error)")
+        //TODO: Let the user know
+
+        //print("Failed to get failed deliveries: \(error)")
         // Error will be logged when user has enabled this
     }
 }
@@ -357,7 +359,8 @@ private func checkForNewAccountNotifications() async {
             }
         }
     } catch {
-        print("Failed to get account notifications: \(error)")
+        //TODO: Let the user know
+        //print("Failed to get account notifications: \(error)")
         // Error will be logged when user has enabled this
     }
 }
@@ -416,6 +419,7 @@ private func getUserResource() async {
             mainViewState.userResource = userResource
         }
     } catch {
+        //TODO: Let the user know
         print("Failed to get user resource: \(error)")
         // Error will be logged when user has enabled this
     }
@@ -429,8 +433,9 @@ private func checkForUpdates() async {
                 mainViewState.updateAvailable = updateAvailable
             }
             
-        } catch {
-            print("Failed to check for updates: \(error)")
+        } catch {
+            //TODO: Let the user know
+            //print("Failed to check for updates: \(error)")
             // Error will be logged when user has enabled this
         }
     }

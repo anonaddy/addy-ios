@@ -184,9 +184,7 @@ struct AddApiBottomSheet: View {
                 }
                 apiKeyError = String(localized: "api_invalid")
             }
-        } catch {
-            print("Failed to verify API key: \(error)")
-            
+        } catch {            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 isLoadingSignIn = false
             }

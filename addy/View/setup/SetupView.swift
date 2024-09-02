@@ -159,7 +159,6 @@ struct SetupView: View {
                 isPresentingAddApiBottomSheet = true
             }
         } catch {
-            print("Failed to verify API key: \(error)")
             isLoadingGetStarted = false
             isPresentingAddApiBottomSheet = true
         }

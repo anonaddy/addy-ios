@@ -32,8 +32,10 @@ public extension BackgroundWorkerHelper {
     }
     
     func listPendingTasks() {
+#if DEBUG
         let scheduler = BGTaskScheduler.shared
         scheduler.getPendingTaskRequests { (tasks) in
+            
             print("\(tasks.count) BGTasks pending..")
             
             for task in tasks {
@@ -41,7 +43,9 @@ public extension BackgroundWorkerHelper {
                 print("Task Earliest Begin Date: \(task.earliestBeginDate ?? Date())")
                 // Print other relevant properties
             }
+            
         }
+#endif
     }
     
     func handleTask(_ task: BGTask) {

@@ -237,7 +237,8 @@ struct AppSettingsView: View {
             }
         } else{
             // Device does not support Face ID or Touch ID
-            print("Biometric authentication unavailable")
+            //TODO: Let the user know
+            //print("Biometric authentication unavailable")
         }
     }
     
@@ -246,10 +247,10 @@ struct AppSettingsView: View {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
             if granted {
-                print("Permission granted for local notifications")
+                //print("Permission granted for local notifications")
             } else {
                 if let error = error {
-                    print("Error requesting permission: \(error.localizedDescription)")
+                    //print("Error requesting permission: \(error.localizedDescription)")
                     
                     DispatchQueue.main.async {
                         if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
@@ -257,7 +258,7 @@ struct AppSettingsView: View {
                         }
                     }
                 } else {
-                    print("Permission denied for local notifications")
+                    //print("Permission denied for local notifications")
                     DispatchQueue.main.async {
                         if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
                             UIApplication.shared.open(appSettings)

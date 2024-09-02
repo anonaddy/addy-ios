@@ -475,7 +475,8 @@ struct RulesView: View {
                 showAlert = true
             }
         } catch {
-            print("Failed to get user resource: \(error)")
+            //TODO: Let the user know
+            //print("Failed to get user resource: \(error)")
             // viewModel will take care of putting this error into a var
         }
     }
