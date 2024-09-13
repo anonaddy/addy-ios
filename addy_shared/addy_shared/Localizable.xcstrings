@@ -1,0 +1,46 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "logs_cleared" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logs cleared"
+          }
+        }
+      }
+    },
+    "notification_app_reset" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App has been reset"
+          }
+        }
+      }
+    },
+    "notification_app_reset_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The API key for addy.io expired or was revoked, to protect user data the app has been reset"
+          }
+        }
+      }
+    },
+    "system_default" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System default"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
