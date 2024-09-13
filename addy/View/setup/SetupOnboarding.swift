@@ -204,7 +204,7 @@ struct SetupOnboarding: View {
 
                }}
                 ) {
-                    Text(String(localized: "sign_up")).foregroundColor(Color.white)
+                    Text(String(localized: "get_started")).foregroundColor(Color.white)
                 }.padding(.bottom)
                 
             }.padding(.horizontal, 32)

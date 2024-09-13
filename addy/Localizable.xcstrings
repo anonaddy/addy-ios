@@ -2894,17 +2894,6 @@
         }
       }
     },
-    "feature_not_available_hosted" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This feature is only available on hosted instances"
-          }
-        }
-      }
-    },
     "feature_not_available_subscription" : {
       "localizations" : {
         "en" : {
@@ -3284,6 +3273,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Get my key"
+          }
+        }
+      }
+    },
+    "get_started" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get started"
           }
         }
       }
@@ -5443,17 +5443,6 @@
         }
       }
     },
-    "sign_up" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign up"
-          }
-        }
-      }
-    },
     "something_went_wrong_retrieving_account_notifications" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5869,17 +5858,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your current subscription has no expiration"
-          }
-        }
-      }
-    },
-    "subscription_expiry_date_self_hosted" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You are using a self-hosted instance of addy.io, subscriptions do not apply to self-hosted instances"
           }
         }
       }

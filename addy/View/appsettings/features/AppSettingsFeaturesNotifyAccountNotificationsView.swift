@@ -21,7 +21,7 @@ struct AppSettingsFeaturesNotifyAccountNotificationsView: View {
             Image("feature_account_notifications").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
             
             Section {
-                AddyToggle(isOn: $notifyAccountNotifications, title: String(localized: "enable_feature"), description: AddyIo.isUsingHostedInstance() ? String(localized: "notify_account_notifications_feature_section_desc") : String(localized: "feature_not_available_hosted")).disabled(!AddyIo.isUsingHostedInstance())
+                AddyToggle(isOn: $notifyAccountNotifications, title: String(localized: "enable_feature"), description: String(localized: "notify_account_notifications_feature_section_desc"))
                     .onAppear {
                         self.notifyAccountNotifications = MainViewState.shared.settingsManager.getSettingsBool(key: .notifyAccountNotifications)
                     }
