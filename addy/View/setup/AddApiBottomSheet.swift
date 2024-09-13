@@ -173,11 +173,12 @@ struct AddApiBottomSheet: View {
     
     
     private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL) async {
+        let cleanApiKey = apiKey.trimmingCharacters(in: .whitespacesAndNewlines)
         let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: apiKey)
+            let result = try await networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: cleanApiKey)
             if result == "200" {
-                self.addKey(apiKey, baseUrl)
+                self.addKey(cleanApiKey, baseUrl)
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     isLoadingSignIn = false

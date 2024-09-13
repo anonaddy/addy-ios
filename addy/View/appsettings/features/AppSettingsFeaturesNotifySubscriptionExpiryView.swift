@@ -83,8 +83,6 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
     
     
     private func checkSubscriptionExpiry() async {
-        // Only hosted instance will have subscriptions
-        if (AddyIo.isUsingHostedInstance()) {
             do {
                 let userResource = try await NetworkHelper().getUserResource()
                 setSubscriptionInfoText(user: userResource)
@@ -94,11 +92,7 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
                 // Error will be logged when user has enabled this
                 
             }
-        } else {
-            subscriptionExpiryText = String(localized: "subscription_expiry_date_self_hosted")
-            toggleDescription = String(localized: "subscription_expiry_date_self_hosted")
-            isToggleDisabled = true
-        }
+
     }
 
     
