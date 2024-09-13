@@ -1,0 +1,24 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Add a new alias in ${applicationName}" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringSet" : {
+            "state" : "new",
+            "values" : [
+              "Add a new alias in ${applicationName}",
+              "Add an alias in ${applicationName}",
+              "Create a new alias in ${applicationName}",
+              "Create an alias in ${applicationName}",
+              "Generate a new alias in ${applicationName}",
+              "Create a new alias in ${applicationName}"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,6564 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "_more" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ more"
+          }
+        }
+      }
+    },
+    "0" : {
+
+    },
+    "account_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications"
+          }
+        }
+      }
+    },
+    "actions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actions"
+          }
+        }
+      }
+    },
+    "actions_then" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actions (then)"
+          }
+        }
+      }
+    },
+    "activate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activate"
+          }
+        }
+      }
+    },
+    "activate_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activate alias"
+          }
+        }
+      }
+    },
+    "active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active"
+          }
+        }
+      }
+    },
+    "add" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        }
+      }
+    },
+    "add_action" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add action"
+          }
+        }
+      }
+    },
+    "add_action_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decide what action should be performed when conditions are met"
+          }
+        }
+      }
+    },
+    "add_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add alias"
+          }
+        }
+      }
+    },
+    "add_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other aliases e.g. alias@%@.addy.io or .me can also be created automatically when they receive their first email"
+          }
+        }
+      }
+    },
+    "add_condition" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add condition"
+          }
+        }
+      }
+    },
+    "add_condition_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a condition which must be met before actions are performed"
+          }
+        }
+      }
+    },
+    "add_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add domain"
+          }
+        }
+      }
+    },
+    "add_domain_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the domain you would like to add.\n\nYou will have to verify the ownership of the domain, so make sure you have access to the DNS settings of this domain"
+          }
+        }
+      }
+    },
+    "add_public_gpg_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add public GPG key"
+          }
+        }
+      }
+    },
+    "add_public_gpg_key_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your PUBLIC key data in the textbox below\n\nMake sure to remove Comment: and Version:\n\nElGamal keys are not currently supported."
+          }
+        }
+      }
+    },
+    "add_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add recipient"
+          }
+        }
+      }
+    },
+    "add_recipient_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the individual email of the new recipient you'd like to add. This is where your aliases will **forward messages to.**\n\nYou will receive an email with a verification link that will **expire in one hour** you can click \"Resend email\" to get a new one."
+          }
+        }
+      }
+    },
+    "add_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add username"
+          }
+        }
+      }
+    },
+    "add_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please choose usernames carefully as you can only add a **maximum of %@.** You can login with **any of your usernames.**\n\nYou can prevent a username from being used to login by toggling the \"can login\" option."
+          }
+        }
+      }
+    },
+    "address" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Address"
+          }
+        }
+      }
+    },
+    "addresses" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Addresses"
+          }
+        }
+      }
+    },
+    "addyio_account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io Account"
+          }
+        }
+      }
+    },
+    "addyio_android_stjin" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io app | Stjin"
+          }
+        }
+      }
+    },
+    "addyio_help" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io help"
+          }
+        }
+      }
+    },
+    "addyio_instance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io instance"
+          }
+        }
+      }
+    },
+    "addyio_instance_version_unsupported" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The version of this addy.io instance is lower than the minimum required version to use this app. You can ignore this message and just use the app, but there is a good chance that some functions will not work."
+          }
+        }
+      }
+    },
+    "addyio_load_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while loading the addy.io app, you might want to check your internet connection.\nMore information about the error:"
+          }
+        }
+      }
+    },
+    "addyio_locked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io locked"
+          }
+        }
+      }
+    },
+    "addyio_locked_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To use this app you need to unlock it using your biometrics"
+          }
+        }
+      }
+    },
+    "addyio_settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Account on addy.io"
+          }
+        }
+      }
+    },
+    "addyio_updater" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io app updater"
+          }
+        }
+      }
+    },
+    "addyio_updater_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for new updates and view the latest changelog"
+          }
+        }
+      }
+    },
+    "addyio_updater_header_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for app updates and enable notification to stay up-to-date with the latest great features and bug fixes."
+          }
+        }
+      }
+    },
+    "advanced" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced"
+          }
+        }
+      }
+    },
+    "alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias"
+          }
+        }
+      }
+    },
+    "alias_activated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias activated"
+          }
+        }
+      }
+    },
+    "alias_deactivated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias deactivated"
+          }
+        }
+      }
+    },
+    "alias_edit_recipients_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The list below shows all verified recipients. Select which recipients you want to set as recipient for this alias"
+          }
+        }
+      }
+    },
+    "alias_format" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias format"
+          }
+        }
+      }
+    },
+    "alias_hidden" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias hidden"
+          }
+        }
+      }
+    },
+    "alias_local_part" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias local part"
+          }
+        }
+      }
+    },
+    "alias_no_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This alias has no description set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "alias_no_from_name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This alias has no from name set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "alias_status_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this alias for mail forwarding"
+          }
+        }
+      }
+    },
+    "aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aliases"
+          }
+        }
+      }
+    },
+    "aliases_filtered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aliases (filter active)"
+          }
+        }
+      }
+    },
+    "aliases_search" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Looking for an alias?"
+          }
+        }
+      }
+    },
+    "aliaswatcher_max_reached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reached maximum of watched aliases"
+          }
+        }
+      }
+    },
+    "aliaswatcher_max_reached_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The maximum number of aliases you can watch is 25"
+          }
+        }
+      }
+    },
+    "all_account_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All notifications"
+          }
+        }
+      }
+    },
+    "all_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All aliases"
+          }
+        }
+      }
+    },
+    "all_domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All domains"
+          }
+        }
+      }
+    },
+    "all_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All failed deliveries"
+          }
+        }
+      }
+    },
+    "all_rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All rules"
+          }
+        }
+      }
+    },
+    "all_usernames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All usernames"
+          }
+        }
+      }
+    },
+    "and" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AND"
+          }
+        }
+      }
+    },
+    "anonymous_email_forwarding" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anonymous Email Forwarding"
+          }
+        }
+      }
+    },
+    "api_invalid" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API key invalid"
+          }
+        }
+      }
+    },
+    "api_obtain" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manually enter your API key"
+          }
+        }
+      }
+    },
+    "api_obtain_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your API can be obtained at the settings page at app.addy.io (or your own hosted instance)"
+          }
+        }
+      }
+    },
+    "api_setup_qr_code_scan_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adjust your device until the QR code fills the entire frame"
+          }
+        }
+      }
+    },
+    "api_setup_qr_code_scan_wrong" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR code invalid"
+          }
+        }
+      }
+    },
+    "api_setup_qr_code_scan_wrong_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtain the QR code in the settings page at app.addy.io (or your own hosted instance)"
+          }
+        }
+      }
+    },
+    "api_token_about_to_expire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API key about to expire"
+          }
+        }
+      }
+    },
+    "api_token_about_to_expire_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your API key will expire in %@. It is recommended to update your API key to prevent the app from resetting. Do you want to change the API token now?"
+          }
+        }
+      }
+    },
+    "api_token_about_to_expire_desc_unknown_expiry_date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your API key will expire soon. It is recommended to update your API key to prevent the app from resetting. Do you want to change the API token now?"
+          }
+        }
+      }
+    },
+    "api_token_about_to_expire_option_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter new key"
+          }
+        }
+      }
+    },
+    "APIKey" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API key"
+          }
+        }
+      }
+    },
+    "APIKey_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paste your API key here…"
+          }
+        }
+      }
+    },
+    "app_changelog" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🚀 **Launch Day!** - We've blasted off into the iOS universe with addy.io app for iOS and iPadOS!\n\n- **Core Functionality Unleashed**: \n  - Organize your aliases, domains, recipients, rules and more like a pro...\n  - Enjoy app exclusive features such as watching aliases, Siri and Shortcuts integration and many, many more!\n\n- **Design & Aesthetics**: \n  - Feast your eyes on our minimalist design. Because who needs clutter when you have clean lines and a splash of color?\n  - Dark mode for those nocturnal productivity bursts or just because it looks cool.\n\n- **User Experience**: \n  - Swipe, tap, and maybe even double-tap (just for fun) your way through the addy.io app. It's like dancing, but with less chance of stepping on someone's toes.\n  \n- **Privacy & Security**: \n  - Your data is more secure than your grandma's secret cookie recipe. We've got the locks, the bolts, and the digital dogs guarding your info.\n\n- **Bugs**: \n  - We've squashed some, but let's be real, some might still be lurking. Report them, and we'll turn them into features... or at least fix them.\n\n- **Future Promises**: \n  - This is just the beginning. Expect updates, enhancements, and maybe even a feature you didn't know you needed but can't live without.\n\n**Thank you for joining us on this journey!** Let's make organizing life's little details not just bearable, but actually kind of fun. \n\nStay tuned, stay organized, and keep those addy.io vibes alive! 🌟"
+          }
+        }
+      }
+    },
+    "app_icon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App icon"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a new alias"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_custom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a new alias with a custom local part"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creates a new alias based on your addy.io account’s preferences"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_custom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias local part"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_custom_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the part of the alias that should appear before the ‘@‘"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select domain"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_domain_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For which domain do you want to create an alias?"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_format" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select format"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_format_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What format would you like to use?"
+          }
+        }
+      }
+    },
+    "app_intent_alias_added%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Here’s your alias:  %@"
+          }
+        }
+      }
+    },
+    "app_intent_alias_output" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "email address"
+          }
+        }
+      }
+    },
+    "app_intent_category_name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage your aliases"
+          }
+        }
+      }
+    },
+    "app_intent_parameter_summary_domain${domain}_custom${localPart}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create an alias for ${domain} with local part ${localPart}"
+          }
+        }
+      }
+    },
+    "app_intent_parameter_summary_domain${domain}_format${format}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create an alias for ${domain} with${format} format"
+          }
+        }
+      }
+    },
+    "app_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io"
+          }
+        }
+      }
+    },
+    "app_not_setup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App has not been setup"
+          }
+        }
+      }
+    },
+    "app_not_setup_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the addy.io app and setup your account to use this feature"
+          }
+        }
+      }
+    },
+    "app_settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App settings"
+          }
+        }
+      }
+    },
+    "app_setup_required" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The addy.io app has not been set-up yet, open the app and add an API key to begin."
+          }
+        }
+      }
+    },
+    "appearance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
+          }
+        }
+      }
+    },
+    "appearance_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the app icon"
+          }
+        }
+      }
+    },
+    "authentication_splash_error_unavailable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The addy.io app is protected using biometrics, but they are currently unavailable. Without biometric authentication, access to the data is restricted. Would you like to reset the app?"
+          }
+        }
+      }
+    },
+    "auto_create_regex" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto create regex"
+          }
+        }
+      }
+    },
+    "auto_create_regex_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regex pattern"
+          }
+        }
+      }
+    },
+    "back" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        }
+      }
+    },
+    "background_app_refresh_denied_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background App Refresh is denied. Tap here to allow the addy.io app to run in the background. You retain control over what the app does in the background."
+          }
+        }
+      }
+    },
+    "bandwidth" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bandwidth"
+          }
+        }
+      }
+    },
+    "banner_location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Banner location"
+          }
+        }
+      }
+    },
+    "basic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basic"
+          }
+        }
+      }
+    },
+    "biometric_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biometrics is not available right now"
+          }
+        }
+      }
+    },
+    "block_the_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "block the email"
+          }
+        }
+      }
+    },
+    "blocked" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocked"
+          }
+        }
+      }
+    },
+    "bug_found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You caught a ladybug!"
+          }
+        }
+      }
+    },
+    "bug_found_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorry to disturb you, ma'am.\n\nPlease report this bug by visiting the issues section in the app settings"
+          }
+        }
+      }
+    },
+    "can_login_disabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can login disabled"
+          }
+        }
+      }
+    },
+    "can_login_enabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can login enabled"
+          }
+        }
+      }
+    },
+    "can_login_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toggle this option to determine whether this username can be used to login to your account or not. When set to off you will not be able to use this username to login to your account"
+          }
+        }
+      }
+    },
+    "can_reply_send" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reply/send allowed"
+          }
+        }
+      }
+    },
+    "can_reply_send_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toggle this option to determine whether this recipient is allowed to reply and send from your aliases. When set to off this recipient will not be able to reply or send from your aliases and you will be notified when an attempt is made"
+          }
+        }
+      }
+    },
+    "cancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "cannot_reply_send" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reply/send not allowed"
+          }
+        }
+      }
+    },
+    "catch_all_disabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Catch-All disabled"
+          }
+        }
+      }
+    },
+    "catch_all_domain_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable catch-all for this domain"
+          }
+        }
+      }
+    },
+    "catch_all_enabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Catch-All enabled"
+          }
+        }
+      }
+    },
+    "catch_all_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable catch-all for this username"
+          }
+        }
+      }
+    },
+    "change_public_gpg_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change public GPG key"
+          }
+        }
+      }
+    },
+    "changelog" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changelog"
+          }
+        }
+      }
+    },
+    "check_dns" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check DNS"
+          }
+        }
+      }
+    },
+    "check_dns_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verify DNS configuration"
+          }
+        }
+      }
+    },
+    "check_dns_desc_incorrect" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your domain has configuration errors. Tap here to check the DNS records"
+          }
+        }
+      }
+    },
+    "check_for_updates" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for updates"
+          }
+        }
+      }
+    },
+    "check_for_updates_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap here to manually check for new updates"
+          }
+        }
+      }
+    },
+    "clear_filter" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear filter"
+          }
+        }
+      }
+    },
+    "clear_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear logs"
+          }
+        }
+      }
+    },
+    "close" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "code" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code"
+          }
+        }
+      }
+    },
+    "condition_operator" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operator"
+          }
+        }
+      }
+    },
+    "conditions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conditions"
+          }
+        }
+      }
+    },
+    "configuration" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration"
+          }
+        }
+      }
+    },
+    "configuration_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration error"
+          }
+        }
+      }
+    },
+    "contains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "contains"
+          }
+        }
+      }
+    },
+    "contributors" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contributors"
+          }
+        }
+      }
+    },
+    "contributors_list" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Will Browning (addy.io)\nStjin (lead developer)\nJPH (designer)"
+          }
+        }
+      }
+    },
+    "copied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copied!"
+          }
+        }
+      }
+    },
+    "copied_to_clipboard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copied to clipboard"
+          }
+        }
+      }
+    },
+    "copy_alias" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy alias"
+          }
+        }
+      }
+    },
+    "could_not_check_for_updates" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not check for updates"
+          }
+        }
+      }
+    },
+    "crafted_with_love_and_privacy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crafted with love and privacy"
+          }
+        }
+      }
+    },
+    "create" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "create"
+          }
+        }
+      }
+    },
+    "created" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created"
+          }
+        }
+      }
+    },
+    "created_at_s" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created %@"
+          }
+        }
+      }
+    },
+    "current_api_token_expiry_date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your current API key (%@) will expire in %@"
+          }
+        }
+      }
+    },
+    "current_api_token_expiry_date_never" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your current API key (%@) has no expiration, visit %@/settings to revoke this key"
+          }
+        }
+      }
+    },
+    "current_api_token_expiry_date_unknown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The expiry date of your API key could not be determined, visit %@/settings to revoke this key"
+          }
+        }
+      }
+    },
+    "d_blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ blocked"
+          }
+        }
+      }
+    },
+    "d_days_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d days from now on"
+          }
+        }
+      }
+    },
+    "d_forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ forwarded"
+          }
+        }
+      }
+    },
+    "d_hrs_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d hours from now on"
+          }
+        }
+      }
+    },
+    "d_min_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d min from now on"
+          }
+        }
+      }
+    },
+    "d_months_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d months from now on"
+          }
+        }
+      }
+    },
+    "d_replied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ replied"
+          }
+        }
+      }
+    },
+    "d_sec_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d seconds from now on"
+          }
+        }
+      }
+    },
+    "d_sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ sent"
+          }
+        }
+      }
+    },
+    "d_weeks_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d weeks from now on"
+          }
+        }
+      }
+    },
+    "deactivate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deactivate"
+          }
+        }
+      }
+    },
+    "deactivate_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deactivate alias"
+          }
+        }
+      }
+    },
+    "default_base_url" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://app.addy.io"
+          }
+        }
+      }
+    },
+    "default_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default recipient"
+          }
+        }
+      }
+    },
+    "default_recipient_s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default recipient (%@)"
+          }
+        }
+      }
+    },
+    "delete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "delete_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete alias"
+          }
+        }
+      }
+    },
+    "delete_alias_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this alias? You can restore this alias if you later change your mind. Once deleted, this alias will reject any emails sent to it."
+          }
+        }
+      }
+    },
+    "delete_alias_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Once deleted, this alias will reject any emails sent to it"
+          }
+        }
+      }
+    },
+    "delete_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete domain"
+          }
+        }
+      }
+    },
+    "delete_domain_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this domain? This will also delete all aliases associated with this domain. You will no longer be able to receive any emails at this domain."
+          }
+        }
+      }
+    },
+    "delete_domain_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will no longer be able to receive any emails at this domain"
+          }
+        }
+      }
+    },
+    "delete_failed_delivery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete failed delivery"
+          }
+        }
+      }
+    },
+    "delete_failed_delivery_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this failed delivery?"
+          }
+        }
+      }
+    },
+    "delete_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete recipient"
+          }
+        }
+      }
+    },
+    "delete_recipient_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this recipient?"
+          }
+        }
+      }
+    },
+    "delete_rule" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete rule"
+          }
+        }
+      }
+    },
+    "delete_rule_confirmation_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this rule?"
+          }
+        }
+      }
+    },
+    "delete_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete username"
+          }
+        }
+      }
+    },
+    "delete_username_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this username? This will also delete all aliases associated with this username. You will no longer be able to receive any emails at this username subdomain. This will still count towards your additional username limit even once deleted."
+          }
+        }
+      }
+    },
+    "delete_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This will still count towards your additional username limit"
+          }
+        }
+      }
+    },
+    "deleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleted"
+          }
+        }
+      }
+    },
+    "deleting_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleting alias…"
+          }
+        }
+      }
+    },
+    "description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description"
+          }
+        }
+      }
+    },
+    "details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details"
+          }
+        }
+      }
+    },
+    "details_about_error_s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details about the error:\n%@"
+          }
+        }
+      }
+    },
+    "disable_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disable notifications"
+          }
+        }
+      }
+    },
+    "dismiss" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dismiss"
+          }
+        }
+      }
+    },
+    "does_not_contain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "does not contain"
+          }
+        }
+      }
+    },
+    "does_not_end_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "does not end with"
+          }
+        }
+      }
+    },
+    "does_not_match_regex" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "does not match regex"
+          }
+        }
+      }
+    },
+    "does_not_start_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "does not start with"
+          }
+        }
+      }
+    },
+    "domain" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain"
+          }
+        }
+      }
+    },
+    "domain_activated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain activated"
+          }
+        }
+      }
+    },
+    "domain_aliases_d" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain aliases (%@)"
+          }
+        }
+      }
+    },
+    "domain_deactivated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain deactivated"
+          }
+        }
+      }
+    },
+    "domain_edit_recipient_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The list below shows all verified recipients. Select which recipient you want to set as default recipient for this domain"
+          }
+        }
+      }
+    },
+    "domain_no_auto_create_regex" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This domain has no auto create regex set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "domain_no_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This domain has no description set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "domain_no_from_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This domain has no from name set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "domain_status_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this domain for mail forwarding"
+          }
+        }
+      }
+    },
+    "domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domains"
+          }
+        }
+      }
+    },
+    "domains_format_custom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        }
+      }
+    },
+    "domains_format_custom_not_available_for_this_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not available for the selected domain"
+          }
+        }
+      }
+    },
+    "domains_format_random_characters" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random characters"
+          }
+        }
+      }
+    },
+    "domains_format_random_words" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random words"
+          }
+        }
+      }
+    },
+    "domains_format_random_words_not_available_for_this_subscription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random words is not available for your current subscription"
+          }
+        }
+      }
+    },
+    "domains_format_uuid" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UUID"
+          }
+        }
+      }
+    },
+    "domains_list_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aliases"
+          }
+        }
+      }
+    },
+    "edit_auto_create_regex" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit auto create regex"
+          }
+        }
+      }
+    },
+    "edit_auto_create_regex_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you wish to create aliases on-the-fly but don't want to enable catch-all then you can enter a regular expression pattern below. If a new alias' local part matches the pattern then it will still be created on-the-fly even though catch-all is disabled.\n\n**Note: Catch-All must be disabled** to use alias automatic creation with regex.\n\nFor example, if you only want aliases that start with \"prefix\" to be automatically created, use the regex `^prefix`\n\nIf you only want aliases that end with \"suffix\" to be automatically created, use the regex `suffix$`\n\nIf you want to make sure the local part is fully matched you can start your regex with `^` and end it with `$` e.g. `^prefix.*suffix$` which would match \"prefix-anything-here-suffix\"\n\nYou can use regex101.com to help you write your regular expressions.\n"
+          }
+        }
+      }
+    },
+    "edit_desc_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the description for this alias, describe what this alias is used for"
+          }
+        }
+      }
+    },
+    "edit_desc_domain_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the description for this domain, describe what this domain is used for"
+          }
+        }
+      }
+    },
+    "edit_desc_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the description for this username, describe what this username is used for"
+          }
+        }
+      }
+    },
+    "edit_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit description"
+          }
+        }
+      }
+    },
+    "edit_from_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit from name"
+          }
+        }
+      }
+    },
+    "edit_from_name_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The 'From Name' is shown when you send an email from an alias or reply anonymously to a forwarded email. If left blank, then the email alias itself will be used as the 'From Name' e.g. \"%@\".\n\nThe 'From Name' that is used for an alias is determined by the following **priority:**\n1. **Alias 'From Name'**\n2. Username or Custom Domain 'From Name'\n3. Global 'From Name' from the settings page\n\nIf you set the 'From Name' for this specific alias, it will override the other settings."
+          }
+        }
+      }
+    },
+    "edit_from_name_domain_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The 'From Name' is shown when you send an email from an alias or reply anonymously to a forwarded email. If left blank, then the email alias itself will be used as the 'From Name' e.g. \"example@%@\".\n\nThe 'From Name' that is used for an alias is determined by the following **priority:**\n1. Alias 'From Name'\n2. Username or **Custom Domain 'From Name'**\n3. Global 'From Name' from the settings page\n\nIf you set the 'From Name' for this domain, it will override the global 'From Name' setting."
+          }
+        }
+      }
+    },
+    "edit_from_name_username_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The 'From Name' is shown when you send an email from an alias or reply anonymously to a forwarded email. If left blank, then the email alias itself will be used as the 'From Name' e.g. \"example@%@.addy.io\".\n\nThe 'From Name' that is used for an alias is determined by the following **priority:**\n1. Alias 'From Name'\n2. **Username** or Custom Domain **'From Name'**\n3. Global 'From Name' from the settings page\n\nIf you set the 'From Name' for this username, it will override the global 'From Name' setting."
+          }
+        }
+      }
+    },
+    "edit_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit recipients"
+          }
+        }
+      }
+    },
+    "email" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "email"
+          }
+        }
+      }
+    },
+    "email_replies" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email replies"
+          }
+        }
+      }
+    },
+    "emails_blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emails blocked"
+          }
+        }
+      }
+    },
+    "emails_forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emails forwarded"
+          }
+        }
+      }
+    },
+    "emails_sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email sent"
+          }
+        }
+      }
+    },
+    "enable_feature" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable feature"
+          }
+        }
+      }
+    },
+    "enable_feature_always" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This feature is always enabled"
+          }
+        }
+      }
+    },
+    "encrypt_emails_to_this_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encrypt emails to this recipient"
+          }
+        }
+      }
+    },
+    "encryption" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encryption"
+          }
+        }
+      }
+    },
+    "encryption_disabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encryption disabled"
+          }
+        }
+      }
+    },
+    "encryption_enabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encryption enabled"
+          }
+        }
+      }
+    },
+    "ends_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ends with"
+          }
+        }
+      }
+    },
+    "enter_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter name"
+          }
+        }
+      }
+    },
+    "enter_value" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter value"
+          }
+        }
+      }
+    },
+    "enter_values_comma_separated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter values (comma separated)"
+          }
+        }
+      }
+    },
+    "error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
+    },
+    "error_adding_alias" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while adding the alias"
+          }
+        }
+      }
+    },
+    "error_changing_rules_order" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while changing the order of the rules"
+          }
+        }
+      }
+    },
+    "error_creating_rule" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while saving this rule"
+          }
+        }
+      }
+    },
+    "error_delete_failed_delivery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this failed delivery"
+          }
+        }
+      }
+    },
+    "error_deleting_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this alias"
+          }
+        }
+      }
+    },
+    "error_deleting_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this domains"
+          }
+        }
+      }
+    },
+    "error_deleting_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this recipient"
+          }
+        }
+      }
+    },
+    "error_deleting_rule" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this rule"
+          }
+        }
+      }
+    },
+    "error_deleting_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this username"
+          }
+        }
+      }
+    },
+    "error_edit_active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the active state"
+          }
+        }
+      }
+    },
+    "error_edit_can_login" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the can login state"
+          }
+        }
+      }
+    },
+    "error_edit_catch_all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the catch-all state"
+          }
+        }
+      }
+    },
+    "error_forgetting_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while forgetting this alias"
+          }
+        }
+      }
+    },
+    "error_obtaining_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find alias"
+          }
+        }
+      }
+    },
+    "error_obtaining_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find domain"
+          }
+        }
+      }
+    },
+    "error_obtaining_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find recipient"
+          }
+        }
+      }
+    },
+    "error_obtaining_rule" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find rule"
+          }
+        }
+      }
+    },
+    "error_obtaining_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find username"
+          }
+        }
+      }
+    },
+    "error_removing_gpg_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while removing the public key"
+          }
+        }
+      }
+    },
+    "error_resend_verification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not resend verification email"
+          }
+        }
+      }
+    },
+    "error_restoring_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while restoring this alias"
+          }
+        }
+      }
+    },
+    "error_rules_active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the rule state"
+          }
+        }
+      }
+    },
+    "error_unknown_refer_to_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error unknown, please refer to the app logs for more information about this error."
+          }
+        }
+      }
+    },
+    "failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed deliveries"
+          }
+        }
+      }
+    },
+    "failed_delivery_details_text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Created**  \n%@\n\n**First attempted**  \n%@\n\n**Alias**\n%@\n\n**Recipient**\n%@\n\n**Type**\n%@\n\n**Mail Server**\n%@\n\n**Sender**\n%@\n\n**Code**\n%@"
+          }
+        }
+      }
+    },
+    "faq" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FAQ"
+          }
+        }
+      }
+    },
+    "faq_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visit the Frequently asked questions"
+          }
+        }
+      }
+    },
+    "feature_api_token_expiry_notification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API key expiry notification"
+          }
+        }
+      }
+    },
+    "feature_api_token_expiry_notification_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification 5 days before your API key expires to prevent the app from being reset.\n\nThese notifications will reappear every day until a new API key is entered"
+          }
+        }
+      }
+    },
+    "feature_domain_error_notification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain error notification"
+          }
+        }
+      }
+    },
+    "feature_domain_error_notification_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification when a domain has configuration errors.\n\nThese notifications will appear once (unless another domain with configuration errors is detected)"
+          }
+        }
+      }
+    },
+    "feature_not_available_hosted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This feature is only available on hosted instances"
+          }
+        }
+      }
+    },
+    "feature_not_available_subscription" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This feature is not available with your current subscription"
+          }
+        }
+      }
+    },
+    "feature_notify_account_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account notifications"
+          }
+        }
+      }
+    },
+    "feature_notify_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed delivery notifications"
+          }
+        }
+      }
+    },
+    "feature_subscription_expiry_notification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription expiry notification"
+          }
+        }
+      }
+    },
+    "feature_subscription_expiry_notification_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification 7 days before your subscription expires to remind you to renew your subscription.\n\nThese notifications will reappear every day until the subscription has been renewed"
+          }
+        }
+      }
+    },
+    "features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Features"
+          }
+        }
+      }
+    },
+    "features_and_integrations" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Features and integrations"
+          }
+        }
+      }
+    },
+    "features_and_integrations_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check out app-exclusive features and integrations"
+          }
+        }
+      }
+    },
+    "features_and_integrations_header_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discover the standout features and integrations of the addy.io app. Monitor aliases, receive notifications for important events, and enjoy additional functionalities."
+          }
+        }
+      }
+    },
+    "filter_active_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active"
+          }
+        }
+      }
+    },
+    "filter_all_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        }
+      }
+    },
+    "filter_all_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        }
+      }
+    },
+    "filter_custom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        }
+      }
+    },
+    "filter_deleted_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleted"
+          }
+        }
+      }
+    },
+    "filter_inactive_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inactive"
+          }
+        }
+      }
+    },
+    "filter_verified_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verified only"
+          }
+        }
+      }
+    },
+    "filter_watched_only" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watched only"
+          }
+        }
+      }
+    },
+    "filtering" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtering"
+          }
+        }
+      }
+    },
+    "filtering_and_sorting" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtering and sorting"
+          }
+        }
+      }
+    },
+    "filtering_and_sorting_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decide which aliases to display and in which order to display them. Filters are saved and retained on app restart"
+          }
+        }
+      }
+    },
+    "fingerprint_s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fingerprint:\n%@"
+          }
+        }
+      }
+    },
+    "forget" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forget"
+          }
+        }
+      }
+    },
+    "forget_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forget alias"
+          }
+        }
+      }
+    },
+    "forget_alias_are_you_sure_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This will PERMANENTLY DELETE your alias and all the statistics.\n\nIf this alias uses a shared domain then it can never be restored or used again so make sure you are certain. If it is a standard alias then it can be created again since it will be as if it never existed."
+          }
+        }
+      }
+    },
+    "forget_alias_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to forget this alias? Forgetting an alias will disassociate it from your account.\n\nNote: If this alias uses a shared domain then it can never be restored or used again so make sure you are certain. If it is a standard alias then it can be created again since it will be as if it never existed."
+          }
+        }
+      }
+    },
+    "forget_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forgetting an alias will disassociate it from your account"
+          }
+        }
+      }
+    },
+    "forgetting_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forgetting alias…"
+          }
+        }
+      }
+    },
+    "format" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "format"
+          }
+        }
+      }
+    },
+    "forward_to" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forward to"
+          }
+        }
+      }
+    },
+    "forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forwarded"
+          }
+        }
+      }
+    },
+    "forwarded_blocked_stat" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ forwarded\n%@ blocked"
+          }
+        }
+      }
+    },
+    "forwards" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forwards"
+          }
+        }
+      }
+    },
+    "from_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From name"
+          }
+        }
+      }
+    },
+    "general" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
+    },
+    "get_my_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get my key"
+          }
+        }
+      }
+    },
+    "getting_started" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Getting started"
+          }
+        }
+      }
+    },
+    "github_project" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Github project"
+          }
+        }
+      }
+    },
+    "github_project_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View source code and report issues"
+          }
+        }
+      }
+    },
+    "got_the_api_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Got the API key?"
+          }
+        }
+      }
+    },
+    "greetings_time_traveller" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Greetings, time traveller"
+          }
+        }
+      }
+    },
+    "greetings_time_traveller_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It appears that you are using a future version of the addy.io app. Report any bugs you find!"
+          }
+        }
+      }
+    },
+    "home" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        }
+      }
+    },
+    "home_bandwidth_text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@MB / %@MB"
+          }
+        }
+      }
+    },
+    "hosted_instance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hosted instance"
+          }
+        }
+      }
+    },
+    "how_to_update" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to update"
+          }
+        }
+      }
+    },
+    "ignore_and_continue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignore and continue"
+          }
+        }
+      }
+    },
+    "inactive" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inactive"
+          }
+        }
+      }
+    },
+    "integration_app_intents" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siri & Shortcuts"
+          }
+        }
+      }
+    },
+    "integration_app_intents_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create aliases from anywhere by using Shortcuts, Siri and Control Centre controls. The default alias settings from your addy.io account are beings used unless specified otherwise in the shortcuts."
+          }
+        }
+      }
+    },
+    "integration_mailto_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email action integration"
+          }
+        }
+      }
+    },
+    "integration_mailto_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create aliases on the go and send emails from an alias by highlighting an email address.\n\nHighlight an email address that doesn't exist with your domain name and tap share, followed by the addy.io app icon to create this alias.\n\nHighlight any other email address, tap share, followed by the addy.io app icon to send an email to this address using one of your aliases."
+          }
+        }
+      }
+    },
+    "integration_webintent_resolution" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Web intent resolution"
+          }
+        }
+      }
+    },
+    "integration_webintent_resolution_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the addy.io app instead of the website for easy access and quick actions such as deactivating your alias via the link in the email banner.\n\nDue to limitations within iOS it is only possible to use this integration on the hosted instance found at app.addy.io or app.anonaddy.com."
+          }
+        }
+      }
+    },
+    "integrations" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrations"
+          }
+        }
+      }
+    },
+    "intent_alias_already_exists" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias already exists, opening alias settings…"
+          }
+        }
+      }
+    },
+    "intent_checking_address" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking address…"
+          }
+        }
+      }
+    },
+    "intent_creating_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creating alias %@…"
+          }
+        }
+      }
+    },
+    "intent_opening_send_mail_dialog" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opening send mail dialog…"
+          }
+        }
+      }
+    },
+    "ios_background_limitations_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please note that due to inherent limitations on the iOS platform, the timely delivery of notifications for some features cannot be guaranteed."
+          }
+        }
+      }
+    },
+    "is_exactly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "is exactly"
+          }
+        }
+      }
+    },
+    "is_not" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "is not"
+          }
+        }
+      }
+    },
+    "last_blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last blocked"
+          }
+        }
+      }
+    },
+    "last_forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last forwarded"
+          }
+        }
+      }
+    },
+    "last_replied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last replied"
+          }
+        }
+      }
+    },
+    "last_sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last sent"
+          }
+        }
+      }
+    },
+    "latest" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Latest"
+          }
+        }
+      }
+    },
+    "loading_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading recipients…"
+          }
+        }
+      }
+    },
+    "loading_suggestions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading suggestions…"
+          }
+        }
+      }
+    },
+    "logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logs"
+          }
+        }
+      }
+    },
+    "manage_domain_basic_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain: %@\nCreated: %@\nUpdated at: %@\u0003\nDomain verified at: %@\nDomain MX validated at: %@\nDomain sending verified at: %@\nEmail forwarded: %@\nEmail blocked: %@\nEmail replies: %@\nEmail sent: %@"
+          }
+        }
+      }
+    },
+    "manage_domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage domains"
+          }
+        }
+      }
+    },
+    "manage_domains_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add or remove custom domains"
+          }
+        }
+      }
+    },
+    "manage_recipient_basic_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email: %@\nCreated: %@\nUpdated at: %@\nEmail forwarded: %@\nEmail blocked: %@\nEmail replies: %@\nEmail sent: %@"
+          }
+        }
+      }
+    },
+    "manage_rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage rules"
+          }
+        }
+      }
+    },
+    "manage_rules_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add, modify and reorder rules"
+          }
+        }
+      }
+    },
+    "manage_rules_list_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If %@ then %@"
+          }
+        }
+      }
+    },
+    "manage_username_basic_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username: %@\nCreated: %@\nUpdated at: %@\nEmail forwarded: %@\nEmail blocked: %@\nEmail replies: %@\nEmail sent: %@"
+          }
+        }
+      }
+    },
+    "manage_usernames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage usernames"
+          }
+        }
+      }
+    },
+    "manage_usernames_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose additional usernames"
+          }
+        }
+      }
+    },
+    "manage_your_addyio_account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage your addy.io account"
+          }
+        }
+      }
+    },
+    "match" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Match"
+          }
+        }
+      }
+    },
+    "matches_regex" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "matches regex"
+          }
+        }
+      }
+    },
+    "menu" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu"
+          }
+        }
+      }
+    },
+    "monthly_bandwidth" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monthly Bandwidth"
+          }
+        }
+      }
+    },
+    "more" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More"
+          }
+        }
+      }
+    },
+    "most_active_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Most active aliases"
+          }
+        }
+      }
+    },
+    "new_update_available" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New update available"
+          }
+        }
+      }
+    },
+    "new_update_available_version" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ -> %@"
+          }
+        }
+      }
+    },
+    "new_user" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New user?"
+          }
+        }
+      }
+    },
+    "next" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
+    },
+    "no_account_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No notifications"
+          }
+        }
+      }
+    },
+    "no_account_notifications_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All caught up!"
+          }
+        }
+      }
+    },
+    "no_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to see here"
+          }
+        }
+      }
+    },
+    "no_aliases_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No aliases with these filter settings.\n\nLooking for a specific alias? Use the search function."
+          }
+        }
+      }
+    },
+    "no_domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to see here"
+          }
+        }
+      }
+    },
+    "no_domains_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have no domains, what about creating one?"
+          }
+        }
+      }
+    },
+    "no_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No failed deliveries"
+          }
+        }
+      }
+    },
+    "no_failed_deliveries_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "That's a good thing!"
+          }
+        }
+      }
+    },
+    "no_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No logs found"
+          }
+        }
+      }
+    },
+    "no_logs_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make sure to enable storing logs in the app settings"
+          }
+        }
+      }
+    },
+    "no_new_update_available" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You're up to date"
+          }
+        }
+      }
+    },
+    "no_new_update_available_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are currently using the latest version of the addy.io app. Turn on notifications to get notified when a new version is available"
+          }
+        }
+      }
+    },
+    "no_rules" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to see here"
+          }
+        }
+      }
+    },
+    "no_rules_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have no rules, what about creating one?"
+          }
+        }
+      }
+    },
+    "no_suggestions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No suggestions"
+          }
+        }
+      }
+    },
+    "not_a_valid_address" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is not a valid address"
+          }
+        }
+      }
+    },
+    "not_verified" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not verified"
+          }
+        }
+      }
+    },
+    "note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note"
+          }
+        }
+      }
+    },
+    "notification_alias_watches_alias_does_not_exist_anymore" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias removed from alias watcher"
+          }
+        }
+      }
+    },
+    "notification_alias_watches_alias_does_not_exist_anymore_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has been forgotten and removed from the alias watcher"
+          }
+        }
+      }
+    },
+    "notification_api_token_about_to_expire" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your API key is about to expire"
+          }
+        }
+      }
+    },
+    "notification_api_token_about_to_expire_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your API key will expire in %@. Create a new one to prevent the app from resetting. Tap here to change the API key"
+          }
+        }
+      }
+    },
+    "notification_domain_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain configuration error"
+          }
+        }
+      }
+    },
+    "notification_domain_error_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d domain(s) have configuration errors. Tap here to view the domains"
+          }
+        }
+      }
+    },
+    "notification_new_account_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New notification"
+          }
+        }
+      }
+    },
+    "notification_new_account_notifications_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have %@ new notification(s). Tap here to view the notifications"
+          }
+        }
+      }
+    },
+    "notification_new_emails" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New emails forwarded"
+          }
+        }
+      }
+    },
+    "notification_new_emails_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ new email(s) have been forwarded via %@"
+          }
+        }
+      }
+    },
+    "notification_new_failed_delivery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email delivery failed"
+          }
+        }
+      }
+    },
+    "notification_new_failed_delivery_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ email(s) could not be delivered. Tap here to view the failed deliveries"
+          }
+        }
+      }
+    },
+    "notification_new_update_available_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@ of the addy.io app is available. Tap here to download it"
+          }
+        }
+      }
+    },
+    "notification_permissions_required_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notification permissions are required to fully use the app. Tap here to allow the addy.io app to send notifications. You retain control over which notification the app can send."
+          }
+        }
+      }
+    },
+    "notification_subscription_about_to_expire" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your subscription is about to expire"
+          }
+        }
+      }
+    },
+    "notification_subscription_about_to_expire_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your subscription will expire in %@. Renew your subscription to keep using pro features"
+          }
+        }
+      }
+    },
+    "notify_account_notifications_feature_section_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification on your device when new notifications appear in addy.io"
+          }
+        }
+      }
+    },
+    "notify_api_token_expiry_feature_section_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification 5 days before your API key expires"
+          }
+        }
+      }
+    },
+    "notify_domain_error_feature_section_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification when a domain has configuration errors"
+          }
+        }
+      }
+    },
+    "notify_failed_deliveries_feature_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For an overview of all failed deliveries, go back to main section and tap on the failed deliveries button at the top. (exclamation mark)"
+          }
+        }
+      }
+    },
+    "notify_failed_deliveries_feature_section_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification if an email sent from an alias cannot be delivered"
+          }
+        }
+      }
+    },
+    "notify_subscription_expiry_feature_section_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification 7 days before your subscription expires"
+          }
+        }
+      }
+    },
+    "obtaining_account_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your notifications"
+          }
+        }
+      }
+    },
+    "obtaining_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your aliases"
+          }
+        }
+      }
+    },
+    "obtaining_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This shouldn't take long…"
+          }
+        }
+      }
+    },
+    "obtaining_domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your domains"
+          }
+        }
+      }
+    },
+    "obtaining_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your failed deliveries"
+          }
+        }
+      }
+    },
+    "obtaining_information" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining information…"
+          }
+        }
+      }
+    },
+    "obtaining_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gathering logs"
+          }
+        }
+      }
+    },
+    "obtaining_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your recipients"
+          }
+        }
+      }
+    },
+    "obtaining_rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your rules"
+          }
+        }
+      }
+    },
+    "obtaining_usernames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtaining your usernames"
+          }
+        }
+      }
+    },
+    "one_of_your_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "one of your aliases"
+          }
+        }
+      }
+    },
+    "open_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open link"
+          }
+        }
+      }
+    },
+    "or" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OR"
+          }
+        }
+      }
+    },
+    "permissions_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permissions required"
+          }
+        }
+      }
+    },
+    "pgp_inline" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PGP/Inline"
+          }
+        }
+      }
+    },
+    "pgp_inline_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use inline (PGP/Inline) instead of PGP/MIME encryption for forwarded messages. Please Note: This will ONLY encrypt and forward the plain text content!"
+          }
+        }
+      }
+    },
+    "prerequisite_disable_pgp_inline" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You need to disable inline encryption before you can enable protected headers (hide subject)"
+          }
+        }
+      }
+    },
+    "prerequisite_disable_protected_headers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You need to disable protected headers (hide subject) before you can enable inline encryption"
+          }
+        }
+      }
+    },
+    "previous_changelogs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous changelogs"
+          }
+        }
+      }
+    },
+    "previous_changelogs_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View previous changelogs"
+          }
+        }
+      }
+    },
+    "privacy_mode" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy mode"
+          }
+        }
+      }
+    },
+    "privacy_mode_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide personal information such as email addresses in shortcuts, widgets and notifications"
+          }
+        }
+      }
+    },
+    "protected_headers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide subject"
+          }
+        }
+      }
+    },
+    "protected_headers_subject_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enabling this setting will hide and encrypt the email subject using protected headers. Many mail clients are able to automatically decrypt and display the subject once the email arrives."
+          }
+        }
+      }
+    },
+    "public_key_placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Begins with \\'-----BEGIN PGP PUBLIC KEY BLOCK-----\\'"
+          }
+        }
+      }
+    },
+    "qr_code_setup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup using QR code"
+          }
+        }
+      }
+    },
+    "qr_permissions_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera permissions are required in order to scan the QR code, tap the scanning area to open settings"
+          }
+        }
+      }
+    },
+    "recipient_aliases_d" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipient aliases (%@)"
+          }
+        }
+      }
+    },
+    "recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipients"
+          }
+        }
+      }
+    },
+    "recipients_filtered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipients (filter active)"
+          }
+        }
+      }
+    },
+    "recipients_list_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aliases"
+          }
+        }
+      }
+    },
+    "remove" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        }
+      }
+    },
+    "remove_attachments" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove attachments"
+          }
+        }
+      }
+    },
+    "remove_public_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove public key"
+          }
+        }
+      }
+    },
+    "remove_public_key_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to remove the public key for this recipient? It will also be removed from any other recipients using the same key."
+          }
+        }
+      }
+    },
+    "replace_the_from_name_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "replace the \"from name\" with"
+          }
+        }
+      }
+    },
+    "replace_the_subject_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "replace the subject with"
+          }
+        }
+      }
+    },
+    "replied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replied"
+          }
+        }
+      }
+    },
+    "replied_sent_stat" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ replied\n%@ sent"
+          }
+        }
+      }
+    },
+    "replies" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replies"
+          }
+        }
+      }
+    },
+    "report_an_issue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report an issue"
+          }
+        }
+      }
+    },
+    "report_an_issue_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found a bug? Tap here to create a report"
+          }
+        }
+      }
+    },
+    "requires_attention" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requires attention"
+          }
+        }
+      }
+    },
+    "resend_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resend email"
+          }
+        }
+      }
+    },
+    "reset_app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset app"
+          }
+        }
+      }
+    },
+    "reset_app_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete all the data from the app and start over? (This will not delete your addy.io account or anything related)"
+          }
+        }
+      }
+    },
+    "reset_app_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear all data and start over"
+          }
+        }
+      }
+    },
+    "restore" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore"
+          }
+        }
+      }
+    },
+    "restore_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore alias"
+          }
+        }
+      }
+    },
+    "restore_alias_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to restore this alias? Once restored, this alias will be able to receive emails again."
+          }
+        }
+      }
+    },
+    "restore_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Once restored, this alias will be able to receive emails again"
+          }
+        }
+      }
+    },
+    "restoring_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restoring alias…"
+          }
+        }
+      }
+    },
+    "rule_bannerlocation_bottom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bottom"
+          }
+        }
+      }
+    },
+    "rule_bannerlocation_off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "off"
+          }
+        }
+      }
+    },
+    "rule_bannerlocation_top" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "top"
+          }
+        }
+      }
+    },
+    "rule_disabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rule disabled"
+          }
+        }
+      }
+    },
+    "rule_if_" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If %@"
+          }
+        }
+      }
+    },
+    "rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules"
+          }
+        }
+      }
+    },
+    "rules_create_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules work on all emails, including replies and also send froms. New conditions and actions will be added over time."
+          }
+        }
+      }
+    },
+    "rules_view_explanation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold the drag handle and drag to change order\nSwipe right on a rule to enable or disable this rule"
+          }
+        }
+      }
+    },
+    "run_rule_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Run rule on"
+          }
+        }
+      }
+    },
+    "s_s" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ %@"
+          }
+        }
+      }
+    },
+    "s_s_s" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ %@ %@"
+          }
+        }
+      }
+    },
+    "save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "security" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Security"
+          }
+        }
+      }
+    },
+    "security_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use your biometric to open the addy.io app"
+          }
+        }
+      }
+    },
+    "see_this_version_changelogs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See this version's changelog"
+          }
+        }
+      }
+    },
+    "select" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select"
+          }
+        }
+      }
+    },
+    "select_a_recipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a recipient"
+          }
+        }
+      }
+    },
+    "select_mail_client" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select mail client"
+          }
+        }
+      }
+    },
+    "select_menu_item" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please select a menu item"
+          }
+        }
+      }
+    },
+    "self_hosted_instance_s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Self hosted instance (%@)"
+          }
+        }
+      }
+    },
+    "send" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        }
+      }
+    },
+    "send_mail" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send mail"
+          }
+        }
+      }
+    },
+    "send_mail_from_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the email addresses (comma separated) of the recipients you’d like to send an email to from %@.\n\nThe mail app on your device opens with the correct to addresses entered. Note that you must send this email from one of your verified recipients email address."
+          }
+        }
+      }
+    },
+    "send_mail_from_alias_from_intent_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the email addresses (comma separated) of the recipients you’d like to send an email to from an alias.\n\nAliases you enter that do not exist will be created automatically.\n\nThe mail app on your device opens with the correct to addresses entered. Note that you must send this email from one of your verified recipients email address.\n\nLeaving the alias field empty allows you to send emails from your own email address (not an alias)."
+          }
+        }
+      }
+    },
+    "sends" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sends"
+          }
+        }
+      }
+    },
+    "sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sent"
+          }
+        }
+      }
+    },
+    "set_the_banner_information_location_to" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "set the banner information location to"
+          }
+        }
+      }
+    },
+    "settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "setup_api_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DHnhF4dLwikeT0r0OX06LJpabVAp8xfeAIgYuTR1yOTEDTk1etLc1foOW1qlNdSFFpWAEH3NRpdQCU6bemN4zaBZUetcLbeY2f5yw49RVuhDGz1YLkgwnL1wcsMdRi84gMfFNaeiRA8bfBLjTIzyP139STErs9AIC3PzNQtyeBNsM3cQgojUtmRkcSHkBdgeVwkWea3UAKcAgUv9bYpdisnSyt5xZF8sPZMMPJxfPBNbyK5yP46cvozCVPQEKWlehtOzmXyWvadcbMKRTzVXzMrxOZVcYF1fRab1L4OAFhkOHDjtwlktNz3uPgR1wdJWrorVHnb7KNZA35h5F66mZxvbGlfMqQIkDsNk9KQRnSg2SYUPItvHTbBKDciM2t8QPbmD51CTgx6rQuWXubtYv9OAL3c74A09m0YA35tNNBV4U6MUkS2Q1jslbWlXAB8Lgi0fZMh6QmWPZkQ5N9sdRXSdcl3PMqxL6wU8Zsiw4JpiQIHrcBkbhK8SRhsmN53rDyz0a3NPbreum1EbFTzaiX8RGD8hMLXcqMmjD3lW5wF5jAxFmguPRURWutOQYmC0H6cKigYN2zKIxSULCjVQ5Aw10IDz0EiTYGUcTIZqoFYaiUu82G2T3xmMBNKD8Vm6IqxtTLIeLiv5VOJGfeG8bJH4WOt3CfD3Rda22wuOyGVSHfdz4frgS5QcjABMbC9xw8v8w7GtW0j7gDiaDLkY6teCZ47Ilsh820XBWLV6WLFFDBtzHt1zYJVkE97nM945zsn54OavppJCOTfllTEnWEHl7D1UvdRppuOyOM3g6rvLisXpgrmskIZgH6aquTrVu4aLfDptELAzbMBEOswxs13wIGqgnm0IqrTsHSxQPesyZ5PigFbLEHWkMdEd2KcjKcLWQirFb24RrllUHbyWHvt4Z77B5cIG3dDhOcT3Y04fbm3HZNGA7nsSsyX5lcTvsz2AMpSoVPfsIJXbfK3mA9cRIVzmFJzO3duT7NSBZWtH4mZvJ0yxikF2Izo9VyLobA3Onu9Eb4RFr4ETF1f18VqbMqCum3ZaEknovgvTLhmpn9ZSxR5YzsryaTtAJVR6GOdkN2IAisXCkTJ1VJvM1bpU0oOtQ72QMwPiUF2IiQSemqA2BiunBwAN2s35tGA9zOc1aYMNAAz1nCd7T0JqYHbeHsC6YQQjE24n8JAjF0DRfJDOBRkHIv53s2lhfQUY0atpFfRscJ3jui1B5p1vXlzhz7qse0abWsGhjBRZatykRPnFZFaGAmUUZQIDbo1AA2n9EmsDoBF3c961bX28doVNVksH0DAH2bI7w9Ltg9tftUt8cAvtBARSnGVQTXTyeN9ABSELmrJhj8U74vwM30QOmotyJDE5PuZ9eVgyfeUgg0JcdD7glsOxrRBmml3MiMAsRodyogZDdU8Z5OhAdrHR6tWvnY1isi0gUdYPOcakgFWo3SR63LPAFPEXVnoaO8kEoMSOm1ohMOcJeMWDle6AP4Cf8794ZAxSFm9fqh06hOYqC8tZHN5D2oGaFXwAIpzRneGbMXQ5R7Qiz5xkpNwdxovpBBNgrOEX3UnBCETH16zy8SDhdtUkBI9MsjMeY5U6Rc6JVPbkeCDmW4Jy8PLdds3ns0mx2NcU8S0iLbDeZ3yCNYyG3fYaBzyhXtW8hgIG3Dgzr77Lk9xzQreELkYOeg71fUVC24oSzoeRxvbCMoWdXte4H09f696EQrg9p7PHkL1vzPiEDlMkQyndz79XlG08BqQLjPYLuVx5qZqgoLfAJ9zrPl6ZaEC3g7nJoupAUVJkMwkykKEC1bofIDBjcqjqDbxyMl23iLHqIMOUwUaycNrZIWw3TUUSjhdyDgeO6aUmFT56IIeTockBBjLQq9QRVu51K7rNF6d1e8Bu92GyY7f7eqOZWia7FByuQaFgtm4cCgMsK2lnCAOLGnDW9V220Ao68NeeP2TTO6SbEaNNMFe4Rz3trm1FUj5uwhGkwVjvo7AhDfg5tLPFDIWnxXNMC0cqJgvTxpTpu6vUj6YIwO5CKDGtM3wdoGqO "
+          }
+        }
+      }
+    },
+    "setup_how_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step 1"
+          }
+        }
+      }
+    },
+    "setup_how_1_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's say your username is johndoe. You can now use *@johndoe.addy.io (or .me) as your email. Where * denotes any valid local part for an email address.\n\nIf you would like to remain anonymous choose a username that is not linked to your real name or identify and that you haven't used anywhere else.\n\nYou can also create aliases at shared domains if you are concerned about others linking alias ownership to you."
+          }
+        }
+      }
+    },
+    "setup_how_1_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Register your username"
+          }
+        }
+      }
+    },
+    "setup_how_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step 2"
+          }
+        }
+      }
+    },
+    "setup_how_2_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Either on the fly or generated beforehand. Next time you are signing up to a website or newsletter, simply make up a new alias and enter that instead of your real email address.\n\nFor example, if you are on vuejs.org and you want to sign up to their newsletter you could simply enter vuejs@johndoe.addy.io (or .me).\n\nWe'll automatically create the alias in your dashboard as soon as it receives its first email. You can reply to emails and send from aliases anonymously too!"
+          }
+        }
+      }
+    },
+    "setup_how_2_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Aliases"
+          }
+        }
+      }
+    },
+    "setup_how_3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step 3"
+          }
+        }
+      }
+    },
+    "setup_how_3_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's say a spammer gets hold of one of your aliases and starts sending unsolicited email to it. You can simply toggle a switch in your dashboard and deactivate that alias.\n\nOur system will then silently discard any further emails and you won't be forwarded anything else for that alias.\n\nYou can also delete the alias. Then our system will reject any emails and respond with an error."
+          }
+        }
+      }
+    },
+    "setup_how_3_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Aliases"
+          }
+        }
+      }
+    },
+    "setup_how_4" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What do you think?"
+          }
+        }
+      }
+    },
+    "setup_how_4_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(This will open your browser)"
+          }
+        }
+      }
+    },
+    "setup_how_4_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sounds like a service you’d use? If so, why not sign up."
+          }
+        }
+      }
+    },
+    "setup_view_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protect your real email address using email aliases"
+          }
+        }
+      }
+    },
+    "shareviewcontroller_pending_alias_scheduled" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the app to continue"
+          }
+        }
+      }
+    },
+    "shareviewcontroller_pending_alias_scheduled_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due to certain limitations, it’s not possible to open your existing alias from this sheet. However, your alias has been successfully forwarded to the addy.io app. Please open the app to view your alias"
+          }
+        }
+      }
+    },
+    "shareviewcontroller_pending_url_open" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have a pending email from the share extension, do you want to send this email?"
+          }
+        }
+      }
+    },
+    "shareviewcontroller_pending_url_scheduled" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the app to continue"
+          }
+        }
+      }
+    },
+    "shareviewcontroller_pending_url_scheduled_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due to certain limitations, it’s not possible to send an email directly from this sheet. However, your email has been successfully forwarded to the addy.io app. Please open the app to send your email"
+          }
+        }
+      }
+    },
+    "show_suggestions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show suggestions"
+          }
+        }
+      }
+    },
+    "show_suggestions_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When searching for an alias, show suggestions for domains you own"
+          }
+        }
+      }
+    },
+    "sign_in" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in"
+          }
+        }
+      }
+    },
+    "sign_up" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up"
+          }
+        }
+      }
+    },
+    "something_went_wrong_retrieving_account_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving notifications"
+          }
+        }
+      }
+    },
+    "something_went_wrong_retrieving_aliases" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving failed aliases"
+          }
+        }
+      }
+    },
+    "something_went_wrong_retrieving_domains" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while retrieving the domains"
+          }
+        }
+      }
+    },
+    "something_went_wrong_retrieving_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving failed deliveries"
+          }
+        }
+      }
+    },
+    "something_went_wrong_retrieving_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving recipients"
+          }
+        }
+      }
+    },
+    "something_went_wrong_retrieving_rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving rules"
+          }
+        }
+      }
+    },
+    "something_went_wrong_retrieving_usernames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong retrieving usernames"
+          }
+        }
+      }
+    },
+    "sort_active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active"
+          }
+        }
+      }
+    },
+    "sort_asc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ascending"
+          }
+        }
+      }
+    },
+    "sort_by" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sort by"
+          }
+        }
+      }
+    },
+    "sort_created_at" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created at"
+          }
+        }
+      }
+    },
+    "sort_deleted_at" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleted at"
+          }
+        }
+      }
+    },
+    "sort_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descending"
+          }
+        }
+      }
+    },
+    "sort_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain"
+          }
+        }
+      }
+    },
+    "sort_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "sort_email_blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocked"
+          }
+        }
+      }
+    },
+    "sort_email_forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forwarded"
+          }
+        }
+      }
+    },
+    "sort_email_replied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replied"
+          }
+        }
+      }
+    },
+    "sort_email_sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sent"
+          }
+        }
+      }
+    },
+    "sort_last_blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last blocked"
+          }
+        }
+      }
+    },
+    "sort_last_forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last forwarded"
+          }
+        }
+      }
+    },
+    "sort_last_replied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last replied"
+          }
+        }
+      }
+    },
+    "sort_last_sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last sent"
+          }
+        }
+      }
+    },
+    "sort_last_used" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last used"
+          }
+        }
+      }
+    },
+    "sort_localpart" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local part"
+          }
+        }
+      }
+    },
+    "sort_updated_at" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updated at"
+          }
+        }
+      }
+    },
+    "sorting" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorting"
+          }
+        }
+      }
+    },
+    "start animation" : {
+
+    },
+    "start_typing_to_show_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start typing to show aliases"
+          }
+        }
+      }
+    },
+    "starts_with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "starts with"
+          }
+        }
+      }
+    },
+    "statistics" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics"
+          }
+        }
+      }
+    },
+    "stop_checking" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop checking"
+          }
+        }
+      }
+    },
+    "stop_watching" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop watching"
+          }
+        }
+      }
+    },
+    "store_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Store logs"
+          }
+        }
+      }
+    },
+    "store_logs_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When an error occurs, store the relevant information"
+          }
+        }
+      }
+    },
+    "subscription_about_to_expire" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription about to expire"
+          }
+        }
+      }
+    },
+    "subscription_about_to_expire_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your subscription will expire in %@. Renew your subscription to keep using pro features."
+          }
+        }
+      }
+    },
+    "subscription_expiry_date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your subscription will expire in %@"
+          }
+        }
+      }
+    },
+    "subscription_expiry_date_never" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your current subscription has no expiration"
+          }
+        }
+      }
+    },
+    "subscription_expiry_date_self_hosted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are using a self-hosted instance of addy.io, subscriptions do not apply to self-hosted instances"
+          }
+        }
+      }
+    },
+    "subscription_expiry_date_unknown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The expiry date of your subscription could not be determined"
+          }
+        }
+      }
+    },
+    "subscription_user" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ user"
+          }
+        }
+      }
+    },
+    "subscription_user_until" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription expires on %@"
+          }
+        }
+      }
+    },
+    "suggestions_will_appear_when_typing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suggestions will start to appear as you start typing"
+          }
+        }
+      }
+    },
+    "system_default" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System default"
+          }
+        }
+      }
+    },
+    "tap_here_to_see_the_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap here to see the error"
+          }
+        }
+      }
+    },
+    "the_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the alias"
+          }
+        }
+      }
+    },
+    "the_alias_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the alias description"
+          }
+        }
+      }
+    },
+    "the_sender" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the sender"
+          }
+        }
+      }
+    },
+    "the_subject" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the subject"
+          }
+        }
+      }
+    },
+    "this_field_cannot_be_empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This field cannot be empty"
+          }
+        }
+      }
+    },
+    "total_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total aliases"
+          }
+        }
+      }
+    },
+    "total_recipients" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total recipients"
+          }
+        }
+      }
+    },
+    "try_again" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again"
+          }
+        }
+      }
+    },
+    "turn_PGP_encryption_off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "turn PGP encryption off"
+          }
+        }
+      }
+    },
+    "understood" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Understood"
+          }
+        }
+      }
+    },
+    "unknown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown"
+          }
+        }
+      }
+    },
+    "unlimited" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unlimited"
+          }
+        }
+      }
+    },
+    "unlock" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock"
+          }
+        }
+      }
+    },
+    "update_api_token_now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update API key now"
+          }
+        }
+      }
+    },
+    "update_api_token_now_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the API token that the addy.io app authenticates with. The instance cannot be changed"
+          }
+        }
+      }
+    },
+    "update_notify_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Periodically check for updates in the background and send a notification when one is available"
+          }
+        }
+      }
+    },
+    "update_notify_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notify for new updates"
+          }
+        }
+      }
+    },
+    "updated_at_s" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updated %@"
+          }
+        }
+      }
+    },
+    "username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username"
+          }
+        }
+      }
+    },
+    "username_activated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username activated"
+          }
+        }
+      }
+    },
+    "username_aliases_d" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username aliases (%@)"
+          }
+        }
+      }
+    },
+    "username_deactivated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username deactivated"
+          }
+        }
+      }
+    },
+    "username_edit_recipient_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The list below shows all verified recipients. Select which recipient you want to set as default recipient for this username"
+          }
+        }
+      }
+    },
+    "username_no_auto_create_regex" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This username has no auto create regex set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "username_no_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This username has no description set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "username_no_from_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This username has no from name set. Tap here to add one"
+          }
+        }
+      }
+    },
+    "username_status_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this username for mail forwarding"
+          }
+        }
+      }
+    },
+    "usernames" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usernames"
+          }
+        }
+      }
+    },
+    "verification_email_confirmation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This recipients is not verified yet"
+          }
+        }
+      }
+    },
+    "verification_email_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to resend the confirmation email to this recipient?"
+          }
+        }
+      }
+    },
+    "verification_email_has_been_sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verification email has been sent"
+          }
+        }
+      }
+    },
+    "version_s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@"
+          }
+        }
+      }
+    },
+    "version_s_update_available" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@ (Update available)"
+          }
+        }
+      }
+    },
+    "view_account_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View notifications"
+          }
+        }
+      }
+    },
+    "view_account_notifications_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open an overview of notifications"
+          }
+        }
+      }
+    },
+    "view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View details"
+          }
+        }
+      }
+    },
+    "view_failed_deliveries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View failed deliveries"
+          }
+        }
+      }
+    },
+    "view_failed_deliveries_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open an overview of recent failed deliveries"
+          }
+        }
+      }
+    },
+    "view_store_logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View stored logs"
+          }
+        }
+      }
+    },
+    "visit_addyio_helps_section" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visit addy.io help section"
+          }
+        }
+      }
+    },
+    "watch_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch alias"
+          }
+        }
+      }
+    },
+    "watch_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receive a notification when an email is sent to this alias"
+          }
+        }
+      }
+    },
+    "watch_alias_feature_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep track of emails being forwarded through a specific alias. Open the management page of an alias and enable  \"Watch alias\" to be notified of a new forwarded message.\n\nYou can watch a maximum of 25 aliases."
+          }
+        }
+      }
+    },
+    "whoops" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whoops!"
+          }
+        }
+      }
+    },
+    "widget_1_bandwidth_gauge" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bandwidth"
+          }
+        }
+      }
+    },
+    "widget_1_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An overview of your addy.io stats that dynamically adapts to size"
+          }
+        }
+      }
+    },
+    "widget_1_inline_text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ emails forwarded"
+          }
+        }
+      }
+    },
+    "widget_1_name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics overview"
+          }
+        }
+      }
+    },
+    "widget_configuration_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configure the looks of the widget"
+          }
+        }
+      }
+    },
+    "widget_configuration_parameter_colorful_background" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colorful background"
+          }
+        }
+      }
+    },
+    "you_do_not_own_this_domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You do not own this domain"
+          }
+        }
+      }
+    },
+    "you_ll_be_notified_if_this_alias_has_activity" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’ll be notified if this alias has activity"
+          }
+        }
+      }
+    },
+    "you_ve_used_d_out_of_d_domains" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’ve used %@ out of %@ domains"
+          }
+        }
+      }
+    },
+    "you_ve_used_d_out_of_d_recipients" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’ve used %@ out of %@ recipients"
+          }
+        }
+      }
+    },
+    "you_ve_used_d_out_of_d_rules" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’ve used %@ out of %@ rules"
+          }
+        }
+      }
+    },
+    "you_ve_used_d_out_of_d_usernames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’ve used %@ out of %@ usernames"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
