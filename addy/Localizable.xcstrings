@@ -652,6 +652,17 @@
         }
       }
     },
+    "annually" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annually"
+          }
+        }
+      }
+    },
     "anonymous_email_forwarding" : {
       "localizations" : {
         "en" : {
@@ -2828,6 +2839,17 @@
         }
       }
     },
+    "failed_to_restore_transactions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to restore transactions"
+          }
+        }
+      }
+    },
     "faq" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3662,6 +3684,17 @@
         }
       }
     },
+    "manage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage"
+          }
+        }
+      }
+    },
     "manage_domain_basic_info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3739,6 +3772,28 @@
         }
       }
     },
+    "manage_subscription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage subscription"
+          }
+        }
+      }
+    },
+    "manage_subscription_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch plan or duration term"
+          }
+        }
+      }
+    },
     "manage_username_basic_info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3810,6 +3865,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Menu"
+          }
+        }
+      }
+    },
+    "monthly" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monthly"
           }
         }
       }
@@ -4890,6 +4955,17 @@
         }
       }
     },
+    "restore_purchases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore purchases"
+          }
+        }
+      }
+    },
     "restoring_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5818,6 +5894,27 @@
         }
       }
     },
+    "subscribe_now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribe Now"
+          }
+        }
+      }
+    },
+    "subscription" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription"
+          }
+        }
+      }
+    },
     "subscription_about_to_expire" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5869,6 +5966,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The expiry date of your subscription could not be determined"
+          }
+        }
+      }
+    },
+    "subscription_other_platform_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot manage subscription"
+          }
+        }
+      }
+    },
+    "subscription_other_platform_title_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To subscribe via the App Store, please cancel your existing subscription on the other platform where it's currently managed"
+          }
+        }
+      }
+    },
+    "subscription_processing_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Processing subscription failed"
+          }
+        }
+      }
+    },
+    "subscription_processing_failed_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong communicating your order to the server. Please take a screenshot of the following information and contact addy.io\n\nUserId: %@\nTransactionId: %@\nProductId: %@"
           }
         }
       }
@@ -6405,6 +6546,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Whoops!"
+          }
+        }
+      }
+    },
+    "why_subscribe" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Why Subscribe?"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom domains"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_3" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Failed Deliveries"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_4" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Much more"
           }
         }
       }

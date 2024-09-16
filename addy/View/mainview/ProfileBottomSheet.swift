@@ -17,6 +17,7 @@ struct ProfileBottomSheet: View {
     @State var horizontalSize: UserInterfaceSizeClass
     
     @State var isShowingDomainsView = false
+    @State var isShowingSubscriptionView = false
     @State var isShowingRulesView = false
     @State var isShowingUsernamesView = false
     @State var isShowingAppSettingsView = false
@@ -80,12 +81,30 @@ struct ProfileBottomSheet: View {
                         
                         AddyButton(action: {
                             openURL(URL(string: "\(AddyIo.API_BASE_URL)/settings")!)
-                            
                         }, style: AddyButtonStyle(backgroundColor: Color(.accent).opacity(0.5))) {
                             Text(String(localized: "addyio_settings")).foregroundColor(Color.white)
                         }.padding(.top).buttonStyle(PlainButtonStyle())
                     }
                 }.listRowBackground(Color.clear)
+            
+                if AddyIo.isUsingHostedInstance(){
+#if APPSTORE
+                    Section {
+                        AddySection(title: String(localized: "manage_subscription"), description: String(localized: "manage_subscription_desc"), trailingSystemimage: "chevron.right") {
+                            self.isShowingSubscriptionView = true
+                        }
+                    }
+#else
+                    
+                    Section {
+                        AddySection(title: String(localized: "manage_subscription"), description: String(localized: "manage_subscription_desc"), trailingSystemimage: nil) {
+                            openURL(URL(string: "\(AddyIo.API_BASE_URL)/settings/subscription")!)
+                        }
+                    }
+                    
+#endif
+                }
+                
                 
                 Section{
                     
@@ -161,6 +180,12 @@ struct ProfileBottomSheet: View {
             .navigationDestination(isPresented: $isShowingAppSettingsView) {
                 AppSettingsView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
             }
+            .navigationDestination(isPresented: $isShowingSubscriptionView) {
+                // Double check that this destination is ONLY being loaded when user is using the hosted instance
+                if AddyIo.isUsingHostedInstance(){
+                    ManageSubscriptionView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                }
+            }
             .listSectionSpacing(.compact)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
@@ -200,6 +225,9 @@ struct ProfileBottomSheet: View {
             break
         case .domains:
             isShowingDomainsView = true
+            break
+        case .subscription:
+            isShowingSubscriptionView = true
             break
         default:
             break

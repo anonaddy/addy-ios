@@ -29,7 +29,7 @@ public struct UserResourceExtended: Codable {
 
 
 public struct UserResource: Codable {
-    var id: String
+    public var id: String
     public var username: String
     var from_name: String?
     var email_subject: String?
@@ -42,6 +42,7 @@ public struct UserResource: Codable {
     public var default_alias_domain: String
     public var default_alias_format: String
     public var subscription: String? // Can be nil on selfhosted
+    public var subscription_type: String? // Can be nil on selfhosted
     public var subscription_ends_at: String? // Can be nil on selfhosted
     public var bandwidth_limit: Int64
     public var recipient_count: Int
