@@ -1553,6 +1553,28 @@
         }
       }
     },
+    "could_not_obtain_receipt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not obtain receipt"
+          }
+        }
+      }
+    },
+    "could_not_obtain_receipt_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We couldn't find a receipt for your purchase; this is probably due to an App Store error. Please try restoring your purchase or take a screenshot of the following information and contact addy.io\n\nUserId: %@\nTransactionId: %@\nProductId: %@"
+          }
+        }
+      }
+    },
     "crafted_with_love_and_privacy" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5905,6 +5927,17 @@
         }
       }
     },
+    "subscribed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribed"
+          }
+        }
+      }
+    },
     "subscription" : {
       "localizations" : {
         "en" : {
@@ -6550,17 +6583,6 @@
         }
       }
     },
-    "why_subscribe" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Why Subscribe?"
-          }
-        }
-      }
-    },
     "why_subscribe_reason_1" : {
       "localizations" : {
         "en" : {
@@ -6596,7 +6618,51 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Much more"
+            "value" : "Access Paid Plan Settings"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_5" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Additional Usernames"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_6" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Priority Support"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_7" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Option to Disable Catch-All"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_8" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias Auto Creation with Regex"
           }
         }
       }

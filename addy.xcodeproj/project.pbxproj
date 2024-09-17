@@ -48,6 +48,7 @@
 		802F061A2C98428800194AEC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802F06192C98428800194AEC /* StoreKit.framework */; };
 		802F061C2C9843A800194AEC /* ManageSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F061B2C9843A800194AEC /* ManageSubscriptionView.swift */; };
 		802FC8CF2C42C2EA00E3E134 /* AppShortcuts.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 802FC8CE2C42C2EA00E3E134 /* AppShortcuts.xcstrings */; };
+		803171992C99C1A80094B3FF /* StoreKitConfiguration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 803171982C99C1A80094B3FF /* StoreKitConfiguration.storekit */; };
 		8036F1572C499149008627C3 /* AddyStatisticWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8036F1422C499148008627C3 /* AddyStatisticWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8036F1602C49990C008627C3 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
 		8042E0742C3318DA001E8366 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8042E0732C3318DA001E8366 /* ShareViewController.swift */; };
@@ -182,7 +183,6 @@
 		80B2FBC82C3C4E6D009977B6 /* AnonAddyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBC72C3C4E6D009977B6 /* AnonAddyUtils.swift */; };
 		80B2FBC92C3C4E96009977B6 /* AnonAddyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBC72C3C4E6D009977B6 /* AnonAddyUtils.swift */; };
 		80B2FBCA2C3C4EB4009977B6 /* AddyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB792C3C4388009977B6 /* AddyChipModel.swift */; };
-		80B45E592C985799001DBB45 /* StoreKitConfiguration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 80B45E582C985799001DBB45 /* StoreKitConfiguration.storekit */; };
 		80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */; };
 		80CE87DD2C209CAD001ECF5C /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CE87DC2C209CA9001ECF5C /* ProfilePicture.swift */; };
 		80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */; };
@@ -288,6 +288,7 @@
 		802F06192C98428800194AEC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		802F061B2C9843A800194AEC /* ManageSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubscriptionView.swift; sourceTree = "<group>"; };
 		802FC8CE2C42C2EA00E3E134 /* AppShortcuts.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = AppShortcuts.xcstrings; sourceTree = "<group>"; };
+		803171982C99C1A80094B3FF /* StoreKitConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitConfiguration.storekit; sourceTree = "<group>"; };
 		8036F1422C499148008627C3 /* AddyStatisticWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AddyStatisticWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8036F1432C499148008627C3 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		8036F1452C499148008627C3 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -408,7 +409,6 @@
 		80B2FB792C3C4388009977B6 /* AddyChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyChipModel.swift; sourceTree = "<group>"; };
 		80B2FBB82C3C4C0A009977B6 /* Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apply.swift; sourceTree = "<group>"; };
 		80B2FBC72C3C4E6D009977B6 /* AnonAddyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonAddyUtils.swift; sourceTree = "<group>"; };
-		80B45E582C985799001DBB45 /* StoreKitConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitConfiguration.storekit; sourceTree = "<group>"; };
 		80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAliasLabelStyle.swift; sourceTree = "<group>"; };
 		80CE87DC2C209CA9001ECF5C /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
 		80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsViewModel.swift; sourceTree = "<group>"; };
@@ -835,7 +835,7 @@
 		806F21262BE8F1B100EBEBC8 = {
 			isa = PBXGroup;
 			children = (
-				80B45E582C985799001DBB45 /* StoreKitConfiguration.storekit */,
+				803171982C99C1A80094B3FF /* StoreKitConfiguration.storekit */,
 				8046331A2C4ED4C300192FA6 /* CHANGELOG.md */,
 				804633202C4ED51300192FA6 /* README.md */,
 				8046331B2C4ED4C300192FA6 /* LICENSE */,
@@ -1357,7 +1357,7 @@
 				80E849B02BEBA66100C8D68A /* ic_loading_logo_error.shapeshifter.json in Resources */,
 				80F0D7E72BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json in Resources */,
 				804633212C4ED51300192FA6 /* README.md in Resources */,
-				80B45E592C985799001DBB45 /* StoreKitConfiguration.storekit in Resources */,
+				803171992C99C1A80094B3FF /* StoreKitConfiguration.storekit in Resources */,
 				8046331D2C4ED4C300192FA6 /* LICENSE in Resources */,
 				8046331E2C4ED4C300192FA6 /* CHANGELOG.md in Resources */,
 				8046331F2C4ED4C300192FA6 /* PrivacyPolicy.md in Resources */,

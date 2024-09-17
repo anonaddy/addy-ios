@@ -3717,7 +3717,7 @@ public class NetworkHelper {
     
     
     
-    public func notifyServerForSubscriptionChange(transactionId: String, productId: String) async throws -> UserResource? {
+    public func notifyServerForSubscriptionChange(receipt: String) async throws -> UserResource? {
 #if DEBUG
         print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
 #endif
@@ -3725,7 +3725,7 @@ public class NetworkHelper {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = getHeaders()
-        let json: [String: Any] = ["transactionId": transactionId, "productId": productId]
+        let json: [String: Any] = ["receiptData": receipt, "platform": "apple"]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         request.httpBody = jsonData
         
