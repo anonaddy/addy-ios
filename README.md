@@ -33,9 +33,9 @@ Easily create and manage your addy.io aliases, recipients and more from your pho
 - App exclusive features
   - Watching aliases for new emails
   - Send emails from aliases from anywhere by selecting and sharing text or an email address
-  - Get notified on failed deliveries
-  - Get notified on expiring subscriptions
+  - Get notified on failed deliveries, domain errors and expiring subscriptions
   - Create aliases using Shortcuts and Siri
+  - Manage your addy.io subscription
 - Enable error logging to *locally* store exceptions for easy troubleshooting
 - Widgets!
 
@@ -68,7 +68,7 @@ Developer-led download channels:
 
 > Other sources
 
-- Coming soon?
+- Coming soon...
 
 ## UI
 
@@ -95,7 +95,9 @@ Third party libraries used:
 I welcome your comments and suggestions in the issues section, or you can contribute your code by submitting a PR directly to me. Of course, you can
 also directly contact me via telegram or email and I'll get back to you.
 
-## Donation
+## Donation (Stjin)
+
+To support Stjin (the developer of the mobile apps) you can use below links:
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/Stjinchan)
 [![BuyMeACoffee](static/bmc-button.png)](https://buymeacoffee.com/stjin)

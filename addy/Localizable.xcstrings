@@ -73,6 +73,28 @@
         }
       }
     },
+    "activating_subscription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activating subscription"
+          }
+        }
+      }
+    },
+    "activating_subscription_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We are communicating your subscription to the addy.io server"
+          }
+        }
+      }
+    },
     "active" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -652,6 +674,17 @@
         }
       }
     },
+    "annually" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annually"
+          }
+        }
+      }
+    },
     "anonymous_email_forwarding" : {
       "localizations" : {
         "en" : {
@@ -1013,6 +1046,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The addy.io app has not been set-up yet, open the app and add an API key to begin."
+          }
+        }
+      }
+    },
+    "app_store" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Store"
           }
         }
       }
@@ -1538,6 +1582,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Could not check for updates"
+          }
+        }
+      }
+    },
+    "could_not_obtain_receipt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not obtain receipt"
+          }
+        }
+      }
+    },
+    "could_not_obtain_receipt_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We couldn't find a receipt for your purchase; this is probably due to an App Store error. Please try restoring your purchase or take a screenshot of the following information and contact addy.io\n\nUserId: %@\nTransactionId: %@\nProductId: %@"
           }
         }
       }
@@ -2828,6 +2894,17 @@
         }
       }
     },
+    "failed_to_restore_transactions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to restore transactions"
+          }
+        }
+      }
+    },
     "faq" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3662,6 +3739,17 @@
         }
       }
     },
+    "manage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage"
+          }
+        }
+      }
+    },
     "manage_domain_basic_info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3739,6 +3827,28 @@
         }
       }
     },
+    "manage_subscription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage subscription"
+          }
+        }
+      }
+    },
+    "manage_subscription_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch plan or duration term"
+          }
+        }
+      }
+    },
     "manage_username_basic_info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3810,6 +3920,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Menu"
+          }
+        }
+      }
+    },
+    "monthly" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monthly"
           }
         }
       }
@@ -4890,6 +5010,17 @@
         }
       }
     },
+    "restore_purchases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore purchases"
+          }
+        }
+      }
+    },
     "restoring_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5432,6 +5563,17 @@
         }
       }
     },
+    "sideloaded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sideloaded"
+          }
+        }
+      }
+    },
     "sign_in" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5818,6 +5960,27 @@
         }
       }
     },
+    "subscribe_now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribe Now"
+          }
+        }
+      }
+    },
+    "subscription" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription"
+          }
+        }
+      }
+    },
     "subscription_about_to_expire" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5869,6 +6032,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The expiry date of your subscription could not be determined"
+          }
+        }
+      }
+    },
+    "subscription_other_platform_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot manage subscription"
+          }
+        }
+      }
+    },
+    "subscription_other_platform_title_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To subscribe via the App Store, please cancel your existing subscription on the other platform where it's currently managed"
+          }
+        }
+      }
+    },
+    "subscription_processing_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Processing subscription failed"
+          }
+        }
+      }
+    },
+    "subscription_processing_failed_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong communicating your order to the server. Please take a screenshot of the following information and contact addy.io\n\nUserId: %@\nTransactionId: %@\nProductId: %@"
           }
         }
       }
@@ -5979,6 +6186,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This field cannot be empty"
+          }
+        }
+      }
+    },
+    "this_might_take_a_few_moments" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This might take a few moments."
           }
         }
       }
@@ -6266,6 +6484,17 @@
         }
       }
     },
+    "version_channel_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version: %@\nDownload channel: %@"
+          }
+        }
+      }
+    },
     "version_s" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6405,6 +6634,90 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Whoops!"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom domains"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_3" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Failed Deliveries"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_4" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Access Paid Plan Settings"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_5" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Additional Usernames"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_6" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Priority Support"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_7" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Option to Disable Catch-All"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_8" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alias Auto Creation with Regex"
           }
         }
       }

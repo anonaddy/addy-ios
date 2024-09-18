@@ -81,7 +81,10 @@ struct MainView: View {
                                 })
                             }
                             else if mainViewState.showSubscriptionExpirationWarning {
-                                return Alert(title: Text(String(localized: "subscription_about_to_expire")), message: Text(String(format: String(localized:"subscription_about_to_expire_desc"), subscriptionExpiryText)), dismissButton: .cancel(Text(String(localized: "dismiss"))){
+                                return Alert(title: Text(String(localized: "subscription_about_to_expire")), message: Text(String(format: String(localized:"subscription_about_to_expire_desc"), subscriptionExpiryText)), primaryButton: .default(Text(String(localized: "manage"))){
+                                    mainViewState.isPresentingProfileBottomSheet = true
+                                    mainViewState.profileBottomSheetAction = .subscription
+                                }, secondaryButton: .cancel(Text(String(localized: "dismiss"))){
                                     mainViewState.showSubscriptionExpirationWarning = false
                                     
                                 })
@@ -455,7 +458,7 @@ struct MainView: View {
     
     private var tabView: some View {
         TabView(selection: $mainViewState.selectedTab) {
-            let destinations = horizontalSize == .regular ? Destination.allCases : Destination.iPhoneCases
+            let destinations = horizontalSize == .regular ? Destination.otherCases : Destination.iPhoneCases
             
             ForEach(destinations, id: \.self) { destination in
                 destination.view(horizontalSize: .constant(horizontalSize!), refreshGeneralData: self.refreshGeneralData)
@@ -484,11 +487,15 @@ struct MainView: View {
 }
 
 enum Destination: Hashable, CaseIterable {
-    case home, aliases, recipients, usernames, domains, failedDeliveries, rules, settings
+    case home, aliases, recipients, usernames, domains, failedDeliveries, rules, settings, subscription
     
     
     static var iPhoneCases: [Destination] {
         return [.home, .aliases, .recipients]
+    }
+    
+    static var otherCases: [Destination] {
+        return [.home, .aliases, .recipients, .usernames, .domains, .failedDeliveries, .rules, .settings]
     }
     
     var title: LocalizedStringKey {
@@ -501,6 +508,7 @@ enum Destination: Hashable, CaseIterable {
         case .failedDeliveries: return "failed_deliveries"
         case .rules: return "rules"
         case .settings: return "settings"
+        case .subscription: return "subscription"
         }
     }
     
@@ -514,6 +522,7 @@ enum Destination: Hashable, CaseIterable {
         case .failedDeliveries: return "exclamationmark.triangle.fill"
         case .rules: return "checklist"
         case .settings: return "gear"
+        case .subscription: return "creditcard.fill"
         }
     }
     
@@ -541,9 +550,11 @@ enum Destination: Hashable, CaseIterable {
             refreshGeneralData?()
         }))
         case .settings: return AnyView(AppSettingsView(horizontalSize: horizontalSize))
+        case .subscription: return AnyView(ManageSubscriptionView(horizontalSize: horizontalSize, shouldHideNavigationBarBackButtonSubscriptionView: .constant(false)))
+            
         }
+        
     }
-    
 }
 
 

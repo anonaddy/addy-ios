@@ -61,4 +61,6 @@ public struct AddyIo {
     
     // Hosted only
     static var API_URL_ACCOUNT_NOTIFICATIONS: String { "\(API_BASE_URL)/api/v1/account-notifications" }
+    static var API_URL_NOTIFY_SUBSCRIPTION: String { "\(API_BASE_URL)/api/v1/notify-subscription" }
+
 }

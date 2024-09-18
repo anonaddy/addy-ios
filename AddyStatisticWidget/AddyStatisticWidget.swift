@@ -219,16 +219,13 @@ struct largeWidgetSize: View {
             VStack(spacing: 0) {
                 
                 if let aliases = getMostActiveAliasesData() {
-                    ForEach(aliases, id: \.self) { alias in
+                    ForEach(Array(aliases.enumerated()), id: \.1) { (index, alias) in
                         AliasWidgetRowView(alias: alias, entry: entry)
                         
-                        // Don't show divider on last Alias
-                        if (aliases.last != alias){
-                            Divider().background(entry.configuration.colorfulBackground ? .white : .gray.opacity(0.1))
+                        // Show divider for all but the last item
+                        if index < aliases.count - 1 {
+                            Divider().background(entry.configuration.colorfulBackground ? Color.white.opacity(0.1) : Color.gray.opacity(0.1))
                         }
-                        
-                        
-                        
                     }
                 }
                 
@@ -250,7 +247,7 @@ struct AliasWidgetRowView: View {
     
     var body: some View {
         Link(destination: URL(string: "addyio://alias/\(alias.id)")!) {
-            HStack {
+            HStack() {
                 VStack(alignment: .leading) {
                     Text(SettingsManager(encrypted: true).getSettingsBool(key: .privacyMode) ? String(localized: "alias_hidden") : alias.email)
                         .font(.system(size: 16))
@@ -284,7 +281,9 @@ struct AliasWidgetRowView: View {
                 Image(systemName: "chevron.right")
                     .foregroundStyle(entry.configuration.colorfulBackground ? .white : .revertedNightMode)
             }
-            .padding(10)
+            .frame(maxHeight: .infinity)
+            .padding(.horizontal)
+
         }
         
     }
