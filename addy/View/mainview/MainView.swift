@@ -550,7 +550,7 @@ enum Destination: Hashable, CaseIterable {
             refreshGeneralData?()
         }))
         case .settings: return AnyView(AppSettingsView(horizontalSize: horizontalSize))
-        case .subscription: return AnyView(ManageSubscriptionView(horizontalSize: horizontalSize))
+        case .subscription: return AnyView(ManageSubscriptionView(horizontalSize: horizontalSize, shouldHideNavigationBarBackButtonSubscriptionView: .constant(false)))
             
         }
         

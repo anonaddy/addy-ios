@@ -73,6 +73,28 @@
         }
       }
     },
+    "activating_subscription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activating subscription"
+          }
+        }
+      }
+    },
+    "activating_subscription_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We are communicating your subscription to the addy.io server"
+          }
+        }
+      }
+    },
     "active" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1024,6 +1046,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The addy.io app has not been set-up yet, open the app and add an API key to begin."
+          }
+        }
+      }
+    },
+    "app_store" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Store"
           }
         }
       }
@@ -5530,6 +5563,17 @@
         }
       }
     },
+    "sideloaded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sideloaded"
+          }
+        }
+      }
+    },
     "sign_in" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5927,17 +5971,6 @@
         }
       }
     },
-    "subscribed" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Subscribed"
-          }
-        }
-      }
-    },
     "subscription" : {
       "localizations" : {
         "en" : {
@@ -6153,6 +6186,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This field cannot be empty"
+          }
+        }
+      }
+    },
+    "this_might_take_a_few_moments" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This might take a few moments."
           }
         }
       }
@@ -6436,6 +6480,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verification email has been sent"
+          }
+        }
+      }
+    },
+    "version_channel_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version: %@\nDownload channel: %@"
           }
         }
       }

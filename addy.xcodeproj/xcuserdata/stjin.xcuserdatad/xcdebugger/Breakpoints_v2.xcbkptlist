@@ -5484,8 +5484,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -5500,8 +5500,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -5516,8 +5516,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -5532,8 +5532,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -5548,8 +5548,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -5564,8 +5564,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "330"
-            endingLineNumber = "330"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5580,8 +5580,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5596,24 +5596,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
-            landmarkName = "notifyInstanceAboutSubscription(transaction:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5CC6B54C-C807-4877-841A-53EF4CDD9B60"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/ManageSubscriptionView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5628,8 +5612,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
+            startingLineNumber = "387"
+            endingLineNumber = "387"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5644,8 +5628,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "357"
-            endingLineNumber = "357"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5660,8 +5644,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
+            startingLineNumber = "416"
+            endingLineNumber = "416"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5676,8 +5660,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "359"
-            endingLineNumber = "359"
+            startingLineNumber = "417"
+            endingLineNumber = "417"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5692,8 +5676,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "357"
-            endingLineNumber = "357"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5708,8 +5692,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5724,8 +5708,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
+            startingLineNumber = "391"
+            endingLineNumber = "391"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5740,8 +5724,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
+            startingLineNumber = "392"
+            endingLineNumber = "392"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5756,8 +5740,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
+            startingLineNumber = "393"
+            endingLineNumber = "393"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5900,8 +5884,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
+            startingLineNumber = "399"
+            endingLineNumber = "399"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5916,8 +5900,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "345"
-            endingLineNumber = "345"
+            startingLineNumber = "400"
+            endingLineNumber = "400"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5932,8 +5916,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "346"
-            endingLineNumber = "346"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5980,8 +5964,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
+            startingLineNumber = "390"
+            endingLineNumber = "390"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5996,8 +5980,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
+            startingLineNumber = "391"
+            endingLineNumber = "391"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6012,8 +5996,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "332"
-            endingLineNumber = "332"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6044,8 +6028,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
+            startingLineNumber = "440"
+            endingLineNumber = "440"
             landmarkName = "fetchProducts(productIdentifiers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6060,8 +6044,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "381"
-            endingLineNumber = "381"
+            startingLineNumber = "442"
+            endingLineNumber = "442"
             landmarkName = "fetchProducts(productIdentifiers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6076,8 +6060,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "439"
+            endingLineNumber = "439"
             landmarkName = "fetchProducts(productIdentifiers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6092,8 +6076,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
             landmarkName = "fetchProducts(productIdentifiers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6108,8 +6092,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -6124,8 +6108,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
+            startingLineNumber = "397"
+            endingLineNumber = "397"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6140,8 +6124,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
+            startingLineNumber = "397"
+            endingLineNumber = "397"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6156,8 +6140,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "398"
+            endingLineNumber = "398"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6172,8 +6156,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "398"
+            endingLineNumber = "398"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6188,8 +6172,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "438"
+            endingLineNumber = "438"
             landmarkName = "fetchProducts(productIdentifiers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6204,8 +6188,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
+            startingLineNumber = "391"
+            endingLineNumber = "391"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6220,8 +6204,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "438"
+            endingLineNumber = "438"
             landmarkName = "fetchProducts(productIdentifiers:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6236,8 +6220,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
+            startingLineNumber = "391"
+            endingLineNumber = "391"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6252,8 +6236,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6268,8 +6252,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
             landmarkName = "fetchReceipt()"
             landmarkType = "7">
          </BreakpointContent>
@@ -6284,8 +6268,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
             landmarkName = "fetchReceipt()"
             landmarkType = "7">
          </BreakpointContent>
@@ -6300,8 +6284,8 @@
             filePath = "addy/View/mainview/ManageSubscriptionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
+            startingLineNumber = "416"
+            endingLineNumber = "416"
             landmarkName = "notifyInstanceAboutSubscription(transaction:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -14,6 +14,7 @@ struct AppSettingsUpdateView: View {
     @State private var errorAlertMessage = ""
     
     @State private var isCheckingForUpdates: Bool = false
+    @State private var checkedForUpdates: Bool = false
     
     @State var updateStatusTitle = String(localized: "check_for_updates")
     @State var updateStatusDescription = String(localized: "check_for_updates_desc")
@@ -21,9 +22,9 @@ struct AppSettingsUpdateView: View {
     @State private var notifyUpdates: Bool = false
     @State private var isPresentingChangelogBottomSheet = false
     
-
+    
     @Environment(\.openURL) var openURL
-
+    
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -33,11 +34,16 @@ struct AppSettingsUpdateView: View {
             
             Section {
                 AddySection(title: isCheckingForUpdates ? String(localized: "obtaining_information") : updateStatusTitle, description: updateStatusDescription, leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue){
-                    isCheckingForUpdates = true
-                    Task {
-                        await self.checkForUpdates()
+                    if checkedForUpdates {
+                        self.downloadUpdate()
+                    } else {
+                        isCheckingForUpdates = true
+                        Task {
+                            await self.checkForUpdates()
+                        }
                     }
-                    }
+                    
+                }
                 
                 AddyToggle(isOn: $notifyUpdates, title: String(localized: "update_notify_title"), description: String(localized: "update_notify_desc"), leadingSystemimage: "bell.fill", leadingSystemimageColor: .green).onAppear {
                     self.notifyUpdates = MainViewState.shared.settingsManager.getSettingsBool(key: .notifyUpdates)
@@ -53,23 +59,28 @@ struct AppSettingsUpdateView: View {
             
             Section {
                 AddySection(title: String(localized: "changelog"), description: String(localized: "see_this_version_changelogs"), leadingSystemimage: "plus.forwardslash.minus", leadingSystemimageColor: .orange){
-                        isPresentingChangelogBottomSheet = true
-                    }
+                    isPresentingChangelogBottomSheet = true
+                }
                 
                 AddySection(title: String(localized: "previous_changelogs"), description: String(localized: "previous_changelogs_desc"), leadingSystemimage: "rectangle.stack.fill", leadingSystemimageColor: .orange){
-                        openURL(URL(string: "https://github.com/anonaddy/addy-ios/blob/master/CHANGELOG.md")!)
-                    }
+                    openURL(URL(string: "https://github.com/anonaddy/addy-ios/blob/master/CHANGELOG.md")!)
+                }
             } header: {
                 Text(String(localized: "changelog"))
             } footer: {
                 let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
-                Text(String(format: String(localized: "version_s"), appVersion)).padding(.top)
+#if APPSTORE
+                let downloadChannel = String(localized: "app_store")
+#else
+                let downloadChannel = String(localized: "sideloaded")
+#endif
+                Text(String(format: String(localized: "version_channel_info"), appVersion, downloadChannel)).padding(.top)
                 
             }
             
         }.refreshable {
             isCheckingForUpdates = true
-
+            
             Task {
                 await self.checkForUpdates()
             }
@@ -95,26 +106,34 @@ struct AppSettingsUpdateView: View {
         }
     }
     
+    private func downloadUpdate() {
+#if APPSTORE
+        openURL(URL(string: "https://apps.apple.com/app/addy-io/id6563138633")!)
+        #else
+        openURL(URL(string: "https://github.com/anonaddy/addy-ios/releases")!)
+#endif
+    }
+    
     private func checkForUpdates() async {
         do {
             let (updateAvailable, latestVersion, isRunningFutureVersion, error) = try await Updater().isUpdateAvailable()
-            
-                isCheckingForUpdates = false
-            
+            isCheckingForUpdates = false
             
             if error == nil {
-                    let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
-
-                    if (updateAvailable){
-                        updateStatusTitle = String(localized: "new_update_available")
-                        updateStatusDescription = String(format: String(localized: "new_update_available_version"), appVersion, latestVersion ?? "")
-                    } else if (isRunningFutureVersion) {
-                        updateStatusTitle = String(localized: "greetings_time_traveller")
-                        updateStatusDescription = String(localized: "greetings_time_traveller_desc")
-                    } else {
-                        updateStatusTitle = String(localized: "no_new_update_available")
-                        updateStatusDescription = String(localized: "no_new_update_available_desc")
-                    }
+                checkedForUpdates = true
+                
+                let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
+                
+                if (updateAvailable){
+                    updateStatusTitle = String(localized: "new_update_available")
+                    updateStatusDescription = String(format: String(localized: "new_update_available_version"), appVersion, latestVersion ?? "")
+                } else if (isRunningFutureVersion) {
+                    updateStatusTitle = String(localized: "greetings_time_traveller")
+                    updateStatusDescription = String(localized: "greetings_time_traveller_desc")
+                } else {
+                    updateStatusTitle = String(localized: "no_new_update_available")
+                    updateStatusDescription = String(localized: "no_new_update_available_desc")
+                }
                 
             } else {
                 errorAlertMessage = error ?? ""
@@ -126,11 +145,11 @@ struct AppSettingsUpdateView: View {
             showAlert = true
         }
     }
-
+    
 }
 
 struct AppSettingsUpdateView_Previews: PreviewProvider {
-
+    
     static var previews: some View {
         AppSettingsUpdateView()
     }

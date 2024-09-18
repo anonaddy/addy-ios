@@ -1383,7 +1383,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Make sure the following is installed on your device\n# https://github.com/stelabouras/privacy-manifest\n# You should be able to create /usr/local/bin yourself by executing sudo mkdir -p -m 775 /usr/local/bin from the terminal. \n# If /usr/local/bin is not in your $PATH environmental variable, you can update it by appending export PATH=$PATH:/usr/local/bin to the file $HOME/.bash_profile.\n# Close your current terminal, and open a new one for testing.\nprivacy-manifest analyze --project /Users/stjin/Documents/Projects/iOS_addy.io/addy  --reveal-occurrences --output /Users/stjin/Documents/Projects/iOS_addy.io/addy\n\n";
+			shellScript = "# Make sure the following is installed on your device\n# https://github.com/stelabouras/privacy-manifest\n# You should be able to create /usr/local/bin yourself by executing sudo mkdir -p -m 775 /usr/local/bin from the terminal. \n# If /usr/local/bin is not in your $PATH environmental variable, you can update it by appending export PATH=$PATH:/usr/local/bin to the file $HOME/.bash_profile.\n# Close your current terminal, and open a new one for testing.\nprivacy-manifest analyze --project /Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy --reveal-occurrences --output /Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy\n";
 		};
 		80F6B2A02C5E1DD2002E1238 /* Periphery */ = {
 			isa = PBXShellScriptBuildPhase;

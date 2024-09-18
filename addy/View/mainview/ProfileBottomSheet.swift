@@ -21,6 +21,7 @@ struct ProfileBottomSheet: View {
     @State var isShowingRulesView = false
     @State var isShowingUsernamesView = false
     @State var isShowingAppSettingsView = false
+    @State var shouldHideNavigationBarBackButtonSubscriptionView = false
     
     let onNavigate: (Destination) -> Void
     
@@ -183,7 +184,7 @@ struct ProfileBottomSheet: View {
             .navigationDestination(isPresented: $isShowingSubscriptionView) {
                 // Double check that this destination is ONLY being loaded when user is using the hosted instance
                 if AddyIo.isUsingHostedInstance(){
-                    ManageSubscriptionView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    ManageSubscriptionView(horizontalSize: $horizontalSize, shouldHideNavigationBarBackButtonSubscriptionView: $shouldHideNavigationBarBackButtonSubscriptionView).environmentObject(mainViewState).navigationBarBackButtonHidden(shouldHideNavigationBarBackButtonSubscriptionView)
                 }
             }
             .listSectionSpacing(.compact)
