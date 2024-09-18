@@ -53,6 +53,49 @@ struct InfiniteMarquee: View {
     }
 }
 
+
+class ReceiptManager: NSObject, SKRequestDelegate {
+    var completion: ((Result<Void, Error>) -> Void)?
+
+    func refreshReceipt(completion: @escaping (Result<Void, Error>) -> Void) {
+        self.completion = completion
+        let request = SKReceiptRefreshRequest(receiptProperties: nil)
+        request.delegate = self
+        request.start()
+    }
+
+    func requestDidFinish(_ request: SKRequest) {
+        if request is SKReceiptRefreshRequest {
+            // Handle successful receipt refresh
+            
+            LoggingHelper().addLog(
+                importance: .info,
+                error: "Recent receipt successfully refreshed",
+                method: "request",
+                extra: nil)
+            
+            completion?(.success(()))
+            request.cancel()
+        }
+    }
+
+    func request(_ request: SKRequest, didFailWithError error: Error) {
+        if request is SKReceiptRefreshRequest {
+            // Handle failed receipt refresh
+            
+            LoggingHelper().addLog(
+                importance: .critical,
+                error: "Receipt refresh failed",
+                method: "request",
+                extra: error.localizedDescription)
+            
+            completion?(.failure(error))
+            request.cancel()
+        }
+    }
+}
+
+
 struct ManageSubscriptionView: View {
     @StateObject private var storeManager = StoreManager()
     @State private var showPaymentStatusAlert = false
@@ -226,7 +269,6 @@ struct ManageSubscriptionView: View {
                         })
                 }
             }
-            
             .task{
                 let productIds = productIds.filter { $0.hasSuffix(selectedTab) }
                 await storeManager.fetchProducts(productIdentifiers: productIds)
@@ -241,7 +283,7 @@ struct ManageSubscriptionView: View {
         }
     
     
-    func purchase(_ product: Product) {
+    private func purchase(_ product: Product) {
         Task {
             do {
                 let result = try await storeManager.purchase(product)
@@ -277,7 +319,7 @@ struct ManageSubscriptionView: View {
         }
     }
     
-    func restorePurchases() {
+    private func restorePurchases() {
         Task {
             do {
                 try await AppStore.sync()
@@ -296,14 +338,16 @@ struct ManageSubscriptionView: View {
         }
     }
     
-    func checkSubscriptionStatus() {
+    private func checkSubscriptionStatus() {
         Task {
             // Get all transactions for the user
             for await transaction in Transaction.currentEntitlements {
                 // Check if the transaction is for a subscription
                 if case .verified(let transaction) = transaction {
                     if transaction.productType == .autoRenewable {
-                        await notifyInstanceAboutSubscription(transaction: transaction)
+                        await notifyInstanceAboutSubscription(transaction: transaction, completion: {_ in 
+                            // No action is required since no new transaction has been made
+                        })
                     }
                 }
             }
@@ -311,13 +355,19 @@ struct ManageSubscriptionView: View {
         }
     }
     
-    func getPurchasedItem() async {
+    private func getPurchasedItem() async {
+        
         // Fetch all transactions
         var allTransactions = [StoreKit.Transaction]()
         for await transaction in Transaction.currentEntitlements {
             if case .verified(let verifiedTransaction) = transaction,
                verifiedTransaction.productType == .autoRenewable {
-                allTransactions.append(verifiedTransaction)
+                
+                if let expirationDate = verifiedTransaction.expirationDate,
+                   expirationDate > Date.now {
+                    allTransactions.append(verifiedTransaction)
+                }
+                
             }
         }
 
@@ -337,12 +387,19 @@ struct ManageSubscriptionView: View {
         }
     }
     
-    func handleTransaction(_ result: VerificationResult<StoreKit.Transaction>) async {
-        
+    private func handleTransaction(_ result: VerificationResult<StoreKit.Transaction>) async {
         do {
             let transaction = try checkVerified(result)
-            await notifyInstanceAboutSubscription(transaction: transaction)
-            await transaction.finish()
+            await notifyInstanceAboutSubscription(transaction: transaction) { succeeded in
+                Task {
+                    if succeeded {
+                        await transaction.finish()
+                    } else {
+                        // There is not much we can do, we have to finish the transaction regardless
+                        await transaction.finish()
+                    }
+                }
+            }
         } catch {
             LoggingHelper().addLog(
                 importance: LogImportance.critical,
@@ -354,75 +411,93 @@ struct ManageSubscriptionView: View {
        
     
     
-    func fetchReceipt() -> String? {
-        // Get the receipt if it's available.
-        if let appStoreReceiptURL = Bundle.main.appStoreReceiptURL,
-            FileManager.default.fileExists(atPath: appStoreReceiptURL.path) {
+    // Refresh the receipt before fetching it, once refreshed, fetch and return
+    private func fetchReceipt() async -> String? {
+        let receiptManager = ReceiptManager()
 
-            do {
-                let receiptData = try Data(contentsOf: appStoreReceiptURL, options: .alwaysMapped)
-                let receiptString = receiptData.base64EncodedString(options: [])
-                return receiptString
+        return await withCheckedContinuation { continuation in
+            receiptManager.refreshReceipt { result in
+                switch result {
+                case .success:
+                    // Get the receipt if it's available.
+                    if let appStoreReceiptURL = Bundle.main.appStoreReceiptURL,
+                       FileManager.default.fileExists(atPath: appStoreReceiptURL.path) {
+
+                        do {
+                            let receiptData = try Data(contentsOf: appStoreReceiptURL, options: .alwaysMapped)
+                            let receiptString = receiptData.base64EncodedString(options: [])
+                            continuation.resume(returning: receiptString)
+                        } catch {
+                            LoggingHelper().addLog(
+                                importance: .critical,
+                                error: "Couldn't read receipt data with error:",
+                                method: "fetchReceipt",
+                                extra: error.localizedDescription)
+                            continuation.resume(returning: nil)
+                        }
+                    } else {
+                        continuation.resume(returning: nil)
+                    }
+                case .failure(let error):
+                    LoggingHelper().addLog(
+                        importance: .critical,
+                        error: "Failure while refreshing receipts",
+                        method: "fetchReceipt",
+                        extra: error.localizedDescription)
+                    continuation.resume(returning: nil)
+                }
             }
-            catch { LoggingHelper().addLog(
-                importance: .critical,
-                error: "Couldn't read receipt data with error:",
-                method: "fetchReceipt",
-                extra: error.localizedDescription) }
         }
-        return nil
     }
 
-    
-    
-    func notifyInstanceAboutSubscription(transaction: StoreKit.Transaction) async {
+    private func notifyInstanceAboutSubscription(transaction: StoreKit.Transaction, completion: @escaping (Bool) -> Void) async {
         shouldHideNavigationBarBackButtonSubscriptionView = true
         isNotifyingServer = true
-        
+
         do {
-            if let receiptData = fetchReceipt() {
+            if let receiptData = await fetchReceipt() {
                 let userResource = try await NetworkHelper().notifyServerForSubscriptionChange(receipt: receiptData)
                 if let userResource = userResource {
-                        mainViewState.userResource = userResource
-                        mainViewState.isPresentingProfileBottomSheet = false
-                        shouldHideNavigationBarBackButtonSubscriptionView = false
-                        isNotifyingServer = false
+                    mainViewState.userResource = userResource
+                    mainViewState.isPresentingProfileBottomSheet = false
+                    shouldHideNavigationBarBackButtonSubscriptionView = false
+                    isNotifyingServer = false
+                    completion(true)
                 } else {
                     paymentStatusTitle = String(localized: "subscription_processing_failed")
                     paymentStatusMessage = String(format: String(localized: "subscription_processing_failed_desc"), mainViewState.userResource!.id, String(transaction.id), transaction.productID)
                     showPaymentStatusAlert = true
-                    
                     shouldHideNavigationBarBackButtonSubscriptionView = false
                     isNotifyingServer = false
+                    completion(false)
                 }
             } else {
                 paymentStatusTitle = String(localized: "could_not_obtain_receipt")
                 paymentStatusMessage = String(format: String(localized: "could_not_obtain_receipt_desc"), mainViewState.userResource!.id, String(transaction.id), transaction.productID)
                 showPaymentStatusAlert = true
-                
                 shouldHideNavigationBarBackButtonSubscriptionView = false
                 isNotifyingServer = false
-            }
-            
+                completion(false)
 
+            }
         } catch {
             LoggingHelper().addLog(
                 importance: LogImportance.critical,
                 error: "Transaction verification or handling failed",
                 method: "handleTransaction",
                 extra: error.localizedDescription)
-            
             paymentStatusTitle = String(localized: "subscription_processing_failed")
             paymentStatusMessage = String(format: String(localized: "subscription_processing_failed_desc"), mainViewState.userResource!.id, String(transaction.id), transaction.productID)
             showPaymentStatusAlert = true
-            
             shouldHideNavigationBarBackButtonSubscriptionView = false
             isNotifyingServer = false
+            completion(false)
         }
     }
 
     
-    func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
+    
+private func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
         switch result {
         case .verified(let safe):
             return safe
