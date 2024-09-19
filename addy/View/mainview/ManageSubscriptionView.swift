@@ -116,6 +116,7 @@ struct ManageSubscriptionView: View {
     
     @State private var selectedTab = "yearly"
     @Environment(\.dismiss) var dismiss
+    @Environment(\.openURL) var openURL
 
 
         var body: some View {
@@ -235,6 +236,28 @@ struct ManageSubscriptionView: View {
                                         Text(String(localized:"manage_subscription"))
                                     }
                                     .padding(.bottom)
+                                    
+                                    HStack {
+                                        Spacer()
+
+                                        Button(action: {
+                                            openURL(URL(string: "https://addy.io/privacy")!)
+                                        }) {
+                                            Text(String(localized:"privacy_policy"))
+                                        }
+                                        
+                                        Spacer()
+                                        
+                                        Button(action: {
+                                            openURL(URL(string: "https://addy.io/terms")!)
+                                        }) {
+                                            Text(String(localized:"terms_of_service"))
+                                        }
+                                        Spacer()
+
+                                    }
+                                    .padding(.bottom)
+
                                 }
                             }.background(.gray.opacity(0.1))
                         }
