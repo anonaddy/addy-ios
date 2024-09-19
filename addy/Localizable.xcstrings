@@ -4691,6 +4691,16 @@
         }
       }
     },
+    "privacy_policy" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        }
+      }
+    },
     "protected_headers" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6131,6 +6141,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tap here to see the error"
+          }
+        }
+      }
+    },
+    "terms_of_service" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms Of Service"
           }
         }
       }
