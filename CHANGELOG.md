@@ -1,6 +1,6 @@
 # Changelog
 
-## [v1.0.7] - TBD
+## [v1.0.8] - TBD
 
 ### addy.io
 

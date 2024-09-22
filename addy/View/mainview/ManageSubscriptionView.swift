@@ -200,7 +200,7 @@ struct ManageSubscriptionView: View {
                                 Spacer()
                                 
                                 Button(action: {
-                                    openURL(URL(string: "https://addy.io/privacy")!)
+                                    openURL(URL(string: "https://github.com/anonaddy/legal/blob/main/Privacy%20Policy.md")!)
                                 }) {
                                     Text(String(localized:"privacy_policy"))
                                 }
@@ -208,7 +208,7 @@ struct ManageSubscriptionView: View {
                                 Spacer()
                                 
                                 Button(action: {
-                                    openURL(URL(string: "https://addy.io/terms")!)
+                                    openURL(URL(string: "https://github.com/anonaddy/legal/blob/main/Terms%20Of%20Service.md")!)
                                 }) {
                                     Text(String(localized:"terms_of_service"))
                                 }
