@@ -218,7 +218,6 @@ struct ProfileBottomSheet: View {
         }
     }
     
-    //TODO: What if the sheet is open and the user taps a notification? Should still trigger then.
     func checkForAnyInteractiveActions(){
         switch mainViewState.profileBottomSheetAction {
         case .settings:

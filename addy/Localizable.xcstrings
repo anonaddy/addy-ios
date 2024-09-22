@@ -674,17 +674,6 @@
         }
       }
     },
-    "annually" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Annually"
-          }
-        }
-      }
-    },
     "anonymous_email_forwarding" : {
       "localizations" : {
         "en" : {
@@ -3706,6 +3695,16 @@
         }
       }
     },
+    "lite_plan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lite plan"
+          }
+        }
+      }
+    },
     "loading_recipients" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3920,16 +3919,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Menu"
-          }
-        }
-      }
-    },
-    "monthly" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Monthly"
           }
         }
       }
@@ -4669,6 +4658,28 @@
         }
       }
     },
+    "price_format_month" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (Billed Monthly, Auto-Renews)"
+          }
+        }
+      }
+    },
+    "price_format_year" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (Billed Annually, Auto-Renews)"
+          }
+        }
+      }
+    },
     "privacy_mode" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4697,6 +4708,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Privacy Policy"
+          }
+        }
+      }
+    },
+    "pro_plan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro plan"
           }
         }
       }
@@ -6659,69 +6680,194 @@
         }
       }
     },
-    "why_subscribe_reason_1" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Custom domains"
-          }
-        }
-      }
-    },
-    "why_subscribe_reason_2" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rules"
-          }
-        }
-      }
-    },
-    "why_subscribe_reason_3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "View Failed Deliveries"
-          }
-        }
-      }
-    },
-    "why_subscribe_reason_4" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Access Paid Plan Settings"
-          }
-        }
-      }
-    },
-    "why_subscribe_reason_5" : {
+    "why_subscribe_reason_1_lite" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Additional Usernames"
+            "value" : "50 Active Shared Domain Aliases"
           }
         }
       }
     },
-    "why_subscribe_reason_6" : {
+    "why_subscribe_reason_1_pro" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Priority Support"
+            "value" : "Unlimited Active Shared Domain Aliases"
           }
         }
       }
     },
-    "why_subscribe_reason_7" : {
+    "why_subscribe_reason_2_lite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 Available Alias Domains"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_2_pro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 Available Alias Domains"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_3_lite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Custom Domain"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_3_pro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "20 Custom Domains"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_4_lite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 Additional Usernames"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_4_pro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "20 Additional Usernames"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_5_lite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 Rules"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_5_pro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "20 Rules"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_6_lite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 Anonymous Reply + Send From Daily Limit"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_6_pro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100 Anonymous Reply + Send From Daily Limit"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_7_lite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100MB Monthly Bandwidth Limit"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_7_pro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Monthly Bandwidth Limit"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_8_lite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 Recipients (real email addresses)"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_8_pro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 Recipients (real email addresses)"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_9" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View / Download Failed Deliveries"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_10" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -6732,13 +6878,57 @@
         }
       }
     },
-    "why_subscribe_reason_8" : {
+    "why_subscribe_reason_11" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alias Auto Creation with Regex"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_12" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Priority Email Queue"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_13" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Access Paid Plan Settings"
+          }
+        }
+      }
+    },
+    "why_subscribe_reason_14" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Priority Support"
+          }
+        }
+      }
+    },
+    "why_subscribe_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Why subscribe?"
           }
         }
       }
