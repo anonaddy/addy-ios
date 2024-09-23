@@ -79,12 +79,13 @@ struct ProfileBottomSheet: View {
                             }
                         }
                         
-                        
+#if APPSTORELESS
                         AddyButton(action: {
                             openURL(URL(string: "\(AddyIo.API_BASE_URL)/settings")!)
                         }, style: AddyButtonStyle(backgroundColor: Color(.accent).opacity(0.5))) {
                             Text(String(localized: "addyio_settings")).foregroundColor(Color.white)
                         }.padding(.top).buttonStyle(PlainButtonStyle())
+#endif
                     }
                 }.listRowBackground(Color.clear)
             

@@ -18,8 +18,6 @@ struct AppSettingsView: View {
     @State private var privacyMode: Bool = false
     @State private var biometricEnabled: Bool = false
     @State private var showPlayGround: Bool = false
-    
-    
     @State private var isShowingResetAppConfirmationAlert = false
     
     @Environment(\.openURL) var openURL
@@ -141,19 +139,15 @@ struct AppSettingsView: View {
                     isShowingResetAppConfirmationAlert = true
                 }
                 
-            }
-            
-            Section {
-                AddySection(title: String(localized: "addyio_help"), description: String(localized: "visit_addyio_helps_section"), leadingSystemimage: "questionmark.circle", leadingSystemimageColor: .primaryColorStatic){
-                    openURL(URL(string: "https://addy.io/help/")!)
+                
+                NavigationLink(destination: DeleteAccountConfirmationView()){
+                    AddySection(title: String(localized: "delete_account"), description: String(localized: "delete_account_desc"), leadingSystemimage: "person.fill.badge.minus", leadingSystemimageColor: .red)
                 }
-                AddySection(title: String(localized: "faq"), description: String(localized: "faq_desc"), leadingSystemimage: "questionmark.bubble.fill", leadingSystemimageColor: .primaryColorStatic){
-                    openURL(URL(string: "https://addy.io/faq/")!)
-                }
+                
             } header: {
-                Text(String(localized: "app_name"))
+                Text(String(localized: "manage_your_data"))
             }
-            
+
             Section {
                 AddySection(title: String(localized: "github_project"), description: String(localized: "github_project_desc"), leadingSystemimage: "swift", leadingSystemimageColor: .primaryColorStatic){
                     openURL(URL(string: "https://github.com/anonaddy/addy-ios")!)
@@ -164,7 +158,7 @@ struct AppSettingsView: View {
                 AddySection(title: String(localized: "contributors"), description: String(localized: "contributors_list"), leadingSystemimage: "person.2.fill", leadingSystemimageColor: .primaryColorStatic){}
                 
             } header: {
-                Text(String(localized: "more"))
+                Text(String(localized: "about_this_app"))
             } footer: {
                 
                 VStack {

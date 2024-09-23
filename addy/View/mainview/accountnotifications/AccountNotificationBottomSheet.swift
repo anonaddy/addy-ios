@@ -39,6 +39,7 @@ struct AccountNotificationBottomSheet: View {
                     .padding(.bottom, 4)
             }
             
+            #if APPSTORELESS
             if accountNotification.link != nil {
                 Section {
                     AddyButton(action: {
@@ -49,6 +50,7 @@ struct AccountNotificationBottomSheet: View {
                     }.frame(minHeight: 56)
                 }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             }
+#endif
             
         }.navigationTitle(accountNotification.title).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)

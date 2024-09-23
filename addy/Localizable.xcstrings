@@ -18,6 +18,17 @@
     "0" : {
 
     },
+    "about_this_app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About this app"
+          }
+        }
+      }
+    },
     "account_notifications" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -310,17 +321,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "addy.io app | Stjin"
-          }
-        }
-      }
-    },
-    "addyio_help" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "addy.io help"
           }
         }
       }
@@ -1848,6 +1848,61 @@
         }
       }
     },
+    "delete_account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete account"
+          }
+        }
+      }
+    },
+    "delete_account_confirmation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete your addy.io account?"
+          }
+        }
+      }
+    },
+    "delete_account_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleting your addy.io account will **DELETE ALL DATA**, this includes but it not limited to aliases, usernames, statistics, rules and failed deliveries. This data **CANNOT BE RESTORED**"
+          }
+        }
+      }
+    },
+    "delete_account_countdown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete account (%@)"
+          }
+        }
+      }
+    },
+    "delete_account_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete your addy.io account and all data related to it"
+          }
+        }
+      }
+    },
     "delete_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2894,28 +2949,6 @@
         }
       }
     },
-    "faq" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FAQ"
-          }
-        }
-      }
-    },
-    "faq_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Visit the Frequently asked questions"
-          }
-        }
-      }
-    },
     "feature_api_token_expiry_notification" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3891,6 +3924,17 @@
         }
       }
     },
+    "manage_your_data" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage your data"
+          }
+        }
+      }
+    },
     "match" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3930,17 +3974,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Monthly Bandwidth"
-          }
-        }
-      }
-    },
-    "more" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "More"
           }
         }
       }
@@ -6621,17 +6654,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "View stored logs"
-          }
-        }
-      }
-    },
-    "visit_addyio_helps_section" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Visit addy.io help section"
           }
         }
       }

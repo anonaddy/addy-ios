@@ -106,117 +106,119 @@ struct ManageSubscriptionView: View {
             
         } else {
             
-            ScrollView{
+            VStack {
                 
                 if mainViewState.userResource!.subscription_type == "apple" || mainViewState.userResource!.subscription_type == nil {
-                    // Only show the subscription options if the user does not have a subscription yet or if the current subscription is managed by apple
-                    VStack {
-                        // Tab Selection
-                        Picker(String(localized: "subscription"), selection: $selectedTab) {
-                            Text(String(localized: "pro_plan")).tag("pro")
-                            Text(String(localized: "lite_plan")).tag("lite")
-                        }.onChange(of: selectedTab) {
-                            Task {
-                                let productIds = productIds.filter { $0.hasPrefix(selectedTab) }
-                                await storeManager.fetchProducts(productIdentifiers: productIds)
-                            }
-                        }
-                        
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding()
-                        
-                        if storeManager.products.isEmpty {
-                            VStack {
-                                ProgressView()
-                            }.frame(maxHeight: .infinity)
-                        } else {
-                            
-                            FeaturesView(plan: selectedTab).padding()
-                            
-                            // Product Display with Gradient Button
-                            LazyVStack(spacing: 20) {
-                                ForEach(storeManager.products, id: \.self) { product in
-                                    VStack(alignment: .leading, spacing: 8) {
-                                        Text(product.displayName)
-                                            .font(.title2)
-                                            .bold()
-                                        Text(product.description)
-                                            .font(.caption)
-                                            .foregroundColor(.gray)
-                                        
-                                        
-                                        if product.subscription?.subscriptionPeriod.unit == .month {
-                                            Text(String(format: String(localized: "price_format_month"), product.displayPrice))
-                                                .font(.subheadline)
-                                                .foregroundColor(.secondary)
-                                        } else if product.subscription?.subscriptionPeriod.unit == .year {
-                                            Text(String(format: String(localized: "price_format_year"), product.displayPrice))
-                                                .font(.subheadline)
-                                                .foregroundColor(.secondary)
-                                        }
-                                        
-                                        Button(action: {
-                                            purchase(product)
-                                        }) {
-                                            Text((purchasedItem?.productID ?? "" == product.id) ? String(localized: "active") : String(localized: "subscribe_now"))
-                                                .frame(maxWidth: .infinity)
-                                                .padding()
-                                                .background((purchasedItem?.productID ?? "" == product.id) ? LinearGradient(gradient: Gradient(colors: [Color.gray, Color.gray.opacity(0.7)]), startPoint: .leading, endPoint: .trailing) : LinearGradient(gradient: Gradient(colors: [Color("AddySecondaryColor"), Color("AccentColor")]), startPoint: .leading, endPoint: .trailing))
-                                                .foregroundColor(.white)
-                                                .cornerRadius(10)
-                                        }.disabled((purchasedItem?.productID ?? "") == product.id).padding(.top)
-                                    }
-                                    .padding()
-                                    .background(Color(UIColor.secondarySystemBackground))
-                                    .cornerRadius(15)
+                    ScrollView {
+                        // Only show the subscription options if the user does not have a subscription yet or if the current subscription is managed by apple
+                        VStack {
+                            // Tab Selection
+                            Picker(String(localized: "subscription"), selection: $selectedTab) {
+                                Text(String(localized: "pro_plan")).tag("pro")
+                                Text(String(localized: "lite_plan")).tag("lite")
+                            }.onChange(of: selectedTab) {
+                                Task {
+                                    let productIds = productIds.filter { $0.hasPrefix(selectedTab) }
+                                    await storeManager.fetchProducts(productIdentifiers: productIds)
                                 }
                             }
+                            
+                            .pickerStyle(SegmentedPickerStyle())
                             .padding()
                             
-                        }
-                        
-                        
-                        VStack(alignment: .center, spacing: 10) {
-                            // Restore Purchases Button
-                            Button(action: {
-                                restorePurchases()
-                            }) {
-                                Text(String(localized:"restore_purchases"))
-                                    .foregroundColor(.white)
-                                    .padding()
-                                    .background(Color.blue)
-                                    .cornerRadius(8)
+                            if storeManager.products.isEmpty {
+                                VStack {
+                                    ProgressView()
+                                }.frame(maxHeight: .infinity)
+                            } else {
+                                
+                                FeaturesView(plan: selectedTab).padding()
+                                
+                                // Product Display with Gradient Button
+                                LazyVStack(spacing: 20) {
+                                    ForEach(storeManager.products, id: \.self) { product in
+                                        VStack(alignment: .leading, spacing: 8) {
+                                            Text(product.displayName)
+                                                .font(.title2)
+                                                .bold()
+                                            Text(product.description)
+                                                .font(.caption)
+                                                .foregroundColor(.gray)
+                                            
+                                            
+                                            if product.subscription?.subscriptionPeriod.unit == .month {
+                                                Text(String(format: String(localized: "price_format_month"), product.displayPrice))
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.secondary)
+                                            } else if product.subscription?.subscriptionPeriod.unit == .year {
+                                                Text(String(format: String(localized: "price_format_year"), product.displayPrice))
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.secondary)
+                                            }
+                                            
+                                            Button(action: {
+                                                purchase(product)
+                                            }) {
+                                                Text((purchasedItem?.productID ?? "" == product.id) ? String(localized: "active") : String(localized: "subscribe_now"))
+                                                    .frame(maxWidth: .infinity)
+                                                    .padding()
+                                                    .background((purchasedItem?.productID ?? "" == product.id) ? LinearGradient(gradient: Gradient(colors: [Color.gray, Color.gray.opacity(0.7)]), startPoint: .leading, endPoint: .trailing) : LinearGradient(gradient: Gradient(colors: [Color("AddySecondaryColor"), Color("AccentColor")]), startPoint: .leading, endPoint: .trailing))
+                                                    .foregroundColor(.white)
+                                                    .cornerRadius(10)
+                                            }.disabled((purchasedItem?.productID ?? "") == product.id).padding(.top)
+                                        }
+                                        .padding()
+                                        .background(Color(UIColor.secondarySystemBackground))
+                                        .cornerRadius(15)
+                                    }
+                                }
+                                .padding()
+                                
                             }
-                            .padding(.bottom)
                             
-                            Button(action: {
-                                isPresentedManageSubscription = true
-                            }) {
-                                Text(String(localized:"manage_subscription"))
-                            }
-                            .padding(.bottom)
                             
-                            HStack {
-                                Spacer()
+                            VStack(alignment: .center, spacing: 10) {
+                                // Restore Purchases Button
+                                Button(action: {
+                                    restorePurchases()
+                                }) {
+                                    Text(String(localized:"restore_purchases"))
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .background(Color.blue)
+                                        .cornerRadius(8)
+                                }
+                                .padding(.bottom)
                                 
                                 Button(action: {
-                                    openURL(URL(string: "https://github.com/anonaddy/legal/blob/main/Privacy%20Policy.md")!)
+                                    isPresentedManageSubscription = true
                                 }) {
-                                    Text(String(localized:"privacy_policy"))
+                                    Text(String(localized:"manage_subscription"))
                                 }
+                                .padding(.bottom)
                                 
-                                Spacer()
-                                
-                                Button(action: {
-                                    openURL(URL(string: "https://github.com/anonaddy/legal/blob/main/Terms%20Of%20Service.md")!)
-                                }) {
-                                    Text(String(localized:"terms_of_service"))
+                                HStack {
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        openURL(URL(string: "https://github.com/anonaddy/legal/blob/main/Privacy%20Policy.md")!)
+                                    }) {
+                                        Text(String(localized:"privacy_policy"))
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        openURL(URL(string: "https://github.com/anonaddy/legal/blob/main/Terms%20Of%20Service.md")!)
+                                    }) {
+                                        Text(String(localized:"terms_of_service"))
+                                    }
+                                    Spacer()
+                                    
                                 }
-                                Spacer()
+                                .padding(.bottom)
                                 
                             }
-                            .padding(.bottom)
-                            
                         }
                     }
                 } else {
