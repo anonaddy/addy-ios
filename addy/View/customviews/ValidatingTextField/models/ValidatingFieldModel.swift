@@ -15,6 +15,7 @@ enum FieldType {
     case url
     case text
     case bigText
+    case password
     case domain
         
     func validate(value: String) -> String? {
@@ -28,6 +29,8 @@ enum FieldType {
         case .text:
             return nil
         case .bigText:
+            return nil
+        case .password:
             return nil
         case .domain:
             return domainValidate(value: value)
@@ -45,6 +48,8 @@ enum FieldType {
         case .text:
             return UIKeyboardType.default
         case .bigText:
+            return UIKeyboardType.default
+        case .password:
             return UIKeyboardType.default
         case .domain:
             return UIKeyboardType.URL

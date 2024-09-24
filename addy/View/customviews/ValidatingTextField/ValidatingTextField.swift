@@ -57,6 +57,17 @@ struct ValidatingTextField: View {
                 }
                 
                 
+            } else if (fieldType == .password){
+                SecureField(placeholder, text: $value)
+                    .onChange(of: value) {
+                        withAnimation {
+                            error = fieldType.validate(value: value)
+                        }
+                    }
+                
+                    .disableAutocorrection(true)
+                    .keyboardType(fieldType.getKeyboardType())
+
             } else {
                 TextField(placeholder, text: $value)
                     .onChange(of: value) {

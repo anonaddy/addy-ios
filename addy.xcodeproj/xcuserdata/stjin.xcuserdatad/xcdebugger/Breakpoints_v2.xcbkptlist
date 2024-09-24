@@ -3042,6 +3042,78 @@
             endingLineNumber = "46"
             landmarkName = "perform()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "05801D18-25C7-4A36-AB14-EC0CFCF78E0F - 3ee9d575dadad70f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for addy.CreateNewAliasIntent.perform() async throws -&gt; some"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/AppIntent/CreateNewAliasIntent.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47">
+               </Location>
+               <Location
+                  uuid = "05801D18-25C7-4A36-AB14-EC0CFCF78E0F - b25d20dce78874cb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for addy.CreateNewAliasIntent.perform() async throws -&gt; some"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/AppIntent/CreateNewAliasIntent.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47">
+               </Location>
+               <Location
+                  uuid = "05801D18-25C7-4A36-AB14-EC0CFCF78E0F - 8e5bcd2c96885f13"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for addy.CreateNewAliasIntent.perform() async throws -&gt; some"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/AppIntent/CreateNewAliasIntent.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47">
+               </Location>
+               <Location
+                  uuid = "05801D18-25C7-4A36-AB14-EC0CFCF78E0F - 8e5bcd2c96885f13"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for addy.CreateNewAliasIntent.perform() async throws -&gt; some"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/AppIntent/CreateNewAliasIntent.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47">
+               </Location>
+               <Location
+                  uuid = "05801D18-25C7-4A36-AB14-EC0CFCF78E0F - a58ccecfcb56e315"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for addy.CreateNewAliasIntent.perform() async throws -&gt; some"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/AppIntent/CreateNewAliasIntent.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3058,6 +3130,36 @@
             endingLineNumber = "45"
             landmarkName = "perform()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EBEC384F-345E-49EF-82F2-0BB6F52101C5 - 3ee9d575dadad7c1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for addy.CreateNewAliasIntent.perform() async throws -&gt; some"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/AppIntent/CreateNewAliasIntent.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45">
+               </Location>
+               <Location
+                  uuid = "EBEC384F-345E-49EF-82F2-0BB6F52101C5 - 3ee9d575dadad7c1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for addy.CreateNewAliasIntent.perform() async throws -&gt; some"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/AppIntent/CreateNewAliasIntent.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4288,6 +4390,50 @@
             endingLineNumber = "269"
             landmarkName = "checkIfAliasExists(text:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1510677C-BF9C-4E07-99B5-5CD7ABD31A7E - 54e6135c4316a417"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "269"
+                  endingLineNumber = "269">
+               </Location>
+               <Location
+                  uuid = "1510677C-BF9C-4E07-99B5-5CD7ABD31A7E - e67b5cd7dbad4928"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) await resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "269"
+                  endingLineNumber = "269">
+               </Location>
+               <Location
+                  uuid = "1510677C-BF9C-4E07-99B5-5CD7ABD31A7E - 3596c3ef112b7819"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "269"
+                  endingLineNumber = "269">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4304,6 +4450,36 @@
             endingLineNumber = "270"
             landmarkName = "checkIfAliasExists(text:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EB9ED5D9-F4DA-4B80-B0C3-8248299CB779 - 54e6135c4316a4d5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "271"
+                  endingLineNumber = "271">
+               </Location>
+               <Location
+                  uuid = "EB9ED5D9-F4DA-4B80-B0C3-8248299CB779 - 3596c3ef112b78db"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "271"
+                  endingLineNumber = "271">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4320,6 +4496,64 @@
             endingLineNumber = "251"
             landmarkName = "checkIfAliasExists(text:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B344E4DF-5F4A-40B2-BEEA-06A54DDD5685 - 7477a2cd6d41e24b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "251"
+                  endingLineNumber = "251">
+               </Location>
+               <Location
+                  uuid = "B344E4DF-5F4A-40B2-BEEA-06A54DDD5685 - 8011eb812395f778"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "251"
+                  endingLineNumber = "251">
+               </Location>
+               <Location
+                  uuid = "B344E4DF-5F4A-40B2-BEEA-06A54DDD5685 - 54e6135c4316a649"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "251"
+                  endingLineNumber = "251">
+               </Location>
+               <Location
+                  uuid = "B344E4DF-5F4A-40B2-BEEA-06A54DDD5685 - 5cee42778d69c46"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "251"
+                  endingLineNumber = "251">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4336,6 +4570,36 @@
             endingLineNumber = "252"
             landmarkName = "checkIfAliasExists(text:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7A1163CB-5890-4BFE-A067-8F46A2520DCC - 54e6135c4316a668"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "252"
+                  endingLineNumber = "252">
+               </Location>
+               <Location
+                  uuid = "7A1163CB-5890-4BFE-A067-8F46A2520DCC - 54e6135c4316a668"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "252"
+                  endingLineNumber = "252">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4352,6 +4616,64 @@
             endingLineNumber = "285"
             landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D9575785-0722-4750-B311-648347E2642D - a69a9264b37d45d5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "285"
+                  endingLineNumber = "285">
+               </Location>
+               <Location
+                  uuid = "D9575785-0722-4750-B311-648347E2642D - 5e6ca02be514a1c4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "285"
+                  endingLineNumber = "285">
+               </Location>
+               <Location
+                  uuid = "D9575785-0722-4750-B311-648347E2642D - 44750a08291601d7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "285"
+                  endingLineNumber = "285">
+               </Location>
+               <Location
+                  uuid = "D9575785-0722-4750-B311-648347E2642D - 337bf61be40363d6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "285"
+                  endingLineNumber = "285">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4368,6 +4690,36 @@
             endingLineNumber = "287"
             landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1CB8A30E-ABED-4BBB-BCF6-8D0BEB30B80A - 44750a0829160115"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "287"
+                  endingLineNumber = "287">
+               </Location>
+               <Location
+                  uuid = "1CB8A30E-ABED-4BBB-BCF6-8D0BEB30B80A - a6d9a9a096a327b4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor @Sendable () -&gt; () in addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "288"
+                  endingLineNumber = "288">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4880,6 +5232,36 @@
             endingLineNumber = "571"
             landmarkName = "onPressSend(client:sendToRecipients:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "869F354E-194D-45A2-B3C7-19CB0065B087 - e6a1cd5e5f7f5bb0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "addy.AliasesView.onPressSend(client: Swift.Optional&lt;addy_shared.ThirdPartyMailClient&gt;, sendToRecipients: Swift.String) -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/View/aliases/AliasesView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571">
+               </Location>
+               <Location
+                  uuid = "869F354E-194D-45A2-B3C7-19CB0065B087 - 97330263a8c64c8a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Substring) -&gt; Swift.String in addy.AliasesView.onPressSend(client: Swift.Optional&lt;addy_shared.ThirdPartyMailClient&gt;, sendToRecipients: Swift.String) -&gt; ()"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/View/aliases/AliasesView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "571"
+                  endingLineNumber = "571">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5488,6 +5870,106 @@
             endingLineNumber = "3732"
             landmarkName = "notifyServerForSubscriptionChange(receipt:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9F7F12DB-BA59-4230-AA57-43ED4C12C1FA - d503ebaa8049ee24"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for addy_shared.NetworkHelper.notifyServerForSubscriptionChange(receipt: Swift.String) async throws -&gt; Swift.Optional&lt;addy_shared.UserResource&gt;"
+                  moduleName = "addy_shared"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy_shared/addy_shared/helpers/NetworkHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "3732"
+                  endingLineNumber = "3732">
+               </Location>
+               <Location
+                  uuid = "9F7F12DB-BA59-4230-AA57-43ED4C12C1FA - 793507cfaa60c13b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for addy_shared.NetworkHelper.notifyServerForSubscriptionChange(receipt: Swift.String) async throws -&gt; Swift.Optional&lt;addy_shared.UserResource&gt;"
+                  moduleName = "addy_shared"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy_shared/addy_shared/helpers/NetworkHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "3725"
+                  endingLineNumber = "3725">
+               </Location>
+               <Location
+                  uuid = "9F7F12DB-BA59-4230-AA57-43ED4C12C1FA - 793507cfaa60c012"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for addy_shared.NetworkHelper.notifyServerForSubscriptionChange(receipt: Swift.String) async throws -&gt; Swift.Optional&lt;addy_shared.UserResource&gt;"
+                  moduleName = "addy_shared"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy_shared/addy_shared/helpers/NetworkHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "3732"
+                  endingLineNumber = "3732">
+               </Location>
+               <Location
+                  uuid = "9F7F12DB-BA59-4230-AA57-43ED4C12C1FA - cea425444602a30f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for addy_shared.NetworkHelper.notifyServerForSubscriptionChange(receipt: Swift.String) async throws -&gt; Swift.Optional&lt;addy_shared.UserResource&gt;"
+                  moduleName = "addy_shared"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy_shared/addy_shared/helpers/NetworkHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "3725"
+                  endingLineNumber = "3725">
+               </Location>
+               <Location
+                  uuid = "9F7F12DB-BA59-4230-AA57-43ED4C12C1FA - cea425444602a226"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for addy_shared.NetworkHelper.notifyServerForSubscriptionChange(receipt: Swift.String) async throws -&gt; Swift.Optional&lt;addy_shared.UserResource&gt;"
+                  moduleName = "addy_shared"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy_shared/addy_shared/helpers/NetworkHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "3732"
+                  endingLineNumber = "3732">
+               </Location>
+               <Location
+                  uuid = "9F7F12DB-BA59-4230-AA57-43ED4C12C1FA - cb163fb0b8e7c508"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for addy_shared.NetworkHelper.notifyServerForSubscriptionChange(receipt: Swift.String) async throws -&gt; Swift.Optional&lt;addy_shared.UserResource&gt;"
+                  moduleName = "addy_shared"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy_shared/addy_shared/helpers/NetworkHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "3725"
+                  endingLineNumber = "3725">
+               </Location>
+               <Location
+                  uuid = "9F7F12DB-BA59-4230-AA57-43ED4C12C1FA - cb163fb0b8e7c421"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for addy_shared.NetworkHelper.notifyServerForSubscriptionChange(receipt: Swift.String) async throws -&gt; Swift.Optional&lt;addy_shared.UserResource&gt;"
+                  moduleName = "addy_shared"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy_shared/addy_shared/helpers/NetworkHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "3732"
+                  endingLineNumber = "3732">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5648,6 +6130,22 @@
             endingLineNumber = "130"
             landmarkName = "scheduleAppRefresh()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A0533A7D-EB4B-4A8C-A047-E7DF7F3775EA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/setup/RegistrationFormView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

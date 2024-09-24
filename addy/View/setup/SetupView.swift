@@ -119,7 +119,7 @@ struct SetupView: View {
                     }
                     .padding(32)
                     .navigationDestination(isPresented: $showOnboarding) {
-                        SetupOnboarding()
+                        SetupOnboarding().environmentObject(appState)
                     }
                 }
                 
