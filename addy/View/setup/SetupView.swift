@@ -105,7 +105,7 @@ struct SetupView: View {
                             
                             
                         }, isLoading: $isLoadingGetStarted) {
-                            Text(String(localized: "got_the_api_key")).foregroundColor(Color.white)
+                            Text(String(localized: "get_started")).foregroundColor(Color.white)
                         }
                         
                         

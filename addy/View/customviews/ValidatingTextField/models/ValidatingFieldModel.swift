@@ -14,6 +14,8 @@ enum FieldType {
     case commaSeperatedEmails
     case url
     case text
+    case numeric
+    case otp
     case bigText
     case password
     case domain
@@ -28,6 +30,10 @@ enum FieldType {
             return urlValidate(value: value)
         case .text:
             return nil
+        case .numeric:
+            return numberValidate(value: value)
+        case .otp:
+            return numberValidate(value: value, length: 6)
         case .bigText:
             return nil
         case .password:
@@ -47,6 +53,10 @@ enum FieldType {
             return UIKeyboardType.URL
         case .text:
             return UIKeyboardType.default
+        case .numeric:
+            return UIKeyboardType.numberPad
+        case .otp:
+            return UIKeyboardType.numberPad
         case .bigText:
             return UIKeyboardType.default
         case .password:
@@ -62,6 +72,19 @@ enum FieldType {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: value) ? nil : String(localized: "not_a_valid_address")
+    }
+     
+    private func numberValidate(value:String, length: Int? = nil) -> String?
+    {
+        if let length {
+            if value.count != length {
+                return String(localized: "otp_not_the_right_length")
+            }
+        }
+        
+        let digitsOnlyRegex = "^[0-9]+$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", digitsOnlyRegex)
+        return predicate.evaluate(with: value) ? nil : String(localized: "only_use_numbers")
     }
     
     

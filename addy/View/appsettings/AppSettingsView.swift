@@ -199,6 +199,7 @@ struct AppSettingsView: View {
         }
         .alert(isPresented: $isShowingResetAppConfirmationAlert, content: {
             Alert(title: Text(String(localized: "reset_app")), message: Text(String(localized: "reset_app_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "reset_app"))){
+                mainViewState.isPresentingProfileBottomSheet = false
                 SettingsManager(encrypted: true).clearSettingsAndCloseApp()
             }, secondaryButton: .cancel())
         })

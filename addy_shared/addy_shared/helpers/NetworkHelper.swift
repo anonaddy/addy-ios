@@ -45,6 +45,148 @@ public class NetworkHelper {
         return userAgent
     }
     
+    public func login(baseUrl: String, username: String, password: String, completion: @escaping (Login?, LoginMfaRequired?, String?) -> Void) async {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        
+        // Set base URL
+        AddyIo.API_BASE_URL = baseUrl
+        
+        let url = URL(string: AddyIo.API_URL_LOGIN)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let json: [String: Any] = ["username": username,
+                                   "password": password,
+                                   "device_name": "addy.io for iOS"]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                let error = URLError(.badServerResponse)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error.localizedDescription,
+                    method: "login",
+                    extra: error.failureURLString)
+                completion(nil, nil, error.localizedDescription)
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200: // Successfull
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(Login.self, from: data)
+                completion(addyIoData, nil, nil)
+            case 422: // MFA REQUIRED
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(LoginMfaRequired.self, from: data)
+                completion(nil, addyIoData, nil)
+            case 401: // Login data incorrect
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(LoginError.self, from: data)
+                completion(nil, nil , addyIoData.error)
+            case 403: // MFA required but is hardware key and thus not supported OR the email address has not been validated
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(LoginError.self, from: data)
+                completion(nil, nil , addyIoData.error)
+            default:
+                let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "login",
+                    extra: ErrorHelper.getErrorMessage(data: data))
+                completion(nil, nil , errorMessage)
+            }
+        } catch {
+            print(error)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "login",
+                extra: nil)
+            completion(nil, nil , error.localizedDescription)
+        }
+        
+        
+    }
+    
+    public func loginMfa(baseUrl: String, mfa_key: String, otp: String, xCsrfToken: String, completion: @escaping (Login?, String?) -> Void) async {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        
+        // Set base URL
+        AddyIo.API_BASE_URL = baseUrl
+        
+        let url = URL(string: AddyIo.API_URL_LOGIN_MFA)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = [
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+            "Accept": "application/json",
+            "User-Agent": getUserAgent(),
+            "X-CSRF-Token": xCsrfToken
+        ]
+        
+        let json: [String: Any] = ["mfa_key": mfa_key,
+                                   "otp": otp,
+                                   "device_name": "addy.io for iOS"]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                let error = URLError(.badServerResponse)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error.localizedDescription,
+                    method: "loginMfa",
+                    extra: error.failureURLString)
+                completion(nil, error.localizedDescription)
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200: // Successfull
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(Login.self, from: data)
+                completion(addyIoData, nil)
+            case 401: // Invalid mfa_key or mfa_key expired
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(LoginError.self, from: data)
+                completion(nil, addyIoData.error)
+            default:
+                let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "loginMfa",
+                    extra: ErrorHelper.getErrorMessage(data: data))
+                completion(nil, errorMessage)
+            }
+        } catch {
+            print(error)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "loginMfa",
+                extra: nil)
+            completion(nil, error.localizedDescription)
+        }
+        
+        
+    }
+    
     
     public func verifyApiKey(baseUrl: String, apiKey: String) async throws -> String? {
 #if DEBUG
