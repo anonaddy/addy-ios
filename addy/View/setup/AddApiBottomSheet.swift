@@ -38,6 +38,9 @@ struct AddApiBottomSheet: View {
     @State private var cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
     
     @State private var loginType: String = "login" // login or api
+    @State private var apiExpiration: String = "never" // day, week, month, year or nil (never)
+
+
 
     @State private var usernamePlaceholder:String = String(localized: "registration_username")
     @State private var usernameValidationError:String?
@@ -130,7 +133,7 @@ struct AddApiBottomSheet: View {
             Section {
                 
                 
-                Picker(selection: $loginType, label: Text(String(localized:"condition_operator"))) {
+                Picker(selection: $loginType, label: Text(String(localized:"login_type"))) {
                     Text(String(localized: "login_username")).tag("login")
                     Text(String(localized: "login_api")).tag("api")
                 }.pickerStyle(.segmented)
@@ -149,6 +152,14 @@ struct AddApiBottomSheet: View {
                     if otpMfaObject != nil {
                         ValidatingTextField(value: self.$otp, placeholder: $otpPlaceholder, fieldType: .otp, error: $otpValidationError)
                     }
+                    
+                    Picker(selection: $apiExpiration, label: Text(String(localized:"login_expiration"))) {
+                        Text(String(localized: "login_expiration_day")).tag("day")
+                        Text(String(localized: "login_expiration_week")).tag("week")
+                        Text(String(localized: "login_expiration_month")).tag("month")
+                        Text(String(localized: "login_expiration_year")).tag("year")
+                        Text(String(localized: "login_expiration_never")).tag("never")
+                    }.pickerStyle(.navigationLink)
                 }
                 
                 
@@ -282,7 +293,7 @@ struct AddApiBottomSheet: View {
             }
             
             // OTP has been entered, do the call to the /api/auth/mfa endpoint
-            await networkHelper.loginMfa(baseUrl: baseUrl, mfa_key: otpMfaObject.mfa_key, otp: self.otp, xCsrfToken: otpMfaObject.csrf_token, completion: { login, error in
+            await networkHelper.loginMfa(baseUrl: baseUrl, mfa_key: otpMfaObject.mfa_key, otp: self.otp, xCsrfToken: otpMfaObject.csrf_token, apiExpiration: apiExpiration, completion: { login, error in
                 if let login = login {
                     // Login success
                     self.addKey(login.api_key, baseUrl)
@@ -302,7 +313,7 @@ struct AddApiBottomSheet: View {
             })
         } else {
             
-            await networkHelper.login(baseUrl: baseUrl, username: username, password: password, completion: { login, loginMfaRequired, error in
+            await networkHelper.login(baseUrl: baseUrl, username: username, password: password, apiExpiration: apiExpiration, completion: { login, loginMfaRequired, error in
                 if let login = login {
                     // Login success
                     self.addKey(login.api_key, baseUrl)

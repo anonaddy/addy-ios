@@ -1,6 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "default_base_url" : {
+
+    },
+    "dev_base_url" : {
+
+    },
     "logs_cleared" : {
       "localizations" : {
         "en" : {

@@ -18,11 +18,16 @@ struct AppSettingsView: View {
     @State private var privacyMode: Bool = false
     @State private var biometricEnabled: Bool = false
     @State private var showPlayGround: Bool = false
-    @State private var isShowingResetAppConfirmationAlert = false
     
     @Environment(\.openURL) var openURL
     @Binding var horizontalSize: UserInterfaceSizeClass
     
+    enum ActiveAlert {
+        case resetAppError, resetApp
+    }
+    @State private var showAlert = false
+    @State private var activeAlert: ActiveAlert = .resetApp
+
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -136,7 +141,8 @@ struct AppSettingsView: View {
             
             Section {
                 AddySection(title: String(localized: "reset_app"), description: String(localized: "reset_app_desc"), leadingSystemimage: "gobackward", leadingSystemimageColor: .red){
-                    isShowingResetAppConfirmationAlert = true
+                    activeAlert = .resetApp
+                    showAlert = true
                 }
                 
                 
@@ -197,11 +203,20 @@ struct AppSettingsView: View {
                 ProfilePicture().environmentObject(mainViewState)
             }
         }
-        .alert(isPresented: $isShowingResetAppConfirmationAlert, content: {
-            Alert(title: Text(String(localized: "reset_app")), message: Text(String(localized: "reset_app_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "reset_app"))){
-                mainViewState.isPresentingProfileBottomSheet = false
-                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            }, secondaryButton: .cancel())
+        .alert(isPresented: $showAlert, content: {
+            switch activeAlert {
+                
+            case .resetAppError:
+                return Alert(title: Text(String(localized: "reset_app")),message:Text(String(localized: "reset_app_logout_failure")), primaryButton: .default(Text(String(localized: "reset_app_anyways"))), secondaryButton: .cancel())
+            case .resetApp:
+                return Alert(title: Text(String(localized: "reset_app")), message: Text(String(localized: "reset_app_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "reset_app"))){
+                    Task {
+                        await logoutAndReset()
+                    }
+                }, secondaryButton: .cancel())
+            }
+            
+           
         })
         .sheet(isPresented: $isPresentingAppearanceBottomSheet, content: {
             NavigationStack {
@@ -210,6 +225,27 @@ struct AppSettingsView: View {
             .presentationDetents([.medium, .large])
         })
         
+    }
+    
+    func logoutAndReset() async {
+        let networkHelper = NetworkHelper()
+        do {
+            if let statusCode = try await networkHelper.logout() {
+                if statusCode == 204 {
+                    DispatchQueue.main.async {
+                        mainViewState.isPresentingProfileBottomSheet = false
+                        SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                    }
+                } else {
+                    activeAlert = .resetAppError
+                    showAlert = true
+                }
+            }
+        } catch {
+            activeAlert = .resetAppError
+            showAlert = true
+        }
+       
     }
     
     func faceIdAuthentication(shouldEnableBiometrics: Bool){
@@ -230,10 +266,6 @@ struct AppSettingsView: View {
                     biometricEnabled = !shouldEnableBiometrics
                 }
             }
-        } else{
-            // Device does not support Face ID or Touch ID
-            //TODO: Let the user know
-            //print("Biometric authentication unavailable")
         }
     }
     

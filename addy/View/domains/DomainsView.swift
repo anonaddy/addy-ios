@@ -299,11 +299,14 @@ struct DomainsView: View {
             } else {
                 activeAlert = .error
                 showAlert = true
+                errorAlertTitle = ""
+                errorAlertMessage = String(localized: "something_went_wrong_retrieving_domains")
             }
         } catch {
-            //TODO: Let the user know
-            //print("Failed to get user resource: \(error)")
-            // viewModel will take care of putting this error into a var
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "something_went_wrong_retrieving_domains")
+            errorAlertMessage = error.localizedDescription
         }
     }
     

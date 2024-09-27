@@ -35,7 +35,15 @@ struct RegistrationFormBottomSheet: View {
     @State private var usernameValidationError:String?
     @State private var username:String = ""
     
-    @EnvironmentObject var appState: AppState
+    enum ActiveAlert {
+        case error, completionMessage
+    }
+    @State private var activeAlert: ActiveAlert = .error
+
+    @State private var apiExpiration: String = "never" // day, week, month, year or nil (never)
+    
+    @Binding var showOnboarding: Bool
+
 
     @Environment(\.openURL) var openURL
     @Environment(\.dismiss) var dismiss
@@ -68,6 +76,13 @@ struct RegistrationFormBottomSheet: View {
                     
                     ValidatingTextField(value: self.$passwordConfirm, placeholder: $passwordConfirmPlaceholder, fieldType: .password, error: $passwordConfirmValidationError)
                     
+                    Picker(selection: $apiExpiration, label: Text(String(localized:"login_expiration"))) {
+                                            Text(String(localized: "login_expiration_day")).tag("day")
+                                            Text(String(localized: "login_expiration_week")).tag("week")
+                                            Text(String(localized: "login_expiration_month")).tag("month")
+                                            Text(String(localized: "login_expiration_year")).tag("year")
+                                            Text(String(localized: "login_expiration_never")).tag("never")
+                                        }.pickerStyle(.navigationLink)
                     
                 } header: {
                     Text(String(localized: "registration_password_header"))
@@ -84,7 +99,10 @@ struct RegistrationFormBottomSheet: View {
                             addressConfirmValidationError == nil &&
                             passwordValidationError == nil &&
                             passwordConfirmValidationError == nil){
-                            registerUser()
+                            
+                            Task {
+                                await registerUser()
+                            }
                         } else {
                             resetButton()
                         }
@@ -133,11 +151,20 @@ struct RegistrationFormBottomSheet: View {
             })
         }
         .alert(isPresented: $showAlert) {
-            Alert(title: Text(String(localized: "registration_register")), message: Text(alertMessage))
+            switch activeAlert {
+            case .error:
+                return Alert(title: Text(String(localized: "registration_register")), message: Text(alertMessage))
+            case .completionMessage:
+                return Alert(title: Text(String(localized: "registration_register")), message: Text(alertMessage), dismissButton: .default(Text(String(localized: "understood"))) {
+                    self.dismiss()
+                    showOnboarding = false
+                })
+
+            }
         }
     }
 
-    func registerUser() {
+    func registerUser() async {
         usernameValidationError = nil
         addressValidationError = nil
         addressConfirmValidationError = nil
@@ -188,27 +215,25 @@ struct RegistrationFormBottomSheet: View {
         
 
         
-        //TODO: register
-        
-//        let networkHelper = NetworkHelper()
-//        do {
-//            if let domain = try await networkHelper.updateAutoCreateRegexSpecificDomain(domainId: self.domainId, autoCreateRegex: autoCreateRegex) {
-//                self.autoCreateRegexEdited(domain)
-//            }
-//        } catch {
-//            IsLoadingSaveButton = false
-//            autoCreateRegexRequestError = error.localizedDescription
-//        }
+        let networkHelper = NetworkHelper()
+        await networkHelper.registration(username: self.username, email: self.address, password: self.password, apiExpiration: apiExpiration, completion: { error in
+            if error == nil {
+                // Registration success
+                self.alertMessage = String(localized: "registration_success_verification_required")
+                self.activeAlert = .completionMessage
+                self.showAlert = true
+            } else {
+                // Show error
+                self.alertMessage = error!
+                self.activeAlert = .error
+                self.showAlert = true
+                
+                resetButton()
+            }
+        })
 
     }
-    
-    private func addKey(apiKey: String) {
-        let encryptedSettingsManager = SettingsManager(encrypted: true)
-        encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.apiKey, string: apiKey)
-        encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.baseUrl, string: String(localized: "default_base_url"))
-        dismiss()
-        appState.apiKey = apiKey
-    }
+
     
     private func resetButton(){
         // TODO: workaround, fix
@@ -220,6 +245,6 @@ struct RegistrationFormBottomSheet: View {
 
 struct RegistrationFormBottomSheet_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationFormBottomSheet()
+        RegistrationFormBottomSheet(showOnboarding: .constant(false))
     }
 }

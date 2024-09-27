@@ -11,7 +11,7 @@ import addy_shared
 struct SetupOnboarding: View {
     @State private var selectedPage = 0
     @State private var openRegistrationFormBottomSheet = false
-    @EnvironmentObject var appState: AppState
+    @Binding var showOnboarding: Bool
 
     var body: some View {
 #if DEBUG
@@ -46,7 +46,7 @@ struct SetupOnboarding: View {
                 .edgesIgnoringSafeArea(.all)
                 .navigationTitle(String(localized: "getting_started"))
         }.sheet(isPresented: $openRegistrationFormBottomSheet) {
-            RegistrationFormBottomSheet().environmentObject(appState)
+            RegistrationFormBottomSheet(showOnboarding: $showOnboarding)
         }
         
     }
@@ -211,5 +211,5 @@ struct SetupOnboarding: View {
 }
 
 #Preview {
-    SetupOnboarding()
+    SetupOnboarding(showOnboarding: .constant(false))
 }

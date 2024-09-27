@@ -752,7 +752,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your API key will expire in %@. It is recommended to update your API key to prevent the app from resetting. Do you want to change the API token now?"
+            "value" : "Your API key will expire in %@. It is recommended to update your API key to prevent the app from resetting. Do you want to refresh the API token now?"
           }
         }
       }
@@ -763,7 +763,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your API key will expire soon. It is recommended to update your API key to prevent the app from resetting. Do you want to change the API token now?"
+            "value" : "Your API key will expire soon. It is recommended to update your API key to prevent the app from resetting. Do you want to refresh the API token now?"
           }
         }
       }
@@ -774,7 +774,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enter new key"
+            "value" : "Refresh token"
           }
         }
       }
@@ -1795,6 +1795,7 @@
       }
     },
     "default_base_url" : {
+      "comment" : "TODO CHECK THIS EVERY RELEASE",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -1860,6 +1861,17 @@
         }
       }
     },
+    "delete_account_confirmation_alert" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are about to delete your addy.io account and EVERYTHING related to it. Please enter your password to confirm. This cannot be undone. \n\nIf account deletion is successful the app will reset"
+          }
+        }
+      }
+    },
     "delete_account_confirmation_desc" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1867,6 +1879,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Deleting your addy.io account will **DELETE ALL DATA**, this includes but it not limited to aliases, usernames, statistics, rules and failed deliveries. This data **CANNOT BE RESTORED**"
+          }
+        }
+      }
+    },
+    "delete_account_confirmation_password" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your password"
           }
         }
       }
@@ -1889,6 +1912,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete your addy.io account and all data related to it"
+          }
+        }
+      }
+    },
+    "delete_account_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The password is incorrect, please enter the correct password"
           }
         }
       }
@@ -2106,6 +2140,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Details about the error:\n%@"
+          }
+        }
+      }
+    },
+    "dev_base_url" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://app.addy.io"
           }
         }
       }
@@ -3772,6 +3817,72 @@
         }
       }
     },
+    "login_expiration" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Require re-login after"
+          }
+        }
+      }
+    },
+    "login_expiration_day" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 day"
+          }
+        }
+      }
+    },
+    "login_expiration_month" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 month"
+          }
+        }
+      }
+    },
+    "login_expiration_never" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never"
+          }
+        }
+      }
+    },
+    "login_expiration_week" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 week"
+          }
+        }
+      }
+    },
+    "login_expiration_year" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 year"
+          }
+        }
+      }
+    },
     "login_type" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4302,7 +4413,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your API key will expire in %@. Create a new one to prevent the app from resetting. Tap here to change the API key"
+            "value" : "Your API key will expire in %@. Create a new one to prevent the app from resetting. Tap here to refresh the API key"
           }
         }
       }
@@ -5097,6 +5208,17 @@
         }
       }
     },
+    "registration_success_verification_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your account is now registered! To finalize the registration, please click on the verification link sent to your email"
+          }
+        }
+      }
+    },
     "registration_username" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5136,7 +5258,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create your login name"
+            "value" : "Create your username"
           }
         }
       }
@@ -5295,6 +5417,17 @@
         }
       }
     },
+    "reset_app_anyways" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset anyways"
+          }
+        }
+      }
+    },
     "reset_app_confirmation_desc" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5313,6 +5446,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clear all data and start over"
+          }
+        }
+      }
+    },
+    "reset_app_logout_failure" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not delete the API key, do you want to reset the app anyways?"
           }
         }
       }

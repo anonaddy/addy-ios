@@ -333,9 +333,6 @@ struct MainView: View {
                 }
             }
         } catch {
-            //TODO: Let the user know
-            
-            //print("Failed to get failed deliveries: \(error)")
             // Error will be logged when user has enabled this
         }
     }
@@ -362,8 +359,6 @@ struct MainView: View {
                 }
             }
         } catch {
-            //TODO: Let the user know
-            //print("Failed to get account notifications: \(error)")
             // Error will be logged when user has enabled this
         }
     }
@@ -437,8 +432,6 @@ struct MainView: View {
                 }
                 
             } catch {
-                //TODO: Let the user know
-                //print("Failed to check for updates: \(error)")
                 // Error will be logged when user has enabled this
             }
         }

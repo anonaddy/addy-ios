@@ -12,7 +12,7 @@ public struct Login: Decodable {
     public let api_key: String
     public let name: String
     public let created_at: String
-    public let expires_at: String
+    public let expires_at: String?
 }
 
 //422
@@ -25,5 +25,5 @@ public struct LoginMfaRequired: Decodable {
 
 //401
 public struct LoginError: Decodable {
-    public let error: String
+    public let message: String
 }

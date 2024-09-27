@@ -491,7 +491,6 @@ class StoreManager: ObservableObject {
         do {
             let fetchedProducts = try await Product.products(for: productIdentifiers)
             DispatchQueue.main.async {
-                print("Fetched products: \(fetchedProducts)")
                 self.products = fetchedProducts.sorted { $0.price > $1.price }
             }
         } catch {

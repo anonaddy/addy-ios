@@ -7,7 +7,7 @@
 
 
 import SwiftUI
-
+import addy_shared
 
 class TimerViewModel: ObservableObject {
     @Published var secondsRemaining = 10
@@ -49,6 +49,11 @@ struct DeleteAccountConfirmationView: View {
                                   strokeColor: .gray)
     
     
+    
+    @State private var showAlert: Bool = false
+    @State private var alertMessage = String(localized: "delete_account_confirmation_alert")
+    @State private var password = ""
+
     var body: some View {
         VStack {
             ContentUnavailableView {
@@ -71,7 +76,7 @@ struct DeleteAccountConfirmationView: View {
                 }.padding()
             } else {
                 AddyButton(action: {
-                    //TODO: Delete account and ask for password
+                    showAlert = true
                 }, style: addyButtonDeleteStyle) {
                     Text(String(localized: "delete_account"))
                         .padding()
@@ -80,8 +85,40 @@ struct DeleteAccountConfirmationView: View {
                 }.padding()
             }
         }
+        .alert(String(localized: "delete_account"), isPresented: $showAlert) {
+            SecureField(String(localized: "delete_account_confirmation_password"), text: $password)
+            Button(String(localized: "delete_account"), role: .destructive) {
+                Task {
+                    await deleteAccount()
+                }
+            }
+            Button(String(localized: "cancel"), role: .cancel) {}
+        } message: {
+            Text(alertMessage)
+        }
+    
+        
         .navigationTitle(String(localized: "delete_account"))
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private func deleteAccount() async{
+        let networkHelper = NetworkHelper()
+        do {
+            if let statusCode = try await networkHelper.deleteAccount(password: password) {
+                switch statusCode {
+                case 204:
+                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                default:
+                    alertMessage = String(localized: "delete_account_failed")
+                    showAlert = true
+                }
+            }
+                
+        } catch {
+            alertMessage = String(localized: "delete_account_failed")
+            showAlert = true
+        }
     }
 }
 

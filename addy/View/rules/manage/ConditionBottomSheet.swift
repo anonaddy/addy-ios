@@ -40,7 +40,6 @@ struct ConditionBottomSheet: View {
             
             Section {
                 
-                //TODO: The checkmark next to selected pickeritems is at default value instead of the selected item
                 Picker(selection: $selectedConditionType, label: Text(String(localized: "select"))) {
                     ForEach(RulesOption.conditionsTypeName, id: \.self) {
                         let typeIndex = RulesOption.conditionsTypeName.firstIndex(of: $0) ?? 0
