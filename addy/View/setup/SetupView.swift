@@ -10,6 +10,7 @@ import addy_shared
 
 struct SetupView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var setupViewState: SetupViewState
     
     let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
     @State private var text = String(localized: "setup_api_key")
@@ -19,6 +20,8 @@ struct SetupView: View {
     @State private var showOnboarding = false
     @State private var isPresentingAddApiBottomSheet = false
     
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     
     
@@ -105,7 +108,7 @@ struct SetupView: View {
                             
                             
                         }, isLoading: $isLoadingGetStarted) {
-                            Text(String(localized: "got_the_api_key")).foregroundColor(Color.white)
+                            Text(String(localized: "get_started")).foregroundColor(Color.white)
                         }
                         
                         
@@ -119,7 +122,7 @@ struct SetupView: View {
                     }
                     .padding(32)
                     .navigationDestination(isPresented: $showOnboarding) {
-                        SetupOnboarding()
+                        SetupOnboarding(showOnboarding: $showOnboarding)
                     }
                 }
                 
@@ -133,6 +136,19 @@ struct SetupView: View {
                 AddApiBottomSheet(apiBaseUrl: nil, addKey: addKey(apiKey:baseUrl:))
             }
             .presentationDetents([.large])
+        }.alert(isPresented: $showAlert) {
+            Alert(title: Text(String(localized: "registration_register")), message: Text(alertMessage))
+        }.onChange(of: setupViewState.verifyQuery) {
+            #if DEBUG
+            print("verifyPath changed to \(setupViewState.verifyQuery)!")
+            #endif
+            if let verifyQuery = setupViewState.verifyQuery {
+                isLoadingGetStarted = true
+                Task {
+                    await finishRegistrationVerification(query: verifyQuery)
+                }
+            }
+            
         }
         
         
@@ -164,13 +180,31 @@ struct SetupView: View {
         }
     }
     
+    private func finishRegistrationVerification(query: String) async {
+        let networkHelper = NetworkHelper()
+        await networkHelper.verifyRegistration(query: query, completion: { apiKey, error in
+            if let apiKey = apiKey {
+                // Login success
+                self.addKey(apiKey: apiKey, baseUrl: AddyIo.API_BASE_URL)
+            } else {
+                // Show error
+                self.alertMessage = error!
+                self.showAlert = true
+                
+                isLoadingGetStarted = false
+            }
+        })
+    }
+    
     
     private func addKey(apiKey: String, baseUrl: String) {
         let encryptedSettingsManager = SettingsManager(encrypted: true)
         encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.apiKey, string: apiKey)
         encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.baseUrl, string: baseUrl)
-        isPresentingAddApiBottomSheet = false
-        appState.apiKey = apiKey
+        DispatchQueue.main.async {
+            isPresentingAddApiBottomSheet = false
+            appState.apiKey = apiKey
+        }
     }
     
     

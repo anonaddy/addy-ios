@@ -19,12 +19,15 @@ struct AppSettingsView: View {
     @State private var biometricEnabled: Bool = false
     @State private var showPlayGround: Bool = false
     
-    
-    @State private var isShowingResetAppConfirmationAlert = false
-    
     @Environment(\.openURL) var openURL
     @Binding var horizontalSize: UserInterfaceSizeClass
     
+    enum ActiveAlert {
+        case resetAppError, resetApp
+    }
+    @State private var showAlert = false
+    @State private var activeAlert: ActiveAlert = .resetApp
+
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -138,22 +141,19 @@ struct AppSettingsView: View {
             
             Section {
                 AddySection(title: String(localized: "reset_app"), description: String(localized: "reset_app_desc"), leadingSystemimage: "gobackward", leadingSystemimageColor: .red){
-                    isShowingResetAppConfirmationAlert = true
+                    activeAlert = .resetApp
+                    showAlert = true
                 }
                 
-            }
-            
-            Section {
-                AddySection(title: String(localized: "addyio_help"), description: String(localized: "visit_addyio_helps_section"), leadingSystemimage: "questionmark.circle", leadingSystemimageColor: .primaryColorStatic){
-                    openURL(URL(string: "https://addy.io/help/")!)
+                
+                NavigationLink(destination: DeleteAccountConfirmationView()){
+                    AddySection(title: String(localized: "delete_account"), description: String(localized: "delete_account_desc"), leadingSystemimage: "person.fill.badge.minus", leadingSystemimageColor: .red)
                 }
-                AddySection(title: String(localized: "faq"), description: String(localized: "faq_desc"), leadingSystemimage: "questionmark.bubble.fill", leadingSystemimageColor: .primaryColorStatic){
-                    openURL(URL(string: "https://addy.io/faq/")!)
-                }
+                
             } header: {
-                Text(String(localized: "app_name"))
+                Text(String(localized: "manage_your_data"))
             }
-            
+
             Section {
                 AddySection(title: String(localized: "github_project"), description: String(localized: "github_project_desc"), leadingSystemimage: "swift", leadingSystemimageColor: .primaryColorStatic){
                     openURL(URL(string: "https://github.com/anonaddy/addy-ios")!)
@@ -164,7 +164,7 @@ struct AppSettingsView: View {
                 AddySection(title: String(localized: "contributors"), description: String(localized: "contributors_list"), leadingSystemimage: "person.2.fill", leadingSystemimageColor: .primaryColorStatic){}
                 
             } header: {
-                Text(String(localized: "more"))
+                Text(String(localized: "about_this_app"))
             } footer: {
                 
                 VStack {
@@ -203,10 +203,20 @@ struct AppSettingsView: View {
                 ProfilePicture().environmentObject(mainViewState)
             }
         }
-        .alert(isPresented: $isShowingResetAppConfirmationAlert, content: {
-            Alert(title: Text(String(localized: "reset_app")), message: Text(String(localized: "reset_app_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "reset_app"))){
-                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            }, secondaryButton: .cancel())
+        .alert(isPresented: $showAlert, content: {
+            switch activeAlert {
+                
+            case .resetAppError:
+                return Alert(title: Text(String(localized: "reset_app")),message:Text(String(localized: "reset_app_logout_failure")), primaryButton: .default(Text(String(localized: "reset_app_anyways"))), secondaryButton: .cancel())
+            case .resetApp:
+                return Alert(title: Text(String(localized: "reset_app")), message: Text(String(localized: "reset_app_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "reset_app"))){
+                    Task {
+                        await logoutAndReset()
+                    }
+                }, secondaryButton: .cancel())
+            }
+            
+           
         })
         .sheet(isPresented: $isPresentingAppearanceBottomSheet, content: {
             NavigationStack {
@@ -215,6 +225,27 @@ struct AppSettingsView: View {
             .presentationDetents([.medium, .large])
         })
         
+    }
+    
+    func logoutAndReset() async {
+        let networkHelper = NetworkHelper()
+        do {
+            if let statusCode = try await networkHelper.logout() {
+                if statusCode == 204 {
+                    DispatchQueue.main.async {
+                        mainViewState.isPresentingProfileBottomSheet = false
+                        SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                    }
+                } else {
+                    activeAlert = .resetAppError
+                    showAlert = true
+                }
+            }
+        } catch {
+            activeAlert = .resetAppError
+            showAlert = true
+        }
+       
     }
     
     func faceIdAuthentication(shouldEnableBiometrics: Bool){
@@ -235,10 +266,6 @@ struct AppSettingsView: View {
                     biometricEnabled = !shouldEnableBiometrics
                 }
             }
-        } else{
-            // Device does not support Face ID or Touch ID
-            //TODO: Let the user know
-            //print("Biometric authentication unavailable")
         }
     }
     

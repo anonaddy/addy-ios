@@ -87,10 +87,7 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
                 let userResource = try await NetworkHelper().getUserResource()
                 setSubscriptionInfoText(user: userResource)
             } catch {
-                //TODO: Let the user know
-                //print("Failed to get user resource: \(error)")
-                // Error will be logged when user has enabled this
-                
+                subscriptionExpiryText = String(localized: "subscription_expiry_date_unknown")
             }
 
     }

@@ -277,9 +277,9 @@ struct AddAliasBottomSheet: View {
                 selectedFormat = domainOptions.defaultAliasFormat
             }
         } catch {
-            //TODO: Let user know
-            //print("Failed to load domains: \(error)")
-            // Error will be logged when user has enabled this
+            showAlert = true
+            errorAlertTitle = String(localized: "something_went_wrong_retrieving_domains")
+            errorAlertMessage = error.localizedDescription
         }
     }
     

@@ -18,6 +18,17 @@
     "0" : {
 
     },
+    "about_this_app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About this app"
+          }
+        }
+      }
+    },
     "account_notifications" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -310,17 +321,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "addy.io app | Stjin"
-          }
-        }
-      }
-    },
-    "addyio_help" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "addy.io help"
           }
         }
       }
@@ -695,16 +695,6 @@
         }
       }
     },
-    "api_obtain" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Manually enter your API key"
-          }
-        }
-      }
-    },
     "api_obtain_desc" : {
       "localizations" : {
         "en" : {
@@ -762,7 +752,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your API key will expire in %@. It is recommended to update your API key to prevent the app from resetting. Do you want to change the API token now?"
+            "value" : "Your API key will expire in %@. It is recommended to update your API key to prevent the app from resetting. Do you want to refresh the API token now?"
           }
         }
       }
@@ -773,7 +763,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your API key will expire soon. It is recommended to update your API key to prevent the app from resetting. Do you want to change the API token now?"
+            "value" : "Your API key will expire soon. It is recommended to update your API key to prevent the app from resetting. Do you want to refresh the API token now?"
           }
         }
       }
@@ -784,17 +774,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enter new key"
-          }
-        }
-      }
-    },
-    "APIKey" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "API key"
+            "value" : "Refresh token"
           }
         }
       }
@@ -1639,6 +1619,16 @@
         }
       }
     },
+    "credentials" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credentials"
+          }
+        }
+      }
+    },
     "current_api_token_expiry_date" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1805,6 +1795,7 @@
       }
     },
     "default_base_url" : {
+      "comment" : "TODO CHECK THIS EVERY RELEASE",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -1844,6 +1835,94 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        }
+      }
+    },
+    "delete_account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete account"
+          }
+        }
+      }
+    },
+    "delete_account_confirmation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete your addy.io account?"
+          }
+        }
+      }
+    },
+    "delete_account_confirmation_alert" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are about to delete your addy.io account and EVERYTHING related to it. Please enter your password to confirm. This cannot be undone. \n\nIf account deletion is successful the app will reset"
+          }
+        }
+      }
+    },
+    "delete_account_confirmation_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleting your addy.io account will **DELETE ALL DATA**, this includes but it not limited to aliases, usernames, statistics, rules and failed deliveries. This data **CANNOT BE RESTORED**"
+          }
+        }
+      }
+    },
+    "delete_account_confirmation_password" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your password"
+          }
+        }
+      }
+    },
+    "delete_account_countdown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete account (%@)"
+          }
+        }
+      }
+    },
+    "delete_account_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete your addy.io account and all data related to it"
+          }
+        }
+      }
+    },
+    "delete_account_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The password is incorrect, please enter the correct password"
           }
         }
       }
@@ -2061,6 +2140,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Details about the error:\n%@"
+          }
+        }
+      }
+    },
+    "dev_base_url" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://app.addy.io"
           }
         }
       }
@@ -2894,28 +2984,6 @@
         }
       }
     },
-    "faq" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FAQ"
-          }
-        }
-      }
-    },
-    "faq_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Visit the Frequently asked questions"
-          }
-        }
-      }
-    },
     "feature_api_token_expiry_notification" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3387,17 +3455,6 @@
         }
       }
     },
-    "got_the_api_key" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Got the API key?"
-          }
-        }
-      }
-    },
     "greetings_time_traveller" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3727,6 +3784,127 @@
         }
       }
     },
+    "login" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Login"
+          }
+        }
+      }
+    },
+    "login_api" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API key"
+          }
+        }
+      }
+    },
+    "login_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Security key authentication is not currently supported from the mobile app, if you use a security key please use an API key to login instead"
+          }
+        }
+      }
+    },
+    "login_expiration" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Require re-login after"
+          }
+        }
+      }
+    },
+    "login_expiration_day" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 day"
+          }
+        }
+      }
+    },
+    "login_expiration_month" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 month"
+          }
+        }
+      }
+    },
+    "login_expiration_never" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never"
+          }
+        }
+      }
+    },
+    "login_expiration_week" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 week"
+          }
+        }
+      }
+    },
+    "login_expiration_year" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 year"
+          }
+        }
+      }
+    },
+    "login_type" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Login type"
+          }
+        }
+      }
+    },
+    "login_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username & password"
+          }
+        }
+      }
+    },
     "logs" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3891,6 +4069,17 @@
         }
       }
     },
+    "manage_your_data" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage your data"
+          }
+        }
+      }
+    },
     "match" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3930,17 +4119,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Monthly Bandwidth"
-          }
-        }
-      }
-    },
-    "more" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "More"
           }
         }
       }
@@ -4235,7 +4413,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your API key will expire in %@. Create a new one to prevent the app from resetting. Tap here to change the API key"
+            "value" : "Your API key will expire in %@. Create a new one to prevent the app from resetting. Tap here to refresh the API key"
           }
         }
       }
@@ -4559,6 +4737,17 @@
         }
       }
     },
+    "only_use_numbers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only use numbers"
+          }
+        }
+      }
+    },
     "open_link" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4577,6 +4766,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OR"
+          }
+        }
+      }
+    },
+    "otp_not_the_right_length" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One-time passwords should consist of six digits"
+          }
+        }
+      }
+    },
+    "otp_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One-time password is required"
           }
         }
       }
@@ -4821,6 +5032,237 @@
         }
       }
     },
+    "registration_address_empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter your email address"
+          }
+        }
+      }
+    },
+    "registration_disclaimer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By creating an account, you consent to our Terms of Service and Privacy Policy"
+          }
+        }
+      }
+    },
+    "registration_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "registration_email_confirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm email"
+          }
+        }
+      }
+    },
+    "registration_email_confirm_mismatch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emails do not match"
+          }
+        }
+      }
+    },
+    "registration_email_footer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is the address that your aliases will forward to"
+          }
+        }
+      }
+    },
+    "registration_email_header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Real Email Address"
+          }
+        }
+      }
+    },
+    "registration_otp" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One-time password"
+          }
+        }
+      }
+    },
+    "registration_password" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
+          }
+        }
+      }
+    },
+    "registration_password_confirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm password"
+          }
+        }
+      }
+    },
+    "registration_password_confirm_empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please confirm your password"
+          }
+        }
+      }
+    },
+    "registration_password_confirm_mismatch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwords do not match"
+          }
+        }
+      }
+    },
+    "registration_password_empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter a password"
+          }
+        }
+      }
+    },
+    "registration_password_footer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make note of this password, you might need this later"
+          }
+        }
+      }
+    },
+    "registration_password_header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let’s secure your account"
+          }
+        }
+      }
+    },
+    "registration_register" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Register"
+          }
+        }
+      }
+    },
+    "registration_success_verification_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your account is now registered! To finalize the registration, please click on the verification link sent to your email"
+          }
+        }
+      }
+    },
+    "registration_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username"
+          }
+        }
+      }
+    },
+    "registration_username_empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter a username"
+          }
+        }
+      }
+    },
+    "registration_username_footer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is used to login and in the domain for your **standard aliases**\ne.g. ebay@**johndoe**.anonaddy.com or x@**johndoe**.anonaddy.me"
+          }
+        }
+      }
+    },
+    "registration_username_header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create your username"
+          }
+        }
+      }
+    },
     "remove" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4975,6 +5417,17 @@
         }
       }
     },
+    "reset_app_anyways" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset anyways"
+          }
+        }
+      }
+    },
     "reset_app_confirmation_desc" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4993,6 +5446,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clear all data and start over"
+          }
+        }
+      }
+    },
+    "reset_app_logout_failure" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not delete the API key, do you want to reset the app anyways?"
           }
         }
       }
@@ -5484,17 +5948,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "What do you think?"
-          }
-        }
-      }
-    },
-    "setup_how_4_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "(This will open your browser)"
           }
         }
       }
@@ -6621,17 +7074,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "View stored logs"
-          }
-        }
-      }
-    },
-    "visit_addyio_helps_section" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Visit addy.io help section"
           }
         }
       }

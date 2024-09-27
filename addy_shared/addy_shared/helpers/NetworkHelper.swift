@@ -45,6 +45,388 @@ public class NetworkHelper {
         return userAgent
     }
     
+    // Using @escaping as logging errors is not a thing before the app is set-up (they cannot be seen)
+    public func registration(username: String, email: String, password: String, apiExpiration: String, completion: @escaping (String?) -> Void) async {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        
+        
+        #if DEBUG
+        let defaultBaseUrl = String(localized: "dev_base_url")
+        #else
+        let defaultBaseUrl = String(localized: "default_base_url")
+        #endif
+        
+        // Set base URL
+        AddyIo.API_BASE_URL = defaultBaseUrl
+        
+        let url = URL(string: AddyIo.API_URL_REGISTER)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let json: [String: Any?] = ["username": username,
+                                   "email": email,
+                                   "password": password,
+                                   "device_name": "addy.io for iOS",
+                                   "expiration": apiExpiration == "never" ? nil : apiExpiration]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                let error = URLError(.badServerResponse)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error.localizedDescription,
+                    method: "registration",
+                    extra: error.failureURLString)
+                completion(error.localizedDescription)
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 204: // Successful registration
+                completion(nil)
+            case 422:
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(LoginError.self, from: data)
+                completion(addyIoData.message)
+            default:
+                let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "registration",
+                    extra: ErrorHelper.getErrorMessage(data: data))
+                completion(errorMessage)
+            }
+        } catch {
+            print(error)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "registration",
+                extra: nil)
+            completion(error.localizedDescription)
+        }
+        
+        
+    }
+    
+    // Using @escaping as logging errors is not a thing before the app is set-up (they cannot be seen)
+    public func verifyRegistration(query: String, completion: @escaping (String?, String?) -> Void) async {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        
+        // Set base URL
+#if DEBUG
+let defaultBaseUrl = String(localized: "dev_base_url")
+#else
+let defaultBaseUrl = String(localized: "default_base_url")
+#endif
+
+// Set base URL
+AddyIo.API_BASE_URL = defaultBaseUrl
+        
+        let url = URL(string: "\(AddyIo.API_URL_LOGIN_VERIFY)?\(query)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                let error = URLError(.badServerResponse)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error.localizedDescription,
+                    method: "verifyRegistration",
+                    extra: error.failureURLString)
+                completion(nil, error.localizedDescription)
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200: // Successful verification
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(Login.self, from: data)
+                completion(addyIoData.api_key, nil)
+            case 422, 404, 403: // Successful verification
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(LoginError.self, from: data)
+                completion(nil, addyIoData.message)
+            default:
+                let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "verifyRegistration",
+                    extra: ErrorHelper.getErrorMessage(data: data))
+                completion(nil, errorMessage)
+            }
+        } catch {
+            print(error)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "verifyRegistration",
+                extra: nil)
+            completion(nil, error.localizedDescription)
+        }
+        
+        
+    }
+    
+    public func login(baseUrl: String, username: String, password: String, apiExpiration: String, completion: @escaping (Login?, LoginMfaRequired?, String?) -> Void) async {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        
+        // Set base URL
+        AddyIo.API_BASE_URL = baseUrl
+        
+        let url = URL(string: AddyIo.API_URL_LOGIN)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let json: [String: Any?] = ["username": username,
+                                   "password": password,
+                                   "device_name": "addy.io for iOS",
+                                   "expiration": apiExpiration == "never" ? nil : apiExpiration]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                let error = URLError(.badServerResponse)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error.localizedDescription,
+                    method: "login",
+                    extra: error.failureURLString)
+                completion(nil, nil, error.localizedDescription)
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200: // Successful
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(Login.self, from: data)
+                completion(addyIoData, nil, nil)
+            case 422: // MFA REQUIRED
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(LoginMfaRequired.self, from: data)
+                completion(nil, addyIoData, nil)
+            case 401: // Login data incorrect
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(LoginError.self, from: data)
+                completion(nil, nil , addyIoData.message)
+            case 403: // MFA required but is hardware key and thus not supported OR the email address has not been validated
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(LoginError.self, from: data)
+                completion(nil, nil , addyIoData.message)
+            default:
+                let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "login",
+                    extra: ErrorHelper.getErrorMessage(data: data))
+                completion(nil, nil , errorMessage)
+            }
+        } catch {
+            print(error)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "login",
+                extra: nil)
+            completion(nil, nil , error.localizedDescription)
+        }
+        
+        
+    }
+    
+    
+    
+    public func deleteAccount(password: String) async throws -> Int? {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        let url = URL(string: "\(AddyIo.API_URL_DELETE_ACCOUNT)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["password": password]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "deleteAccount",
+                extra: error.failureURLString)
+            throw error
+        }
+        
+        switch httpResponse.statusCode {
+        case 204:
+            return httpResponse.statusCode
+        case 422:
+            return httpResponse.statusCode
+        case 401:
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
+            
+            self.createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired)
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "deleteAccount",
+                extra: ErrorHelper.getErrorMessage(data: data))
+            throw URLError(.badServerResponse)
+        }
+    }
+     
+    
+    public func logout() async throws -> Int? {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        let url = URL(string: "\(AddyIo.API_URL_LOGOUT)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "logout",
+                extra: error.failureURLString)
+            throw error
+        }
+        
+        switch httpResponse.statusCode {
+        case 204:
+            return httpResponse.statusCode
+        case 401:
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
+            
+            self.createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired)
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "logout",
+                extra: ErrorHelper.getErrorMessage(data: data))
+            throw URLError(.badServerResponse)
+        }
+    }
+    
+    // Using @escaping as logging errors is not a thing before the app is set-up (they cannot be seen)
+    public func loginMfa(baseUrl: String, mfa_key: String, otp: String, xCsrfToken: String, apiExpiration: String, completion: @escaping (Login?, String?) -> Void) async {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        
+        // Set base URL
+        AddyIo.API_BASE_URL = baseUrl
+        
+        let url = URL(string: AddyIo.API_URL_LOGIN_MFA)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = [
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+            "Accept": "application/json",
+            "User-Agent": getUserAgent(),
+            "X-CSRF-Token": xCsrfToken
+        ]
+        
+        let json: [String: Any?] = ["mfa_key": mfa_key,
+                                   "otp": otp,
+                                   "device_name": "addy.io for iOS",
+                                   "expiration": apiExpiration == "never" ? nil : apiExpiration]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                let error = URLError(.badServerResponse)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error.localizedDescription,
+                    method: "loginMfa",
+                    extra: error.failureURLString)
+                completion(nil, error.localizedDescription)
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200: // Successful
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(Login.self, from: data)
+                completion(addyIoData, nil)
+            case 401: // Invalid mfa_key or mfa_key expired
+                let decoder = JSONDecoder()
+                let addyIoData = try decoder.decode(LoginError.self, from: data)
+                completion(nil, addyIoData.message)
+            default:
+                let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "loginMfa",
+                    extra: ErrorHelper.getErrorMessage(data: data))
+                completion(nil, errorMessage)
+            }
+        } catch {
+            print(error)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "loginMfa",
+                extra: nil)
+            completion(nil, error.localizedDescription)
+        }
+        
+        
+    }
+    
     
     public func verifyApiKey(baseUrl: String, apiKey: String) async throws -> String? {
 #if DEBUG

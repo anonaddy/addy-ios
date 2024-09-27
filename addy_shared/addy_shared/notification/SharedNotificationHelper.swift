@@ -26,4 +26,5 @@ class SharedNotificationHelper {
         // add our notification request
         UNUserNotificationCenter.current().add(request)
     }
+    
 }

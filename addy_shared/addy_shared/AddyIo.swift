@@ -13,10 +13,10 @@ public struct AddyIo {
     // The versioncode is a combination of MAJOR MINOR PATCH
     //TODO: Update on every release
 
-    // 1.2.3
+    // 1.3.0
     public static let MINIMUMVERSIONCODEMAJOR = 1
-    public static let MINIMUMVERSIONCODEMINOR = 2
-    public static let MINIMUMVERSIONCODEPATCH = 3
+    public static let MINIMUMVERSIONCODEMINOR = 3
+    public static let MINIMUMVERSIONCODEPATCH = 0
 
     public static var VERSIONMAJOR = 0
     public static var VERSIONMINOR = 0
@@ -54,6 +54,14 @@ public struct AddyIo {
     static var API_URL_FAILED_DELIVERIES: String { "\(API_BASE_URL)/api/v1/failed-deliveries" }
     static var API_URL_APP_VERSION: String { "\(API_BASE_URL)/api/v1/app-version" }
     static var API_URL_CHART_DATA: String { "\(API_BASE_URL)/api/v1/chart-data" }
+    
+    static var API_URL_LOGIN: String { "\(API_BASE_URL)/api/auth/login" }
+    static var API_URL_LOGOUT: String { "\(API_BASE_URL)/api/auth/logout" }
+    static var API_URL_LOGIN_MFA: String { "\(API_BASE_URL)/api/auth/mfa" }
+    static var API_URL_REGISTER: String { "\(API_BASE_URL)/api/auth/register" }
+    static var API_URL_LOGIN_VERIFY: String { "\(API_BASE_URL)/api/auth/verify" }
+    static var API_URL_DELETE_ACCOUNT: String { "\(API_BASE_URL)/api/auth/delete-account" }
+
 
     // Github built-in updater
     static let GITHUB_TAGS_RSS_FEED = "https://github.com/anonaddy/addy-ios/releases.atom"

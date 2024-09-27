@@ -16,15 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
               let url = userActivity.webpageURL,
               let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
+              let path = components.path,
               let pathComponents = components.path?.components(separatedBy: "/") else {
             return false
         }
+        
+        // Also checked in .openUrl in addyApp
 
+        
         // Check if the URL is in the expected format
         if pathComponents.count > 2 && pathComponents[1] == "deactivate" {
             let id = pathComponents[2]
             MainViewState.shared.aliasToDisable = id
             MainViewState.shared.selectedTab = .aliases
+            
+        } else if path.contains("/api/auth/verify") {
+            SetupViewState.shared.verifyQuery = url.query()
         }
 
         return true

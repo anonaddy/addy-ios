@@ -40,7 +40,7 @@ struct PlayGround: View {
         "O0.YO.UR0I",
         "PH.ON.E0NE",
         "XT.0W.EEK0",
-        "16.09.2024"]
+        "05.10.2024"]
     
     @State private var animationTitleTextArray2 = [
         "TH.E0.ADDY",
@@ -55,7 +55,7 @@ struct PlayGround: View {
         "O0.YO.UR0I",
         "PH.ON.E0NE",
         "XT.0M.ONTH",
-        "16.09.2024"]
+        "05.10.2024"]
     
     @State private var animationTitleTextArray3 = [
         "TH.E0.ADDY",
@@ -71,7 +71,7 @@ struct PlayGround: View {
         "O0.YO.UR0I",
         "PH.ON.E0NE",
         "XT.0M.ONTH",
-        "16.09.2024"]
+        "05.10.2024"]
     @State private var animationTitleText1Bold = false
     @State private var animationTitleText1Size = 36
     @State private var isBlurred = false
@@ -142,7 +142,7 @@ struct PlayGround: View {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 11.0) {
                         withAnimation(.default.speed(0.65)) {
-                            animationTitleText1 = "16.09.2024"
+                            animationTitleText1 = "05.10.2024"
                         }
                     }
                 }

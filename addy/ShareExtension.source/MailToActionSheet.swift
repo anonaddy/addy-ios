@@ -172,7 +172,7 @@ struct MailToActionSheet: View {
             
             VStack(spacing: 20) {
                 
-                Text(loadingStatusText)
+                Text(loadingStatusText).multilineTextAlignment(.center)
                 ProgressView()
                 
             }
@@ -283,7 +283,7 @@ struct MailToActionSheet: View {
     private func addAliasToAccount(domain: String, description: String, format: String, localPart: String) async {
         do {
             if (try await networkHelper.addAlias(domain: domain, description: description, format: format, localPart: localPart, recipients: nil)) != nil{
-                //TODO:  let user know
+                //TODO:  let user know it succeeded
                 DispatchQueue.main.async {
                     self.close()
                 }

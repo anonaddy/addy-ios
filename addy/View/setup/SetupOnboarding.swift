@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import addy_shared
 
 struct SetupOnboarding: View {
     @State private var selectedPage = 0
-    
+    @State private var openRegistrationFormBottomSheet = false
+    @Binding var showOnboarding: Bool
+
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -31,7 +34,7 @@ struct SetupOnboarding: View {
                             .tag(1)
                         Page3View(selectedPage: $selectedPage)
                             .tag(2)
-                        Page4View()
+                        Page4View(openRegistrationFormBottomSheet: $openRegistrationFormBottomSheet)
                             .tag(3)
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -42,6 +45,8 @@ struct SetupOnboarding: View {
                                            startPoint: .top, endPoint: .bottom))
                 .edgesIgnoringSafeArea(.all)
                 .navigationTitle(String(localized: "getting_started"))
+        }.sheet(isPresented: $openRegistrationFormBottomSheet) {
+            RegistrationFormBottomSheet(showOnboarding: $showOnboarding)
         }
         
     }
@@ -170,8 +175,7 @@ struct SetupOnboarding: View {
     }
     
     struct Page4View: View {
-        @Environment(\.openURL) var openURL
-        @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+        @Binding var openRegistrationFormBottomSheet: Bool
 
         var body: some View {
 #if DEBUG
@@ -179,7 +183,8 @@ struct SetupOnboarding: View {
 #endif
             VStack {
                 ScrollView{
-                    Image("icon-monocolor").resizable().scaledToFit().frame(maxHeight: 100).padding()
+                    Image("logo-horizontal").resizable().scaledToFit().frame(maxHeight: 100).padding()
+
                     Text(String(localized: "setup_how_4"))
                         .font(.title2)
                         .bold()
@@ -190,19 +195,11 @@ struct SetupOnboarding: View {
                         .multilineTextAlignment(.center)
                         .opacity(0.5)
                     
-                    Text(String(localized: "setup_how_4_desc"))
-                        .padding()
-                        .font(.subheadline)
-                        .multilineTextAlignment(.center)
-                    
                 }
                 
                 AddyButton(action: {
-                    withAnimation {
-                        openURL(URL(string: "https://app.addy.io/register")!)
-                        self.presentationMode.wrappedValue.dismiss()
-
-               }}
+                    openRegistrationFormBottomSheet = true
+                }
                 ) {
                     Text(String(localized: "get_started")).foregroundColor(Color.white)
                 }.padding(.bottom)
@@ -214,5 +211,5 @@ struct SetupOnboarding: View {
 }
 
 #Preview {
-    SetupOnboarding()
+    SetupOnboarding(showOnboarding: .constant(false))
 }

@@ -23,6 +23,12 @@ struct AddApiBottomSheet: View {
         
     }
     
+    
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
+    @State private var otpMfaObject: LoginMfaRequired?
+    
     @State private var instanceError:String?
     @State private var apiKeyError:String?
     @State private var instance:String
@@ -30,6 +36,24 @@ struct AddApiBottomSheet: View {
     @State private var apiKey:String
     @State private var apiKeyPlaceholder = String(localized: "APIKey_desc")
     @State private var cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+    
+    @State private var loginType: String = "login" // login or api
+    @State private var apiExpiration: String = "never" // day, week, month, year or nil (never)
+
+
+
+    @State private var usernamePlaceholder:String = String(localized: "registration_username")
+    @State private var usernameValidationError:String?
+    @State private var username:String = ""
+    
+    @State private var otpPlaceholder:String = String(localized: "registration_otp")
+    @State private var otpValidationError:String?
+    @State private var otp:String = ""
+    
+    @State private var passwordPlaceholder:String = String(localized: "registration_password")
+    @State private var passwordValidationError:String?
+    @State private var password:String = ""
+    
     
     
     @State var isLoadingSignIn: Bool = false
@@ -103,46 +127,93 @@ struct AddApiBottomSheet: View {
                 
                 
             }
+
+         
             
             Section {
+                
+                
+                Picker(selection: $loginType, label: Text(String(localized:"login_type"))) {
+                    Text(String(localized: "login_username")).tag("login")
+                    Text(String(localized: "login_api")).tag("api")
+                }.pickerStyle(.segmented)
+              
+                
                 ValidatingTextField(value: $instance, placeholder:
                                         $instancePlaceholder, fieldType: .url, error: $instanceError).disabled(apiBaseUrl != nil)
+
+                if loginType == "api" {
+                    ValidatingTextField(value: $apiKey, placeholder: $apiKeyPlaceholder, fieldType: .bigText, error: $apiKeyError)
+                } else {
+                    ValidatingTextField(value: self.$username, placeholder: $usernamePlaceholder, fieldType: .text, error: $usernameValidationError)
+                    
+                    ValidatingTextField(value: self.$password, placeholder: $passwordPlaceholder, fieldType: .password, error: $passwordValidationError)
+                    
+                    if otpMfaObject != nil {
+                        ValidatingTextField(value: self.$otp, placeholder: $otpPlaceholder, fieldType: .otp, error: $otpValidationError)
+                    }
+                    
+                    Picker(selection: $apiExpiration, label: Text(String(localized:"login_expiration"))) {
+                        Text(String(localized: "login_expiration_day")).tag("day")
+                        Text(String(localized: "login_expiration_week")).tag("week")
+                        Text(String(localized: "login_expiration_month")).tag("month")
+                        Text(String(localized: "login_expiration_year")).tag("year")
+                        Text(String(localized: "login_expiration_never")).tag("never")
+                    }.pickerStyle(.navigationLink)
+                }
                 
-                ValidatingTextField(value: $apiKey, placeholder: $apiKeyPlaceholder, fieldType: .bigText, error: $apiKeyError)
                 
             } header: {
                 VStack(alignment: .leading){
-                    Text(String(localized: "api_obtain"))
-                    
+                    Text(String(localized: "credentials"))
                 }
             } footer: {
-                Text(String(localized: "api_obtain_desc"))
-                
+                if loginType == "api" {
+                    Text(String(localized: "api_obtain_desc"))
+                } else {
+                    Text(String(localized: "login_desc"))
+                }
             }
+            
             
             Section {
                 AddyLoadingButton(action: {
-                    if (instanceError == nil && apiKeyError == nil){
                         isLoadingSignIn = true;
                         
-                        Task {
-                            await self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
+                        if loginType == "api" {
+                            if apiKeyError == nil && instanceError == nil {
+                                Task {
+                                    await self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
+                                }
+                            } else {
+                                resetSignInButton()
+                            }
+                        } else {
+                            // Username and password always need to be filled, the otp should only be checked if otpMfaObject != nil
+                            if usernameValidationError == nil && passwordValidationError == nil && (otpMfaObject == nil || otpValidationError == nil){
+                                Task {
+                                    await self.verifyLogin(username: self.username, password: self.password, otp: self.otp, baseUrl: instance)
+                                }
+                            } else {
+                                resetSignInButton()
+                            }
                         }
-                    } else {
-                        isLoadingSignIn = false
                         
-                    }
+
                 }, isLoading: $isLoadingSignIn) {
                     Text(String(localized: "sign_in")).foregroundColor(Color.white)
                 }.frame(minHeight: 56)}.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text(String(localized: "login")), message: Text(alertMessage))
         }
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active {
                 cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
             }
         }
-        .navigationTitle(String(localized: "APIKey")).pickerStyle(.navigationLink)
+        .navigationTitle(String(localized: "login")).pickerStyle(.navigationLink)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
@@ -180,9 +251,7 @@ struct AddApiBottomSheet: View {
             if result == "200" {
                 self.addKey(cleanApiKey, baseUrl)
             } else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    isLoadingSignIn = false
-                }
+                resetSignInButton()
                 apiKeyError = String(localized: "api_invalid")
             }
         } catch {            
@@ -190,6 +259,89 @@ struct AddApiBottomSheet: View {
                 isLoadingSignIn = false
             }
             apiKeyError = "\(error)"
+        }
+    }
+    
+    private func verifyLogin(username: String, password: String, otp: String, baseUrl: String = AddyIo.API_BASE_URL) async {
+        
+        usernameValidationError = nil
+        passwordValidationError = nil
+        otpValidationError = nil
+        
+        
+        if username.isEmpty{
+            usernameValidationError = String(localized: "registration_username_empty")
+            resetSignInButton()
+            return
+        }
+            
+        if password.isEmpty{
+            passwordValidationError = String(localized: "registration_password_empty")
+            resetSignInButton()
+            return
+        }
+        
+        
+        let networkHelper = NetworkHelper()
+
+        if let otpMfaObject = otpMfaObject {
+            
+            if otp.isEmpty {
+                otpValidationError = String(localized: "otp_required")
+                resetSignInButton()
+                return
+            }
+            
+            // OTP has been entered, do the call to the /api/auth/mfa endpoint
+            await networkHelper.loginMfa(baseUrl: baseUrl, mfa_key: otpMfaObject.mfa_key, otp: self.otp, xCsrfToken: otpMfaObject.csrf_token, apiExpiration: apiExpiration, completion: { login, error in
+                if let login = login {
+                    // Login success
+                    self.addKey(login.api_key, baseUrl)
+                } else {
+                    withAnimation {
+                        self.otpMfaObject = nil
+                        self.otp = ""
+                        self.otpValidationError = nil
+                    }
+                    
+                    // Show error
+                    self.alertMessage = error!
+                    self.showAlert = true
+                    
+                    resetSignInButton()
+                }
+            })
+        } else {
+            
+            await networkHelper.login(baseUrl: baseUrl, username: username, password: password, apiExpiration: apiExpiration, completion: { login, loginMfaRequired, error in
+                if let login = login {
+                    // Login success
+                    self.addKey(login.api_key, baseUrl)
+                } else if loginMfaRequired != nil {
+                    // Login MFA required
+                    withAnimation {
+                        self.otpMfaObject = loginMfaRequired
+                    }
+                    resetSignInButton()
+                } else {
+                    // Show error
+                    self.alertMessage = error!
+                    self.showAlert = true
+                    
+                    resetSignInButton()
+                }
+            })
+            
+        }
+        
+        
+       
+    }
+    
+    
+    private func resetSignInButton(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            isLoadingSignIn = false
         }
     }
     

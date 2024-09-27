@@ -12,6 +12,7 @@
 		8047EA792C4565D600A04D28 /* ThirdPartyMailer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047EA772C4565D600A04D28 /* ThirdPartyMailer.swift */; };
 		8047EA7A2C4565D600A04D28 /* ThirdPartyMailClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047EA762C4565D600A04D28 /* ThirdPartyMailClient.swift */; };
 		8047EA7B2C4565D600A04D28 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8047EA752C4565D600A04D28 /* README.md */; };
+		8047F1092CA48A010061321E /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047F1082CA48A010061321E /* Login.swift */; };
 		805459232C3989B30087A170 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 805459222C3989B30087A170 /* WrappingHStack */; };
 		8054592C2C3991C60087A170 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 8054592B2C3991C60087A170 /* Shimmer */; };
 		806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806890952BFE7F7300CEB8C7 /* HapticHelper.swift */; };
@@ -65,6 +66,7 @@
 		8047EA752C4565D600A04D28 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8047EA762C4565D600A04D28 /* ThirdPartyMailClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyMailClient.swift; sourceTree = "<group>"; };
 		8047EA772C4565D600A04D28 /* ThirdPartyMailer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyMailer.swift; sourceTree = "<group>"; };
+		8047F1082CA48A010061321E /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		805F1FA42C3C041300469BCE /* addy-shared-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "addy-shared-Info.plist"; sourceTree = "<group>"; };
 		806890952BFE7F7300CEB8C7 /* HapticHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticHelper.swift; sourceTree = "<group>"; };
 		807848602C7786B000194B1A /* AccountNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNotifications.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				80B4F4CD2BEA598A0009E4CA /* UserResource.swift */,
 				80B4F4D12BEA5DCE0009E4CA /* Version.swift */,
 				807848602C7786B000194B1A /* AccountNotifications.swift */,
+				8047F1082CA48A010061321E /* Login.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				80B2FBCF2C3C4EE8009977B6 /* AddyChartData.swift in Sources */,
 				80B4F4C52BEA55760009E4CA /* AddyIo.swift in Sources */,
 				8047EA792C4565D600A04D28 /* ThirdPartyMailer.swift in Sources */,
+				8047F1092CA48A010061321E /* Login.swift in Sources */,
 				8047EA7A2C4565D600A04D28 /* ThirdPartyMailClient.swift in Sources */,
 				806890962BFE7F7300CEB8C7 /* HapticHelper.swift in Sources */,
 				80958FE92C4AE81F00833EB7 /* GsonTools.swift in Sources */,

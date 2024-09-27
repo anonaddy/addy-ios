@@ -136,7 +136,14 @@ struct SplashView: View {
         // This helper inits the BASE_URL var
         self.networkHelper = NetworkHelper()
         
-        if (AddyIo.API_BASE_URL == String(localized: "default_base_url")){
+        #if DEBUG
+        let defaultBaseUrl = String(localized: "dev_base_url")
+        #else
+        let defaultBaseUrl = String(localized: "default_base_url")
+        #endif
+        
+        
+        if (AddyIo.API_BASE_URL == defaultBaseUrl){
             
             AddyIo.VERSIONMAJOR = 9999
             AddyIo.VERSIONSTRING = String(localized: "latest")

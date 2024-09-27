@@ -311,11 +311,16 @@ struct UsernamesView: View {
             } else {
                 activeAlert = .error
                 showAlert = true
+                errorAlertTitle = ""
+                errorAlertMessage = String(localized: "something_went_wrong_retrieving_usernames")
             }
         } catch {
-            //TODO: Let the user know
-            //print("Failed to get user resource: \(error)")
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "something_went_wrong_retrieving_usernames")
+            errorAlertMessage = error.localizedDescription
         }
+        
     }
 
     
