@@ -153,7 +153,24 @@ struct AppSettingsView: View {
             } header: {
                 Text(String(localized: "manage_your_data"))
             }
+            
+#if APPSTORELESS
+            Section {
+                AddySection(title: String(localized: "addyio_help"), description: String(localized: "visit_addyio_helps_section"), leadingSystemimage: "questionmark.circle", leadingSystemimageColor: .primaryColorStatic){
+                    openURL(URL(string: "https://addy.io/help/")!)
 
+                }
+                
+                
+                AddySection(title: String(localized: "faq"), description: String(localized: "faq_desc"), leadingSystemimage: "bubble.left.and.text.bubble.right", leadingSystemimageColor: .primaryColorStatic) {
+                    openURL(URL(string: "https://addy.io/faq/")!)
+                }
+            
+                
+            } header: {
+                Text(String(localized: "app_name"))
+            }
+#endif
             Section {
                 AddySection(title: String(localized: "github_project"), description: String(localized: "github_project_desc"), leadingSystemimage: "swift", leadingSystemimageColor: .primaryColorStatic){
                     openURL(URL(string: "https://github.com/anonaddy/addy-ios")!)

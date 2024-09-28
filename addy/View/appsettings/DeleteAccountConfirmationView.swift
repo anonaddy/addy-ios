@@ -104,21 +104,19 @@ struct DeleteAccountConfirmationView: View {
     
     private func deleteAccount() async{
         let networkHelper = NetworkHelper()
-        do {
-            if let statusCode = try await networkHelper.deleteAccount(password: password) {
-                switch statusCode {
-                case 204:
+            await networkHelper.deleteAccount(password: password, completion: { result in
+                switch result {
+                case "204":
                     SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                default:
+                case "422":
                     alertMessage = String(localized: "delete_account_failed")
                     showAlert = true
+                default:
+                    alertMessage = result
+                    showAlert = true
                 }
-            }
-                
-        } catch {
-            alertMessage = String(localized: "delete_account_failed")
-            showAlert = true
-        }
+            })
+
     }
 }
 

@@ -325,6 +325,17 @@
         }
       }
     },
+    "addyio_help" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io help"
+          }
+        }
+      }
+    },
     "addyio_instance" : {
       "localizations" : {
         "en" : {
@@ -2984,6 +2995,28 @@
         }
       }
     },
+    "faq" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FAQ"
+          }
+        }
+      }
+    },
+    "faq_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visit the Frequently asked questions"
+          }
+        }
+      }
+    },
     "feature_api_token_expiry_notification" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5434,7 +5467,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Are you sure you want to delete all the data from the app and start over? (This will not delete your addy.io account or anything related)"
+            "value" : "Are you sure you want to delete the API key and all the data from the app and start over? (This will not delete your addy.io account or anything related)"
           }
         }
       }
@@ -5578,6 +5611,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "If %@"
+          }
+        }
+      }
+    },
+    "rule_then_" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Then %@"
           }
         }
       }
@@ -7074,6 +7118,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "View stored logs"
+          }
+        }
+      }
+    },
+    "visit_addyio_helps_section" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visit addy.io help section"
           }
         }
       }

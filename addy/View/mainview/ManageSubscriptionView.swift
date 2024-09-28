@@ -494,6 +494,7 @@ class StoreManager: ObservableObject {
                 self.products = fetchedProducts.sorted { $0.price > $1.price }
             }
         } catch {
+            //TODO: Let user know?
             LoggingHelper().addLog(
                 importance: LogImportance.critical,
                 error: "Error fetching products",

@@ -226,7 +226,8 @@ struct CreateRulesView: View {
                                     let typeIndex = RulesOption.actionsType.firstIndex(of: action.type) ?? 0
                                     let typeText = RulesOption.actionsTypeName[typeIndex]
                                     
-                                    Text(typeText)
+                                    //Text(typeText)
+                                    Text(String(format: String(localized: "rule_then_"), "`\(typeText)`"))
                                         .fontWeight(.medium)
                                         .multilineTextAlignment(.center)
                                         .padding(.bottom, 1)

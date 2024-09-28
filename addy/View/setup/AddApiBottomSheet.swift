@@ -78,6 +78,8 @@ struct AddApiBottomSheet: View {
                         if case let .success(result) = response {
                             
                             if isQrCodeFormattedCorrect(text: result.string) {
+                                self.loginType = "api"
+
                                 // if apiBaseUrl set, do not set the baseURL using QR
                                 if apiBaseUrl == nil {
                                     // Get the string part before the | delimiter
