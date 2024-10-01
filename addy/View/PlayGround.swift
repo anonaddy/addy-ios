@@ -38,8 +38,8 @@ struct PlayGround: View {
         "AW.ES.OME0",
         "CO.MI.NG0T",
         "O0.YO.UR0I",
-        "PH.ON.E0NE",
-        "XT.0W.EEK0",
+        "PH.ON.E0VE",
+        "RY.0S.OON0",
         "05.10.2024"]
     
     @State private var animationTitleTextArray2 = [
@@ -53,8 +53,8 @@ struct PlayGround: View {
         "AW.ES.OME0",
         "CO.MI.NG0T",
         "O0.YO.UR0I",
-        "PH.ON.E0NE",
-        "XT.0M.ONTH",
+        "PH.ON.E0VE",
+        "RY.0S.OON0",
         "05.10.2024"]
     
     @State private var animationTitleTextArray3 = [
@@ -69,8 +69,8 @@ struct PlayGround: View {
         "AW.ES.OME0",
         "CO.MI.NG0T",
         "O0.YO.UR0I",
-        "PH.ON.E0NE",
-        "XT.0M.ONTH",
+        "PH.ON.E0VE",
+        "RY.0S.OON0",
         "05.10.2024"]
     @State private var animationTitleText1Bold = false
     @State private var animationTitleText1Size = 36

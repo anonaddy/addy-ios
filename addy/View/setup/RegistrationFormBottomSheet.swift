@@ -120,7 +120,7 @@ struct RegistrationFormBottomSheet: View {
                     Spacer()
                     
                     Button(action: {
-                        openURL(URL(string: "https://github.com/anonaddy/legal/blob/main/Privacy%20Policy.md")!)
+                        openURL(URL(string: "https://addy.io/privacy?ref=appstore")!)
                     }) {
                         Text(String(localized:"privacy_policy"))
                     }
@@ -128,7 +128,7 @@ struct RegistrationFormBottomSheet: View {
                     Spacer()
                     
                     Button(action: {
-                        openURL(URL(string: "https://github.com/anonaddy/legal/blob/main/Terms%20Of%20Service.md")!)
+                        openURL(URL(string: "https://addy.io/terms?ref=appstore")!)
                     }) {
                         Text(String(localized:"terms_of_service"))
                     }
