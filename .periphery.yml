@@ -1,7 +1,6 @@
 project: addy.xcodeproj
+retain_public: true
 schemes:
-- addy
-- addy_shared
+- appstoreDebug
 targets:
 - addy
-- addy_shared

@@ -13,8 +13,6 @@ class AnonAddyUtils {
     static func getSendAddress(recipientEmails: [String], alias: Aliases) -> [String] {
         var toAddresses = [String]()
 
-        
-        
         for (_, email) in recipientEmails.enumerated() {
             let leftPartOfAlias = alias.local_part
             let domain = alias.domain
@@ -24,14 +22,5 @@ class AnonAddyUtils {
         }
         
         return toAddresses
-    }
-    
-    static func createMailtoURL(recipients: [String]) -> URL? {
-        let recipientsString = recipients.joined(separator: ",")
-        var components = URLComponents()
-        components.scheme = "mailto"
-        components.path = recipientsString
-        
-        return components.url
     }
 }

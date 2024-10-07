@@ -1,5 +1,16 @@
 # Changelog
 
+## [v1.1.1] - 2024-10-08
+
+### addy.io
+
+**Fixed/Improved**
+- Minor string changes in the QR scanning flow after feedback from the community
+- Minor string changes in rules editor to keep consistency with the Android app
+- Better error handling
+- Added links to the addy.io project in the app settings
+- Changed legal links to addy.io website instead of Github
+
 ## [v1.1.0] - 2024-10-05
 
 ### addy.io

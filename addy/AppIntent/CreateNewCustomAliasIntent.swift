@@ -14,6 +14,7 @@ import UniformTypeIdentifiers
     
 struct CreateNewCustomAliasIntent: AppIntent {
     
+    //MARK: Used for AppIntent Protocol https://developer.apple.com/documentation/appintents/appintent
     static var title: LocalizedStringResource = "app_intent_add_alias_custom"
     static var description: IntentDescription = .init("app_intent_add_alias_desc", categoryName: "app_intent_category_name", searchKeywords: ["add", "create", "alias", "email"], resultValueName: "app_intent_alias_output")
     static var openAppWhenRun: Bool = false
@@ -29,7 +30,7 @@ struct CreateNewCustomAliasIntent: AppIntent {
     var localPart: String
     
     static var authenticationPolicy = IntentAuthenticationPolicy.requiresLocalDeviceAuthentication
-
+    //MARK: END
     
     /**
      When the system runs the intent, it calls `perform()`.

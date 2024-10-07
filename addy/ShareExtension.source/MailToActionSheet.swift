@@ -11,8 +11,6 @@ import addy_shared
 import LocalAuthentication
 struct MailToActionSheet: View {
     
-    @Environment(\.scenePhase) var scenePhase
-
     @State private var showBiometricsNotAvailableScreen = false
 
     @State private var sendMailRecipientView: SendMailRecipientView? = nil

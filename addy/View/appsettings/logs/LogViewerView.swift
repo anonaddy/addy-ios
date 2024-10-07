@@ -9,7 +9,6 @@ import SwiftUI
 import addy_shared
 
 struct LogViewerView: View {
-    @State private var showAlert: Bool = false
     @StateObject var logsViewModel = LogsViewModel()
     
     
