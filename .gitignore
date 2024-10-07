@@ -24,3 +24,4 @@ builds/**/ExportOptions.plist
 builds/**/DistributionSummary.plist
 builds/**/Packaging.log
 StoreKitConfiguration.storekit
+.DS_Store
