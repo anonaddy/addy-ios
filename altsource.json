@@ -1,0 +1,72 @@
+{
+    "name": "addy.io",
+    "subtitle": "Anonymous Email Forwarding",
+    "description": "Welcome to my source! Here you'll find all of my apps.",
+    "iconURL": "https://f000.backblazeb2.com/file/rileytestut/ExampleSource/OctoSource.png",
+    "headerURL": "https://github.com/anonaddy/addy-ios/blob/master/static/banner.png?raw=true",
+    "website": "https://stjin.host",
+    "tintColor": "#2ec8d5",
+    "featuredApps": [
+        "host.stjin.addy"
+    ],
+    "apps": [
+        {
+            "name": "addy.io",
+            "bundleIdentifier": "host.stjin.addy",
+            "developerName": "addy.io",
+            "subtitle": "Anonymous Email Forwarding",
+            "localizedDescription": "Easily create and manage your addy.io aliases, recipients and more from your phone, tablet or wearable with this gorgeous addy.io app for iOS and iPadOS.",
+            "iconURL": "https://github.com/anonaddy/addy-ios/blob/master/altsource/icon.png?raw=true",
+            "tintColor": "#2ec8d5",
+            "screenshots": [
+                "https://github.com/anonaddy/addy-ios/blob/master/altsource/screenshots/1.png?raw=true",
+                "https://github.com/anonaddy/addy-ios/blob/master/altsource/screenshots/2.png?raw=true",
+                "https://github.com/anonaddy/addy-ios/blob/master/altsource/screenshots/3.png?raw=true",
+                "https://github.com/anonaddy/addy-ios/blob/master/altsource/screenshots/4.png?raw=true",
+                "https://github.com/anonaddy/addy-ios/blob/master/altsource/screenshots/5.png?raw=true",
+                "https://github.com/anonaddy/addy-ios/blob/master/altsource/screenshots/6.png?raw=true",
+            ],
+            "versions": [
+                {
+                    "version": "1.1.1",
+                    "date": "2024-10-08T21:00:00+02:00",
+                    "size": 11940603,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/4293373f196f83f54a31e26f7bb4cff01025d7d5/builds/appstorelessRelease%202024-10-07%2010-47-58/addy.ipa",
+                    "localizedDescription": "New features and bug fixes.",
+                    "minOSVersion": "17.0"
+                },
+                {
+                    "version": "1.1.0",
+                    "date": "2024-10-05T10:00:00+02:00",
+                    "size": 11941848,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/f9b5742b9e5c935f863f6b88a4e296a684697507/builds/appstorelessRelease%202024-09-27%2013-29-48/addy.ipa",
+                    "localizedDescription": "Initial release.",
+                    "minOSVersion": "17.0"
+                }
+            ],
+            "appPermissions": {
+                "entitlements": [
+                    "com.apple.security.application-groups",
+                    "keychain-access-groups",
+                    "com.apple.developer.associated-domains"
+                ],
+                "privacy": {
+                    "NSFaceIDUsageDescription": "This permissions is required to protect the app using FaceID",
+                    "NSCameraUsageDescription": "This allows for scanning the QR code so that you can quickly set-up the app"
+                }
+            }
+        },
+    ],
+    "news": [
+        {
+            "title": "We've blasted off into the iOS universe with addy.io app for iOS and iPadOS!",
+            "identifier": "updates",
+            "caption": "For the first time ever, addy.io users on Apple devices can enjoy an official app experience",
+            "date": "2024-10-05",
+            "tintColor": "#2ec8d5",
+            "imageURL": "https://github.com/anonaddy/addy-ios/blob/master/static/banner.png?raw=true",
+            "notify": true,
+            "url": "https://addy.io/blog/say-hello-to-the-new-official-addy-io-mobile-apps"
+        }
+    ]
+}
