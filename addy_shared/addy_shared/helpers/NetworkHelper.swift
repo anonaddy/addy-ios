@@ -258,7 +258,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
     
     
     
-    public func deleteAccount(password: String) async throws -> Int? {
+    public func deleteAccount(password: String, completion: @escaping (String) -> Void) async {
 #if DEBUG
         print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
 #endif
@@ -270,41 +270,51 @@ AddyIo.API_BASE_URL = defaultBaseUrl
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         request.httpBody = jsonData
         
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            let error = URLError(.badServerResponse)
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                let error = URLError(.badServerResponse)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error.localizedDescription,
+                    method: "deleteAccount",
+                    extra: error.failureURLString)
+                throw error
+            }
+            
+            switch httpResponse.statusCode {
+            case 204:
+                completion(String(httpResponse.statusCode))
+            case 422:
+                completion(String(httpResponse.statusCode))
+            case 401:
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: "401, app will reset",
+                    method: #function,
+                    extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
+                
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                throw URLError(.userAuthenticationRequired)
+            default:
+                let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "deleteAccount",
+                    extra: ErrorHelper.getErrorMessage(data: data))
+                throw URLError(.badServerResponse)
+            }
+        } catch {
+            print(error)
             self.loggingHelper.addLog(
                 importance: LogImportance.critical,
                 error: error.localizedDescription,
-                method: "deleteAccount",
-                extra: error.failureURLString)
-            throw error
-        }
-        
-        switch httpResponse.statusCode {
-        case 204:
-            return httpResponse.statusCode
-        case 422:
-            return httpResponse.statusCode
-        case 401:
-            self.loggingHelper.addLog(
-                importance: LogImportance.critical,
-                error: "401, app will reset",
-                method: #function,
-                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
-            
-            self.createAppResetDueToInvalidAPIKeyNotification()
-            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
-        default:
-            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
-            print(errorMessage)
-            self.loggingHelper.addLog(
-                importance: LogImportance.critical,
-                error: errorMessage,
-                method: "deleteAccount",
-                extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+                method: "login",
+                extra: nil)
+            completion(error.localizedDescription)
         }
     }
      
@@ -371,7 +381,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             "X-Requested-With": "XMLHttpRequest",
             "Accept": "application/json",
             "User-Agent": getUserAgent(),
-            "X-CSRF-Token": xCsrfToken
+            "X-CSRF-TOKEN": xCsrfToken
         ]
         
         let json: [String: Any?] = ["mfa_key": mfa_key,

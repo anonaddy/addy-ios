@@ -15,6 +15,7 @@ import UniformTypeIdentifiers
     
 struct CreateNewAliasIntent: AppIntent {
     
+    //MARK: Used for AppIntent Protocol https://developer.apple.com/documentation/appintents/appintent
     static var title: LocalizedStringResource = "app_intent_add_alias"
     static var description: IntentDescription = .init("app_intent_add_alias_desc", categoryName: "app_intent_category_name", searchKeywords: ["add", "create", "alias", "email"], resultValueName: "app_intent_alias_output")
     static var openAppWhenRun: Bool = false
@@ -30,6 +31,7 @@ struct CreateNewAliasIntent: AppIntent {
     var format: ShortcutableFormat?
     
     static var authenticationPolicy = IntentAuthenticationPolicy.requiresLocalDeviceAuthentication
+    //MARK: END
 
     
     /**

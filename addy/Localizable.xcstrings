@@ -325,6 +325,17 @@
         }
       }
     },
+    "addyio_help" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io help"
+          }
+        }
+      }
+    },
     "addyio_instance" : {
       "localizations" : {
         "en" : {
@@ -710,7 +721,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adjust your device until the QR code fills the entire frame"
+            "value" : "Adjust your device until the QR code fills the entire frame, the QR code will be displayed when creating an API key on your desktop"
           }
         }
       }
@@ -796,7 +807,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "🚀 **Launch Day!** - We've blasted off into the iOS universe with addy.io app for iOS and iPadOS!\n\n- **Core Functionality Unleashed**: \n  - Organize your aliases, domains, recipients, rules and more like a pro...\n  - Enjoy app exclusive features such as watching aliases, Siri and Shortcuts integration and many, many more!\n\n- **Design & Aesthetics**: \n  - Feast your eyes on our minimalist design. Because who needs clutter when you have clean lines and a splash of color?\n  - Dark mode for those nocturnal productivity bursts or just because it looks cool.\n\n- **User Experience**: \n  - Swipe, tap, and maybe even double-tap (just for fun) your way through the addy.io app. It's like dancing, but with less chance of stepping on someone's toes.\n  \n- **Privacy & Security**: \n  - Your data is more secure than your grandma's secret cookie recipe. We've got the locks, the bolts, and the digital dogs guarding your info.\n\n- **Bugs**: \n  - We've squashed some, but let's be real, some might still be lurking. Report them, and we'll turn them into features... or at least fix them.\n\n- **Future Promises**: \n  - This is just the beginning. Expect updates, enhancements, and maybe even a feature you didn't know you needed but can't live without.\n\n**Thank you for joining us on this journey!** Let's make organizing life's little details not just bearable, but actually kind of fun. \n\nStay tuned, stay organized, and keep those addy.io vibes alive! 🌟"
+            "value" : "**What’s new in addy.io for iOS**\n\n**Fixed/Improved**\n- Minor string changes in the QR scanning flow after feedback from the community\n- Minor string changes in rules editor to keep consistency with the Android app\n- Better error handling\n- Added links to the addy.io project in the app settings\n- Changed legal links to addy.io website instead of Github"
           }
         }
       }
@@ -1878,7 +1889,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deleting your addy.io account will **DELETE ALL DATA**, this includes but it not limited to aliases, usernames, statistics, rules and failed deliveries. This data **CANNOT BE RESTORED**"
+            "value" : "Deleting your addy.io account will **DELETE ALL DATA**, this includes but is not limited to aliases, usernames, statistics, rules and failed deliveries. This data **CANNOT BE RESTORED**"
           }
         }
       }
@@ -2980,6 +2991,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Failed to restore transactions"
+          }
+        }
+      }
+    },
+    "faq" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FAQ"
+          }
+        }
+      }
+    },
+    "faq_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visit the Frequently asked questions"
           }
         }
       }
@@ -5434,7 +5467,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Are you sure you want to delete all the data from the app and start over? (This will not delete your addy.io account or anything related)"
+            "value" : "Are you sure you want to delete the API key and all the data from the app and start over? (This will not delete your addy.io account or anything related)"
           }
         }
       }
@@ -5578,6 +5611,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "If %@"
+          }
+        }
+      }
+    },
+    "rule_then_" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Then %@"
           }
         }
       }
@@ -7074,6 +7118,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "View stored logs"
+          }
+        }
+      }
+    },
+    "visit_addyio_helps_section" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visit addy.io help section"
           }
         }
       }

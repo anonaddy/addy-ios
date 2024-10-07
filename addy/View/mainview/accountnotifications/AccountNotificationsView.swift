@@ -10,8 +10,6 @@ import SwiftUI
 import addy_shared
 
 struct AccountNotificationsView: View {
-    @EnvironmentObject var mainViewState: MainViewState
-
     @StateObject var accountNotificationsViewModel = AccountNotificationsViewModel()
     
     enum ActiveAlert {
