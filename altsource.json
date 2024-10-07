@@ -48,7 +48,8 @@
                 "entitlements": [
                     "com.apple.security.application-groups",
                     "keychain-access-groups",
-                    "com.apple.developer.associated-domains"
+                    "com.apple.developer.associated-domains",
+                    "beta-reports-active"
                 ],
                 "privacy": {
                     "NSFaceIDUsageDescription": "This permissions is required to protect the app using FaceID",
