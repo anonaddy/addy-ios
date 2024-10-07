@@ -1,10 +1,10 @@
 {
     "name": "addy.io",
     "subtitle": "Anonymous Email Forwarding",
-    "description": "Welcome to my source! Here you'll find all of my apps.",
-    "iconURL": "https://f000.backblazeb2.com/file/rileytestut/ExampleSource/OctoSource.png",
+    "description": "Welcome to the addy.io source! Here you'll find the addy.io app!",
+    "iconURL": "https://github.com/anonaddy/addy-ios/blob/master/altsource/icon.png?raw=true",
     "headerURL": "https://github.com/anonaddy/addy-ios/blob/master/static/banner.png?raw=true",
-    "website": "https://stjin.host",
+    "website": "https://addy.io",
     "tintColor": "#2ec8d5",
     "featuredApps": [
         "host.stjin.addy"
@@ -16,7 +16,7 @@
             "developerName": "addy.io",
             "subtitle": "Anonymous Email Forwarding",
             "localizedDescription": "Easily create and manage your addy.io aliases, recipients and more from your phone, tablet or wearable with this gorgeous addy.io app for iOS and iPadOS.",
-            "iconURL": "https://github.com/anonaddy/addy-ios/blob/master/altsource/icon.png?raw=true",
+            "iconURL": "https://github.com/anonaddy/addy-ios/blob/master/altsource/host.stjin.addy.icon.png?raw=true",
             "tintColor": "#2ec8d5",
             "screenshots": [
                 "https://github.com/anonaddy/addy-ios/blob/master/altsource/screenshots/1.png?raw=true",
