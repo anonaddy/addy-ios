@@ -807,7 +807,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS**\n\n**Fixed/Improved**\n- Minor string changes in the QR scanning flow after feedback from the community\n- Minor string changes in rules editor to keep consistency with the Android app\n- Better error handling\n- Added links to the addy.io project in the app settings\n- Changed legal links to addy.io website instead of Github"
+            "value" : "**What’s new in addy.io for iOS 1.1.2**\n\n**Fixed/Improved**\n- Fixed an issue where rules would not load under certain conditions"
           }
         }
       }

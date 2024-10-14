@@ -252,8 +252,6 @@ struct RulesView: View {
                 
                 // If there is an rules (aka, if the list is visible)
                 if let rules = rulesViewModel.rules{
-                    
-                    
                     if rules.data.isEmpty {
                         if mainViewState.userResource!.hasUserFreeSubscription() {
                             // Error screen
