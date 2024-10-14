@@ -1,5 +1,12 @@
 # Changelog
 
+## [v1.1.2] - 2024-10-14
+
+### addy.io
+
+**Fixed/Improved**
+- Fixed an issue where rules would not load under certain conditions
+
 ## [v1.1.1] - 2024-10-07
 
 ### addy.io

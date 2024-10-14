@@ -133,6 +133,10 @@ class AliasesViewModel: ObservableObject{
                             self.isLoading = false
                             self.networkError = error.localizedDescription
                         }
+                        LoggingHelper().addLog(
+                            importance: LogImportance.critical,
+                            error: error.localizedDescription,
+                            method: "getAliases", extra: nil)
                     }
                 } else {
                     DispatchQueue.main.async {
@@ -177,6 +181,10 @@ class AliasesViewModel: ObservableObject{
                         self.isLoading = false
                         self.networkError = error.localizedDescription
                     }
+                    LoggingHelper().addLog(
+                        importance: LogImportance.critical,
+                        error: error.localizedDescription,
+                        method: "getAliases", extra: nil)
                 }
             }
         }

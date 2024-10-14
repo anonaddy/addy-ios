@@ -28,6 +28,14 @@
             ],
             "versions": [
                 {
+                    "version": "1.1.2",
+                    "date": "2024-10-14T23:00:00+02:00",
+                    "size": 20858353,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/6a48f1de2712c20f3543cdae57ef6e36cac60203/builds/appstorelessRelease%202024-10-07%2010-47-58/addy.ipa",
+                    "localizedDescription": "- Fixed an issue where rules would not load under certain conditions",
+                    "minOSVersion": "17.0"
+                },
+                {
                     "version": "1.1.1",
                     "date": "2024-10-07T17:10:00+02:00",
                     "size": 11940603,

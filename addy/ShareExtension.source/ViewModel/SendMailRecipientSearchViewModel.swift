@@ -94,6 +94,10 @@ class SendMailRecipientSearchViewModel: ObservableObject{
                     self.isLoading = false
                     self.networkError = String(localized: "something_went_wrong_retrieving_aliases")
                 }
+                LoggingHelper().addLog(
+                    importance: LogImportance.critical,
+                    error: error.localizedDescription,
+                    method: "getAliases", extra: nil)
             }
         }
     }

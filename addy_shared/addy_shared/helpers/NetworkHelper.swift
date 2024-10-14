@@ -709,6 +709,8 @@ AddyIo.API_BASE_URL = defaultBaseUrl
         switch httpResponse.statusCode {
         case 200:
             let decoder = JSONDecoder()
+            print(data.base64EncodedString())
+            print(String(data: data, encoding: .ascii))
             let addyIoData = try decoder.decode(RulesArray.self, from: data)
             return addyIoData
         case 401:

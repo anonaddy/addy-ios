@@ -37,7 +37,12 @@ public struct Action: Identifiable, Hashable, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = UUID()
         self.type = try container.decode(String.self, forKey: .type)
-        self.value = try container.decode(String.self, forKey: .value)
+        
+        if let boolValue = try? container.decode(Bool.self, forKey: .value) {
+            self.value = String(boolValue)
+        } else {
+            self.value = try container.decode(String.self, forKey: .value)
+        }
     }
 }
 

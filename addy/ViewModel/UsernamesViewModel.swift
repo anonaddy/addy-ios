@@ -40,6 +40,10 @@ class UsernamesViewModel: ObservableObject{
                     self.isLoading = false
                     self.networkError = String(format: String(localized: "details_about_error_s"), "\(error.localizedDescription)")
                 }
+                LoggingHelper().addLog(
+                    importance: LogImportance.critical,
+                    error: error.localizedDescription,
+                    method: "getUsernames", extra: nil)
             }
         }
     }
