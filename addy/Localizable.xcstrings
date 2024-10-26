@@ -5021,6 +5021,26 @@
         }
       }
     },
+    "rate_this_app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rate this app"
+          }
+        }
+      }
+    },
+    "rate_this_app_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rate us on App Store to show your support!"
+          }
+        }
+      }
+    },
     "recipient_aliases_d" : {
       "extractionState" : "manual",
       "localizations" : {
