@@ -12,6 +12,8 @@ import UniformTypeIdentifiers
 struct AliasesView: View {
     
     @EnvironmentObject var mainViewState: MainViewState
+    @EnvironmentObject var aliasesViewState: AliasesViewState
+    
     @StateObject var aliasesViewModel = AliasesViewModel()
     
     @State private var isPresentingFilterOptionsAliasBottomSheet = false
@@ -22,7 +24,8 @@ struct AliasesView: View {
     
     @State private var activeAlert: ActiveAlert = .reachedMaxAliases
     @State private var showAlert: Bool = false
-    
+    @State var selectedFilterChip:String = "filter_all_aliases"
+
     @State private var shouldReloadDataInParent = false
     
     @State private var aliasInContextMenu: Aliases? = nil
@@ -32,13 +35,13 @@ struct AliasesView: View {
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     
-    @State var selectedFilterChip:String = "filter_all_aliases"
     @State var filterChips: [AddyChipModel] = []
     
     @Binding var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)? = nil
     
     @State private var copiedToClipboard = false
+    @State private var filterApplied = false
     
     @State private var sendToRecipients: String? = nil
     @State private var clients: [ThirdPartyMailClient] = []
@@ -120,6 +123,9 @@ struct AliasesView: View {
             }
             .overlay {
                 ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
+            }
+            .overlay {
+                ToastOverlay(showToast: $filterApplied, text: String(localized: "filter_applied"))
             }
             .refreshable {
                 // When refreshing aliases also ask the mainView to update general data
@@ -326,6 +332,14 @@ struct AliasesView: View {
             
             LoadFilter()
             
+            // Set new filter if set by viewState
+            if let applyFilterChip = aliasesViewState.applyFilterChip {
+                self.selectedFilterChip = applyFilterChip
+                ApplyFilter(chipId: applyFilterChip) // This will also reload the aliases
+                aliasesViewState.applyFilterChip = nil // Prevent the filter from being applied again
+                showFilterAppliedAnimation()
+            }
+            
             if let aliasList = aliasesViewModel.aliasList{
                 if (aliasList.data.isEmpty) {
                     Task {
@@ -448,6 +462,17 @@ struct AliasesView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             withAnimation(.snappy) {
                 copiedToClipboard = false
+            }
+        }
+    }
+    
+    func showFilterAppliedAnimation(){
+        withAnimation(.snappy) {
+            filterApplied = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            withAnimation(.snappy) {
+                filterApplied = false
             }
         }
     }

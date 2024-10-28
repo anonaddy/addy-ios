@@ -3192,6 +3192,17 @@
         }
       }
     },
+    "filter_applied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter applied"
+          }
+        }
+      }
+    },
     "filter_custom" : {
       "extractionState" : "manual",
       "localizations" : {

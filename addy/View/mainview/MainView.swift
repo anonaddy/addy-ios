@@ -12,7 +12,8 @@ import LocalAuthentication
 
 struct MainView: View {
     @EnvironmentObject var mainViewState: MainViewState
-    
+    @StateObject private var aliasesViewState = AliasesViewState.shared // Needs to be shared so that filters can be applied from other views
+
     // MARK: Share sheet AND MailTo tap action
     @State var pendingURLFromShareViewController: IdentifiableURL? = nil
     // MARK: END Share sheet AND MailTo tap action
@@ -166,6 +167,7 @@ struct MainView: View {
             }
             // Makes sure the env obj is available to all the child views
             .environmentObject(mainViewState)
+            .environmentObject(aliasesViewState)
             .onChange(of: scenePhase) { oldPhase, newPhase in
                 if newPhase == .background {
                     // User closed the app to background, lock the app (only if neccessary of course)
