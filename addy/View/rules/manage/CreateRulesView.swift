@@ -232,7 +232,9 @@ struct CreateRulesView: View {
                                         .multilineTextAlignment(.center)
                                         .padding(.bottom, 1)
                                     
-                                    let value = action.type == "forwardTo" ? recipients.first(where: {$0.id == action.value})!.email : action.value
+                                    let value: String = action.type == "forwardTo"
+                                        ? (recipients.first(where: { $0.id == action.value })?.email ?? String(localized: "unknown"))
+                                        : action.value
                                     
                                     Text(value)
                                         .font(.system(size: 14))

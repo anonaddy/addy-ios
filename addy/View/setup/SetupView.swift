@@ -133,7 +133,7 @@ struct SetupView: View {
             isLoadingGetStarted = false
         }) {
             NavigationStack {
-                AddApiBottomSheet(apiBaseUrl: nil, addKey: addKey(apiKey:baseUrl:))
+                AddApiBottomSheet(apiBaseUrl: nil, addKey: addKey(apiKey:baseUrl:)).environmentObject(MainViewState.shared)
             }
             .presentationDetents([.large])
         }.alert(isPresented: $showAlert) {
@@ -168,7 +168,7 @@ struct SetupView: View {
         let networkHelper = NetworkHelper()
         do {
             let result = try await networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: apiKey)
-            if result == "200" {
+            if result != nil {
                 self.addKey(apiKey: apiKey, baseUrl: baseUrl)
             } else {
                 isLoadingGetStarted = false

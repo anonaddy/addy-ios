@@ -343,7 +343,7 @@ struct RulesView: View {
         let actionTypeText = RulesOption.actionsTypeName[actionTypeIndex]
         
         let descActions = if rule.actions[0].type == "forwardTo" && !recipients.isEmpty {
-            "\(actionTypeText) \(recipients.first(where: {$0.id == rule.actions[0].value})!.email)"
+            "\(actionTypeText) \(recipients.first(where: {$0.id == rule.actions[0].value})?.email ?? String(localized: "unknown"))"
         } else {
             "\(actionTypeText) \(rule.actions[0].value)"
         }

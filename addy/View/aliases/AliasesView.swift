@@ -15,7 +15,8 @@ struct AliasesView: View {
     @EnvironmentObject var aliasesViewState: AliasesViewState
     
     @StateObject var aliasesViewModel = AliasesViewModel()
-    
+    @Environment(\.requestReview) private var requestReview
+
     @State private var isPresentingFilterOptionsAliasBottomSheet = false
     
     enum ActiveAlert {
@@ -320,6 +321,15 @@ struct AliasesView: View {
                         Task {
                             await aliasesViewModel.getAliases(forceReload: true)
                         }
+                        
+                        // User has successfully created an alias, this is usually a sign of a satisfied user, let's ask the user to review the app only after the app has been opened at least 10 times
+#if APPSTORE
+                        if SettingsManager(encrypted: false).getSettingsInt(key: .timesTheAppHasBeenOpened) >= 10 {
+                            requestReview()
+                        }
+                        #endif
+                
+                        
                     }.environmentObject(mainViewState)
                     
                 }

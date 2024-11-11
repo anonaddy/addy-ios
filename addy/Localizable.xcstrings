@@ -695,6 +695,17 @@
         }
       }
     },
+    "api_belongs_other_account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This API key belongs to another account. Reset the app if you would like to use it with another addy.io account"
+          }
+        }
+      }
+    },
     "api_invalid" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -807,7 +818,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 1.1.2**\n\n**Fixed/Improved**\n- Fixed an issue where rules would not load under certain conditions"
+            "value" : "**What’s new in addy.io for iOS 1.1.3**\n\n**Fixed/Improved**\n- Fixed a crash when editing a rule containing a deleted recipient\n- Allow for refreshing every page in the app\n- Optimized refresh token flow by locking in the username\n- Check if a refreshed token belongs to the same account\n- A new option has been added allowing users to review the app directly from the settings menu"
           }
         }
       }
@@ -5033,6 +5044,7 @@
       }
     },
     "rate_this_app" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5043,6 +5055,7 @@
       }
     },
     "rate_this_app_desc" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

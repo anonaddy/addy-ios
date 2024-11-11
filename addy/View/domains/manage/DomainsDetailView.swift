@@ -102,9 +102,6 @@ struct DomainsDetailView: View {
                 Section {
                     
                     AddyToggle(isOn: $isActive, isLoading: isSwitchingisActiveState, title: domain.active ? String(localized: "domain_activated") : String(localized: "domain_deactivated"), description: String(localized: "domain_status_desc"))
-                        .onAppear {
-                            self.isActive = domain.active
-                        }
                         .onChange(of: isActive) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if (isActive != domain.active){
@@ -124,9 +121,6 @@ struct DomainsDetailView: View {
                         }
                     
                     AddyToggle(isOn: $catchAllEnabled, isLoading: isSwitchingCatchAllEnabledState, title: domain.catch_all ? String(localized: "catch_all_enabled") : String(localized: "catch_all_disabled"), description: String(localized: "catch_all_domain_desc"))
-                        .onAppear {
-                            self.catchAllEnabled = domain.catch_all
-                        }
                         .onChange(of: catchAllEnabled) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if (catchAllEnabled != domain.catch_all){
@@ -189,6 +183,9 @@ struct DomainsDetailView: View {
                 }
                 
             }.disabled(isDeletingDomain)
+                .refreshable {
+                    await getDomain(domainId: self.domainId)
+                }
                 .navigationTitle(self.domainDomain)
                 .navigationBarTitleDisplayMode(.inline)
                 .sheet(isPresented: $isPresentingEditDomainDescriptionBottomSheet) {
@@ -486,7 +483,16 @@ struct DomainsDetailView: View {
             if let domain = try await networkHelper.getSpecificDomain(domainId: domainId){
                 withAnimation {
                     self.domain = domain
+                    self.isActive = domain.active
+                    self.catchAllEnabled = domain.catch_all
                 }
+                
+                // Reset total counts
+                self.totalForwarded = 0
+                self.totalBlocked = 0
+                self.totalReplies = 0
+                self.totalSent = 0
+                
                 await getAliasesAndAddThemToList(domain: domain)
             }
         } catch {
@@ -505,10 +511,9 @@ struct DomainsDetailView: View {
                 addAliasesToList(domain: domain, aliasesArray: list, workingAliasListInbound: workingAliasList)
             }
         } catch {
-                withAnimation {
-                    self.errorText = error.localizedDescription
-                }
-            
+            withAnimation {
+                self.errorText = error.localizedDescription
+            }
         }
     }
 
@@ -535,9 +540,8 @@ struct DomainsDetailView: View {
                 await getAliasesAndAddThemToList(domain: domain, workingAliasList: workingAliasList)
             }
         } else {
-                // Else, set aliasList to update UI
-                updateUi(aliasesArray: workingAliasList)
-            
+            // Else, set aliasList to update UI
+            updateUi(aliasesArray: workingAliasList)
         }
     }
     

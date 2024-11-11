@@ -19,7 +19,7 @@ struct MainView: View {
     // MARK: END Share sheet AND MailTo tap action
     
     @Environment(\.scenePhase) var scenePhase
-    
+
     
     @State private var apiTokenExpiryText = ""
     @State private var subscriptionExpiryText = ""
@@ -68,6 +68,13 @@ struct MainView: View {
                             }
                             
                             SettingsManager(encrypted: false).putSettingsInt(key: .versionCode, int: currentVersionCode)
+                            SettingsManager(encrypted: false).putSettingsInt(key: .timesTheAppHasBeenOpened, int:
+                                                                                SettingsManager(encrypted: false).getSettingsInt(key: .timesTheAppHasBeenOpened) + 1)
+                            
+                            #if DEBUG
+                            print("App has been opened \(SettingsManager(encrypted: false).getSettingsInt(key: .timesTheAppHasBeenOpened)) times")
+                            #endif
+
                         })
                         .alert(isPresented: Binding<Bool>(
                             get: { self.mainViewState.showApiExpirationWarning || self.mainViewState.showSubscriptionExpirationWarning },
@@ -98,7 +105,7 @@ struct MainView: View {
                         .sheet(isPresented: $isShowingAddApiBottomSheet) {
                             let baseUrl = MainViewState.shared.encryptedSettingsManager.getSettingsString(key: .baseUrl)
                             NavigationStack {
-                                AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:_:))
+                                AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:_:)).environmentObject(mainViewState)
                             }
                             .presentationDetents([.large])
                         }
@@ -197,6 +204,18 @@ struct MainView: View {
                     
                     // Check this every time the app is come to foreground
                     checkForAlerts()
+                    
+                    
+                    DispatchQueue.main.async {
+                        // Reset badge number
+                        UNUserNotificationCenter.current().setBadgeCount(0) { error in
+                            LoggingHelper().addLog(
+                                importance: LogImportance.critical,
+                                error: "Cannot set badge to 0",
+                                method: "MainView.newPhase",
+                                extra: error.debugDescription)
+                        }
+                    }
                     
                     if lastGeneralRefresh.timeIntervalSinceNow < -300 { // -300 seconds is 5 minutes
                         //print("More than 5 minutes have passed since the last general refresh.")

@@ -8,12 +8,12 @@
 import Foundation
 import UserNotifications
 import addy_shared
+import UIKit
 
 
 class NotificationHelper{
 
 
-    
     func createAliasWatcherNotification(emailDifference: Int, id: String, email: String){
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_new_emails")
@@ -26,7 +26,6 @@ class NotificationHelper{
         
         
         content.sound = .default
-
         content.userInfo = ["aliasId": id]
 
         
@@ -45,8 +44,7 @@ class NotificationHelper{
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)
-        
-        
+        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
         
     }
     
@@ -72,6 +70,8 @@ class NotificationHelper{
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)
+        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+
     }
  
     func createUpdateNotification(version: String){
@@ -95,7 +95,8 @@ class NotificationHelper{
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)
-        
+        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+
         
         
     }
@@ -123,7 +124,8 @@ class NotificationHelper{
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)
-        
+        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+
         
         
     }       
@@ -148,7 +150,8 @@ class NotificationHelper{
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)
-        
+        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+
         
         
     }   
@@ -173,7 +176,8 @@ class NotificationHelper{
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)
-        
+        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+
     }
     
     func createFailedDeliveryNotification(difference: Int){
@@ -197,7 +201,8 @@ class NotificationHelper{
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)
-        
+        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+
     }
     
     func createAccountNotification(difference: Int){
@@ -220,6 +225,7 @@ class NotificationHelper{
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)
-        
+        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+
     }
 }

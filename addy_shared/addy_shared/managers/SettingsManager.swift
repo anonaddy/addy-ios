@@ -40,6 +40,7 @@ public class SettingsManager {
         case userResource
         case userResourceExtended
         case backgroundServiceCacheMostActiveAliasesData
+        case timesTheAppHasBeenOpened
 
         
         // WearOS
@@ -241,10 +242,20 @@ public class SettingsManager {
 
     public func clearSettingsAndCloseApp(){
         
-        // Clear shortcuts
+        // Clear shortcuts and badges
         DispatchQueue.main.async {
             UIApplication.shared.shortcutItems = []
+            
+            // Reset badge number
+            UNUserNotificationCenter.current().setBadgeCount(0) { error in
+                LoggingHelper().addLog(
+                    importance: LogImportance.critical,
+                    error: "Cannot set badge to 0",
+                    method: "MainView.newPhase",
+                    extra: error.debugDescription)
+            }
         }
+        
         
         SettingsManager(encrypted: false).clearAllData()
         SettingsManager(encrypted: true).clearAllData()
