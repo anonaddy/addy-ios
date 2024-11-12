@@ -180,11 +180,7 @@ struct AliasDetailView: View {
                 Section {
                     
                     AddyToggle(isOn: $isAliasActive, isLoading: isSwitchingAliasActiveState, title: alias.active ? String(localized: "alias_activated") : String(localized: "alias_deactivated"), description: String(localized: "watch_alias_desc"))
-                        .onAppear {
-                            self.isAliasActive = alias.active
-                        }
                         .onChange(of: isAliasActive) {
-                            
                             // Only fire when the value is NOT the same as the value already in the model
                             if (isAliasActive != alias.active){
                                 //perform your action here...
@@ -204,9 +200,6 @@ struct AliasDetailView: View {
                         }
                     
                     AddyToggle(isOn: $isAliasBeingWatched, title: String(localized: "watch_alias"), description: String(localized: "watch_alias_desc"))
-                        .onAppear {
-                            self.isAliasBeingWatched = AliasWatcher().getAliasesToWatch().contains(aliasId)
-                        }
                         .onChange(of: isAliasBeingWatched) {
                             
                             // This changes the icon on the view in aliasesview
@@ -294,6 +287,9 @@ struct AliasDetailView: View {
                     
                 }
                 
+            }
+            .refreshable {
+                await getAlias(aliasId: self.aliasId)
             }
             .overlay {
                 ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
@@ -706,6 +702,9 @@ struct AliasDetailView: View {
         do {
             if let alias = try await networkHelper.getSpecificAlias(aliasId: aliasId){
                 withAnimation {
+                    self.isAliasActive = alias.active
+                    self.isAliasBeingWatched = AliasWatcher().getAliasesToWatch().contains(aliasId)
+                    
                     self.alias = alias
                     self.aliasEmail = alias.email
                     self.updateUi(alias: alias)

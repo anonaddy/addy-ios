@@ -99,9 +99,6 @@ struct UsernamesDetailView: View {
                 Section {
                     
                     AddyToggle(isOn: $isActive, isLoading: isSwitchingisActiveState, title: username.active ? String(localized: "username_activated") : String(localized: "username_deactivated"), description: String(localized: "username_status_desc"))
-                        .onAppear {
-                            self.isActive = username.active
-                        }
                         .onChange(of: isActive) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if (isActive != username.active){
@@ -121,9 +118,6 @@ struct UsernamesDetailView: View {
                         }
                     
                     AddyToggle(isOn: $catchAllEnabled, isLoading: isSwitchingCatchAllEnabledState, title: username.catch_all ? String(localized: "catch_all_enabled") : String(localized: "catch_all_disabled"), description: String(localized: "catch_all_username_desc"))
-                        .onAppear {
-                            self.catchAllEnabled = username.catch_all
-                        }
                         .onChange(of: catchAllEnabled) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if (catchAllEnabled != username.catch_all){
@@ -144,9 +138,6 @@ struct UsernamesDetailView: View {
                     
                     
                     AddyToggle(isOn: $canLogin, isLoading: isSwitchingCanLoginState, title: username.can_login ? String(localized: "can_login_enabled") : String(localized: "can_login_disabled"), description: String(localized: "can_login_username_desc"))
-                        .onAppear {
-                            self.canLogin = username.can_login
-                        }
                         .onChange(of: canLogin) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if (canLogin != username.can_login){
@@ -202,6 +193,9 @@ struct UsernamesDetailView: View {
                 }
                 
             }.disabled(isDeletingUsername)
+                .refreshable {
+                    await getUsername(usernameId: self.usernameId)
+                }
                 .navigationTitle(self.usernameUsername)
                 .navigationBarTitleDisplayMode(.inline)
                 .sheet(isPresented: $isPresentingEditUsernameDescriptionBottomSheet) {
@@ -259,9 +253,6 @@ struct UsernamesDetailView: View {
                     }
                     .presentationDetents([.medium, .large])
                 }
-            
-            
-
                 .alert(isPresented: $showAlert) {
                             switch activeAlert {
                            case .deleteUsername:
@@ -536,7 +527,21 @@ struct UsernamesDetailView: View {
             if let username = try await networkHelper.getSpecificUsername(usernameId: usernameId){
                 withAnimation {
                     self.username = username
+                    self.catchAllEnabled = username.catch_all
+                    self.canLogin = username.can_login
+                    self.isActive = username.active
                 }
+                
+                // Reset total counts
+                self.totalForwarded = 0
+                self.totalBlocked = 0
+                self.totalReplies = 0
+                self.totalSent = 0
+                // Reset total counts
+                self.totalForwarded = 0
+                self.totalBlocked = 0
+                self.totalReplies = 0
+                self.totalSent = 0
                 await getAliasesAndAddThemToList(username: username)
             }
         } catch {

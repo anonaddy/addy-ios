@@ -14,6 +14,8 @@ import _AppIntents_SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var mainViewState: MainViewState
+    @EnvironmentObject var aliasesViewState: AliasesViewState
+
     @Binding var horizontalSize: UserInterfaceSizeClass
     
     enum ActiveAlert {
@@ -119,17 +121,29 @@ struct HomeView: View {
                                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                                 HStack(alignment: .top, spacing: 4) {
                                     
-                                    HomeCardView(title: String(localized: "total_aliases"), value: userResource.total_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5)
+                                    HomeCardView(title: String(localized: "total_aliases"), value: userResource.total_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5) {
+                                        mainViewState.selectedTab = .aliases
+                                        aliasesViewState.applyFilterChip = "filter_all_aliases"
+                                    }
                                     
-                                    HomeCardView(title: String(localized: "active"), value: userResource.total_active_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5)
+                                    HomeCardView(title: String(localized: "active"), value: userResource.total_active_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5) {
+                                        mainViewState.selectedTab = .aliases
+                                        aliasesViewState.applyFilterChip = "filter_active_aliases"
+                                    }
                                     
                                 }
                                 
                                 HStack(alignment: .top, spacing: 4) {
                                     
-                                    HomeCardView(title: String(localized: "inactive"), value: userResource.total_inactive_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5)
+                                    HomeCardView(title: String(localized: "inactive"), value: userResource.total_inactive_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5) {
+                                        mainViewState.selectedTab = .aliases
+                                        aliasesViewState.applyFilterChip = "filter_inactive_aliases"
+                                    }
                                     
-                                    HomeCardView(title: String(localized: "deleted"), value: userResource.total_deleted_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5)
+                                    HomeCardView(title: String(localized: "deleted"), value: userResource.total_deleted_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5) {
+                                        mainViewState.selectedTab = .aliases
+                                        aliasesViewState.applyFilterChip = "filter_deleted_aliases"
+                                    }
                                     
                                 }
                             }
@@ -139,7 +153,9 @@ struct HomeView: View {
                                     .fontWeight(.semibold)
                                     .opacity(0.60)
                                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                                HomeCardView(title: String(localized: "total_recipients"), value: userResource.recipient_count, backgroundColor: .homeColor3, systemImage: "person.2", systemImageOpacity: 0.5)
+                                HomeCardView(title: String(localized: "total_recipients"), value: userResource.recipient_count, backgroundColor: .homeColor3, systemImage: "person.2", systemImageOpacity: 0.5) {
+                                    mainViewState.selectedTab = .recipients
+                                }
                             }
                         }.padding(.bottom).padding(.horizontal)
                     }

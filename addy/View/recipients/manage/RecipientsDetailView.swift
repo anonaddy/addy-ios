@@ -111,9 +111,6 @@ struct RecipientsDetailView: View {
                 Section {
                     
                     AddyToggle(isOn: $replySendAllowed, isLoading: isSwitchingRecipientCanReplySendState, title: recipient.can_reply_send ? String(localized: "can_reply_send") : String(localized: "cannot_reply_send"), description: String(localized: "can_reply_send_desc"))
-                        .onAppear {
-                            self.replySendAllowed = recipient.can_reply_send
-                        }
                         .onChange(of: replySendAllowed) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if (replySendAllowed != recipient.can_reply_send){
@@ -133,9 +130,6 @@ struct RecipientsDetailView: View {
                         }
                     
                     AddyToggle(isOn: $shouldEncrypt, isLoading: isSwitchingRecipientShouldEncryptState, title: recipient.should_encrypt ? String(localized: "encryption_enabled") : String(localized: "encryption_disabled"), description: String(localized: "encrypt_emails_to_this_recipient"))
-                        .onAppear {
-                            self.shouldEncrypt = recipient.should_encrypt
-                        }
                         .onChange(of: shouldEncrypt) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if (shouldEncrypt != recipient.should_encrypt){
@@ -173,9 +167,6 @@ struct RecipientsDetailView: View {
                     }.disabled(recipient.fingerprint == nil)
                     
                     AddyToggle(isOn: $inlineEncryption, isLoading: isSwitchingInlineEncryptionState, title: String(localized: "pgp_inline"), description: getPgpInlineDescription(recipient: recipient))
-                        .onAppear {
-                            self.inlineEncryption = recipient.inline_encryption
-                        }
                         .onChange(of: inlineEncryption) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if (inlineEncryption != recipient.inline_encryption){
@@ -196,9 +187,6 @@ struct RecipientsDetailView: View {
                         .disabled(recipient.fingerprint == nil || recipient.protected_headers)
                     
                     AddyToggle(isOn: $protectedHeaders, isLoading: isSwitchingProtectedHeadersState, title: String(localized: "protected_headers"), description: getProtectedHeadersDescription(recipient: recipient))
-                        .onAppear {
-                            self.protectedHeaders = recipient.protected_headers
-                        }
                         .onChange(of: protectedHeaders) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if (protectedHeaders != recipient.protected_headers){
@@ -233,6 +221,9 @@ struct RecipientsDetailView: View {
                 }
                 
             }.disabled(isDeletingRecipient)
+                .refreshable {
+                    await getRecipient(recipientId: self.recipientId)
+                }
                 .navigationTitle(self.recipientEmail)
                 .navigationBarTitleDisplayMode(.inline)
                 .sheet(isPresented: $isPresentingAddRecipientPublicGpgKeyBottomSheet) {
@@ -569,7 +560,18 @@ struct RecipientsDetailView: View {
             if let recipient = try await networkHelper.getSpecificRecipient(recipientId: recipientId){
                 withAnimation {
                     self.recipient = recipient
+                    self.replySendAllowed = recipient.can_reply_send
+                    self.shouldEncrypt = recipient.should_encrypt
+                    self.inlineEncryption = recipient.inline_encryption
+                    self.protectedHeaders = recipient.protected_headers
                 }
+                
+                // Reset total counts
+                self.totalForwarded = 0
+                self.totalBlocked = 0
+                self.totalReplies = 0
+                self.totalSent = 0
+                
                 await getAliasesAndAddThemToList(recipient: recipient)
             }
         } catch {

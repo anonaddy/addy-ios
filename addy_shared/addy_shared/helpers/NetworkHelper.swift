@@ -438,7 +438,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
     }
     
     
-    public func verifyApiKey(baseUrl: String, apiKey: String) async throws -> String? {
+    public func verifyApiKey(baseUrl: String, apiKey: String) async throws -> UserResource? {
 #if DEBUG
         print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
 #endif
@@ -463,7 +463,9 @@ AddyIo.API_BASE_URL = defaultBaseUrl
         
         switch httpResponse.statusCode {
         case 200:
-            return "200"
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleUserResource.self, from: data)
+            return addyIoData.data
         case 401:
             return nil
         default:
@@ -709,8 +711,6 @@ AddyIo.API_BASE_URL = defaultBaseUrl
         switch httpResponse.statusCode {
         case 200:
             let decoder = JSONDecoder()
-            print(data.base64EncodedString())
-            print(String(data: data, encoding: .ascii))
             let addyIoData = try decoder.decode(RulesArray.self, from: data)
             return addyIoData
         case 401:

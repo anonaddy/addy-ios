@@ -64,7 +64,8 @@ struct ManageSubscriptionView: View {
     @State private var isPresentedManageSubscription = false
     @State private var isNotifyingServer = false
     @State private var purchasedItem: StoreKit.Transaction? = nil
-    
+    @Environment(\.requestReview) private var requestReview
+
     let productIds = [
         "pro_yearly",
         "pro_monthly",
@@ -234,16 +235,6 @@ struct ManageSubscriptionView: View {
                 .manageSubscriptionsSheet(isPresented: $isPresentedManageSubscription)
                 .navigationTitle(String(localized: "manage_subscription"))
                     .navigationBarTitleDisplayMode(.inline)
-                    .toolbar(content: {
-                        ToolbarItem() {
-                            Button {
-                                dismiss()
-                            } label: {
-                                Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
-                            }
-                            
-                        }
-                    })
                 .task{
                     let productIds = productIds.filter { $0.hasPrefix(selectedTab) }
                     await storeManager.fetchProducts(productIdentifiers: productIds)
@@ -371,6 +362,9 @@ struct ManageSubscriptionView: View {
                 Task {
                     if succeeded {
                         await transaction.finish()
+                        // User has switched or purchased a subscription, this is usually a sign of a satisfied user, let's ask the user to review the app
+                        requestReview()
+
                     } else {
                         // There is not much we can do, we have to finish the transaction regardless
                         await transaction.finish()

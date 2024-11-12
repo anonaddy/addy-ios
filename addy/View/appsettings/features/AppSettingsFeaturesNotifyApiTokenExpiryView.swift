@@ -52,7 +52,7 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
         .sheet(isPresented: $isShowingAddApiBottomSheet) {
             let baseUrl = MainViewState.shared.encryptedSettingsManager.getSettingsString(key: .baseUrl)
             NavigationStack {
-                AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:_:))
+                AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:_:)).environmentObject(MainViewState.shared)
             }
             .presentationDetents([.large])
         }

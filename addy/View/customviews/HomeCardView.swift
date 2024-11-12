@@ -58,7 +58,15 @@ struct HomeCardView: View {
         .cornerRadius(16)
         .shadow(
             color: Color(red: 0, green: 0, blue: 0, opacity: 0.08), radius: 12
-        )
+        ).apply {
+            if onTap != nil {
+                $0.onTapGesture {
+                    onTap!()
+                }
+            } else {
+                $0
+            }
+        }
     }
 }
 

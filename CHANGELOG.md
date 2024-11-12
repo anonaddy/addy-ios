@@ -1,5 +1,16 @@
 # Changelog
 
+## [v1.1.3] - 2024-11-12
+
+### addy.io
+
+**Fixed/Improved**
+- Fixed a crash when editing a rule containing a deleted recipient
+- Allow for refreshing every page in the app
+- Optimized refresh token flow by locking in the username
+- Check if a refreshed token belongs to the same account
+- A new option has been added allowing users to review the app directly from the settings menu
+
 ## [v1.1.2] - 2024-10-14
 
 ### addy.io

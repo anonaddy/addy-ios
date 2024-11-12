@@ -60,7 +60,8 @@ struct AddApiBottomSheet: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.openURL) var openURL
     @Environment(\.scenePhase) var scenePhase
-    
+    @EnvironmentObject var mainViewState: MainViewState
+
     
     var body: some View {
 #if DEBUG
@@ -147,7 +148,11 @@ struct AddApiBottomSheet: View {
                 if loginType == "api" {
                     ValidatingTextField(value: $apiKey, placeholder: $apiKeyPlaceholder, fieldType: .bigText, error: $apiKeyError)
                 } else {
-                    ValidatingTextField(value: self.$username, placeholder: $usernamePlaceholder, fieldType: .text, error: $usernameValidationError)
+                    ValidatingTextField(value: self.$username, placeholder: $usernamePlaceholder, fieldType: .text, error: $usernameValidationError).onAppear {
+                        if apiBaseUrl != nil {
+                            self.username = mainViewState.userResource!.username
+                        }
+                    }.disabled(apiBaseUrl != nil)
                     
                     ValidatingTextField(value: self.$password, placeholder: $passwordPlaceholder, fieldType: .password, error: $passwordValidationError)
                     
@@ -250,16 +255,19 @@ struct AddApiBottomSheet: View {
         let networkHelper = NetworkHelper()
         do {
             let result = try await networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: cleanApiKey)
-            if result == "200" {
-                self.addKey(cleanApiKey, baseUrl)
+            if result != nil {
+                if mainViewState.userResource?.id == result?.id {
+                    self.addKey(cleanApiKey, baseUrl)
+                } else {
+                    resetSignInButton()
+                    apiKeyError = String(localized: "api_belongs_other_account")
+                }
             } else {
                 resetSignInButton()
                 apiKeyError = String(localized: "api_invalid")
             }
         } catch {            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                isLoadingSignIn = false
-            }
+            resetSignInButton()
             apiKeyError = "\(error)"
         }
     }

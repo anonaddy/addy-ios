@@ -20,6 +20,7 @@ struct AppSettingsView: View {
     @State private var showPlayGround: Bool = false
     
     @Environment(\.openURL) var openURL
+
     @Binding var horizontalSize: UserInterfaceSizeClass
     
     enum ActiveAlert {
@@ -158,7 +159,6 @@ struct AppSettingsView: View {
             Section {
                 AddySection(title: String(localized: "addyio_help"), description: String(localized: "visit_addyio_helps_section"), leadingSystemimage: "questionmark.circle", leadingSystemimageColor: .primaryColorStatic){
                     openURL(URL(string: "https://addy.io/help?ref=appstore")!)
-
                 }
                 
                 
@@ -172,6 +172,11 @@ struct AppSettingsView: View {
             }
 
             Section {
+#if APPSTORE
+                AddySection(title: String(localized: "rate_this_app"), description: String(localized: "rate_this_app_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .primaryColorStatic){
+                    openURL(URL(string: "https://apps.apple.com/app/addy-io/id6563138633")!)
+                }
+#endif
                 AddySection(title: String(localized: "github_project"), description: String(localized: "github_project_desc"), leadingSystemimage: "swift", leadingSystemimageColor: .primaryColorStatic){
                     openURL(URL(string: "https://github.com/anonaddy/addy-ios")!)
                 }
