@@ -256,7 +256,11 @@ struct AddApiBottomSheet: View {
         do {
             let result = try await networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: cleanApiKey)
             if result != nil {
-                if mainViewState.userResource?.id == result?.id {
+                // APIKey is verified if the API_KEY is currently nil (aka empty)
+                // Or
+                // UserResource ids are the same
+                if SettingsManager(encrypted: true).getSettingsString(key: .apiKey) == nil ||
+                    mainViewState.userResource?.id == result?.id {
                     self.addKey(cleanApiKey, baseUrl)
                 } else {
                     resetSignInButton()
