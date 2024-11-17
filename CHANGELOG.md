@@ -1,5 +1,12 @@
 # Changelog
 
+## [v1.1.4] - 2024-11-17
+
+### addy.io
+
+**Fixed/Improved**
+- Fixed the API Key not being recognized in the setup
+
 ## [v1.1.3] - 2024-11-12
 
 ### addy.io

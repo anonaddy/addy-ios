@@ -818,7 +818,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 1.1.3**\n\n**Fixed/Improved**\n- Fixed a crash when editing a rule containing a deleted recipient\n- Allow for refreshing every page in the app\n- Optimized refresh token flow by locking in the username\n- Check if a refreshed token belongs to the same account\n- A new option has been added allowing users to review the app directly from the settings menu"
+            "value" : "**What’s new in addy.io for iOS 1.1.4**\n\n**Fixed/Improved**\n- Fixed the API Key not being recognized in the setup"
           }
         }
       }
