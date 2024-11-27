@@ -30,7 +30,7 @@ struct HomeView: View {
     @State private var progress: Float = 0.7
     
     var onRefreshGeneralData: (() -> Void)? = nil
-    
+
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -65,11 +65,10 @@ struct HomeView: View {
                                     GradientProgressBar(value: $progress)
                                         .frame(maxWidth: .infinity, minHeight: 28)
                                         .onAppear {
-                                            if userResource.bandwidth_limit == 0 {
-                                                self.progress = 1.0
-                                            } else {
-                                                self.progress = Float(Double(userResource.bandwidth) / Double(userResource.bandwidth_limit))
-                                            }
+                                            self.updateProgress()
+                                        }
+                                        .onReceive(mainViewState.userResourceChanged) { _ in
+                                            self.updateProgress()
                                         }
                                         .apply {
                                             // Apply the shimmering effect when no limit
@@ -173,8 +172,6 @@ struct HomeView: View {
         }.refreshable {
             // When refreshing aliases also ask the mainView to update general data
             self.onRefreshGeneralData?()
-            
-            //await self.getChartData()
         }
         .alert(isPresented: $showAlert) {
             switch activeAlert {
@@ -187,6 +184,20 @@ struct HomeView: View {
         }
         
     }
+    
+    
+    private func updateProgress() {
+            guard let userResource = mainViewState.userResource else {
+                // Handle case where userResource might be nil, if needed
+                return
+            }
+            if userResource.bandwidth_limit == 0 {
+                self.progress = 1.0
+            } else {
+                self.progress = Float(Double(userResource.bandwidth) / Double(userResource.bandwidth_limit))
+            }
+        }
+    
 }
 
 
