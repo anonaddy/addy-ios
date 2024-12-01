@@ -7,6 +7,7 @@
 
 import SwiftUI
 import addy_shared
+import Combine
 
 
 
@@ -51,9 +52,13 @@ class MainViewState: ObservableObject {
     @Published var encryptedSettingsManager = SettingsManager(encrypted: true)
     @Published var settingsManager = SettingsManager(encrypted: false)
     
+    
+    let userResourceChanged = PassthroughSubject<Void, Never>()
+
     @Published var userResourceData: String? {
         didSet {
             userResourceData.map { encryptedSettingsManager.putSettingsString(key: .userResource, string: $0) }
+            userResourceChanged.send()
         }
     }
     
@@ -73,6 +78,7 @@ class MainViewState: ObservableObject {
                    let jsonString = String(data: jsonData, encoding: .utf8) {
                     userResourceData = jsonString
                 }
+                userResourceChanged.send()
             }
         }
     }

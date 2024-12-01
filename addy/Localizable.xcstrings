@@ -818,7 +818,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 1.1.4**\n\n**Fixed/Improved**\n- Fixed the API Key not being recognized in the setup"
+            "value" : "**What’s new in addy.io for iOS 1.1.5**\n\n**Fixed/Improved**\n- Fixed the monthly bandwidth limit progress bar not being updated"
           }
         }
       }
