@@ -31,7 +31,7 @@
                     "version": "1.1.5",
                     "date": "2024-12-01T00:00:00+02:00",
                     "size": 20866198,
-                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/aaaa3a9f23d3676ce43cc82e907fba8cd524c3a5/builds/appstorelessRelease%202024-11-17%2010-35-57/addy.ipa",
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/08a97e85e0c5df7bcdd852798c0e104a299297ef/builds/appstorelessRelease%202024-12-01%2017-52-10/addy.ipa",
                     "localizedDescription": "- Fixed the monthly bandwidth limit progress bar not being updated",
                     "minOSVersion": "17.0"
                 },
