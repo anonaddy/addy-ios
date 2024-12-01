@@ -1,5 +1,12 @@
 # Changelog
 
+## [v1.1.5] - 2024-12-01
+
+### addy.io
+
+**Fixed/Improved**
+- Fixed the monthly bandwidth limit progress bar not being updated
+
 ## [v1.1.4] - 2024-11-17
 
 ### addy.io
