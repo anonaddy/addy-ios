@@ -1,5 +1,12 @@
 # Changelog
 
+## [v1.1.6] - 2024-12-29
+
+### addy.io
+
+**Fixed/Improved**
+- Added “Created at” and “Updated at” values to the alias management page
+
 ## [v1.1.5] - 2024-12-01
 
 ### addy.io

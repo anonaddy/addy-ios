@@ -42,7 +42,7 @@ public class LoggingHelper {
 
     public func clearLogs() {
         prefs.removeObject(forKey: "logs")
-        addLog(importance: .info, error: String(localized: "logs_cleared"), method: "getLogs()", extra: nil)
+        addLog(importance: .info, error: NSLocalizedString("logs_cleared", bundle: Bundle(for: LoggingHelper.self), comment: ""), method: "getLogs()", extra: nil)
     }
 
     private func getDateTime() -> String {

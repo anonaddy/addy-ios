@@ -818,7 +818,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 1.1.5**\n\n**Fixed/Improved**\n- Fixed the monthly bandwidth limit progress bar not being updated"
+            "value" : "**What’s new in addy.io for iOS 1.1.6**\n\n**Fixed/Improved**\n- Added “Created at” and “Updated at” values to the alias management page"
           }
         }
       }
@@ -1627,6 +1627,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Created"
+          }
+        }
+      }
+    },
+    "created_at" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created at"
           }
         }
       }
@@ -6911,6 +6921,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notify for new updates"
+          }
+        }
+      }
+    },
+    "updated_at" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updated at"
           }
         }
       }
