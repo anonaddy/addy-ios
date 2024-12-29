@@ -793,7 +793,7 @@
 			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.0;
+				minimumVersion = 1.5.1;
 			};
 		};
 		806AE68D2C19EB9E00F3CA92 /* XCRemoteSwiftPackageReference "FeedKit" */ = {

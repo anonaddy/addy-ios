@@ -251,6 +251,12 @@ struct AliasDetailView: View {
                     AddySection(title: String(localized: "last_blocked"),
                                 description: alias.last_blocked != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_blocked) : String(localized: "unknown"),
                                 leadingSystemimage: nil, trailingSystemimage: nil){}
+                    AddySection(title: String(localized: "created_at"),
+                                description: alias.created_at != nil ? DateTimeUtils.turnStringIntoLocalString(alias.created_at) : String(localized: "unknown"),
+                                leadingSystemimage: nil, trailingSystemimage: nil){}
+                    AddySection(title: String(localized: "updated_at"),
+                                description: alias.updated_at != nil ? DateTimeUtils.turnStringIntoLocalString(alias.updated_at) : String(localized: "unknown"),
+                                leadingSystemimage: nil, trailingSystemimage: nil){}
                     
                     
                     

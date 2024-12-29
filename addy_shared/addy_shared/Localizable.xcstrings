@@ -2,10 +2,25 @@
   "sourceLanguage" : "en",
   "strings" : {
     "default_base_url" : {
-
+      "comment" : "TODO CHECK THIS EVERY RELEASE",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://app.addy.io"
+          }
+        }
+      }
     },
     "dev_base_url" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://app.addy.io"
+          }
+        }
+      }
     },
     "logs_cleared" : {
       "localizations" : {
