@@ -16,7 +16,7 @@ public struct DateTimeUtils {
         case shortDate
     }
     
-    public static func turnStringIntoLocalString(_ string: String?, dateTimeFormat: DateTimeFormat = .dateTime) -> String {
+    public static func convertStringToLocalTimeZoneString(_ string: String?, dateTimeFormat: DateTimeFormat = .dateTime) -> String {
         guard let string = string else {
             return ""
         }
@@ -27,26 +27,37 @@ public struct DateTimeUtils {
             let zonedDateTime = ldt.toDate(timeZone: serverZoneId!)
             let defaultZoneId = TimeZone.current
             
-            let nyDateTime = zonedDateTime.toDate(timeZone: defaultZoneId)
+            let localTimeZoneDate = zonedDateTime.toDate(timeZone: defaultZoneId)
             
             switch dateTimeFormat {
             case .date:
-                return DateFormatter.localizedString(from: nyDateTime, dateStyle: .short, timeStyle: .none)
+                return DateFormatter.localizedString(from: localTimeZoneDate, dateStyle: .short, timeStyle: .none)
             case .time:
-                return DateFormatter.localizedString(from: nyDateTime, dateStyle: .none, timeStyle: .short)
+                return DateFormatter.localizedString(from: localTimeZoneDate, dateStyle: .none, timeStyle: .short)
             case .dateTime:
-                return DateFormatter.localizedString(from: nyDateTime, dateStyle: .short, timeStyle: .short)
+                return DateFormatter.localizedString(from: localTimeZoneDate, dateStyle: .short, timeStyle: .short)
             case .shortDate:
                 let formatter = DateFormatter()
                 formatter.dateFormat = "E d MMM"
-                return formatter.string(from: nyDateTime)
+                return formatter.string(from: localTimeZoneDate)
             }
         } catch {
             return "\(string) (GMT)"
         }
     }
     
-    public static func turnStringIntoLocalDateTime(_ string: String?) throws -> Date {
+    public static func convertStringToLocalTimeZoneDate(_ string: String?, dateTimeFormat: DateTimeFormat = .dateTime) throws -> Date {
+        let ldt = try turnStringIntoLocalDateTime(string)
+        let serverZoneId = TimeZone(identifier: "GMT")
+        let zonedDateTime = ldt.toDate(timeZone: serverZoneId!)
+        let defaultZoneId = TimeZone.current
+        
+        let localTimeZoneDate = zonedDateTime.toDate(timeZone: defaultZoneId)
+        
+        return localTimeZoneDate
+    }
+    
+    private static func turnStringIntoLocalDateTime(_ string: String?) throws -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyy-MM-dd HH:mm:ss"
         guard let date = formatter.date(from: string!) else {

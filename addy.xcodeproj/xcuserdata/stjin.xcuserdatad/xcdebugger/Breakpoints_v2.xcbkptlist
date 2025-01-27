@@ -471,22 +471,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "515D06DC-487A-4167-AF60-625F3127FD20"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/extensions/PrettyTime.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "futureDateDisplay()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "7FB481AC-E0EE-4276-BAAF-1021E62D5358"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -4814,22 +4798,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "609"
             endingLineNumber = "609"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "68BC7002-6A8A-4F00-ACA8-614D1AFF9A7E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/aliases/AliasesView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "610"
-            endingLineNumber = "610"
             landmarkName = "onPressSend(client:sendToRecipients:)"
             landmarkType = "7">
          </BreakpointContent>

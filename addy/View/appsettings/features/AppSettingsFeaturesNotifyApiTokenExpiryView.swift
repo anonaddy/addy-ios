@@ -74,7 +74,7 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
             let apiTokenDetails = try await NetworkHelper().getApiTokenDetails()
             if let apiTokenDetails = apiTokenDetails {
                 if let expiresAt = apiTokenDetails.expires_at {
-                    let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(expiresAt) // Get the expiry date
+                    let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(expiresAt) // Get the expiry date
                     let text = expiryDate.futureDateDisplay() // Use the new method here
                     apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date", comment: ""), apiTokenDetails.name, text)
                 } else {

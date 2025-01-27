@@ -248,7 +248,7 @@ struct ProfileBottomSheet: View {
     
     
     private func getSubscriptionUntilText() ->String {
-        return String(format: String(localized: "subscription_user_until"), DateTimeUtils.turnStringIntoLocalString(
+        return String(format: String(localized: "subscription_user_until"), DateTimeUtils.convertStringToLocalTimeZoneString(
             mainViewState.userResource!.subscription_ends_at,
             dateTimeFormat: DateTimeUtils.DateTimeFormat.date)
         )

@@ -124,7 +124,7 @@ class BackgroundWorker {
                         do {
                             let apiTokenDetails = try await networkHelper.getApiTokenDetails()
                             if let expiresAt = apiTokenDetails?.expires_at {
-                                let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(expiresAt) // Get the expiry date
+                                let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(expiresAt) // Get the expiry date
                                 let currentDateTime = Date() // Get the current date
                                 let deadLineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate) // Subtract 5 days from the expiry date
                                 if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
@@ -212,7 +212,7 @@ class BackgroundWorker {
                         do {
                             let user = try await networkHelper.getUserResource()
                             if let subscriptionEndsAt = user?.subscription_ends_at {
-                                let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(subscriptionEndsAt) // Get the expiry date
+                                let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(subscriptionEndsAt) // Get the expiry date
                                 let currentDateTime = Date() // Get the current date
                                 let deadLineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate) // Subtract 7 days from the expiry date
                                 if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {

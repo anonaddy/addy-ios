@@ -59,7 +59,7 @@ struct FailedDeliveriesView: View {
                                         VStack(alignment: .trailing) {
                                             Text(String(localized: "created"))
                                                 .font(.system(size: 16, weight: .medium))
-                                            Text(DateTimeUtils.turnStringIntoLocalString(failedDelivery.created_at))
+                                            Text(DateTimeUtils.convertStringToLocalTimeZoneString(failedDelivery.created_at))
                                                 .font(.system(size: 14))
                                                 .foregroundColor(.gray)
                                         }

@@ -101,11 +101,15 @@ struct AddAliasBottomSheet: View {
                 
             } header: {
                 VStack(alignment: .leading){
-                    Text(String(format: String(localized: "add_alias_desc"), self.mainViewState.userResource!.username)).multilineTextAlignment(.center)
-                    Spacer(minLength: 25)
-                    Text(String(localized: "alias"))
+                    VStack(alignment: .leading){
+                        Text(String(format: String(localized: "add_alias_desc"), self.mainViewState.userResource!.username)).multilineTextAlignment(.center)
+                        Spacer(minLength: 25)
+                    }.textCase(nil)
                     
-                }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
+                    VStack(alignment: .leading){
+                        Text(String(localized: "alias"))
+                    }
+                }.frame(maxWidth: .infinity, alignment: .center)
             } footer: {
                 if let error = aliasError {
                     if (!error.isEmpty){

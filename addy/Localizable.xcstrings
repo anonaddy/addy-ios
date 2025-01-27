@@ -18,6 +18,38 @@
     "0" : {
 
     },
+    "1_day_ago" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 day ago"
+          }
+        }
+      }
+    },
+    "1_hour_ago" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 hour ago"
+          }
+        }
+      }
+    },
+    "1_month_ago" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 month ago"
+          }
+        }
+      }
+    },
     "about_this_app" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1705,6 +1737,16 @@
         }
       }
     },
+    "d_days_ago" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d days ago"
+          }
+        }
+      }
+    },
     "d_days_from_now_on" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1727,6 +1769,17 @@
         }
       }
     },
+    "d_hours_ago" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d hours ago"
+          }
+        }
+      }
+    },
     "d_hrs_from_now_on" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1738,6 +1791,17 @@
         }
       }
     },
+    "d_min_ago" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d minutes ago"
+          }
+        }
+      }
+    },
     "d_min_from_now_on" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1745,6 +1809,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%d min from now on"
+          }
+        }
+      }
+    },
+    "d_months_ago" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d months ago"
           }
         }
       }
@@ -1767,6 +1841,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ replied"
+          }
+        }
+      }
+    },
+    "d_sec_ago" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d seconds ago"
           }
         }
       }
@@ -1800,6 +1885,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%d weeks from now on"
+          }
+        }
+      }
+    },
+    "d_years_from_now_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d year(s) from now on"
           }
         }
       }
@@ -3762,6 +3858,16 @@
         }
       }
     },
+    "just_now" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Just now"
+          }
+        }
+      }
+    },
     "last_blocked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3769,6 +3875,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Last blocked"
+          }
+        }
+      }
+    },
+    "last_d_at" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "last %@ at %@"
           }
         }
       }
@@ -7087,6 +7203,17 @@
         }
       }
     },
+    "verification_record_copied_to_clipboard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verification record has been copied to the clipboard"
+          }
+        }
+      }
+    },
     "version_channel_info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7225,7 +7352,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Keep track of emails being forwarded through a specific alias. Open the management page of an alias and enable  \"Watch alias\" to be notified of a new forwarded message.\n\nYou can watch a maximum of 25 aliases."
+            "value" : "Keep track of emails being forwarded through a specific alias. Open the management page of an alias and enable \"Watch alias\" to be notified of a new forwarded message.\n\nYou can watch a maximum of 25 aliases."
           }
         }
       }
@@ -7552,6 +7679,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Colorful background"
+          }
+        }
+      }
+    },
+    "yesterday_at" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yesterday at %@"
           }
         }
       }

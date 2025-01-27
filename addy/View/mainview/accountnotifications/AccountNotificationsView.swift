@@ -49,7 +49,7 @@ struct AccountNotificationsView: View {
                                         Text(accountNotification.title)
                                             .font(.system(size: 16, weight: .medium))
                                             .lineLimit(2)
-                                        Text(DateTimeUtils.turnStringIntoLocalString(accountNotification.created_at))
+                                        Text(DateTimeUtils.convertStringToLocalTimeZoneString(accountNotification.created_at))
                                             .font(.system(size: 12))
                                             .foregroundColor(.gray)
                                             .italic()
