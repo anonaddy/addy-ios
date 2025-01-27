@@ -220,7 +220,8 @@ struct AddApiBottomSheet: View {
                 cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
             }
         }
-        .navigationTitle(String(localized: "login")).pickerStyle(.navigationLink)
+        .navigationTitle(String(localized: "login"))
+        .pickerStyle(.navigationLink)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {

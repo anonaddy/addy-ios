@@ -74,6 +74,28 @@ struct MainView: View {
                             #if DEBUG
                             print("App has been opened \(SettingsManager(encrypted: false).getSettingsInt(key: .timesTheAppHasBeenOpened)) times")
                             #endif
+                            
+                            
+                            // Check if the value exists in the array, default (but dont reset) to home if not (this could occur if eg. a tablet backup (which has more options) gets restored on mobile)
+                            // Don't reset the value as this app could be opened in splitscreen, we don't want to reset the value then.
+                            
+                            let destinations = horizontalSize == .regular ? Destination.otherCases : Destination.iPhoneCases
+                            let startupPage = SettingsManager(encrypted: false).getSettingsString(key: .startupPage) ?? "home"
+
+                            if destinations.contains(where: { $0.value == startupPage }){
+                            switch startupPage {
+                            case Destination.home.value: mainViewState.selectedTab = .home
+                            case Destination.aliases.value: mainViewState.selectedTab =  .aliases
+                            case Destination.recipients.value: mainViewState.selectedTab =  .recipients
+                            case Destination.usernames.value: mainViewState.selectedTab =  .usernames
+                            case Destination.domains.value: mainViewState.selectedTab =  .domains
+                            case Destination.failedDeliveries.value: mainViewState.selectedTab =  .failedDeliveries
+                            case Destination.rules.value: mainViewState.selectedTab =  .rules
+                            case Destination.settings.value: mainViewState.selectedTab =  .settings
+                            default:
+                                break
+                            }
+                        }
 
                         })
                         .alert(isPresented: Binding<Bool>(
@@ -500,7 +522,7 @@ struct MainView: View {
     }
 }
 
-enum Destination: Hashable, CaseIterable {
+public enum Destination: Hashable, CaseIterable {
     case home, aliases, recipients, usernames, domains, failedDeliveries, rules, settings, subscription
     
     
@@ -523,6 +545,22 @@ enum Destination: Hashable, CaseIterable {
         case .rules: return "rules"
         case .settings: return "settings"
         case .subscription: return "subscription"
+
+        }
+    }
+    
+    var value: String {
+        switch self {
+        case .home: return "home"
+        case .aliases: return "aliases"
+        case .recipients: return "recipients"
+        case .usernames: return "usernames"
+        case .domains: return "domains"
+        case .failedDeliveries: return "failed_deliveries"
+        case .rules: return "rules"
+        case .settings: return "settings"
+        case .subscription: return "subscription"
+
         }
     }
     
@@ -537,6 +575,7 @@ enum Destination: Hashable, CaseIterable {
         case .rules: return "checklist"
         case .settings: return "gear"
         case .subscription: return "creditcard.fill"
+
         }
     }
     
@@ -564,10 +603,8 @@ enum Destination: Hashable, CaseIterable {
             refreshGeneralData?()
         }))
         case .settings: return AnyView(AppSettingsView(horizontalSize: horizontalSize))
-        case .subscription: return AnyView(ManageSubscriptionView(horizontalSize: horizontalSize, shouldHideNavigationBarBackButtonSubscriptionView: .constant(false)))
-            
+        case .subscription: return AnyView(ManageSubscriptionView(horizontalSize: horizontalSize, shouldHideNavigationBarBackButtonSubscriptionView: .constant(false))) // This actually never gets called, it is required because the destination need to contain the subscription destination for checkForAnyInteractiveActions in ProfileBottomSheet.swift
         }
-        
     }
 }
 

@@ -1084,28 +1084,6 @@
         }
       }
     },
-    "appearance" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Appearance"
-          }
-        }
-      }
-    },
-    "appearance_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Change the app icon"
-          }
-        }
-      }
-    },
     "authentication_splash_error_unavailable" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3825,6 +3803,28 @@
         }
       }
     },
+    "interface" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interface"
+          }
+        }
+      }
+    },
+    "interface_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revamp the app's appearance and functionality"
+          }
+        }
+      }
+    },
     "ios_background_limitations_note" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5948,6 +5948,17 @@
         }
       }
     },
+    "select_startup_page" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select startup page"
+          }
+        }
+      }
+    },
     "self_hosted_instance_s" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6599,6 +6610,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "starts with"
+          }
+        }
+      }
+    },
+    "startup_page" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Startup page"
           }
         }
       }
