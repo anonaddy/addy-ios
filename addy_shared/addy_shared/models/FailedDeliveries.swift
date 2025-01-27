@@ -28,6 +28,7 @@ public struct FailedDeliveries:Identifiable, Codable {
     let email_type: String
     let status: String
     public let code: String
+    public let is_stored: Bool
     public let attempted_at: String
     public let created_at: String
     let updated_at: String

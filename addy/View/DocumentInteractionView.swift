@@ -21,9 +21,6 @@ struct DocumentPicker: UIViewControllerRepresentable {
         documentPicker.allowsMultipleSelection = false
         documentPicker.shouldShowFileExtensions = true
         
-        // Specify the document types that can be saved
-        //documentPicker.allowedContentTypes = [UTType.item]
-        
         return documentPicker
     }
     

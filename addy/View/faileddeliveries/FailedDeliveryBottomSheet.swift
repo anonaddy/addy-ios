@@ -72,18 +72,20 @@ struct FailedDeliveryBottomSheet: View {
             }.textCase(nil)
             
             Section {
-                AddyLoadingButton(action: {
-                    
-                    isLoadingDownloadButton = true;
-                    
-                    Task {
-                        await self.downloadFailedDelivery()
-                    }
-                    
-                }, isLoading: $isLoadingDownloadButton) {
-                    Text(String(localized: "download_failed_delivery")).foregroundColor(Color.white)
-                    
-                }.frame(minHeight: 56).padding(.bottom)
+                if (self.failedDelivery.is_stored){
+                    AddyLoadingButton(action: {
+                        
+                        isLoadingDownloadButton = true;
+                        
+                        Task {
+                            await self.downloadFailedDelivery()
+                        }
+                        
+                    }, isLoading: $isLoadingDownloadButton) {
+                        Text(String(localized: "download_failed_delivery")).foregroundColor(Color.white)
+                        
+                    }.frame(minHeight: 56).padding(.bottom)
+                }
                 
                 AddyLoadingButton(action: {
                     
