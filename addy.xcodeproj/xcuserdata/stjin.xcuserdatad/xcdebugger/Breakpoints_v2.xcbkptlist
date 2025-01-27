@@ -120,7 +120,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "FB01AE9C-3438-4075-BDDC-D070C8AD3E6F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -136,7 +136,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F5E15A48-0A0D-4BFC-BAEA-21E6D14112B8"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -1192,7 +1192,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B9A5A610-1491-489F-8AB7-8D73C93D4505"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/App lifecycle/AppDelegate.swift"
@@ -1208,7 +1208,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "AC239F51-BCF1-47EE-B186-654AC64C8FE6"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -1224,7 +1224,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "16E3B0E0-3349-49E5-9EBA-2BC9635C2530"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -1240,7 +1240,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "06BE7BF3-4237-4C91-A209-1399C6602FC4"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -1256,7 +1256,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C9E86683-F4C1-4AE0-82C9-C798845D0FAD"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -2174,8 +2174,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3064,7 +3064,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D9540ED4-1CD6-4FD0-9003-4FB4C7B7A9A9"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/helpers/QuickActionsManager.swift"
@@ -3080,7 +3080,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E59BD08A-CCE9-4414-ABC3-F874A52AF721"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/helpers/QuickActionsManager.swift"
@@ -3128,7 +3128,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B8A705FA-EBFA-4B72-87EE-3C884675207E"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/utils/AnonAddyUtils.swift"
@@ -3192,7 +3192,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A792AC7B-8234-487A-B778-59738597A396"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3208,7 +3208,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "12EE24C6-3318-4544-87D0-82DBEB9D6705"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3224,7 +3224,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E93EA2FF-4400-4BE0-89FC-65B931C682AA"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3240,7 +3240,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E0B8EBAA-4C24-4A1C-AC90-78B63A257590"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3256,7 +3256,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "5ED321AA-791C-4E47-AFB9-BDA1714C6797"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3272,7 +3272,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "0C6D592E-48C9-42D9-AEF6-D0DAD946DC80"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3288,7 +3288,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "0924F999-90E7-46B7-9246-87169E710C86"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3304,7 +3304,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "708D04C0-01C5-4B0F-B095-0AEB3CDE077E"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3320,7 +3320,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A005FAC4-3E93-4402-AAAB-951374639709"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3336,7 +3336,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "79930499-BAE8-43FC-89CF-88BAF66A146B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3352,7 +3352,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B2079BA9-A5C6-4854-92D5-0BBE6AA22596"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3368,7 +3368,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "3496BAC8-9644-402A-A728-155665A319D4"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3384,7 +3384,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "FB882D5B-B699-4C01-90E1-2C73606CFEBD"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3400,7 +3400,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "433AA860-AD55-47BD-9BB6-E339F1EECC07"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3416,7 +3416,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D96747C4-0C0F-41DA-AD5E-37236914899B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3432,7 +3432,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D563CCF1-B4BF-4301-BA2E-8E3E589C70BA"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy_shared/addy_shared/dependencies/ThirdPartyMailer/ThirdPartyMailClient.swift"
@@ -3448,7 +3448,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "74A07565-3920-4E46-BFC7-CA03DC5811F9"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -3464,7 +3464,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "FC218B20-CF4A-4813-BCD4-CBC4E042AA6D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -3544,7 +3544,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "341C3BFF-2295-4B09-8DC7-D7826B931723"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -3560,7 +3560,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "5ED20586-7819-464D-8A84-3A9AAD28D9E4"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -3576,7 +3576,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "BD50C051-9378-4D5F-950E-72126F3E5B9E"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -3592,7 +3592,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "45946BA7-88BE-43C8-A609-DA1142223EAE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -3608,7 +3608,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "3C17839C-9E4F-4A25-AB38-3A9D36906D8D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -3982,8 +3982,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3998,8 +3998,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -4104,7 +4104,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "AB37EBD9-B058-4966-8852-479D7BA2EF6D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShareExtension/ShareViewController.swift"
@@ -4124,8 +4124,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -4140,8 +4140,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -4156,8 +4156,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -4172,40 +4172,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5E3AD82E-FB24-40FF-A433-D99AE8476263"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F9DC4551-7DBF-4C6F-97CA-FC4230E2A083"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -4214,7 +4182,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "AB6C74AF-76D5-42E9-98D9-92631818BA67"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -4230,7 +4198,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "1510677C-BF9C-4E07-99B5-5CD7ABD31A7E"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -4240,57 +4208,13 @@
             endingLineNumber = "267"
             landmarkName = "checkIfAliasExists(text:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1510677C-BF9C-4E07-99B5-5CD7ABD31A7E - 54e6135c4316a459"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "267"
-                  endingLineNumber = "267">
-               </Location>
-               <Location
-                  uuid = "1510677C-BF9C-4E07-99B5-5CD7ABD31A7E - e67b5cd7dbad4966"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) await resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "267"
-                  endingLineNumber = "267">
-               </Location>
-               <Location
-                  uuid = "1510677C-BF9C-4E07-99B5-5CD7ABD31A7E - 3596c3ef112b7857"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "267"
-                  endingLineNumber = "267">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "EB9ED5D9-F4DA-4B80-B0C3-8248299CB779"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -4300,43 +4224,13 @@
             endingLineNumber = "268"
             landmarkName = "checkIfAliasExists(text:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EB9ED5D9-F4DA-4B80-B0C3-8248299CB779 - 54e6135c4316a417"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "269"
-                  endingLineNumber = "269">
-               </Location>
-               <Location
-                  uuid = "EB9ED5D9-F4DA-4B80-B0C3-8248299CB779 - 3596c3ef112b7819"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "269"
-                  endingLineNumber = "269">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B344E4DF-5F4A-40B2-BEEA-06A54DDD5685"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -4346,71 +4240,13 @@
             endingLineNumber = "249"
             landmarkName = "checkIfAliasExists(text:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B344E4DF-5F4A-40B2-BEEA-06A54DDD5685 - 7477a2cd6d41e389"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "249"
-                  endingLineNumber = "249">
-               </Location>
-               <Location
-                  uuid = "B344E4DF-5F4A-40B2-BEEA-06A54DDD5685 - 8011eb812395f6ba"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "249"
-                  endingLineNumber = "249">
-               </Location>
-               <Location
-                  uuid = "B344E4DF-5F4A-40B2-BEEA-06A54DDD5685 - 54e6135c4316a78b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "249"
-                  endingLineNumber = "249">
-               </Location>
-               <Location
-                  uuid = "B344E4DF-5F4A-40B2-BEEA-06A54DDD5685 - 5cee42778d69d84"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(6) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "249"
-                  endingLineNumber = "249">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "7A1163CB-5890-4BFE-A067-8F46A2520DCC"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -4420,43 +4256,13 @@
             endingLineNumber = "250"
             landmarkName = "checkIfAliasExists(text:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "7A1163CB-5890-4BFE-A067-8F46A2520DCC - 54e6135c4316a7aa"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "250"
-                  endingLineNumber = "250">
-               </Location>
-               <Location
-                  uuid = "7A1163CB-5890-4BFE-A067-8F46A2520DCC - 54e6135c4316a7aa"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.checkIfAliasExists(text: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "250"
-                  endingLineNumber = "250">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D9575785-0722-4750-B311-648347E2642D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -4466,71 +4272,13 @@
             endingLineNumber = "283"
             landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D9575785-0722-4750-B311-648347E2642D - a69a9264b37d459b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "283"
-                  endingLineNumber = "283">
-               </Location>
-               <Location
-                  uuid = "D9575785-0722-4750-B311-648347E2642D - 5e6ca02be514a18a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "283"
-                  endingLineNumber = "283">
-               </Location>
-               <Location
-                  uuid = "D9575785-0722-4750-B311-648347E2642D - 44750a0829160199"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "283"
-                  endingLineNumber = "283">
-               </Location>
-               <Location
-                  uuid = "D9575785-0722-4750-B311-648347E2642D - 337bf61be4036398"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "283"
-                  endingLineNumber = "283">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "1CB8A30E-ABED-4BBB-BCF6-8D0BEB30B80A"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -4540,43 +4288,13 @@
             endingLineNumber = "285"
             landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1CB8A30E-ABED-4BBB-BCF6-8D0BEB30B80A - 44750a08291601d7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "285"
-                  endingLineNumber = "285">
-               </Location>
-               <Location
-                  uuid = "1CB8A30E-ABED-4BBB-BCF6-8D0BEB30B80A - a6d9a9a096a327f6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor @Sendable () -&gt; () in addy.MailToActionSheet.addAliasToAccount(domain: Swift.String, description: Swift.String, format: Swift.String, localPart: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/ShareExtension.source/MailToActionSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "286"
-                  endingLineNumber = "286">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "FD77AFEB-3D21-4461-8D6E-0F9683BA00C3"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -4592,7 +4310,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "96695E8D-C96C-40CF-9342-90ED75B274CC"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
@@ -4608,7 +4326,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A2B91C60-8199-4953-912A-148DBBDFBB41"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/App lifecycle/AppDelegate.swift"
@@ -4624,7 +4342,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "06AFE016-4CAE-4553-BAC8-34E8D00BD59F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/App lifecycle/AppDelegate.swift"
@@ -4640,7 +4358,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "5933785C-2008-48A5-8A9C-23587D3580AB"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/App lifecycle/AppDelegate.swift"
@@ -4672,7 +4390,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A613F04F-8743-44B8-9B09-2A12937CA3F2"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/App lifecycle/AppDelegate.swift"
@@ -4688,7 +4406,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "819FAD93-A744-4345-97C4-69DD3265E972"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/App lifecycle/AppDelegate.swift"
@@ -4768,7 +4486,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "91F424DB-75E9-4F36-88A4-2B95CBCA8504"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/addyApp.swift"
@@ -4784,7 +4502,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2E6400C0-6B66-4849-A909-AA928C4D7E8A"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/addyApp.swift"
@@ -4800,7 +4518,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F09F0400-9BE6-46CC-BDFD-600C2B6ED8AF"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/addyApp.swift"
@@ -4848,7 +4566,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "176CECBF-D537-45A7-98C2-023D7FC6CCA5"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -4864,7 +4582,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E0200A84-2EC5-4222-BAEB-768BC02F7D42"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -4880,7 +4598,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "08C23CC9-0FDF-489C-B636-3730486443D9"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -4896,7 +4614,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E7BFD997-0B4E-4787-B840-D7CCE80E92A4"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -4912,7 +4630,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9CFD293C-CC3F-4D38-B719-45520001DDDA"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -4928,7 +4646,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9EDC4A84-4A13-4ABE-A1AE-6E6B55089260"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/notification/NotificationActionHelper.swift"
@@ -4944,7 +4662,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "CF2D242B-C197-4494-9A23-4790CFB2AA74"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/aliases/AliasesView.swift"
@@ -5062,8 +4780,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "332"
-            endingLineNumber = "332"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
             landmarkName = "checkTokenExpiry()"
             landmarkType = "7">
          </BreakpointContent>
@@ -5078,8 +4796,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
             landmarkName = "checkTokenExpiry()"
             landmarkType = "7">
          </BreakpointContent>
@@ -5094,8 +4812,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "448"
-            endingLineNumber = "448"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
             landmarkName = "refreshGeneralData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -5110,8 +4828,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "337"
-            endingLineNumber = "337"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
             landmarkName = "checkTokenExpiry()"
             landmarkType = "7">
          </BreakpointContent>
@@ -5126,8 +4844,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
             landmarkName = "checkTokenExpiry()"
             landmarkType = "7">
          </BreakpointContent>
@@ -5456,7 +5174,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B6698B50-4743-48DC-8BDD-AA0413510D61"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/helpers/SubscriptionsManager.swift"
@@ -5472,7 +5190,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "540D8608-3E9B-4AFF-929F-692A5E52D571"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/helpers/SubscriptionsManager.swift"
@@ -5488,7 +5206,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B0D6D30F-8A53-4C64-A52E-FB00A4C353E2"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/helpers/SubscriptionsManager.swift"
@@ -5504,7 +5222,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "DF431203-6F5D-4AE6-ABD4-0399A78D1FEA"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/mainview/SubscriptionBottomSheet.swift"
@@ -5520,7 +5238,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "5411AE61-8B3F-4231-8DE2-C136E3E0B4C5"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/mainview/SubscriptionBottomSheet.swift"
@@ -5536,7 +5254,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9A7C9197-2074-450E-BD43-648A954D7ECA"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/mainview/SubscriptionBottomSheet.swift"
@@ -5552,7 +5270,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B2DEB909-8E66-448B-83FC-1F2561591AFE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/mainview/SubscriptionBottomSheet.swift"
@@ -7248,7 +6966,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "546DFEFC-79CE-4285-9CA6-6E3A1F25A504"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/setup/AddApiBottomSheet.swift"
@@ -7258,43 +6976,13 @@
             endingLineNumber = "312"
             landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "546DFEFC-79CE-4285-9CA6-6E3A1F25A504 - 401436decebc68c2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;addy_shared.Login&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; () in addy.AddApiBottomSheet.verifyLogin(username: Swift.String, password: Swift.String, otp: Swift.String, baseUrl: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/View/setup/AddApiBottomSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "312"
-                  endingLineNumber = "312">
-               </Location>
-               <Location
-                  uuid = "546DFEFC-79CE-4285-9CA6-6E3A1F25A504 - 401436decebc68c2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;addy_shared.Login&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; () in addy.AddApiBottomSheet.verifyLogin(username: Swift.String, password: Swift.String, otp: Swift.String, baseUrl: Swift.String) async -&gt; ()"
-                  moduleName = "addy.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/View/setup/AddApiBottomSheet.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "312"
-                  endingLineNumber = "312">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "50DF1C8A-DE48-465A-BBDE-CD4880E8037F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/setup/AddApiBottomSheet.swift"
@@ -7310,14 +6998,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "BACC4AFC-5F65-4745-ADDC-C404EEDFCD5B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "437"
-            endingLineNumber = "437"
+            startingLineNumber = "444"
+            endingLineNumber = "444"
             landmarkName = "addKey(apiKey:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -7326,14 +7014,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "587CC612-CAB8-41F8-904A-E766519235CD"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "438"
-            endingLineNumber = "438"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
             landmarkName = "addKey(apiKey:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -7422,14 +7110,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "30EA4559-50BD-45E9-A195-F2B1D2F430E2"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "615"
-            endingLineNumber = "615">
+            startingLineNumber = "622"
+            endingLineNumber = "622">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -7442,8 +7130,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "424"
-            endingLineNumber = "424"
+            startingLineNumber = "431"
+            endingLineNumber = "431"
             landmarkName = "authenticate()"
             landmarkType = "7">
          </BreakpointContent>
@@ -7458,8 +7146,8 @@
             filePath = "addy/View/mainview/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "424"
-            endingLineNumber = "424"
+            startingLineNumber = "431"
+            endingLineNumber = "431"
             landmarkName = "authenticate()"
             landmarkType = "7">
          </BreakpointContent>
@@ -7468,7 +7156,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "47AAD1E8-3319-4712-A8C6-FBA8188D21E4"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/appsettings/UIUXInterfaceBottomSheet.swift"
@@ -7484,7 +7172,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F1E49C67-1D5E-49E5-A312-E3FE4824E0FF"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/appsettings/UIUXInterfaceBottomSheet.swift"
@@ -7500,7 +7188,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "280D3406-6823-4A45-BE97-9618BCC7A58D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/appsettings/UIUXInterfaceBottomSheet.swift"
@@ -7516,7 +7204,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "30543DB2-36A9-48C7-8699-6615D2A188E7"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "addy/View/appsettings/UIUXInterfaceBottomSheet.swift"
@@ -7526,34 +7214,336 @@
             endingLineNumber = "40"
             landmarkName = "body"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "71A67363-FBC9-4327-AC42-A3B288D4EC9E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
+            landmarkName = "checkForPendingURLFromShareViewController()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ACA38333-2338-421D-AE38-860362D7BD15"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
+            landmarkName = "checkForPendingURLFromShareViewController()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B0E92143-CE8C-483F-B6A8-BA86DFA80E3C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "326"
+            endingLineNumber = "326"
+            landmarkName = "checkForPendingURLFromShareViewController()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6D8E6C22-021F-4592-A81C-C74273D900D1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "checkForPendingURLFromShareViewController()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B9851D93-5C1B-468D-854A-A664B01E5330"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
+            landmarkName = "checkForPendingURLFromShareViewController()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "61AAD58E-5BA2-44D4-9F8C-FDD9D28F7135"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
+            landmarkName = "checkForPendingURLFromShareViewController()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2581847E-D958-48E6-931A-C6C697653472"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7566DA82-9B25-4392-8F80-C3D14402507F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
+            landmarkName = "handleURL(url:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0E196898-9E93-4737-8CAA-E3E105D7F58D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
+            landmarkName = "handleURL(url:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7EAA0B6D-5432-4CF0-879C-DB159FFCC309"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "handleURL(url:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A126EAAC-F111-41FF-9809-8B1B92329891"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
+            landmarkName = "handleURL(url:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FC91269B-E227-48C8-81DC-8BBE24A20D0E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
+            landmarkName = "handleURL(url:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "88A6E3D4-926C-4244-8AE0-5E230587F260"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "handleURL(url:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F5C752D-8D32-4E31-91B8-FC581679CBE5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
+            landmarkName = "checkForPendingURLFromShareViewController()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1B7726D3-3E42-46B8-98EB-A4609C80B4EB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/addyApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "24D8CE12-9826-4C2B-85C3-1748B476DD81"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/ShareViewControllerPendingUrlView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "body"
+            landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "30543DB2-36A9-48C7-8699-6615D2A188E7 - 85a587c0dc82d7b9"
+                  uuid = "24D8CE12-9826-4C2B-85C3-1748B476DD81 - b5ab82c4650371b8"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #3 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Section&lt;SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, SwiftUI.EmptyView&gt;, SwiftUI.Section&lt;SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.Layout.callAsFunction&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(() -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.EmptyView&gt;)&gt; in addy.UIUXInterfaceBottomSheet.body.getter : some"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.controlSize(SwiftUI.ControlSize) -&gt; some&gt;&gt;.0)&gt; in addy.ShareViewControllerPendingUrlView.body.getter : some"
                   moduleName = "addy.debug.dylib"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/View/appsettings/UIUXInterfaceBottomSheet.swift"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/View/mainview/ShareViewControllerPendingUrlView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40">
+                  startingLineNumber = "19"
+                  endingLineNumber = "19">
                </Location>
                <Location
-                  uuid = "30543DB2-36A9-48C7-8699-6615D2A188E7 - a55a5bcab9b5f1e3"
+                  uuid = "24D8CE12-9826-4C2B-85C3-1748B476DD81 - ec760067ea5c35c3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (addy.Destination) -&gt; Swift.Bool in closure #3 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Section&lt;SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, SwiftUI.EmptyView&gt;, SwiftUI.Section&lt;SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.Layout.callAsFunction&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(() -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.EmptyView&gt;)&gt; in addy.UIUXInterfaceBottomSheet.body.getter : some"
+                  symbolName = "closure #1 @Swift.MainActor @Sendable (Swift.Bool) -&gt; () in closure #1 @Swift.MainActor () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.controlSize(SwiftUI.ControlSize) -&gt; some&gt;&gt;.0)&gt; in addy.ShareViewControllerPendingUrlView.body.getter : some"
                   moduleName = "addy.debug.dylib"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/View/appsettings/UIUXInterfaceBottomSheet.swift"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/View/mainview/ShareViewControllerPendingUrlView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40">
+                  startingLineNumber = "19"
+                  endingLineNumber = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "976475D3-45A9-4040-A354-62F995BD4B84"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/mainview/ShareViewControllerPendingUrlView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "976475D3-45A9-4040-A354-62F995BD4B84 - 36fc64cfa1ba2a19"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.controlSize(SwiftUI.ControlSize) -&gt; some&gt;&gt;.0)&gt; in addy.ShareViewControllerPendingUrlView.body.getter : some"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/View/mainview/ShareViewControllerPendingUrlView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18">
+               </Location>
+               <Location
+                  uuid = "976475D3-45A9-4040-A354-62F995BD4B84 - b5ab82c4650371b8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.controlSize(SwiftUI.ControlSize) -&gt; some&gt;&gt;.0)&gt; in addy.ShareViewControllerPendingUrlView.body.getter : some"
+                  moduleName = "addy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stjin/Documents/Projects/addy.io/iOS_addy.io/addy/addy/View/mainview/ShareViewControllerPendingUrlView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19">
                </Location>
             </Locations>
          </BreakpointContent>

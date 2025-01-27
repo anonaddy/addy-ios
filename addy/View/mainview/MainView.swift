@@ -13,13 +13,13 @@ import LocalAuthentication
 struct MainView: View {
     @EnvironmentObject var mainViewState: MainViewState
     @StateObject private var aliasesViewState = AliasesViewState.shared // Needs to be shared so that filters can be applied from other views
-
+    
     // MARK: Share sheet AND MailTo tap action
     @State var pendingURLFromShareViewController: IdentifiableURL? = nil
     // MARK: END Share sheet AND MailTo tap action
     
     @Environment(\.scenePhase) var scenePhase
-
+    
     
     @State private var apiTokenExpiryText = ""
     @State private var subscriptionExpiryText = ""
@@ -71,32 +71,12 @@ struct MainView: View {
                             SettingsManager(encrypted: false).putSettingsInt(key: .timesTheAppHasBeenOpened, int:
                                                                                 SettingsManager(encrypted: false).getSettingsInt(key: .timesTheAppHasBeenOpened) + 1)
                             
-                            #if DEBUG
+#if DEBUG
                             print("App has been opened \(SettingsManager(encrypted: false).getSettingsInt(key: .timesTheAppHasBeenOpened)) times")
-                            #endif
+#endif
                             
                             
-                            // Check if the value exists in the array, default (but dont reset) to home if not (this could occur if eg. a tablet backup (which has more options) gets restored on mobile)
-                            // Don't reset the value as this app could be opened in splitscreen, we don't want to reset the value then.
-                            
-                            let destinations = horizontalSize == .regular ? Destination.otherCases : Destination.iPhoneCases
-                            let startupPage = SettingsManager(encrypted: false).getSettingsString(key: .startupPage) ?? "home"
-
-                            if destinations.contains(where: { $0.value == startupPage }){
-                            switch startupPage {
-                            case Destination.home.value: mainViewState.selectedTab = .home
-                            case Destination.aliases.value: mainViewState.selectedTab =  .aliases
-                            case Destination.recipients.value: mainViewState.selectedTab =  .recipients
-                            case Destination.usernames.value: mainViewState.selectedTab =  .usernames
-                            case Destination.domains.value: mainViewState.selectedTab =  .domains
-                            case Destination.failedDeliveries.value: mainViewState.selectedTab =  .failedDeliveries
-                            case Destination.rules.value: mainViewState.selectedTab =  .rules
-                            case Destination.settings.value: mainViewState.selectedTab =  .settings
-                            default:
-                                break
-                            }
-                        }
-
+                            openDefaultPage()
                         })
                         .alert(isPresented: Binding<Bool>(
                             get: { self.mainViewState.showApiExpirationWarning || self.mainViewState.showSubscriptionExpirationWarning },
@@ -210,19 +190,8 @@ struct MainView: View {
                         mainViewState.selectedTab = .aliases
                     }
                     
+                    checkForPendingURLFromShareViewController()
                     
-                    // Check if there are pendingURLFromShareViewController
-                    if let url = SettingsManager(encrypted: true).getSettingsString(key: .pendingURLFromShareViewController) {
-                        
-                        if url.starts(with: "addyio://") {
-                            UIApplication.shared.open(URL(string: "\(url)")!, options: [:], completionHandler: nil)
-                        } else {
-                            pendingURLFromShareViewController = IdentifiableURL(url: URL(string: "\(url)")!)
-                        }
-                        
-                        // Remove to prevent any future references
-                        SettingsManager(encrypted: true).removeSetting(key: .pendingURLFromShareViewController)
-                    }
                     
                     // Check this every time the app is come to foreground
                     checkForAlerts()
@@ -285,6 +254,29 @@ struct MainView: View {
         
     }
     
+    private func openDefaultPage(){
+        // Check if the value exists in the array, default (but dont reset) to home if not (this could occur if eg. a tablet backup (which has more options) gets restored on mobile)
+        // Don't reset the value as this app could be opened in splitscreen, we don't want to reset the value then.
+        
+        let destinations = horizontalSize == .regular ? Destination.otherCases : Destination.iPhoneCases
+        let startupPage = SettingsManager(encrypted: false).getSettingsString(key: .startupPage) ?? "home"
+        
+        if destinations.contains(where: { $0.value == startupPage }){
+            switch startupPage {
+            case Destination.home.value: mainViewState.selectedTab = .home
+            case Destination.aliases.value: mainViewState.selectedTab =  .aliases
+            case Destination.recipients.value: mainViewState.selectedTab =  .recipients
+            case Destination.usernames.value: mainViewState.selectedTab =  .usernames
+            case Destination.domains.value: mainViewState.selectedTab =  .domains
+            case Destination.failedDeliveries.value: mainViewState.selectedTab =  .failedDeliveries
+            case Destination.rules.value: mainViewState.selectedTab =  .rules
+            case Destination.settings.value: mainViewState.selectedTab =  .settings
+            default:
+                break
+            }
+        }
+    }
+    
     
     private func handleURL(url: URL) {
         switch url.host {
@@ -326,6 +318,21 @@ struct MainView: View {
         }
     }
     
+    private func checkForPendingURLFromShareViewController(){
+        // Check if there are pendingURLFromShareViewController
+        if let url = SettingsManager(encrypted: true).getSettingsString(key: .pendingURLFromShareViewController) {
+            
+            // eg. addyio://alias/\(aliasId)" (from ShareViewController)
+            if url.starts(with: "addyio://") {
+                UIApplication.shared.open(URL(string: "\(url)")!, options: [:], completionHandler: nil)
+            } else {
+                pendingURLFromShareViewController = IdentifiableURL(url: URL(string: "\(url)")!)
+            }
+            
+            // Remove to prevent any future references
+            SettingsManager(encrypted: true).removeSetting(key: .pendingURLFromShareViewController)
+        }
+    }
     
     private func checkTokenExpiry() async {
         do {
@@ -545,7 +552,7 @@ public enum Destination: Hashable, CaseIterable {
         case .rules: return "rules"
         case .settings: return "settings"
         case .subscription: return "subscription"
-
+            
         }
     }
     
@@ -560,7 +567,7 @@ public enum Destination: Hashable, CaseIterable {
         case .rules: return "rules"
         case .settings: return "settings"
         case .subscription: return "subscription"
-
+            
         }
     }
     
@@ -575,7 +582,7 @@ public enum Destination: Hashable, CaseIterable {
         case .rules: return "checklist"
         case .settings: return "gear"
         case .subscription: return "creditcard.fill"
-
+            
         }
     }
     

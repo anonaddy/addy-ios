@@ -719,8 +719,9 @@ struct AliasDetailView: View {
         } catch {
             
             // Reset this value to prevent re-opening the AliasDetailView when coming back to the app later if the alias failed to load
-            MainViewState.shared.showAliasWithId = nil
-            MainViewState.shared.aliasToDisable = nil
+            
+            MainViewState.shared.showAliasWithId = nil // This will close the aliasDetailView
+            MainViewState.shared.aliasToDisable = nil // This will close the aliasDetailView
             
             withAnimation {
                 self.errorText = error.localizedDescription
