@@ -2511,6 +2511,17 @@
         }
       }
     },
+    "download_failed_delivery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download failed delivery"
+          }
+        }
+      }
+    },
     "edit_auto_create_regex" : {
       "extractionState" : "manual",
       "localizations" : {

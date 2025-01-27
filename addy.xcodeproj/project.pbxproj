@@ -124,6 +124,7 @@
 		805A74532C1F5C1600C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805A74522C1F5C1500C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift */; };
 		805A74552C1F5FC200C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805A74542C1F5FC100C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift */; };
 		805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */; };
+		805CB1D32D47E561007ED28D /* DocumentInteractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805CB1D22D47E561007ED28D /* DocumentInteractionView.swift */; };
 		805D66A02C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D669F2C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift */; };
 		805D66A32C1F4C870085CCED /* PrettyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D66A22C1F4C860085CCED /* PrettyTime.swift */; };
 		8062CFE02C1487B600EFFB4C /* ActionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8062CFDF2C1487B600EFFB4C /* ActionBottomSheet.swift */; };
@@ -379,6 +380,7 @@
 		805A74522C1F5C1500C94E2D /* AppSettingsFeaturesNotifyDomainErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyDomainErrorView.swift; sourceTree = "<group>"; };
 		805A74542C1F5FC100C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifySubscriptionExpiryView.swift; sourceTree = "<group>"; };
 		805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBottomSheet.swift; sourceTree = "<group>"; };
+		805CB1D22D47E561007ED28D /* DocumentInteractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentInteractionView.swift; sourceTree = "<group>"; };
 		805D669F2C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyApiTokenExpiryView.swift; sourceTree = "<group>"; };
 		805D66A22C1F4C860085CCED /* PrettyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrettyTime.swift; sourceTree = "<group>"; };
 		8062CFDF2C1487B600EFFB4C /* ActionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBottomSheet.swift; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 		801B92A52BE9128500179EB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				805CB1D22D47E561007ED28D /* DocumentInteractionView.swift */,
 				801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */,
 				806F21322BE8F1B100EBEBC8 /* addyApp.swift */,
 				806F21342BE8F1B100EBEBC8 /* SplashView.swift */,
@@ -1525,6 +1528,7 @@
 				80E082692BF7DA8200B51FB8 /* FilterOptionsAliasBottomSheet.swift in Sources */,
 				80813B752C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift in Sources */,
 				80AC67082BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift in Sources */,
+				805CB1D32D47E561007ED28D /* DocumentInteractionView.swift in Sources */,
 				80477DE02C1222AE00E52AF8 /* RulesViewModel.swift in Sources */,
 				80E8499F2BEB802D00C8D68A /* HomeView.swift in Sources */,
 				80477DE52C12261300E52AF8 /* CreateRulesView.swift in Sources */,

@@ -830,6 +830,71 @@ AddyIo.API_BASE_URL = defaultBaseUrl
     }
     
     
+    public func downloadFailedDelivery(failedDeliveryId: String) async throws -> URL {
+    #if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+    #endif
+        
+        let url = URL(string: "\(AddyIo.API_URL_FAILED_DELIVERIES)/\(failedDeliveryId)/download")!
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = getHeaders()
+        
+        let (temporaryURL, response) = try await URLSession.shared.download(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "downloadFailedDelivery",
+                extra: error.failureURLString)
+            throw error
+        }
+        
+        switch httpResponse.statusCode {
+        case 200:
+            // Create a permanent URL for the downloaded file
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let fileURL = documentsURL.appendingPathComponent("\(failedDeliveryId).eml")
+            
+            // Move the temporary file to a permanent location
+            do {
+                if FileManager.default.fileExists(atPath: fileURL.path) {
+                    try FileManager.default.removeItem(at: fileURL)
+                }
+                try FileManager.default.moveItem(at: temporaryURL, to: fileURL)
+                return fileURL
+            } catch {
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: "Failed to move file: \(error.localizedDescription)",
+                    method: "downloadFailedDelivery",
+                    extra: nil)
+                throw error
+            }
+        case 401:
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(Data().base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
+            
+            self.createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired)
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "downloadFailedDelivery",
+                extra: ErrorHelper.getErrorMessage(data: Data()))
+            throw URLError(.badServerResponse)
+        }
+    }
+    
+    
     public func getDomainOptions() async throws -> DomainOptions? {
 #if DEBUG
         print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
