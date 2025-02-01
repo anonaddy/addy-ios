@@ -31,7 +31,7 @@
                     "version": "1.2.0",
                     "date": "2025-02-01T00:00:00+02:00",
                     "size": 20898363,
-                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/3d641e66a6d9c4292401ec9dcaa780971fb985cc/builds/appstorelessRelease%202024-12-29%2014-54-10/addy.ipa",
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/d77e2fbcf3ca279cd394f8527e1dc4cdae522639/builds/appstorelessRelease%202025-02-01%2015-54-48/addy.ipa",
                     "localizedDescription": "- Added the ability to change the default tab to open on app launch\n- Added the ability to download failed deliveries (if enabled)",
                     "minOSVersion": "17.0"
                 },
