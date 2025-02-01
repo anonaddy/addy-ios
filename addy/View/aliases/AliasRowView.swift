@@ -33,18 +33,40 @@ struct AliasRowView: View {
         
         
         if let description = alias.description {
-            self.aliasDescription =  String(format: String(localized: "s_s_s"),
-                                            description,
-                                            String(format: NSLocalizedString("created_at_s", comment: ""),
-                                                   DateTimeUtils.turnStringIntoLocalString(alias.created_at)),
-                                            String(format: String(localized: "updated_at_s"),
-                                                   DateTimeUtils.turnStringIntoLocalString(alias.updated_at)))
+            
+            do {
+                self.aliasDescription =  String(format: String(localized: "s_s_s"),
+                                                description,
+                                                String(format: NSLocalizedString("created_at_s", comment: ""),
+                                                       try DateTimeUtils.convertStringToLocalTimeZoneDate(alias.created_at).aliasRowDateDisplay()),
+                                                String(format: String(localized: "updated_at_s"),
+                                                       try DateTimeUtils.convertStringToLocalTimeZoneDate(alias.updated_at).aliasRowDateDisplay()))
+            }
+            catch {
+                self.aliasDescription =  String(format: String(localized: "s_s_s"),
+                                                description,
+                                                String(format: NSLocalizedString("created_at_s", comment: ""),
+                                                       DateTimeUtils.convertStringToLocalTimeZoneString(alias.created_at)),
+                                                String(format: String(localized: "updated_at_s"),
+                                                       DateTimeUtils.convertStringToLocalTimeZoneString(alias.updated_at)))
+            }
+            
         } else {
-            self.aliasDescription =  String(format: String(localized: "s_s"),
-                                            String(format: NSLocalizedString("created_at_s", comment: ""),
-                                                   DateTimeUtils.turnStringIntoLocalString(alias.created_at)),
-                                            String(format: String(localized: "updated_at_s"),
-                                                   DateTimeUtils.turnStringIntoLocalString(alias.updated_at)))
+            
+            do {
+                self.aliasDescription =  String(format: String(localized: "s_s"),
+                                                String(format: NSLocalizedString("created_at_s", comment: ""),
+                                                       try DateTimeUtils.convertStringToLocalTimeZoneDate(alias.created_at).aliasRowDateDisplay()),
+                                                String(format: String(localized: "updated_at_s"),
+                                                       try DateTimeUtils.convertStringToLocalTimeZoneDate(alias.updated_at).aliasRowDateDisplay()))
+            }
+            catch {
+                self.aliasDescription =  String(format: String(localized: "s_s"),
+                                                String(format: NSLocalizedString("created_at_s", comment: ""),
+                                                       DateTimeUtils.convertStringToLocalTimeZoneString(alias.created_at)),
+                                                String(format: String(localized: "updated_at_s"),
+                                                       DateTimeUtils.convertStringToLocalTimeZoneString(alias.updated_at)))
+            }
         }
     }
     

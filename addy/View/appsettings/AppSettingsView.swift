@@ -12,7 +12,7 @@ import LocalAuthentication
 struct AppSettingsView: View {
     @EnvironmentObject var mainViewState: MainViewState
     
-    @State private var isPresentingAppearanceBottomSheet: Bool = false
+    @State private var isPresentingUIUXInterfaceBottomSheet: Bool = false
     
     @State private var storeLogs: Bool = false
     @State private var privacyMode: Bool = false
@@ -73,16 +73,14 @@ struct AppSettingsView: View {
             }
             
             Section {
-                AddySection(title: String(localized: "appearance"), description: String(localized: "appearance_desc"), leadingSystemimage: "app.dashed",leadingSystemimageColor: .orange){
-                    isPresentingAppearanceBottomSheet = true
+                AddySection(title: String(localized: "interface"), description: String(localized: "interface_desc"), leadingSystemimage: "app.dashed",leadingSystemimageColor: .orange){
+                    isPresentingUIUXInterfaceBottomSheet = true
                 }
                 NavigationLink(destination: AppSettingsUpdateView()) {
                     AddySection(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_desc"), leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue)
                 }
                 NavigationLink(destination: AppSettingsFeaturesView()) {
-                    AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor){
-                        isPresentingAppearanceBottomSheet = true
-                    }
+                    AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor)
                 }
                 
                 //                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor){
@@ -240,9 +238,9 @@ struct AppSettingsView: View {
             
            
         })
-        .sheet(isPresented: $isPresentingAppearanceBottomSheet, content: {
+        .sheet(isPresented: $isPresentingUIUXInterfaceBottomSheet, content: {
             NavigationStack {
-                AppearanceBottomSheet()
+                UIUXInterfaceBottomSheet(horizontalSize: $horizontalSize)
             }
             .presentationDetents([.medium, .large])
         })

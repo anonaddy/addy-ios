@@ -32,7 +32,7 @@ struct AccountNotificationBottomSheet: View {
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)
             } footer: {
-                Text(DateTimeUtils.turnStringIntoLocalString(accountNotification.created_at))
+                Text(DateTimeUtils.convertStringToLocalTimeZoneString(accountNotification.created_at))
                     .font(.system(size: 12))
                     .foregroundColor(.gray)
                     .italic()

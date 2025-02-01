@@ -1,5 +1,16 @@
 # Changelog
 
+## [v1.2.0] - 2025-02-01
+
+### addy.io
+
+**Added**
+- Added the ability to change the default tab to open on app launch
+- Added the ability to download failed deliveries (if enabled)
+
+**Fixed/Improved**
+- Improve wording of dates in alias list
+
 ## [v1.1.6] - 2024-12-29
 
 ### addy.io

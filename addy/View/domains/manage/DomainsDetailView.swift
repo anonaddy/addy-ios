@@ -74,11 +74,11 @@ struct DomainsDetailView: View {
                 Section {
                     Text(String(format: String(localized: "manage_domain_basic_info"),
                                 domain.domain,
-                                DateTimeUtils.turnStringIntoLocalString(domain.created_at),
-                                DateTimeUtils.turnStringIntoLocalString(domain.updated_at),
-                                DateTimeUtils.turnStringIntoLocalString(domain.domain_verified_at),
-                                DateTimeUtils.turnStringIntoLocalString(domain.domain_mx_validated_at),
-                                DateTimeUtils.turnStringIntoLocalString(domain.domain_sending_verified_at),
+                                DateTimeUtils.convertStringToLocalTimeZoneString(domain.created_at),
+                                DateTimeUtils.convertStringToLocalTimeZoneString(domain.updated_at),
+                                DateTimeUtils.convertStringToLocalTimeZoneString(domain.domain_verified_at),
+                                DateTimeUtils.convertStringToLocalTimeZoneString(domain.domain_mx_validated_at),
+                                DateTimeUtils.convertStringToLocalTimeZoneString(domain.domain_sending_verified_at),
                                 String(totalForwarded), String(totalBlocked), String(totalReplies), String(totalSent)))
                     
                     

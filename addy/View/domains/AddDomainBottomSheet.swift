@@ -21,7 +21,8 @@ struct AddDomainBottomSheet: View {
     
     @State private var domainValidationError:String?
     @State private var domainRequestError:String?
-    
+    @State private var valueCopiedToClipboard:Bool = false
+
     @State var domainVerificationStatusText: String = ""
     @State var IsLoadingAddButton: Bool = false
     @State var isWaitingForDomainVerification: Bool = false
@@ -35,9 +36,28 @@ struct AddDomainBottomSheet: View {
         let _ = Self._printChanges()
 #endif
         Group {
+           
             if isWaitingForDomainVerification {
-                Text(domainVerificationStatusText).transition(.opacity).multilineTextAlignment(.center)
-                ProgressView()
+                VStack {
+                    Text(domainVerificationStatusText).transition(.opacity).multilineTextAlignment(.center).padding()
+                    
+                    if self.valueCopiedToClipboard {
+                        Text(String(localized: "verification_record_copied_to_clipboard")).transition(.opacity).multilineTextAlignment(.center).padding()
+                    }
+                    
+                    ProgressView()
+                }.navigationTitle(String(localized: "add_domain")).pickerStyle(.navigationLink)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar(content: {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                dismiss()
+                            } label: {
+                                Text(String(localized: "cancel"))
+                            }
+                            
+                        }
+                    })
             } else {
                 VStack{
                     
@@ -108,7 +128,7 @@ struct AddDomainBottomSheet: View {
         }
        
     }
-
+    
     
     private func addDomainToAccount(domain: String) async {
         domainRequestError = nil
@@ -130,6 +150,18 @@ struct AddDomainBottomSheet: View {
 
     
     private func openSetup(body: String) {
+        
+        // Copy the aa-verify=record
+        if let range = body.range(of: "aa-verify=") {
+            let result = body[range.lowerBound...]
+            UIPasteboard.general.setValue(result,forPasteboardType: UTType.plainText.identifier)
+            
+            self.valueCopiedToClipboard = true
+        } else {
+            self.valueCopiedToClipboard = false
+        }
+        
+
         withAnimation(.easeInOut(duration: 0.5)) {
             self.isWaitingForDomainVerification = true
         }

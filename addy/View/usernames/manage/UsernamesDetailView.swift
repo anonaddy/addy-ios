@@ -74,8 +74,8 @@ struct UsernamesDetailView: View {
                 Section {
                     Text(String(format: String(localized: "manage_username_basic_info"),
                                 username.username,
-                                DateTimeUtils.turnStringIntoLocalString(username.created_at),
-                                DateTimeUtils.turnStringIntoLocalString(username.updated_at),
+                                DateTimeUtils.convertStringToLocalTimeZoneString(username.created_at),
+                                DateTimeUtils.convertStringToLocalTimeZoneString(username.updated_at),
                                 String(totalForwarded), String(totalBlocked), String(totalReplies), String(totalSent)))
                     
                     

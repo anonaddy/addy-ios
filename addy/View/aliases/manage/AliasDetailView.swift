@@ -240,22 +240,22 @@ struct AliasDetailView: View {
                     }
                     
                     AddySection(title: String(localized: "last_forwarded"),
-                                description: alias.last_forwarded != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_forwarded) : String(localized: "unknown"),
+                                description: alias.last_forwarded != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_forwarded) : String(localized: "unknown"),
                                 leadingSystemimage: nil, trailingSystemimage: nil){}
                     AddySection(title: String(localized: "last_replied"),
-                                description: alias.last_replied != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_replied) : String(localized: "unknown"),
+                                description: alias.last_replied != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_replied) : String(localized: "unknown"),
                                 leadingSystemimage: nil, trailingSystemimage: nil){}
                     AddySection(title: String(localized: "last_sent"),
-                                description: alias.last_sent != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_sent) : String(localized: "unknown"),
+                                description: alias.last_sent != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_sent) : String(localized: "unknown"),
                                 leadingSystemimage: nil, trailingSystemimage: nil){}
                     AddySection(title: String(localized: "last_blocked"),
-                                description: alias.last_blocked != nil ? DateTimeUtils.turnStringIntoLocalString(alias.last_blocked) : String(localized: "unknown"),
+                                description: alias.last_blocked != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_blocked) : String(localized: "unknown"),
                                 leadingSystemimage: nil, trailingSystemimage: nil){}
                     AddySection(title: String(localized: "created_at"),
-                                description: alias.created_at != nil ? DateTimeUtils.turnStringIntoLocalString(alias.created_at) : String(localized: "unknown"),
+                                description: alias.created_at != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.created_at) : String(localized: "unknown"),
                                 leadingSystemimage: nil, trailingSystemimage: nil){}
                     AddySection(title: String(localized: "updated_at"),
-                                description: alias.updated_at != nil ? DateTimeUtils.turnStringIntoLocalString(alias.updated_at) : String(localized: "unknown"),
+                                description: alias.updated_at != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.updated_at) : String(localized: "unknown"),
                                 leadingSystemimage: nil, trailingSystemimage: nil){}
                     
                     
@@ -719,8 +719,9 @@ struct AliasDetailView: View {
         } catch {
             
             // Reset this value to prevent re-opening the AliasDetailView when coming back to the app later if the alias failed to load
-            MainViewState.shared.showAliasWithId = nil
-            MainViewState.shared.aliasToDisable = nil
+            
+            MainViewState.shared.showAliasWithId = nil // This will close the aliasDetailView
+            MainViewState.shared.aliasToDisable = nil // This will close the aliasDetailView
             
             withAnimation {
                 self.errorText = error.localizedDescription

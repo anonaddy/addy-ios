@@ -157,8 +157,7 @@ struct DomainsView: View {
                     
                     isPresentingAddDomainBottomSheet = false
                 }
-            }
-            .presentationDetents([.medium])
+            }.presentationDetents([.medium, .large])
         }
         .alert(isPresented: $showAlert) {
             switch activeAlert {

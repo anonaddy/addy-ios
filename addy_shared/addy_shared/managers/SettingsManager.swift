@@ -41,6 +41,7 @@ public class SettingsManager {
         case userResourceExtended
         case backgroundServiceCacheMostActiveAliasesData
         case timesTheAppHasBeenOpened
+        case startupPage
 
         
         // WearOS

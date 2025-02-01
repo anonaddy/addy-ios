@@ -248,15 +248,15 @@ struct UsernamesView: View {
             return String(format: String(localized: "s_s_s"),
                           description,
                           String(format: NSLocalizedString("created_at_s", comment: ""),
-                                 DateTimeUtils.turnStringIntoLocalString(username.created_at)),
+                                 DateTimeUtils.convertStringToLocalTimeZoneString(username.created_at)),
                           String(format: String(localized: "updated_at_s"),
-                                 DateTimeUtils.turnStringIntoLocalString(username.updated_at)))
+                                 DateTimeUtils.convertStringToLocalTimeZoneString(username.updated_at)))
         } else {
             return String(format: String(localized: "s_s"),
                           String(format: NSLocalizedString("created_at_s", comment: ""),
-                                 DateTimeUtils.turnStringIntoLocalString(username.created_at)),
+                                 DateTimeUtils.convertStringToLocalTimeZoneString(username.created_at)),
                           String(format: String(localized: "created_at_s"),
-                                 DateTimeUtils.turnStringIntoLocalString(username.updated_at)))
+                                 DateTimeUtils.convertStringToLocalTimeZoneString(username.updated_at)))
         }
         
     }

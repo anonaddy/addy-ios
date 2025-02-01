@@ -75,8 +75,8 @@ struct RecipientsDetailView: View {
                 Section {
                     Text(String(format: String(localized: "manage_recipient_basic_info"),
                                 recipient.email,
-                                DateTimeUtils.turnStringIntoLocalString(recipient.created_at),
-                                DateTimeUtils.turnStringIntoLocalString(recipient.updated_at),
+                                DateTimeUtils.convertStringToLocalTimeZoneString(recipient.created_at),
+                                DateTimeUtils.convertStringToLocalTimeZoneString(recipient.updated_at),
                                 String(totalForwarded), String(totalBlocked), String(totalReplies), String(totalSent)))
                     
                     

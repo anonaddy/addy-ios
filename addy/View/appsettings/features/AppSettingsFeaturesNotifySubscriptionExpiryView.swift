@@ -57,7 +57,7 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
             if user.subscription != nil {
                 if let subscriptionEndsAt = user.subscription_ends_at {
                     do {
-                        let expiryDate = try DateTimeUtils.turnStringIntoLocalDateTime(subscriptionEndsAt) // Get the expiry date
+                        let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(subscriptionEndsAt) // Get the expiry date
                         let text = expiryDate.futureDateDisplay() // Use the new method here
                         subscriptionExpiryText = String(format: String(localized: "subscription_expiry_date"), text)
                     } catch {
