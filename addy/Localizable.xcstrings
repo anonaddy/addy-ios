@@ -850,7 +850,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 1.1.6**\n\n**Fixed/Improved**\n- Added “Created at” and “Updated at” values to the alias management page"
+            "value" : "**What’s new in addy.io for iOS 1.2.0**\n\n**Added**\n- Added the ability to change the default tab to open on app launch\n- Added the ability to download failed deliveries (if enabled)\n\n**Fixed/Improved**\n- Improve wording of dates in alias list"
           }
         }
       }
