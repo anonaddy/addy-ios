@@ -12,10 +12,12 @@ import AVFoundation
 struct EditAliasSendMailRecipientBottomSheet: View {
     @State private var aliasEmail: String
     let onPressSend: (String) -> Void
+    let onPressCopy: (String) -> Void
 
-    init(aliasEmail: String, onPressSend: @escaping (String) -> Void) {
+    init(aliasEmail: String, onPressSend: @escaping (String) -> Void, onPressCopy: @escaping (String) -> Void) {
         self.aliasEmail = aliasEmail
         self.onPressSend = onPressSend
+        self.onPressCopy = onPressCopy
     }
     
     @State private var addressesValidationError:String?
@@ -44,14 +46,30 @@ struct EditAliasSendMailRecipientBottomSheet: View {
             
             Section {
                 
-                AddyButton(action: {
-                    // Only perform the action whent the addresses are valid
-                    if (addressesValidationError == nil){
-                        self.onPressSend(self.addresses)
+                HStack{
+                    AddyButton(action: {
+                        // Only perform the action whent the addresses are valid
+                        if (addressesValidationError == nil){
+                            self.onPressSend(self.addresses)
+                        }
+                    }) {
+                        Text(String(localized: "send")).foregroundColor(Color.white)
                     }
-                }) {
-                    Text(String(localized: "send")).foregroundColor(Color.white)
+                    
+                    Button() {
+                        // Only perform the action whent the addresses are valid
+                        if (addressesValidationError == nil){
+                            self.onPressCopy(self.addresses)
+                        }
+                    } label: {
+                        Image(systemName: "clipboard.fill")
+                    }
+                   .buttonStyle(.bordered)
+                   .controlSize(.large)
+                   .buttonBorderShape(.circle)
+                    
                 }.frame(minHeight: 56)
+                
 
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
@@ -74,6 +92,8 @@ struct EditAliasSendMailRecipientBottomSheet: View {
 
 #Preview {
     EditAliasSendMailRecipientBottomSheet(aliasEmail: "TEST", onPressSend: { alias in
-        // Dummy function for preview
+        print("SEND")
+    }, onPressCopy: { alias in
+        print("COPY")
     })
 }
