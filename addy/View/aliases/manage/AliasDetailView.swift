@@ -375,11 +375,13 @@ struct AliasDetailView: View {
             }
             .sheet(isPresented: $isPresentingEditAliasSendMailRecipientBottomSheet) {
                 NavigationStack {
-                    EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email){ addresses in
+                    EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email, onPressSend: { addresses in
                         self.onPressSend(client: nil, sendToRecipients: addresses)
                         isPresentingEditAliasSendMailRecipientBottomSheet = false
-                        
-                    }
+                    }, onPressCopy: { addresses in
+                        self.onPressCopy(sendToRecipients: addresses)
+                        isPresentingEditAliasSendMailRecipientBottomSheet = false
+                    })
                 }
                 .presentationDetents([.large])
             }
@@ -515,9 +517,7 @@ struct AliasDetailView: View {
             // Get recipients
             let recipients = AnonAddyUtils.getSendAddress(recipientEmails: sendToRecipients.split(separator: ",").map { String($0) }, alias: alias)
             
-            // Copy the email addresses to clipboard
-            UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
-            showCopiedToClipboardToast()
+            onPressCopy(sendToRecipients: sendToRecipients)
             
             // Prepare mailto URL
             let mailtoURL = client!.composeURL(to: recipients)
@@ -526,6 +526,17 @@ struct AliasDetailView: View {
             UIApplication.shared.open(mailtoURL)
             
         }
+    }
+    
+    private func onPressCopy(sendToRecipients: String) {
+        guard let alias = alias else { return }
+        
+        // Get recipients
+        let recipients = AnonAddyUtils.getSendAddress(recipientEmails: sendToRecipients.split(separator: ",").map { String($0) }, alias: alias)
+        
+        // Copy the email addresses to clipboard
+        UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
+        showCopiedToClipboardToast()
     }
     
     func getRecipients(alias: Aliases) -> String{

@@ -304,9 +304,11 @@ struct AliasesView: View {
             }
             .sheet(item: $aliasToSendMailFrom) { alias in
                 NavigationStack {
-                    EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email) { addresses in
+                    EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email, onPressSend: { addresses in
                         self.onPressSend(client:nil, sendToRecipients: addresses)
-                    }
+                    }, onPressCopy: { addresses in
+                        self.onPressCopy(sendToRecipients: addresses)
+                    })
                 }
                 .presentationDetents([.large])
                 
@@ -619,6 +621,25 @@ struct AliasesView: View {
             aliasToSendMailFromCopy = nil
             
         }
+    }
+    
+    private func onPressCopy(sendToRecipients: String) {
+        
+        // aliasToSendMailFrom will be set to nil when the EditAliasSendMailRecipientBottomSheet gets dismissed, therefore we make a copy of the item and
+        // return if both are nil
+        guard let alias = aliasToSendMailFrom ?? aliasToSendMailFromCopy else {return}
+        
+        // Get recipients
+        let recipients = AnonAddyUtils.getSendAddress(recipientEmails: sendToRecipients.split(separator: ",").map { String($0) }, alias: alias)
+        
+        // Copy the email addresses to clipboard
+        UIPasteboard.general.setValue(recipients.joined(separator: ";"),forPasteboardType: UTType.plainText.identifier)
+        showCopiedToClipboardAnimation()
+        
+        // Set aliasToSendMailFromCopy to nil
+        aliasToSendMailFromCopy = nil
+        
+        aliasToSendMailFrom = nil
     }
     
     private func activateAlias(alias: Aliases) async {
