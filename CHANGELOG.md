@@ -1,5 +1,12 @@
 # Changelog
 
+## [v1.2.1] - 2025-02-20
+
+### addy.io
+
+**Added**
+- Added the ability to only copy the email addresses when sending mail from the app
+
 ## [v1.2.0] - 2025-02-01
 
 ### addy.io

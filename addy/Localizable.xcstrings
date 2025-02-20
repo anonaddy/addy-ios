@@ -850,7 +850,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 1.2.0**\n\n**Added**\n- Added the ability to change the default tab to open on app launch\n- Added the ability to download failed deliveries (if enabled)\n\n**Fixed/Improved**\n- Improve wording of dates in alias list"
+            "value" : "**What’s new in addy.io for iOS 1.2.1**\n\n**Added**\n- Added the ability to only copy the email addresses when sending mail from the app"
           }
         }
       }
@@ -5181,6 +5181,7 @@
       }
     },
     "rate_this_app" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5191,6 +5192,7 @@
       }
     },
     "rate_this_app_desc" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
