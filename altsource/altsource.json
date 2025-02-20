@@ -30,8 +30,8 @@
                 {
                     "version": "1.2.1",
                     "date": "2025-02-20T00:00:00+02:00",
-                    "size": 20898363,
-                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/d77e2fbcf3ca279cd394f8527e1dc4cdae522639/builds/appstorelessRelease%202025-02-01%2015-54-48/addy.ipa",
+                    "size": 20901930,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/ed7e3daa2fdf5c7a17644141386a3eae03bcca89/builds/appstorelessRelease%202025-02-20%2021-04-08/addy.ipa",
                     "localizedDescription": "Added the ability to only copy the email addresses when sending mail from the app",
                     "minOSVersion": "17.0"
                 },
