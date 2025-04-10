@@ -32,7 +32,23 @@ struct AliasRowView: View {
         self.chartData = [aliasEmailForwardedProgress, aliasEmailRepliedProgress, aliasEmailSentProgress, aliasEmailBlockedProgress]
         
         
-        if let description = alias.description {
+        if alias.deleted_at != nil {
+            do {
+                self.aliasDescription =  String(format: String(localized: "s_s"),
+                                                String(format: NSLocalizedString("deleted_at_s", comment: ""),
+                                                       try DateTimeUtils.convertStringToLocalTimeZoneDate(alias.deleted_at).aliasRowDateDisplay()),
+                                                String(format: NSLocalizedString("created_at_s", comment: ""),
+                                                       try DateTimeUtils.convertStringToLocalTimeZoneDate(alias.created_at).aliasRowDateDisplay()))
+            }
+            catch {
+                self.aliasDescription =  String(format: String(localized: "s_s"),
+                                                String(format: NSLocalizedString("deleted_at_s", comment: ""),
+                                                       DateTimeUtils.convertStringToLocalTimeZoneString(alias.deleted_at)),
+                                                String(format: String(localized: "created_at_s"),
+                                                       DateTimeUtils.convertStringToLocalTimeZoneString(alias.created_at)))
+            }
+        
+        } else if let description = alias.description {
             
             do {
                 self.aliasDescription =  String(format: String(localized: "s_s_s"),

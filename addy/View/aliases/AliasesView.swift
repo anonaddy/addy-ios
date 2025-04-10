@@ -650,7 +650,7 @@ struct AliasesView: View {
         } catch {
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_forgetting_alias")
+            errorAlertTitle = String(localized: "error_edit_active")
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -664,13 +664,13 @@ struct AliasesView: View {
             } else {
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_forgetting_alias")
+                errorAlertTitle = String(localized: "error_edit_active")
                 errorAlertMessage = result
             }
         } catch {
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_forgetting_alias")
+            errorAlertTitle = String(localized: "error_edit_active")
             errorAlertMessage = error.localizedDescription
         }
     }

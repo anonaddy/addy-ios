@@ -2206,6 +2206,17 @@
         }
       }
     },
+    "deleted_at_s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleted %@"
+          }
+        }
+      }
+    },
     "deleting_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2823,6 +2834,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Something went wrong while adding the alias"
+          }
+        }
+      }
+    },
+    "error_attached_recipients_only_status" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the enabled state"
           }
         }
       }
@@ -3940,6 +3962,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Latest"
+          }
+        }
+      }
+    },
+    "limit_replies_sends_attached_recipients_only" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit to attached only"
+          }
+        }
+      }
+    },
+    "limit_replies_sends_attached_recipients_only_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only allow verified recipients that are directly attached to this alias to reply or send from it. If this option is enabled and no recipients are directly attached then it will not be possible to reply/send from this alias"
           }
         }
       }
@@ -5181,7 +5223,6 @@
       }
     },
     "rate_this_app" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5192,7 +5233,6 @@
       }
     },
     "rate_this_app_desc" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

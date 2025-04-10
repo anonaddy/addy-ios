@@ -61,6 +61,9 @@ public struct AddyIo {
     static var API_URL_REGISTER: String { "\(API_BASE_URL)/api/auth/register" }
     static var API_URL_LOGIN_VERIFY: String { "\(API_BASE_URL)/api/auth/verify" }
     static var API_URL_DELETE_ACCOUNT: String { "\(API_BASE_URL)/api/auth/delete-account" }
+    
+    // 1.3.2
+    static var API_URL_ATTACHED_RECIPIENTS_ONLY: String { "\(API_BASE_URL)/api/v1/attached-recipients-only" }
 
 
     // Github built-in updater
