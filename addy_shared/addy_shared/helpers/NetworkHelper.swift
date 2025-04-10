@@ -1530,6 +1530,102 @@ AddyIo.API_BASE_URL = defaultBaseUrl
     }
     
     
+    public func activateAttachedRecipientsOnly(aliasId: String) async throws -> Aliases? {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        let url = URL(string: "\(AddyIo.API_URL_ATTACHED_RECIPIENTS_ONLY)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": aliasId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "activateAttachedRecipientsOnly",
+                extra: error.failureURLString)
+            throw error
+        }
+        
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleAlias.self, from: data)
+            return addyIoData.data
+        case 401:
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
+            
+            self.createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired)
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "activateAttachedRecipientsOnly",
+                extra: ErrorHelper.getErrorMessage(data: data))
+            throw URLError(.badServerResponse)
+        }
+    }
+
+    
+    public func deactivateAttachedRecipientsOnly(aliasId: String) async throws -> String {
+    #if DEBUG
+            print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+    #endif
+            let url = URL(string: "\(AddyIo.API_URL_ATTACHED_RECIPIENTS_ONLY)/\(aliasId)")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "DELETE"
+            request.allHTTPHeaderFields = getHeaders()
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                let error = URLError(.badServerResponse)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: error.localizedDescription,
+                    method: "deactivateAttachedRecipientsOnly",
+                    extra: error.failureURLString)
+                throw error
+            }
+            
+            switch httpResponse.statusCode {
+            case 204:
+                return "204"
+            case 401:
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: "401, app will reset",
+                    method: #function,
+                    extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
+                
+                self.createAppResetDueToInvalidAPIKeyNotification()
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+                throw URLError(.userAuthenticationRequired)
+            default:
+                let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+                print(errorMessage)
+                self.loggingHelper.addLog(
+                    importance: LogImportance.critical,
+                    error: errorMessage,
+                    method: "deactivateAttachedRecipientsOnly",
+                    extra: ErrorHelper.getErrorMessage(data: data))
+                throw URLError(.badServerResponse)
+            }
+        }
+    
     
     
     public func activateSpecificRule(ruleId: String) async throws -> Rules? {

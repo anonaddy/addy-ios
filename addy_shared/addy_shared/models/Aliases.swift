@@ -37,6 +37,7 @@ public struct Aliases: Identifiable, Codable, Hashable {
     public var active: Bool
     public let description: String?
     public let from_name: String?
+    public var attached_recipients_only: Bool
     public let emails_forwarded: Int
     public let emails_blocked: Int
     public let emails_replied: Int

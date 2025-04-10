@@ -40,7 +40,9 @@ struct AliasDetailView: View {
     
     @State private var isAliasActive: Bool = false
     @State private var isSwitchingAliasActiveState: Bool = false
+    @State private var isSwitchingAttachedRecipientsOnlyEnabledState: Bool = false
     @State private var isAliasBeingWatched: Bool = false
+    @State private var isAttachedRecipientsOnlyEnabled: Bool = false
     @State private var isPresentingEditAliasDescriptionBottomSheet = false
     @State private var isPresentingEditAliasRecipientsBottomSheet = false
     @State private var isPresentingEditAliasFromNameBottomSheet = false
@@ -183,7 +185,6 @@ struct AliasDetailView: View {
                         .onChange(of: isAliasActive) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if (isAliasActive != alias.active){
-                                //perform your action here...
                                 self.isSwitchingAliasActiveState = true
                                 
                                 if (alias.active){
@@ -220,6 +221,28 @@ struct AliasDetailView: View {
                                 }
                             }
                         }
+                    
+                    
+                    
+                    AddyToggle(isOn: $isAttachedRecipientsOnlyEnabled, isLoading: isSwitchingAttachedRecipientsOnlyEnabledState, title: String(localized: "limit_replies_sends_attached_recipients_only"), description: String(localized: "limit_replies_sends_attached_recipients_only_desc"))
+                        .onChange(of: isAttachedRecipientsOnlyEnabled) {
+                            // Only fire when the value is NOT the same as the value already in the model
+                            if (isAttachedRecipientsOnlyEnabled != alias.attached_recipients_only){
+                                self.isSwitchingAttachedRecipientsOnlyEnabledState = true
+                                
+                                if (alias.attached_recipients_only){
+                                    Task {
+                                        await self.disableAttachedRecipientsOnly(alias: alias)
+                                    }
+                                } else {
+                                    Task {
+                                        await self.enableAttachedRecipientsOnly(alias: alias)
+                                    }
+                                }
+                            }
+                            
+                        }
+      
                     
                     AddySection(title: String(localized: "description"), description: alias.description ?? String(localized: "alias_no_description"), leadingSystemimage: nil, trailingSystemimage: "pencil"){
                         isPresentingEditAliasDescriptionBottomSheet = true
@@ -611,6 +634,51 @@ struct AliasDetailView: View {
             self.isAliasActive = false
             activeAlert = .error
             showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+    
+    
+    private func enableAttachedRecipientsOnly(alias: Aliases) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let activatedAlias = try await networkHelper.activateAttachedRecipientsOnly(aliasId: alias.id)
+            self.isSwitchingAttachedRecipientsOnlyEnabledState = false
+            self.alias = activatedAlias
+            self.isAttachedRecipientsOnlyEnabled = true
+            shouldReloadDataInParent = true
+        } catch {
+            self.isSwitchingAttachedRecipientsOnlyEnabledState = false
+            self.isAttachedRecipientsOnlyEnabled = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_attached_recipients_only_status")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+    
+    private func disableAttachedRecipientsOnly(alias: Aliases) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.deactivateAttachedRecipientsOnly(aliasId: alias.id)
+            self.isSwitchingAttachedRecipientsOnlyEnabledState = false
+            if result == "204" {
+                self.alias?.attached_recipients_only = false
+                self.isAttachedRecipientsOnlyEnabled = false
+                shouldReloadDataInParent = true
+            } else {
+                self.isAttachedRecipientsOnlyEnabled = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_attached_recipients_only_status")
+                errorAlertMessage = result
+            }
+        } catch {
+            self.isSwitchingAttachedRecipientsOnlyEnabledState = false
+            self.isAttachedRecipientsOnlyEnabled = true
+            activeAlert = .error
+            showAlert = true
             errorAlertTitle = String(localized: "error_forgetting_alias")
             errorAlertMessage = error.localizedDescription
         }
@@ -677,7 +745,7 @@ struct AliasDetailView: View {
                 self.isAliasActive = true
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_forgetting_alias")
+                errorAlertTitle = String(localized: "error_edit_active")
                 errorAlertMessage = result
             }
         } catch {
@@ -685,7 +753,7 @@ struct AliasDetailView: View {
             self.isAliasActive = true
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_forgetting_alias")
+            errorAlertTitle = String(localized: "error_edit_active")
             errorAlertMessage = error.localizedDescription
         }
     }
