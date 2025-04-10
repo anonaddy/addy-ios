@@ -1,5 +1,19 @@
 # Changelog
 
+## [v1.3.0] - 2025-04-10
+
+### addy.io
+
+**Added**
+
+- Added support for the new "Restrict replies/sends to attached recipients" feature
+
+**Fixed/Improved**
+
+- Updated dependencies
+- Deleted aliases will now display their deletion time in the aliases overview, distinguishing them from inactive aliases
+- Performance improvements and other things to make the app even smoother
+
 ## [v1.2.1] - 2025-02-20
 
 ### addy.io
