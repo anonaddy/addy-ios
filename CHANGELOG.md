@@ -4,7 +4,7 @@
 
 ### addy.io
 
-**Added**
+**Added**
 
 - Added support for the new "Restrict replies/sends to attached recipients" feature
 
