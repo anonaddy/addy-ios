@@ -28,6 +28,14 @@
             ],
             "versions": [
                 {
+                    "version": "1.3.0",
+                    "date": "2025-04-10T00:00:00+02:00",
+                    "size": 21028797,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/6338bdd384d24eb1bcd4bfc16341c9874ca34e39/builds/appstorelessRelease%202025-04-10%2020-52-27/addy.ipa",
+                    "localizedDescription": "- Added support for the new Restrict replies/sends to attached recipients feature\n- Deleted aliases will now display their deletion time in the aliases overview, distinguishing them from inactive aliases\n- Performance improvements and other things to make the app even smoother",
+                    "minOSVersion": "17.0"
+                },
+                {
                     "version": "1.2.1",
                     "date": "2025-02-20T00:00:00+02:00",
                     "size": 20901930,
