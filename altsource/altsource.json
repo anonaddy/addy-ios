@@ -31,7 +31,7 @@
                     "version": "1.3.1",
                     "date": "2025-06-01T00:00:00+02:00",
                     "size": 21267286,
-                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/e50d7e2c6b6e70da9eccae47eb2f0b3c5b13f63e/builds/appstorelessRelease%202025-04-10%2020-52-27/addy.ipa",
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/a05c987a4dd3d629b973ae2b3987f4e0b2547b11/builds/appstorelessRelease%202025-06-01%2012-12-19/addy.ipa",
                     "localizedDescription": "- Updated dependencies\n- You can now set the description of a new alias through the Shortcuts app\n- Performance improvements and other things to make the app even smoother",
                     "minOSVersion": "17.0"
                 },
