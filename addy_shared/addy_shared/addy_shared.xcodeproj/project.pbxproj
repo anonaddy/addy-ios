@@ -801,7 +801,7 @@
 			repositoryURL = "https://github.com/nmdias/FeedKit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.1.2;
+				minimumVersion = 10.0.1;
 			};
 		};
 		8073C94D2C7881D000DE3640 /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */ = {

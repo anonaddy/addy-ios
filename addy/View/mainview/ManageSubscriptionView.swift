@@ -65,7 +65,7 @@ struct ManageSubscriptionView: View {
     @State private var isNotifyingServer = false
     @State private var purchasedItem: StoreKit.Transaction? = nil
     @Environment(\.requestReview) private var requestReview
-
+    
     let productIds = [
         "pro_yearly",
         "pro_monthly",
@@ -78,176 +78,215 @@ struct ManageSubscriptionView: View {
     
     
     var body: some View {
-        
-        
-        if isNotifyingServer {
-            
-            ContentUnavailableView {
-                // Label - typically an image or icon
-                Label(String(localized: "activating_subscription"), systemImage: "hourglass")
-                    .symbolRenderingMode(.hierarchical)
-                    .foregroundColor(.accentColor)
+                    
+            if isNotifyingServer {
                 
-                // Primary action or additional description
-                Text(String(localized: "activating_subscription_desc"))
-                    .font(.subheadline)
+                ContentUnavailableView {
+                    // Label - typically an image or icon
+                    Label(String(localized: "activating_subscription"), systemImage: "hourglass")
+                        .symbolRenderingMode(.hierarchical)
+                        .foregroundColor(.accentColor)
+                    
+                    // Primary action or additional description
+                    Text(String(localized: "activating_subscription_desc"))
+                        .font(.subheadline)
+                    
+                    // Here's where you add the ProgressView
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .padding(.top, 10)
+                    
+                } description: {
+                    // Optional: Additional description if needed
+                    Text(String(localized: "this_might_take_a_few_moments"))
+                }
+                .padding()
                 
-                // Here's where you add the ProgressView
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .padding(.top, 10)
                 
-            } description: {
-                // Optional: Additional description if needed
-                Text(String(localized: "this_might_take_a_few_moments"))
-            }
-            .padding()
-            
-            
-            
-        } else {
-            
-            VStack {
                 
-                if mainViewState.userResource!.subscription_type == "apple" || mainViewState.userResource!.subscription_type == nil {
-                    ScrollView {
-                        // Only show the subscription options if the user does not have a subscription yet or if the current subscription is managed by apple
-                        VStack {
-                            // Tab Selection
-                            Picker(String(localized: "subscription"), selection: $selectedTab) {
-                                Text(String(localized: "pro_plan")).tag("pro")
-                                Text(String(localized: "lite_plan")).tag("lite")
-                            }.onChange(of: selectedTab) {
-                                Task {
-                                    let productIds = productIds.filter { $0.hasPrefix(selectedTab) }
-                                    await storeManager.fetchProducts(productIdentifiers: productIds)
-                                }
+            } else {
+                VStack {
+                    // If account is disabled, prevent purchasing subscriptions
+                    if mainViewState.userResource!.disabled ?? false {
+                        ContentUnavailableView {
+                            Label(String(localized: "subscription_account_disabled"), systemImage: "person.crop.circle.badge.exclamationmark")
+                        } description: {
+                            Text(String(localized: "subscription_account_disabled_desc"))
+                        }
+                        
+                        VStack(alignment: .center, spacing: 10) {
+                            Button(action: {
+                                isPresentedManageSubscription = true
+                            }) {
+                                Text(String(localized:"manage_subscription"))
                             }
+                            .padding(.bottom)
                             
-                            .pickerStyle(SegmentedPickerStyle())
-                            .padding()
+                            HStack {
+                                Spacer()
+                                
+                                Button(action: {
+                                    openURL(URL(string: "https://addy.io/contact?ref=appstore")!)
+                                }) {
+                                    Text(String(localized:"contact_support"))
+                                }
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    openURL(URL(string: "https://addy.io/terms?ref=appstore")!)
+                                }) {
+                                    Text(String(localized:"terms_of_service"))
+                                }
+                                Spacer()
+                                
+                            }
+                            .padding(.bottom)
                             
-                            if storeManager.products.isEmpty {
+                        }
+                    } else {
+                        if mainViewState.userResource!.subscription_type == "apple" || mainViewState.userResource!.subscription_type == nil {
+                            ScrollView {
+                                // Only show the subscription options if the user does not have a subscription yet or if the current subscription is managed by apple
                                 VStack {
-                                    ProgressView()
-                                }.frame(maxHeight: .infinity)
-                            } else {
-                                
-                                FeaturesView(plan: selectedTab).padding()
-                                
-                                // Product Display with Gradient Button
-                                LazyVStack(spacing: 20) {
-                                    ForEach(storeManager.products, id: \.self) { product in
-                                        VStack(alignment: .leading, spacing: 8) {
-                                            Text(product.displayName)
-                                                .font(.title2)
-                                                .bold()
-                                            Text(product.description)
-                                                .font(.caption)
-                                                .foregroundColor(.gray)
-                                            
-                                            
-                                            if product.subscription?.subscriptionPeriod.unit == .month {
-                                                Text(String(format: String(localized: "price_format_month"), product.displayPrice))
-                                                    .font(.subheadline)
-                                                    .foregroundColor(.secondary)
-                                            } else if product.subscription?.subscriptionPeriod.unit == .year {
-                                                Text(String(format: String(localized: "price_format_year"), product.displayPrice))
-                                                    .font(.subheadline)
-                                                    .foregroundColor(.secondary)
+                                    // Tab Selection
+                                    Picker(String(localized: "subscription"), selection: $selectedTab) {
+                                        Text(String(localized: "pro_plan")).tag("pro")
+                                        Text(String(localized: "lite_plan")).tag("lite")
+                                    }.onChange(of: selectedTab) {
+                                        Task {
+                                            let productIds = productIds.filter { $0.hasPrefix(selectedTab) }
+                                            await storeManager.fetchProducts(productIdentifiers: productIds)
+                                        }
+                                    }
+                                    
+                                    .pickerStyle(SegmentedPickerStyle())
+                                    .padding()
+                                    
+                                    if storeManager.products.isEmpty {
+                                        VStack {
+                                            ProgressView()
+                                        }.frame(maxHeight: .infinity)
+                                    } else {
+                                        
+                                        FeaturesView(plan: selectedTab).padding()
+                                        
+                                        // Product Display with Gradient Button
+                                        LazyVStack(spacing: 20) {
+                                            ForEach(storeManager.products, id: \.self) { product in
+                                                VStack(alignment: .leading, spacing: 8) {
+                                                    Text(product.displayName)
+                                                        .font(.title2)
+                                                        .bold()
+                                                    Text(product.description)
+                                                        .font(.caption)
+                                                        .foregroundColor(.gray)
+                                                    
+                                                    
+                                                    if product.subscription?.subscriptionPeriod.unit == .month {
+                                                        Text(String(format: String(localized: "price_format_month"), product.displayPrice))
+                                                            .font(.subheadline)
+                                                            .foregroundColor(.secondary)
+                                                    } else if product.subscription?.subscriptionPeriod.unit == .year {
+                                                        Text(String(format: String(localized: "price_format_year"), product.displayPrice))
+                                                            .font(.subheadline)
+                                                            .foregroundColor(.secondary)
+                                                    }
+                                                    
+                                                    Button(action: {
+                                                        purchase(product)
+                                                    }) {
+                                                        Text((purchasedItem?.productID ?? "" == product.id) ? String(localized: "active") : String(localized: "subscribe_now"))
+                                                            .frame(maxWidth: .infinity)
+                                                            .padding()
+                                                            .background((purchasedItem?.productID ?? "" == product.id) ? LinearGradient(gradient: Gradient(colors: [Color.gray, Color.gray.opacity(0.7)]), startPoint: .leading, endPoint: .trailing) : LinearGradient(gradient: Gradient(colors: [Color("AddySecondaryColor"), Color("AccentColor")]), startPoint: .leading, endPoint: .trailing))
+                                                            .foregroundColor(.white)
+                                                            .cornerRadius(10)
+                                                    }.disabled((purchasedItem?.productID ?? "") == product.id).padding(.top)
+                                                }
+                                                .padding()
+                                                .background(Color(UIColor.secondarySystemBackground))
+                                                .cornerRadius(15)
                                             }
-                                            
-                                            Button(action: {
-                                                purchase(product)
-                                            }) {
-                                                Text((purchasedItem?.productID ?? "" == product.id) ? String(localized: "active") : String(localized: "subscribe_now"))
-                                                    .frame(maxWidth: .infinity)
-                                                    .padding()
-                                                    .background((purchasedItem?.productID ?? "" == product.id) ? LinearGradient(gradient: Gradient(colors: [Color.gray, Color.gray.opacity(0.7)]), startPoint: .leading, endPoint: .trailing) : LinearGradient(gradient: Gradient(colors: [Color("AddySecondaryColor"), Color("AccentColor")]), startPoint: .leading, endPoint: .trailing))
-                                                    .foregroundColor(.white)
-                                                    .cornerRadius(10)
-                                            }.disabled((purchasedItem?.productID ?? "") == product.id).padding(.top)
                                         }
                                         .padding()
-                                        .background(Color(UIColor.secondarySystemBackground))
-                                        .cornerRadius(15)
+                                        
+                                    }
+                                    
+                                    
+                                    VStack(alignment: .center, spacing: 10) {
+                                        // Restore Purchases Button
+                                        Button(action: {
+                                            restorePurchases()
+                                        }) {
+                                            Text(String(localized:"restore_purchases"))
+                                                .foregroundColor(.white)
+                                                .padding()
+                                                .background(Color.blue)
+                                                .cornerRadius(8)
+                                        }
+                                        .padding(.bottom)
+                                        
+                                        Button(action: {
+                                            isPresentedManageSubscription = true
+                                        }) {
+                                            Text(String(localized:"manage_subscription"))
+                                        }
+                                        .padding(.bottom)
+                                        
+                                        HStack {
+                                            Spacer()
+                                            
+                                            Button(action: {
+                                                openURL(URL(string: "https://addy.io/privacy?ref=appstore")!)
+                                            }) {
+                                                Text(String(localized:"privacy_policy"))
+                                            }
+                                            
+                                            Spacer()
+                                            
+                                            Button(action: {
+                                                openURL(URL(string: "https://addy.io/terms?ref=appstore")!)
+                                            }) {
+                                                Text(String(localized:"terms_of_service"))
+                                            }
+                                            Spacer()
+                                            
+                                        }
+                                        .padding(.bottom)
+                                        
                                     }
                                 }
-                                .padding()
-                                
+                            }
+                        } else {
+                            // If the user is subscribed but NOT through the App Store
+                            ContentUnavailableView {
+                                Label(String(localized: "subscription_other_platform_title"), systemImage: "creditcard.fill")
+                            } description: {
+                                Text(String(localized: "subscription_other_platform_title_desc"))
                             }
                             
-                            
-                            VStack(alignment: .center, spacing: 10) {
-                                // Restore Purchases Button
-                                Button(action: {
-                                    restorePurchases()
-                                }) {
-                                    Text(String(localized:"restore_purchases"))
-                                        .foregroundColor(.white)
-                                        .padding()
-                                        .background(Color.blue)
-                                        .cornerRadius(8)
-                                }
-                                .padding(.bottom)
-                                
-                                Button(action: {
-                                    isPresentedManageSubscription = true
-                                }) {
-                                    Text(String(localized:"manage_subscription"))
-                                }
-                                .padding(.bottom)
-                                
-                                HStack {
-                                    Spacer()
-                                    
-                                    Button(action: {
-                                        openURL(URL(string: "https://addy.io/privacy?ref=appstore")!)
-                                    }) {
-                                        Text(String(localized:"privacy_policy"))
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    Button(action: {
-                                        openURL(URL(string: "https://addy.io/terms?ref=appstore")!)
-                                    }) {
-                                        Text(String(localized:"terms_of_service"))
-                                    }
-                                    Spacer()
-                                    
-                                }
-                                .padding(.bottom)
-                                
-                            }
                         }
                     }
-                } else {
-                    // If the user is subscribed but NOT through the App Store
-                    ContentUnavailableView {
-                        Label(String(localized: "subscription_other_platform_title"), systemImage: "creditcard.fill")
-                    } description: {
-                        Text(String(localized: "subscription_other_platform_title_desc"))
-                    }
-                    
                 }
-            }
                 .manageSubscriptionsSheet(isPresented: $isPresentedManageSubscription)
                 .navigationTitle(String(localized: "manage_subscription"))
-                    .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitleDisplayMode(.inline)
                 .task{
                     let productIds = productIds.filter { $0.hasPrefix(selectedTab) }
                     await storeManager.fetchProducts(productIdentifiers: productIds)
                     await getPurchasedItem()
-                }
+                    mainViewState.userResource?.disabled = true
+                 }
                 .alert(isPresented: $showPaymentStatusAlert) {
                     Alert(
                         title: Text(paymentStatusTitle),
                         message: Text(paymentStatusMessage)
                     )
                 }
-            
-        }
+                
+            }
+        
     }
     
     
@@ -364,7 +403,7 @@ struct ManageSubscriptionView: View {
                         await transaction.finish()
                         // User has switched or purchased a subscription, this is usually a sign of a satisfied user, let's ask the user to review the app
                         requestReview()
-
+                        
                     } else {
                         // There is not much we can do, we have to finish the transaction regardless
                         await transaction.finish()

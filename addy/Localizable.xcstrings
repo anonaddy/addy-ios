@@ -1511,6 +1511,16 @@
         }
       }
     },
+    "contact_support" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact support"
+          }
+        }
+      }
+    },
     "contains" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5223,7 +5233,6 @@
       }
     },
     "rate_this_app" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5234,7 +5243,6 @@
       }
     },
     "rate_this_app_desc" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -6772,6 +6780,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your subscription will expire in %@. Renew your subscription to keep using pro features."
+          }
+        }
+      }
+    },
+    "subscription_account_disabled" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot manage subscription"
+          }
+        }
+      }
+    },
+    "subscription_account_disabled_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your addy.io account is currently disabled, so you cannot subscribe to another addy.io plan. If you have an active subscription through the App Store, please cancel it by selecting “Manage Subscription” below. For further assistance, contact our support team through the button below."
           }
         }
       }
