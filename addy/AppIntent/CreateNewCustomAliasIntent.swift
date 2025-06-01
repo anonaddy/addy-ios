@@ -24,6 +24,11 @@ struct CreateNewCustomAliasIntent: AppIntent {
                default: nil)
     var domain: String?
     
+    @Parameter(title: "app_intent_add_alias_parameter_description",
+      description: "app_intent_add_alias_parameter_description_desc",
+               default: nil)
+    var description: String?
+    
     @Parameter(title: "app_intent_add_alias_parameter_custom",
       description: "app_intent_add_alias_parameter_custom_desc",
                default: nil)
@@ -44,7 +49,7 @@ struct CreateNewCustomAliasIntent: AppIntent {
 
         if let userResource = getUserResource() {
             do {
-                if let alias = try await NetworkHelper().addAlias(domain: domain ?? userResource.default_alias_domain, description: "", format: "custom", localPart: localPart, recipients: nil) {
+                if let alias = try await NetworkHelper().addAlias(domain: domain ?? userResource.default_alias_domain, description: description ?? "", format: "custom", localPart: localPart, recipients: nil) {
                     
                     UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
 
@@ -66,7 +71,7 @@ struct CreateNewCustomAliasIntent: AppIntent {
     }
     
     static var parameterSummary: some ParameterSummary {
-        Summary("app_intent_parameter_summary_domain\(\.$domain)_custom\(\.$localPart)")
+        Summary("app_intent_parameter_summary_domain\(\.$domain)_custom\(\.$localPart)_description\(\.$description)")
         
     }
     

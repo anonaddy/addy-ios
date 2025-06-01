@@ -4166,35 +4166,17 @@ AddyIo.API_BASE_URL = defaultBaseUrl
 #if DEBUG
         print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
 #endif
-        let url = URL(string: AddyIo.GITHUB_TAGS_RSS_FEED)!
-        let (data, response) = try await URLSession.shared.data(from: url)
         
-        guard let httpResponse = response as? HTTPURLResponse else {
-            let error = URLError(.badServerResponse)
-            self.loggingHelper.addLog(
-                importance: LogImportance.critical,
-                error: error.localizedDescription,
-                method: "getGithubTags",
-                extra: error.failureURLString)
-            throw error
-        }
-        
-        let parser = FeedParser(data: data) // or FeedParser(URL: url)
-        let result = parser.parse()
-        switch result {
-        case .success(let feed):
-            return feed.atomFeed
-        case .failure(let error):
-            print(error)
-            let errorMessage = "Error: \(error.localizedDescription) | \(httpResponse.statusCode)"
-            
+        do {
+            return try await AtomFeed(urlString: AddyIo.GITHUB_TAGS_RSS_FEED)
+        } catch {
+            let errorMessage = "Error: \(error.localizedDescription)"
             self.loggingHelper.addLog(
                 importance: LogImportance.critical,
                 error: errorMessage,
                 method: "getGithubTags",
                 extra: nil
             )
-            
             throw error
         }
     }

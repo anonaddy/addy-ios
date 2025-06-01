@@ -31,6 +31,7 @@ public struct UserResourceExtended: Codable {
 public struct UserResource: Codable {
     public var id: String
     public var username: String
+    public var disabled: Bool?
     var from_name: String?
     var email_subject: String?
     var banner_location: String

@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.3.1] - 2025-06-01
+
+### addy.io
+
+**Fixed/Improved**
+
+- Updated dependencies
+- You can now set the description of a new alias through the Shortcuts app
+- Performance improvements and other things to make the app even smoother
+
 ## [v1.3.0] - 2025-04-10
 
 ### addy.io

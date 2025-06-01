@@ -850,7 +850,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 1.3.0**\n\n**Added**\n- Added support for the new \"Restrict replies/sends to attached recipients\" feature\u0003\n\n** Fixed/Improved **\n- Deleted aliases will now display their deletion time in the aliases overview, distinguishing them from inactive aliases\n- Performance improvements and other things to make the app even smoother"
+            "value" : "**What’s new in addy.io for iOS 1.3.1**\n\n** Fixed/Improved **\n- Updated dependencies\n- You can now set the description of a new alias through the Shortcuts app\n- Performance improvements and other things to make the app even smoother"
           }
         }
       }
@@ -917,6 +917,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter the part of the alias that should appear before the ‘@‘"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter description"
+          }
+        }
+      }
+    },
+    "app_intent_add_alias_parameter_description_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Describe what this alias is used for"
           }
         }
       }
@@ -997,24 +1019,24 @@
         }
       }
     },
-    "app_intent_parameter_summary_domain${domain}_custom${localPart}" : {
+    "app_intent_parameter_summary_domain${domain}_custom${localPart}_description${description}" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create an alias for ${domain} with local part ${localPart}"
+            "value" : "Create an alias for ${domain} with local part ${localPart}and description ${description}"
           }
         }
       }
     },
-    "app_intent_parameter_summary_domain${domain}_format${format}" : {
+    "app_intent_parameter_summary_domain${domain}_format${format}_description${description}" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create an alias for ${domain} with${format} format"
+            "value" : "Create an alias for ${domain} with${format} format and description ${description}"
           }
         }
       }
@@ -1507,6 +1529,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configuration error"
+          }
+        }
+      }
+    },
+    "contact_support" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact support"
           }
         }
       }
@@ -6772,6 +6804,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your subscription will expire in %@. Renew your subscription to keep using pro features."
+          }
+        }
+      }
+    },
+    "subscription_account_disabled" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot manage subscription"
+          }
+        }
+      }
+    },
+    "subscription_account_disabled_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your addy.io account is currently disabled, so you cannot subscribe to another addy.io plan. If you have an active subscription through the App Store, please cancel it by selecting “Manage Subscription” below. For further assistance, contact our support team through the button below."
           }
         }
       }

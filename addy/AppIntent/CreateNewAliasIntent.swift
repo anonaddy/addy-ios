@@ -25,6 +25,12 @@ struct CreateNewAliasIntent: AppIntent {
                default: nil)
     var domain: String?
     
+    @Parameter(title: "app_intent_add_alias_parameter_description",
+      description: "app_intent_add_alias_parameter_description_desc",
+               default: nil)
+    var description: String?
+    
+    
     @Parameter(title: "app_intent_add_alias_parameter_format",
       description: "app_intent_add_alias_parameter_format_desc",
                default: nil)
@@ -46,7 +52,7 @@ struct CreateNewAliasIntent: AppIntent {
 
         if let userResource = getUserResource() {
             do {
-                if let alias = try await NetworkHelper().addAlias(domain: domain ?? userResource.default_alias_domain, description: "", format: (format != nil) ?
+                if let alias = try await NetworkHelper().addAlias(domain: domain ?? userResource.default_alias_domain, description: description ?? "", format: (format != nil) ?
                                                                   (format?.rawValue == "custom" ? " " : format?.rawValue)! :
                                                                     (userResource.default_alias_format == "custom" ? "random_characters" : userResource.default_alias_format), localPart: "", recipients: nil) {
                     
@@ -86,7 +92,7 @@ struct CreateNewAliasIntent: AppIntent {
     }
     
     static var parameterSummary: some ParameterSummary {
-        Summary("app_intent_parameter_summary_domain\(\.$domain)_format\(\.$format)")
+        Summary("app_intent_parameter_summary_domain\(\.$domain)_format\(\.$format)_description\(\.$description)")
         
     }
     
