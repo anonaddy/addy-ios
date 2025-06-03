@@ -57,9 +57,10 @@ class AliasesViewModel: ObservableObject{
     func searchAliases(searchQuery: String){
         // When something is being searched cancel the loading to make sure that the networkCall will succeed
         self.isLoading = false
+        let trimmedSearchQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
     
         
-        if searchQuery == ""{
+        if trimmedSearchQuery == ""{
             // Reset Data....
             self.aliasSortFilterRequest.filter = ""
             
@@ -69,9 +70,9 @@ class AliasesViewModel: ObservableObject{
             }
         }
         else {
-            if (searchQuery.count >= 3){
+            if (trimmedSearchQuery.count >= 3){
                 // search Data
-                self.aliasSortFilterRequest.filter = searchQuery
+                self.aliasSortFilterRequest.filter = trimmedSearchQuery
                 
                 Task {
                     await self.getAliases(forceReload:true)

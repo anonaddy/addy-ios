@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.3.2] - 2025-06-03
+
+### addy.io
+
+**Fixed/Improved**
+
+- Fixed an issue where ending your search with a whitespace resulted in an error
+- Fixed an issue where it was not possible to subscribe through the app
+- Performance improvements and other things to make the app even smoother
+
 ## [v1.3.1] - 2025-06-01
 
 ### addy.io
