@@ -276,7 +276,6 @@ struct ManageSubscriptionView: View {
                     let productIds = productIds.filter { $0.hasPrefix(selectedTab) }
                     await storeManager.fetchProducts(productIdentifiers: productIds)
                     await getPurchasedItem()
-                    mainViewState.userResource?.disabled = true
                  }
                 .alert(isPresented: $showPaymentStatusAlert) {
                     Alert(
