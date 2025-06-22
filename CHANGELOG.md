@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.3.3] - 2025-06-22
+
+### addy.io
+
+**Fixed/Improved**
+
+- Minor string fixes
+- Performance improvements and other things to make the app even smoother
+
 ## [v1.3.2] - 2025-06-03
 
 ### addy.io
