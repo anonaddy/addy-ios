@@ -181,7 +181,7 @@ struct AliasDetailView: View {
                 
                 Section {
                     
-                    AddyToggle(isOn: $isAliasActive, isLoading: isSwitchingAliasActiveState, title: alias.active ? String(localized: "alias_activated") : String(localized: "alias_deactivated"), description: String(localized: "watch_alias_desc"))
+                    AddyToggle(isOn: $isAliasActive, isLoading: isSwitchingAliasActiveState, title: alias.active ? String(localized: "alias_activated") : String(localized: "alias_deactivated"), description: String(localized: "alias_status_desc"))
                         .onChange(of: isAliasActive) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if (isAliasActive != alias.active){
