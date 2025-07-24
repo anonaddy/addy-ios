@@ -253,16 +253,17 @@ struct AddApiBottomSheet: View {
     
     private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL) async {
         let cleanApiKey = apiKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        let cleanBaseUrl = baseUrl.trimmingCharacters(in: .whitespacesAndNewlines.union(.init(charactersIn: "/")))
         let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: cleanApiKey)
+            let result = try await networkHelper.verifyApiKey(baseUrl: cleanBaseUrl, apiKey: cleanApiKey)
             if result != nil {
                 // APIKey is verified if the API_KEY is currently nil (aka empty)
                 // Or
                 // UserResource ids are the same
                 if SettingsManager(encrypted: true).getSettingsString(key: .apiKey) == nil ||
                     mainViewState.userResource?.id == result?.id {
-                    self.addKey(cleanApiKey, baseUrl)
+                    self.addKey(cleanApiKey, cleanBaseUrl)
                 } else {
                     resetSignInButton()
                     apiKeyError = String(localized: "api_belongs_other_account")
