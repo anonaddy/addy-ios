@@ -22,10 +22,19 @@ struct FailedDeliveryBottomSheet: View {
     
     @State var isLoadingDeleteButton: Bool = false
     @State var isLoadingDownloadButton: Bool = false
-    @State private var failedDeliveryRequestError:String?
+    @State var isLoadingResendButton: Bool = false
     @State private var isShowingPicker = false
     @State private var fileURL: URL?
     
+    enum ActiveAlert {
+        case error
+        case resend
+    }
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var showAlert: Bool = false
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -57,21 +66,21 @@ struct FailedDeliveryBottomSheet: View {
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)
                 
-            } footer: {
-                if let error = failedDeliveryRequestError {
-                    Text(error)
-                        .foregroundColor(.red)
-                        .font(.system(size: 15))
-                        .multilineTextAlignment(.leading)
-                        .padding([.horizontal], 0)
-                        .onAppear{
-                            HapticHelper.playHapticFeedback(hapticType: .error)
-                        }
-                }
-                
-            }.textCase(nil)
+            }
             
             Section {
+            
+                AddyLoadingButton(action: {
+                    
+                    activeAlert = .resend
+                    showAlert = true
+                    
+                }, isLoading: $isLoadingResendButton) {
+                    Text(String(localized: "resend_failed_delivery")).foregroundColor(Color.white)
+                    
+                }.frame(minHeight: 56).padding(.bottom)
+                
+                
                 if (self.failedDelivery.is_stored){
                     AddyLoadingButton(action: {
                         
@@ -100,6 +109,7 @@ struct FailedDeliveryBottomSheet: View {
                     
                 }.frame(minHeight: 56)
                 
+                
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
         }
         .navigationTitle(String(localized: "details"))
@@ -120,6 +130,24 @@ struct FailedDeliveryBottomSheet: View {
                 
             }
         })
+        .alert(isPresented: $showAlert) {
+            switch activeAlert {
+            case .error:
+                return Alert(
+                    title: Text(errorAlertTitle),
+                    message: Text(errorAlertMessage)
+                )
+            case .resend:
+                return Alert(title: Text(String(localized: "resend_failed_delivery")), message: Text(String(localized: "resend_failed_delivery_confirmation_desc")), primaryButton: .default(Text(String(localized: "resend"))){
+                    
+                    Task {
+                        await self.resendFailedDelivery()
+                    }
+                }, secondaryButton: .cancel(){
+                    isLoadingResendButton = false
+                })
+            }
+        }
         
         
     }
@@ -134,12 +162,41 @@ struct FailedDeliveryBottomSheet: View {
                 self.onDeleted()
             } else {
                 isLoadingDeleteButton = false
-                failedDeliveryRequestError = result
-            }
+                errorAlertTitle = String(localized: "error_deleting_failed_delivery")
+                errorAlertMessage = result
+                activeAlert = .error
+                showAlert = true            }
         } catch {
             self.isLoadingDeleteButton = false
-            failedDeliveryRequestError = error.localizedDescription
-        }
+            errorAlertTitle = String(localized: "error_deleting_failed_delivery")
+            errorAlertMessage = error.localizedDescription
+            activeAlert = .error
+            showAlert = true        }
+    }
+    
+    private func resendFailedDelivery() async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.resendFailedDelivery(failedDeliveryId: self.failedDelivery.id)
+            self.isLoadingResendButton = false
+            if result == "204" {
+                isLoadingResendButton = false
+                errorAlertTitle = String(localized: "resend_failed_delivery")
+                errorAlertMessage = String(localized: "failed_delivery_resend_success")
+                activeAlert = .error
+                showAlert = true
+            } else {
+                isLoadingResendButton = false
+                errorAlertTitle = String(localized: "error_resending_failed_delivery")
+                errorAlertMessage = result
+                activeAlert = .error
+                showAlert = true            }
+        } catch {
+            self.isLoadingResendButton = false
+            errorAlertTitle = String(localized: "error_resending_failed_delivery")
+            errorAlertMessage = error.localizedDescription
+            activeAlert = .error
+            showAlert = true        }
     }
     
     private func downloadFailedDelivery() async {
@@ -157,7 +214,12 @@ struct FailedDeliveryBottomSheet: View {
             
         } catch {
             self.isLoadingDownloadButton = false
-            failedDeliveryRequestError = error.localizedDescription
+            
+            errorAlertTitle = String(localized: "error_downloading_failed_delivery")
+            errorAlertMessage = error.localizedDescription
+            activeAlert = .error
+            showAlert = true
+            
         }
     }
     

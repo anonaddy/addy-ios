@@ -2560,7 +2560,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Download failed delivery"
+            "value" : "Download this email"
           }
         }
       }
@@ -2936,6 +2936,16 @@
         }
       }
     },
+    "error_deleting_failed_delivery" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while deleting this failed delivery"
+          }
+        }
+      }
+    },
     "error_deleting_recipient" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2964,6 +2974,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Something went wrong while deleting this username"
+          }
+        }
+      }
+    },
+    "error_downloading_failed_delivery" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong downloading this email"
           }
         }
       }
@@ -3089,6 +3109,16 @@
         }
       }
     },
+    "error_resending_failed_delivery" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong resending this email"
+          }
+        }
+      }
+    },
     "error_restoring_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3140,6 +3170,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "**Created**  \n%@\n\n**First attempted**  \n%@\n\n**Alias**\n%@\n\n**Recipient**\n%@\n\n**Type**\n%@\n\n**Mail Server**\n%@\n\n**Sender**\n%@\n\n**Code**\n%@"
+          }
+        }
+      }
+    },
+    "failed_delivery_resend_success" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The email has been resent"
           }
         }
       }
@@ -5255,7 +5295,6 @@
       }
     },
     "rate_this_app" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5266,7 +5305,6 @@
       }
     },
     "rate_this_app_desc" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5683,6 +5721,16 @@
         }
       }
     },
+    "resend" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resend"
+          }
+        }
+      }
+    },
     "resend_email" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5690,6 +5738,27 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Resend email"
+          }
+        }
+      }
+    },
+    "resend_failed_delivery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resend this email"
+          }
+        }
+      }
+    },
+    "resend_failed_delivery_confirmation_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to resend this email to the recipients?"
           }
         }
       }
