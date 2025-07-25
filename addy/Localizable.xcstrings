@@ -850,7 +850,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 1.3.3**\n\n**Fixed/Improved**\n- Minor string fixes\n- Performance improvements and other things to make the app even smoother"
+            "value" : "**What’s new in addy.io for iOS 1.3.4**\n\n**Added**\n- Added the ability to resend failed deliveries\n- Added the ability to create aliases with the \"custom\" domain format on shares aliases\n\n**Fixed/Improved**\n- Improved readability error messages when something goes wrong\n- Performance improvements and other things to make the app even smoother"
           }
         }
       }
@@ -5295,6 +5295,7 @@
       }
     },
     "rate_this_app" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5305,6 +5306,7 @@
       }
     },
     "rate_this_app_desc" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
