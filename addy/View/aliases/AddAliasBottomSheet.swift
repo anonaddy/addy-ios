@@ -222,7 +222,9 @@ struct AddAliasBottomSheet: View {
             
             // Only check on hosted instance
             if (AddyIo.isUsingHostedInstance()) {
-                if sharedDomains.contains(selectedDomain){
+                // Custom format on shared domains is possible, but only if the user has a paid subscription.
+                // If the selected domain is a shared domain AND the user is a free user don't allow it.
+                if (sharedDomains.contains(selectedDomain) && self.mainViewState.userResource!.hasUserFreeSubscription()){
                     self.aliasError = String(localized: "domains_format_custom_not_available_for_this_domain")
                     self.formatValidationError = true
                     

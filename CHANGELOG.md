@@ -1,5 +1,20 @@
 # Changelog
 
+## [v1.3.4] - 2025-07-25
+
+### addy.io
+
+**Added**
+
+- Added the ability to resend failed deliveries
+- Added the ability to create aliases with the "custom" domain format on shares aliases
+
+**Fixed/Improved**
+
+- Improved readability error messages when something goes wrong
+- Performance improvements and other things to make the app even smoother
+
+
 ## [v1.3.3] - 2025-06-22
 
 ### addy.io

@@ -13,10 +13,10 @@ public struct AddyIo {
     // The versioncode is a combination of MAJOR MINOR PATCH
     //TODO: Update on every release
 
-    // 1.3.2
+    // 1.3.4
     public static let MINIMUMVERSIONCODEMAJOR = 1
     public static let MINIMUMVERSIONCODEMINOR = 3
-    public static let MINIMUMVERSIONCODEPATCH = 2
+    public static let MINIMUMVERSIONCODEPATCH = 4
 
     public static var VERSIONMAJOR = 0
     public static var VERSIONMINOR = 0

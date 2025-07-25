@@ -296,7 +296,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 
                 self.createAppResetDueToInvalidAPIKeyNotification()
                 SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                throw URLError(.userAuthenticationRequired)
+                throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
             default:
                 let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
                 print(errorMessage)
@@ -305,7 +305,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                     error: errorMessage,
                     method: "deleteAccount",
                     extra: ErrorHelper.getErrorMessage(data: data))
-                throw URLError(.badServerResponse)
+                throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
             }
         } catch {
             print(error)
@@ -351,7 +351,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -360,7 +360,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "logout",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -476,7 +476,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getUserResource",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -514,7 +514,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         case 404:
             // Not found, aka the addy.io version is <0.6.0 (this endpoint was introduced in 0.6.0)
             // Send an empty version as callback to let the checks run in SplashActivity
@@ -527,7 +527,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getAddyIoInstanceVersion",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -565,7 +565,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -574,7 +574,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getUserResource",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -625,7 +625,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -634,7 +634,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getRecipients",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -672,7 +672,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -681,7 +681,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getUsernames",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -722,7 +722,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -731,7 +731,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getRules",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -769,7 +769,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -778,7 +778,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getDomains",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -816,7 +816,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -825,7 +825,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getFailedDeliveries",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -928,7 +928,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -937,7 +937,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getDomainOptions",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -975,7 +975,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -984,7 +984,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getSpecificUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1024,7 +1024,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1033,7 +1033,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getApiTokenDetails",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1072,7 +1072,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1081,7 +1081,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getSpecificDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1120,7 +1120,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1129,7 +1129,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getSpecificRecipient",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1167,7 +1167,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1176,7 +1176,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getChartData",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1216,7 +1216,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1225,7 +1225,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "resendVerificationEmail",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1264,7 +1264,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1273,7 +1273,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getSpecificAlias",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1312,7 +1312,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1321,7 +1321,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getSpecificRule",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1361,7 +1361,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1370,7 +1370,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateRule",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1409,7 +1409,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1418,7 +1418,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "restoreAlias",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1465,7 +1465,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1474,7 +1474,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "addAlias",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1516,7 +1516,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1525,7 +1525,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "activateSpecificAlias",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1567,7 +1567,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1576,7 +1576,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "activateAttachedRecipientsOnly",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
 
@@ -1613,7 +1613,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 
                 self.createAppResetDueToInvalidAPIKeyNotification()
                 SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                throw URLError(.userAuthenticationRequired)
+                throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
             default:
                 let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
                 print(errorMessage)
@@ -1622,7 +1622,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                     error: errorMessage,
                     method: "deactivateAttachedRecipientsOnly",
                     extra: ErrorHelper.getErrorMessage(data: data))
-                throw URLError(.badServerResponse)
+                throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
             }
         }
     
@@ -1665,7 +1665,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1674,7 +1674,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "activateSpecificRule",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1720,7 +1720,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1729,7 +1729,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "allowRecipientToReplySend",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1772,7 +1772,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1781,7 +1781,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "enableCatchAllSpecificUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1823,7 +1823,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1832,7 +1832,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "enableCatchAllSpecificDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1869,7 +1869,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1878,7 +1878,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "disableCatchAllSpecificUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1916,7 +1916,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1925,7 +1925,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "disableCatchAllSpecificDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -1968,7 +1968,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -1977,7 +1977,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "enableCanLoginSpecificUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2014,7 +2014,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2023,7 +2023,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "disableCanLoginSpecificUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2067,7 +2067,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2076,7 +2076,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "activateSpecificUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2119,7 +2119,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2128,7 +2128,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "activateSpecificDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2165,7 +2165,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2174,7 +2174,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "deactivateSpecificUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2211,7 +2211,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2220,7 +2220,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "deactivateSpecificDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2257,7 +2257,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2266,7 +2266,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "deactivateSpecificAlias",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2303,7 +2303,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2312,7 +2312,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "deactivateSpecificRule",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2349,7 +2349,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2358,7 +2358,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "disallowRecipientToReplySend",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2396,7 +2396,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2405,7 +2405,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "disableEncryptionRecipient",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2447,7 +2447,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2456,7 +2456,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "enableEncryptionRecipient",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2494,7 +2494,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2503,7 +2503,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "disableProtectedHeadersRecipient",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2541,7 +2541,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2550,7 +2550,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "disablePgpInlineRecipient",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2592,7 +2592,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
             
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
@@ -2602,7 +2602,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "enableProtectedHeadersRecipient",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2644,7 +2644,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2653,7 +2653,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "enablePgpInlineRecipient",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2692,7 +2692,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2701,7 +2701,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "removeEncryptionKeyRecipient",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2748,7 +2748,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2757,7 +2757,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "addEncryptionKeyRecipient",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2802,7 +2802,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2811,7 +2811,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "addRecipient",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2854,7 +2854,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2863,7 +2863,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "addUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2905,7 +2905,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2914,7 +2914,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "createRule",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -2964,7 +2964,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -2973,7 +2973,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "reorderRules",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3020,7 +3020,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3029,7 +3029,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "addDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3068,7 +3068,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3077,7 +3077,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "deleteAlias",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3114,7 +3114,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3123,7 +3123,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "forgetAlias",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3160,7 +3160,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3169,7 +3169,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "deleteUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3206,7 +3206,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3215,7 +3215,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "deleteRule",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3252,7 +3252,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3261,7 +3261,55 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "deleteFailedDelivery",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        }
+    }
+    
+    public func resendFailedDelivery(failedDeliveryId: String, recipientIds: [String]? = nil) async throws -> String {
+#if DEBUG
+        print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+#endif
+        let url = URL(string: "\(AddyIo.API_URL_FAILED_DELIVERIES)/\(failedDeliveryId)/resend")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["recipient_ids": recipientIds ?? []]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "resendFailedDelivery",
+                extra: error.failureURLString)
+            throw error
+        }
+        
+        switch httpResponse.statusCode {
+        case 204:
+            return "204"
+        case 401:
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")")
+            
+            self.createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            self.loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "resendFailedDelivery",
+                extra: ErrorHelper.getErrorMessage(data: data))
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3298,7 +3346,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3307,7 +3355,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "deleteDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3344,7 +3392,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3353,7 +3401,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "deleteRecipient",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3396,7 +3444,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3405,7 +3453,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateDescriptionSpecificAlias",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3447,7 +3495,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3456,7 +3504,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateDescriptionSpecificUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3498,7 +3546,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3507,7 +3555,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateAutoCreateRegexSpecificUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3550,7 +3598,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3559,7 +3607,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateDescriptionSpecificDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3602,7 +3650,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3611,7 +3659,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateAutoCreateRegexSpecificDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3654,7 +3702,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3663,7 +3711,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateFromNameSpecificAlias",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3705,7 +3753,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3714,7 +3762,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateFromNameSpecificUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3756,7 +3804,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3765,7 +3813,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateFromNameSpecificDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3807,7 +3855,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3816,7 +3864,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateRecipientsSpecificAlias",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3858,7 +3906,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3867,7 +3915,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateDefaultRecipientForSpecificUsername",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3909,7 +3957,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -3918,7 +3966,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "updateDefaultRecipientForSpecificDomain",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -3999,7 +4047,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -4008,7 +4056,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getAliases",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -4051,7 +4099,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -4060,7 +4108,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "bulkGetAlias",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -4239,7 +4287,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -4248,7 +4296,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "getAllAccountNotifications",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
@@ -4291,7 +4339,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
             
             self.createAppResetDueToInvalidAPIKeyNotification()
             SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-            throw URLError(.userAuthenticationRequired)
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         default:
             let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
             print(errorMessage)
@@ -4300,7 +4348,7 @@ AddyIo.API_BASE_URL = defaultBaseUrl
                 error: errorMessage,
                 method: "notifyServerForSubscriptionChange",
                 extra: ErrorHelper.getErrorMessage(data: data))
-            throw URLError(.badServerResponse)
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
     
