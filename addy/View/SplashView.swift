@@ -114,7 +114,7 @@ struct SplashView: View {
                             AddyButton(action: {
                                 loadDataAndStartApp()
                                 
-                            }, style: AddyButtonStyle(backgroundColor: .easternBlue)) {
+                            }, style: AddyButtonStyle()) {
                                 Text(String(localized: "try_again")).foregroundColor(Color.white)
                             }
                             
@@ -122,7 +122,7 @@ struct SplashView: View {
                                 let settingsManager = SettingsManager(encrypted: true)
                                 settingsManager.clearSettingsAndCloseApp()
                                 
-                            }, style: AddyButtonStyle(backgroundColor: .easternBlue)) {
+                            }, style: AddyButtonStyle(buttonStyle: .destruction)) {
                                 Text(String(localized: "reset_app")).foregroundColor(Color.white)
                             }
                         }.padding()

@@ -45,8 +45,7 @@ struct FailedDeliveryBottomSheet: View {
         let addyLoadingButtonDeleteStyle = AddyLoadingButtonStyle(width: .infinity,
                                                                   height: 56,
                                                                   cornerRadius: 12,
-                                                                  backgroundColor: Color.softRed,
-                                                                  loadingColor: Color.accentColor.opacity(0.4),
+                                                                  buttonStyle: .destruction,
                                                                   strokeWidth: 5,
                                                                   strokeColor: .gray)
         

@@ -91,26 +91,6 @@ struct RegistrationFormBottomSheet: View {
                 }
                 
                 Section {
-                    AddyLoadingButton(action: {
-                        
-                        // First check for existing validation errors
-                        if (usernameValidationError == nil &&
-                            addressValidationError == nil &&
-                            addressConfirmValidationError == nil &&
-                            passwordValidationError == nil &&
-                            passwordConfirmValidationError == nil){
-                            
-                            Task {
-                                await registerUser()
-                            }
-                        } else {
-                            resetButton()
-                        }
-
-                        
-                    }, isLoading: $isLoadingRegister) {
-                        Text(String(localized: "registration_register")).foregroundColor(Color.white)
-                    }.frame(minHeight: 56)
                 } footer: {
                     Text(String(localized: "registration_disclaimer")).frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center).padding(.top)
@@ -141,10 +121,17 @@ struct RegistrationFormBottomSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .topBarTrailing) {
+                    if #available(iOS 26.0, *) {
+                        registerButton().buttonStyle(.glassProminent)
+                    } else {
+                        registerButton()
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
-                        Text(String(localized: "cancel"))
+                        Label(String(localized: "cancel"), systemImage: "xmark")
                     }
                     
                 }
@@ -164,6 +151,7 @@ struct RegistrationFormBottomSheet: View {
         }
     }
 
+    
     func registerUser() async {
         usernameValidationError = nil
         addressValidationError = nil
@@ -214,7 +202,6 @@ struct RegistrationFormBottomSheet: View {
         }
         
 
-        
         let networkHelper = NetworkHelper()
         await networkHelper.registration(username: self.username, email: self.address, password: self.password, apiExpiration: apiExpiration, completion: { error in
             if error == nil {
@@ -234,12 +221,38 @@ struct RegistrationFormBottomSheet: View {
 
     }
 
+    private func registerButton() -> some View {
+            Group {
+                if isLoadingRegister {
+                    AnyView(ProgressView().progressViewStyle(.circular))
+                } else {
+                    AnyView(
+                        Button {
+                            // First check for existing validation errors
+                            if (usernameValidationError == nil &&
+                                addressValidationError == nil &&
+                                addressConfirmValidationError == nil &&
+                                passwordValidationError == nil &&
+                                passwordConfirmValidationError == nil){
+                                
+                                Task {
+                                    isLoadingRegister = true
+                                    await registerUser()
+                                }
+                            } else {
+                                resetButton()
+                            }
+                        } label: {
+                            Text(String(localized: "registration_register"))
+                        }
+                    )
+                }
+            }
+        
+    }
     
     private func resetButton(){
-        // TODO: workaround, fix
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.isLoadingRegister = false
-        }
+        self.isLoadingRegister = false
     }
 }
 

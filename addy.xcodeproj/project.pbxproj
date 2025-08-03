@@ -154,6 +154,7 @@
 		8078485E2C77822400194B1A /* Shiny in Frameworks */ = {isa = PBXBuildFile; productRef = 8078485D2C77822400194B1A /* Shiny */; };
 		807DB4832C1764620051DD8A /* UIUXInterfaceBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807DB4822C1764620051DD8A /* UIUXInterfaceBottomSheet.swift */; };
 		807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */; };
+		80805F002E3F6198002B0E84 /* AppLogo.icon in Resources */ = {isa = PBXBuildFile; fileRef = 80805EFF2E3F6198002B0E84 /* AppLogo.icon */; };
 		80813B622C0DE1DA009C4E6A /* DomainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B612C0DE1DA009C4E6A /* DomainsView.swift */; };
 		80813B642C0DE1FF009C4E6A /* DomainsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B632C0DE1FF009C4E6A /* DomainsDetailView.swift */; };
 		80813B662C0DE21A009C4E6A /* EditDomainDescriptionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80813B652C0DE21A009C4E6A /* EditDomainDescriptionBottomSheet.swift */; };
@@ -408,6 +409,7 @@
 		8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		807DB4822C1764620051DD8A /* UIUXInterfaceBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUXInterfaceBottomSheet.swift; sourceTree = "<group>"; };
 		807E06842C04F290002A3D01 /* AddRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipientBottomSheet.swift; sourceTree = "<group>"; };
+		80805EFF2E3F6198002B0E84 /* AppLogo.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppLogo.icon; sourceTree = "<group>"; };
 		80813B612C0DE1DA009C4E6A /* DomainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainsView.swift; sourceTree = "<group>"; };
 		80813B632C0DE1FF009C4E6A /* DomainsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainsDetailView.swift; sourceTree = "<group>"; };
 		80813B652C0DE21A009C4E6A /* EditDomainDescriptionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDomainDescriptionBottomSheet.swift; sourceTree = "<group>"; };
@@ -893,6 +895,7 @@
 		806F21262BE8F1B100EBEBC8 = {
 			isa = PBXGroup;
 			children = (
+				80805EFF2E3F6198002B0E84 /* AppLogo.icon */,
 				80305C6C2C9C859800F80824 /* StoreKitConfiguration.storekit */,
 				8046331A2C4ED4C300192FA6 /* CHANGELOG.md */,
 				804633202C4ED51300192FA6 /* README.md */,
@@ -1425,6 +1428,7 @@
 				801B92A42BE90ACA00179EB5 /* Localizable.xcstrings in Resources */,
 				806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */,
 				80E849B02BEBA66100C8D68A /* ic_loading_logo_error.shapeshifter.json in Resources */,
+				80805F002E3F6198002B0E84 /* AppLogo.icon in Resources */,
 				80F0D7E72BF0EDF000D21194 /* gray_ic_loading_logo.shapeshifter.json in Resources */,
 				804633212C4ED51300192FA6 /* README.md in Resources */,
 				80305C6D2C9C859800F80824 /* StoreKitConfiguration.storekit in Resources */,
@@ -1763,7 +1767,7 @@
 		802F060E2C9841AA00194AEC /* appstorelessDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppLogo;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = addy/addy.debug.entitlements;
@@ -1944,7 +1948,7 @@
 		802F06142C9841B200194AEC /* appstorelessRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppLogo;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
@@ -2323,7 +2327,7 @@
 		806F21402BE8F1B200EBEBC8 /* appstoreDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppLogo;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = addy/addy.debug.entitlements;
@@ -2364,7 +2368,7 @@
 		806F21412BE8F1B200EBEBC8 /* appstoreRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppLogo;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;

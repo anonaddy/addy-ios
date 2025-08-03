@@ -55,7 +55,8 @@ struct AddApiBottomSheet: View {
     @State private var password:String = ""
     
     
-    
+    @Namespace private var isLoadingSignInNameSpace
+
     @State var isLoadingSignIn: Bool = false
     @Environment(\.dismiss) var dismiss
     @Environment(\.openURL) var openURL
@@ -182,35 +183,6 @@ struct AddApiBottomSheet: View {
                 }
             }
             
-            
-            Section {
-                AddyLoadingButton(action: {
-                        isLoadingSignIn = true;
-                        
-                        if loginType == "api" {
-                            if apiKeyError == nil && instanceError == nil {
-                                Task {
-                                    await self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
-                                }
-                            } else {
-                                resetSignInButton()
-                            }
-                        } else {
-                            // Username and password always need to be filled, the otp should only be checked if otpMfaObject != nil
-                            if usernameValidationError == nil && passwordValidationError == nil && (otpMfaObject == nil || otpValidationError == nil){
-                                Task {
-                                    await self.verifyLogin(username: self.username, password: self.password, otp: self.otp, baseUrl: instance)
-                                }
-                            } else {
-                                resetSignInButton()
-                            }
-                        }
-                        
-
-                }, isLoading: $isLoadingSignIn) {
-                    Text(String(localized: "sign_in")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)}.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-            
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text(String(localized: "login")), message: Text(alertMessage))
@@ -225,12 +197,11 @@ struct AddApiBottomSheet: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    dismiss()
-                } label: {
-                    Text(String(localized: "cancel"))
+                if #available(iOS 26.0, *) {
+                        signInButton().buttonStyle(.glassProminent)
+                } else {
+                    signInButton()
                 }
-                
             }
             
             ToolbarItem(placement: .topBarLeading) {
@@ -239,15 +210,53 @@ struct AddApiBottomSheet: View {
                     Button(String(localized: "get_my_key")) {
                         openURL(URL(string: "\(instance)/settings/api")!)
                     }
+                    Button(String(localized: "cancel")) {
+                        dismiss()
+                    }
                 }, label: {
                     Label(String(localized: "menu"), systemImage: "ellipsis.circle")
                 })
-                
             }
             
         })
         
+
         
+        
+    }
+    
+    private func signInButton() -> some View {
+        Group {
+            if isLoadingSignIn {
+                ProgressView().progressViewStyle(.circular)
+            } else {
+                Button {
+                    withAnimation {
+                        isLoadingSignIn = true
+                        
+                    }
+                    if loginType == "api" {
+                        if apiKeyError == nil && instanceError == nil {
+                            Task {
+                                await self.verifyApiKey(apiKey: apiKey, baseUrl: instance)
+                            }
+                        } else {
+                            resetSignInButton()
+                        }
+                    } else {
+                        if usernameValidationError == nil && passwordValidationError == nil && (otpMfaObject == nil || otpValidationError == nil) {
+                            Task {
+                                await self.verifyLogin(username: self.username, password: self.password, otp: self.otp, baseUrl: instance)
+                            }
+                        } else {
+                            resetSignInButton()
+                        }
+                    }
+                } label: {
+                    Text(String(localized: "sign_in"))
+                }
+            }
+        }
     }
     
     
@@ -356,6 +365,7 @@ struct AddApiBottomSheet: View {
     
     
     private func resetSignInButton(){
+        //TODO: Remove this everywhere where possible
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             isLoadingSignIn = false
         }

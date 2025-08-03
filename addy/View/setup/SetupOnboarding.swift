@@ -1,5 +1,5 @@
 //
-//  SetupHowView.swift
+//  SetupOnboarding.swift
 //  addy
 //
 //  Created by Stijn van de Water on 06/05/2024.
@@ -17,196 +17,147 @@ struct SetupOnboarding: View {
 #if DEBUG
         let _ = Self._printChanges()
 #endif
-        
-        NavigationStack(){
-            
+        NavigationStack {
             ZStack {
+                // Background gradient
+                LinearGradient(
+                    colors: [Color("AddySecondaryColor"), Color("AccentColor")],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+                
+                // Night mode overlay
                 Rectangle()
                     .fill(.nightMode)
                     .opacity(0.6)
-                    .edgesIgnoringSafeArea(.all)
+                    .ignoresSafeArea()
                 
-                VStack{
-                    TabView(selection: $selectedPage) {
-                        Page1View(selectedPage: $selectedPage)
-                            .tag(0)
-                        Page2View(selectedPage: $selectedPage)
-                            .tag(1)
-                        Page3View(selectedPage: $selectedPage)
-                            .tag(2)
-                        Page4View(openRegistrationFormBottomSheet: $openRegistrationFormBottomSheet)
-                            .tag(3)
+                // Main content
+                VStack {
+                    // Custom toolbar content
+                    HStack {
+                        Spacer()
+                        Text(String(localized: "getting_started"))
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.primary)
+                        Spacer()
                     }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    
+                    TabView(selection: $selectedPage) {
+                        PageView(
+                            imageName: "register",
+                            title: "setup_how_1",
+                            subtitle: "setup_how_1_title",
+                            description: "setup_how_1_desc",
+                            buttonText: "next",
+                            action: { selectedPage += 1 },
+                            imageHeight: 200
+                        ).tag(0)
+                        
+                        PageView(
+                            imageName: "email_aliases",
+                            title: "setup_how_2",
+                            subtitle: "setup_how_2_title",
+                            description: "setup_how_2_desc",
+                            buttonText: "next",
+                            action: { selectedPage += 1 },
+                            imageHeight: 200
+                        ).tag(1)
+                        
+                        PageView(
+                            imageName: "dashboard",
+                            title: "setup_how_3",
+                            subtitle: "setup_how_3_title",
+                            description: "setup_how_3_desc",
+                            buttonText: "next",
+                            action: { selectedPage += 1 },
+                            imageHeight: 200
+                        ).tag(2)
+                        
+                        PageView(
+                            imageName: "logo-horizontal",
+                            title: "setup_how_4",
+                            subtitle: "setup_how_4_title",
+                            description: nil,
+                            buttonText: "get_started",
+                            action: { openRegistrationFormBottomSheet = true },
+                            imageHeight: 100
+                        ).tag(3)
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
                 }
-                
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(LinearGradient(gradient: Gradient(colors: [Color("AddySecondaryColor"), Color("AccentColor")]),
-                                           startPoint: .top, endPoint: .bottom))
-                .edgesIgnoringSafeArea(.all)
-                .navigationTitle(String(localized: "getting_started"))
-        }.sheet(isPresented: $openRegistrationFormBottomSheet) {
+                .frame(maxWidth: .infinity)
+            }
+
+        }
+        .sheet(isPresented: $openRegistrationFormBottomSheet) {
             RegistrationFormBottomSheet(showOnboarding: $showOnboarding)
         }
-        
     }
-    
-    struct Page1View: View {
-        @Binding var selectedPage: Int
-        
-        var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
-            VStack {
-                ScrollView{
-                    Image("register").resizable().scaledToFit().frame(maxHeight: 200)
-                    Text(String(localized: "setup_how_1"))
-                        .font(.title2)
-                        .bold()
-                        .multilineTextAlignment(.center)
-                    
-                    Text(String(localized: "setup_how_1_title"))
-                        .font(.subheadline)
-                        .multilineTextAlignment(.center)
-                        .opacity(0.5)
-                    
-                    let setupHow1DescFormattedString = String.localizedStringWithFormat(NSLocalizedString("setup_how_1_desc", comment: ""))
-                    Text(LocalizedStringKey(setupHow1DescFormattedString))
-                        .padding()
-                        .font(.subheadline)
-                        .multilineTextAlignment(.center)
-                    
-                }
-                
-                AddyButton(action: {
-                    withAnimation {
-                        selectedPage += 1
-                    }}
-                ) {
-                    Text(String(localized: "next")).foregroundColor(Color.white)
-                }.padding(.bottom)
-                
-            }.padding(.horizontal, 32)
-            
-        }
-    }
-    
-    struct Page2View: View {
-        @Binding var selectedPage: Int
-        
-        var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
-            VStack {
-                ScrollView{
-                    Image("email_aliases").resizable().scaledToFit().frame(maxHeight: 200)
-                    Text(String(localized: "setup_how_2"))
-                        .font(.title2)
-                        .bold()
-                        .multilineTextAlignment(.center)
-                    
-                    Text(String(localized: "setup_how_2_title"))
-                        .font(.subheadline)
-                        .multilineTextAlignment(.center)
-                        .opacity(0.5)
-                    
-                    let setupHow2DescFormattedString = String.localizedStringWithFormat(NSLocalizedString("setup_how_2_desc", comment: ""))
-                    Text(LocalizedStringKey(setupHow2DescFormattedString))
-                        .padding()
-                        .font(.subheadline)
-                        .multilineTextAlignment(.center)
-                    
-                }
-                
-                AddyButton(action: {
-                    withAnimation {
-                        selectedPage += 1
-                    }}
-                ) {
-                    Text(String(localized: "next")).foregroundColor(Color.white)
-                }.padding(.bottom)
-                
-            }.padding(.horizontal, 32)
-            
-        }
-    }
-    
-    struct Page3View: View {
-        @Binding var selectedPage: Int
-        
-        var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
-            VStack {
-                ScrollView{
-                    Image("dashboard").resizable().scaledToFit().frame(maxHeight: 200)
-                    Text(String(localized: "setup_how_3"))
-                        .font(.title2)
-                        .bold()
-                        .multilineTextAlignment(.center)
-                    
-                    Text(String(localized: "setup_how_3_title"))
-                        .font(.subheadline)
-                        .multilineTextAlignment(.center)
-                        .opacity(0.5)
-                    
-                    let setupHow3DescFormattedString = String.localizedStringWithFormat(NSLocalizedString("setup_how_3_desc", comment: ""))
-                    Text(LocalizedStringKey(setupHow3DescFormattedString))
-                        .padding()
-                        .font(.subheadline)
-                        .multilineTextAlignment(.center)
-                    
-                }
-                
-                AddyButton(action: {
-                    withAnimation {
-                        selectedPage += 1
-                    }}
-                ) {
-                    Text(String(localized: "next")).foregroundColor(Color.white)
-                }.padding(.bottom)
-                
-            }.padding(.horizontal, 32)
-            
-        }
-    }
-    
-    struct Page4View: View {
-        @Binding var openRegistrationFormBottomSheet: Bool
+}
 
-        var body: some View {
+struct PageView: View {
+    let imageName: String
+    let title: String.LocalizationValue
+    let subtitle: String.LocalizationValue
+    let description: String.LocalizationValue?
+    let buttonText: String.LocalizationValue
+    let action: () -> Void
+    let imageHeight: CGFloat?
+
+    var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
 #endif
-            VStack {
-                ScrollView{
-                    Image("logo-horizontal").resizable().scaledToFit().frame(maxHeight: 100).padding()
-
-                    Text(String(localized: "setup_how_4"))
+        VStack {
+            ScrollView {
+                VStack(spacing: 16) {
+                    Image(imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxHeight: imageHeight ?? 200)
+                        .padding(.top, 16)
+                        .padding(imageHeight != nil ? .all : .bottom)
+                    
+                    Text(String(localized: title))
                         .font(.title2)
-                        .bold()
+                        .fontWeight(.bold)
                         .multilineTextAlignment(.center)
                     
-                    Text(String(localized: "setup_how_4_title"))
+                    Text(String(localized: subtitle))
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
                         .opacity(0.5)
                     
+                    if let description = description {
+                        Text(LocalizedStringKey(String(localized: description)))
+                            .font(.subheadline)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                    }
                 }
-                
-                AddyButton(action: {
-                    openRegistrationFormBottomSheet = true
-                }
-                ) {
-                    Text(String(localized: "get_started")).foregroundColor(Color.white)
-                }.padding(.bottom)
-                
-            }.padding(.horizontal, 32)
+            }
             
+            Button(action: {
+                withAnimation {
+                    action()
+                }
+            }) {
+                Text(String(localized: buttonText))
+            }
+            .padding(.vertical, 36) // Add vertical padding to ensure shadow has space
+            .controlSize(.extraLarge)
+            .apply({ View in
+                if #available(iOS 26.0, *) {
+                    View.buttonStyle(.glassProminent)
+                } else {
+                    View.buttonStyle(.borderedProminent)
+                }
+            })
         }
+        .padding(.horizontal, 16)
     }
 }
 

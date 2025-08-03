@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct AddyLoadingButton<Content: View>: View{
+struct AddyLoadingButton<Content: View>: View {
     @Binding var isLoading: Bool
 
     var style: AddyLoadingButtonStyle
@@ -12,8 +12,6 @@ struct AddyLoadingButton<Content: View>: View{
         let defaultStyle = AddyLoadingButtonStyle(width: .infinity,
                                       height: 56,
                                       cornerRadius: 12,
-                                      backgroundColor: Color.accentColor,
-                                      loadingColor: Color.accentColor.opacity(0.4),
                                       strokeWidth: 5,
                                       strokeColor: .gray)
         
@@ -32,11 +30,9 @@ struct AddyLoadingButton<Content: View>: View{
             isLoading = true
         }) {
             ZStack {
-                Rectangle()
-                    .fill(isLoading ? style.loadingBackgroundColor : style.backgroundColor)
-                    .frame(maxWidth: isLoading ? style.height : style.width, maxHeight: style.height)
-                    .cornerRadius(isLoading ? style.height/2 : style.cornerRadius)
-
+                Capsule()
+                    .fill(.opacity(0))
+                    .frame(maxWidth: isLoading ? style.height : style.width, minHeight: style.height, maxHeight: style.height)
                 if isLoading {
                     ProgressView()
                 }
@@ -45,7 +41,29 @@ struct AddyLoadingButton<Content: View>: View{
                 }
             }
         }
+        .apply({ View in
+            if #available(iOS 26.0, *) {
+                switch style.buttonStyle {
+                    case .primary:
+                        View.buttonStyle(.glassProminent)
+                    case .secondary:
+                        View.buttonStyle(.glass)
+                    case .destruction:
+                        View.buttonStyle(.glassProminent)
+                    }
+            } else {
+                switch style.buttonStyle {
+                    case .primary:
+                        View.buttonStyle(.borderedProminent).clipShape(.capsule)
+                    case .secondary:
+                        View.buttonStyle(.bordered).clipShape(.capsule)
+                    case .destruction:
+                        View.buttonStyle(.borderedProminent).clipShape(.capsule)
+                    }
+            }
+        })
         .frame(maxWidth: style.width, maxHeight: style.height)
+        .padding()
         .disabled(isLoading)
         .animation(.easeInOut, value: isLoading)
     }
