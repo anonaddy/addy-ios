@@ -30,7 +30,7 @@ struct ChangelogBottomSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                        Label(String(localized: "dismiss"), systemImage: "xmark")
                     }
                     
                 }

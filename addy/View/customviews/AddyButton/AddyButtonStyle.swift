@@ -6,7 +6,7 @@ struct AddyButtonStyle {
     enum ButtonStyle {
         case primary
         case secondary
-        case destruction
+        case destructive
     }
     
     init(width: CGFloat? = nil,

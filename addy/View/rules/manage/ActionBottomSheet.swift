@@ -118,6 +118,7 @@ struct ActionBottomSheet: View {
             }
             
             Section {
+                //TODO: Fix, also conditions
                 AddyButton(action: {
                     var newAction = Action(type: selectedActionsType, value: "")
                     
@@ -165,7 +166,7 @@ struct ActionBottomSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text(String(localized: "cancel"))
+                        Label(String(localized: "cancel"), systemImage: "xmark")
                     }
                     
                 }

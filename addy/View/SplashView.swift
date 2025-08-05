@@ -122,7 +122,7 @@ struct SplashView: View {
                                 let settingsManager = SettingsManager(encrypted: true)
                                 settingsManager.clearSettingsAndCloseApp()
                                 
-                            }, style: AddyButtonStyle(buttonStyle: .destruction)) {
+                            }, style: AddyButtonStyle(buttonStyle: .primary)) { // TODO: Make red
                                 Text(String(localized: "reset_app")).foregroundColor(Color.white)
                             }
                         }.padding()

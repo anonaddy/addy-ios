@@ -57,44 +57,54 @@ struct EditAliasFromNameBottomSheet: View {
                             }
                     }
                 
-                }.textCase(nil)
-                
-                Section{
-                    AddyLoadingButton(action: {
-                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                        // We should not allow any saving until the validationErrors are nil
-                        if (fromNameValidationError == nil){
-                            IsLoadingSaveButton = true;
-                            
-                            Task {
-                                await self.editFromName(fromName: self.fromName)
-                            }
-                        } else {
-                                IsLoadingSaveButton = false
-                            
-                        }
-                    }, isLoading: $IsLoadingSaveButton) {
-                        Text(String(localized: "save")).foregroundColor(Color.white)
-                    }.frame(minHeight: 56)
-                }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-                
-                
-                
+                }  
                 
             }.navigationTitle(String(localized: "edit_from_name")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
                     ToolbarItem(placement: .topBarTrailing) {
+                        if #available(iOS 26.0, *) {
+                            saveButton().buttonStyle(.glassProminent)
+                        } else {
+                            saveButton()
+                        }
+                    }
+                    ToolbarItem(placement: .topBarLeading) {
                         Button {
                             dismiss()
                         } label: {
-                            Text(String(localized: "cancel"))
+                            Label(String(localized: "cancel"), systemImage: "xmark")
                         }
                         
                     }
                 })
-            
-            
+    }
+    
+    private func saveButton() -> some View {
+            Group {
+                if IsLoadingSaveButton {
+                    AnyView(ProgressView().progressViewStyle(.circular))
+                } else {
+                    AnyView(
+                        Button {
+                            // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                            // We should not allow any saving until the validationErrors are nil
+                            if (fromNameValidationError == nil){
+                                IsLoadingSaveButton = true;
+                                
+                                Task {
+                                    await self.editFromName(fromName: self.fromName)
+                                }
+                            } else {
+                                    IsLoadingSaveButton = false
+                                
+                            }
+                        } label: {
+                            Text(String(localized: "save"))
+                        }
+                    )
+                }
+            }
         
     }
     

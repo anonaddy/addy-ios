@@ -44,49 +44,55 @@ struct EditAliasSendMailRecipientBottomSheet: View {
                     .multilineTextAlignment(.center).padding(.bottom)
             }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
             
-            Section {
+            
+        }.navigationTitle(String(localized: "send_mail")).pickerStyle(.navigationLink)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
                 
-                HStack{
-                    AddyButton(action: {
-                        // Only perform the action whent the addresses are valid
-                        if (addressesValidationError == nil){
-                            self.onPressSend(self.addresses)
-                        }
-                    }) {
-                        Text(String(localized: "send")).foregroundColor(Color.white)
-                    }
-                    
+                ToolbarItem(placement: .topBarTrailing) {
                     Button() {
                         // Only perform the action whent the addresses are valid
                         if (addressesValidationError == nil){
                             self.onPressCopy(self.addresses)
                         }
                     } label: {
-                        Image(systemName: "clipboard.fill")
+                        Image(systemName: "clipboard")
                     }
-                   .buttonStyle(.bordered)
-                   .controlSize(.large)
-                   .buttonBorderShape(.circle)
-                    
-                }.frame(minHeight: 56)
+                }
                 
-
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-            
-        }.navigationTitle(String(localized: "send_mail")).pickerStyle(.navigationLink)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
+                
                 ToolbarItem(placement: .topBarTrailing) {
+                    if #available(iOS 26.0, *) {
+                        sendButton().buttonStyle(.glassProminent)
+                    } else {
+                        sendButton()
+                    }
+                }
+                
+                
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
-                        Text(String(localized: "cancel"))
+                        Label(String(localized: "cancel"), systemImage: "xmark")
                     }
                     
                 }
             })
         
         
+    }
+    
+    
+    private func sendButton() -> some View {
+        Button {
+            // Only perform the action whent the addresses are valid
+            if (addressesValidationError == nil){
+                self.onPressSend(self.addresses)
+            }
+        } label: {
+            Text(String(localized: "send"))
+        }
     }
 }
 

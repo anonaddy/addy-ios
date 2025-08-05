@@ -62,33 +62,21 @@ struct EditDomainDescriptionBottomSheet: View {
                 }
             }
             
-            Section {
-                AddyLoadingButton(action: {
-                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                    // We should not allow any saving until the validationErrors are nil
-                    if (descriptionValidationError == nil){
-                        IsLoadingSaveButton = true;
-                        
-                        Task {
-                            await self.editDescription(description: self.description)
-                        }
-                    } else {
-                            IsLoadingSaveButton = false
-                        
-                    }
-                }, isLoading: $IsLoadingSaveButton) {
-                    Text(String(localized: "save")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-            
             }.navigationTitle(String(localized: "edit_description")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .topBarTrailing) {
+                    if #available(iOS 26.0, *) {
+                        saveButton().buttonStyle(.glassProminent)
+                    } else {
+                        saveButton()
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
-                        Text(String(localized: "cancel"))
+                        Label(String(localized: "cancel"), systemImage: "xmark")
                     }
                     
                 }
@@ -97,6 +85,34 @@ struct EditDomainDescriptionBottomSheet: View {
         
     }
     
+    
+    private func saveButton() -> some View {
+            Group {
+                if IsLoadingSaveButton {
+                    AnyView(ProgressView().progressViewStyle(.circular))
+                } else {
+                    AnyView(
+                        Button {
+                            // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                            // We should not allow any saving until the validationErrors are nil
+                            if (descriptionValidationError == nil){
+                                IsLoadingSaveButton = true;
+                                
+                                Task {
+                                    await self.editDescription(description: self.description)
+                                }
+                            } else {
+                                    IsLoadingSaveButton = false
+                                
+                            }
+                        } label: {
+                            Text(String(localized: "save"))
+                        }
+                    )
+                }
+            }
+        
+    }
     
     private func editDescription(description: String?) async {
         descriptionRequestError = nil

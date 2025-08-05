@@ -30,7 +30,7 @@ struct ShareViewControllerPendingUrlView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text(String(localized: "cancel"))
+                        Label(String(localized: "cancel"), systemImage: "xmark")
                     }
                     
                 }

@@ -16,6 +16,7 @@ struct AddySectionButton: View {
     var colorAccent: Color? = .black
     var isLoading: Bool = false
     let onTap: () -> Void
+    var prominent: Bool = false
     
     
     var body: some View {

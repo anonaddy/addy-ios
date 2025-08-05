@@ -168,7 +168,7 @@ struct CreateRulesView: View {
                                     Button {
                                         self.rule!.conditions.remove(at: self.rule!.conditions.firstIndex(where: {$0 == condition})!)
                                     } label: {
-                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
+                                        Image(systemName: "xmark").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                     }.buttonStyle(PlainButtonStyle())
                                 }.frame(width: 10)
                             }.listRowSeparator(.hidden).padding()
@@ -248,7 +248,7 @@ struct CreateRulesView: View {
                                     Button {
                                         self.rule!.actions.remove(at: self.rule!.actions.firstIndex(where: {$0 == action})!)
                                     } label: {
-                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
+                                        Image(systemName: "xmark").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                     }.buttonStyle(PlainButtonStyle())
                                 }.frame(width: 10)
                             }.listRowSeparator(.hidden).padding()

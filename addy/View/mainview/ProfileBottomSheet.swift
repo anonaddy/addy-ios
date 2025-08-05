@@ -82,9 +82,11 @@ struct ProfileBottomSheet: View {
 #if APPSTORELESS
                         AddyButton(action: {
                             openURL(URL(string: "\(AddyIo.API_BASE_URL)/settings")!)
-                        }, style: AddyButtonStyle(backgroundColor: Color(.accent).opacity(0.5))) {
-                            Text(String(localized: "addyio_settings")).foregroundColor(Color.white)
-                        }.padding(.top).buttonStyle(PlainButtonStyle())
+                        }, style: AddyButtonStyle(height: 36, buttonStyle: .primary)) { //TODO: Test
+                            Text(String(localized: "addyio_settings"))
+                        }.padding(.top)
+                        
+                        
 #endif
                     }
                 }.listRowBackground(Color.clear)
@@ -195,7 +197,7 @@ struct ProfileBottomSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                        Label(String(localized: "dismiss"), systemImage: "xmark")
                     }
                     
                 }

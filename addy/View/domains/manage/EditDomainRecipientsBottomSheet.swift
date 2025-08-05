@@ -72,30 +72,23 @@ struct EditDomainRecipientsBottomSheet: View {
                             }
                     }
                 }
-            }.textCase(nil).listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
-            
-            Section {
-                AddyLoadingButton(action: {
-                        IsLoadingSaveButton = true;
-                        
-                        Task {
-                            await self.editRecipients()
-                        }
-                    
-                }, isLoading: $IsLoadingSaveButton) {
-                    Text(String(localized: "save")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+            }.listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
             
         }.navigationTitle(String(localized: "edit_recipients")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .topBarTrailing) {
+                    if #available(iOS 26.0, *) {
+                        saveButton().buttonStyle(.glassProminent)
+                    } else {
+                        saveButton()
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
-                        Text(String(localized: "cancel"))
+                        Label(String(localized: "cancel"), systemImage: "xmark")
                     }
                     
                 }
@@ -106,8 +99,26 @@ struct EditDomainRecipientsBottomSheet: View {
         
     }
     
-    
-    
+    private func saveButton() -> some View {
+            Group {
+                if IsLoadingSaveButton {
+                    AnyView(ProgressView().progressViewStyle(.circular))
+                } else {
+                    AnyView(
+                        Button {
+                            IsLoadingSaveButton = true;
+                            
+                            Task {
+                                await self.editRecipients()
+                            }
+                        } label: {
+                            Text(String(localized: "save"))
+                        }
+                    )
+                }
+            }
+        
+    }
     
     private func getAllRecipients() async {
         recipientsRequestError = nil

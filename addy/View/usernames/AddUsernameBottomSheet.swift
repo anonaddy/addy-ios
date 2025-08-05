@@ -57,37 +57,22 @@ struct AddUsernameBottomSheet: View {
                             }
                     }
                 
-                }.textCase(nil)
-                
-                Section{
-                    AddyLoadingButton(action: {
-                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                        // We should not allow any saving until the validationErrors are nil
-                        if (usernameValidationError == nil){
-                            IsLoadingAddButton = true;
-                            
-                            Task {
-                                await self.addUsernameToAccount(username: self.username)
-                            }
-                        } else {
-                                IsLoadingAddButton = false
-                        }
-                    }, isLoading: $IsLoadingAddButton) {
-                        Text(String(localized: "add")).foregroundColor(Color.white)
-                    }.frame(minHeight: 56)
-                }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-                
-                
-                
-                
+                }
             }.navigationTitle(String(localized: "add_username")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
                     ToolbarItem(placement: .topBarTrailing) {
+                        if #available(iOS 26.0, *) {
+                            saveButton().buttonStyle(.glassProminent)
+                        } else {
+                            saveButton()
+                        }
+                    }
+                    ToolbarItem(placement: .topBarLeading) {
                         Button {
                             dismiss()
                         } label: {
-                            Text(String(localized: "cancel"))
+                            Label(String(localized: "cancel"), systemImage: "xmark")
                         }
                         
                     }
@@ -97,6 +82,33 @@ struct AddUsernameBottomSheet: View {
         
     }
     
+    
+    private func saveButton() -> some View {
+            Group {
+                if IsLoadingAddButton {
+                    AnyView(ProgressView().progressViewStyle(.circular))
+                } else {
+                    AnyView(
+                        Button {
+                            // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                            // We should not allow any saving until the validationErrors are nil
+                            if (usernameValidationError == nil){
+                                IsLoadingAddButton = true;
+                                
+                                Task {
+                                    await self.addUsernameToAccount(username: self.username)
+                                }
+                            } else {
+                                    IsLoadingAddButton = false
+                            }
+                        } label: {
+                            Text(String(localized: "add"))
+                        }
+                    )
+                }
+            }
+        
+    }
     
     private func addUsernameToAccount(username: String) async {
         usernameRequestError = nil

@@ -44,21 +44,18 @@ struct AddyLoadingButton<Content: View>: View {
         .apply({ View in
             if #available(iOS 26.0, *) {
                 switch style.buttonStyle {
-                    case .primary:
-                        View.buttonStyle(.glassProminent)
-                    case .secondary:
-                        View.buttonStyle(.glass)
-                    case .destruction:
-                        View.buttonStyle(.glassProminent)
-                    }
+                case .primary:
+                    View.buttonStyle(.glassProminent)
+                case .secondary:
+                    View.buttonStyle(.glass(.clear))
+                }
             } else {
                 switch style.buttonStyle {
                     case .primary:
                         View.buttonStyle(.borderedProminent).clipShape(.capsule)
                     case .secondary:
                         View.buttonStyle(.bordered).clipShape(.capsule)
-                    case .destruction:
-                        View.buttonStyle(.borderedProminent).clipShape(.capsule)
+
                     }
             }
         })

@@ -20,7 +20,7 @@ struct RecipientsDetailView: View {
     let recipientEmail: String
     
     @Binding var shouldReloadDataInParent: Bool
-
+    
     
     @State private var activeAlert: ActiveAlert = .deleteRecipient
     @State private var showAlert: Bool = false
@@ -162,8 +162,8 @@ struct RecipientsDetailView: View {
                     }
                     
                     AddySectionButton(title: String(localized: "remove_public_key"), colorAccent: .accentColor, isLoading: isRemovingPgpKey){
-                                                activeAlert = .removePgpKey
-                                                showAlert = true
+                        activeAlert = .removePgpKey
+                        showAlert = true
                     }.disabled(recipient.fingerprint == nil)
                     
                     AddyToggle(isOn: $inlineEncryption, isLoading: isSwitchingInlineEncryptionState, title: String(localized: "pgp_inline"), description: getPgpInlineDescription(recipient: recipient))
@@ -205,7 +205,7 @@ struct RecipientsDetailView: View {
                             
                         }
                         .disabled(recipient.fingerprint == nil || mainViewState.userResource!.hasUserFreeSubscription() || recipient.inline_encryption)
-
+                    
                     
                     
                 } header: {
@@ -218,51 +218,60 @@ struct RecipientsDetailView: View {
                         activeAlert = .deleteRecipient
                         showAlert = true
                     }
+                    
+//                    AddyButton(action: {
+//                        activeAlert = .deleteRecipient
+//                        showAlert = true
+//                    }, style: AddyButtonStyle(buttonStyle: .destructive)) { //TODO: Test
+//                        Text(String(localized: "delete_recipient")).foregroundColor(Color.white)
+//                    }.padding(.top)
+                    
                 }
                 
-            }.disabled(isDeletingRecipient)
-                .refreshable {
-                    await getRecipient(recipientId: self.recipientId)
-                }
-                .navigationTitle(self.recipientEmail)
-                .navigationBarTitleDisplayMode(.inline)
-                .sheet(isPresented: $isPresentingAddRecipientPublicGpgKeyBottomSheet) {
-                    NavigationStack {
-                        AddRecipientPublicGpgKeyBottomSheet(recipientId: recipient.id){ recipient in
-                            self.recipient = recipient
-                            self.shouldEncrypt = recipient.should_encrypt
-                            isPresentingAddRecipientPublicGpgKeyBottomSheet = false
-                        }
+            }
+            .disabled(isDeletingRecipient)
+            .refreshable {
+                await getRecipient(recipientId: self.recipientId)
+            }
+            .navigationTitle(self.recipientEmail)
+            .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $isPresentingAddRecipientPublicGpgKeyBottomSheet) {
+                NavigationStack {
+                    AddRecipientPublicGpgKeyBottomSheet(recipientId: recipient.id){ recipient in
+                        self.recipient = recipient
+                        self.shouldEncrypt = recipient.should_encrypt
+                        isPresentingAddRecipientPublicGpgKeyBottomSheet = false
                     }
-                    .presentationDetents([.large])
                 }
-
-                .alert(isPresented: $showAlert) {
-                            switch activeAlert {
-                           case .deleteRecipient:
-                                return Alert(title: Text(String(localized: "delete_recipient")), message: Text(String(localized: "delete_recipient_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
-                                    isDeletingRecipient = true
-    
-                                    Task {
-                                        await deleteRecipient(recipient: recipient)
-                                    }
-                                }, secondaryButton: .cancel())
-                            case .removePgpKey:
-                                return Alert(title: Text(String(localized: "remove_public_key")), message: Text(String(format: String(localized: "remove_public_key_desc"), recipient.email)), primaryButton: .destructive(Text(String(localized: "remove"))){
-                                    isRemovingPgpKey = true
-    
-                                    Task {
-                                        await removeGpgKeyHttpRequest(recipient: recipient)
-                                    }
-                                }, secondaryButton: .cancel())
-                            case .error:
-                                return Alert(
-                                    title: Text(errorAlertTitle),
-                                    message: Text(errorAlertMessage)
-                                )
-                            }
+                .presentationDetents([.large])
+            }
+            
+            .alert(isPresented: $showAlert) {
+                switch activeAlert {
+                case .deleteRecipient:
+                    return Alert(title: Text(String(localized: "delete_recipient")), message: Text(String(localized: "delete_recipient_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
+                        isDeletingRecipient = true
+                        
+                        Task {
+                            await deleteRecipient(recipient: recipient)
                         }
-    
+                    }, secondaryButton: .cancel())
+                case .removePgpKey:
+                    return Alert(title: Text(String(localized: "remove_public_key")), message: Text(String(format: String(localized: "remove_public_key_desc"), recipient.email)), primaryButton: .destructive(Text(String(localized: "remove"))){
+                        isRemovingPgpKey = true
+                        
+                        Task {
+                            await removeGpgKeyHttpRequest(recipient: recipient)
+                        }
+                    }, secondaryButton: .cancel())
+                case .error:
+                    return Alert(
+                        title: Text(errorAlertTitle),
+                        message: Text(errorAlertMessage)
+                    )
+                }
+            }
+            
         } else {
             
             VStack {
@@ -311,7 +320,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     
     private func disallowRecipientToReplySend(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
@@ -337,7 +346,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     
     private func enableEncryption(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
@@ -355,7 +364,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     private func disableEncryption(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
         do {
@@ -380,7 +389,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     private func enableProtectedHeaders(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
         do {
@@ -397,7 +406,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     private func disableProtectedHeaders(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
         do {
@@ -422,7 +431,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     private func enablePGPInline(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
         do {
@@ -439,7 +448,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     private func disablePGPInline(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
         do {
@@ -464,7 +473,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     private func removeGpgKeyHttpRequest(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
         do {
@@ -488,7 +497,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
+    
     
     private func updateUi(aliasesArray: AliasesArray?){
         
@@ -580,7 +589,7 @@ struct RecipientsDetailView: View {
             }
         }
     }
-
+    
     
     private func getAliasesAndAddThemToList(recipient: Recipients, workingAliasList: AliasesArray? = nil) async {
         let networkHelper = NetworkHelper()
@@ -590,9 +599,9 @@ struct RecipientsDetailView: View {
                 addAliasesToList(recipient: recipient, aliasesArray: list, workingAliasListInbound: workingAliasList)
             }
         } catch {
-                withAnimation {
-                    self.errorText = error.localizedDescription
-                }
+            withAnimation {
+                self.errorText = error.localizedDescription
+            }
             
         }
     }
@@ -601,7 +610,7 @@ struct RecipientsDetailView: View {
     // Function to add aliases to the list
     func addAliasesToList(recipient: Recipients, aliasesArray: AliasesArray, workingAliasListInbound: AliasesArray? = nil) {
         var workingAliasList = workingAliasListInbound
-
+        
         // If the aliasList is nil, completely set it
         if workingAliasList == nil {
             workingAliasList = aliasesArray
@@ -619,8 +628,8 @@ struct RecipientsDetailView: View {
                 await getAliasesAndAddThemToList(recipient: recipient, workingAliasList: workingAliasList)
             }
         } else {
-                // Else, set aliasList to update UI
-                updateUi(aliasesArray: workingAliasList)
+            // Else, set aliasList to update UI
+            updateUi(aliasesArray: workingAliasList)
             
         }
     }

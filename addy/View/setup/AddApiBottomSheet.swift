@@ -55,8 +55,6 @@ struct AddApiBottomSheet: View {
     @State private var password:String = ""
     
     
-    @Namespace private var isLoadingSignInNameSpace
-
     @State var isLoadingSignIn: Bool = false
     @Environment(\.dismiss) var dismiss
     @Environment(\.openURL) var openURL

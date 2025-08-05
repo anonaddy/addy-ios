@@ -37,14 +37,14 @@ struct DeleteAccountConfirmationView: View {
     let addyButtonDeleteStyle = AddyButtonStyle(width: .infinity,
                                   height: 56,
                                   cornerRadius: 12,
-                                  buttonStyle: .destruction,
+                                  buttonStyle: .primary, //TODO: Make red
                                   strokeWidth: 5,
                                   strokeColor: .gray)
     
     let addyButtonGrayStyle = AddyButtonStyle(width: .infinity,
                                   height: 56,
                                   cornerRadius: 12,
-                                  buttonStyle: .destruction,
+                                  buttonStyle: .secondary,
                                   strokeWidth: 5,
                                   strokeColor: .gray)
     

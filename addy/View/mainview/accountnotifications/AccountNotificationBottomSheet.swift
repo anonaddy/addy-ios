@@ -40,6 +40,7 @@ struct AccountNotificationBottomSheet: View {
             }
             
             #if APPSTORELESS
+            //TODO: FIX
             if accountNotification.link != nil {
                 Section {
                     AddyButton(action: {
@@ -59,7 +60,7 @@ struct AccountNotificationBottomSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                        Label(String(localized: "dismiss"), systemImage: "xmark")
                     }
                     
                 }

@@ -151,15 +151,7 @@ struct AddAliasBottomSheet: View {
                 Text(String(localized: "recipients"))
                 
             }.listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
-            
-            Section {
-                AddyLoadingButton(action: {
-                    addAlias()
-                }, isLoading: $isLoadingAddButton) {
-                    Text(String(localized: "add")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-            
+
             Section {
                 
                 SiriTipView(
@@ -182,11 +174,20 @@ struct AddAliasBottomSheet: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
+            
             ToolbarItem(placement: .topBarTrailing) {
+                if #available(iOS 26.0, *) {
+                    addAliasButton().buttonStyle(.glassProminent)
+                } else {
+                    addAliasButton()
+                }
+            }
+            
+            ToolbarItem(placement: .topBarLeading) {
                 Button {
                     dismiss()
                 } label: {
-                    Text(String(localized: "cancel"))
+                    Label(String(localized: "cancel"), systemImage: "xmark")
                 }
                 
             }
@@ -199,6 +200,23 @@ struct AddAliasBottomSheet: View {
         }
         
         
+    }
+    
+    private func addAliasButton() -> some View {
+        Group {
+            if isLoadingAddButton {
+                ProgressView().progressViewStyle(.circular)
+            } else {
+                Button {
+                    withAnimation {
+                        isLoadingAddButton = true
+                    }
+                    addAlias()
+                } label: {
+                    Text(String(localized: "add"))
+                }
+            }
+        }
     }
     
     private func addAlias(){

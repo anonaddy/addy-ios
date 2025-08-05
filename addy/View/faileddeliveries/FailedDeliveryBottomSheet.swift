@@ -42,13 +42,6 @@ struct FailedDeliveryBottomSheet: View {
         let _ = Self._printChanges()
 #endif
         
-        let addyLoadingButtonDeleteStyle = AddyLoadingButtonStyle(width: .infinity,
-                                                                  height: 56,
-                                                                  cornerRadius: 12,
-                                                                  buttonStyle: .destruction,
-                                                                  strokeWidth: 5,
-                                                                  strokeColor: .gray)
-        
         Form{
             
             Section {
@@ -66,50 +59,7 @@ struct FailedDeliveryBottomSheet: View {
                     .multilineTextAlignment(.leading)
                 
             }
-            
-            Section {
-            
-                AddyLoadingButton(action: {
-                    
-                    activeAlert = .resend
-                    showAlert = true
-                    
-                }, isLoading: $isLoadingResendButton) {
-                    Text(String(localized: "resend_failed_delivery")).foregroundColor(Color.white)
-                    
-                }.frame(minHeight: 56).padding(.bottom)
-                
-                
-                if (self.failedDelivery.is_stored){
-                    AddyLoadingButton(action: {
-                        
-                        isLoadingDownloadButton = true;
-                        
-                        Task {
-                            await self.downloadFailedDelivery()
-                        }
-                        
-                    }, isLoading: $isLoadingDownloadButton) {
-                        Text(String(localized: "download_failed_delivery")).foregroundColor(Color.white)
-                        
-                    }.frame(minHeight: 56).padding(.bottom)
-                }
-                
-                AddyLoadingButton(action: {
-                    
-                    isLoadingDeleteButton = true;
-                    
-                    Task {
-                        await self.deleteFailedDelivery()
-                    }
-                    
-                }, isLoading: $isLoadingDeleteButton, style: addyLoadingButtonDeleteStyle) {
-                    Text(String(localized: "delete_failed_delivery")).foregroundColor(Color.white)
-                    
-                }.frame(minHeight: 56)
-                
-                
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+
         }
         .navigationTitle(String(localized: "details"))
         .sheet(isPresented: $isShowingPicker) {
@@ -124,10 +74,29 @@ struct FailedDeliveryBottomSheet: View {
                 Button {
                     dismiss()
                 } label: {
-                    Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                    Label(String(localized: "dismiss"), systemImage: "xmark")
                 }
                 
             }
+            
+            ToolbarItem(placement: .bottomBar) {
+                deleteFailedDeliveryButton()
+            }
+            
+            if (self.failedDelivery.is_stored){
+                ToolbarItem(placement: .bottomBar) {
+                    downloadFailedDeliveryButton()
+                }
+            }
+        
+            if #available(iOS 26.0, *) {
+                ToolbarSpacer(.flexible)
+            }
+            
+            ToolbarItem(placement: .bottomBar) {
+                resendFailedDeliveryButton()
+            }
+            
         })
         .alert(isPresented: $showAlert) {
             switch activeAlert {
@@ -140,6 +109,7 @@ struct FailedDeliveryBottomSheet: View {
                 return Alert(title: Text(String(localized: "resend_failed_delivery")), message: Text(String(localized: "resend_failed_delivery_confirmation_desc")), primaryButton: .default(Text(String(localized: "resend"))){
                     
                     Task {
+                        isLoadingResendButton = true
                         await self.resendFailedDelivery()
                     }
                 }, secondaryButton: .cancel(){
@@ -151,6 +121,66 @@ struct FailedDeliveryBottomSheet: View {
         
     }
     
+    
+    private func downloadFailedDeliveryButton() -> some View {
+            Group {
+                if isLoadingDownloadButton {
+                    AnyView(ProgressView().progressViewStyle(.circular))
+                } else {
+                    AnyView(
+                        Button {
+                            isLoadingDownloadButton = true;
+                            
+                            Task {
+                                await self.downloadFailedDelivery()
+                            }
+                            
+                        } label: {
+                            Label(String(localized: "download_failed_delivery"), systemImage: "square.and.arrow.down")
+                        }
+                    )
+                }
+            }
+    }    
+    private func resendFailedDeliveryButton() -> some View {
+            Group {
+                if isLoadingResendButton {
+                    AnyView(ProgressView().progressViewStyle(.circular))
+                } else {
+                    AnyView(
+                        Button {
+                            activeAlert = .resend
+                            showAlert = true
+                        } label: {
+                            Label(String(localized: "resend_failed_delivery"), systemImage: "arrowshape.turn.up.forward")
+                        }
+                    )
+                }
+            }
+    }
+    
+    private func deleteFailedDeliveryButton() -> some View {
+            Group {
+                if isLoadingDeleteButton {
+                    AnyView(ProgressView().progressViewStyle(.circular))
+                } else {
+                    AnyView(
+                        Button {
+                            
+                            isLoadingDeleteButton = true;
+                            
+                            Task {
+                                await self.deleteFailedDelivery()
+                            }
+                            
+                        } label: {
+                            Label(String(localized: "delete_failed_delivery"), systemImage: "trash")
+                        }
+                    )
+                }
+            }
+        
+    }
     
     private func deleteFailedDelivery() async {
         let networkHelper = NetworkHelper()

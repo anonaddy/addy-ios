@@ -89,7 +89,7 @@ struct SendMailRecipientView: View {
                     }
                 }
                 
-            } .textCase(nil).frame(maxWidth: .infinity, alignment: .leading)
+            }.textCase(nil).frame(maxWidth: .infinity, alignment: .leading)
             
             Section {
                 ValidatingTextField(value: self.$addresses, placeholder: $addressesPlaceholder, fieldType: .commaSeperatedEmails, error: $addressesValidationError)
@@ -134,7 +134,7 @@ struct SendMailRecipientView: View {
                 Button {
                     self.close()
                 } label: {
-                    Text(String(localized: "cancel"))
+                    Label(String(localized: "cancel"), systemImage: "xmark")
                 }
                 
             }
@@ -147,6 +147,13 @@ struct SendMailRecipientView: View {
                     } label: {
                         Text(String(localized: "send"))
                     }.disabled(addressesValidationError != nil || aliasValidationError != nil)
+                        .apply { View in
+                        if #available(iOS 26.0, *) {
+                            View.buttonStyle(.glassProminent)
+                        } else {
+                            View
+                        }
+                    }
                 }
                 
                 

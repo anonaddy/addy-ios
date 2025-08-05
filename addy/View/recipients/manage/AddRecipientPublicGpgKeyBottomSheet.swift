@@ -12,10 +12,10 @@ import addy_shared
 struct AddRecipientPublicGpgKeyBottomSheet: View {
     let recipientId: String
     @State private var publicGpgKey: String = ""
-
+    
     @State private var publicGpgKeyPlaceholder: String = String(localized: "public_key_placeholder")
     let onKeyAdded: (Recipients) -> Void
-
+    
     init(recipientId: String, onKeyAdded: @escaping (Recipients) -> Void) {
         self.recipientId = recipientId
         self.onKeyAdded = onKeyAdded
@@ -23,20 +23,20 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
     
     @State private var publicGpgKeyValidationError:String?
     @State private var publicGpgKeyRequestError:String?
-
+    
     @State var IsLoadingSaveButton: Bool = false
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
 #endif
         Form{
-
+            
             Section {
-
+                
                 ValidatingTextField(value: self.$publicGpgKey, placeholder: self.$publicGpgKeyPlaceholder, fieldType: .bigText, error: $publicGpgKeyValidationError)
-
+                
             } header: {
                 VStack(alignment: .leading){
                     Text(String(localized: "add_public_gpg_key_desc"))
@@ -53,42 +53,55 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
                         .padding([.horizontal], 0)
                         .onAppear{
                             HapticHelper.playHapticFeedback(hapticType: .error)
-                                                        }
+                        }
                 }
             }
-            
-            Section {
-                AddyLoadingButton(action: {
-                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                    // We should not allow any saving until the validationErrors are nil
-                    if (publicGpgKeyValidationError == nil){
-                        IsLoadingSaveButton = true;
-                        
-                        Task {
-                            await self.addGpgKeyHttp(publicGpgKey: self.publicGpgKey)
-                        }
-                    } else {
-                            IsLoadingSaveButton = false
-                    
-                    }
-                }, isLoading: $IsLoadingSaveButton) {
-                    Text(String(localized: "save")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-            
-            }.navigationTitle(String(localized: "add_public_gpg_key")).pickerStyle(.navigationLink)
+        }.navigationTitle(String(localized: "add_public_gpg_key")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .topBarTrailing) {
+                    if #available(iOS 26.0, *) {
+                        saveButton().buttonStyle(.glassProminent)
+                    } else {
+                        saveButton()
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
-                        Text(String(localized: "cancel"))
+                        Label(String(localized: "cancel"), systemImage: "xmark")
                     }
                     
                 }
             })
-        
+    }
+    
+    private func saveButton() -> some View {
+        Group {
+            if IsLoadingSaveButton {
+                AnyView(ProgressView().progressViewStyle(.circular))
+            } else {
+                AnyView(
+                    Button {
+                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                        // We should not allow any saving until the validationErrors are nil
+                        if (publicGpgKeyValidationError == nil){
+                            IsLoadingSaveButton = true
+                            
+                            Task {
+                                await self.addGpgKeyHttp(publicGpgKey: self.publicGpgKey)
+                            }
+                        } else {
+                            IsLoadingSaveButton = false
+                            
+                        }
+                    } label: {
+                        Text(String(localized: "add"))
+                    }
+                )
+            }
+        }
         
     }
     
@@ -105,7 +118,7 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
             publicGpgKeyRequestError = error.localizedDescription
         }
     }
-
+    
 }
 
 #Preview {

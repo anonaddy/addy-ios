@@ -1,6 +1,5 @@
 import SwiftUI
 
-@available(iOS, deprecated: 26.0, message: "This View is deprecated on iOS 26 and later. Use Button instead.")
 struct AddyButton<Content: View>: View{
     
     var style: AddyButtonStyle
@@ -33,18 +32,18 @@ struct AddyButton<Content: View>: View{
                     case .primary:
                         View.buttonStyle(.glassProminent)
                     case .secondary:
-                        View.buttonStyle(.glass)
-                    case .destruction:
-                        View.buttonStyle(.glassProminent)
-                    }
+                        View.buttonStyle(.glass(.clear))
+                    case .destructive:
+                        View.buttonStyle(.glassProminent).tint(.red)
+                }
             } else {
                 switch style.buttonStyle {
                     case .primary:
                         View.buttonStyle(.borderedProminent).clipShape(.capsule)
                     case .secondary:
                         View.buttonStyle(.bordered).clipShape(.capsule)
-                    case .destruction:
-                        View.buttonStyle(.borderedProminent).clipShape(.capsule)
+                    case .destructive:
+                        View.buttonStyle(.borderedProminent).clipShape(.capsule).tint(.red)
                     }
             }
         })
