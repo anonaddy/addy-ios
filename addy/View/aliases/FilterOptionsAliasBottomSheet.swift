@@ -130,7 +130,7 @@ struct FilterOptionsAliasBottomSheet: View {
         }.navigationTitle(String(localized: "filtering_and_sorting")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {
@@ -138,7 +138,7 @@ struct FilterOptionsAliasBottomSheet: View {
                     }
                     
                 }
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .primaryAction) {
                     
                     Menu(content: {
                         Button(String(localized: "clear_filter")) {

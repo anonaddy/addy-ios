@@ -85,7 +85,7 @@ struct LogViewerView: View {
 
         .toolbar(content: {
             
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .destructiveAction) {
                 
                 Menu(content: {
                     Button(String(localized: "clear_logs")) {

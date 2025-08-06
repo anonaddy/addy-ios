@@ -62,14 +62,14 @@ struct EditUsernameAutoCreateRegexBottomSheet: View {
             }.navigationTitle(String(localized: "edit_auto_create_regex")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItem(placement: .confirmationAction) {
                         if #available(iOS 26.0, *) {
                             saveButton().buttonStyle(.glassProminent)
                         } else {
                             saveButton()
                         }
                     }
-                    ToolbarItem(placement: .topBarLeading) {
+                    ToolbarItem(placement: .cancellationAction) {
                         Button {
                             dismiss()
                         } label: {

@@ -49,7 +49,7 @@ struct AddDomainBottomSheet: View {
                 }.navigationTitle(String(localized: "add_domain")).pickerStyle(.navigationLink)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar(content: {
-                        ToolbarItem(placement: .topBarTrailing) {
+                        ToolbarItem(placement: .cancellationAction) {
                             Button {
                                 dismiss()
                             } label: {
@@ -88,14 +88,14 @@ struct AddDomainBottomSheet: View {
                     }.navigationTitle(String(localized: "add_domain")).pickerStyle(.navigationLink)
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar(content: {
-                            ToolbarItem(placement: .topBarTrailing) {
+                            ToolbarItem(placement: .confirmationAction) {
                                 if #available(iOS 26.0, *) {
                                     saveButton().buttonStyle(.glassProminent)
                                 } else {
                                     saveButton()
                                 }
                             }
-                            ToolbarItem(placement: .topBarTrailing) {
+                            ToolbarItem(placement: .cancellationAction) {
                                 Button {
                                     dismiss()
                                 } label: {
@@ -125,14 +125,13 @@ struct AddDomainBottomSheet: View {
                             // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
                             // We should not allow any saving until the validationErrors are nil
                             if (domainValidationError == nil){
-                                IsLoadingAddButton = true;
+                                IsLoadingAddButton = true
                                 
                                 Task {
                                     await self.addDomainToAccount(domain: self.domain)
                                 }
                             } else {
-                                    IsLoadingAddButton = false
-                                
+                                IsLoadingAddButton = false
                             }
                         } label: {
                             Text(String(localized: "add"))
@@ -157,6 +156,7 @@ struct AddDomainBottomSheet: View {
                 }
             
         } catch {
+            IsLoadingAddButton = false
             domainRequestError = error.localizedDescription
         }
     }

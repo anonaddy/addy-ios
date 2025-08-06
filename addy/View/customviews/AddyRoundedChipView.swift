@@ -30,31 +30,66 @@ struct AddyRoundedChipView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(chips) { chip in
-                                    Text(chip.label)
-                                        .padding(.horizontal, 12)
-                                        .padding(.vertical, 6)
-                                        .background(Capsule().fill(self.selectedChip == chip.chipId ? Color.accentColor.opacity(0.7) : Color.gray.opacity(0.7)))
-                                        .foregroundColor(.white.opacity(0.8))
-                                        .onTapGesture{
-                                            HapticHelper.playHapticFeedback(hapticType: .tap)
-                                            self.onTap(chip)
+                                    Button(action: {
+                                        HapticHelper.playHapticFeedback(hapticType: .tap)
+                                        self.onTap(chip)
+                                    }, label: {
+                                        HStack {
+                                            if self.selectedChip == chip.chipId {
+                                                Image(systemName: "checkmark")
+                                            }
+                                            Text(chip.label)
                                         }
+                                        .fixedSize()
+                                    })
+                                    .apply { View in
+                                        if #available(iOS 26.0, *) {
+                                            if self.selectedChip == chip.chipId {
+                                                View.buttonStyle(.glassProminent)
+                                            } else {
+                                                View.buttonStyle(.glass)
+                                            }
+                                        } else {
+                                            if self.selectedChip == chip.chipId {
+                                                View.buttonStyle(.borderedProminent)
+                                            } else {
+                                                View.buttonStyle(.bordered)
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
         } else {
             WrappingHStack(alignment: .leading) {
                     ForEach(chips) { chip in
-                        Text(chip.label)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(Capsule().fill(self.selectedChip == chip.chipId ? Color.accentColor.opacity(0.7) : Color.gray.opacity(0.7)))
-                            .foregroundColor(.white.opacity(0.8))
-                            .onTapGesture{
-                                HapticHelper.playHapticFeedback(hapticType: .tap)
-                                    self.onTap(chip)
-                                
+                        Button(action: {
+                            HapticHelper.playHapticFeedback(hapticType: .tap)
+                            self.onTap(chip)
+                        }, label: {
+                            HStack {
+                                if self.selectedChip == chip.chipId {
+                                    Image(systemName: "checkmark")
+                                }
+                                Text(chip.label)
                             }
+                            .fixedSize()
+                        })
+                        .apply { View in
+                            if #available(iOS 26.0, *) {
+                                if self.selectedChip == chip.chipId {
+                                    View.buttonStyle(.glassProminent)
+                                } else {
+                                    View.buttonStyle(.glass)
+                                }
+                            } else {
+                                if self.selectedChip == chip.chipId {
+                                    View.buttonStyle(.borderedProminent)
+                                } else {
+                                    View.buttonStyle(.bordered)
+                                }
+                            }
+                        }
                     }
                 }
             

@@ -10,10 +10,7 @@ struct AddyLoadingButton<Content: View>: View {
     init(action: @escaping () -> Void, isLoading: Binding<Bool>, style: AddyLoadingButtonStyle? = nil, @ViewBuilder builder: () -> Content) {
         
         let defaultStyle = AddyLoadingButtonStyle(width: .infinity,
-                                      height: 56,
-                                      cornerRadius: 12,
-                                      strokeWidth: 5,
-                                      strokeColor: .gray)
+                                      height: 56)
         
         self._isLoading = isLoading
         self.style = style ?? defaultStyle

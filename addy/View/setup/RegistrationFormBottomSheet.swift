@@ -120,14 +120,14 @@ struct RegistrationFormBottomSheet: View {
             .navigationTitle(String(localized: "registration_register"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     if #available(iOS 26.0, *) {
                         registerButton().buttonStyle(.glassProminent)
                     } else {
                         registerButton()
                     }
                 }
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {

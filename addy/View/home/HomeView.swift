@@ -15,7 +15,7 @@ struct HomeView: View {
     
     @EnvironmentObject var mainViewState: MainViewState
     @EnvironmentObject var aliasesViewState: AliasesViewState
-
+    
     @Binding var horizontalSize: UserInterfaceSizeClass
     
     enum ActiveAlert {
@@ -30,7 +30,7 @@ struct HomeView: View {
     @State private var progress: Float = 0.7
     
     var onRefreshGeneralData: (() -> Void)? = nil
-
+    
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
@@ -165,9 +165,24 @@ struct HomeView: View {
                                            startPoint: .top, endPoint: .bottom))
                 .navigationTitle(String(localized: "home"))
                 .toolbar {
-                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                    AccountNotificationsIcon().environmentObject(mainViewState)
-                    ProfilePicture().environmentObject(mainViewState)
+                    
+                    ToolbarItem(placement: .cancellationAction) {
+                        ProfilePicture().environmentObject(mainViewState)
+                    }
+                    
+                    if #available(iOS 26.0, *) {
+                        ToolbarSpacer(.fixed)
+                    }
+                    
+                    ToolbarItemGroup(placement: .cancellationAction) {
+                        FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                        AccountNotificationsIcon().environmentObject(mainViewState)
+
+                    }
+                    if #available(iOS 26.0, *) {
+                        ToolbarSpacer(.flexible)
+                    }
+                    
                 }
         }.refreshable {
             // When refreshing aliases also ask the mainView to update general data
@@ -187,16 +202,16 @@ struct HomeView: View {
     
     
     private func updateProgress() {
-            guard let userResource = mainViewState.userResource else {
-                // Handle case where userResource might be nil, if needed
-                return
-            }
-            if userResource.bandwidth_limit == 0 {
-                self.progress = 1.0
-            } else {
-                self.progress = Float(Double(userResource.bandwidth) / Double(userResource.bandwidth_limit))
-            }
+        guard let userResource = mainViewState.userResource else {
+            // Handle case where userResource might be nil, if needed
+            return
         }
+        if userResource.bandwidth_limit == 0 {
+            self.progress = 1.0
+        } else {
+            self.progress = Float(Double(userResource.bandwidth) / Double(userResource.bandwidth_limit))
+        }
+    }
     
 }
 

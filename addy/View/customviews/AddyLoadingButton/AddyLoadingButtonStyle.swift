@@ -17,16 +17,10 @@ struct AddyLoadingButtonStyle {
     
     init(width: CGFloat? = nil,
                 height: CGFloat? = nil,
-                cornerRadius: CGFloat? = nil,
-                buttonStyle: ButtonStyle? = nil,
-                strokeWidth: CGFloat? = nil,
-                strokeColor: Color? = nil) {        
+                buttonStyle: ButtonStyle? = nil,) {
         self.width = width ?? .infinity
         self.height = height ?? 56
-        self.cornerRadius = cornerRadius ?? 12
         self.buttonStyle = buttonStyle ?? ButtonStyle.primary
-        self.strokeWidth = strokeWidth ?? 5
-        self.strokeColor = strokeColor ?? Color.gray.opacity(0.6)
 
     }
     
@@ -34,12 +28,6 @@ struct AddyLoadingButtonStyle {
     var width: CGFloat = 312
     /// Height of button
     var height: CGFloat = 54
-    /// Corner radius of button
-    var cornerRadius: CGFloat = 0
     /// Button Style
     var buttonStyle: ButtonStyle = .primary
-    /// Width of circle loading bar stroke
-    var strokeWidth: CGFloat = 5
-    /// Color of circle loading bar stroke
-    var strokeColor: Color = Color.gray.opacity(0.6)
 }

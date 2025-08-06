@@ -86,7 +86,7 @@ struct SendMailRecipientView: View {
                             viewModel.searchQuery = onTappedChip.label
                             viewModel.suggestionChips = []
                         }
-                    }
+                    }.scrollClipDisabled()
                 }
                 
             }.textCase(nil).frame(maxWidth: .infinity, alignment: .leading)
@@ -130,7 +130,7 @@ struct SendMailRecipientView: View {
         .pickerStyle(.navigationLink)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .cancellationAction) {
                 Button {
                     self.close()
                 } label: {
@@ -138,7 +138,7 @@ struct SendMailRecipientView: View {
                 }
                 
             }
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .confirmationAction) {
                 if isCreatingAlias {
                     ProgressView()
                 } else {

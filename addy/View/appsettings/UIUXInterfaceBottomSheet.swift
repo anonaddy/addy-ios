@@ -93,7 +93,7 @@ struct UIUXInterfaceBottomSheet: View {
         }.navigationTitle(String(localized: "interface")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem() {
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {

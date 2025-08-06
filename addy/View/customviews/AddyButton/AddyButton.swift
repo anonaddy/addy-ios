@@ -10,10 +10,7 @@ struct AddyButton<Content: View>: View{
         
         let defaultStyle = AddyButtonStyle(width: .infinity,
                                            height: 56,
-                                           cornerRadius: 12,
-                                           buttonStyle: .primary,
-                                           strokeWidth: 5,
-                                           strokeColor: .gray)
+                                           buttonStyle: .primary)
         
         self.style = style ?? defaultStyle
         content = builder()

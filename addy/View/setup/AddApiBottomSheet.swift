@@ -194,7 +194,7 @@ struct AddApiBottomSheet: View {
         .pickerStyle(.navigationLink)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .confirmationAction) {
                 if #available(iOS 26.0, *) {
                     signInButton().buttonStyle(.glassProminent)
                 } else {
@@ -202,7 +202,7 @@ struct AddApiBottomSheet: View {
                 }
             }
             
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .secondaryAction) {
                 
                 Menu(content: {
                     Button(String(localized: "get_my_key")) {

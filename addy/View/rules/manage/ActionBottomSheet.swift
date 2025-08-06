@@ -121,7 +121,7 @@ struct ActionBottomSheet: View {
         }.navigationTitle(String(localized: "add_action")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     if #available(iOS 26.0, *) {
                         saveButton().buttonStyle(.glassProminent)
                     } else {
@@ -129,7 +129,7 @@ struct ActionBottomSheet: View {
                     }
                 }
                 
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {

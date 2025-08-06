@@ -26,7 +26,7 @@ struct ChangelogBottomSheet: View {
         }.navigationTitle(String(localized: "changelog"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem() {
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {

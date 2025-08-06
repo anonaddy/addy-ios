@@ -36,17 +36,11 @@ struct DeleteAccountConfirmationView: View {
     
     let addyButtonDeleteStyle = AddyButtonStyle(width: .infinity,
                                   height: 56,
-                                  cornerRadius: 12,
-                                  buttonStyle: .destructive, //TODO: Make red
-                                  strokeWidth: 5,
-                                  strokeColor: .gray)
+                                  buttonStyle: .destructive)
     
     let addyButtonGrayStyle = AddyButtonStyle(width: .infinity,
                                   height: 56,
-                                  cornerRadius: 12,
-                                  buttonStyle: .secondary,
-                                  strokeWidth: 5,
-                                  strokeColor: .gray)
+                                  buttonStyle: .secondary)
     
     
     
@@ -71,8 +65,6 @@ struct DeleteAccountConfirmationView: View {
                 AddyButton(action: {}, style: addyButtonGrayStyle) {
                     Text(String(format: String(localized: "delete_account_countdown"), String(viewModel.secondsRemaining)))
                         .padding()
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
                 }.padding()
             } else {
                 AddyButton(action: {
@@ -81,7 +73,6 @@ struct DeleteAccountConfirmationView: View {
                     Text(String(localized: "delete_account"))
                         .padding()
                         .foregroundColor(.white)
-                        .cornerRadius(10)
                 }.padding()
             }
         }

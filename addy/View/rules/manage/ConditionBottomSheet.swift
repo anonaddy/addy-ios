@@ -71,7 +71,7 @@ struct ConditionBottomSheet: View {
         }.navigationTitle(String(localized: "add_condition")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     if #available(iOS 26.0, *) {
                         saveButton().buttonStyle(.glassProminent)
                     } else {
@@ -79,7 +79,7 @@ struct ConditionBottomSheet: View {
                     }
                 }
                 
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {

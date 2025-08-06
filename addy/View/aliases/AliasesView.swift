@@ -66,8 +66,8 @@ struct AliasesView: View {
                             }
                             
                             ApplyFilter(chipId: onTappedChip.chipId)
-                        }
-                    }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+                        }.scrollClipDisabled()
+                    }.listRowBackground(Color.clear)
                 }
                 
                 if let aliasList = aliasesViewModel.aliasList{
@@ -256,17 +256,33 @@ struct AliasesView: View {
             })
             .navigationTitle(String(localized: "aliases"))
             .toolbar {
-                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                ProfilePicture().environmentObject(mainViewState)
-            }
-            .navigationBarItems(trailing: HStack{
-                Button(action: {
-                    mainViewState.showAddAliasBottomSheet = true
-                } ) {
-                    Image(systemName: "plus")
-                        .frame(width: 24, height: 24)
+                
+                ToolbarItem(placement: .cancellationAction) {
+                    ProfilePicture().environmentObject(mainViewState)
                 }
-            })
+                
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(.fixed)
+                }
+                
+                ToolbarItemGroup(placement: .cancellationAction) {
+                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    AccountNotificationsIcon().environmentObject(mainViewState)
+
+                }
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(.flexible)
+                }
+                
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(action: {
+                        mainViewState.showAddAliasBottomSheet = true
+                    } ) {
+                        Image(systemName: "plus")
+                            .frame(width: 24, height: 24)
+                    }
+                }
+            }
             
             .searchable(text: $aliasesViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "aliases_search"))
             .onSubmit(of: .search) {

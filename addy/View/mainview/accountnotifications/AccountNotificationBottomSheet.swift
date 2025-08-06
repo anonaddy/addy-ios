@@ -56,7 +56,7 @@ struct AccountNotificationBottomSheet: View {
         }.navigationTitle(accountNotification.title).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem() {
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {

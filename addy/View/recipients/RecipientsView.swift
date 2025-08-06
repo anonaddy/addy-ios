@@ -58,8 +58,8 @@ struct RecipientsView: View {
                             }
                             
                             ApplyFilter(chipId: onTappedChip.chipId)
-                        }
-                    }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+                        }.scrollClipDisabled()
+                    }.listRowBackground(Color.clear)
                     
                     
                     
@@ -244,22 +244,41 @@ struct RecipientsView: View {
             })
             .navigationTitle(String(localized: "recipients"))
             .toolbar {
-                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                ProfilePicture().environmentObject(mainViewState)
-            }
-            .navigationBarItems(trailing: HStack {
-                Button(action: {
-                    self.isPresentingAddRecipientBottomSheet = true
-                } ) {
-                    
-                    Image(systemName: "plus")
-                        .frame(width: 24, height: 24)
-                    
+                
+                
+                ToolbarItem(placement: .cancellationAction) {
+                    ProfilePicture().environmentObject(mainViewState)
                 }
-                // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
-                    .disabled(mainViewState.userResource!.subscription != nil &&
-                              recipient_count >= recipient_limit! /* Cannot be nil since subscription is not nil */ )
-            } )
+                
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(.fixed)
+                }
+                
+                ToolbarItemGroup(placement: .cancellationAction) {
+                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    AccountNotificationsIcon().environmentObject(mainViewState)
+
+                }
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(.flexible)
+                }
+                
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(action: {
+                        self.isPresentingAddRecipientBottomSheet = true
+                    } ) {
+                        
+                        Image(systemName: "plus")
+                            .frame(width: 24, height: 24)
+                        
+                    }
+                    // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
+                        .disabled(mainViewState.userResource!.subscription != nil &&
+                                  recipient_count >= recipient_limit! /* Cannot be nil since subscription is not nil */ )
+                }
+                
+                
+            }
         }.onAppear(perform: {
             // Set stats, update later
             recipient_count = mainViewState.userResource!.recipient_count

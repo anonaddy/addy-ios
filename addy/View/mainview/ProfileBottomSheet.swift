@@ -193,7 +193,7 @@ struct ProfileBottomSheet: View {
             .listSectionSpacing(.compact)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem() {
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {

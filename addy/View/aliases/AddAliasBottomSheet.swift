@@ -175,7 +175,7 @@ struct AddAliasBottomSheet: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .confirmationAction) {
                 if #available(iOS 26.0, *) {
                     addAliasButton().buttonStyle(.glassProminent)
                 } else {
@@ -183,7 +183,7 @@ struct AddAliasBottomSheet: View {
                 }
             }
             
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .cancellationAction) {
                 Button {
                     dismiss()
                 } label: {

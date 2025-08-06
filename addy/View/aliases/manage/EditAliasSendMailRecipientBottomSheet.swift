@@ -49,7 +49,7 @@ struct EditAliasSendMailRecipientBottomSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .secondaryAction) {
                     Button() {
                         // Only perform the action whent the addresses are valid
                         if (addressesValidationError == nil){
@@ -61,7 +61,7 @@ struct EditAliasSendMailRecipientBottomSheet: View {
                 }
                 
                 
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     if #available(iOS 26.0, *) {
                         sendButton().buttonStyle(.glassProminent)
                     } else {
@@ -70,7 +70,7 @@ struct EditAliasSendMailRecipientBottomSheet: View {
                 }
                 
                 
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {
