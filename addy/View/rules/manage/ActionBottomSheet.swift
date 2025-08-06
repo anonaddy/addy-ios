@@ -117,52 +117,19 @@ struct ActionBottomSheet: View {
                 }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
             }
             
-            Section {
-                //TODO: Fix, also conditions
-                AddyButton(action: {
-                    var newAction = Action(type: selectedActionsType, value: "")
-                    
-                    
-                    // If the type is set to set banner information location get the value from the picker and use that
-                    if (selectedActionsType == "banner"){
-                        newAction.value = selectedBannerLocationOptions
-                    }
-                    // If the type is set to block email send a true
-                    else if (selectedActionsType == "block"){
-                        newAction.value = String(true)
-                    }
-                    // If the type is set to turn off PGP send a true
-                    else if (selectedActionsType == "encryption"){
-                        newAction.value = String(true)
-                    }
-                    // If the type is set to remove attachments send a true
-                    else if (selectedActionsType == "removeAttachments"){
-                        newAction.value = String(true)
-                    }
-                    // If the type is set to forward to send selected recipientID
-                    else if (selectedActionsType == "forwardTo"){
-                        if selectedRecipientChip.isEmpty{
-                            return
-                        } else {
-                            newAction.value = selectedRecipientChip.first!
-                        }
-                    }
-                    else {
-                        // Else just get the textfield value
-                        newAction.value = self.value
-                    }
-                    
-                    
-                    self.onAddedAction(actionEditObject, newAction)
-                }) {
-                    Text(String(localized: "add")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
             
         }.navigationTitle(String(localized: "add_action")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .topBarTrailing) {
+                    if #available(iOS 26.0, *) {
+                        saveButton().buttonStyle(.glassProminent)
+                    } else {
+                        saveButton()
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
@@ -195,6 +162,64 @@ struct ActionBottomSheet: View {
         
         
     }
+    
+    
+    
+    
+    
+    
+    private func saveButton() -> some View {
+        AnyView(
+            Button {
+                var newAction = Action(type: selectedActionsType, value: "")
+                
+                
+                // If the type is set to set banner information location get the value from the picker and use that
+                if (selectedActionsType == "banner"){
+                    newAction.value = selectedBannerLocationOptions
+                }
+                // If the type is set to block email send a true
+                else if (selectedActionsType == "block"){
+                    newAction.value = String(true)
+                }
+                // If the type is set to turn off PGP send a true
+                else if (selectedActionsType == "encryption"){
+                    newAction.value = String(true)
+                }
+                // If the type is set to remove attachments send a true
+                else if (selectedActionsType == "removeAttachments"){
+                    newAction.value = String(true)
+                }
+                // If the type is set to forward to send selected recipientID
+                else if (selectedActionsType == "forwardTo"){
+                    if selectedRecipientChip.isEmpty{
+                        return
+                    } else {
+                        newAction.value = selectedRecipientChip.first!
+                    }
+                }
+                else {
+                    // Else just get the textfield value
+                    newAction.value = self.value
+                }
+                
+                
+                self.onAddedAction(actionEditObject, newAction)
+            } label: {
+                if actionEditObject != nil {
+                    Text(String(localized: "save"))
+                } else {
+                    Text(String(localized: "add"))
+                }
+            }
+        )
+        
+    }
+    
+    
+    
+    
+    
     
 }
 

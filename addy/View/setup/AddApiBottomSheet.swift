@@ -196,7 +196,7 @@ struct AddApiBottomSheet: View {
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
                 if #available(iOS 26.0, *) {
-                        signInButton().buttonStyle(.glassProminent)
+                    signInButton().buttonStyle(.glassProminent)
                 } else {
                     signInButton()
                 }
@@ -363,10 +363,7 @@ struct AddApiBottomSheet: View {
     
     
     private func resetSignInButton(){
-        //TODO: Remove this everywhere where possible
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            isLoadingSignIn = false
-        }
+        isLoadingSignIn = false
     }
     
     private func isQrCodeFormattedCorrect(text: String) -> Bool {

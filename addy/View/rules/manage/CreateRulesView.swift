@@ -123,11 +123,11 @@ struct CreateRulesView: View {
                             }
                         }
                         
-                    }
+                    }.scrollClipDisabled()
                 } header: {
                     Text(String(localized: "run_rule_on")).padding(.horizontal)
                     
-                }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+                }
                 
                 
                 Section {
@@ -168,7 +168,7 @@ struct CreateRulesView: View {
                                     Button {
                                         self.rule!.conditions.remove(at: self.rule!.conditions.firstIndex(where: {$0 == condition})!)
                                     } label: {
-                                        Image(systemName: "xmark").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
+                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                     }.buttonStyle(PlainButtonStyle())
                                 }.frame(width: 10)
                             }.listRowSeparator(.hidden).padding()
@@ -248,7 +248,7 @@ struct CreateRulesView: View {
                                     Button {
                                         self.rule!.actions.remove(at: self.rule!.actions.firstIndex(where: {$0 == action})!)
                                     } label: {
-                                        Image(systemName: "xmark").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
+                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                     }.buttonStyle(PlainButtonStyle())
                                 }.frame(width: 10)
                             }.listRowSeparator(.hidden).padding()
@@ -284,28 +284,13 @@ struct CreateRulesView: View {
                 .navigationTitle(self.ruleName)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
+                    
                     ToolbarItem(placement: .topBarTrailing) {
-                        if self.isSavingRule {
-                            ProgressView()
+                        if #available(iOS 26.0, *) {
+                            saveButton().buttonStyle(.glassProminent)
                         } else {
-                            Button {
-                                self.isSavingRule = true
-                                if (self.ruleId.isEmpty){
-                                    Task {
-                                        await self.createRule()
-                                    }
-                                } else {
-                                    // ruleId is not empty, update rule instead
-                                    Task {
-                                        await self.updateRule()
-                                    }
-                                }
-                            } label: {
-                                Text(String(localized: "save"))
-                            }.disabled(self.ruleName.isEmpty)
+                            saveButton()
                         }
-                        
-                        
                     }
                 })
                 .sheet(item: $actionToEdit) { action in
@@ -394,6 +379,33 @@ struct CreateRulesView: View {
         }
     }
     
+    
+    private func saveButton() -> some View {
+        Group {
+            if isSavingRule {
+                AnyView(ProgressView().progressViewStyle(.circular))
+            } else {
+                AnyView(
+                    Button {
+                        self.isSavingRule = true
+                        if (self.ruleId.isEmpty){
+                            Task {
+                                await self.createRule()
+                            }
+                        } else {
+                            // ruleId is not empty, update rule instead
+                            Task {
+                                await self.updateRule()
+                            }
+                        }
+                    } label: {
+                        Text(String(localized: "save"))
+                    }.disabled(self.ruleName.isEmpty)
+                )
+            }
+        }
+        
+    }
     
     private func updateUi(rule: Rules){
         

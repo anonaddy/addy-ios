@@ -77,11 +77,7 @@ struct AddUsernameBottomSheet: View {
                         
                     }
                 })
-            
-            
-        
     }
-    
     
     private func saveButton() -> some View {
             Group {

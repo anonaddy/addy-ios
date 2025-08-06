@@ -228,11 +228,8 @@ struct AddAliasBottomSheet: View {
             if (self.mainViewState.userResource!.hasUserFreeSubscription()){
                 self.aliasError = String(localized: "domains_format_random_words_not_available_for_this_subscription")
                 self.formatValidationError = true
+                self.isLoadingAddButton = false
                 
-                // TODO: workaround, fix
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.isLoadingAddButton = false
-                }
                 
                 return
             }
@@ -245,11 +242,8 @@ struct AddAliasBottomSheet: View {
                 if (sharedDomains.contains(selectedDomain) && self.mainViewState.userResource!.hasUserFreeSubscription()){
                     self.aliasError = String(localized: "domains_format_custom_not_available_for_this_domain")
                     self.formatValidationError = true
+                    self.isLoadingAddButton = false
                     
-                    // TODO: workaround, fix
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.isLoadingAddButton = false
-                    }
                     return
                 }
             }
@@ -257,11 +251,8 @@ struct AddAliasBottomSheet: View {
             if localPart.isEmpty {
                 self.aliasError = String(localized: "this_field_cannot_be_empty")
                 self.localPartError = true
+                self.isLoadingAddButton = false
                 
-                // TODO: workaround, fix
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.isLoadingAddButton = false
-                }
                 return
             }
         }

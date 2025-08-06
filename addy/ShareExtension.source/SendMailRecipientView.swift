@@ -148,12 +148,12 @@ struct SendMailRecipientView: View {
                         Text(String(localized: "send"))
                     }.disabled(addressesValidationError != nil || aliasValidationError != nil)
                         .apply { View in
-                        if #available(iOS 26.0, *) {
-                            View.buttonStyle(.glassProminent)
-                        } else {
-                            View
+                            if #available(iOS 26.0, *) {
+                                View.buttonStyle(.glassProminent)
+                            } else {
+                                View
+                            }
                         }
-                    }
                 }
                 
                 
@@ -259,13 +259,13 @@ struct SendMailRecipientView: View {
     
     func showCopiedToClipboardAnimation(){
         withAnimation(.snappy) {
-                copiedToClipboard = true
+            copiedToClipboard = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            withAnimation(.snappy) {
+                copiedToClipboard = false
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                withAnimation(.snappy) {
-                    copiedToClipboard = false
-                }
-            }
+        }
     }
     
     

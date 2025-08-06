@@ -68,19 +68,18 @@ struct ConditionBottomSheet: View {
                 }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
             }
             
-            Section {
-                AddyButton(action: {
-                    let condition = Condition(type: self.selectedConditionType, match: self.selectedConditionMatch, values: self.value.split(separator: ",").map { String($0) })
-                    self.onAddedCondition(conditionEditObject, condition)
-                }) {
-                    Text(String(localized: "add")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-            
         }.navigationTitle(String(localized: "add_condition")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .topBarTrailing) {
+                    if #available(iOS 26.0, *) {
+                        saveButton().buttonStyle(.glassProminent)
+                    } else {
+                        saveButton()
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
@@ -99,6 +98,25 @@ struct ConditionBottomSheet: View {
                 }
             })
         
+        
+    }
+    
+    
+    
+    private func saveButton() -> some View {
+        AnyView(
+            Button {
+                let condition = Condition(type: self.selectedConditionType, match: self.selectedConditionMatch, values: self.value.split(separator: ",").map { String($0) })
+                self.onAddedCondition(conditionEditObject, condition)
+            } label: {
+                if conditionEditObject != nil {
+                    Text(String(localized: "save"))
+                } else {
+                    Text(String(localized: "add"))
+                }
+                
+            }
+        )
         
     }
     
