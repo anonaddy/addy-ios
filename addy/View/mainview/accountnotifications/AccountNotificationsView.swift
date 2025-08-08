@@ -171,10 +171,12 @@ struct AccountNotificationsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(String(localized: "account_notifications"))
             .toolbar {
-                Button {
-                    dismiss()
-                } label: {
-                    Label(String(localized: "dismiss"), systemImage: "xmark")
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label(String(localized: "dismiss"), systemImage: "xmark")
+                    }
                 }
             }
             

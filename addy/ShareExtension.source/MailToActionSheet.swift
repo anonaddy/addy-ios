@@ -58,8 +58,10 @@ struct MailToActionSheet: View {
                     .apply {
                         if openedThroughShareSheet {
                             $0.toolbar {
-                                Button(String(localized: "cancel")) {
-                                    self.close()
+                                ToolbarItem(placement: .cancellationAction) {
+                                    Button(String(localized: "cancel")) {
+                                        self.close()
+                                    }
                                 }
                             }
                         } else {
