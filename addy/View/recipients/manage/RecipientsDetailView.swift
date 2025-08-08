@@ -219,13 +219,6 @@ struct RecipientsDetailView: View {
                         showAlert = true
                     }
                     
-//                    AddyButton(action: {
-//                        activeAlert = .deleteRecipient
-//                        showAlert = true
-//                    }, style: AddyButtonStyle(buttonStyle: .destructive)) { //TODO: Test
-//                        Text(String(localized: "delete_recipient")).foregroundColor(Color.white)
-//                    }.padding(.top)
-                    
                 }
                 
             }

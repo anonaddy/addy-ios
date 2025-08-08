@@ -49,20 +49,6 @@ struct RecipientsView: View {
         NavigationStack(){
             List {
                 if let recipients = recipientsViewModel.recipients{
-                    
-                    
-                    Section {
-                        AddyRoundedChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
-                            withAnimation {
-                                selectedFilterChip = onTappedChip.chipId
-                            }
-                            
-                            ApplyFilter(chipId: onTappedChip.chipId)
-                        }.scrollClipDisabled()
-                    }.listRowBackground(Color.clear)
-                    
-                    
-                    
                     Section {
                         
                         ForEach (recipients) { recipient in
@@ -119,17 +105,27 @@ struct RecipientsView: View {
                             
                         }.onDelete(perform: deleteRecipient)
                     } header: {
-                        HStack(spacing: 6){
-                            if (recipientsViewModel.verifiedOnly){
-                                Text(String(localized: "recipients_filtered"))
-                            } else {
-                                Text(String(localized: "recipients"))
-                            }
-                            
-                            if (recipientsViewModel.isLoading){
-                                ProgressView()
-                                    .frame(maxHeight: 4)
+                        VStack (alignment: .leading, spacing: 24){
+                            AddyRoundedChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
+                                withAnimation {
+                                    selectedFilterChip = onTappedChip.chipId
+                                }
                                 
+                                ApplyFilter(chipId: onTappedChip.chipId)
+                            }.scrollClipDisabled()
+                            
+                            HStack(spacing: 6){
+                                if (recipientsViewModel.verifiedOnly){
+                                    Text(String(localized: "recipients_filtered"))
+                                } else {
+                                    Text(String(localized: "recipients"))
+                                }
+                                
+                                if (recipientsViewModel.isLoading){
+                                    ProgressView()
+                                        .frame(maxHeight: 4)
+                                    
+                                }
                             }
                         }
                         
@@ -244,9 +240,7 @@ struct RecipientsView: View {
             })
             .navigationTitle(String(localized: "recipients"))
             .toolbar {
-                
-                
-                ToolbarItem(placement: .cancellationAction) {
+                ToolbarItem(placement: .topBarLeading) {
                     ProfilePicture().environmentObject(mainViewState)
                 }
                 
@@ -254,16 +248,19 @@ struct RecipientsView: View {
                     ToolbarSpacer(.fixed)
                 }
                 
-                ToolbarItemGroup(placement: .cancellationAction) {
+                ToolbarItem() {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                    AccountNotificationsIcon().environmentObject(mainViewState)
-
                 }
+                
+                ToolbarItem() {
+                    AccountNotificationsIcon().environmentObject(mainViewState)
+                }
+                
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(.flexible)
                 }
                 
-                ToolbarItem(placement: .confirmationAction) {
+                ToolbarItem() {
                     Button(action: {
                         self.isPresentingAddRecipientBottomSheet = true
                     } ) {

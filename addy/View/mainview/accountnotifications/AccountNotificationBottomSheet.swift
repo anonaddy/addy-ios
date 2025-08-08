@@ -32,26 +32,25 @@ struct AccountNotificationBottomSheet: View {
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)
             } footer: {
-                Text(DateTimeUtils.convertStringToLocalTimeZoneString(accountNotification.created_at))
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
-                    .italic()
-                    .padding(.bottom, 4)
+                VStack (alignment: .leading, spacing: 24){
+                    Text(DateTimeUtils.convertStringToLocalTimeZoneString(accountNotification.created_at))
+                        .font(.system(size: 12))
+                        .foregroundColor(.gray)
+                        .italic()
+                        .padding(.bottom, 4)
+#if APPSTORELESS
+                    if accountNotification.link != nil {
+                        AddyButton(action: {
+                            openURL(URL(string: accountNotification.link!)!)
+                            dismiss()
+                        }) {
+                            Text(accountNotification.link_text ?? String(localized: "open_link")).foregroundColor(Color.white)
+                        }
+                    }
+                    #endif
+                }
             }
-            
-            #if APPSTORELESS
-            //TODO: FIX
-            if accountNotification.link != nil {
-                Section {
-                    AddyButton(action: {
-                        openURL(URL(string: accountNotification.link!)!)
-                        dismiss()
-                    }) {
-                        Text(accountNotification.link_text ?? String(localized: "open_link")).foregroundColor(Color.white)
-                    }.frame(minHeight: 56)
-                }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-            }
-#endif
+
             
         }.navigationTitle(accountNotification.title).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)

@@ -202,7 +202,7 @@ struct AddApiBottomSheet: View {
                 }
             }
             
-            ToolbarItem(placement: .secondaryAction) {
+            ToolbarItem(placement: .cancellationAction) {
                 
                 Menu(content: {
                     Button(String(localized: "get_my_key")) {

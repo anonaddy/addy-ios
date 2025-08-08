@@ -165,8 +165,7 @@ struct HomeView: View {
                                            startPoint: .top, endPoint: .bottom))
                 .navigationTitle(String(localized: "home"))
                 .toolbar {
-                    
-                    ToolbarItem(placement: .cancellationAction) {
+                    ToolbarItem(placement: .topBarLeading) {
                         ProfilePicture().environmentObject(mainViewState)
                     }
                     
@@ -174,15 +173,13 @@ struct HomeView: View {
                         ToolbarSpacer(.fixed)
                     }
                     
-                    ToolbarItemGroup(placement: .cancellationAction) {
+                    ToolbarItem() {
                         FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                        
+                    }
+                    ToolbarItem() {
                         AccountNotificationsIcon().environmentObject(mainViewState)
-
                     }
-                    if #available(iOS 26.0, *) {
-                        ToolbarSpacer(.flexible)
-                    }
-                    
                 }
         }.refreshable {
             // When refreshing aliases also ask the mainView to update general data

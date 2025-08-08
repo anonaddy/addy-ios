@@ -119,26 +119,21 @@ struct FilterOptionsAliasBottomSheet: View {
             }
             
             
-            Section {
-                AddyButton(action: {
-                    self.saveFilterAndSortingSettings()
-                }) {
-                    Text(String(localized: "save")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+        
             
         }.navigationTitle(String(localized: "filtering_and_sorting")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "cancel"), systemImage: "xmark")
+                
+                ToolbarItem(placement: .confirmationAction) {
+                    if #available(iOS 26.0, *) {
+                        saveFilterAndSortingSettingsButton().buttonStyle(.glassProminent)
+                    } else {
+                        saveFilterAndSortingSettingsButton()
                     }
-                    
                 }
-                ToolbarItem(placement: .primaryAction) {
+                
+                ToolbarItem(placement: .cancellationAction) {
                     
                     Menu(content: {
                         Button(String(localized: "clear_filter")) {
@@ -151,6 +146,9 @@ struct FilterOptionsAliasBottomSheet: View {
                             
                             LoadFilter(aliasSortFilterRequest: aliasSortFilterRequest)
                         }
+                        Button(String(localized: "cancel")) {
+                            dismiss()
+                        }
                     }, label: {
                         Label(String(localized: "menu"), systemImage: "ellipsis.circle")
                     })
@@ -162,6 +160,14 @@ struct FilterOptionsAliasBottomSheet: View {
             })
         
         
+    }
+    
+    private func saveFilterAndSortingSettingsButton() -> some View {
+        Button {
+            self.saveFilterAndSortingSettings()
+        } label: {
+            Text(String(localized: "save"))
+        }
     }
     
     func saveFilterAndSortingSettings(){

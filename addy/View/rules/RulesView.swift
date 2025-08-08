@@ -311,9 +311,17 @@ struct RulesView: View {
             .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
             .toolbar {
                 if horizontalSize == .regular {
-                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                    AccountNotificationsIcon().environmentObject(mainViewState)
-                    ProfilePicture().environmentObject(mainViewState)
+                    ToolbarItem(placement: .topBarLeading) {
+                        ProfilePicture().environmentObject(mainViewState)
+                    }
+                    
+                    ToolbarItem() {
+                        FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    }
+                    
+                    ToolbarItem() {
+                        AccountNotificationsIcon().environmentObject(mainViewState)
+                    }
                 }
             }
             .navigationBarItems(trailing: NavigationLink(destination: CreateRulesView(recipients: self.rulesViewModel.recipients, ruleId: nil, ruleName: "", shouldReloadDataInParent: $shouldReloadDataInParent)) {

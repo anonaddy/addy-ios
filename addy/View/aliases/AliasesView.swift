@@ -58,18 +58,6 @@ struct AliasesView: View {
         NavigationStack(){
             List {
                 
-                if aliasesViewModel.networkError == "" {
-                    Section {
-                        AddyRoundedChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
-                            withAnimation {
-                                selectedFilterChip = onTappedChip.chipId
-                            }
-                            
-                            ApplyFilter(chipId: onTappedChip.chipId)
-                        }.scrollClipDisabled()
-                    }.listRowBackground(Color.clear)
-                }
-                
                 if let aliasList = aliasesViewModel.aliasList{
                     Section {
                         ForEach(aliasList.data) { alias in
@@ -94,18 +82,29 @@ struct AliasesView: View {
                                 }
                         }
                         
-                    }header: {
-                        HStack(spacing: 6){
-                            if (aliasesViewModel.aliasSortFilterRequest != aliasesViewModel.defaultSortFilterRequest){
-                                Text(String(localized: "aliases_filtered"))
-                            } else {
-                                Text(String(localized: "aliases"))
+                    } header: {
+                        VStack (alignment: .leading, spacing: 24){
+                            if aliasesViewModel.networkError == "" {
+                                AddyRoundedChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
+                                    withAnimation {
+                                        selectedFilterChip = onTappedChip.chipId
+                                    }
+                                    
+                                    ApplyFilter(chipId: onTappedChip.chipId)
+                                }.scrollClipDisabled()
                             }
-                            
-                            if (aliasesViewModel.isLoading){
-                                ProgressView()
-                                    .frame(maxHeight: 4)
+                            HStack(spacing: 6){
+                                if (aliasesViewModel.aliasSortFilterRequest != aliasesViewModel.defaultSortFilterRequest){
+                                    Text(String(localized: "aliases_filtered"))
+                                } else {
+                                    Text(String(localized: "aliases"))
+                                }
                                 
+                                if (aliasesViewModel.isLoading){
+                                    ProgressView()
+                                        .frame(maxHeight: 4)
+                                    
+                                }
                             }
                         }
                         
@@ -256,8 +255,7 @@ struct AliasesView: View {
             })
             .navigationTitle(String(localized: "aliases"))
             .toolbar {
-                
-                ToolbarItem(placement: .cancellationAction) {
+                ToolbarItem(placement: .topBarLeading) {
                     ProfilePicture().environmentObject(mainViewState)
                 }
                 
@@ -265,16 +263,19 @@ struct AliasesView: View {
                     ToolbarSpacer(.fixed)
                 }
                 
-                ToolbarItemGroup(placement: .cancellationAction) {
+                ToolbarItem() {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                    AccountNotificationsIcon().environmentObject(mainViewState)
-
                 }
+                
+                ToolbarItem() {
+                    AccountNotificationsIcon().environmentObject(mainViewState)
+                }
+                
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(.flexible)
                 }
                 
-                ToolbarItem(placement: .confirmationAction) {
+                ToolbarItem() {
                     Button(action: {
                         mainViewState.showAddAliasBottomSheet = true
                     } ) {
@@ -283,8 +284,7 @@ struct AliasesView: View {
                     }
                 }
             }
-            
-            .searchable(text: $aliasesViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "aliases_search"))
+            .searchable(text: $aliasesViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "aliases_search")) //TODO: Move to tabbar
             .onSubmit(of: .search) {
                 aliasesViewModel.searchAliases(searchQuery: aliasesViewModel.searchQuery)
             }

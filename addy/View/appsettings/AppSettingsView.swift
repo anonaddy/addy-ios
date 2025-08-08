@@ -218,9 +218,17 @@ struct AppSettingsView: View {
         .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
         .toolbar {
             if horizontalSize == .regular {
-                FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                AccountNotificationsIcon().environmentObject(mainViewState)
-                ProfilePicture().environmentObject(mainViewState)
+                ToolbarItem(placement: .topBarLeading) {
+                    ProfilePicture().environmentObject(mainViewState)
+                }
+                
+                ToolbarItem() {
+                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                }
+                
+                ToolbarItem() {
+                    AccountNotificationsIcon().environmentObject(mainViewState)
+                }
             }
         }
         .alert(isPresented: $showAlert, content: {
