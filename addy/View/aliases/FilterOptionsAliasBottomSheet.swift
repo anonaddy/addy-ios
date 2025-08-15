@@ -79,7 +79,7 @@ struct FilterOptionsAliasBottomSheet: View {
             } header: {
                 VStack(alignment: .leading) {
                     Text(String(localized: "filtering_and_sorting_desc"))
-                        .multilineTextAlignment(.center).textCase(nil)
+                        .multilineTextAlignment(.center)
                     Spacer(minLength: 25)
                     Text(String(localized: "filtering"))
                 }

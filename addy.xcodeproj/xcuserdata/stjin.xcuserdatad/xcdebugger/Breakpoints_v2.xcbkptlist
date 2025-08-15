@@ -528,8 +528,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
             endingLineNumber = "95"
-            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -544,8 +544,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "90"
             endingLineNumber = "90"
-            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -560,8 +560,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "91"
             endingLineNumber = "91"
-            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -576,8 +576,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "92"
             endingLineNumber = "92"
-            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -592,8 +592,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "369"
             endingLineNumber = "369"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -608,8 +608,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "370"
             endingLineNumber = "370"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -624,8 +624,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "371"
             endingLineNumber = "371"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -640,8 +640,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "372"
             endingLineNumber = "372"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -656,8 +656,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "373"
             endingLineNumber = "373"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -672,8 +672,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "374"
             endingLineNumber = "374"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -752,8 +752,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"
             endingLineNumber = "58"
-            landmarkName = "init(domainId:domainDomain:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "DomainsDetailView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -768,8 +768,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "59"
             endingLineNumber = "59"
-            landmarkName = "init(domainId:domainDomain:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "DomainsDetailView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -800,8 +800,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
             endingLineNumber = "93"
-            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -880,8 +880,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "357"
             endingLineNumber = "357"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "CreateRulesView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -896,8 +896,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "367"
             endingLineNumber = "367"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -912,8 +912,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "358"
             endingLineNumber = "358"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -928,8 +928,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "359"
             endingLineNumber = "359"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1088,8 +1088,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "359"
             endingLineNumber = "359"
-            landmarkName = "getRuleDescription(rule:recipients:)"
-            landmarkType = "7">
+            landmarkName = "RulesView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1104,7 +1104,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "347"
             endingLineNumber = "347"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            landmarkName = "deleteRule(rule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1120,7 +1120,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "360"
             endingLineNumber = "360"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            landmarkName = "deleteRule(at:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1152,8 +1152,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "236"
             endingLineNumber = "236"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "FailedDeliveriesView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1168,8 +1168,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "237"
             endingLineNumber = "237"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "updateTheCacheFDCount(count:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1184,8 +1184,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "240"
             endingLineNumber = "240"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "updateTheCacheFDCount(count:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1344,7 +1344,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "341"
             endingLineNumber = "341"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            landmarkName = "deleteRule(rule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1360,7 +1360,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "342"
             endingLineNumber = "342"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            landmarkName = "deleteRule(rule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1376,7 +1376,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "344"
             endingLineNumber = "344"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            landmarkName = "deleteRule(rule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1392,7 +1392,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "345"
             endingLineNumber = "345"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            landmarkName = "deleteRule(rule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5246,7 +5246,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "327"
             endingLineNumber = "327"
-            landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
+            landmarkName = "isQrCodeFormattedCorrect(text:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5262,7 +5262,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "326"
             endingLineNumber = "326"
-            landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
+            landmarkName = "isQrCodeFormattedCorrect(text:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5422,7 +5422,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "212"
             endingLineNumber = "212"
-            landmarkName = "registerUser()"
+            landmarkName = "registerButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5454,7 +5454,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "214"
             endingLineNumber = "214"
-            landmarkName = "registerUser()"
+            landmarkName = "registerButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5470,7 +5470,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "216"
             endingLineNumber = "216"
-            landmarkName = "registerUser()"
+            landmarkName = "registerButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5486,7 +5486,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "218"
             endingLineNumber = "218"
-            landmarkName = "registerUser()"
+            landmarkName = "registerButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6414,7 +6414,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "322"
             endingLineNumber = "322"
-            landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
+            landmarkName = "resetSignInButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6445,9 +6445,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "342"
-            endingLineNumber = "342"
-            landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
-            landmarkType = "7">
+            endingLineNumber = "342">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6654,7 +6652,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "536"
             endingLineNumber = "536"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            landmarkName = "getRecipients(alias:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6670,7 +6668,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "537"
             endingLineNumber = "537"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            landmarkName = "getRecipients(alias:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6686,7 +6684,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "538"
             endingLineNumber = "538"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            landmarkName = "getRecipients(alias:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6702,7 +6700,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "618"
             endingLineNumber = "618"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            landmarkName = "onPressCopy(sendToRecipients:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6718,7 +6716,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "619"
             endingLineNumber = "619"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            landmarkName = "onPressCopy(sendToRecipients:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6734,7 +6732,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "620"
             endingLineNumber = "620"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            landmarkName = "onPressCopy(sendToRecipients:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7054,8 +7052,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "133"
             endingLineNumber = "133"
-            landmarkName = "saveButton()"
-            landmarkType = "7">
+            landmarkName = "AddDomainBottomSheet"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -7070,7 +7068,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "saveButton()"
+            landmarkName = "addDomainToAccount(domain:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7102,7 +7100,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "154"
             endingLineNumber = "154"
-            landmarkName = "addDomainToAccount(domain:)"
+            landmarkName = "openSetup(body:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7118,7 +7116,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "155"
             endingLineNumber = "155"
-            landmarkName = "addDomainToAccount(domain:)"
+            landmarkName = "openSetup(body:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7134,7 +7132,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "160"
             endingLineNumber = "160"
-            landmarkName = "addDomainToAccount(domain:)"
+            landmarkName = "openSetup(body:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

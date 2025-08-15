@@ -85,7 +85,7 @@ struct AliasRowView: View {
         #endif
         if isPreview {
             VStack(alignment: .leading) {
-                VStack(alignment: .trailing) {
+                VStack(alignment: .leading) {
                     Text(verbatim: alias.email)
                         .font(.title3)
                         .bold()
