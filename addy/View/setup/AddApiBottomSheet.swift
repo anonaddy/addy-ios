@@ -128,7 +128,7 @@ struct AddApiBottomSheet: View {
                 }
                 
                 
-            }
+            }.textCase(nil)
 
          
             
@@ -179,7 +179,7 @@ struct AddApiBottomSheet: View {
                 } else {
                     Text(String(localized: "login_desc"))
                 }
-            }
+            }.textCase(nil)
             
         }
         .alert(isPresented: $showAlert) {

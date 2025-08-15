@@ -57,7 +57,7 @@ struct EditUsernameFromNameBottomSheet: View {
                             }
                     }
                 
-                }
+                }.textCase(nil)
             }.navigationTitle(String(localized: "edit_from_name")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {

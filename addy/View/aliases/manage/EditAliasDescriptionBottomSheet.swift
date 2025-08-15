@@ -48,7 +48,7 @@ struct EditAliasDescriptionBottomSheet: View {
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                     
-                }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
+                }.frame(maxWidth: .infinity, alignment: .center)
             } footer: {
                 if let error = descriptionRequestError {
                     Text(error)
@@ -60,7 +60,7 @@ struct EditAliasDescriptionBottomSheet: View {
                             HapticHelper.playHapticFeedback(hapticType: .error)
                                                         }
                 }
-            }
+            }.textCase(nil)
             
             }.navigationTitle(String(localized: "edit_description")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)

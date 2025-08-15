@@ -58,7 +58,7 @@ struct RegistrationFormBottomSheet: View {
                     Text(String(localized: "registration_username_header"))
                 } footer: {
                     Text(LocalizedStringKey(String(localized: "registration_username_footer")))
-                }
+                }.textCase(nil)
 
                 Section {
                     ValidatingTextField(value: self.$address, placeholder: $addressPlaceholder, fieldType: .email, error: $addressValidationError)
@@ -67,7 +67,7 @@ struct RegistrationFormBottomSheet: View {
                     Text(String(localized: "registration_email_header"))
                 } footer: {
                     Text(String(localized: "registration_email_footer"))
-                }
+                }.textCase(nil)
                                
                 
                 Section {
@@ -88,7 +88,7 @@ struct RegistrationFormBottomSheet: View {
                     Text(String(localized: "registration_password_header"))
                 } footer: {
                     Text(String(localized: "registration_password_footer"))
-                }
+                }.textCase(nil)
                 
                 Section {
                 } footer: {

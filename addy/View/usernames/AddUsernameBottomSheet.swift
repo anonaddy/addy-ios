@@ -57,7 +57,7 @@ struct AddUsernameBottomSheet: View {
                             }
                     }
                 
-                }
+                }.textCase(nil)
             }.navigationTitle(String(localized: "add_username")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {

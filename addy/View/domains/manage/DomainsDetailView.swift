@@ -84,7 +84,7 @@ struct DomainsDetailView: View {
                     
                 }header: {
                     Text(String(localized: "basic"))
-                }
+                }.textCase(nil)
                 
                 Section {
                     Text(aliasList.joined(separator: "\n"))
@@ -96,7 +96,7 @@ struct DomainsDetailView: View {
                 } header: {
                     Text(String(format: String(localized: "domain_aliases_d"),
                                 String(domain.aliases_count ?? 0)))
-                }
+                }.textCase(nil)
                 
             
                 Section {
@@ -172,7 +172,7 @@ struct DomainsDetailView: View {
                     
                 } header: {
                     Text(String(localized: "actions"))
-                }
+                }.textCase(nil)
                 
                 Section {
                     AddySectionButton(title: String(localized: "delete_domain"), description: String(localized: "delete_domain_desc"),

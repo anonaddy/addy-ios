@@ -106,7 +106,7 @@ struct RecipientsView: View {
                         }.onDelete(perform: deleteRecipient)
                     } header: {
                         VStack (alignment: .leading, spacing: 24){
-                            AddyRoundedChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
+                            AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
                                 withAnimation {
                                     selectedFilterChip = onTappedChip.chipId
                                 }
@@ -132,7 +132,7 @@ struct RecipientsView: View {
                     } footer: {
                         Text(String(format: String(localized: "you_ve_used_d_out_of_d_recipients"), String(recipient_count), (mainViewState.userResource!.subscription != nil ? String(recipient_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited")))).padding(.top)
                         
-                    }
+                    }.textCase(nil)
                     
                 }
                 

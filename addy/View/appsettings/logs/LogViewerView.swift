@@ -48,7 +48,7 @@ struct LogViewerView: View {
                             }
                         }
                         
-                    }
+                    }.textCase(nil)
                 }
                 
             }

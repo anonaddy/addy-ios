@@ -95,7 +95,7 @@ struct FilterOptionsAliasBottomSheet: View {
                     Text(String(localized: "filtering"))
                     
                 }
-            }
+            }.textCase(nil)
             
             
             Section {
@@ -105,7 +105,7 @@ struct FilterOptionsAliasBottomSheet: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .disabled(filter2Selection == 1) // means if alias is set to Watch Only
-                AddyRoundedChipView(chips: $orderChips, selectedChip: $selectedOrderChip, singleLine: false) { onTappedChip in
+                AddyChipView(chips: $orderChips, selectedChip: $selectedOrderChip, singleLine: false) { onTappedChip in
                     withAnimation {
                         selectedOrderChip = onTappedChip.chipId
                     }
@@ -116,7 +116,7 @@ struct FilterOptionsAliasBottomSheet: View {
                 
             }header: {
                 Text(String(localized: "sorting"))
-            }
+            }.textCase(nil)
             
             
         

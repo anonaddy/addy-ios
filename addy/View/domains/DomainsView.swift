@@ -133,7 +133,7 @@ struct DomainsView: View {
                 } footer: {
                     Text(String(format: String(localized: "you_ve_used_d_out_of_d_domains"),  String(domain_count), (mainViewState.userResource!.subscription != nil ? String(domain_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited")))).padding(.top)
                     
-                }
+                }.textCase(nil)
             }
                 
             }

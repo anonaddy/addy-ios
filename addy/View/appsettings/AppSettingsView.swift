@@ -69,7 +69,7 @@ struct AppSettingsView: View {
                     }
                 } header: {
                     Text(String(localized: "requires_attention"))
-                }
+                }.textCase(nil)
             }
             
             Section {
@@ -118,7 +118,7 @@ struct AppSettingsView: View {
                 }
             } header: {
                 Text(String(localized: "general"))
-            }
+            }.textCase(nil)
             
             Section {
                 
@@ -136,7 +136,7 @@ struct AppSettingsView: View {
                 
             } header: {
                 Text(String(localized: "advanced"))
-            }
+            }.textCase(nil)
             
             Section {
                 AddySection(title: String(localized: "reset_app"), description: String(localized: "reset_app_desc"), leadingSystemimage: "gobackward", leadingSystemimageColor: .red){
@@ -151,7 +151,7 @@ struct AppSettingsView: View {
                 
             } header: {
                 Text(String(localized: "manage_your_data"))
-            }
+            }.textCase(nil)
             
 
             Section {
@@ -167,7 +167,7 @@ struct AppSettingsView: View {
                 
             } header: {
                 Text(String(localized: "app_name"))
-            }
+            }.textCase(nil)
 
             Section {
 #if APPSTORE
@@ -212,7 +212,7 @@ struct AppSettingsView: View {
                 }
                 
                 
-            }
+            }.textCase(nil)
         }
         .navigationTitle(String(localized: "settings"))
         .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)

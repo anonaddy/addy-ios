@@ -109,7 +109,7 @@ struct CreateRulesView: View {
                 } header: {
                     Text(String(localized: "enter_name"))
                     
-                }
+                }.textCase(nil)
                 
                 Section {
                     AddyMultiSelectChipView(chips: $rulesRunOnChips, selectedChips: $selectedChips, singleLine: true) { onTappedChip in
@@ -127,7 +127,7 @@ struct CreateRulesView: View {
                 } header: {
                     Text(String(localized: "run_rule_on")).padding(.horizontal)
                     
-                }
+                }.textCase(nil)
                 
                 
                 Section {
@@ -206,7 +206,7 @@ struct CreateRulesView: View {
                         .fixedSize()
                     }
                     
-                }
+                }.textCase(nil)
                 
                 Section {
                     if (rule.actions.isEmpty){
@@ -278,7 +278,7 @@ struct CreateRulesView: View {
                 } footer: {
                     Text(String(localized: "rules_create_info")).padding(.top)
                     
-                }
+                }.textCase(nil)
                 
             }.disabled(self.isSavingRule)
                 .navigationTitle(self.ruleName)

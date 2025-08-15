@@ -55,7 +55,7 @@ struct AppSettingsUpdateView: View {
                 
             } header: {
                 Text(String(localized: "general"))
-            }
+            }.textCase(nil)
             
             Section {
                 AddySection(title: String(localized: "changelog"), description: String(localized: "see_this_version_changelogs"), leadingSystemimage: "plus.forwardslash.minus", leadingSystemimageColor: .orange){
@@ -76,7 +76,7 @@ struct AppSettingsUpdateView: View {
 #endif
                 Text(String(format: String(localized: "version_channel_info"), appVersion, downloadChannel)).padding(.top)
                 
-            }
+            }.textCase(nil)
             
         }.refreshable {
             isCheckingForUpdates = true

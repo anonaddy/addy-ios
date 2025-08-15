@@ -83,7 +83,7 @@ struct AddDomainBottomSheet: View {
                                     }
                             }
                             
-                        }
+                        }.textCase(nil)
                         
                     }.navigationTitle(String(localized: "add_domain")).pickerStyle(.navigationLink)
                         .navigationBarTitleDisplayMode(.inline)

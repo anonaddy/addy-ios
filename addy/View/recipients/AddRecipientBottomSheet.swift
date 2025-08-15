@@ -56,7 +56,7 @@ struct AddRecipientBottomSheet: View {
                             }
                     }
                 
-                }          
+                }    .textCase(nil)
                 
             }.navigationTitle(String(localized: "add_recipient")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)

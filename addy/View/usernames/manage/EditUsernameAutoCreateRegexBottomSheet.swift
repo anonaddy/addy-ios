@@ -58,7 +58,7 @@ struct EditUsernameAutoCreateRegexBottomSheet: View {
                             }
                     }
                 
-                }
+                }.textCase(nil)
             }.navigationTitle(String(localized: "edit_auto_create_regex")).pickerStyle(.navigationLink)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {

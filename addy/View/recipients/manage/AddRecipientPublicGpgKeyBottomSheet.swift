@@ -43,7 +43,7 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                     
-                }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
+                }.frame(maxWidth: .infinity, alignment: .center)
             } footer: {
                 if let error = publicGpgKeyRequestError {
                     Text(error)
@@ -55,7 +55,7 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
                             HapticHelper.playHapticFeedback(hapticType: .error)
                         }
                 }
-            }
+            }.textCase(nil)
         }.navigationTitle(String(localized: "add_public_gpg_key")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {

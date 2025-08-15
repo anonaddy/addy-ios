@@ -88,7 +88,7 @@ struct AccountNotificationsView: View {
                                 }
                             }
                             // When this section is visible that means there is data. Make sure to update the amount of account notifications in cache
-                        }.onAppear(perform: {
+                        }.textCase(nil).onAppear(perform: {
                             updateTheCacheANCount(count: accountNotifications.data.count)
                         })
                     }

@@ -182,14 +182,14 @@
 		80B2FB732C3C4328009977B6 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB6F2C3C4328009977B6 /* ValidatingFieldModel.swift */; };
 		80B2FB742C3C4328009977B6 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB712C3C4328009977B6 /* ValidatingTextField.swift */; };
 		80B2FB772C3C4331009977B6 /* ToastOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB762C3C4331009977B6 /* ToastOverlay.swift */; };
-		80B2FB782C3C4331009977B6 /* AddyRoundedChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */; };
+		80B2FB782C3C4331009977B6 /* AddyChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB752C3C4331009977B6 /* AddyChipView.swift */; };
 		80B2FB942C3C4388009977B6 /* AddyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB792C3C4388009977B6 /* AddyChipModel.swift */; };
 		80B2FB982C3C4452009977B6 /* MailToActionSheetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB422C3C425A009977B6 /* MailToActionSheetData.swift */; };
 		80B2FB992C3C4455009977B6 /* SendMailRecipientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB432C3C425A009977B6 /* SendMailRecipientView.swift */; };
 		80B2FB9A2C3C4461009977B6 /* MailToActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB442C3C425A009977B6 /* MailToActionSheet.swift */; };
 		80B2FB9B2C3C4466009977B6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
 		80B2FB9D2C3C4480009977B6 /* SendMailRecipientSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB6D2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift */; };
-		80B2FB9E2C3C4499009977B6 /* AddyRoundedChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */; };
+		80B2FB9E2C3C4499009977B6 /* AddyChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB752C3C4331009977B6 /* AddyChipView.swift */; };
 		80B2FB9F2C3C449E009977B6 /* ValidatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB712C3C4328009977B6 /* ValidatingTextField.swift */; };
 		80B2FBA02C3C44AF009977B6 /* ValidatingFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB6F2C3C4328009977B6 /* ValidatingFieldModel.swift */; };
 		80B2FBA12C3C44C3009977B6 /* ToastOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB762C3C4331009977B6 /* ToastOverlay.swift */; };
@@ -436,7 +436,7 @@
 		80B2FB6D2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMailRecipientSearchViewModel.swift; sourceTree = "<group>"; };
 		80B2FB6F2C3C4328009977B6 /* ValidatingFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingFieldModel.swift; sourceTree = "<group>"; };
 		80B2FB712C3C4328009977B6 /* ValidatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingTextField.swift; sourceTree = "<group>"; };
-		80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyRoundedChipView.swift; sourceTree = "<group>"; };
+		80B2FB752C3C4331009977B6 /* AddyChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyChipView.swift; sourceTree = "<group>"; };
 		80B2FB762C3C4331009977B6 /* ToastOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastOverlay.swift; sourceTree = "<group>"; };
 		80B2FB792C3C4388009977B6 /* AddyChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddyChipModel.swift; sourceTree = "<group>"; };
 		80B2FBB82C3C4C0A009977B6 /* Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apply.swift; sourceTree = "<group>"; };
@@ -862,7 +862,6 @@
 				80305C702C9C8ABC00F80824 /* FeaturesView.swift */,
 				8073C9482C7878CA00DE3640 /* AccountNotificationsIcon.swift */,
 				8047EA6C2C454F1B00A04D28 /* HomeCardView.swift */,
-				80B2FB752C3C4331009977B6 /* AddyRoundedChipView.swift */,
 				80B2FB762C3C4331009977B6 /* ToastOverlay.swift */,
 				80B2FB722C3C4328009977B6 /* ValidatingTextField */,
 				809CB94F2C2358C900DBBD03 /* FailedDeliveriesIcon.swift */,
@@ -872,6 +871,7 @@
 				80DCF39E2BF1095B0022690F /* AddyToggle.swift */,
 				80DCF3AD2BF1347F0022690F /* AddySection.swift */,
 				80E1946D2BF8DCE0005175EA /* AddySectionButton.swift */,
+				80B2FB752C3C4331009977B6 /* AddyChipView.swift */,
 				80E194642BF8AE0C005175EA /* AddyMultiSelectChipView.swift */,
 				80E082632BF7D36700B51FB8 /* AddyBugFound.swift */,
 				806AE69B2C1A194800F3CA92 /* AddySettingsHeader.swift */,
@@ -1497,7 +1497,7 @@
 				80B2FB9F2C3C449E009977B6 /* ValidatingTextField.swift in Sources */,
 				80B2FBA12C3C44C3009977B6 /* ToastOverlay.swift in Sources */,
 				8042E0742C3318DA001E8366 /* ShareViewController.swift in Sources */,
-				80B2FB9E2C3C4499009977B6 /* AddyRoundedChipView.swift in Sources */,
+				80B2FB9E2C3C4499009977B6 /* AddyChipView.swift in Sources */,
 				80B2FB982C3C4452009977B6 /* MailToActionSheetData.swift in Sources */,
 				80B2FBA02C3C44AF009977B6 /* ValidatingFieldModel.swift in Sources */,
 				80B2FB992C3C4455009977B6 /* SendMailRecipientView.swift in Sources */,
@@ -1636,7 +1636,7 @@
 				8058ADCC2C32B2470004AF81 /* CardView.swift in Sources */,
 				805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */,
 				80B2FB772C3C4331009977B6 /* ToastOverlay.swift in Sources */,
-				80B2FB782C3C4331009977B6 /* AddyRoundedChipView.swift in Sources */,
+				80B2FB782C3C4331009977B6 /* AddyChipView.swift in Sources */,
 				8073C9432C78718100DE3640 /* AccountNotificationBottomSheet.swift in Sources */,
 				80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */,
 				805D66A32C1F4C870085CCED /* PrettyTime.swift in Sources */,

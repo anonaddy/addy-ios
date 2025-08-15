@@ -82,7 +82,7 @@ struct RecipientsDetailView: View {
                     
                 }header: {
                     Text(String(localized: "basic"))
-                }
+                }.textCase(nil)
                 
                 Section {
                     Text(aliasList.joined(separator: "\n"))
@@ -94,7 +94,7 @@ struct RecipientsDetailView: View {
                 } header: {
                     Text(String(format: String(localized: "recipient_aliases_d"),
                                 String(recipient.aliases_count ?? 0)))
-                }
+                }.textCase(nil)
                 
                 Section {
                     if let fingerprint = recipient.fingerprint {
@@ -106,7 +106,7 @@ struct RecipientsDetailView: View {
                     
                 } header: {
                     Text(String(localized: "encryption"))
-                }
+                }.textCase(nil)
                 
                 Section {
                     
@@ -210,7 +210,7 @@ struct RecipientsDetailView: View {
                     
                 } header: {
                     Text(String(localized: "actions"))
-                }
+                }.textCase(nil)
                 
                 Section {
                     AddySectionButton(title: String(localized: "delete_recipient"),

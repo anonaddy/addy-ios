@@ -39,8 +39,8 @@ struct UnsupportedBottomSheet: View {
                             .multilineTextAlignment(.center)
                             .padding(.bottom)
                         
-                    }.textCase(nil)
-                }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+                    }
+                }.textCase(nil).listRowBackground(Color.clear).listRowInsets(EdgeInsets())
                 
                 Section{
                     Button(String(localized: "ignore_and_continue")){

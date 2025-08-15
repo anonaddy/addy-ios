@@ -81,7 +81,7 @@ struct SendMailRecipientView: View {
                 } else if viewModel.suggestionChips.isEmpty {
                     Text(String(localized: "no_suggestions"))
                 } else {
-                    AddyRoundedChipView(chips: $viewModel.suggestionChips, selectedChip: $viewModel.searchQuery, singleLine: true) { onTappedChip in
+                    AddyChipView(chips: $viewModel.suggestionChips, selectedChip: $viewModel.searchQuery, singleLine: true) { onTappedChip in
                         withAnimation {
                             viewModel.searchQuery = onTappedChip.label
                             viewModel.suggestionChips = []
@@ -96,6 +96,7 @@ struct SendMailRecipientView: View {
             }
             
         }
+        
         .overlay {
             ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
         }

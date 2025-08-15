@@ -71,7 +71,7 @@ struct EditAliasRecipientsBottomSheet: View {
                             }
                     }
                 }
-            }.listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
+            }.textCase(nil).listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
             
         }.navigationTitle(String(localized: "edit_recipients")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)

@@ -81,7 +81,7 @@ struct UsernamesDetailView: View {
                     
                 }header: {
                     Text(String(localized: "basic"))
-                }
+                }.textCase(nil)
                 
                 Section {
                     Text(aliasList.joined(separator: "\n"))
@@ -93,7 +93,7 @@ struct UsernamesDetailView: View {
                 } header: {
                     Text(String(format: String(localized: "username_aliases_d"),
                                 String(username.aliases_count ?? 0)))
-                }
+                }.textCase(nil)
                 
             
                 Section {
@@ -182,7 +182,7 @@ struct UsernamesDetailView: View {
                     
                 } header: {
                     Text(String(localized: "actions"))
-                }
+                }.textCase(nil)
                 
                 Section {
                     AddySectionButton(title: String(localized: "delete_username"), description: String(localized: "delete_username_desc"),

@@ -284,9 +284,9 @@ struct AliasDetailView: View {
                     
                     
                     
-                }header: {
+                } header: {
                     Text(String(localized: "general"))
-                }.disabled(alias.deleted_at != nil).opacity(alias.deleted_at != nil ? 0.5 : 1.0) // If alias is deleted, disable the entire section and set opacity
+                }.textCase(nil).disabled(alias.deleted_at != nil).opacity(alias.deleted_at != nil ? 0.5 : 1.0) // If alias is deleted, disable the entire section and set opacity
                 
                 Section {
                     

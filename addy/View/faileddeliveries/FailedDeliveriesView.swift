@@ -100,7 +100,7 @@ struct FailedDeliveriesView: View {
                                 }
                             }
                             // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
-                        }.onAppear(perform: {
+                        }.textCase(nil).onAppear(perform: {
                             updateTheCacheFDCount(count: failedDeliveries.data.count)
                         })
                     }

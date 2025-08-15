@@ -46,7 +46,7 @@ struct UIUXInterfaceBottomSheet: View {
                 }
             } header: {
                 Text(String(localized: "startup_page"))
-            }
+            }.textCase(nil)
             
             Section {
                 WrappingHStack(alignment: .leading) {
@@ -89,7 +89,7 @@ struct UIUXInterfaceBottomSheet: View {
                             }
             } header: {
                 Text(String(localized: "app_icon"))
-            }
+            }.textCase(nil)
         }.navigationTitle(String(localized: "interface")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {

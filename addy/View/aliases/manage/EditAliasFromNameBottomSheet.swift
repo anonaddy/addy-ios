@@ -15,7 +15,7 @@ struct EditAliasFromNameBottomSheet: View {
     @State var fromName: String
     @State var fromNamePlaceholder: String = String(localized: "from_name")
     let fromNameEdited: (Aliases) -> Void
-
+    
     init(aliasId: String, aliasEmail: String, fromName: String?, fromNameEdited: @escaping (Aliases) -> Void) {
         self.aliasId = aliasId
         self.aliasEmail = aliasEmail
@@ -25,86 +25,86 @@ struct EditAliasFromNameBottomSheet: View {
     
     @State private var fromNameValidationError:String?
     @State private var fromNameRequestError:String?
-
+    
     @State var IsLoadingSaveButton: Bool = false
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
 #if DEBUG
         let _ = Self._printChanges()
 #endif
-            Form {
+        Form {
+            
+            Section{
+                ValidatingTextField(value: self.$fromName, placeholder: self.$fromNamePlaceholder, fieldType: .text, error: $fromNameValidationError)
                 
-                Section{
-                    ValidatingTextField(value: self.$fromName, placeholder: self.$fromNamePlaceholder, fieldType: .text, error: $fromNameValidationError)
+            } header: {
+                VStack(alignment: .leading){
+                    let formattedString = String.localizedStringWithFormat(NSLocalizedString("edit_from_name_alias_desc", comment: ""), aliasEmail)
+                    Text(LocalizedStringKey(formattedString))
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom)
+                }.frame(maxWidth: .infinity, alignment: .center)
+            } footer: {
+                if let error = fromNameRequestError {
+                    Text(error)
+                        .foregroundColor(.red)
+                        .font(.system(size: 15))
+                        .multilineTextAlignment(.leading)
+                        .padding([.horizontal], 0)
+                        .onAppear{
+                            HapticHelper.playHapticFeedback(hapticType: .error)
+                        }
+                }
+                
+            }.textCase(nil)
+            
+        }.navigationTitle(String(localized: "edit_from_name")).pickerStyle(.navigationLink)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                ToolbarItem(placement: .confirmationAction) {
+                    if #available(iOS 26.0, *) {
+                        saveButton().buttonStyle(.glassProminent)
+                    } else {
+                        saveButton()
+                    }
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label(String(localized: "cancel"), systemImage: "xmark")
+                    }
                     
-                } header: {
-                    VStack(alignment: .leading){
-                        let formattedString = String.localizedStringWithFormat(NSLocalizedString("edit_from_name_alias_desc", comment: ""), aliasEmail)
-                        Text(LocalizedStringKey(formattedString))
-                            .multilineTextAlignment(.center)
-                            .padding(.bottom)
-                    }.frame(maxWidth: .infinity, alignment: .center)
-                } footer: {
-                    if let error = fromNameRequestError {
-                        Text(error)
-                            .foregroundColor(.red)
-                            .font(.system(size: 15))
-                            .multilineTextAlignment(.leading)
-                            .padding([.horizontal], 0)
-                            .onAppear{
-                                HapticHelper.playHapticFeedback(hapticType: .error)
-                            }
-                    }
-                
-                }  
-                
-            }.navigationTitle(String(localized: "edit_from_name")).pickerStyle(.navigationLink)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar(content: {
-                    ToolbarItem(placement: .confirmationAction) {
-                        if #available(iOS 26.0, *) {
-                            saveButton().buttonStyle(.glassProminent)
-                        } else {
-                            saveButton()
-                        }
-                    }
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Label(String(localized: "cancel"), systemImage: "xmark")
-                        }
-                        
-                    }
-                })
+                }
+            })
     }
     
     private func saveButton() -> some View {
-            Group {
-                if IsLoadingSaveButton {
-                    AnyView(ProgressView().progressViewStyle(.circular))
-                } else {
-                    AnyView(
-                        Button {
-                            // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                            // We should not allow any saving until the validationErrors are nil
-                            if (fromNameValidationError == nil){
-                                IsLoadingSaveButton = true;
-                                
-                                Task {
-                                    await self.editFromName(fromName: self.fromName)
-                                }
-                            } else {
-                                    IsLoadingSaveButton = false
-                                
+        Group {
+            if IsLoadingSaveButton {
+                AnyView(ProgressView().progressViewStyle(.circular))
+            } else {
+                AnyView(
+                    Button {
+                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                        // We should not allow any saving until the validationErrors are nil
+                        if (fromNameValidationError == nil){
+                            IsLoadingSaveButton = true;
+                            
+                            Task {
+                                await self.editFromName(fromName: self.fromName)
                             }
-                        } label: {
-                            Text(String(localized: "save"))
+                        } else {
+                            IsLoadingSaveButton = false
+                            
                         }
-                    )
-                }
+                    } label: {
+                        Text(String(localized: "save"))
+                    }
+                )
             }
+        }
         
     }
     
@@ -121,7 +121,7 @@ struct EditAliasFromNameBottomSheet: View {
             fromNameRequestError = error.localizedDescription
         }
     }
-
+    
 }
 
 #Preview {

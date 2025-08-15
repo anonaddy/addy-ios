@@ -49,7 +49,7 @@ struct AppSettingsFeaturesView: View {
                
             } header: {
                 Text(String(localized: "features"))
-            }
+            }.textCase(nil)
             
             Section {
                 NavigationLink(destination: AppSettingsFeaturesMailToView()){
@@ -73,7 +73,7 @@ struct AppSettingsFeaturesView: View {
                     #endif
                 }
                 
-            }
+            }.textCase(nil)
         }
             .navigationTitle(String(localized: "features_and_integrations"))
             .navigationBarTitleDisplayMode(.inline)

@@ -9,7 +9,7 @@ import SwiftUI
 import WrappingHStack
 import addy_shared
 
-struct AddyRoundedChipView: View {
+struct AddyChipView: View {
 
     @Binding var chips: [AddyChipModel]
     @Binding var selectedChip:String
@@ -58,7 +58,7 @@ struct AddyRoundedChipView: View {
                                         }
                                     }
                                 }
-                            }
+                            }.textCase(nil)
                         }
         } else {
             WrappingHStack(alignment: .leading) {
@@ -91,7 +91,7 @@ struct AddyRoundedChipView: View {
                             }
                         }
                     }
-                }
+                }.textCase(nil)
             
         }
         
@@ -126,7 +126,7 @@ struct AddyChip_Preview: PreviewProvider{
                         
                         VStack(spacing: 0){
 
-                            AddyRoundedChipView(chips: $chips, selectedChip: $selectedChip, singleLine: true) { onTappedChip in
+                            AddyChipView(chips: $chips, selectedChip: $selectedChip, singleLine: true) { onTappedChip in
                                 //print("\(onTappedChip.label) is selected")
                                 selectedChip = onTappedChip.label
                             }

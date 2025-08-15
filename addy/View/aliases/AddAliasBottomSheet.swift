@@ -104,7 +104,7 @@ struct AddAliasBottomSheet: View {
                     VStack(alignment: .leading){
                         Text(String(format: String(localized: "add_alias_desc"), self.mainViewState.userResource!.username)).multilineTextAlignment(.center)
                         Spacer(minLength: 25)
-                    }.textCase(nil)
+                    }
                     
                     VStack(alignment: .leading){
                         Text(String(localized: "alias"))
@@ -125,14 +125,14 @@ struct AddAliasBottomSheet: View {
                     }
                 }
                 
-            }
+            }.textCase(nil)
             
             
             Section {
                 ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError)
             } header: {
                 Text(String(localized: "description"))
-            }
+            }.textCase(nil)
             
             Section {
                 AddyMultiSelectChipView(chips: $recipientsChips, selectedChips: $selectedRecipientChips, singleLine: false) { onTappedChip in
@@ -150,7 +150,7 @@ struct AddAliasBottomSheet: View {
             } header: {
                 Text(String(localized: "recipients"))
                 
-            }.listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
+            }.textCase(nil).listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
 
             Section {
                 

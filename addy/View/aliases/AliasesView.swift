@@ -85,7 +85,7 @@ struct AliasesView: View {
                     } header: {
                         VStack (alignment: .leading, spacing: 24){
                             if aliasesViewModel.networkError == "" {
-                                AddyRoundedChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
+                                AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
                                     withAnimation {
                                         selectedFilterChip = onTappedChip.chipId
                                     }
@@ -108,7 +108,7 @@ struct AliasesView: View {
                             }
                         }
                         
-                    }
+                    }.textCase(nil)
                     
                     if !aliasesViewModel.hasArrivedAtTheLastPage {
                         ProgressView()

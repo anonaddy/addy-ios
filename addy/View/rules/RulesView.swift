@@ -215,7 +215,7 @@ struct RulesView: View {
                             Text(String(localized: "rules_view_explanation")).padding(.top)
                         }.padding(.top)
                         
-                    }
+                    }.textCase(nil)
                 }
                 }
                 

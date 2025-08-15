@@ -65,8 +65,8 @@ struct ConditionBottomSheet: View {
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                     
-                }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
-            }
+                }.frame(maxWidth: .infinity, alignment: .center)
+            }.textCase(nil)
             
         }.navigationTitle(String(localized: "add_condition")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
