@@ -5,11 +5,10 @@
 //  Created by Stijn van de Water on 12/05/2024.
 //
 
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct AddySection: View {
-    
     var title: String
     var description: String? = nil
     var leadingSystemimage: String? = nil
@@ -18,7 +17,6 @@ struct AddySection: View {
     var fontWeight: Font.Weight = .medium
     var onTap: (() -> Void)? = nil
     @State var lineLimit: Int? = 3
-    
 
     var body: some View {
         Button(action: {
@@ -26,7 +24,6 @@ struct AddySection: View {
         }) {
             HStack {
                 if let leadingSystemimage = leadingSystemimage {
-                    
                     RoundedRectangle(cornerRadius: 6)
                         .fill(leadingSystemimageColor)
                         .frame(width: 32, height: 32)
@@ -37,27 +34,23 @@ struct AddySection: View {
                                 .foregroundColor(.white)
                         )
                         .padding(.trailing)
-
                 }
                 VStack(alignment: .leading) {
                     Text(title)
                         .foregroundColor(Color.revertedNightMode)
-                    
-                    if let description = description{
+
+                    if let description = description {
                         Text(description)
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                             .lineLimit(self.lineLimit)
                     }
-                    
                 }
                 Spacer()
                 if let trailingSystemimage = trailingSystemimage {
-                    
                     Image(systemName: trailingSystemimage)
                         .fontWeight(fontWeight).foregroundStyle(.gray)
                 }
-                
             }
         }
     }
@@ -65,8 +58,6 @@ struct AddySection: View {
 
 #Preview {
 //    AddySection(title: "Section title", description: "This is a nice long description to show off the functionalities of the AddySection inside this beautiful SwiftUI application", leadingSystemimage: "eyes", trailingSystemimage: "pencil")
-//    
-    AddySection(title: "Section title", description: " wdhiadhaidhwaiodhwaiod", leadingSystemimage: "eyes", trailingSystemimage: "pencil"){
-        
-    }
+//
+    AddySection(title: "Section title", description: " wdhiadhaidhwaiodhwaiod", leadingSystemimage: "eyes", trailingSystemimage: "pencil") {}
 }

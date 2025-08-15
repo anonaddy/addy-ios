@@ -12,4 +12,3 @@ public struct ApiTokenDetails: Decodable {
     public let expires_at: String?
     public let name: String
 }
-

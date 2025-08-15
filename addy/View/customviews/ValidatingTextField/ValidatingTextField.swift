@@ -5,30 +5,27 @@
 //  Created by Stijn van de Water on 07/05/2024.
 //
 
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct ValidatingTextField: View {
     @Binding var value: String
     @Binding var placeholder: String
-    public var fieldType: FieldType
+    var fieldType: FieldType
     @Binding var error: String?
-    
+
     // Add a public initializer
     init(value: Binding<String>, placeholder: Binding<String>, fieldType: FieldType, error: Binding<String?>) {
-        self._value = value
-        self._placeholder = placeholder
+        _value = value
+        _placeholder = placeholder
         self.fieldType = fieldType
-        self._error = error
+        _error = error
     }
-    
-    
-    var body: some View {
 
-        VStack(alignment: .leading){
-            if (fieldType == .bigText){
-                
-                VStack(alignment: .leading){
+    var body: some View {
+        VStack(alignment: .leading) {
+            if fieldType == .bigText {
+                VStack(alignment: .leading) {
                     // Your existing code...
                     ScrollView {
                         TextEditor(text: $value)
@@ -44,8 +41,7 @@ struct ValidatingTextField: View {
                     }
                     .scrollContentBackground(.hidden)
                     .frame(height: 150)
-                    
-                    
+
                 }.overlay {
                     if value.isEmpty {
                         TextEditor(text: self.$placeholder)
@@ -55,16 +51,15 @@ struct ValidatingTextField: View {
                             .frame(height: 150)
                     }
                 }
-                
-                
-            } else if (fieldType == .password){
+
+            } else if fieldType == .password {
                 SecureField(placeholder, text: $value)
                     .onChange(of: value) {
                         withAnimation {
                             error = fieldType.validate(value: value)
                         }
                     }
-                
+
                     .disableAutocorrection(true)
                     .keyboardType(fieldType.getKeyboardType())
 
@@ -75,12 +70,11 @@ struct ValidatingTextField: View {
                             error = fieldType.validate(value: value)
                         }
                     }
-                
+
                     .disableAutocorrection(true)
                     .keyboardType(fieldType.getKeyboardType())
             }
-            
-            
+
             if let error = error {
                 if !error.isEmpty {
                     Text(error)
@@ -88,25 +82,21 @@ struct ValidatingTextField: View {
                         .font(.system(size: 15))
                         .multilineTextAlignment(.leading)
                         .padding([.horizontal], 0)
-                        .onAppear{
+                        .onAppear {
                             HapticHelper.playHapticFeedback(hapticType: .error)
                         }
                 }
-                
             }
-            
         }
     }
 }
 
-
 struct ValidatingTextField_Previews: PreviewProvider {
     static var previews: some View {
-        @State var addressesPlaceholder:String = String(localized: "addresses")
-        @State var addressesValidationError:String?
-        @State var addresses:String = ""
-        
-        ValidatingTextField(value: $addresses, placeholder: $addressesPlaceholder, fieldType: .bigText, error: $addressesValidationError)
+        @State var addressesPlaceholder = String(localized: "addresses")
+        @State var addressesValidationError: String?
+        @State var addresses = ""
 
+        ValidatingTextField(value: $addresses, placeholder: $addressesPlaceholder, fieldType: .bigText, error: $addressesValidationError)
     }
 }

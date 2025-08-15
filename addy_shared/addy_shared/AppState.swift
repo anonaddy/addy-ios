@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 public class AppState: ObservableObject {
     public static let shared = AppState() // Shared instance
     @Published public var apiKey: String? = SettingsManager(encrypted: true).getSettingsString(key: .apiKey)

@@ -5,7 +5,6 @@
 //  Created by Stijn van de Water on 19/07/2024.
 //
 
-
 import Foundation
 
 public class GsonTools {
@@ -21,7 +20,7 @@ public class GsonTools {
             return nil
         }
     }
-    
+
     public static func jsonToUserResourceObject(json: String) -> UserResource? {
         let loggingHelper = LoggingHelper()
 

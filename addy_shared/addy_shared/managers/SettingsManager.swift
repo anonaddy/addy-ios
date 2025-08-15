@@ -16,7 +16,7 @@ public class SettingsManager {
         case float
         case stringSet
     }
-    
+
     public enum Prefs {
         case storeLogs
         case versionCode
@@ -43,13 +43,11 @@ public class SettingsManager {
         case timesTheAppHasBeenOpened
         case startupPage
 
-        
         // WearOS
         case backgroundServiceCacheFavoriteAliasesData
         case backgroundServiceCacheLastUpdatedAliasesData
 
-        
-        //case backgroundServiceCacheUserResource // Is .userResource in Android version
+        // case backgroundServiceCacheUserResource // Is .userResource in Android version
         case backgroundServiceCacheFailedDeliveriesCount
         case backgroundServiceCacheAccountNotificationsCount
         case backgroundServiceCacheApiKeyExpiryLeftCount
@@ -61,8 +59,7 @@ public class SettingsManager {
         case backgroundServiceCacheWatchAliasData
         case backgroundServiceCacheWatchAliasDataPrevious
     }
-    
-    
+
     /*
      This user val is made for possible multiple user support. Defaulting to 1 for now.
      */
@@ -70,49 +67,48 @@ public class SettingsManager {
     private let prefs: UserDefaults?
     private let keychain = KeychainSwift()
     private let useKeychain: Bool
-    
-    
+
     public init(encrypted: Bool, user: Int = 1) {
         self.user = user
-        self.useKeychain = encrypted
-#if DEBUG
-        let suiteName = "group.host.stjin.addy.debug"
+        useKeychain = encrypted
+        #if DEBUG
+            let suiteName = "group.host.stjin.addy.debug"
 
         #else
-        let suiteName = "group.host.stjin.addy"
-#endif
+            let suiteName = "group.host.stjin.addy"
+        #endif
         keychain.accessGroup = suiteName
 
         if encrypted {
-            self.prefs = nil
+            prefs = nil
         } else {
-            self.prefs = UserDefaults(suiteName: suiteName)
+            prefs = UserDefaults(suiteName: suiteName)
         }
-#if DEBUG
-        print("SettingsManager initialized with suiteName: \(suiteName)")
-#endif
+        #if DEBUG
+            print("SettingsManager initialized with suiteName: \(suiteName)")
+        #endif
     }
-    
+
     public func putSettingsBool(key: Prefs, boolean: Bool) {
         let userKey = "\(user)_\(key)"
-        
+
         if useKeychain {
             keychain.set(boolean, forKey: userKey, withAccess: .accessibleAfterFirstUnlock)
         } else {
             prefs?.set(boolean, forKey: userKey)
         }
     }
-    
+
     public func getSettingsBool(key: Prefs) -> Bool {
         let userKey = "\(user)_\(key)"
-        
+
         if useKeychain {
             return keychain.getBool(userKey) ?? false
         } else {
             return prefs?.bool(forKey: userKey) ?? false
         }
     }
-    
+
     public func putSettingsString(key: Prefs, string: String) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
@@ -121,7 +117,7 @@ public class SettingsManager {
             prefs?.set(string, forKey: userKey)
         }
     }
-    
+
     public func getSettingsString(key: Prefs) -> String? {
         let userKey = "\(user)_\(key)"
         if useKeychain {
@@ -130,7 +126,7 @@ public class SettingsManager {
             return prefs?.string(forKey: userKey)
         }
     }
-    
+
     public func putSettingsInt(key: Prefs, int: Int) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
@@ -139,7 +135,7 @@ public class SettingsManager {
             prefs?.set(int, forKey: userKey)
         }
     }
-    
+
     public func getSettingsInt(key: Prefs, default: Int = 0) -> Int {
         let userKey = "\(user)_\(key)"
         if useKeychain {
@@ -154,7 +150,6 @@ public class SettingsManager {
         }
     }
 
-    
     func putSettingsFloat(key: Prefs, float: Float) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
@@ -163,7 +158,7 @@ public class SettingsManager {
             prefs?.set(float, forKey: userKey)
         }
     }
-    
+
     func getSettingsFloat(key: Prefs) -> Float {
         let userKey = "\(user)_\(key)"
         if useKeychain {
@@ -172,7 +167,7 @@ public class SettingsManager {
             return prefs?.float(forKey: userKey) ?? 0.0
         }
     }
-    
+
     public func putStringSet(key: Prefs, mutableSet: Set<String>) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
@@ -184,12 +179,13 @@ public class SettingsManager {
             prefs?.set(Array(mutableSet), forKey: userKey)
         }
     }
-    
+
     public func getStringSet(key: Prefs) -> Set<String>? {
         let userKey = "\(user)_\(key)"
         if useKeychain {
             if let data = keychain.getData(userKey),
-               let array = try? JSONDecoder().decode([String].self, from: data) {
+               let array = try? JSONDecoder().decode([String].self, from: data)
+            {
                 return Set(array)
             }
             return Set()
@@ -200,7 +196,7 @@ public class SettingsManager {
             return Set(array)
         }
     }
-    
+
     public func removeSetting(key: Prefs) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
@@ -209,55 +205,51 @@ public class SettingsManager {
             prefs?.removeObject(forKey: userKey)
         }
     }
-    
+
     private func clearAllData() {
         if useKeychain {
             keychain.clear()
         } else {
-            
-#if DEBUG
-        let suiteName = "group.host.stjin.addy.debug"
+            #if DEBUG
+                let suiteName = "group.host.stjin.addy.debug"
 
-        #else
-        let suiteName = "group.host.stjin.addy"
-#endif
-            
+            #else
+                let suiteName = "group.host.stjin.addy"
+            #endif
+
             let keys = UserDefaults(suiteName: suiteName)?.dictionaryRepresentation().keys
             for key in keys! {
                 prefs?.removeObject(forKey: key)
             }
-
         }
 
         #if DEBUG
         // Don't clear logs on debug
-#else
-        LoggingHelper().clearLogs()
-#endif
-        
+        #else
+            LoggingHelper().clearLogs()
+        #endif
     }
-    
-        /*
-        Clears all the settings
-         */
 
-    public func clearSettingsAndCloseApp(){
-        
+    /*
+     Clears all the settings
+      */
+
+    public func clearSettingsAndCloseApp() {
         // Clear shortcuts and badges
         DispatchQueue.main.async {
             UIApplication.shared.shortcutItems = []
-            
+
             // Reset badge number
             UNUserNotificationCenter.current().setBadgeCount(0) { error in
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: "Cannot set badge to 0",
                     method: "MainView.newPhase",
-                    extra: error.debugDescription)
+                    extra: error.debugDescription
+                )
             }
         }
-        
-        
+
         SettingsManager(encrypted: false).clearAllData()
         SettingsManager(encrypted: true).clearAllData()
 
@@ -266,5 +258,4 @@ public class SettingsManager {
             AppState.shared.apiKey = nil
         }
     }
-    
 }

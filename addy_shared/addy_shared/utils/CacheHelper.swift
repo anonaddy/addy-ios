@@ -28,4 +28,3 @@ public struct CacheHelper {
         return userResourceJson != nil ? GsonTools.jsonToUserResourceObject(json: userResourceJson!) : nil
     }
 }
-

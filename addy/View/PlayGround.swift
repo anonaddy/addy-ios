@@ -10,23 +10,17 @@ import SwiftUI
 struct PlayGround: View {
     @State var isPlayingAnimation = false
     var body: some View {
-        
-        if isPlayingAnimation{
+        if isPlayingAnimation {
             animationViewFlavor1
         }
-        
-        if !isPlayingAnimation{
+
+        if !isPlayingAnimation {
             Button("start animation", role: .none, action: {
                 isPlayingAnimation = true
             })
         }
-        
     }
-    
-    
-    
-    
-    
+
     @State private var animationTitleText1 = ""
     @State private var animationTitleTextArray1 = [
         "TH.E0.ADDY",
@@ -40,8 +34,9 @@ struct PlayGround: View {
         "O0.YO.UR0I",
         "PH.ON.E0VE",
         "RY.0S.OON0",
-        "05.10.2024"]
-    
+        "05.10.2024",
+    ]
+
     @State private var animationTitleTextArray2 = [
         "TH.E0.ADDY",
         "TH.E0.ADDY",
@@ -55,8 +50,9 @@ struct PlayGround: View {
         "O0.YO.UR0I",
         "PH.ON.E0VE",
         "RY.0S.OON0",
-        "05.10.2024"]
-    
+        "05.10.2024",
+    ]
+
     @State private var animationTitleTextArray3 = [
         "TH.E0.ADDY",
         "TH.E0.ADDY",
@@ -71,16 +67,15 @@ struct PlayGround: View {
         "O0.YO.UR0I",
         "PH.ON.E0VE",
         "RY.0S.OON0",
-        "05.10.2024"]
+        "05.10.2024",
+    ]
     @State private var animationTitleText1Bold = false
     @State private var animationTitleText1Size = 36
     @State private var isBlurred = false
     @State private var isFaded = false
     @State private var isMonoSpaced = false
     var animationViewFlavor1: some View {
-        
         Group {
-            
             Text(animationTitleText1)
                 .font(.system(size: CGFloat(animationTitleText1Size)))
                 .monospaced(isMonoSpaced)
@@ -96,14 +91,14 @@ struct PlayGround: View {
                             animationTitleText1 = "It's almost time"
                         }
                     }
-                    
+
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                         withAnimation {
                             isBlurred.toggle()
                             isFaded.toggle()
                         }
                     }
-                    
+
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                         withAnimation {
                             animationTitleText1Bold = true
@@ -111,69 +106,52 @@ struct PlayGround: View {
                             animationTitleText1 = animationTitleTextArray1.first!
                         }
                     }
-                    
-                    
+
                     var textArrayDelayTime = 3.3
 
                     for text in animationTitleTextArray1 {
-                        
                         DispatchQueue.main.asyncAfter(deadline: .now() + textArrayDelayTime) {
                             withAnimation(.default.speed(0.65)) {
-                                
                                 isBlurred = false
                                 isFaded = false
-                                
+
                                 animationTitleText1 = text
-                                
                             }
                         }
-                        
 
                         textArrayDelayTime += 0.35
                     }
-                    
-                    
+
                     DispatchQueue.main.asyncAfter(deadline: .now() + 9.0) {
                         withAnimation(.default.speed(0.65)) {
                             isMonoSpaced = false
                             animationTitleText1 = "ready?"
                         }
                     }
-                    
+
                     DispatchQueue.main.asyncAfter(deadline: .now() + 11.0) {
                         withAnimation(.default.speed(0.65)) {
                             animationTitleText1 = "05.10.2024"
                         }
                     }
                 }
-            
- 
-
-            
-            
         }
-        
-        
     }
-    
-    
+
     @State private var animationTitleText2 = ""
     @State private var animationTitleText3 = ""
     @State private var animationTitleText4 = ""
     @State private var blurRadius = 0
     var animationViewFlavor2: some View {
-        
         Group {
-            
             ZStack {
-                
                 Text(animationTitleText1)
                     .font(.system(size: CGFloat(animationTitleText1Size)))
                     .fontDesign(.rounded)
                     .bold(animationTitleText1Bold)
                     .contentTransition(.numericText(countsDown: true))
                     .animation(.default, value: 5)
-                
+
                 Group {
                     Text(animationTitleText2)
                         .font(.system(size: CGFloat(animationTitleText1Size)))
@@ -181,14 +159,14 @@ struct PlayGround: View {
                         .bold(animationTitleText1Bold)
                         .contentTransition(.numericText(countsDown: false))
                         .animation(.default, value: 5)
-                    
+
                     Text(animationTitleText3)
                         .font(.system(size: CGFloat(animationTitleText1Size)))
                         .fontDesign(.rounded)
                         .bold(animationTitleText1Bold)
                         .contentTransition(.numericText(countsDown: false))
                         .animation(.default, value: 5)
-                    
+
                     Text(animationTitleText4)
                         .font(.system(size: CGFloat(animationTitleText1Size)))
                         .fontDesign(.rounded)
@@ -202,7 +180,7 @@ struct PlayGround: View {
                         animationTitleText1 = "It's almost time"
                     }
                 }
-                
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.8) {
                     withAnimation {
                         blurRadius = 10
@@ -210,16 +188,16 @@ struct PlayGround: View {
                         animationTitleText1Size = 96
                     }
                 }
-                
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     animationTitleText1 = ""
-                    
+
                     let group = DispatchGroup()
-                    
+
                     var textArrayDelayTime1: Double = 0
                     var textArrayDelayTime2: Double = 0
                     var textArrayDelayTime3: Double = 0
-                    
+
                     for text in animationTitleTextArray1 {
                         group.enter()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 + textArrayDelayTime1) {
@@ -230,7 +208,7 @@ struct PlayGround: View {
                         }
                         textArrayDelayTime1 += 0.3
                     }
-                    
+
                     for text in animationTitleTextArray2 {
                         group.enter()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 + textArrayDelayTime2) {
@@ -241,7 +219,7 @@ struct PlayGround: View {
                         }
                         textArrayDelayTime2 += 0.3
                     }
-                    
+
                     for text in animationTitleTextArray3 {
                         group.enter()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 + textArrayDelayTime3) {
@@ -252,7 +230,7 @@ struct PlayGround: View {
                         }
                         textArrayDelayTime3 += 0.3
                     }
-                    
+
                     group.notify(queue: .main) {
                         withAnimation {
                             blurRadius = 0
@@ -261,10 +239,7 @@ struct PlayGround: View {
                     }
                 }
             }
-            
         }
-        
-        
     }
 }
 

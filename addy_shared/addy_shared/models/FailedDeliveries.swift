@@ -15,7 +15,7 @@ struct SingleFailedDelivery: Codable {
     let data: FailedDeliveries
 }
 
-public struct FailedDeliveries:Identifiable, Codable {
+public struct FailedDeliveries: Identifiable, Codable {
     public let id: String
     let user_id: String
     public let recipient_id: String?

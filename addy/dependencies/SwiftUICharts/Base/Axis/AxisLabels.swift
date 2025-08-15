@@ -1,8 +1,8 @@
 import SwiftUI
 
 public struct AxisLabels<Content: View>: View {
-    struct YAxisViewKey: ViewPreferenceKey { }
-    struct ChartViewKey: ViewPreferenceKey { }
+    struct YAxisViewKey: ViewPreferenceKey {}
+    struct ChartViewKey: ViewPreferenceKey {}
 
     var axisLabelsData = AxisLabelsData()
     var axisLabelsStyle = AxisLabelsStyle()
@@ -38,7 +38,7 @@ public struct AxisLabels<Content: View>: View {
 
     func xAxis(chartWidth: CGFloat) -> some View {
         HStack(spacing: 0.0) {
-            ForEach(Array(axisLabelsData.axisXLabels.enumerated()), id: \.element) { index, axisXData in
+            ForEach(Array(axisLabelsData.axisXLabels.enumerated()), id: \.element) { _, axisXData in
                 Text(axisXData)
                     .font(axisLabelsStyle.axisFont)
                     .foregroundColor(axisLabelsStyle.axisFontColor)
@@ -49,7 +49,7 @@ public struct AxisLabels<Content: View>: View {
     }
 
     var chart: some View {
-        self.content()
+        content()
             .background(ViewGeometry<ChartViewKey>())
             .onPreferenceChange(ChartViewKey.self) { value in
                 chartWidth = value.first?.size.width ?? 0.0

@@ -5,13 +5,13 @@
 //  Created by Stijn van de Water on 12/06/2024.
 //
 
-import Foundation
 import addy_shared
+import Foundation
 
 class Updater {
     func isUpdateAvailable() async throws -> (Bool, String?, Bool, String?) {
         let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
-        
+
         let networkHelper = NetworkHelper()
         do {
             let feed = try await networkHelper.getGithubTags()
@@ -26,5 +26,4 @@ class Updater {
             return (false, nil, false, error.localizedDescription)
         }
     }
-
 }

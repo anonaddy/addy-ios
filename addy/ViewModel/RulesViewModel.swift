@@ -5,33 +5,32 @@
 //  Created by Stijn van de Water on 01/06/2024.
 //
 
-import SwiftUI
-import Combine
 import addy_shared
+import Combine
+import SwiftUI
 
-class RulesViewModel: ObservableObject{
-    
+class RulesViewModel: ObservableObject {
     @Published var rules: RulesArray? = nil
     @Published var recipients: [Recipients] = []
 
     @Published var isLoading = false
-    @Published var networkError:String = ""
-    
+    @Published var networkError: String = ""
+
     init() {
-        Task{
+        Task {
             await self.getRules()
         }
     }
-    
+
     func getRules() async {
-        if !self.isLoading {
+        if !isLoading {
             DispatchQueue.main.async {
                 self.isLoading = true
                 self.networkError = ""
             }
             let networkHelper = NetworkHelper()
             do {
-                if let recipients = try await networkHelper.getRecipients(verifiedOnly: false){
+                if let recipients = try await networkHelper.getRecipients(verifiedOnly: false) {
                     let rules = try await networkHelper.getRules()
                     DispatchQueue.main.async {
                         self.isLoading = false
@@ -47,10 +46,9 @@ class RulesViewModel: ObservableObject{
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,
-                    method: "getRules", extra: nil)
+                    method: "getRules", extra: nil
+                )
             }
         }
     }
-
-
 }

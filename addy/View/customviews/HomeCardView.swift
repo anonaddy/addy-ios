@@ -1,5 +1,5 @@
 //
-//  CardView.swift
+//  HomeCardView.swift
 //  addy
 //
 //  Created by Stijn van de Water on 15/07/2024.
@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-
 struct HomeCardView: View {
-    
     var title: String
     var value: Int
     var backgroundColor: Color
@@ -17,9 +15,8 @@ struct HomeCardView: View {
     var systemImageOpacity: Double
     var onTap: (() -> Void)? = nil
 
-    
     var body: some View {
-        ZStack() {
+        ZStack {
             VStack(alignment: .leading) {
                 Text(title)
                     .fontWeight(.medium)
@@ -45,11 +42,8 @@ struct HomeCardView: View {
                         .foregroundColor(.white)
                         .minimumScaleFactor(0.01)
                         .contentTransition(.numericText())
-                            .animation(.spring(duration: 0.2), value: value)
+                        .animation(.spring(duration: 0.2), value: value)
                 }
-                
-                
-                
             }
             .padding()
         }
@@ -71,17 +65,15 @@ struct HomeCardView: View {
 }
 
 #Preview {
-    HomeCardView(title: "Emails forwarded", value: 151, backgroundColor: .softRed, systemImage: "tray", systemImageOpacity: 1){
+    HomeCardView(title: "Emails forwarded", value: 151, backgroundColor: .softRed, systemImage: "tray", systemImageOpacity: 1) {
         print("ONTAP")
-    }        .frame(width: 178.50)
+    }.frame(width: 178.50)
 
-    
-    HomeCardView(title: "Emails forwarded", value: 3, backgroundColor: .accent, systemImage: "at.circle.fill", systemImageOpacity: 0.5){
+    HomeCardView(title: "Emails forwarded", value: 3, backgroundColor: .accent, systemImage: "at.circle.fill", systemImageOpacity: 0.5) {
         print("ONTAP")
-    }        .frame(maxWidth: .infinity)
-    
-    HomeCardView(title: "Emails forwarded", value: 122, backgroundColor: .teal, systemImage: "tray", systemImageOpacity: 0.2){
-        print("ONTAP")
-    }        .frame(maxWidth: .infinity)
+    }.frame(maxWidth: .infinity)
 
+    HomeCardView(title: "Emails forwarded", value: 122, backgroundColor: .teal, systemImage: "tray", systemImageOpacity: 0.2) {
+        print("ONTAP")
+    }.frame(maxWidth: .infinity)
 }

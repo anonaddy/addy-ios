@@ -5,18 +5,17 @@
 //  Created by Stijn van de Water on 23/09/2024.
 //
 
-
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 class TimerViewModel: ObservableObject {
     @Published var secondsRemaining = 10
     private var timer: Timer?
-    
+
     init() {
         resetTimer()
     }
-    
+
     func resetTimer() {
         secondsRemaining = 10
         timer?.invalidate()
@@ -33,17 +32,15 @@ class TimerViewModel: ObservableObject {
 
 struct DeleteAccountConfirmationView: View {
     @StateObject private var viewModel = TimerViewModel()
-    
+
     let addyButtonDeleteStyle = AddyButtonStyle(width: .infinity,
-                                  height: 56,
-                                  buttonStyle: .destructive)
-    
+                                                height: 56,
+                                                buttonStyle: .destructive)
+
     let addyButtonGrayStyle = AddyButtonStyle(width: .infinity,
-                                  height: 56,
-                                  buttonStyle: .secondary)
-    
-    
-    
+                                              height: 56,
+                                              buttonStyle: .secondary)
+
     @State private var showAlert: Bool = false
     @State private var alertMessage = String(localized: "delete_account_confirmation_alert")
     @State private var password = ""
@@ -55,7 +52,7 @@ struct DeleteAccountConfirmationView: View {
                     .symbolRenderingMode(.hierarchical)
                     .foregroundColor(.red)
                     .padding()
-                
+
                 Text(LocalizedStringKey(String(localized: "delete_account_confirmation_desc")))
                     .font(.subheadline)
                     .padding(.bottom)
@@ -87,27 +84,25 @@ struct DeleteAccountConfirmationView: View {
         } message: {
             Text(alertMessage)
         }
-    
-        
+
         .navigationTitle(String(localized: "delete_account"))
         .navigationBarTitleDisplayMode(.inline)
     }
-    
-    private func deleteAccount() async{
-        let networkHelper = NetworkHelper()
-            await networkHelper.deleteAccount(password: password, completion: { result in
-                switch result {
-                case "204":
-                    SettingsManager(encrypted: true).clearSettingsAndCloseApp()
-                case "422":
-                    alertMessage = String(localized: "delete_account_failed")
-                    showAlert = true
-                default:
-                    alertMessage = result
-                    showAlert = true
-                }
-            })
 
+    private func deleteAccount() async {
+        let networkHelper = NetworkHelper()
+        await networkHelper.deleteAccount(password: password, completion: { result in
+            switch result {
+            case "204":
+                SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            case "422":
+                alertMessage = String(localized: "delete_account_failed")
+                showAlert = true
+            default:
+                alertMessage = result
+                showAlert = true
+            }
+        })
     }
 }
 

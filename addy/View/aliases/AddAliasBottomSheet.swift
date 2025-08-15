@@ -5,139 +5,130 @@
 //  Created by Stijn van de Water on 07/05/2024.
 //
 
-import SwiftUI
-import AVFoundation
-import addy_shared
 import _AppIntents_SwiftUI
+import addy_shared
+import AVFoundation
+import SwiftUI
 
 struct AddAliasBottomSheet: View {
     let onAdded: () -> Void
     @EnvironmentObject var mainViewState: MainViewState
-    
-    
+
     init(onAdded: @escaping () -> Void) {
         self.onAdded = onAdded
     }
-    
-    
-    @State private var localPartValidationError:String?
-    @State private var descriptionValidationError:String?
-    
+
+    @State private var localPartValidationError: String?
+    @State private var descriptionValidationError: String?
+
     @State private var showAlert: Bool = false
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-    
+
     @State private var domains: [String] = []
     @State private var sharedDomains: [String] = []
-    
+
     @State private var formats: [[String]] =
-    [[String(localized: "domains_format_random_characters", comment: ""), "random_characters"],
-     [String(localized: "domains_format_uuid", comment: ""), "uuid"],
-     [String(localized: "domains_format_random_words", comment: ""), "random_words"],
-     [String(localized: "domains_format_custom", comment: ""), "custom"]]
-    
+        [[String(localized: "domains_format_random_characters", comment: ""), "random_characters"],
+         [String(localized: "domains_format_uuid", comment: ""), "uuid"],
+         [String(localized: "domains_format_random_words", comment: ""), "random_words"],
+         [String(localized: "domains_format_custom", comment: ""), "custom"]]
+
     @State private var selectedDomain: String = ""
-    
-#if DEBUG
-    @State private var selectedFormat: String = "custom"
-#else
-    @State private var selectedFormat: String = ""
-#endif
-    
+
+    #if DEBUG
+        @State private var selectedFormat: String = "custom"
+    #else
+        @State private var selectedFormat: String = ""
+    #endif
+
     @State private var localPart: String = ""
-    @State private var localPartPlaceholder: String = String(localized: "alias_local_part")
+    @State private var localPartPlaceholder: String = .init(localized: "alias_local_part")
     @State private var description: String = ""
-    @State private var descriptionPlaceholder: String = String(localized: "description")
-    
-    
-    @State private var aliasError :String? = ""
-    
-    @State private var formatValidationError:Bool = false
-    @State private var localPartError:Bool = false
-    
-    @State private var recipientsRequestError:String? = ""
-    
+    @State private var descriptionPlaceholder: String = .init(localized: "description")
+
+    @State private var aliasError: String? = ""
+
+    @State private var formatValidationError: Bool = false
+    @State private var localPartError: Bool = false
+
+    @State private var recipientsRequestError: String? = ""
+
     @State var recipientsLoaded: Bool = false
     @State var selectedRecipientChips: [String] = []
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
-    
+
     @State var isLoadingAddButton: Bool = false
-    
-    
+
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
-        
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
+
         Form {
-            Section{
-                
+            Section {
                 Picker(String(localized: "domain"), selection: $selectedDomain) {
                     ForEach(domains, id: \.self) { domain in
                         Text(domain).tag(domain)
                     }
                 }
-                
+
                 Picker(String(localized: "alias_format"), selection: $selectedFormat) {
                     ForEach(formats, id: \.self) { format in
                         Text(format[0]).tag(format[1])
                     }
-                    
                 }
                 .foregroundColor(formatValidationError ? .red : nil)
-                .onChange(of: selectedFormat){
+                .onChange(of: selectedFormat) {
                     // When selecting another format it should reset the error
                     formatValidationError = false
                     aliasError = ""
                 }
-                
-                
-                if (selectedFormat == "custom"){
+
+                if selectedFormat == "custom" {
                     ValidatingTextField(value: self.$localPart, placeholder: self.$localPartPlaceholder, fieldType: .text, error: $localPartValidationError)
                         .foregroundColor(localPartError ? .red : nil)
                 }
-                
+
             } header: {
-                VStack(alignment: .leading){
-                    VStack(alignment: .leading){
+                VStack(alignment: .leading) {
+                    VStack(alignment: .leading) {
                         Text(String(format: String(localized: "add_alias_desc"), self.mainViewState.userResource!.username)).multilineTextAlignment(.center)
                         Spacer(minLength: 25)
                     }
-                    
-                    VStack(alignment: .leading){
+
+                    VStack(alignment: .leading) {
                         Text(String(localized: "alias"))
                     }
                 }.frame(maxWidth: .infinity, alignment: .center)
             } footer: {
                 if let error = aliasError {
-                    if (!error.isEmpty){
+                    if !error.isEmpty {
                         Text(error)
                             .foregroundColor(.red)
                             .font(.system(size: 15))
                             .multilineTextAlignment(.leading)
                             .padding([.horizontal], 0)
-                            .onAppear{
+                            .onAppear {
                                 HapticHelper.playHapticFeedback(hapticType: .error)
-                                
                             }
                     }
                 }
-                
+
             }.textCase(nil)
-            
-            
+
             Section {
                 ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError)
             } header: {
                 Text(String(localized: "description"))
             }.textCase(nil)
-            
+
             Section {
                 AddyMultiSelectChipView(chips: $recipientsChips, selectedChips: $selectedRecipientChips, singleLine: false) { onTappedChip in
                     withAnimation {
-                        if (selectedRecipientChips.contains(onTappedChip.chipId)){
+                        if selectedRecipientChips.contains(onTappedChip.chipId) {
                             if let index = selectedRecipientChips.firstIndex(of: onTappedChip.chipId) {
                                 selectedRecipientChips.remove(at: index)
                             }
@@ -145,28 +136,25 @@ struct AddAliasBottomSheet: View {
                             selectedRecipientChips.append(onTappedChip.chipId)
                         }
                     }
-                    
+
                 }.disabled(!recipientsLoaded)
             } header: {
                 Text(String(localized: "recipients"))
-                
+
             }.textCase(nil).listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
 
             Section {
-                
                 SiriTipView(
                     intent: CreateNewAliasIntent())
-                .siriTipViewStyle(.automatic)
+                    .siriTipViewStyle(.automatic)
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-            
-            
         }
         .navigationTitle(String(localized: "add_alias")).pickerStyle(.navigationLink)
         .task {
-            if (domains.isEmpty){
+            if domains.isEmpty {
                 await loadDomains()
             }
-            
+
             // By default there is 1 chip. (the loading recipients...)
             if recipientsChips.contains(where: { $0.chipId == "loading_recipients" }) {
                 await getAllRecipients()
@@ -174,7 +162,6 @@ struct AddAliasBottomSheet: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
-            
             ToolbarItem(placement: .confirmationAction) {
                 if #available(iOS 26.0, *) {
                     addAliasButton().buttonStyle(.glassProminent)
@@ -182,14 +169,13 @@ struct AddAliasBottomSheet: View {
                     addAliasButton()
                 }
             }
-            
+
             ToolbarItem(placement: .cancellationAction) {
                 Button {
                     dismiss()
                 } label: {
                     Label(String(localized: "cancel"), systemImage: "xmark")
                 }
-                
             }
         })
         .alert(isPresented: $showAlert) {
@@ -198,10 +184,8 @@ struct AddAliasBottomSheet: View {
                 message: Text(errorAlertMessage)
             )
         }
-        
-        
     }
-    
+
     private func addAliasButton() -> some View {
         Group {
             if isLoadingAddButton {
@@ -218,60 +202,53 @@ struct AddAliasBottomSheet: View {
             }
         }
     }
-    
-    private func addAlias(){
+
+    private func addAlias() {
         // Do all the check before creating the alias
-        self.formatValidationError = false
-        
-        
+        formatValidationError = false
+
         if selectedFormat == "random_words" {
-            if (self.mainViewState.userResource!.hasUserFreeSubscription()){
-                self.aliasError = String(localized: "domains_format_random_words_not_available_for_this_subscription")
-                self.formatValidationError = true
-                self.isLoadingAddButton = false
-                
-                
+            if mainViewState.userResource!.hasUserFreeSubscription() {
+                aliasError = String(localized: "domains_format_random_words_not_available_for_this_subscription")
+                formatValidationError = true
+                isLoadingAddButton = false
+
                 return
             }
         } else if selectedFormat == "custom" {
-            
             // Only check on hosted instance
-            if (AddyIo.isUsingHostedInstance()) {
+            if AddyIo.isUsingHostedInstance() {
                 // Custom format on shared domains is possible, but only if the user has a paid subscription.
                 // If the selected domain is a shared domain AND the user is a free user don't allow it.
-                if (sharedDomains.contains(selectedDomain) && self.mainViewState.userResource!.hasUserFreeSubscription()){
-                    self.aliasError = String(localized: "domains_format_custom_not_available_for_this_domain")
-                    self.formatValidationError = true
-                    self.isLoadingAddButton = false
-                    
+                if sharedDomains.contains(selectedDomain), mainViewState.userResource!.hasUserFreeSubscription() {
+                    aliasError = String(localized: "domains_format_custom_not_available_for_this_domain")
+                    formatValidationError = true
+                    isLoadingAddButton = false
+
                     return
                 }
             }
-            
+
             if localPart.isEmpty {
-                self.aliasError = String(localized: "this_field_cannot_be_empty")
-                self.localPartError = true
-                self.isLoadingAddButton = false
-                
+                aliasError = String(localized: "this_field_cannot_be_empty")
+                localPartError = true
+                isLoadingAddButton = false
+
                 return
             }
         }
-        
-        
+
         Task {
             await addAliasToAccount(selectedDomain: selectedDomain, description: description, selectedFormat: selectedFormat, localPart: localPart, selectedRecipients: selectedRecipientChips)
         }
-        
     }
-    
-    
-    
-    private func addAliasToAccount(selectedDomain: String, description: String, selectedFormat:String, localPart: String, selectedRecipients:[String]) async {
+
+    private func addAliasToAccount(selectedDomain: String, description: String, selectedFormat: String, localPart: String, selectedRecipients: [String]) async {
         let networkHelper = NetworkHelper()
         do {
-            if let alias = try await networkHelper.addAlias(domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients){
-                UIPasteboard.general.setValue(alias.email,forPasteboardType: UTType.plainText.identifier)
-                self.onAdded()
+            if let alias = try await networkHelper.addAlias(domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients) {
+                UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
+                onAdded()
             }
         } catch {
             isLoadingAddButton = false
@@ -280,8 +257,7 @@ struct AddAliasBottomSheet: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-    
-    
+
     private func loadDomains() async {
         let networkHelper = NetworkHelper()
         do {
@@ -297,17 +273,15 @@ struct AddAliasBottomSheet: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-    
-    
-    
+
     private func getAllRecipients() async {
         let networkHelper = NetworkHelper()
         do {
-            if let recipients = try await networkHelper.getRecipients(verifiedOnly: true){
+            if let recipients = try await networkHelper.getRecipients(verifiedOnly: true) {
                 recipientsChips = []
                 recipientsLoaded = true
                 withAnimation {
-                    recipients.forEach { recipient in
+                    for recipient in recipients {
                         recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
                     }
                 }

@@ -1,5 +1,5 @@
 //
-//  EditAliasDescriptionBottomSheet.swift
+//  FilterOptionsAliasBottomSheet.swift
 //  addy
 //
 //  Created by Stijn van de Water on 12/05/2024.
@@ -14,94 +14,81 @@ import SwiftUI
 //  Created by Stijn van de Water on 07/05/2024.
 //
 
-import SwiftUI
-import AVFoundation
 import addy_shared
+import AVFoundation
+import SwiftUI
 
 struct FilterOptionsAliasBottomSheet: View {
     @State private var filter1Selection: Int = 0
     @State private var filter2Selection: Int = 0
     @State private var sortSelection: Int = 0
     @State private var aliasSortFilterRequest: AliasSortFilterRequest
-    
-    @State var selectedOrderChip:String = "created_at"
+
+    @State var selectedOrderChip: String = "created_at"
     @State var orderChips: [AddyChipModel] = [
-        AddyChipModel(chipId: "local_part",label: String(localized: "sort_localpart")),
-        AddyChipModel(chipId: "domain",label: String(localized: "sort_domain")),
-        AddyChipModel(chipId: "email",label: String(localized: "sort_email")),
-        AddyChipModel(chipId: "emails_forwarded",label: String(localized: "sort_email_forwarded")),
-        AddyChipModel(chipId: "emails_blocked",label: String(localized: "sort_email_blocked")),
-        AddyChipModel(chipId: "emails_replied",label: String(localized: "sort_email_replied")),
-        AddyChipModel(chipId: "emails_sent",label: String(localized: "sort_email_sent")),
-        AddyChipModel(chipId: "last_forwarded",label: String(localized: "sort_last_forwarded")),
-        AddyChipModel(chipId: "last_blocked",label: String(localized: "sort_last_blocked")),
-        AddyChipModel(chipId: "last_replied",label: String(localized: "sort_last_replied")),
-        AddyChipModel(chipId: "last_sent",label: String(localized: "sort_last_sent")),
-        AddyChipModel(chipId: "last_used",label: String(localized: "sort_last_used")),
-        AddyChipModel(chipId: "active",label: String(localized: "sort_active")),
-        AddyChipModel(chipId: "created_at",label: String(localized: "sort_created_at")),
-        AddyChipModel(chipId: "updated_at",label: String(localized: "sort_updated_at")),
-        AddyChipModel(chipId: "deleted_at",label: String(localized: "sort_deleted_at"))
+        AddyChipModel(chipId: "local_part", label: String(localized: "sort_localpart")),
+        AddyChipModel(chipId: "domain", label: String(localized: "sort_domain")),
+        AddyChipModel(chipId: "email", label: String(localized: "sort_email")),
+        AddyChipModel(chipId: "emails_forwarded", label: String(localized: "sort_email_forwarded")),
+        AddyChipModel(chipId: "emails_blocked", label: String(localized: "sort_email_blocked")),
+        AddyChipModel(chipId: "emails_replied", label: String(localized: "sort_email_replied")),
+        AddyChipModel(chipId: "emails_sent", label: String(localized: "sort_email_sent")),
+        AddyChipModel(chipId: "last_forwarded", label: String(localized: "sort_last_forwarded")),
+        AddyChipModel(chipId: "last_blocked", label: String(localized: "sort_last_blocked")),
+        AddyChipModel(chipId: "last_replied", label: String(localized: "sort_last_replied")),
+        AddyChipModel(chipId: "last_sent", label: String(localized: "sort_last_sent")),
+        AddyChipModel(chipId: "last_used", label: String(localized: "sort_last_used")),
+        AddyChipModel(chipId: "active", label: String(localized: "sort_active")),
+        AddyChipModel(chipId: "created_at", label: String(localized: "sort_created_at")),
+        AddyChipModel(chipId: "updated_at", label: String(localized: "sort_updated_at")),
+        AddyChipModel(chipId: "deleted_at", label: String(localized: "sort_deleted_at")),
     ]
-    
-    
-    
-    
-    
+
     let setFilterAndSortingSettings: (AliasSortFilterRequest) -> Void
-    
+
     init(aliasSortFilterRequest: AliasSortFilterRequest, setFilterAndSortingSettings: @escaping (AliasSortFilterRequest) -> Void) {
         self.aliasSortFilterRequest = aliasSortFilterRequest
         self.setFilterAndSortingSettings = setFilterAndSortingSettings
     }
-    
-    
-    
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
-        Form{
-            
-            Section{
 
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
+        Form {
+            Section {
                 VStack {
-                    Picker(selection: $filter1Selection, label: Text(String(localized:"all_aliases"))) {
+                    Picker(selection: $filter1Selection, label: Text(String(localized: "all_aliases"))) {
                         Text(String(localized: "filter_all_aliases")).tag(0)
-                        Text(String(localized:"filter_active_aliases")).tag(1)
-                        Text(String(localized:"filter_inactive_aliases")).tag(2)
-                        Text(String(localized:"filter_deleted_aliases")).tag(3)
+                        Text(String(localized: "filter_active_aliases")).tag(1)
+                        Text(String(localized: "filter_inactive_aliases")).tag(2)
+                        Text(String(localized: "filter_deleted_aliases")).tag(3)
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .disabled(filter2Selection == 1) // means if alias is set to Watch Only
-                    
-                    
-                    Picker(selection: $filter2Selection, label: Text(String(localized:"filter_watched_only"))) {
+
+                    Picker(selection: $filter2Selection, label: Text(String(localized: "filter_watched_only"))) {
                         Text(String(localized: "all_aliases")).tag(0)
-                        Text(String(localized:"filter_watched_only")).tag(1)
+                        Text(String(localized: "filter_watched_only")).tag(1)
                     }
                     .pickerStyle(SegmentedPickerStyle())
-                    
                 }
-                
-                
+
             } header: {
-                VStack(alignment: .leading){
+                VStack(alignment: .leading) {
                     Text(String(localized: "filtering_and_sorting_desc"))
                         .multilineTextAlignment(.center).textCase(nil)
                     Spacer(minLength: 25)
                     Text(String(localized: "filtering"))
-                    
                 }
             }.textCase(nil)
-            
-            
+
             Section {
-                Picker(selection: $sortSelection, label: Text(String(localized:"sort_by"))) {
+                Picker(selection: $sortSelection, label: Text(String(localized: "sort_by"))) {
                     Text(String(localized: "sort_asc")).tag(0)
-                    Text(String(localized:"sort_desc")).tag(1)
+                    Text(String(localized: "sort_desc")).tag(1)
                 }
                 .pickerStyle(MenuPickerStyle())
                 .disabled(filter2Selection == 1) // means if alias is set to Watch Only
@@ -109,22 +96,16 @@ struct FilterOptionsAliasBottomSheet: View {
                     withAnimation {
                         selectedOrderChip = onTappedChip.chipId
                     }
-                    
+
                 }.disabled(filter2Selection == 1) // means if alias is set to Watch Only
-                
-                
-                
-            }header: {
+
+            } header: {
                 Text(String(localized: "sorting"))
             }.textCase(nil)
-            
-            
-        
-            
+
         }.navigationTitle(String(localized: "filtering_and_sorting")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                
                 ToolbarItem(placement: .confirmationAction) {
                     if #available(iOS 26.0, *) {
                         saveFilterAndSortingSettingsButton().buttonStyle(.glassProminent)
@@ -132,9 +113,8 @@ struct FilterOptionsAliasBottomSheet: View {
                         saveFilterAndSortingSettingsButton()
                     }
                 }
-                
+
                 ToolbarItem(placement: .cancellationAction) {
-                    
                     Menu(content: {
                         Button(String(localized: "clear_filter")) {
                             aliasSortFilterRequest.onlyActiveAliases = false
@@ -143,7 +123,7 @@ struct FilterOptionsAliasBottomSheet: View {
                             aliasSortFilterRequest.onlyDeletedAliases = false
                             aliasSortFilterRequest.sort = nil
                             aliasSortFilterRequest.sortDesc = false
-                            
+
                             LoadFilter(aliasSortFilterRequest: aliasSortFilterRequest)
                         }
                         Button(String(localized: "cancel")) {
@@ -152,16 +132,13 @@ struct FilterOptionsAliasBottomSheet: View {
                     }, label: {
                         Label(String(localized: "menu"), systemImage: "ellipsis.circle")
                     })
-                    
                 }
             })
             .onAppear(perform: {
                 LoadFilter(aliasSortFilterRequest: aliasSortFilterRequest)
             })
-        
-        
     }
-    
+
     private func saveFilterAndSortingSettingsButton() -> some View {
         Button {
             self.saveFilterAndSortingSettings()
@@ -169,9 +146,8 @@ struct FilterOptionsAliasBottomSheet: View {
             Text(String(localized: "save"))
         }
     }
-    
-    func saveFilterAndSortingSettings(){
-        
+
+    func saveFilterAndSortingSettings() {
         switch filter1Selection {
         case 1:
             aliasSortFilterRequest.onlyActiveAliases = true
@@ -190,58 +166,52 @@ struct FilterOptionsAliasBottomSheet: View {
             aliasSortFilterRequest.onlyInactiveAliases = false
             aliasSortFilterRequest.onlyDeletedAliases = false
         }
-        
+
         switch filter2Selection {
         case 1:
             aliasSortFilterRequest.onlyWatchedAliases = true
         default:
             aliasSortFilterRequest.onlyWatchedAliases = false
         }
-        
+
         switch sortSelection {
         case 1:
             aliasSortFilterRequest.sortDesc = true
         default:
             aliasSortFilterRequest.sortDesc = false
         }
-        
+
         aliasSortFilterRequest.sort = selectedOrderChip
-        
-        self.setFilterAndSortingSettings(self.aliasSortFilterRequest)
+
+        setFilterAndSortingSettings(aliasSortFilterRequest)
     }
-    
-    func LoadFilter(aliasSortFilterRequest: AliasSortFilterRequest){
-        
+
+    func LoadFilter(aliasSortFilterRequest: AliasSortFilterRequest) {
         // Load the first selectionbar
-        if (aliasSortFilterRequest.onlyActiveAliases){
+        if aliasSortFilterRequest.onlyActiveAliases {
             filter1Selection = 1
-        }
-        else if (aliasSortFilterRequest.onlyInactiveAliases){
+        } else if aliasSortFilterRequest.onlyInactiveAliases {
             filter1Selection = 2
-        }
-        else if (aliasSortFilterRequest.onlyDeletedAliases){
+        } else if aliasSortFilterRequest.onlyDeletedAliases {
             filter1Selection = 3
-        }
-        else {
+        } else {
             filter1Selection = 0
         }
-        
+
         // Load the second selectionbar
-        if (aliasSortFilterRequest.onlyWatchedAliases){
+        if aliasSortFilterRequest.onlyWatchedAliases {
             filter2Selection = 1
-        }
-        else {
+        } else {
             filter2Selection = 0
         }
-        
+
         // Load the second selectionbar
-        if (aliasSortFilterRequest.sortDesc){
+        if aliasSortFilterRequest.sortDesc {
             sortSelection = 1
-        }
-        else {
+        } else {
             sortSelection = 0
         }
-        
+
         // If sort is set, set the chip
         if let sort = aliasSortFilterRequest.sort {
             selectedOrderChip = sort
@@ -250,8 +220,6 @@ struct FilterOptionsAliasBottomSheet: View {
         }
     }
 }
-
-
 
 struct FilterOptionsAliasBottomSheet_Previews: PreviewProvider {
     static var defaultSortFilterRequest = AliasSortFilterRequest(
@@ -263,10 +231,9 @@ struct FilterOptionsAliasBottomSheet_Previews: PreviewProvider {
         sortDesc: false,
         filter: nil
     )
-    
-    
+
     static var previews: some View {
-        FilterOptionsAliasBottomSheet(aliasSortFilterRequest: defaultSortFilterRequest, setFilterAndSortingSettings: { alias in
+        FilterOptionsAliasBottomSheet(aliasSortFilterRequest: defaultSortFilterRequest, setFilterAndSortingSettings: { _ in
             // Dummy function for preview
         })
     }

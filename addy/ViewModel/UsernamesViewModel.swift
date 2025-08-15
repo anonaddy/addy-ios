@@ -5,25 +5,24 @@
 //  Created by Stijn van de Water on 01/06/2024.
 //
 
-import SwiftUI
-import Combine
 import addy_shared
+import Combine
+import SwiftUI
 
-class UsernamesViewModel: ObservableObject{
-    
+class UsernamesViewModel: ObservableObject {
     @Published var usernames: UsernamesArray? = nil
 
     @Published var isLoading = false
-    @Published var networkError:String = ""
-    
-    init(){
+    @Published var networkError: String = ""
+
+    init() {
         Task {
             await self.getUsernames()
         }
     }
-    
+
     func getUsernames() async {
-        if !self.isLoading {
+        if !isLoading {
             DispatchQueue.main.async {
                 self.isLoading = true
                 self.networkError = ""
@@ -43,9 +42,9 @@ class UsernamesViewModel: ObservableObject{
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,
-                    method: "getUsernames", extra: nil)
+                    method: "getUsernames", extra: nil
+                )
             }
         }
     }
-
 }

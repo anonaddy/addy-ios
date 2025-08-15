@@ -5,11 +5,11 @@
 //  Created by Stijn van de Water on 08/05/2024.
 //
 
-public struct AliasesArray:Codable {
+public struct AliasesArray: Codable {
     public var data: [Aliases]
     public var links: Links?
     public var meta: Meta?
-    
+
     public init(data: [Aliases], links: Links? = nil, meta: Meta? = nil) {
         self.data = data
         self.links = links
@@ -52,8 +52,7 @@ public struct Aliases: Identifiable, Codable, Hashable {
     public var deleted_at: String?
 }
 
-
-public struct Meta:Codable {
+public struct Meta: Codable {
     public let current_page: Int
     let from: Int?
     public let last_page: Int
@@ -64,13 +63,13 @@ public struct Meta:Codable {
     let total: Int
 }
 
-struct Link:Codable {
+struct Link: Codable {
     let url: String?
     let label: String
     let active: Bool
 }
 
-public struct Links:Codable {
+public struct Links: Codable {
     let first: String?
     let last: String?
     let prev: String?

@@ -5,25 +5,24 @@
 //  Created by Stijn van de Water on 03/06/2024.
 //
 
-import SwiftUI
-import Combine
 import addy_shared
+import Combine
+import SwiftUI
 
-class FailedDeliveriesViewModel: ObservableObject{
-    
+class FailedDeliveriesViewModel: ObservableObject {
     @Published var failedDeliveries: FailedDeliveriesArray? = nil
 
     @Published var isLoading = false
-    @Published var networkError:String = ""
-    
-    init(){
+    @Published var networkError: String = ""
+
+    init() {
         Task {
             await self.getFailedDeliveries()
         }
     }
-    
+
     func getFailedDeliveries() async {
-        if !self.isLoading {
+        if !isLoading {
             DispatchQueue.main.async {
                 self.isLoading = true
                 self.networkError = ""
@@ -43,9 +42,9 @@ class FailedDeliveriesViewModel: ObservableObject{
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,
-                    method: "getFailedDeliveries", extra: nil)
+                    method: "getFailedDeliveries", extra: nil
+                )
             }
         }
     }
-
 }

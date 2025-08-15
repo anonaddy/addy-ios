@@ -5,9 +5,8 @@
 //  Created by Stijn van de Water on 12/05/2024.
 //
 
-
-import SwiftUI
 import AVFoundation
+import SwiftUI
 
 struct EditAliasSendMailRecipientBottomSheet: View {
     @State private var aliasEmail: String
@@ -19,22 +18,18 @@ struct EditAliasSendMailRecipientBottomSheet: View {
         self.onPressSend = onPressSend
         self.onPressCopy = onPressCopy
     }
-    
-    @State private var addressesValidationError:String?
-    @State private var addresses:String = ""
-    @State private var addressesPlaceholder:String = String(localized: "addresses")
 
-    
+    @State private var addressesValidationError: String?
+    @State private var addresses: String = ""
+    @State private var addressesPlaceholder: String = .init(localized: "addresses")
+
     @Environment(\.dismiss) var dismiss
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
-        Form{
-            
-        
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
+        Form {
             Section {
-
                 ValidatingTextField(value: self.$addresses, placeholder: $addressesPlaceholder, fieldType: .commaSeperatedEmails, error: $addressesValidationError)
 
             } header: {
@@ -43,24 +38,21 @@ struct EditAliasSendMailRecipientBottomSheet: View {
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.center).padding(.bottom)
             }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
-            
-            
+
         }.navigationTitle(String(localized: "send_mail")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                
                 ToolbarItem(placement: .secondaryAction) {
-                    Button() {
+                    Button {
                         // Only perform the action whent the addresses are valid
-                        if (addressesValidationError == nil){
+                        if addressesValidationError == nil {
                             self.onPressCopy(self.addresses)
                         }
                     } label: {
                         Image(systemName: "clipboard")
                     }
                 }
-                
-                
+
                 ToolbarItem(placement: .confirmationAction) {
                     if #available(iOS 26.0, *) {
                         sendButton().buttonStyle(.glassProminent)
@@ -68,26 +60,21 @@ struct EditAliasSendMailRecipientBottomSheet: View {
                         sendButton()
                     }
                 }
-                
-                
+
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {
                         Label(String(localized: "cancel"), systemImage: "xmark")
                     }
-                    
                 }
             })
-        
-        
     }
-    
-    
+
     private func sendButton() -> some View {
         Button {
             // Only perform the action whent the addresses are valid
-            if (addressesValidationError == nil){
+            if addressesValidationError == nil {
                 self.onPressSend(self.addresses)
             }
         } label: {
@@ -97,9 +84,9 @@ struct EditAliasSendMailRecipientBottomSheet: View {
 }
 
 #Preview {
-    EditAliasSendMailRecipientBottomSheet(aliasEmail: "TEST", onPressSend: { alias in
+    EditAliasSendMailRecipientBottomSheet(aliasEmail: "TEST", onPressSend: { _ in
         print("SEND")
-    }, onPressCopy: { alias in
+    }, onPressCopy: { _ in
         print("COPY")
     })
 }

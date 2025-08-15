@@ -5,30 +5,28 @@
 //  Created by Stijn van de Water on 11/06/2024.
 //
 
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct LogViewerView: View {
     @StateObject var logsViewModel = LogsViewModel()
-    
-    
+
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
         List {
-            if let logs = logsViewModel.logs{
+            if let logs = logsViewModel.logs {
                 if !logs.isEmpty {
                     Section {
-                        ForEach (logs) { logEntry in
+                        ForEach(logs) { logEntry in
                             let logToShare = "\(logEntry.message)\n\(logEntry.method ?? "")\n\(logEntry.extra ?? "")"
                             ShareLink(item: logToShare) {
-                                
                                 HStack {
                                     Capsule()
                                         .frame(maxWidth: 8, maxHeight: .infinity)
                                         .foregroundStyle(self.getImportanceColor(importance: logEntry.importance)).padding(.vertical).padding(.trailing, 4)
-                                    VStack(alignment: .leading){
+                                    VStack(alignment: .leading) {
                                         Text(logEntry.dateTime).fontWeight(.medium).padding(.bottom, 4)
                                         Text(logEntry.message)
                                             .multilineTextAlignment(.leading)
@@ -38,26 +36,23 @@ struct LogViewerView: View {
                             }.buttonStyle(PlainButtonStyle())
                         }
                     } header: {
-                        HStack(spacing: 6){
+                        HStack(spacing: 6) {
                             Text(String(localized: "logs"))
-                            
-                            if (logsViewModel.isLoading){
+
+                            if logsViewModel.isLoading {
                                 ProgressView()
                                     .frame(maxHeight: 4)
-                                
                             }
                         }
-                        
+
                     }.textCase(nil)
                 }
-                
             }
-            
+
         }.refreshable {
             self.logsViewModel.getLogs()
         }.overlay(Group {
-            
-            if let logs = logsViewModel.logs{
+            if let logs = logsViewModel.logs {
                 if logs.isEmpty {
                     ContentUnavailableView {
                         Label(String(localized: "no_logs"), systemImage: "doc.text.magnifyingglass")
@@ -73,20 +68,17 @@ struct LogViewerView: View {
                     } description: {
                         Text(String(localized: "obtaining_desc"))
                     }
-                    
+
                     ProgressView()
-                        .frame(maxWidth: .infinity, maxHeight:50)
+                        .frame(maxWidth: .infinity, maxHeight: 50)
                     Spacer()
                 }
             }
         })
         .navigationTitle(String(localized: "logs"))
         .navigationBarTitleDisplayMode(.inline)
-
         .toolbar(content: {
-            
             ToolbarItem(placement: .destructiveAction) {
-                
                 Menu(content: {
                     Button(String(localized: "clear_logs")) {
                         LoggingHelper().clearLogs()
@@ -95,22 +87,19 @@ struct LogViewerView: View {
                 }, label: {
                     Label(String(localized: "menu"), systemImage: "ellipsis.circle")
                 })
-                
             }
-            
+
         }).onAppear(perform: {
-            if let logs = logsViewModel.logs{
-                if (logs.isEmpty) {
+            if let logs = logsViewModel.logs {
+                if logs.isEmpty {
                     logsViewModel.getLogs()
-                    
                 }
             }
         })
     }
-    
+
     private func getImportanceColor(importance: LogImportance) -> Color {
-        
-        switch (importance) {
+        switch importance {
         case .critical:
             return Color.red
         case .warning:

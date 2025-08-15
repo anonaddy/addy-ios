@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-
 struct UnsupportedBottomSheet: View {
-
     let onClickHowToUpdate: () -> Void
     let onClickIgnore: () -> Void
 
@@ -19,42 +17,38 @@ struct UnsupportedBottomSheet: View {
     }
 
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
 
-            List {
-                
-                Section{
-                    VStack{
-                        AddyButton(action: {
-                            self.onClickHowToUpdate()
-                            }) {
-                            Text(String(localized: "how_to_update")).foregroundColor(Color.white)
-                        }
+        List {
+            Section {
+                VStack {
+                    AddyButton(action: {
+                        self.onClickHowToUpdate()
+                    }) {
+                        Text(String(localized: "how_to_update")).foregroundColor(Color.white)
                     }
-                } header: {
-                    VStack(alignment: .leading){
-                        Text(String(localized: "addyio_instance_version_unsupported"))
-                            .multilineTextAlignment(.center)
-                            .padding(.bottom)
-                        
-                    }
-                }.textCase(nil).listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-                
-                Section{
-                    Button(String(localized: "ignore_and_continue")){
-                        self.onClickIgnore()
-                    }        .frame(maxWidth: .infinity)
+                }
+            } header: {
+                VStack(alignment: .leading) {
+                    Text(String(localized: "addyio_instance_version_unsupported"))
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom)
+                }
+            }.textCase(nil).listRowBackground(Color.clear).listRowInsets(EdgeInsets())
 
-                }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-                
-                
-                
-            }.navigationTitle(String(localized: "note"))
+            Section {
+                Button(String(localized: "ignore_and_continue")) {
+                    self.onClickIgnore()
+                }.frame(maxWidth: .infinity)
+
+            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+
+        }.navigationTitle(String(localized: "note"))
             .listSectionSpacing(.compact)
-                .navigationBarTitleDisplayMode(.inline)
-        }
+            .navigationBarTitleDisplayMode(.inline)
+    }
 }
 
 #Preview {
@@ -63,5 +57,4 @@ struct UnsupportedBottomSheet: View {
     } onClickIgnore: {
         //
     }
-
 }

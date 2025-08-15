@@ -12,13 +12,13 @@ public enum ChartLabelType {
 /// A chart may contain any number of labels in pre-set positions based on their `ChartLabelType`
 public struct ChartLabel: View {
     @EnvironmentObject var chartValue: ChartValue
-    @State var textToDisplay:String = ""
+    @State var textToDisplay: String = ""
     var format: String = "%.01f"
 
     private var title: String
 
-	/// Label font size
-	/// - Returns: the font size of the label
+    /// Label font size
+    /// - Returns: the font size of the label
     private var labelSize: CGFloat {
         switch labelType {
         case .title:
@@ -29,13 +29,13 @@ public struct ChartLabel: View {
             return 24.0
         case .largeTitle:
             return 38.0
-        case .custom(let size, _, _):
+        case let .custom(size, _, _):
             return size
         }
     }
 
-	/// Padding around label
-	/// - Returns: the edge padding to use based on position of the label
+    /// Padding around label
+    /// - Returns: the edge padding to use based on position of the label
     private var labelPadding: EdgeInsets {
         switch labelType {
         case .title:
@@ -46,16 +46,16 @@ public struct ChartLabel: View {
             return EdgeInsets(top: 8.0, leading: 0, bottom: 0.0, trailing: 8.0)
         case .largeTitle:
             return EdgeInsets(top: 24.0, leading: 0, bottom: 0.0, trailing: 8.0)
-        case .custom(_, let padding, _):
+        case let .custom(_, padding, _):
             return padding
         }
     }
 
-	/// Which type (color, size, position) for label
+    /// Which type (color, size, position) for label
     private let labelType: ChartLabelType
 
-	/// Foreground color for this label
-	/// - Returns: Color of label based on its `ChartLabelType`
+    /// Foreground color for this label
+    /// - Returns: Color of label based on its `ChartLabelType`
     private var labelColor: Color {
         switch labelType {
         case .title:
@@ -66,26 +66,27 @@ public struct ChartLabel: View {
             return Color.primary
         case .largeTitle:
             return Color.primary
-        case .custom(_, _, let color):
+        case let .custom(_, _, color):
             return color
         }
     }
 
-	/// Initialize
-	/// - Parameters:
-	///   - title: Any `String`
-	///   - type: Which `ChartLabelType` to use
-    public init (_ title: String,
-                 type: ChartLabelType = .title,
-                 format: String = "%.01f") {
+    /// Initialize
+    /// - Parameters:
+    ///   - title: Any `String`
+    ///   - type: Which `ChartLabelType` to use
+    public init(_ title: String,
+                type: ChartLabelType = .title,
+                format: String = "%.01f")
+    {
         self.title = title
         labelType = type
         self.format = format
     }
 
-	/// The content and behavior of the `ChartLabel`.
-	///
-	/// Displays current value if chart is currently being touched along a data point, otherwise the specified text.
+    /// The content and behavior of the `ChartLabel`.
+    ///
+    /// Displays current value if chart is currently being touched along a data point, otherwise the specified text.
     public var body: some View {
         HStack {
             Text(textToDisplay)

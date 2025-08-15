@@ -5,13 +5,11 @@
 //  Created by Stijn van de Water on 06/07/2024.
 //
 
-import Foundation
-import Combine
 import addy_shared
+import Combine
+import Foundation
 
-class SendMailRecipientSearchViewModel: ObservableObject{
-    
-    
+class SendMailRecipientSearchViewModel: ObservableObject {
     var sortFilterRequest = AliasSortFilterRequest(
         onlyActiveAliases: false,
         onlyDeletedAliases: false,
@@ -21,72 +19,71 @@ class SendMailRecipientSearchViewModel: ObservableObject{
         sortDesc: false,
         filter: ""
     )
-    
+
     @Published var searchQuery = ""
-    
-    var searchCancellable: AnyCancellable? = nil
-    
-    
+
+    var searchCancellable: AnyCancellable?
+
     @Published var suggestionChips: [AddyChipModel] = []
     @Published var aliases: [Aliases]? = []
 
     @Published var domainOptions: [String] = []
     @Published var isLoading = false
-    @Published var networkError:String = ""
-    
-    init(){
+    @Published var networkError: String = ""
+
+    init() {
         // since SwiftUI uses @published so its a publisher.
         // so we dont need to explicitly define publisher..
         searchCancellable = $searchQuery
             .dropFirst()
             .removeDuplicates()
             .debounce(for: 1.0, scheduler: RunLoop.main)
-            .sink(receiveValue: {str in
+            .sink(receiveValue: { str in
                 self.searchAliases(searchQuery: str)
             })
     }
-    
-    func searchAliases(searchQuery: String){
+
+    func searchAliases(searchQuery: String) {
         // When something is being searched cancel the loading to make sure that the networkCall will succeed
-        self.isLoading = false
-        
-        if (searchQuery.count >= 3){
+        isLoading = false
+
+        if searchQuery.count >= 3 {
             // search Data
-            self.sortFilterRequest.filter = searchQuery
-            
+            sortFilterRequest.filter = searchQuery
+
             Task {
                 await self.getAliases()
             }
         } else {
-            self.suggestionChips = []
+            suggestionChips = []
         }
         // Don't search for searchTerms for < 3 chars
     }
-    
-    func setDomainOptions(domainOptions: [String]){
+
+    func setDomainOptions(domainOptions: [String]) {
         self.domainOptions = domainOptions
     }
-    
+
     func getAliases() async {
-        if (!self.isLoading){
+        if !isLoading {
             DispatchQueue.main.async {
                 self.isLoading = true
                 // Always reset on searching for new queries
                 self.suggestionChips = []
-                
+
                 self.networkError = ""
             }
-            
+
             let networkHelper = NetworkHelper()
-            
+
             do {
-                let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: self.sortFilterRequest, page: nil, size: 100)
+                let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: sortFilterRequest, page: nil, size: 100)
                 DispatchQueue.main.async {
                     self.isLoading = false
-                    
+
                     if let aliasArray = aliasArray {
                         self.aliases = aliasArray.data
-                        self.suggestionChips = self.createChipModel(aliasList: aliasArray) 
+                        self.suggestionChips = self.createChipModel(aliasList: aliasArray)
                     }
                 }
             } catch {
@@ -97,20 +94,19 @@ class SendMailRecipientSearchViewModel: ObservableObject{
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,
-                    method: "getAliases", extra: nil)
+                    method: "getAliases", extra: nil
+                )
             }
         }
     }
-    
+
     private func createChipModel(aliasList: AliasesArray) -> [AddyChipModel] {
-        
         var chipModel: [AddyChipModel] = []
-        
+
         for alias in aliasList.data {
             chipModel.append(AddyChipModel(chipId: alias.id, label: alias.email))
         }
-        
-        
+
         if SettingsManager(encrypted: false).getSettingsBool(key: .mailtoActivityShowSuggestions) {
             for domainOption in domainOptions {
                 let suggestion = "\(searchQuery.components(separatedBy: "@")[0])@\(domainOption)"
@@ -119,8 +115,7 @@ class SendMailRecipientSearchViewModel: ObservableObject{
                 }
             }
         }
-        
-        
+
         return chipModel
     }
 }

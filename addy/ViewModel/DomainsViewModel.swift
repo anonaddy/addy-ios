@@ -5,25 +5,24 @@
 //  Created by Stijn van de Water on 01/06/2024.
 //
 
-import SwiftUI
-import Combine
 import addy_shared
+import Combine
+import SwiftUI
 
-class DomainsViewModel: ObservableObject{
-    
+class DomainsViewModel: ObservableObject {
     @Published var domains: DomainsArray? = nil
 
     @Published var isLoading = false
-    @Published var networkError:String = ""
-    
-    init(){
+    @Published var networkError: String = ""
+
+    init() {
         Task {
             await self.getDomains()
         }
     }
-    
+
     func getDomains() async {
-        if !self.isLoading {
+        if !isLoading {
             DispatchQueue.main.async {
                 self.isLoading = true
                 self.networkError = ""
@@ -43,9 +42,9 @@ class DomainsViewModel: ObservableObject{
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,
-                    method: "getDomains", extra: nil)
+                    method: "getDomains", extra: nil
+                )
             }
         }
     }
-
 }

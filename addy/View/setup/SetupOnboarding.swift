@@ -5,8 +5,8 @@
 //  Created by Stijn van de Water on 06/05/2024.
 //
 
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct SetupOnboarding: View {
     @State private var selectedPage = 0
@@ -14,9 +14,9 @@ struct SetupOnboarding: View {
     @Binding var showOnboarding: Bool
 
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
         NavigationStack {
             ZStack {
                 // Background gradient
@@ -26,13 +26,13 @@ struct SetupOnboarding: View {
                     endPoint: .bottom
                 )
                 .ignoresSafeArea()
-                
+
                 // Night mode overlay
                 Rectangle()
                     .fill(.nightMode)
                     .opacity(0.6)
                     .ignoresSafeArea()
-                
+
                 // Main content
                 VStack {
                     // Custom toolbar content
@@ -44,7 +44,7 @@ struct SetupOnboarding: View {
                             .foregroundColor(.primary)
                         Spacer()
                     }
-                    
+
                     TabView(selection: $selectedPage) {
                         PageView(
                             imageName: "register",
@@ -55,7 +55,7 @@ struct SetupOnboarding: View {
                             action: { selectedPage += 1 },
                             imageHeight: 200
                         ).tag(0)
-                        
+
                         PageView(
                             imageName: "email_aliases",
                             title: "setup_how_2",
@@ -65,7 +65,7 @@ struct SetupOnboarding: View {
                             action: { selectedPage += 1 },
                             imageHeight: 200
                         ).tag(1)
-                        
+
                         PageView(
                             imageName: "dashboard",
                             title: "setup_how_3",
@@ -75,7 +75,7 @@ struct SetupOnboarding: View {
                             action: { selectedPage += 1 },
                             imageHeight: 200
                         ).tag(2)
-                        
+
                         PageView(
                             imageName: "logo-horizontal",
                             title: "setup_how_4",
@@ -90,7 +90,6 @@ struct SetupOnboarding: View {
                 }
                 .frame(maxWidth: .infinity)
             }
-
         }
         .sheet(isPresented: $openRegistrationFormBottomSheet) {
             RegistrationFormBottomSheet(showOnboarding: $showOnboarding)
@@ -108,9 +107,9 @@ struct PageView: View {
     let imageHeight: CGFloat?
 
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
         VStack {
             ScrollView {
                 VStack(spacing: 16) {
@@ -120,17 +119,17 @@ struct PageView: View {
                         .frame(maxHeight: imageHeight ?? 200)
                         .padding(.top, 16)
                         .padding(imageHeight != nil ? .all : .bottom)
-                    
+
                     Text(String(localized: title))
                         .font(.title2)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.center)
-                    
+
                     Text(String(localized: subtitle))
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
                         .opacity(0.5)
-                    
+
                     if let description = description {
                         Text(LocalizedStringKey(String(localized: description)))
                             .font(.subheadline)
@@ -139,7 +138,7 @@ struct PageView: View {
                     }
                 }
             }
-            
+
             Button(action: {
                 withAnimation {
                     action()
@@ -149,13 +148,13 @@ struct PageView: View {
             }
             .padding(.vertical, 36) // Add vertical padding to ensure shadow has space
             .controlSize(.extraLarge)
-            .apply({ View in
+            .apply { View in
                 if #available(iOS 26.0, *) {
                     View.buttonStyle(.glassProminent)
                 } else {
                     View.buttonStyle(.borderedProminent)
                 }
-            })
+            }
         }
         .padding(.horizontal, 16)
     }

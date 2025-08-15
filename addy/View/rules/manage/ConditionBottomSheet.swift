@@ -5,41 +5,35 @@
 //  Created by Stijn van de Water on 08/06/2024.
 //
 
-import SwiftUI
-import AVFoundation
 import addy_shared
+import AVFoundation
+import SwiftUI
 
 struct ConditionBottomSheet: View {
-    
-    
     @State private var value = ""
     @State private var valuePlaceHolder = String(localized: "enter_values_comma_separated")
-    @State private var valuePlaceHolderValidationError:String?
-    
-    
+    @State private var valuePlaceHolderValidationError: String?
+
     @State private var selectedConditionType = "sender"
     @State private var selectedConditionMatch = "contains"
 
-    
-    private var conditionEditObject:Condition?
-    
+    private var conditionEditObject: Condition?
+
     let onAddedCondition: (Condition?, Condition) -> Void
-    
+
     init(conditionEditObject: Condition?, onAddedCondition: @escaping (Condition?, Condition) -> Void) {
         self.onAddedCondition = onAddedCondition
         self.conditionEditObject = conditionEditObject
     }
-    
+
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
-        Form{
-            
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
+        Form {
             Section {
-                
                 Picker(selection: $selectedConditionType, label: Text(String(localized: "select"))) {
                     ForEach(RulesOption.conditionsTypeName, id: \.self) {
                         let typeIndex = RulesOption.conditionsTypeName.firstIndex(of: $0) ?? 0
@@ -47,7 +41,7 @@ struct ConditionBottomSheet: View {
                         Text($0).tag(tag)
                     }
                 }.pickerStyle(.menu)
-                
+
                 Picker(selection: $selectedConditionMatch, label: Text(String(localized: "match"))) {
                     ForEach(RulesOption.conditionsMatchName, id: \.self) {
                         let typeIndex = RulesOption.conditionsMatchName.firstIndex(of: $0) ?? 0
@@ -55,19 +49,18 @@ struct ConditionBottomSheet: View {
                         Text($0).tag(tag)
                     }
                 }.pickerStyle(.menu)
-                
-                
+
                 ValidatingTextField(value: self.$value, placeholder: self.$valuePlaceHolder, fieldType: .bigText, error: $valuePlaceHolderValidationError)
-                
+
             } header: {
                 VStack {
                     Text(String(localized: "add_condition_desc"))
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
-                    
+
                 }.frame(maxWidth: .infinity, alignment: .center)
             }.textCase(nil)
-            
+
         }.navigationTitle(String(localized: "add_condition")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
@@ -78,31 +71,24 @@ struct ConditionBottomSheet: View {
                         saveButton()
                     }
                 }
-                
+
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {
                         Label(String(localized: "cancel"), systemImage: "xmark")
                     }
-                    
                 }
             })
             .onAppear(perform: {
                 if let conditionEditObject = conditionEditObject {
-                    
                     self.selectedConditionType = conditionEditObject.type
                     self.selectedConditionMatch = conditionEditObject.match
                     self.value = conditionEditObject.values.joined(separator: ",")
-                    
                 }
             })
-        
-        
     }
-    
-    
-    
+
     private func saveButton() -> some View {
         AnyView(
             Button {
@@ -114,16 +100,13 @@ struct ConditionBottomSheet: View {
                 } else {
                     Text(String(localized: "add"))
                 }
-                
             }
         )
-        
     }
-    
 }
 
 #Preview {
-    ConditionBottomSheet(conditionEditObject: nil, onAddedCondition: { oldCondition, modifiedCondition in
+    ConditionBottomSheet(conditionEditObject: nil, onAddedCondition: { _, _ in
         // Dummy function for preview
     })
 }

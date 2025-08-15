@@ -5,23 +5,22 @@
 //  Created by Stijn van de Water on 16/06/2024.
 //
 
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
-    
     @State var notifySubscriptionExpiry: Bool = false
     @State var isToggleDisabled: Bool = false
-    @State var subscriptionExpiryText: String = String(localized: "obtaining_information")
-    @State var toggleDescription: String = String(localized: "notify_subscription_expiry_feature_section_desc")
-    
+    @State var subscriptionExpiryText: String = .init(localized: "obtaining_information")
+    @State var toggleDescription: String = .init(localized: "notify_subscription_expiry_feature_section_desc")
+
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
         List {
             Image("feature_notify_subscription_expiry").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
-            
+
             Section {
                 AddyToggle(isOn: $notifySubscriptionExpiry, title: String(localized: "enable_feature"), description: toggleDescription).disabled(isToggleDisabled)
                     .onAppear {
@@ -29,29 +28,27 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
                     }
                     .onChange(of: notifySubscriptionExpiry) {
                         // Only fire when the value is NOT the same as the value already in the model
-                        if (notifySubscriptionExpiry != MainViewState.shared.settingsManager.getSettingsBool(key: .notifySubscriptionExpiry)){
+                        if notifySubscriptionExpiry != MainViewState.shared.settingsManager.getSettingsBool(key: .notifySubscriptionExpiry) {
                             MainViewState.shared.settingsManager.putSettingsBool(key: .notifySubscriptionExpiry, boolean: notifySubscriptionExpiry)
                             BackgroundWorkerHelper().scheduleAppRefresh()
                         }
                     }
             } footer: {
-                VStack(alignment: .leading){
+                VStack(alignment: .leading) {
                     Text(String(localized: "feature_subscription_expiry_notification_desc"))
                     Spacer()
                     Spacer()
                     Text(subscriptionExpiryText)
                 }.padding(.top)
-                
             }
         }.task {
             await checkSubscriptionExpiry()
         }
-        
+
         .navigationTitle(String(localized: "feature_subscription_expiry_notification"))
         .navigationBarTitleDisplayMode(.inline)
     }
-    
-    
+
     private func setSubscriptionInfoText(user: UserResource?) {
         if let user = user {
             if user.subscription != nil {
@@ -66,8 +63,9 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
                             importance: LogImportance.critical,
                             error: "Could not parse subscriptionEndsAt",
                             method: "setSubscriptionInfoText",
-                            extra: error.localizedDescription)
-                        
+                            extra: error.localizedDescription
+                        )
+
                         subscriptionExpiryText = String(localized: "subscription_expiry_date_unknown")
                     }
                 } else {
@@ -80,19 +78,15 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
             subscriptionExpiryText = String(localized: "subscription_expiry_date_unknown")
         }
     }
-    
-    
+
     private func checkSubscriptionExpiry() async {
-            do {
-                let userResource = try await NetworkHelper().getUserResource()
-                setSubscriptionInfoText(user: userResource)
-            } catch {
-                subscriptionExpiryText = String(localized: "subscription_expiry_date_unknown")
-            }
-
+        do {
+            let userResource = try await NetworkHelper().getUserResource()
+            setSubscriptionInfoText(user: userResource)
+        } catch {
+            subscriptionExpiryText = String(localized: "subscription_expiry_date_unknown")
+        }
     }
-
-    
 }
 
 #Preview {

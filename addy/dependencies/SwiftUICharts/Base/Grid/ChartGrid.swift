@@ -12,7 +12,7 @@ public struct ChartGrid<Content: View>: View {
         ZStack {
             ChartGridShape(numberOfHorizontalLines: gridOptions.numberOfHorizontalLines,
                            numberOfVerticalLines: gridOptions.numberOfVerticalLines)
-            .stroke(gridOptions.color, style: gridOptions.strokeStyle)
+                .stroke(gridOptions.color, style: gridOptions.strokeStyle)
             if gridOptions.showBaseLine {
                 ChartGridBaseShape()
                     .stroke(gridOptions.color, style: gridOptions.baseStrokeStyle)

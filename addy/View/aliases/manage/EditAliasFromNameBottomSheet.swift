@@ -5,41 +5,40 @@
 //  Created by Stijn van de Water on 12/05/2024.
 //
 
-import SwiftUI
-import AVFoundation
 import addy_shared
+import AVFoundation
+import SwiftUI
 
 struct EditAliasFromNameBottomSheet: View {
     let aliasId: String
     let aliasEmail: String
     @State var fromName: String
-    @State var fromNamePlaceholder: String = String(localized: "from_name")
+    @State var fromNamePlaceholder: String = .init(localized: "from_name")
     let fromNameEdited: (Aliases) -> Void
-    
+
     init(aliasId: String, aliasEmail: String, fromName: String?, fromNameEdited: @escaping (Aliases) -> Void) {
         self.aliasId = aliasId
         self.aliasEmail = aliasEmail
         self.fromName = fromName ?? ""
         self.fromNameEdited = fromNameEdited
     }
-    
-    @State private var fromNameValidationError:String?
-    @State private var fromNameRequestError:String?
-    
+
+    @State private var fromNameValidationError: String?
+    @State private var fromNameRequestError: String?
+
     @State var IsLoadingSaveButton: Bool = false
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
         Form {
-            
-            Section{
+            Section {
                 ValidatingTextField(value: self.$fromName, placeholder: self.$fromNamePlaceholder, fieldType: .text, error: $fromNameValidationError)
-                
+
             } header: {
-                VStack(alignment: .leading){
+                VStack(alignment: .leading) {
                     let formattedString = String.localizedStringWithFormat(NSLocalizedString("edit_from_name_alias_desc", comment: ""), aliasEmail)
                     Text(LocalizedStringKey(formattedString))
                         .multilineTextAlignment(.center)
@@ -52,13 +51,13 @@ struct EditAliasFromNameBottomSheet: View {
                         .font(.system(size: 15))
                         .multilineTextAlignment(.leading)
                         .padding([.horizontal], 0)
-                        .onAppear{
+                        .onAppear {
                             HapticHelper.playHapticFeedback(hapticType: .error)
                         }
                 }
-                
+
             }.textCase(nil)
-            
+
         }.navigationTitle(String(localized: "edit_from_name")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
@@ -75,11 +74,10 @@ struct EditAliasFromNameBottomSheet: View {
                     } label: {
                         Label(String(localized: "cancel"), systemImage: "xmark")
                     }
-                    
                 }
             })
     }
-    
+
     private func saveButton() -> some View {
         Group {
             if IsLoadingSaveButton {
@@ -89,15 +87,14 @@ struct EditAliasFromNameBottomSheet: View {
                     Button {
                         // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
                         // We should not allow any saving until the validationErrors are nil
-                        if (fromNameValidationError == nil){
-                            IsLoadingSaveButton = true;
-                            
+                        if fromNameValidationError == nil {
+                            IsLoadingSaveButton = true
+
                             Task {
                                 await self.editFromName(fromName: self.fromName)
                             }
                         } else {
                             IsLoadingSaveButton = false
-                            
                         }
                     } label: {
                         Text(String(localized: "save"))
@@ -105,27 +102,24 @@ struct EditAliasFromNameBottomSheet: View {
                 )
             }
         }
-        
     }
-    
-    
+
     private func editFromName(fromName: String?) async {
         fromNameRequestError = nil
         let networkHelper = NetworkHelper()
         do {
-            if let alias = try await networkHelper.updateFromNameSpecificAlias(aliasId: self.aliasId, fromName: fromName){
-                self.fromNameEdited(alias)
+            if let alias = try await networkHelper.updateFromNameSpecificAlias(aliasId: aliasId, fromName: fromName) {
+                fromNameEdited(alias)
             }
         } catch {
             IsLoadingSaveButton = false
             fromNameRequestError = error.localizedDescription
         }
     }
-    
 }
 
 #Preview {
-    EditAliasFromNameBottomSheet(aliasId: "000", aliasEmail: "TEST", fromName: "NICE", fromNameEdited: { alias in
+    EditAliasFromNameBottomSheet(aliasId: "000", aliasEmail: "TEST", fromName: "NICE", fromNameEdited: { _ in
         // Dummy function for preview
     })
 }

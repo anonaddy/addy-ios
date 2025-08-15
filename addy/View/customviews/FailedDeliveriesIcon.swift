@@ -10,16 +10,16 @@ import SwiftUI
 struct FailedDeliveriesIcon: View {
     @EnvironmentObject var mainViewState: MainViewState
     @Binding var horizontalSize: UserInterfaceSizeClass
-    
+
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
         Button {
             withAnimation {
                 mainViewState.newFailedDeliveries = 0
             }
-            
+
             if horizontalSize == .compact {
                 mainViewState.isPresentingFailedDeliveriesSheet = true
             } else {
@@ -33,13 +33,11 @@ struct FailedDeliveriesIcon: View {
                     .frame(maxWidth: .infinity)
             }
         }
-            .frame(maxHeight: .infinity)
-            .symbolVariant(.fill)
-            .symbolVariant(.circle)
-            .allowsHitTesting(false)
-            .offset(x: 10, y: -10)
+        .frame(maxHeight: .infinity)
+        .symbolVariant(.fill)
+        .symbolVariant(.circle)
+        .allowsHitTesting(false)
+        .offset(x: 10, y: -10)
         )
-        
-        
     }
 }

@@ -8,7 +8,6 @@
 import Foundation
 import SwiftHTMLtoMarkdown
 
-
 public struct AccountNotificationsArray: Codable {
     public let data: [AccountNotifications]
 }
@@ -21,7 +20,7 @@ public struct AccountNotifications: Identifiable, Codable {
     public let link_text: String?
     public let text: String
     public let title: String
-    
+
     public func textAsMarkdown() -> String {
         do {
             var document = BasicHTML(rawHTML: text)
