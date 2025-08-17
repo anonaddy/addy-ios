@@ -123,14 +123,14 @@ struct CreateRulesView: View {
                     if rule.conditions.isEmpty {
                         VStack {
                             Button {
-                                isPresentingAddNewActionBottomSheet = true
+                                isPresentingAddNewConditionBottomSheet = true
                             } label: {
-                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25)
+                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor).foregroundStyle(Color.accentColor)
                             }.buttonBorderShape(.circle).apply { View in
                                 if #available(iOS 26.0, *) {
-                                    View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                    View.buttonStyle(.glass).glassEffect(in: Circle())
                                 } else {
-                                    View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                    View.buttonStyle(.plain)
                                 }
                             }
                         }
@@ -162,12 +162,12 @@ struct CreateRulesView: View {
                                     Button {
                                         self.rule!.conditions.remove(at: self.rule!.conditions.firstIndex(where: { $0 == condition })!)
                                     } label: {
-                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25)
+                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                     }.buttonBorderShape(.circle).apply { View in
                                         if #available(iOS 26.0, *) {
-                                            View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                            View.buttonStyle(.glass).glassEffect(in: Circle())
                                         } else {
-                                            View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                            View.buttonStyle(.plain)
                                         }
                                     }
                                 }.frame(width: 10)
@@ -183,12 +183,12 @@ struct CreateRulesView: View {
                                     Button {
                                         isPresentingAddNewConditionBottomSheet = true
                                     } label: {
-                                        Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25)
+                                        Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                     }.buttonBorderShape(.circle).apply { View in
                                         if #available(iOS 26.0, *) {
-                                            View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                            View.buttonStyle(.glass).glassEffect(in: Circle())
                                         } else {
-                                            View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                            View.buttonStyle(.plain)
                                         }
                                     }
                                 }
@@ -218,12 +218,12 @@ struct CreateRulesView: View {
                             Button {
                                 isPresentingAddNewActionBottomSheet = true
                             } label: {
-                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25)
+                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                             }.buttonBorderShape(.circle).apply { View in
                                 if #available(iOS 26.0, *) {
-                                    View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                    View.buttonStyle(.glass).glassEffect(in: Circle())
                                 } else {
-                                    View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                    View.buttonStyle(.plain)
                                 }
                             }
                         }
@@ -258,12 +258,12 @@ struct CreateRulesView: View {
                                     Button {
                                         self.rule!.actions.remove(at: self.rule!.actions.firstIndex(where: { $0 == action })!)
                                     } label: {
-                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25)
+                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                     }.buttonBorderShape(.circle).apply { View in
                                         if #available(iOS 26.0, *) {
-                                            View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                            View.buttonStyle(.glass).glassEffect(in: Circle())
                                         } else {
-                                            View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                            View.buttonStyle(.plain)
                                         }
                                     }
                                 }.frame(width: 10)
@@ -281,9 +281,9 @@ struct CreateRulesView: View {
                                         Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25)
                                     }.buttonBorderShape(.circle).apply { View in
                                         if #available(iOS 26.0, *) {
-                                            View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                            View.buttonStyle(.glass).glassEffect(in: Circle())
                                         } else {
-                                            View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                            View.buttonStyle(.plain)
                                         }
                                     }
                                 }
