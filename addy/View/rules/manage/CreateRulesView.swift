@@ -125,7 +125,13 @@ struct CreateRulesView: View {
                             Button {
                                 isPresentingAddNewActionBottomSheet = true
                             } label: {
-                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).padding(.bottom)
+                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25)
+                            }.buttonBorderShape(.circle).apply { View in
+                                if #available(iOS 26.0, *) {
+                                    View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                } else {
+                                    View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                }
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
@@ -156,9 +162,16 @@ struct CreateRulesView: View {
                                     Button {
                                         self.rule!.conditions.remove(at: self.rule!.conditions.firstIndex(where: { $0 == condition })!)
                                     } label: {
-                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
-                                    }.buttonStyle(PlainButtonStyle())
+                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25)
+                                    }.buttonBorderShape(.circle).apply { View in
+                                        if #available(iOS 26.0, *) {
+                                            View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                        } else {
+                                            View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                        }
+                                    }
                                 }.frame(width: 10)
+                                
                             }.listRowSeparator(.hidden).padding()
 
                             VStack {
@@ -170,7 +183,13 @@ struct CreateRulesView: View {
                                     Button {
                                         isPresentingAddNewConditionBottomSheet = true
                                     } label: {
-                                        Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).padding(.bottom)
+                                        Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25)
+                                    }.buttonBorderShape(.circle).apply { View in
+                                        if #available(iOS 26.0, *) {
+                                            View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                        } else {
+                                            View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                        }
                                     }
                                 }
                             }
@@ -199,7 +218,13 @@ struct CreateRulesView: View {
                             Button {
                                 isPresentingAddNewActionBottomSheet = true
                             } label: {
-                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).padding(.bottom)
+                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25)
+                            }.buttonBorderShape(.circle).apply { View in
+                                if #available(iOS 26.0, *) {
+                                    View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                } else {
+                                    View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                }
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
@@ -233,8 +258,14 @@ struct CreateRulesView: View {
                                     Button {
                                         self.rule!.actions.remove(at: self.rule!.actions.firstIndex(where: { $0 == action })!)
                                     } label: {
-                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
-                                    }.buttonStyle(PlainButtonStyle())
+                                        Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25)
+                                    }.buttonBorderShape(.circle).apply { View in
+                                        if #available(iOS 26.0, *) {
+                                            View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                        } else {
+                                            View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                        }
+                                    }
                                 }.frame(width: 10)
                             }.listRowSeparator(.hidden).padding()
 
@@ -247,7 +278,13 @@ struct CreateRulesView: View {
                                     Button {
                                         isPresentingAddNewActionBottomSheet = true
                                     } label: {
-                                        Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).padding(.bottom)
+                                        Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25)
+                                    }.buttonBorderShape(.circle).apply { View in
+                                        if #available(iOS 26.0, *) {
+                                            View.buttonStyle(.glassProminent).glassEffect(in: Circle())
+                                        } else {
+                                            View.buttonStyle(.plain).foregroundStyle(Color.accentColor)
+                                        }
                                     }
                                 }
                             }

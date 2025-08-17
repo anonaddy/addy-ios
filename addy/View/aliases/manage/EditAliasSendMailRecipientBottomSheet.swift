@@ -42,7 +42,7 @@ struct EditAliasSendMailRecipientBottomSheet: View {
         }.navigationTitle(String(localized: "send_mail")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .secondaryAction) {
+                ToolbarItem() {
                     Button {
                         // Only perform the action whent the addresses are valid
                         if addressesValidationError == nil {

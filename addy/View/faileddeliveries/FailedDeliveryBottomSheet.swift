@@ -85,7 +85,7 @@ struct FailedDeliveryBottomSheet: View {
             }
 
             if #available(iOS 26.0, *) {
-                ToolbarSpacer(.flexible)
+                ToolbarSpacer(placement: .bottomBar)
             }
 
             ToolbarItem(placement: .bottomBar) {

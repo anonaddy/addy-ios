@@ -210,11 +210,15 @@ struct AppSettingsView: View {
                     ProfilePicture().environmentObject(mainViewState)
                 }
 
-                ToolbarItem {
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(placement: .topBarLeading)
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
 
-                ToolbarItem {
+                ToolbarItem(placement: .topBarLeading) {
                     AccountNotificationsIcon().environmentObject(mainViewState)
                 }
             }

@@ -227,14 +227,14 @@ struct RecipientsView: View {
                 }
 
                 if #available(iOS 26.0, *) {
-                    ToolbarSpacer(.fixed)
+                    ToolbarSpacer(placement: .topBarLeading)
                 }
-
-                ToolbarItem {
+                
+                ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
 
-                ToolbarItem {
+                ToolbarItem(placement: .topBarLeading) {
                     AccountNotificationsIcon().environmentObject(mainViewState)
                 }
 

@@ -201,16 +201,17 @@ struct FailedDeliveriesView: View {
             .navigationTitle(String(localized: "failed_deliveries"))
             .toolbar {
                 if horizontalSize == .regular {
+
                     ToolbarItem(placement: .topBarLeading) {
-                        FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                    }
-
-                    ToolbarItem {
-                        AccountNotificationsIcon().environmentObject(mainViewState)
-                    }
-
-                    ToolbarItem {
                         ProfilePicture().environmentObject(mainViewState)
+                    }
+
+                    if #available(iOS 26.0, *) {
+                        ToolbarSpacer(placement: .topBarLeading)
+                    }
+                    
+                    ToolbarItem(placement: .topBarLeading) {
+                        AccountNotificationsIcon().environmentObject(mainViewState)
                     }
                 } else {
                     ToolbarItem(placement: .cancellationAction) {

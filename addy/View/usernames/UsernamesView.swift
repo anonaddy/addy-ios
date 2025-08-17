@@ -212,24 +212,34 @@ struct UsernamesView: View {
                     ProfilePicture().environmentObject(mainViewState)
                 }
 
-                ToolbarItem {
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(placement: .topBarLeading)
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
 
-                ToolbarItem {
+                ToolbarItem(placement: .topBarLeading) {
                     AccountNotificationsIcon().environmentObject(mainViewState)
+                }
+                
+                if #available(iOS 26.0, *) {
+                                    ToolbarSpacer(.flexible)
+                                }
+
+                ToolbarItem {
+                    Button(action: {
+                        self.isPresentingAddUsernameBottomSheet = true
+                    }) {
+                        Image(systemName: "plus")
+                            .frame(width: 24, height: 24)
+                    }// Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
+                    .disabled(mainViewState.userResource!.subscription != nil &&
+                        username_count >= username_limit /* Cannot be nil since subscription is not nil */ )
                 }
             }
         }
-        .navigationBarItems(trailing: Button(action: {
-            self.isPresentingAddUsernameBottomSheet = true
-        }) {
-            Image(systemName: "plus")
-                .frame(width: 24, height: 24)
-        }
-        // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
-        .disabled(mainViewState.userResource!.subscription != nil &&
-            username_count >= username_limit /* Cannot be nil since subscription is not nil */ ))
     }
 
     private func getUsernameDescription(username: Usernames) -> String {
