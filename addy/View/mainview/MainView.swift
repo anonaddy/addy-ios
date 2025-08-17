@@ -82,7 +82,9 @@ struct MainView: View {
                 }
             }
             .apply {
-                if #available(iOS 18.0, *) {
+                if #available(iOS 26.0, *) {
+                    $0.tabViewStyle(.sidebarAdaptable).tabBarMinimizeBehavior(.onScrollDown)
+                } else if #available(iOS 18.0, *) {
                     $0.tabViewStyle(.sidebarAdaptable)
                 } else {
                     $0.tabViewStyle(.automatic)
