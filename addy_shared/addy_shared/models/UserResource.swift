@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SUBSCRIPTIONS: String {
+enum SUBSCRIPTIONS: String {
     case FREE = "free"
     case LITE = "lite"
     case PRO = "pro"

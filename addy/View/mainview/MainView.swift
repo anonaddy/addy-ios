@@ -23,7 +23,6 @@ struct MainView: View {
     @State private var isShowingChangelogSheet = false
     @State private var showBiometricsAlert = false
     @State private var lastGeneralRefresh = Date.now
-    @State private var searchText = ""
 
     var body: some View {
         #if DEBUG
@@ -445,7 +444,7 @@ struct MainView: View {
     }
 }
 
-public enum Destination: Hashable, CaseIterable {
+enum Destination: Hashable, CaseIterable {
     case home, aliases, recipients, usernames, domains, failedDeliveries, rules, settings, subscription
 
     static var iPhoneCases: [Destination] { [.home, .aliases, .recipients] }

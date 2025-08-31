@@ -1,5 +1,16 @@
 # Changelog
 
+## [v1.4.0] - TBD
+
+### addy.io
+
+**Liquid Glass Activated!**
+- On iOS 26 the UI is now so smooth, you might accidentally slide right off the app. Use caution—hold your device with two hands for extra grip. For pre-iOS26 devices all buttons and tabs are now in the same place.
+
+**Fixed/Improved**
+- Performance improvements and other things to make the app even smoother
+
+
 ## [v1.3.4] - 2025-07-25
 
 ### addy.io

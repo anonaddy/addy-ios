@@ -8,7 +8,7 @@
 import Foundation
 
 public struct ApiTokenDetails: Decodable {
-    public let created_at: String
+    let created_at: String
     public let expires_at: String?
     public let name: String
 }

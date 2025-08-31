@@ -336,8 +336,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "321"
             endingLineNumber = "321"
-            landmarkName = "performRequest(completion:)"
-            landmarkType = "7">
+            landmarkName = "BackgroundWorker"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -414,8 +414,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "getSettingsInt(key:default:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1440,7 +1440,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3979"
             endingLineNumber = "3979"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1456,7 +1456,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3981"
             endingLineNumber = "3981"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1472,7 +1472,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4027"
             endingLineNumber = "4027"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1488,7 +1488,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4037"
             endingLineNumber = "4037"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1504,7 +1504,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4038"
             endingLineNumber = "4038"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1520,7 +1520,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4041"
             endingLineNumber = "4041"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1536,7 +1536,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4040"
             endingLineNumber = "4040"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1552,7 +1552,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4039"
             endingLineNumber = "4039"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1568,7 +1568,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4024"
             endingLineNumber = "4024"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1584,7 +1584,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4023"
             endingLineNumber = "4023"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1600,7 +1600,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4021"
             endingLineNumber = "4021"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2336,7 +2336,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "903"
             endingLineNumber = "903"
-            landmarkName = "getDomainOptions()"
+            landmarkName = "downloadFailedDelivery(failedDeliveryId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2352,7 +2352,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "904"
             endingLineNumber = "904"
-            landmarkName = "getDomainOptions()"
+            landmarkName = "downloadFailedDelivery(failedDeliveryId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2368,7 +2368,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "905"
             endingLineNumber = "905"
-            landmarkName = "getDomainOptions()"
+            landmarkName = "downloadFailedDelivery(failedDeliveryId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2384,8 +2384,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
             endingLineNumber = "31"
-            landmarkName = "getHeaders(apiKey:)"
-            landmarkType = "7">
+            landmarkName = "NetworkHelper"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2414,8 +2414,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "getSettingsString(key:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2430,8 +2430,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "getSettingsString(key:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2446,10 +2446,10 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "getSettingsString(key:)"
-            landmarkType = "7">
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "SettingsManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2462,8 +2462,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "getSettingsString(key:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2910,8 +2910,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "clearAllData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3039,9 +3039,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "getUserResource()"
-            landmarkType = "7">
+            endingLineNumber = "105">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3086,8 +3084,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "getSettingsBool(key:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3102,8 +3100,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
             landmarkName = "getSettingsBool(key:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3488,8 +3486,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "298"
             endingLineNumber = "298"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3504,8 +3502,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "299"
             endingLineNumber = "299"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3520,8 +3518,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "302"
             endingLineNumber = "302"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3535,9 +3533,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "310"
-            endingLineNumber = "310"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            endingLineNumber = "310">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3552,8 +3548,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "304"
             endingLineNumber = "304"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3744,8 +3740,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "297"
             endingLineNumber = "297"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3776,8 +3772,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "304"
             endingLineNumber = "304"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3807,9 +3803,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "308"
-            endingLineNumber = "308"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            endingLineNumber = "308">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3824,8 +3818,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "301"
             endingLineNumber = "301"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3872,8 +3866,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "298"
             endingLineNumber = "298"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3936,7 +3930,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4172"
             endingLineNumber = "4172"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3952,7 +3946,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4170"
             endingLineNumber = "4170"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3968,7 +3962,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4169"
             endingLineNumber = "4169"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3984,7 +3978,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4167"
             endingLineNumber = "4167"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4000,8 +3994,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "219"
             endingLineNumber = "219"
-            landmarkName = "figureOutNextAction(emails:validCcRecipients:validBccRecipients:emailSubject:emailBody:)"
-            landmarkType = "7">
+            landmarkName = "MailToActionSheet"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4030,7 +4024,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "268"
             endingLineNumber = "268"
-            landmarkName = "checkIfAliasExists(text:)"
+            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4046,7 +4040,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "269"
             endingLineNumber = "269"
-            landmarkName = "checkIfAliasExists(text:)"
+            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4062,7 +4056,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "270"
             endingLineNumber = "270"
-            landmarkName = "checkIfAliasExists(text:)"
+            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4110,7 +4104,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "285"
             endingLineNumber = "285"
-            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
+            landmarkName = "authenticate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4126,7 +4120,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "287"
             endingLineNumber = "287"
-            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
+            landmarkName = "authenticate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4142,7 +4136,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "288"
             endingLineNumber = "288"
-            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
+            landmarkName = "authenticate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4158,7 +4152,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "289"
             endingLineNumber = "289"
-            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
+            landmarkName = "authenticate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4222,7 +4216,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4171"
             endingLineNumber = "4171"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4508,8 +4502,8 @@
             filePath = "addy/View/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -4526,7 +4520,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4006"
             endingLineNumber = "4006"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4542,7 +4536,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4005"
             endingLineNumber = "4005"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4558,7 +4552,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4004"
             endingLineNumber = "4004"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4574,7 +4568,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3997"
             endingLineNumber = "3997"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4590,7 +4584,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3993"
             endingLineNumber = "3993"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4604,8 +4598,8 @@
             filePath = "addy_shared/addy_shared/models/AccountNotifications.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "textAsMarkdown()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4620,8 +4614,8 @@
             filePath = "addy_shared/addy_shared/models/AccountNotifications.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
             landmarkName = "textAsMarkdown()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4636,8 +4630,8 @@
             filePath = "addy_shared/addy_shared/models/AccountNotifications.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "textAsMarkdown()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4652,8 +4646,8 @@
             filePath = "addy_shared/addy_shared/models/AccountNotifications.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
             landmarkName = "textAsMarkdown()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4668,8 +4662,8 @@
             filePath = "addy_shared/addy_shared/models/AccountNotifications.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
             landmarkName = "textAsMarkdown()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4814,7 +4808,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
             endingLineNumber = "31"
-            landmarkName = "register()"
+            landmarkName = "listPendingTasks()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5006,7 +5000,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4317"
             endingLineNumber = "4317"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "getGithubTags()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5022,7 +5016,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4318"
             endingLineNumber = "4318"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "getGithubTags()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5038,8 +5032,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4329"
             endingLineNumber = "4329"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
-            landmarkType = "7">
+            landmarkName = "NetworkHelper"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5054,7 +5048,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4330"
             endingLineNumber = "4330"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5070,7 +5064,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4334"
             endingLineNumber = "4334"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5086,7 +5080,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4335"
             endingLineNumber = "4335"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5102,7 +5096,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4344"
             endingLineNumber = "4344"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5118,7 +5112,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4345"
             endingLineNumber = "4345"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5134,7 +5128,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4331"
             endingLineNumber = "4331"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5150,7 +5144,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4332"
             endingLineNumber = "4332"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6698,8 +6692,8 @@
             filePath = "addy/View/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "618"
-            endingLineNumber = "618"
+            startingLineNumber = "615"
+            endingLineNumber = "615"
             landmarkName = "onPressCopy(sendToRecipients:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6714,8 +6708,8 @@
             filePath = "addy/View/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "619"
-            endingLineNumber = "619"
+            startingLineNumber = "616"
+            endingLineNumber = "616"
             landmarkName = "onPressCopy(sendToRecipients:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6730,8 +6724,8 @@
             filePath = "addy/View/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "620"
-            endingLineNumber = "620"
+            startingLineNumber = "617"
+            endingLineNumber = "617"
             landmarkName = "onPressCopy(sendToRecipients:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6780,8 +6774,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4219"
             endingLineNumber = "4219"
-            landmarkName = "getGithubTags()"
-            landmarkType = "7">
+            landmarkName = "NetworkHelper"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6796,7 +6790,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4228"
             endingLineNumber = "4228"
-            landmarkName = "getGithubTags()"
+            landmarkName = "cacheUserResourceForWidget()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6812,7 +6806,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4221"
             endingLineNumber = "4221"
-            landmarkName = "getGithubTags()"
+            landmarkName = "cacheUserResourceForWidget()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6828,7 +6822,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4222"
             endingLineNumber = "4222"
-            landmarkName = "getGithubTags()"
+            landmarkName = "cacheUserResourceForWidget()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6892,7 +6886,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4220"
             endingLineNumber = "4220"
-            landmarkName = "getGithubTags()"
+            landmarkName = "cacheUserResourceForWidget()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6908,7 +6902,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4229"
             endingLineNumber = "4229"
-            landmarkName = "getGithubTags()"
+            landmarkName = "cacheUserResourceForWidget()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

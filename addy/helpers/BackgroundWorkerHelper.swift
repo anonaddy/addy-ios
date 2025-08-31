@@ -15,14 +15,14 @@ import WidgetKit
 private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "BackgroundAppRefreshManager")
 private let backgroundTaskIdentifier = "host.stjin.addy.backgroundworker"
 
-public class BackgroundWorkerHelper {
+class BackgroundWorkerHelper {
     static let shared = BackgroundWorkerHelper()
     static let backgroundWorker = BackgroundWorker()
 
     public init() {}
 }
 
-public extension BackgroundWorkerHelper {
+extension BackgroundWorkerHelper {
     func register() {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundTaskIdentifier, using: .main, launchHandler: handleTask(_:))
     }

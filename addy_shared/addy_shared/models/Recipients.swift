@@ -5,7 +5,7 @@
 //  Created by Stijn van de Water on 08/05/2024.
 //
 
-public struct RecipientsArray: Codable {
+struct RecipientsArray: Codable {
     let data: [Recipients]
 }
 

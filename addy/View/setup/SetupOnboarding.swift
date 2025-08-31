@@ -5,7 +5,6 @@
 //  Created by Stijn van de Water on 06/05/2024.
 //
 
-import addy_shared
 import SwiftUI
 
 struct SetupOnboarding: View {

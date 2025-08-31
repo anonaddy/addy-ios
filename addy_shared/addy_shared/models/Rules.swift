@@ -101,7 +101,7 @@ public struct Rules: Identifiable, Codable {
     public var replies: Bool
     public var sends: Bool
     public let active: Bool
-    public let applied: Int
+    let applied: Int
     let last_applied: String?
     let created_at: String
     let updated_at: String

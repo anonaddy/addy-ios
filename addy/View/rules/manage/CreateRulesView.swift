@@ -125,7 +125,7 @@ struct CreateRulesView: View {
                             Button {
                                 isPresentingAddNewConditionBottomSheet = true
                             } label: {
-                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor).foregroundStyle(Color.accentColor)
+                                Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                             }.buttonBorderShape(.circle).apply { View in
                                 if #available(iOS 26.0, *) {
                                     View.buttonStyle(.glass).glassEffect(in: Circle())
@@ -278,7 +278,7 @@ struct CreateRulesView: View {
                                     Button {
                                         isPresentingAddNewActionBottomSheet = true
                                     } label: {
-                                        Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25)
+                                        Image(systemName: "plus.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                     }.buttonBorderShape(.circle).apply { View in
                                         if #available(iOS 26.0, *) {
                                             View.buttonStyle(.glass).glassEffect(in: Circle())

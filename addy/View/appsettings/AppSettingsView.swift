@@ -36,7 +36,9 @@ struct AppSettingsView: View {
         #endif
 
         if showPlayGround {
-            PlayGround()
+            if #available(iOS 18.0, *) {
+                PlayGround()
+            }
 
         } else {
             // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)

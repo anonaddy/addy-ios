@@ -9,19 +9,19 @@ import Foundation
 
 public struct Login: Decodable {
     public let api_key: String
-    public let name: String
-    public let created_at: String
-    public let expires_at: String?
+    let name: String
+    let created_at: String
+    let expires_at: String?
 }
 
 // 422
 public struct LoginMfaRequired: Decodable {
-    public let message: String
+    let message: String
     public let mfa_key: String
     public let csrf_token: String
 }
 
 // 401
-public struct LoginError: Decodable {
-    public let message: String
+struct LoginError: Decodable {
+    let message: String
 }

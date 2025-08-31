@@ -13,7 +13,6 @@ public struct AccountNotificationsArray: Codable {
 }
 
 public struct AccountNotifications: Identifiable, Codable {
-    let category: String
     public let created_at: String
     public let id: String
     public let link: String?

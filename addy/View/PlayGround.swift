@@ -7,18 +7,33 @@
 
 import SwiftUI
 
+@available(iOS 18.0, *)
 struct PlayGround: View {
     @State var isPlayingAnimation = false
     var body: some View {
-        if isPlayingAnimation {
-            animationViewFlavor1
-        }
+        TabView {
+          Tab("Time", systemImage: "1.circle") {
+            //WorkoutsView()
+          }
 
-        if !isPlayingAnimation {
-            Button("start animation", role: .none, action: {
-                isPlayingAnimation = true
-            })
+          Tab("For", systemImage: "2.circle") {
+            //ExercisesView()
+          }
+            
+            Tab("Glass", systemImage: "3.circle") {
+              //ExercisesView()
+            }
         }
+        
+//        if isPlayingAnimation {
+//            animationViewFlavor1
+//        }
+//
+//        if !isPlayingAnimation {
+//            Button("start animation", role: .none, action: {
+//                isPlayingAnimation = true
+//            })
+//        }
     }
 
     @State private var animationTitleText1 = ""
@@ -244,5 +259,9 @@ struct PlayGround: View {
 }
 
 #Preview {
-    PlayGround()
+    if #available(iOS 18.0, *) {
+        PlayGround()
+    } else {
+        // Fallback on earlier versions
+    }
 }

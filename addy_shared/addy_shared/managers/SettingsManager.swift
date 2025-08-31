@@ -9,20 +9,10 @@ import Foundation
 import UIKit
 
 public class SettingsManager {
-    enum PrefTypes {
-        case boolean
-        case string
-        case int
-        case float
-        case stringSet
-    }
-
     public enum Prefs {
         case storeLogs
         case versionCode
         case notifyUpdates
-        case periodicBackups
-        case backupsLocation
         case notifyFailedDeliveries
         case notifyAccountNotifications
         case notifyApiTokenExpiry
@@ -35,19 +25,16 @@ public class SettingsManager {
         case privacyMode
         case apiKey
         case baseUrl
-        case recentSearches
-        case backupsPassword
         case userResource
         case userResourceExtended
         case backgroundServiceCacheMostActiveAliasesData
         case timesTheAppHasBeenOpened
         case startupPage
 
-        // WearOS
+        // WatchOS
         case backgroundServiceCacheFavoriteAliasesData
         case backgroundServiceCacheLastUpdatedAliasesData
 
-        // case backgroundServiceCacheUserResource // Is .userResource in Android version
         case backgroundServiceCacheFailedDeliveriesCount
         case backgroundServiceCacheAccountNotificationsCount
         case backgroundServiceCacheApiKeyExpiryLeftCount

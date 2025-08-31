@@ -79,7 +79,7 @@ struct ProfileBottomSheet: View {
                         #if APPSTORELESS
                             AddyButton(action: {
                                 openURL(URL(string: "\(AddyIo.API_BASE_URL)/settings")!)
-                            }, style: AddyButtonStyle(height: 36, buttonStyle: .primary)) { // TODO: Test
+                            }, style: AddyButtonStyle(height: 36, buttonStyle: .primary)) {
                                 Text(String(localized: "addyio_settings"))
                             }.padding(.top)
 
