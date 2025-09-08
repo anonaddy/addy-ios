@@ -228,16 +228,16 @@ struct UsernamesView: View {
                                     ToolbarSpacer(.flexible)
                                 }
 
-                ToolbarItem {
-                    Button(action: {
-                        self.isPresentingAddUsernameBottomSheet = true
-                    }) {
-                        Image(systemName: "plus")
-                            .frame(width: 24, height: 24)
-                    }// Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
-                    .disabled(mainViewState.userResource!.subscription != nil &&
-                        username_count >= username_limit /* Cannot be nil since subscription is not nil */ )
-                }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    self.isPresentingAddUsernameBottomSheet = true
+                }) {
+                    Image(systemName: "plus")
+                        .frame(width: 24, height: 24)
+                }// Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
+                .disabled(mainViewState.userResource!.subscription != nil &&
+                    username_count >= username_limit /* Cannot be nil since subscription is not nil */ )
             }
         }
     }
