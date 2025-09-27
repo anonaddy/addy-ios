@@ -29,7 +29,7 @@
             "versions": [
                 {
                     "version": "1.4.0",
-                    "date": "2025-09-15T00:00:00+02:00",
+                    "date": "2025-09-27T00:00:00+02:00",
                     "size": 22352624,
                     "downloadURL": "https://github.com/anonaddy/addy-ios/raw/6af3d52518bfcdc9b995e4368a4fe93f60db0f26/builds/appstorelessRelease%202025-09-11%2020-53-43/addy.ipa",
                     "localizedDescription": "On iOS 26 the UI is now so smooth, you might accidentally slide right off the app. Use caution—hold your device with two hands for extra grip. For pre-iOS26 devices all buttons and tabs are now in the same place.",
