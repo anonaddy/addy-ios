@@ -11,11 +11,11 @@ public struct Logs: Codable, Identifiable {
     public var id = UUID() // Add this line
 
     /*
-    importance
-    0 = Critical (red)
-    1 = Warning (yellow)
-    2 = Info (green)
-     */
+     importance
+     0 = Critical (red)
+     1 = Warning (yellow)
+     2 = Info (green)
+      */
     public var importance: LogImportance = .info
     public var dateTime: String
     public var method: String?

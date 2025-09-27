@@ -1,32 +1,33 @@
 //
-//  failedDeliveriesView.swift
+//  FailedDeliveriesView.swift
 //  addy
 //
 //  Created by Stijn van de Water on 03/06/2024.
 //
 
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct FailedDeliveriesView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
     @StateObject var failedDeliveriesViewModel = FailedDeliveriesViewModel()
-    
+
     enum ActiveAlert {
         case error, deleteFailedDelivery
     }
+
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
-    
+
     @State private var failedDeliveryToDelete: FailedDeliveries? = nil
     @State private var failedDeliveryToShow: FailedDeliveries? = nil
-    
+
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-  
+
     @State var horizontalSize: UserInterfaceSizeClass
-    var onRefreshGeneralData: (() -> Void)? = nil
+    var onRefreshGeneralData: (() -> Void)?
 
     @Environment(\.dismiss) var dismiss
 
@@ -34,18 +35,17 @@ struct FailedDeliveriesView: View {
         self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
         self.onRefreshGeneralData = onRefreshGeneralData
     }
-    
+
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
-        NavigationStack{
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
+        NavigationStack {
             List {
-                if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries{
+                if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
                     if !failedDeliveries.data.isEmpty {
                         Section {
-                            
-                            ForEach (failedDeliveries.data) { failedDelivery in
+                            ForEach(failedDeliveries.data) { failedDelivery in
                                 VStack(alignment: .leading) {
                                     HStack {
                                         VStack(alignment: .leading) {
@@ -71,7 +71,7 @@ struct FailedDeliveriesView: View {
                                             .font(.system(size: 14))
                                             .foregroundColor(.gray)
                                             .lineLimit(1)
-                                    }.padding(.top,5)
+                                    }.padding(.top, 5)
                                     Button(action: {
                                         self.failedDeliveryToShow = failedDelivery
                                     }) {
@@ -88,37 +88,35 @@ struct FailedDeliveriesView: View {
                                     }
                                 }
                             }.onDelete(perform: deleteFailedDelivery)
-                        }header: {
-                            HStack(spacing: 6){
+                        } header: {
+                            HStack(spacing: 6) {
                                 Text(String(localized: "all_failed_deliveries"))
-                                
-                                
-                                if (failedDeliveriesViewModel.isLoading){
+
+                                if failedDeliveriesViewModel.isLoading {
                                     ProgressView()
                                         .frame(maxHeight: 4)
-                                    
                                 }
                             }
                             // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
-                        }.onAppear(perform: {
+                        }.textCase(nil).onAppear(perform: {
                             updateTheCacheFDCount(count: failedDeliveries.data.count)
                         })
                     }
                 }
-                
+
             }.refreshable {
                 if horizontalSize == .regular {
                     // When in regular size (tablet) mode, refreshing aliases also ask the mainView to update general data
                     self.onRefreshGeneralData?()
                 }
-                
+
                 await self.failedDeliveriesViewModel.getFailedDeliveries()
             }
             .sheet(item: $failedDeliveryToShow) { failedDelivery in
                 NavigationStack {
-                    FailedDeliveryBottomSheet(failedDelivery: failedDelivery){
+                    FailedDeliveryBottomSheet(failedDelivery: failedDelivery) {
                         self.failedDeliveryToShow = nil
-                        
+
                         Task {
                             await failedDeliveriesViewModel.getFailedDeliveries()
                         }
@@ -129,11 +127,11 @@ struct FailedDeliveriesView: View {
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
                 case .deleteFailedDelivery:
-                    return Alert(title: Text(String(localized: "delete_failed_delivery")), message: Text(String(localized: "delete_failed_delivery_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))){
+                    return Alert(title: Text(String(localized: "delete_failed_delivery")), message: Text(String(localized: "delete_failed_delivery_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))) {
                         Task {
                             await self.deleteFailedDelivery(failedDelivery: self.failedDeliveryToDelete!)
                         }
-                    }, secondaryButton: .cancel(){
+                    }, secondaryButton: .cancel {
                         Task {
                             await failedDeliveriesViewModel.getFailedDeliveries()
                         }
@@ -146,10 +144,8 @@ struct FailedDeliveriesView: View {
                 }
             }
             .overlay(Group {
-                
-                
                 // If there is an failedDeliveries (aka, if the list is visible)
-                if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries{
+                if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
                     if failedDeliveries.data.isEmpty {
                         ContentUnavailableView {
                             Label(String(localized: "no_failed_deliveries"), systemImage: "exclamationmark.triangle.fill")
@@ -159,11 +155,9 @@ struct FailedDeliveriesView: View {
                     }
                 } else {
                     // If there is NO failedDeliveries (aka, if the list is not visible)
-                    
-                    
+
                     // No failedDeliveries, check if there is an error
-                    if (failedDeliveriesViewModel.networkError != ""){
-                        
+                    if failedDeliveriesViewModel.networkError != "" {
                         if mainViewState.userResource!.hasUserFreeSubscription() {
                             // Error screen
                             ContentUnavailableView {
@@ -185,7 +179,7 @@ struct FailedDeliveriesView: View {
                                 }
                             }
                         }
-                        
+
                     } else {
                         // No failedDeliveries and no error. It must still be loading...
                         VStack(alignment: .center, spacing: 0) {
@@ -195,35 +189,44 @@ struct FailedDeliveriesView: View {
                             } description: {
                                 Text(String(localized: "obtaining_desc"))
                             }
-                            
+
                             ProgressView()
-                                .frame(maxWidth: .infinity, maxHeight:50)
+                                .frame(maxWidth: .infinity, maxHeight: 50)
                             Spacer()
                         }
                     }
-                    
                 }
             })
             .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
             .navigationTitle(String(localized: "failed_deliveries"))
             .toolbar {
                 if horizontalSize == .regular {
-                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                    AccountNotificationsIcon().environmentObject(mainViewState)
-                    ProfilePicture().environmentObject(mainViewState)
+
+                    ToolbarItem(placement: .topBarLeading) {
+                        ProfilePicture().environmentObject(mainViewState)
+                    }
+
+                    if #available(iOS 26.0, *) {
+                        ToolbarSpacer(placement: .topBarLeading)
+                    }
+                    
+                    ToolbarItem(placement: .topBarLeading) {
+                        AccountNotificationsIcon().environmentObject(mainViewState)
+                    }
                 } else {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Label(String(localized: "dismiss"), systemImage: "xmark")
+                        }
                     }
                 }
             }
-            
         }
         .onAppear(perform: {
-            if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries{
-                if (failedDeliveries.data.isEmpty) {
+            if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
+                if failedDeliveries.data.isEmpty {
                     Task {
                         await failedDeliveriesViewModel.getFailedDeliveries()
                     }
@@ -231,17 +234,15 @@ struct FailedDeliveriesView: View {
             }
         })
     }
-    
-    private func updateTheCacheFDCount(count: Int){
+
+    private func updateTheCacheFDCount(count: Int) {
         // Set the count of failed deliveries so that we can use it for the backgroundservice AND mark this a read for the badge
         MainViewState.shared.encryptedSettingsManager.putSettingsInt(
             key: .backgroundServiceCacheFailedDeliveriesCount,
             int: count
         )
-            
     }
-    
-    
+
     private func deleteFailedDelivery(failedDelivery: FailedDeliveries) async {
         let networkHelper = NetworkHelper()
         do {
@@ -261,8 +262,7 @@ struct FailedDeliveriesView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-    
-    
+
     func deleteFailedDelivery(at offsets: IndexSet) {
         for index in offsets.sorted(by: >) {
             if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries?.data {
@@ -270,13 +270,10 @@ struct FailedDeliveriesView: View {
                 failedDeliveryToDelete = item
                 activeAlert = .deleteFailedDelivery
                 showAlert = true
-                
+
                 // Remove from the collection for the smooth animation
                 failedDeliveriesViewModel.failedDeliveries?.data.remove(atOffsets: offsets)
-                
             }
         }
     }
-    
 }
-

@@ -27,6 +27,7 @@ struct GradientProgressBar: View {
         }.cornerRadius(10.0)
     }
 }
+
 struct ContentView: View {
     @State private var progress: Float = 0.5
 

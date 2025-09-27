@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SUBSCRIPTIONS: String {
+enum SUBSCRIPTIONS: String {
     case FREE = "free"
     case LITE = "lite"
     case PRO = "pro"
@@ -20,13 +20,10 @@ struct SingleUserResource: Codable {
 public struct UserResourceExtended: Codable {
     public var default_recipient_email: String
 
-
     public init(default_recipient_email: String) {
         self.default_recipient_email = default_recipient_email
     }
 }
-
-
 
 public struct UserResource: Codable {
     public var id: String
@@ -64,12 +61,8 @@ public struct UserResource: Codable {
     public var total_deleted_aliases: Int
     var created_at: String
     var updated_at: String
-    
-    
-    
-    
+
     public func hasUserFreeSubscription() -> Bool {
-        
         // If user has a subscription
         if let userSubscription = subscription {
             // If free
@@ -77,7 +70,6 @@ public struct UserResource: Codable {
                 return true
             }
         }
-        return false;
-        
+        return false
     }
 }

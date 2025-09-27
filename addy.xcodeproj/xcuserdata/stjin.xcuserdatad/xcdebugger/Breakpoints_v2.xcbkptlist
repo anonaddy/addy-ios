@@ -336,8 +336,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "321"
             endingLineNumber = "321"
-            landmarkName = "performRequest(completion:)"
-            landmarkType = "7">
+            landmarkName = "BackgroundWorker"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -414,8 +414,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "getSettingsInt(key:default:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -528,8 +528,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
             endingLineNumber = "95"
-            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -544,8 +544,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "90"
             endingLineNumber = "90"
-            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -560,8 +560,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "91"
             endingLineNumber = "91"
-            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -576,8 +576,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "92"
             endingLineNumber = "92"
-            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -590,10 +590,10 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "406"
+            endingLineNumber = "406"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -606,10 +606,10 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "407"
+            endingLineNumber = "407"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -622,10 +622,10 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "408"
+            endingLineNumber = "408"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -638,10 +638,10 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "387"
-            endingLineNumber = "387"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "409"
+            endingLineNumber = "409"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -654,10 +654,10 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "388"
-            endingLineNumber = "388"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "410"
+            endingLineNumber = "410"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -670,10 +670,10 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "389"
-            endingLineNumber = "389"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "411"
+            endingLineNumber = "411"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -752,8 +752,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"
             endingLineNumber = "58"
-            landmarkName = "init(domainId:domainDomain:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "DomainsDetailView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -768,8 +768,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "59"
             endingLineNumber = "59"
-            landmarkName = "init(domainId:domainDomain:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "DomainsDetailView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -800,8 +800,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
             endingLineNumber = "93"
-            landmarkName = "init(recipients:ruleId:ruleName:shouldReloadDataInParent:)"
-            landmarkType = "7">
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -814,8 +814,8 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -830,8 +830,8 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -846,8 +846,8 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -862,8 +862,8 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -878,10 +878,10 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "394"
+            endingLineNumber = "394"
+            landmarkName = "CreateRulesView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -894,10 +894,10 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "382"
-            endingLineNumber = "382"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "404"
+            endingLineNumber = "404"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -910,10 +910,10 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "395"
+            endingLineNumber = "395"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -926,10 +926,10 @@
             filePath = "addy/View/rules/manage/CreateRulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "396"
+            endingLineNumber = "396"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1086,10 +1086,10 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
-            landmarkName = "getRuleDescription(rule:recipients:)"
-            landmarkType = "7">
+            startingLineNumber = "364"
+            endingLineNumber = "364"
+            landmarkName = "RulesView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1102,9 +1102,9 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            startingLineNumber = "352"
+            endingLineNumber = "352"
+            landmarkName = "deleteRule(rule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1118,9 +1118,9 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "352"
-            endingLineNumber = "352"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            startingLineNumber = "365"
+            endingLineNumber = "365"
+            landmarkName = "deleteRule(at:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1134,8 +1134,8 @@
             filePath = "addy/View/faileddeliveries/FailedDeliveriesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -1150,10 +1150,10 @@
             filePath = "addy/View/faileddeliveries/FailedDeliveriesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "FailedDeliveriesView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1166,10 +1166,10 @@
             filePath = "addy/View/faileddeliveries/FailedDeliveriesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "updateTheCacheFDCount(count:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1182,10 +1182,10 @@
             filePath = "addy/View/faileddeliveries/FailedDeliveriesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "updateTheCacheFDCount(count:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1342,9 +1342,9 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            startingLineNumber = "346"
+            endingLineNumber = "346"
+            landmarkName = "deleteRule(rule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1358,9 +1358,9 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
+            landmarkName = "deleteRule(rule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1374,9 +1374,9 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
+            landmarkName = "deleteRule(rule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1390,9 +1390,9 @@
             filePath = "addy/View/rules/RulesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "337"
-            endingLineNumber = "337"
-            landmarkName = "getRuleDescription(rule:recipients:)"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
+            landmarkName = "deleteRule(rule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1440,7 +1440,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3979"
             endingLineNumber = "3979"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1456,7 +1456,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3981"
             endingLineNumber = "3981"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1472,7 +1472,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4027"
             endingLineNumber = "4027"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1488,7 +1488,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4037"
             endingLineNumber = "4037"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1504,7 +1504,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4038"
             endingLineNumber = "4038"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1520,7 +1520,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4041"
             endingLineNumber = "4041"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1536,7 +1536,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4040"
             endingLineNumber = "4040"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1552,7 +1552,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4039"
             endingLineNumber = "4039"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1568,7 +1568,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4024"
             endingLineNumber = "4024"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1584,7 +1584,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4023"
             endingLineNumber = "4023"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificDomain(domainId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1600,7 +1600,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4021"
             endingLineNumber = "4021"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2167,22 +2167,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2583C52D-6A18-4403-8421-72309A134EE6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "5DB95F5D-BB2E-41C2-8665-09B02A85B5B3"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -2352,7 +2336,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "903"
             endingLineNumber = "903"
-            landmarkName = "getDomainOptions()"
+            landmarkName = "downloadFailedDelivery(failedDeliveryId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2368,7 +2352,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "904"
             endingLineNumber = "904"
-            landmarkName = "getDomainOptions()"
+            landmarkName = "downloadFailedDelivery(failedDeliveryId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2384,7 +2368,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "905"
             endingLineNumber = "905"
-            landmarkName = "getDomainOptions()"
+            landmarkName = "downloadFailedDelivery(failedDeliveryId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2400,8 +2384,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
             endingLineNumber = "31"
-            landmarkName = "getHeaders(apiKey:)"
-            landmarkType = "7">
+            landmarkName = "NetworkHelper"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2430,8 +2414,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "getSettingsString(key:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2446,8 +2430,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "getSettingsString(key:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2462,10 +2446,10 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "getSettingsString(key:)"
-            landmarkType = "7">
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "SettingsManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2478,8 +2462,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "getSettingsString(key:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2926,8 +2910,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "clearAllData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2942,8 +2926,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -2958,8 +2942,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -2974,8 +2958,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
             landmarkName = "figureOutNextAction(emails:validCcRecipients:validBccRecipients:emailSubject:emailBody:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2990,8 +2974,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
             landmarkName = "figureOutNextAction(emails:validCcRecipients:validBccRecipients:emailSubject:emailBody:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3006,8 +2990,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3055,9 +3039,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "getUserResource()"
-            landmarkType = "7">
+            endingLineNumber = "105">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3102,8 +3084,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "getSettingsBool(key:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3118,8 +3100,8 @@
             filePath = "addy_shared/addy_shared/managers/SettingsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
             landmarkName = "getSettingsBool(key:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3406,8 +3388,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3422,8 +3404,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3432,38 +3414,6 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "53E1E001-9D4D-4CBA-B499-7D15FD81FAC2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A28ED0EA-E3E8-453D-A857-9CF61D6CF502"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5A2173AB-84CF-445B-9489-0E4AF592EE58"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -3479,7 +3429,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "357268D7-EEFD-4189-A577-24EED73A962A"
+            uuid = "A28ED0EA-E3E8-453D-A857-9CF61D6CF502"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -3495,6 +3445,38 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "5A2173AB-84CF-445B-9489-0E4AF592EE58"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "357268D7-EEFD-4189-A577-24EED73A962A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "341C3BFF-2295-4B09-8DC7-D7826B931723"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -3502,10 +3484,10 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            startingLineNumber = "298"
+            endingLineNumber = "298"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3518,10 +3500,10 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3534,10 +3516,10 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            startingLineNumber = "302"
+            endingLineNumber = "302"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3550,10 +3532,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            startingLineNumber = "310"
+            endingLineNumber = "310">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3566,10 +3546,10 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3630,8 +3610,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3646,8 +3626,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3656,6 +3636,22 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "21F12915-EC51-45A1-A03C-9B165476E08E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "figureOutNextAction(emails:validCcRecipients:validBccRecipients:emailSubject:emailBody:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C949D46E-2C89-4DFE-BBD6-758CF4F00982"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -3671,22 +3667,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C949D46E-2C89-4DFE-BBD6-758CF4F00982"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
-            landmarkName = "figureOutNextAction(emails:validCcRecipients:validBccRecipients:emailSubject:emailBody:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "D80877AF-2E48-46DF-BDBC-D08AE1817C1B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -3694,8 +3674,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3710,8 +3690,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3726,8 +3706,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3742,8 +3722,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "figureOutNextAction(emails:validCcRecipients:validBccRecipients:emailSubject:emailBody:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3758,10 +3738,10 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "295"
-            endingLineNumber = "295"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            startingLineNumber = "297"
+            endingLineNumber = "297"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3774,8 +3754,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3790,64 +3770,16 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2702B55B-31C5-4B96-9E78-B383B31929C9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B158CDB0-07CC-45BD-9B28-8D0FA7948498"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9C44E853-F9B2-4ED7-842F-96FA6A41DA53"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7325FBF6-2592-4AED-8669-F630EF5601D4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -3863,6 +3795,52 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "B158CDB0-07CC-45BD-9B28-8D0FA7948498"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "308"
+            endingLineNumber = "308">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9C44E853-F9B2-4ED7-842F-96FA6A41DA53"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7325FBF6-2592-4AED-8669-F630EF5601D4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "8E16D6BD-93EB-448E-B292-65DADEDB5084"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -3870,8 +3848,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "figureOutNextAction(emails:validCcRecipients:validBccRecipients:emailSubject:emailBody:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3886,10 +3864,10 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
+            startingLineNumber = "298"
+            endingLineNumber = "298"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3902,8 +3880,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3918,40 +3896,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6E21C217-952A-42C9-95AD-576368A69DCD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "33B5F52C-44F8-4247-A12B-854B2A2659BF"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -3984,7 +3930,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4172"
             endingLineNumber = "4172"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4000,7 +3946,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4170"
             endingLineNumber = "4170"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4016,7 +3962,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4169"
             endingLineNumber = "4169"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4032,7 +3978,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4167"
             endingLineNumber = "4167"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4046,10 +3992,10 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
-            landmarkName = "figureOutNextAction(emails:validCcRecipients:validBccRecipients:emailSubject:emailBody:)"
-            landmarkType = "7">
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "MailToActionSheet"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4069,70 +4015,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0ADB2CF8-6AD6-4B3B-9834-733120F09C7A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "44069C17-278B-4400-A6DB-3485296F1B55"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F506074D-C21C-47D6-A722-7016A4BBDB1F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "31A22CD4-B662-4375-A5A8-5C170921718C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "AB6C74AF-76D5-42E9-98D9-92631818BA67"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -4140,9 +4022,9 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
-            landmarkName = "checkIfAliasExists(text:)"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4156,9 +4038,9 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
-            landmarkName = "checkIfAliasExists(text:)"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
+            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4172,9 +4054,9 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
-            landmarkName = "checkIfAliasExists(text:)"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
+            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4188,8 +4070,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "checkIfAliasExists(text:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4204,8 +4086,8 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
             landmarkName = "checkIfAliasExists(text:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4220,9 +4102,9 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
-            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "authenticate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4236,9 +4118,9 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285"
-            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
+            landmarkName = "authenticate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4252,9 +4134,9 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "286"
-            endingLineNumber = "286"
-            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "authenticate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4268,9 +4150,9 @@
             filePath = "addy/ShareExtension.source/MailToActionSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
-            landmarkName = "addAliasToAccount(domain:description:format:localPart:)"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "authenticate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4334,7 +4216,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4171"
             endingLineNumber = "4171"
-            landmarkName = "cacheMostPopularAliasesDataForWidget(amountOfAliasesToCache:)"
+            landmarkName = "bulkGetAlias(aliases:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4620,90 +4502,10 @@
             filePath = "addy/View/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "body"
             landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "502EA049-9F1C-4F4E-B190-D28399062B37"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
-            landmarkName = "checkTokenExpiry()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B9803D3F-505E-4A37-8319-B3FF579655B7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
-            landmarkName = "checkTokenExpiry()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "365B6665-C266-4760-A60A-63EC60EAB5BB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "455"
-            endingLineNumber = "455"
-            landmarkName = "refreshGeneralData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E8B4710B-7AB6-4B89-8802-3F737DCC4E18"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
-            landmarkName = "checkTokenExpiry()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "85C036FF-8775-4711-BB69-7BB1C1BB249F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "345"
-            endingLineNumber = "345"
-            landmarkName = "checkTokenExpiry()"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4718,7 +4520,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4006"
             endingLineNumber = "4006"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4734,7 +4536,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4005"
             endingLineNumber = "4005"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4750,7 +4552,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4004"
             endingLineNumber = "4004"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4766,7 +4568,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3997"
             endingLineNumber = "3997"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4782,7 +4584,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3993"
             endingLineNumber = "3993"
-            landmarkName = "getAliases(aliasSortFilterRequest:page:size:recipient:domain:username:)"
+            landmarkName = "updateDefaultRecipientForSpecificUsername(usernameId:recipientId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4796,8 +4598,8 @@
             filePath = "addy_shared/addy_shared/models/AccountNotifications.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "textAsMarkdown()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4812,8 +4614,8 @@
             filePath = "addy_shared/addy_shared/models/AccountNotifications.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
             landmarkName = "textAsMarkdown()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4828,8 +4630,8 @@
             filePath = "addy_shared/addy_shared/models/AccountNotifications.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "textAsMarkdown()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4844,8 +4646,8 @@
             filePath = "addy_shared/addy_shared/models/AccountNotifications.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
             landmarkName = "textAsMarkdown()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4860,8 +4662,8 @@
             filePath = "addy_shared/addy_shared/models/AccountNotifications.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
             landmarkName = "textAsMarkdown()"
             landmarkType = "7">
          </BreakpointContent>
@@ -5006,7 +4808,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
             endingLineNumber = "31"
-            landmarkName = "register()"
+            landmarkName = "listPendingTasks()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5198,7 +5000,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4317"
             endingLineNumber = "4317"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "getGithubTags()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5214,7 +5016,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4318"
             endingLineNumber = "4318"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "getGithubTags()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5230,8 +5032,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4329"
             endingLineNumber = "4329"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
-            landmarkType = "7">
+            landmarkName = "NetworkHelper"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5246,7 +5048,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4330"
             endingLineNumber = "4330"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5262,7 +5064,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4334"
             endingLineNumber = "4334"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5278,7 +5080,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4335"
             endingLineNumber = "4335"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5294,7 +5096,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4344"
             endingLineNumber = "4344"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5310,7 +5112,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4345"
             endingLineNumber = "4345"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5326,7 +5128,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4331"
             endingLineNumber = "4331"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5342,7 +5144,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4332"
             endingLineNumber = "4332"
-            landmarkName = "notifyServerForSubscriptionChange(receipt:)"
+            landmarkName = "cacheAccountNotificationsCountForWidgetAndBackgroundService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5388,8 +5190,8 @@
             filePath = "addy/View/setup/AddApiBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -5404,8 +5206,8 @@
             filePath = "addy/View/setup/AddApiBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
             landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5420,138 +5222,10 @@
             filePath = "addy/View/setup/AddApiBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "305"
-            endingLineNumber = "305"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
             landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B69B89D1-11F1-47D1-8B6F-946555CEAF6D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/setup/AddApiBottomSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "42793782-F485-4A28-85EA-834B0FBBB081"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/setup/AddApiBottomSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "984719E9-5D92-436C-8F7A-864A657CB3CD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/setup/AddApiBottomSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6E5D4CDE-A780-4634-9419-23CB455F2C76"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/setup/AddApiBottomSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1A82AE88-1091-44CA-89DE-26E89F414AAF"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/setup/AddApiBottomSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FE967D88-2086-4333-9710-536562338B59"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/setup/AddApiBottomSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EE5A5D03-3973-4549-A9BD-34C991CFCF55"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/setup/AddApiBottomSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7DC1F5E5-BF95-459C-954D-236C74F393D5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/setup/AddApiBottomSheet.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
-            landmarkName = "body"
-            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5564,9 +5238,9 @@
             filePath = "addy/View/setup/AddApiBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
-            landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "isQrCodeFormattedCorrect(text:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5580,9 +5254,9 @@
             filePath = "addy/View/setup/AddApiBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
-            landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
+            startingLineNumber = "326"
+            endingLineNumber = "326"
+            landmarkName = "isQrCodeFormattedCorrect(text:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5708,8 +5382,8 @@
             filePath = "addy/View/setup/RegistrationFormBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "registerUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -5724,8 +5398,8 @@
             filePath = "addy/View/setup/RegistrationFormBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
             landmarkName = "registerUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -5740,9 +5414,9 @@
             filePath = "addy/View/setup/RegistrationFormBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
-            landmarkName = "registerUser()"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
+            landmarkName = "registerButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5756,8 +5430,8 @@
             filePath = "addy/View/setup/RegistrationFormBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
             landmarkName = "registerUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -5772,9 +5446,9 @@
             filePath = "addy/View/setup/RegistrationFormBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "registerUser()"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "registerButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5788,9 +5462,9 @@
             filePath = "addy/View/setup/RegistrationFormBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
-            landmarkName = "registerUser()"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "registerButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5804,9 +5478,9 @@
             filePath = "addy/View/setup/RegistrationFormBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "registerUser()"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
+            landmarkName = "registerButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6732,9 +6406,9 @@
             filePath = "addy/View/setup/AddApiBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "315"
-            endingLineNumber = "315"
-            landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
+            landmarkName = "resetSignInButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6748,8 +6422,8 @@
             filePath = "addy/View/setup/AddApiBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "313"
-            endingLineNumber = "313"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
             landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6764,42 +6438,8 @@
             filePath = "addy/View/setup/AddApiBottomSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
-            landmarkName = "verifyLogin(username:password:otp:baseUrl:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BACC4AFC-5F65-4745-ADDC-C404EEDFCD5B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "444"
-            endingLineNumber = "444"
-            landmarkName = "addKey(apiKey:_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "587CC612-CAB8-41F8-904A-E766519235CD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
-            landmarkName = "addKey(apiKey:_:)"
-            landmarkType = "7">
+            startingLineNumber = "342"
+            endingLineNumber = "342">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6885,52 +6525,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "30EA4559-50BD-45E9-A195-F2B1D2F430E2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "622"
-            endingLineNumber = "622">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8E956FF9-E701-47B9-8C4C-82F16491F79B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "431"
-            endingLineNumber = "431"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B7E261FC-A840-4B25-867A-BE7127915E8E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "431"
-            endingLineNumber = "431"
-            landmarkName = "authenticate()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "47AAD1E8-3319-4712-A8C6-FBA8188D21E4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -6995,230 +6589,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "71A67363-FBC9-4327-AC42-A3B288D4EC9E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
-            landmarkName = "checkForPendingURLFromShareViewController()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "ACA38333-2338-421D-AE38-860362D7BD15"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325"
-            landmarkName = "checkForPendingURLFromShareViewController()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B0E92143-CE8C-483F-B6A8-BA86DFA80E3C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "326"
-            endingLineNumber = "326"
-            landmarkName = "checkForPendingURLFromShareViewController()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6D8E6C22-021F-4592-A81C-C74273D900D1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
-            landmarkName = "checkForPendingURLFromShareViewController()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B9851D93-5C1B-468D-854A-A664B01E5330"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "328"
-            endingLineNumber = "328"
-            landmarkName = "checkForPendingURLFromShareViewController()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "61AAD58E-5BA2-44D4-9F8C-FDD9D28F7135"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329"
-            landmarkName = "checkForPendingURLFromShareViewController()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2581847E-D958-48E6-931A-C6C697653472"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7566DA82-9B25-4392-8F80-C3D14402507F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
-            landmarkName = "handleURL(url:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0E196898-9E93-4737-8CAA-E3E105D7F58D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
-            landmarkName = "handleURL(url:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7EAA0B6D-5432-4CF0-879C-DB159FFCC309"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285"
-            landmarkName = "handleURL(url:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A126EAAC-F111-41FF-9809-8B1B92329891"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "286"
-            endingLineNumber = "286"
-            landmarkName = "handleURL(url:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FC91269B-E227-48C8-81DC-8BBE24A20D0E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
-            landmarkName = "handleURL(url:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "88A6E3D4-926C-4244-8AE0-5E230587F260"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
-            landmarkName = "handleURL(url:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6F5C752D-8D32-4E31-91B8-FC581679CBE5"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "addy/View/mainview/MainView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
-            landmarkName = "checkForPendingURLFromShareViewController()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "1B7726D3-3E42-46B8-98EB-A4609C80B4EB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -7276,7 +6646,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "536"
             endingLineNumber = "536"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            landmarkName = "getRecipients(alias:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7292,7 +6662,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "537"
             endingLineNumber = "537"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            landmarkName = "getRecipients(alias:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7308,7 +6678,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "538"
             endingLineNumber = "538"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            landmarkName = "getRecipients(alias:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7322,9 +6692,9 @@
             filePath = "addy/View/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "602"
-            endingLineNumber = "602"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            startingLineNumber = "615"
+            endingLineNumber = "615"
+            landmarkName = "onPressCopy(sendToRecipients:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7338,9 +6708,9 @@
             filePath = "addy/View/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "603"
-            endingLineNumber = "603"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            startingLineNumber = "616"
+            endingLineNumber = "616"
+            landmarkName = "onPressCopy(sendToRecipients:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7354,9 +6724,9 @@
             filePath = "addy/View/aliases/AliasesView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "604"
-            endingLineNumber = "604"
-            landmarkName = "onPressSend(client:sendToRecipients:)"
+            startingLineNumber = "617"
+            endingLineNumber = "617"
+            landmarkName = "onPressCopy(sendToRecipients:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7404,8 +6774,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4219"
             endingLineNumber = "4219"
-            landmarkName = "getGithubTags()"
-            landmarkType = "7">
+            landmarkName = "NetworkHelper"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -7420,7 +6790,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4228"
             endingLineNumber = "4228"
-            landmarkName = "getGithubTags()"
+            landmarkName = "cacheUserResourceForWidget()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7436,7 +6806,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4221"
             endingLineNumber = "4221"
-            landmarkName = "getGithubTags()"
+            landmarkName = "cacheUserResourceForWidget()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7452,7 +6822,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4222"
             endingLineNumber = "4222"
-            landmarkName = "getGithubTags()"
+            landmarkName = "cacheUserResourceForWidget()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7516,7 +6886,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4220"
             endingLineNumber = "4220"
-            landmarkName = "getGithubTags()"
+            landmarkName = "cacheUserResourceForWidget()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7532,7 +6902,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4229"
             endingLineNumber = "4229"
-            landmarkName = "getGithubTags()"
+            landmarkName = "cacheUserResourceForWidget()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -7614,6 +6984,198 @@
             endingLineNumber = "110"
             landmarkName = "body"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "42E07575-3D3D-41DA-BA17-506390692B76"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5EA477E9-FE95-4715-9B12-74A67BCACB20"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BCBE3D6A-1984-41A9-9A5C-C5628249966D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FAE7106D-294B-4840-BE58-008334D1099F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "AddDomainBottomSheet"
+            landmarkType = "14">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A2B23D68-2CE4-46EF-AE40-99CE09BB3455"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "addDomainToAccount(domain:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BA91ED37-7A5B-4E39-9A07-6AF6336ADA23"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "saveButton()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DF549364-7B89-4051-9A28-A98C698B3C87"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "openSetup(body:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E7CC49AD-ED92-4C05-A8FE-ECBFACE8553C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "openSetup(body:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "38A58D3A-066A-457D-927A-B66D59088144"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "openSetup(body:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2F239D22-5924-40DA-B94C-746F62F5DCFB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "addDomainToAccount(domain:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1AC766AC-1C8E-4AD1-B619-5B435A7EC2F2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "addDomainToAccount(domain:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2B00DA59-EDA8-4C84-B3E7-2FBE7E1C9951"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "addy/View/domains/AddDomainBottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "addDomainToAccount(domain:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

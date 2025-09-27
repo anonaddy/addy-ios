@@ -13,13 +13,13 @@ public class LoggingHelper {
 
     public enum LogFiles: String {
         case `default` = "host.stjin.addy_logs"
-        //case backupLogs = "host.stjin.anonaddy_logs_backups"
-        //case watchosLogs = "host.stjin.anonaddy_logs_watchos"
+        // case backupLogs = "host.stjin.anonaddy_logs_backups"
+        // case watchosLogs = "host.stjin.anonaddy_logs_watchos"
     }
 
     public init(logFile: LogFiles = .default) {
-        self.settingsManager = SettingsManager(encrypted: false)
-        self.prefs = UserDefaults(suiteName: logFile.rawValue)!
+        settingsManager = SettingsManager(encrypted: false)
+        prefs = UserDefaults(suiteName: logFile.rawValue)!
     }
 
     private func setList(logs: [Logs]?) {

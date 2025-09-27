@@ -13,7 +13,7 @@ struct SingleDomain: Codable {
     let data: Domains
 }
 
-public struct Domains:Identifiable, Codable {
+public struct Domains: Identifiable, Codable {
     public let id: String
     let user_id: String
     public let domain: String

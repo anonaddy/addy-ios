@@ -9,9 +9,8 @@ import Foundation
 
 class SharedData {
     static let shared = SharedData()
-        
+
     private init() {
-        
         // Get the bundle for the app
         let bundle = Bundle.main
 
@@ -25,20 +24,18 @@ class SharedData {
         let userAgentVersionCode = Int(bundle.infoDictionary?["CFBundleVersion"] as? String ?? "0") ?? 0
 
         #if DEBUG
-        // Set the build type. In iOS, you might need to set this manually.
-        let userAgentApplicationBuildType = "Debug" // or "Release"
+            // Set the build type. In iOS, you might need to set this manually.
+            let userAgentApplicationBuildType = "Debug" // or "Release"
         #else
-        // Set the build type. In iOS, you might need to set this manually.
-        let userAgentApplicationBuildType = "Release" // or "Release"
+            // Set the build type. In iOS, you might need to set this manually.
+            let userAgentApplicationBuildType = "Release" // or "Release"
         #endif
         // Initialize the UserAgent
-        self.userAgent = UserAgent(userAgentApplicationID: userAgentApplicationID,
+        userAgent = UserAgent(userAgentApplicationID: userAgentApplicationID,
                               userAgentVersion: userAgentVersion,
                               userAgentVersionCode: userAgentVersionCode,
                               userAgentApplicationBuildType: userAgentApplicationBuildType)
     }
-    
-    
+
     var userAgent: UserAgent
-    
 }

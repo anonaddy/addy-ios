@@ -5,26 +5,26 @@
 //  Created by Stijn van de Water on 23/08/2024.
 //
 
-
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct AccountNotificationsView: View {
     @StateObject var accountNotificationsViewModel = AccountNotificationsViewModel()
-    
+
     enum ActiveAlert {
         case error
     }
+
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
-    
+
     @State private var accountNotificationToShow: AccountNotifications? = nil
-    
+
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-  
+
     @State var horizontalSize: UserInterfaceSizeClass
-    var onRefreshGeneralData: (() -> Void)? = nil
+    var onRefreshGeneralData: (() -> Void)?
 
     @Environment(\.dismiss) var dismiss
 
@@ -32,18 +32,17 @@ struct AccountNotificationsView: View {
         self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
         self.onRefreshGeneralData = onRefreshGeneralData
     }
-    
+
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
-        NavigationStack{
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
+        NavigationStack {
             List {
-                if let accountNotifications = accountNotificationsViewModel.accountNotifications{
+                if let accountNotifications = accountNotificationsViewModel.accountNotifications {
                     if !accountNotifications.data.isEmpty {
                         Section {
-                            
-                            ForEach (accountNotifications.data) { accountNotification in
+                            ForEach(accountNotifications.data) { accountNotification in
                                 VStack(alignment: .leading) {
                                     VStack(alignment: .leading) {
                                         Text(accountNotification.title)
@@ -54,7 +53,7 @@ struct AccountNotificationsView: View {
                                             .foregroundColor(.gray)
                                             .italic()
                                             .padding(.bottom, 4)
-                                        
+
                                         Text(accountNotification.textAsMarkdown())
                                             .font(.system(size: 14))
                                             .foregroundColor(.gray)
@@ -76,30 +75,28 @@ struct AccountNotificationsView: View {
                                     }
                                 }
                             }
-                        }header: {
-                            HStack(spacing: 6){
+                        } header: {
+                            HStack(spacing: 6) {
                                 Text(String(localized: "all_account_notifications"))
-                                
-                                
-                                if (accountNotificationsViewModel.isLoading){
+
+                                if accountNotificationsViewModel.isLoading {
                                     ProgressView()
                                         .frame(maxHeight: 4)
-                                    
                                 }
                             }
                             // When this section is visible that means there is data. Make sure to update the amount of account notifications in cache
-                        }.onAppear(perform: {
+                        }.textCase(nil).onAppear(perform: {
                             updateTheCacheANCount(count: accountNotifications.data.count)
                         })
                     }
                 }
-                
+
             }.refreshable {
                 if horizontalSize == .regular {
                     // When in regular size (tablet) mode, refreshing this also ask the mainView to update general data
                     self.onRefreshGeneralData?()
                 }
-                
+
                 await self.accountNotificationsViewModel.getAccountNotifications()
             }
             .sheet(item: $accountNotificationToShow) { accountNotification in
@@ -118,10 +115,8 @@ struct AccountNotificationsView: View {
                 }
             }
             .overlay(Group {
-                
-                
                 // If there is an accountNotifications (aka, if the list is visible)
-                if let accountNotifications = accountNotificationsViewModel.accountNotifications{
+                if let accountNotifications = accountNotificationsViewModel.accountNotifications {
                     if accountNotifications.data.isEmpty {
                         ContentUnavailableView {
                             Label(String(localized: "no_account_notifications"), systemImage: "bell.badge.fill")
@@ -131,25 +126,22 @@ struct AccountNotificationsView: View {
                     }
                 } else {
                     // If there is NO accountNotifications (aka, if the list is not visible)
-                    
+
                     // No accountNotifications, check if there is an error
-                    if (accountNotificationsViewModel.networkError != ""){
-                        
-                        
-                            // Error screen
-                            ContentUnavailableView {
-                                Label(String(localized: "something_went_wrong_retrieving_account_notifications"), systemImage: "wifi.slash")
-                            } description: {
-                                Text(accountNotificationsViewModel.networkError)
-                            } actions: {
-                                Button(String(localized: "try_again")) {
-                                    Task {
-                                        await accountNotificationsViewModel.getAccountNotifications()
-                                    }
+                    if accountNotificationsViewModel.networkError != "" {
+                        // Error screen
+                        ContentUnavailableView {
+                            Label(String(localized: "something_went_wrong_retrieving_account_notifications"), systemImage: "wifi.slash")
+                        } description: {
+                            Text(accountNotificationsViewModel.networkError)
+                        } actions: {
+                            Button(String(localized: "try_again")) {
+                                Task {
+                                    await accountNotificationsViewModel.getAccountNotifications()
                                 }
                             }
-                        
-                        
+                        }
+
                     } else {
                         // No accountNotifications and no error. It must still be loading...
                         VStack(alignment: .center, spacing: 0) {
@@ -159,29 +151,29 @@ struct AccountNotificationsView: View {
                             } description: {
                                 Text(String(localized: "obtaining_desc"))
                             }
-                            
+
                             ProgressView()
-                                .frame(maxWidth: .infinity, maxHeight:50)
+                                .frame(maxWidth: .infinity, maxHeight: 50)
                             Spacer()
                         }
                     }
-                    
                 }
             })
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(String(localized: "account_notifications"))
             .toolbar {
-                Button {
-                    dismiss()
-                } label: {
-                    Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label(String(localized: "dismiss"), systemImage: "xmark")
+                    }
                 }
             }
-            
         }
         .onAppear(perform: {
-            if let accountNotifications = accountNotificationsViewModel.accountNotifications{
-                if (accountNotifications.data.isEmpty) {
+            if let accountNotifications = accountNotificationsViewModel.accountNotifications {
+                if accountNotifications.data.isEmpty {
                     Task {
                         await accountNotificationsViewModel.getAccountNotifications()
                     }
@@ -189,14 +181,12 @@ struct AccountNotificationsView: View {
             }
         })
     }
-    
-    private func updateTheCacheANCount(count: Int){
+
+    private func updateTheCacheANCount(count: Int) {
         // Set the count of account notifications so that we can use it for the backgroundservice AND mark this a read for the badge
         MainViewState.shared.encryptedSettingsManager.putSettingsInt(
             key: .backgroundServiceCacheAccountNotificationsCount,
             int: count
         )
-            
     }
-    
 }

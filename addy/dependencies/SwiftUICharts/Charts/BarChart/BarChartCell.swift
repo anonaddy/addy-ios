@@ -8,10 +8,11 @@ public struct BarChartCell: View {
 
     @State private var didCellAppear: Bool = false
 
-    public init( value: Double,
-                 index: Int = 0,
-                 gradientColor: ColorGradient,
-                 touchLocation: CGFloat) {
+    public init(value: Double,
+                index: Int = 0,
+                gradientColor: ColorGradient,
+                touchLocation: CGFloat)
+    {
         self.value = value
         self.index = index
         self.gradientColor = gradientColor
@@ -20,21 +21,20 @@ public struct BarChartCell: View {
 
     public var body: some View {
         BarChartCellShape(value: didCellAppear ? value : 0.0)
-        .fill(gradientColor.linearGradient(from: .bottom, to: .top))
-        .onAppear {
-            withAnimation {
-                self.didCellAppear = true
+            .fill(gradientColor.linearGradient(from: .bottom, to: .top))
+            .onAppear {
+                withAnimation {
+                    self.didCellAppear = true
+                }
             }
-        }
-        .onDisappear {
-            withAnimation {
-                self.didCellAppear = false
+            .onDisappear {
+                withAnimation {
+                    self.didCellAppear = false
+                }
             }
-        }
-        .transition(.slide)
-        .animation(Animation.spring().delay(self.touchLocation < 0 || !didCellAppear ? Double(self.index) * 0.04 : 0), value: self.didCellAppear)
+            .transition(.slide)
+            .animation(Animation.spring().delay(touchLocation < 0 || !didCellAppear ? Double(index) * 0.04 : 0), value: didCellAppear)
     }
-
 }
 
 struct BarChartCell_Previews: PreviewProvider {

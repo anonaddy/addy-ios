@@ -5,15 +5,15 @@
 //  Created by Stijn van de Water on 08/05/2024.
 //
 
-public struct RecipientsArray:Codable {
+struct RecipientsArray: Codable {
     let data: [Recipients]
 }
 
-struct SingleRecipient:Codable {
+struct SingleRecipient: Codable {
     let data: Recipients
 }
 
-public struct Recipients:Identifiable, Codable, Equatable, Hashable {
+public struct Recipients: Identifiable, Codable, Equatable, Hashable {
     public let id: String
     let user_id: String
     public let email: String

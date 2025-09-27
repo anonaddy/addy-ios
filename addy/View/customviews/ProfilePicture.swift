@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ProfilePicture: View {
     @EnvironmentObject var mainViewState: MainViewState
-        
+
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
         Button {
             mainViewState.isPresentingProfileBottomSheet = true
         } label: {

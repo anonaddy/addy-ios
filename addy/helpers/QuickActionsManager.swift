@@ -12,9 +12,9 @@ class QuickActionsManager: ObservableObject {
     static let instance = QuickActionsManager()
 
     func handleQaItem(_ shortcutItem: UIApplicationShortcutItem) {
-#if DEBUG
-        print("SHORTCUT ITEM RECEIVED \(shortcutItem)")
-#endif
+        #if DEBUG
+            print("SHORTCUT ITEM RECEIVED \(shortcutItem)")
+        #endif
         if shortcutItem.type == "host.stjin.addy.shortcut_add_alias" {
             MainViewState.shared.showAddAliasBottomSheet = true
             MainViewState.shared.selectedTab = .aliases
@@ -24,8 +24,6 @@ class QuickActionsManager: ObservableObject {
                 MainViewState.shared.showAliasWithId = String(aliasId)
                 MainViewState.shared.selectedTab = .aliases
             }
-            
         }
     }
-    
 }

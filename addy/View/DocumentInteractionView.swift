@@ -1,14 +1,12 @@
 //
-//  DocumentPicker.swift
+//  DocumentInteractionView.swift
 //  addy
 //
 //  Created by Stijn van de Water on 27/01/2025.
 //
 
-
 import SwiftUI
 import UniformTypeIdentifiers
-
 
 struct DocumentPicker: UIViewControllerRepresentable {
     @Binding var fileURL: URL?
@@ -20,30 +18,30 @@ struct DocumentPicker: UIViewControllerRepresentable {
         documentPicker.delegate = context.coordinator
         documentPicker.allowsMultipleSelection = false
         documentPicker.shouldShowFileExtensions = true
-        
+
         return documentPicker
     }
-    
-    func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
-    
+
+    func updateUIViewController(_: UIDocumentPickerViewController, context _: Context) {}
+
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-    
+
     class Coordinator: NSObject, UIDocumentPickerDelegate {
         var parent: DocumentPicker
-        
+
         init(_ parent: DocumentPicker) {
             self.parent = parent
         }
-        
-        func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+
+        func documentPicker(_: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
             guard let url = urls.first else { return }
             parent.fileURL = url
             parent.isPresented = false
         }
-        
-        func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+
+        func documentPickerWasCancelled(_: UIDocumentPickerViewController) {
             parent.isPresented = false
         }
     }

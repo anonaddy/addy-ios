@@ -5,14 +5,14 @@
 //  Created by Stijn van de Water on 03/06/2024.
 //
 
-import SwiftUI
-import AVFoundation
 import addy_shared
+import AVFoundation
+import SwiftUI
 
 struct EditDomainDescriptionBottomSheet: View {
     let domainId: String
     @State private var description: String
-    @State private var descriptionPlaceholder: String = String(localized: "description")
+    @State private var descriptionPlaceholder: String = .init(localized: "description")
     let descriptionEdited: (Domains) -> Void
 
     init(domainId: String, description: String, descriptionEdited: @escaping (Domains) -> Void) {
@@ -20,35 +20,28 @@ struct EditDomainDescriptionBottomSheet: View {
         self.description = description
         self.descriptionEdited = descriptionEdited
     }
-    
-    @State private var descriptionValidationError:String?
-    @State private var descriptionRequestError:String?
+
+    @State private var descriptionValidationError: String?
+    @State private var descriptionRequestError: String?
 
     @State var IsLoadingSaveButton: Bool = false
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
-        Form{
-
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
+        Form {
             Section {
-
-                
                 ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError)
 
-                
-
-                
-                
             } header: {
                 VStack {
                     Text(String(localized: "edit_desc_domain_desc"))
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
-                    
-                }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
+
+                }.frame(maxWidth: .infinity, alignment: .center)
             } footer: {
                 if let error = descriptionRequestError {
                     Text(error)
@@ -56,65 +49,74 @@ struct EditDomainDescriptionBottomSheet: View {
                         .font(.system(size: 15))
                         .multilineTextAlignment(.leading)
                         .padding([.horizontal], 0)
-                        .onAppear{
+                        .onAppear {
                             HapticHelper.playHapticFeedback(hapticType: .error)
-                                                        }
-                }
-            }
-            
-            Section {
-                AddyLoadingButton(action: {
-                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                    // We should not allow any saving until the validationErrors are nil
-                    if (descriptionValidationError == nil){
-                        IsLoadingSaveButton = true;
-                        
-                        Task {
-                            await self.editDescription(description: self.description)
                         }
-                    } else {
-                            IsLoadingSaveButton = false
-                        
-                    }
-                }, isLoading: $IsLoadingSaveButton) {
-                    Text(String(localized: "save")).foregroundColor(Color.white)
-                }.frame(minHeight: 56)
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-            
-            }.navigationTitle(String(localized: "edit_description")).pickerStyle(.navigationLink)
+                }
+            }.textCase(nil)
+
+        }.navigationTitle(String(localized: "edit_description")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
+                    if #available(iOS 26.0, *) {
+                        saveButton().buttonStyle(.glassProminent)
+                    } else {
+                        saveButton()
+                    }
+                }
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {
-                        Text(String(localized: "cancel"))
+                        Label(String(localized: "cancel"), systemImage: "xmark")
                     }
-                    
                 }
             })
-        
-        
     }
-    
-    
+
+    private func saveButton() -> some View {
+        Group {
+            if IsLoadingSaveButton {
+                AnyView(ProgressView().progressViewStyle(.circular))
+            } else {
+                AnyView(
+                    Button {
+                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                        // We should not allow any saving until the validationErrors are nil
+                        if descriptionValidationError == nil {
+                            IsLoadingSaveButton = true
+
+                            Task {
+                                await self.editDescription(description: self.description)
+                            }
+                        } else {
+                            IsLoadingSaveButton = false
+                        }
+                    } label: {
+                        Text(String(localized: "save"))
+                    }
+                )
+            }
+        }
+    }
+
     private func editDescription(description: String?) async {
         descriptionRequestError = nil
         let networkHelper = NetworkHelper()
         do {
-            if let domain = try await networkHelper.updateDescriptionSpecificDomain(domainId: self.domainId, description: description) {
-                self.descriptionEdited(domain)
+            if let domain = try await networkHelper.updateDescriptionSpecificDomain(domainId: domainId, description: description) {
+                descriptionEdited(domain)
             }
         } catch {
             IsLoadingSaveButton = false
             descriptionRequestError = error.localizedDescription
         }
     }
-
 }
 
 #Preview {
-    EditDomainDescriptionBottomSheet(domainId: "000", description: "TEST", descriptionEdited: { domain in
+    EditDomainDescriptionBottomSheet(domainId: "000", description: "TEST", descriptionEdited: { _ in
         // Dummy function for preview
     })
 }

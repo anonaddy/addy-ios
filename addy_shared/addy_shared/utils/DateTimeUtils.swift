@@ -7,28 +7,27 @@
 
 import Foundation
 
-public struct DateTimeUtils {
-    
+public enum DateTimeUtils {
     public enum DateTimeFormat {
         case date
         case time
         case dateTime
         case shortDate
     }
-    
+
     public static func convertStringToLocalTimeZoneString(_ string: String?, dateTimeFormat: DateTimeFormat = .dateTime) -> String {
         guard let string = string else {
             return ""
         }
-        
+
         do {
             let ldt = try turnStringIntoLocalDateTime(string)
             let serverZoneId = TimeZone(identifier: "GMT")
             let zonedDateTime = ldt.toDate(timeZone: serverZoneId!)
             let defaultZoneId = TimeZone.current
-            
+
             let localTimeZoneDate = zonedDateTime.toDate(timeZone: defaultZoneId)
-            
+
             switch dateTimeFormat {
             case .date:
                 return DateFormatter.localizedString(from: localTimeZoneDate, dateStyle: .short, timeStyle: .none)
@@ -45,18 +44,18 @@ public struct DateTimeUtils {
             return "\(string) (GMT)"
         }
     }
-    
-    public static func convertStringToLocalTimeZoneDate(_ string: String?, dateTimeFormat: DateTimeFormat = .dateTime) throws -> Date {
+
+    public static func convertStringToLocalTimeZoneDate(_ string: String?, dateTimeFormat _: DateTimeFormat = .dateTime) throws -> Date {
         let ldt = try turnStringIntoLocalDateTime(string)
         let serverZoneId = TimeZone(identifier: "GMT")
         let zonedDateTime = ldt.toDate(timeZone: serverZoneId!)
         let defaultZoneId = TimeZone.current
-        
+
         let localTimeZoneDate = zonedDateTime.toDate(timeZone: defaultZoneId)
-        
+
         return localTimeZoneDate
     }
-    
+
     private static func turnStringIntoLocalDateTime(_ string: String?) throws -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyy-MM-dd HH:mm:ss"

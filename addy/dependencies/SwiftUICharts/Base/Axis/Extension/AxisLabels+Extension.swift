@@ -1,57 +1,59 @@
 import SwiftUI
 
-extension AxisLabels {
-    public func setAxisYLabels(_ labels: [String],
-                               position: AxisLabelsYPosition = .leading) -> AxisLabels {
-        self.axisLabelsData.axisYLabels = labels
-        self.axisLabelsStyle.axisLabelsYPosition = position
+public extension AxisLabels {
+    func setAxisYLabels(_ labels: [String],
+                        position: AxisLabelsYPosition = .leading) -> AxisLabels
+    {
+        axisLabelsData.axisYLabels = labels
+        axisLabelsStyle.axisLabelsYPosition = position
         return self
     }
 
-    public func setAxisXLabels(_ labels: [String]) -> AxisLabels {
-        self.axisLabelsData.axisXLabels = labels
+    func setAxisXLabels(_ labels: [String]) -> AxisLabels {
+        axisLabelsData.axisXLabels = labels
         return self
     }
 
-    public func setAxisYLabels(_ labels: [(Double, String)],
-                               range: ClosedRange<Int>,
-                               position: AxisLabelsYPosition = .leading) -> AxisLabels {
+    func setAxisYLabels(_ labels: [(Double, String)],
+                        range: ClosedRange<Int>,
+                        position: AxisLabelsYPosition = .leading) -> AxisLabels
+    {
         let overreach = range.overreach + 1
         var labelArray = [String](repeating: "", count: overreach)
-        labels.forEach {
-            let index = Int($0.0) - range.lowerBound
+        for label in labels {
+            let index = Int(label.0) - range.lowerBound
             if labelArray[safe: index] != nil {
-                labelArray[index] = $0.1
+                labelArray[index] = label.1
             }
         }
 
-        self.axisLabelsData.axisYLabels = labelArray
-        self.axisLabelsStyle.axisLabelsYPosition = position
+        axisLabelsData.axisYLabels = labelArray
+        axisLabelsStyle.axisLabelsYPosition = position
 
         return self
     }
 
-    public func setAxisXLabels(_ labels: [(Double, String)], range: ClosedRange<Int>) -> AxisLabels {
+    func setAxisXLabels(_ labels: [(Double, String)], range: ClosedRange<Int>) -> AxisLabels {
         let overreach = range.overreach + 1
         var labelArray = [String](repeating: "", count: overreach)
-        labels.forEach {
-            let index = Int($0.0) - range.lowerBound
+        for label in labels {
+            let index = Int(label.0) - range.lowerBound
             if labelArray[safe: index] != nil {
-                labelArray[index] = $0.1
+                labelArray[index] = label.1
             }
         }
 
-        self.axisLabelsData.axisXLabels = labelArray
+        axisLabelsData.axisXLabels = labelArray
         return self
     }
 
-    public func setColor(_ color: Color) -> AxisLabels {
-        self.axisLabelsStyle.axisFontColor = color
+    func setColor(_ color: Color) -> AxisLabels {
+        axisLabelsStyle.axisFontColor = color
         return self
     }
 
-    public func setFont(_ font: Font) -> AxisLabels {
-        self.axisLabelsStyle.axisFont = font
+    func setFont(_ font: Font) -> AxisLabels {
+        axisLabelsStyle.axisFont = font
         return self
     }
 }

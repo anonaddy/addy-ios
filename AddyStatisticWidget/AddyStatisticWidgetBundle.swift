@@ -5,8 +5,8 @@
 //  Created by Stijn van de Water on 18/07/2024.
 //
 
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 @main
 struct AddyStatisticWidgetBundle: WidgetBundle {

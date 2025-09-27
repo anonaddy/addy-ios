@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct AppSettingsFeaturesNotifyDomainErrorView: View {
-    
     @State var notifyDomainError: Bool = false
-    
+
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
         List {
             Image("feature_notify_domain_error").resizable().scaledToFit().frame(maxWidth: .infinity, alignment: .center).listRowInsets(EdgeInsets())
-            
+
             Section {
                 AddyToggle(isOn: $notifyDomainError, title: String(localized: "enable_feature"), description: String(localized: "notify_domain_error_feature_section_desc"))
                     .onAppear {
@@ -25,7 +24,7 @@ struct AppSettingsFeaturesNotifyDomainErrorView: View {
                     }
                     .onChange(of: notifyDomainError) {
                         // Only fire when the value is NOT the same as the value already in the model
-                        if (notifyDomainError != MainViewState.shared.settingsManager.getSettingsBool(key: .notifyDomainError)){
+                        if notifyDomainError != MainViewState.shared.settingsManager.getSettingsBool(key: .notifyDomainError) {
                             MainViewState.shared.settingsManager.putSettingsBool(key: .notifyDomainError, boolean: notifyDomainError)
                             BackgroundWorkerHelper().scheduleAppRefresh()
                         }
@@ -33,11 +32,10 @@ struct AppSettingsFeaturesNotifyDomainErrorView: View {
             } footer: {
                 Text(String(localized: "feature_domain_error_notification_desc"))
                     .padding(.top)
-                
             }
         }
-            .navigationTitle(String(localized: "feature_domain_error_notification"))
-            .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(String(localized: "feature_domain_error_notification"))
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

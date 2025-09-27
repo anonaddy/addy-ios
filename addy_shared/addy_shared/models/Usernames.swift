@@ -6,14 +6,14 @@
 //
 
 public struct UsernamesArray: Codable {
-    public var `data`: [Usernames]
+    public var data: [Usernames]
 }
 
 struct SingleUsername: Codable {
-    let `data`: Usernames
+    let data: Usernames
 }
 
-public struct Usernames:Identifiable, Codable {
+public struct Usernames: Identifiable, Codable {
     public let id: String
     let user_id: String
     public let username: String

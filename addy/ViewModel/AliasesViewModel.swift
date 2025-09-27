@@ -5,12 +5,11 @@
 //  Created by Stijn van de Water on 09/05/2024.
 //
 
-import SwiftUI
-import Combine
 import addy_shared
+import Combine
+import SwiftUI
 
-class AliasesViewModel: ObservableObject{
-    
+class AliasesViewModel: ObservableObject {
     @Published var aliasSortFilterRequest = AliasSortFilterRequest(
         onlyActiveAliases: false,
         onlyDeletedAliases: false,
@@ -20,7 +19,7 @@ class AliasesViewModel: ObservableObject{
         sortDesc: false,
         filter: ""
     )
-    
+
     var defaultSortFilterRequest = AliasSortFilterRequest(
         onlyActiveAliases: false,
         onlyDeletedAliases: false,
@@ -32,101 +31,96 @@ class AliasesViewModel: ObservableObject{
     )
 
     @Published var searchQuery = ""
-        
-    var searchCancellable: AnyCancellable? = nil
-    
-    
+
+    var searchCancellable: AnyCancellable?
+
     @Published var aliasList: AliasesArray? = nil
 
     @Published var isLoading = false
     @Published var hasArrivedAtTheLastPage = true
-    @Published var networkError:String = ""
-    
-    init(){
+    @Published var networkError: String = ""
+
+    init() {
         // since SwiftUI uses @published so its a publisher.
         // so we dont need to explicitly define publisher..
         searchCancellable = $searchQuery
             .dropFirst()
             .removeDuplicates()
             .debounce(for: 1.0, scheduler: RunLoop.main)
-            .sink(receiveValue: {str in
+            .sink(receiveValue: { str in
                 self.searchAliases(searchQuery: str)
             })
     }
-    
-    func searchAliases(searchQuery: String){
+
+    func searchAliases(searchQuery: String) {
         // When something is being searched cancel the loading to make sure that the networkCall will succeed
-        self.isLoading = false
+        isLoading = false
         let trimmedSearchQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
-    
-        
-        if trimmedSearchQuery == ""{
+
+        if trimmedSearchQuery == "" {
             // Reset Data....
-            self.aliasSortFilterRequest.filter = ""
-            
-            
+            aliasSortFilterRequest.filter = ""
+
             Task {
-                await self.getAliases(forceReload:true)
+                await self.getAliases(forceReload: true)
             }
-        }
-        else {
-            if (trimmedSearchQuery.count >= 3){
+        } else {
+            if trimmedSearchQuery.count >= 3 {
                 // search Data
-                self.aliasSortFilterRequest.filter = trimmedSearchQuery
-                
+                aliasSortFilterRequest.filter = trimmedSearchQuery
+
                 Task {
-                    await self.getAliases(forceReload:true)
+                    await self.getAliases(forceReload: true)
                 }
             }
             // Don't search for searchTerms for < 3 chars
         }
     }
-    
+
     func getAliases(forceReload: Bool) async {
-        if (!self.isLoading){
+        if !isLoading {
             DispatchQueue.main.async {
                 self.isLoading = true
                 self.networkError = ""
             }
-            
-            if (forceReload){
+
+            if forceReload {
                 // This will make sure that the meta resets and jumps back to 0
                 // To prevent that the app continues loading from page X when performing a search after scrolling for a while
                 await MainActor.run {
                     self.aliasList = nil
                 }
             }
-            
+
             #if DEBUG
-            print ("page is \(aliasList?.meta?.current_page ?? 0)")
+                print("page is \(aliasList?.meta?.current_page ?? 0)")
             #endif
-            
+
             let networkHelper = NetworkHelper()
-            
+
             /**
              * CHECK IF WATCHED ONLY IS TRUE
              * If true simply bulk-obtain all the watched aliases
              */
             if aliasSortFilterRequest.onlyWatchedAliases {
-                
                 let aliasWatcher = AliasWatcher()
                 let aliasesToWatch: [String] = Array(aliasWatcher.getAliasesToWatch())
-                
+
                 if !aliasesToWatch.isEmpty {
                     do {
                         let BulkAliasesArray = try await networkHelper.bulkGetAlias(aliases: aliasesToWatch)
-                        
+
                         DispatchQueue.main.async {
                             self.isLoading = false
-                            
+
                             if let BulkAliasesArray = BulkAliasesArray {
                                 let aliasArray = AliasesArray(data: BulkAliasesArray.data)
                                 self.aliasList = aliasArray
-                                
+
                                 // Since the bulkGetAlias func always returns everything we are always at the last page
                                 self.hasArrivedAtTheLastPage = true
                             } else {
-                                self.networkError = String(format: String(localized: "details_about_error_s"),"\(String(localized: "error_unknown_refer_to_logs"))")
+                                self.networkError = String(format: String(localized: "details_about_error_s"), "\(String(localized: "error_unknown_refer_to_logs"))")
                             }
                         }
                     } catch {
@@ -137,7 +131,8 @@ class AliasesViewModel: ObservableObject{
                         LoggingHelper().addLog(
                             importance: LogImportance.critical,
                             error: error.localizedDescription,
-                            method: "getAliases", extra: nil)
+                            method: "getAliases", extra: nil
+                        )
                     }
                 } else {
                     DispatchQueue.main.async {
@@ -147,36 +142,33 @@ class AliasesViewModel: ObservableObject{
                         let aliasArray = AliasesArray(data: [])
                         self.aliasList = aliasArray
                     }
-                    
                 }
 
             } else {
                 do {
-                    let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: self.aliasSortFilterRequest, page : (aliasList?.meta?.current_page ?? 0) + 1,size: 25)
+                    let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (aliasList?.meta?.current_page ?? 0) + 1, size: 25)
                     DispatchQueue.main.async {
                         self.isLoading = false
-                    
-                    
-                    if let aliasArray = aliasArray {
-                        
-                        if (self.aliasList == nil){
-                            // If aliasList is empty, assign it
-                            self.aliasList = aliasArray
-                            
+
+                        if let aliasArray = aliasArray {
+                            if self.aliasList == nil {
+                                // If aliasList is empty, assign it
+                                self.aliasList = aliasArray
+
+                            } else {
+                                // If aliasList is not empty, set the meta and links and append the retrieved aliases to the list (as pagination is being used)
+                                self.aliasList?.meta = aliasArray.meta
+                                self.aliasList?.links = aliasArray.links
+                                self.aliasList?.data.append(contentsOf: aliasArray.data)
+                            }
+
+                            self.hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page || self.aliasList?.data.isEmpty == true
+
                         } else {
-                            // If aliasList is not empty, set the meta and links and append the retrieved aliases to the list (as pagination is being used)
-                            self.aliasList?.meta = aliasArray.meta
-                            self.aliasList?.links = aliasArray.links
-                            self.aliasList?.data.append(contentsOf: aliasArray.data)
+                            self.hasArrivedAtTheLastPage = true
+                            self.networkError = String(format: String(localized: "details_about_error_s"), "\(String(localized: "error_unknown_refer_to_logs"))")
                         }
-                        
-                        self.hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page || self.aliasList?.data.isEmpty == true
-                        
-                    } else {
-                        self.hasArrivedAtTheLastPage = true
-                        self.networkError = String(format: String(localized: "details_about_error_s"),"\(String(localized: "error_unknown_refer_to_logs"))")
                     }
-                }
                 } catch {
                     DispatchQueue.main.async {
                         self.isLoading = false
@@ -185,21 +177,18 @@ class AliasesViewModel: ObservableObject{
                     LoggingHelper().addLog(
                         importance: LogImportance.critical,
                         error: error.localizedDescription,
-                        method: "getAliases", extra: nil)
+                        method: "getAliases", extra: nil
+                    )
                 }
             }
         }
     }
 
-
-    
-    
-    func loadMoreContent(){
-        if (!self.hasArrivedAtTheLastPage){
+    func loadMoreContent() {
+        if !hasArrivedAtTheLastPage {
             Task {
                 await getAliases(forceReload: false)
             }
         }
     }
-    
 }

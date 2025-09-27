@@ -1,11 +1,10 @@
 import Foundation
 import SwiftUI
 
-extension CGRect {
-
-	/// Midpoint of rectangle
-	/// - Returns: the coordinate for a rectangle center
-    public var mid: CGPoint {
-        return CGPoint(x: self.midX, y: self.midY)
+public extension CGRect {
+    /// Midpoint of rectangle
+    /// - Returns: the coordinate for a rectangle center
+    var mid: CGPoint {
+        return CGPoint(x: midX, y: midY)
     }
 }

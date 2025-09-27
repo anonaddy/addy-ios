@@ -8,31 +8,29 @@
 import SwiftUI
 
 struct ChangelogBottomSheet: View {
-    
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
-        List{
-            Section{
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
+        List {
+            Section {
                 let formattedString = String.localizedStringWithFormat(NSLocalizedString("app_changelog", comment: ""))
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)
                     .padding(.bottom)
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-           
+
         }.navigationTitle(String(localized: "changelog"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem() {
+                ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark.circle.fill")
+                        Label(String(localized: "dismiss"), systemImage: "xmark")
                     }
-                    
                 }
             })
     }

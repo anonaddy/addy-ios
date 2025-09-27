@@ -1,6 +1,6 @@
 project: addy.xcodeproj
-retain_public: true
 schemes:
 - appstoreDebug
-targets:
-- addy
+- appstoreRelease
+- appstorelessDebug
+- appstorelessRelease

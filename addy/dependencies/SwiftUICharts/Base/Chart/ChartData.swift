@@ -59,7 +59,7 @@ public class ChartData: ObservableObject {
     /// Initialize with data array
     /// - Parameter data: Array of `Double`
     public init(_ data: [Double], rangeY: ClosedRange<FloatLiteralType>? = nil) {
-        self.data = data.enumerated().map{ (index, value) in (Double(index), value) }
+        self.data = data.enumerated().map { index, value in (Double(index), value) }
         self.rangeY = rangeY
     }
 
@@ -69,6 +69,6 @@ public class ChartData: ObservableObject {
     }
 
     public init() {
-        self.data = []
+        data = []
     }
 }

@@ -1,32 +1,30 @@
 //
-//  ContentView.swift
+//  SplashView.swift
 //  addy
 //
 //  Created by Stijn van de Water on 06/05/2024.
 //
 
-import SwiftUI
-import SwiftData
-import Lottie
 import addy_shared
+import Lottie
+import SwiftData
+import SwiftUI
 
 struct SplashView: View {
     @EnvironmentObject var mainViewState: MainViewState
     @State private var showError = false
     @State private var isPresentUnsupportedVersionBottomDialog = false
     @State private var networkHelper: NetworkHelper? = nil
-    
+
     @State private var isShowingDetailedErrorAlert = false
     @State private var detailedError: String? = ""
-    
-    
-    
+
     @Environment(\.openURL) var openURL
 
     var body: some View {
-#if DEBUG
-        let _ = Self._printChanges()
-#endif
+        #if DEBUG
+            let _ = Self._printChanges()
+        #endif
         Group {
             if showError {
                 errorView
@@ -42,7 +40,7 @@ struct SplashView: View {
             )
         })
         .sheet(isPresented: $isPresentUnsupportedVersionBottomDialog, onDismiss: {
-                isPresentUnsupportedVersionBottomDialog = false
+            isPresentUnsupportedVersionBottomDialog = false
             Task {
                 await getUserResource()
             }
@@ -62,8 +60,7 @@ struct SplashView: View {
             .presentationDragIndicator(.visible)
         })
     }
-    
-    
+
     private var loadingView: some View {
         Color.accentColor
             .ignoresSafeArea(.container) // Ignore just for the color
@@ -74,80 +71,77 @@ struct SplashView: View {
                         .animationSpeed(Double(2))
                         .frame(maxHeight: 128)
                         .opacity(0.5)
-                    
+
                 })
     }
-    
+
     private var errorView: some View {
-            Color.accentColor
-                .ignoresSafeArea(.container) // Ignore just for the color
-                .overlay(
-                    VStack() {
-                        VStack{
-                            Text(String(localized: "whoops"))
-                                .foregroundStyle(.white)
-                                .font(.title)
-                                .fontWeight(.heavy)
-                                .padding(.bottom)
-                            Text(String(localized: "addyio_load_error"))
-                                .foregroundStyle(.white)
-                                .font(.subheadline)
-                                .multilineTextAlignment(.center)
-                                .padding(.bottom)
-                            Text(String(localized: "tap_here_to_see_the_error"))
-                                .foregroundStyle(.red)
-                                .font(.subheadline)
-                                .multilineTextAlignment(.center)
-                                .onTapGesture {
-                                    isShowingDetailedErrorAlert = true
-                                }
-                        }.padding()
-                        Spacer()
-                        LottieView(animation: .named("ic_loading_logo_error.shapeshifter"))
-                            .playbackMode(.playing(.toProgress(1, loopMode: .playOnce)))
-                            .animationSpeed(Double(2))
-                            .frame(maxHeight: 128)
-                            .opacity(0.5)
-                        Spacer()
-                        Spacer()
-                        HStack{
-                            AddyButton(action: {
-                                loadDataAndStartApp()
-                                
-                            }, style: AddyButtonStyle(backgroundColor: .easternBlue)) {
-                                Text(String(localized: "try_again")).foregroundColor(Color.white)
+        Color.accentColor
+            .ignoresSafeArea(.container) // Ignore just for the color
+            .overlay(
+                VStack {
+                    VStack {
+                        Text(String(localized: "whoops"))
+                            .foregroundStyle(.white)
+                            .font(.title)
+                            .fontWeight(.heavy)
+                            .padding(.bottom)
+                        Text(String(localized: "addyio_load_error"))
+                            .foregroundStyle(.white)
+                            .font(.subheadline)
+                            .multilineTextAlignment(.center)
+                            .padding(.bottom)
+                        Text(String(localized: "tap_here_to_see_the_error"))
+                            .foregroundStyle(.red)
+                            .font(.subheadline)
+                            .multilineTextAlignment(.center)
+                            .onTapGesture {
+                                isShowingDetailedErrorAlert = true
                             }
-                            
-                            AddyButton(action: {
-                                let settingsManager = SettingsManager(encrypted: true)
-                                settingsManager.clearSettingsAndCloseApp()
-                                
-                            }, style: AddyButtonStyle(backgroundColor: .easternBlue)) {
-                                Text(String(localized: "reset_app")).foregroundColor(Color.white)
-                            }
-                        }.padding()
-                        
-                    })
-        
+                    }.padding()
+                    Spacer()
+                    LottieView(animation: .named("ic_loading_logo_error.shapeshifter"))
+                        .playbackMode(.playing(.toProgress(1, loopMode: .playOnce)))
+                        .animationSpeed(Double(2))
+                        .frame(maxHeight: 128)
+                        .opacity(0.5)
+                    Spacer()
+                    Spacer()
+                    HStack {
+                        AddyButton(action: {
+                            loadDataAndStartApp()
+
+                        }, style: AddyButtonStyle()) {
+                            Text(String(localized: "try_again")).foregroundColor(Color.white)
+                        }
+
+                        AddyButton(action: {
+                            let settingsManager = SettingsManager(encrypted: true)
+                            settingsManager.clearSettingsAndCloseApp()
+
+                        }, style: AddyButtonStyle(buttonStyle: .destructive)) { // TODO: Make red
+                            Text(String(localized: "reset_app")).foregroundColor(Color.white)
+                        }
+                    }.padding()
+
+                })
     }
-    
-    private func loadDataAndStartApp(){
-        self.showError = false
+
+    private func loadDataAndStartApp() {
+        showError = false
         // This helper inits the BASE_URL var
-        self.networkHelper = NetworkHelper()
-        
+        networkHelper = NetworkHelper()
+
         #if DEBUG
-        let defaultBaseUrl = String(localized: "dev_base_url")
+            let defaultBaseUrl = String(localized: "dev_base_url")
         #else
-        let defaultBaseUrl = String(localized: "default_base_url")
+            let defaultBaseUrl = String(localized: "default_base_url")
         #endif
-        
-        
-        if (AddyIo.API_BASE_URL == defaultBaseUrl){
-            
+
+        if AddyIo.API_BASE_URL == defaultBaseUrl {
             AddyIo.VERSIONMAJOR = 9999
             AddyIo.VERSIONSTRING = String(localized: "latest")
-            
+
             Task {
                 await getUserResource()
             }
@@ -156,9 +150,8 @@ struct SplashView: View {
                 await getAddyIoInstanceVersion()
             }
         }
-        
     }
-    
+
     private func getAddyIoInstanceVersion() async {
         do {
             let version = try await networkHelper!.getAddyIoInstanceVersion()
@@ -167,71 +160,63 @@ struct SplashView: View {
                 AddyIo.VERSIONMINOR = version.minor
                 AddyIo.VERSIONPATCH = version.patch
                 AddyIo.VERSIONSTRING = version.version ?? String(localized: "unknown")
-                
+
                 if instanceHasTheMinimumRequiredVersion() {
                     await getUserResource()
                 } else {
-                    self.isPresentUnsupportedVersionBottomDialog = true
+                    isPresentUnsupportedVersionBottomDialog = true
                 }
             }
         } catch {
-            self.detailedError = error.localizedDescription
-            self.showError = true
+            detailedError = error.localizedDescription
+            showError = true
         }
     }
 
-    
     private func instanceHasTheMinimumRequiredVersion() -> Bool {
-        if (AddyIo.VERSIONMAJOR > AddyIo.MINIMUMVERSIONCODEMAJOR) {
+        if AddyIo.VERSIONMAJOR > AddyIo.MINIMUMVERSIONCODEMAJOR {
             return true
-        } else if (AddyIo.VERSIONMAJOR >= AddyIo.MINIMUMVERSIONCODEMAJOR) {
-            if (AddyIo.VERSIONMINOR > AddyIo.MINIMUMVERSIONCODEMINOR) {
+        } else if AddyIo.VERSIONMAJOR >= AddyIo.MINIMUMVERSIONCODEMAJOR {
+            if AddyIo.VERSIONMINOR > AddyIo.MINIMUMVERSIONCODEMINOR {
                 return true
-            } else if (AddyIo.VERSIONMINOR >= AddyIo.MINIMUMVERSIONCODEMINOR) {
-                if (AddyIo.VERSIONPATCH >= AddyIo.MINIMUMVERSIONCODEPATCH) {
+            } else if AddyIo.VERSIONMINOR >= AddyIo.MINIMUMVERSIONCODEMINOR {
+                if AddyIo.VERSIONPATCH >= AddyIo.MINIMUMVERSIONCODEPATCH {
                     return true
                 }
             }
         }
         return false
     }
-    
-    
+
     private func getUserResource() async {
         let networkHelper = NetworkHelper()
         do {
             let userResource = try await networkHelper.getUserResource()
             if let userResource = userResource {
-                
                 mainViewState.userResource = userResource
-                
+
                 // Fetch UserResourceExtended data
                 let recipient = try await networkHelper.getSpecificRecipient(recipientId: userResource.default_recipient_id)
                 if let recipient = recipient {
                     DispatchQueue.main.async {
-                                withAnimation {
-                                    // Since this is the last change before the view changes, make this withAnimation
-                                    mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
-                                }
-                            }
+                        withAnimation {
+                            // Since this is the last change before the view changes, make this withAnimation
+                            mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
+                        }
+                    }
                 } else {
-                    self.showError = true
+                    showError = true
                 }
             } else {
-                self.showError = true
+                showError = true
             }
         } catch {
-            self.detailedError = error.localizedDescription
-            self.showError = true
+            detailedError = error.localizedDescription
+            showError = true
         }
     }
-
 }
-
-
 
 #Preview {
     SplashView()
 }
-
-

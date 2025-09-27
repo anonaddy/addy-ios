@@ -7,11 +7,8 @@
 
 import Foundation
 
-
 class SetupViewState: ObservableObject {
-    
-    
     static let shared = SetupViewState() // Shared instance
-    
+
     @Published var verifyQuery: String? = nil
 }

@@ -5,26 +5,25 @@
 //  Created by Stijn van de Water on 09/05/2024.
 //
 
-import SwiftUI
-import Combine
 import addy_shared
+import Combine
+import SwiftUI
 
-class RecipientsViewModel: ObservableObject{
-    
+class RecipientsViewModel: ObservableObject {
     @Published var recipients: [Recipients]? = nil
 
     @Published var verifiedOnly = false
     @Published var isLoading = false
-    @Published var networkError:String = ""
-    
-    init(){
-        Task{
+    @Published var networkError: String = ""
+
+    init() {
+        Task {
             await self.getRecipients()
         }
     }
-    
+
     func getRecipients() async {
-        if !self.isLoading {
+        if !isLoading {
             DispatchQueue.main.async {
                 self.isLoading = true
                 self.networkError = ""
@@ -44,10 +43,9 @@ class RecipientsViewModel: ObservableObject{
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,
-                    method: "getRecipients", extra: nil)
+                    method: "getRecipients", extra: nil
+                )
             }
         }
     }
-
-
 }

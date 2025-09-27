@@ -49,11 +49,11 @@ extension Date {
             }
         }
     }
-    
+
     func aliasRowDateDisplay() -> String {
         let calendar = Calendar.current
         let currentDate = Date()
-        
+
         if calendar.isDateInToday(self) {
             let diffSeconds = calendar.dateComponents([.second], from: self, to: currentDate).second ?? 0
             if diffSeconds == 0 {
