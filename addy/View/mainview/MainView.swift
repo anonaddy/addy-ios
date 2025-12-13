@@ -67,6 +67,8 @@ struct MainView: View {
                     SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 }
             }
+        }.onAppear{
+            authenticate()
         }
     }
 
