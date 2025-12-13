@@ -850,7 +850,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 1.4.0**\n\n**Liquid Glass Activated!**\n- On iOS 26 the UI is now so smooth, you might accidentally slide right off the app. Use caution—hold your device with two hands for extra grip. For pre-iOS26 devices all buttons and tabs are now in the same place.\n\n**Fixed/Improved**\n- Performance improvements and other things to make the app even smoother"
+            "value" : "**What’s new in addy.io for iOS 1.4.1**\n\n**Fixed/Improved**\n- Performance improvements and other things to make the app even smoother"
           }
         }
       }
@@ -5811,6 +5811,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clear all data and start over"
+          }
+        }
+      }
+    },
+    "reset_app_logout" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset app (logout)"
           }
         }
       }

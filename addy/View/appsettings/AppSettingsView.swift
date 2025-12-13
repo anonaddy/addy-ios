@@ -137,7 +137,7 @@ struct AppSettingsView: View {
             }.textCase(nil)
 
             Section {
-                AddySection(title: String(localized: "reset_app"), description: String(localized: "reset_app_desc"), leadingSystemimage: "gobackward", leadingSystemimageColor: .red) {
+                AddySection(title: String(localized: "reset_app_logout"), description: String(localized: "reset_app_desc"), leadingSystemimage: "gobackward", leadingSystemimageColor: .red) {
                     activeAlert = .resetApp
                     showAlert = true
                 }
