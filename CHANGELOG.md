@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.4.1] - 2026-01-08
+
+### addy.io
+
+**Fixed/Improved**
+- Performance improvements and other things to make the app even smoother
+
+
 ## [v1.4.1] - 2025-12-13
 
 ### addy.io
