@@ -60,7 +60,7 @@ public struct Meta: Codable {
     let path: String
     let per_page: Int
     let to: Int?
-    let total: Int
+    public let total: Int
 }
 
 struct Link: Codable {

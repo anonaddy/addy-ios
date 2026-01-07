@@ -88,9 +88,12 @@ struct AliasesView: View {
                             }
                             HStack(spacing: 6) {
                                 if aliasesViewModel.aliasSortFilterRequest != aliasesViewModel.defaultSortFilterRequest {
-                                    Text(String(localized: "aliases_filtered"))
+                                    Text(String(format: String(localized: "aliases_filtered_d"),
+                                                 aliasList.meta?.total ?? 0))
+                                    
                                 } else {
-                                    Text(String(localized: "aliases"))
+                                    Text(String(format: String(localized: "aliases_d"),
+                                                 aliasList.meta?.total ?? 0))
                                 }
                                 
                                 if aliasesViewModel.isLoading {

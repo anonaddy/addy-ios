@@ -596,13 +596,24 @@
         }
       }
     },
-    "aliases_filtered" : {
+    "aliases_d" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aliases (filter active)"
+            "value" : "Aliases (%d)"
+          }
+        }
+      }
+    },
+    "aliases_filtered_d" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aliases (%d) (filter active)"
           }
         }
       }
@@ -2211,7 +2222,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Are you sure you want to delete this username? This will also delete all aliases associated with this username. You will no longer be able to receive any emails at this username subdomain. This will still count towards your additional username limit even once deleted."
+            "value" : "Are you sure you want to permanently delete this username? This will also permanently remove all aliases associated with this username. You will no longer be able to receive any emails at this username subdomain. This username will not be able to be used again."
           }
         }
       }
@@ -2222,7 +2233,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This will still count towards your additional username limit"
+            "value" : "This username will not be able to be used again"
           }
         }
       }
