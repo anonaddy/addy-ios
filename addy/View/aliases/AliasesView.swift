@@ -88,9 +88,12 @@ struct AliasesView: View {
                             }
                             HStack(spacing: 6) {
                                 if aliasesViewModel.aliasSortFilterRequest != aliasesViewModel.defaultSortFilterRequest {
-                                    Text(String(localized: "aliases_filtered"))
+                                    Text(String(format: String(localized: "aliases_filtered_d"),
+                                                 aliasList.meta?.total ?? 0))
+                                    
                                 } else {
-                                    Text(String(localized: "aliases"))
+                                    Text(String(format: String(localized: "aliases_d"),
+                                                 aliasList.meta?.total ?? 0))
                                 }
                                 
                                 if aliasesViewModel.isLoading {
@@ -662,13 +665,13 @@ struct AliasesView: View {
             } else {
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_forgetting_alias")
+                errorAlertTitle = String(localized: "error_deleting_alias")
                 errorAlertMessage = result
             }
         } catch {
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_forgetting_alias")
+            errorAlertTitle = String(localized: "error_deleting_alias")
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -678,17 +681,21 @@ struct AliasesView: View {
         do {
             let result = try await networkHelper.forgetAlias(aliasId: alias.id)
             if result == "204" {
-                await aliasesViewModel.getAliases(forceReload: true)
+                // Instead of reloading the entire list, remove just this alias
+                if let aliasList = aliasesViewModel.aliasList,
+                   let index = aliasList.data.firstIndex(where: { $0.id == alias.id }) {
+                    aliasesViewModel.aliasList?.data.remove(at: index)
+                }
             } else {
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_deleting_alias")
+                errorAlertTitle = String(localized: "error_forgetting_alias")
                 errorAlertMessage = result
             }
         } catch {
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_deleting_alias")
+            errorAlertTitle = String(localized: "error_forgetting_alias")
             errorAlertMessage = error.localizedDescription
         }
     }

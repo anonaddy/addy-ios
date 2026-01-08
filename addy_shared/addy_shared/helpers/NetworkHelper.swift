@@ -4083,7 +4083,6 @@ public class NetworkHelper {
             parameters.append(URLQueryItem(name: "filter[active]", value: "true"))
         } else if aliasSortFilterRequest.onlyInactiveAliases {
             parameters.append(URLQueryItem(name: "filter[active]", value: "false"))
-            parameters.append(URLQueryItem(name: "filter[deleted]", value: "with"))
         } else if aliasSortFilterRequest.onlyDeletedAliases {
             parameters.append(URLQueryItem(name: "filter[deleted]", value: "only"))
         } else {
