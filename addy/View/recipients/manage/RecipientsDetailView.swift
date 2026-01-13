@@ -37,10 +37,14 @@ struct RecipientsDetailView: View {
     @State private var shouldEncrypt: Bool = false
     @State private var inlineEncryption: Bool = false
     @State private var protectedHeaders: Bool = false
+    @State private var removePgpKeys: Bool = false
+    @State private var removePgpSignatures: Bool = false
     @State private var isSwitchingRecipientShouldEncryptState: Bool = false
     @State private var isSwitchingInlineEncryptionState: Bool = false
     @State private var isSwitchingProtectedHeadersState: Bool = false
     @State private var isSwitchingRecipientCanReplySendState: Bool = false
+    @State private var isSwitchingRemovePgpKeysRecipients: Bool = false
+    @State private var isSwitchingRemovePgpSignaturesRecipients: Bool = false
     @State private var isPresentingAddRecipientPublicGpgKeyBottomSheet = false
 
     @State private var aliasList: [String] = []
@@ -115,6 +119,25 @@ struct RecipientsDetailView: View {
                                 }
                             }
                         }
+                    
+                    AddyToggle(isOn: $protectedHeaders, isLoading: isSwitchingProtectedHeadersState, title: String(localized: "protected_headers"), description: getProtectedHeadersDescription(recipient: recipient))
+                        .onChange(of: protectedHeaders) {
+                            // Only fire when the value is NOT the same as the value already in the model
+                            if protectedHeaders != recipient.protected_headers {
+                                self.isSwitchingProtectedHeadersState = true
+
+                                if recipient.protected_headers {
+                                    Task {
+                                        await self.disableProtectedHeaders(recipient: recipient)
+                                    }
+                                } else {
+                                    Task {
+                                        await self.enableProtectedHeaders(recipient: recipient)
+                                    }
+                                }
+                            }
+                        }
+                        .disabled(recipient.fingerprint == nil || mainViewState.userResource!.hasUserFreeSubscription() || recipient.inline_encryption)
 
                     AddyToggle(isOn: $shouldEncrypt, isLoading: isSwitchingRecipientShouldEncryptState, title: recipient.should_encrypt ? String(localized: "encryption_enabled") : String(localized: "encryption_disabled"), description: String(localized: "encrypt_emails_to_this_recipient"))
                         .onChange(of: shouldEncrypt) {
@@ -171,24 +194,41 @@ struct RecipientsDetailView: View {
                         }
                         .disabled(recipient.fingerprint == nil || recipient.protected_headers)
 
-                    AddyToggle(isOn: $protectedHeaders, isLoading: isSwitchingProtectedHeadersState, title: String(localized: "protected_headers"), description: getProtectedHeadersDescription(recipient: recipient))
-                        .onChange(of: protectedHeaders) {
+                    AddyToggle(isOn: $removePgpKeys, isLoading: isSwitchingRemovePgpKeysRecipients, title: String(localized: "remove_pgp_keys_from_rs"), description: String(localized: "remove_pgp_keys_from_rs_desc"))
+                        .onChange(of: removePgpKeys) {
                             // Only fire when the value is NOT the same as the value already in the model
-                            if protectedHeaders != recipient.protected_headers {
-                                self.isSwitchingProtectedHeadersState = true
+                            if removePgpKeys != recipient.remove_pgp_keys {
+                                self.isSwitchingRemovePgpKeysRecipients = true
 
-                                if recipient.protected_headers {
+                                if recipient.remove_pgp_keys {
                                     Task {
-                                        await self.disableProtectedHeaders(recipient: recipient)
+                                        await self.disableRemovePGPKeysForASpecificRecipient(recipient: recipient)
                                     }
                                 } else {
                                     Task {
-                                        await self.enableProtectedHeaders(recipient: recipient)
+                                        await self.enableRemovePGPKeysForASpecificRecipient(recipient: recipient)
                                     }
                                 }
                             }
                         }
-                        .disabled(recipient.fingerprint == nil || mainViewState.userResource!.hasUserFreeSubscription() || recipient.inline_encryption)
+                    
+                    AddyToggle(isOn: $removePgpSignatures, isLoading: isSwitchingRemovePgpSignaturesRecipients, title: String(localized: "remove_pgp_signature_from_rs"), description: String(localized: "remove_pgp_signature_from_rs_desc"))
+                        .onChange(of: removePgpSignatures) {
+                            // Only fire when the value is NOT the same as the value already in the model
+                            if removePgpSignatures != recipient.remove_pgp_signatures {
+                                self.isSwitchingRemovePgpSignaturesRecipients = true
+
+                                if recipient.remove_pgp_signatures {
+                                    Task {
+                                        await self.disableRemovePGPSignaturesForASpecificRecipient(recipient: recipient)
+                                    }
+                                } else {
+                                    Task {
+                                        await self.enableRemovePGPSignaturesForASpecificRecipient(recipient: recipient)
+                                    }
+                                }
+                            }
+                        }
 
                 } header: {
                     Text(String(localized: "actions"))
@@ -441,6 +481,93 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+    
+    
+    private func enableRemovePGPKeysForASpecificRecipient(recipient: Recipients) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let recipient = try await networkHelper.enableRemovePgpKeysRecipients(recipientId: recipient.id)
+            isSwitchingRemovePgpKeysRecipients = false
+            self.recipient = recipient
+            removePgpKeys = true
+        } catch {
+            isSwitchingRemovePgpKeysRecipients = false
+            removePgpKeys = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    private func disableRemovePGPKeysForASpecificRecipient(recipient: Recipients) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.disableRemovePgpKeysRecipients(recipientId: recipient.id)
+            isSwitchingRemovePgpKeysRecipients = false
+            if result == "204" {
+                self.recipient?.remove_pgp_keys = false
+                removePgpKeys = false
+            } else {
+                removePgpKeys = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertMessage = result
+            }
+        } catch {
+            isSwitchingRemovePgpKeysRecipients = false
+            removePgpKeys = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+    
+    
+     private func enableRemovePGPSignaturesForASpecificRecipient(recipient: Recipients) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let recipient = try await networkHelper.enableRemovePgpSignaturesRecipients(recipientId: recipient.id)
+            isSwitchingRemovePgpSignaturesRecipients = false
+            self.recipient = recipient
+            removePgpSignatures = true
+        } catch {
+            isSwitchingRemovePgpSignaturesRecipients = false
+            removePgpSignatures = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    private func disableRemovePGPSignaturesForASpecificRecipient(recipient: Recipients) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.disableRemovePgpSignaturesRecipients(recipientId: recipient.id)
+            isSwitchingRemovePgpSignaturesRecipients = false
+            if result == "204" {
+                self.recipient?.remove_pgp_signatures = false
+                removePgpSignatures = false
+            } else {
+                removePgpSignatures = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertMessage = result
+            }
+        } catch {
+            isSwitchingRemovePgpSignaturesRecipients = false
+            removePgpSignatures = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+    
 
     private func removeGpgKeyHttpRequest(recipient: Recipients) async {
         let networkHelper = NetworkHelper()

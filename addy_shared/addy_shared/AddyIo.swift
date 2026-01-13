@@ -13,10 +13,10 @@ public enum AddyIo {
     // The versioncode is a combination of MAJOR MINOR PATCH
     // TODO: Update on every release
 
-    // 1.3.5
+    // 1.3.7
     public static let MINIMUMVERSIONCODEMAJOR = 1
     public static let MINIMUMVERSIONCODEMINOR = 3
-    public static let MINIMUMVERSIONCODEPATCH = 5
+    public static let MINIMUMVERSIONCODEPATCH = 7
 
     public static var VERSIONMAJOR = 0
     public static var VERSIONMINOR = 0
@@ -36,6 +36,8 @@ public enum AddyIo {
     static var API_URL_DOMAIN_OPTIONS: String { "\(API_BASE_URL)/api/v1/domain-options" }
     static var API_URL_ENCRYPTED_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/encrypted-recipients" }
     static var API_URL_INLINE_ENCRYPTED_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/inline-encrypted-recipients" }
+    static var API_URL_REMOVE_PGP_KEYS_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/remove-pgp-keys-recipients" }
+    static var API_URL_REMOVE_PGP_SIGNATURES_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/remove-pgp-signatures-recipients" }
     static var API_URL_PROTECTED_HEADERS_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/protected-headers-recipients" }
     static var API_URL_RECIPIENT_RESEND: String { "\(API_BASE_URL)/api/v1/recipients/email/resend" }
     static var API_URL_RECIPIENT_KEYS: String { "\(API_BASE_URL)/api/v1/recipient-keys" }
