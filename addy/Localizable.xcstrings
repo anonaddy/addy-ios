@@ -865,7 +865,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 1.4.2**\n\n**Fixed/Improved**\n- Performance improvements and other things to make the app even smoother"
+            "value" : "**What’s new in addy.io for iOS 1.4.3**\n\n**Added**\n- Added support for new 'Remove PGP Keys for a Specific Recipient' and 'Remove PGP Signatures for a Specific Recipient' features\n\n**Fixed/Improved**\n- Performance improvements and other things to make the app even smoother"
           }
         }
       }
@@ -5630,6 +5630,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remove attachments"
+          }
+        }
+      }
+    },
+    "remove_pgp_keys_from_rs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove PGP Keys from Replies/Sends"
+          }
+        }
+      }
+    },
+    "remove_pgp_keys_from_rs_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only disable this option if you are certain that you can not accidentally send the PGP key of your recipient when replying/sending from your aliases."
+          }
+        }
+      }
+    },
+    "remove_pgp_signature_from_rs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove PGP Signatures from Replies/Sends"
+          }
+        }
+      }
+    },
+    "remove_pgp_signature_from_rs_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only disable this option if you are certain that you can not accidentally sign outbound emails using the PGP key of your recipient when replying/sending from your aliases."
           }
         }
       }

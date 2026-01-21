@@ -1,5 +1,16 @@
 # Changelog
 
+## [v1.4.3] - 2026-01-21
+
+### addy.io
+
+**Added**
+- Added support for new 'Remove PGP Keys for a Specific Recipient' and 'Remove PGP Signatures for a Specific Recipient' features
+
+**Fixed/Improved**
+- Performance improvements and other things to make the app even smoother
+
+
 ## [v1.4.2] - 2026-01-08
 
 ### addy.io

@@ -21,6 +21,8 @@ public struct Recipients: Identifiable, Codable, Equatable, Hashable {
     public var should_encrypt: Bool
     public var inline_encryption: Bool
     public var protected_headers: Bool
+    public var remove_pgp_keys: Bool
+    public var remove_pgp_signatures: Bool
     public var fingerprint: String?
     public let email_verified_at: String?
     public var aliases_count: Int? // Could be nil as it does not come with a specific alias->recipients endpoint
