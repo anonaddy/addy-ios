@@ -5634,6 +5634,50 @@
         }
       }
     },
+    "remove_pgp_keys_from_rs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove PGP Keys from Replies/Sends"
+          }
+        }
+      }
+    },
+    "remove_pgp_keys_from_rs_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only disable this option if you are certain that you can not accidentally send the PGP key of your recipient when replying/sending from your aliases."
+          }
+        }
+      }
+    },
+    "remove_pgp_signature_from_rs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove PGP Signatures from Replies/Sends"
+          }
+        }
+      }
+    },
+    "remove_pgp_signature_from_rs_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only disable this option if you are certain that you can not accidentally sign outbound emails using the PGP key of your recipient when replying/sending from your aliases."
+          }
+        }
+      }
+    },
     "remove_public_key" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -2730,6 +2730,210 @@ public class NetworkHelper {
             throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
+    
+    public func enableRemovePgpKeysRecipients(recipientId: String) async throws -> Recipients? {
+        #if DEBUG
+            print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+        #endif
+        let url = URL(string: "\(AddyIo.API_URL_REMOVE_PGP_KEYS_RECIPIENTS)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": recipientId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "enableRemovePgpKeysRecipients",
+                extra: error.failureURLString
+            )
+            throw error
+        }
+
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
+            return addyIoData.data
+        case 401:
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")"
+            )
+
+            createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "enableRemovePgpKeysRecipients",
+                extra: ErrorHelper.getErrorMessage(data: data)
+            )
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        }
+    }
+    
+    public func disableRemovePgpKeysRecipients(recipientId: String) async throws -> String {
+        #if DEBUG
+            print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+        #endif
+        let url = URL(string: "\(AddyIo.API_URL_REMOVE_PGP_KEYS_RECIPIENTS)/\(recipientId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "disableRemovePgpKeysRecipients",
+                extra: error.failureURLString
+            )
+            throw error
+        }
+
+        switch httpResponse.statusCode {
+        case 204:
+            return "204"
+        case 401:
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")"
+            )
+
+            createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "disableRemovePgpKeysRecipients",
+                extra: ErrorHelper.getErrorMessage(data: data)
+            )
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        }
+    }
+
+    
+    public func enableRemovePgpSignaturesRecipients(recipientId: String) async throws -> Recipients? {
+        #if DEBUG
+            print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+        #endif
+        let url = URL(string: "\(AddyIo.API_URL_REMOVE_PGP_SIGNATURES_RECIPIENTS)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": recipientId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "enableRemovePgpSignaturesRecipients",
+                extra: error.failureURLString
+            )
+            throw error
+        }
+
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
+            return addyIoData.data
+        case 401:
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")"
+            )
+
+            createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "enableRemovePgpSignaturesRecipients",
+                extra: ErrorHelper.getErrorMessage(data: data)
+            )
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        }
+    }
+    
+    public func disableRemovePgpSignaturesRecipients(recipientId: String) async throws -> String {
+        #if DEBUG
+            print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+        #endif
+        let url = URL(string: "\(AddyIo.API_URL_REMOVE_PGP_SIGNATURES_RECIPIENTS)/\(recipientId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "disableRemovePgpSignaturesRecipients",
+                extra: error.failureURLString
+            )
+            throw error
+        }
+
+        switch httpResponse.statusCode {
+        case 204:
+            return "204"
+        case 401:
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")"
+            )
+
+            createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "disableRemovePgpSignaturesRecipients",
+                extra: ErrorHelper.getErrorMessage(data: data)
+            )
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        }
+    }
+    
 
     public func removeEncryptionKeyRecipient(recipientId: String) async throws -> String {
         #if DEBUG
