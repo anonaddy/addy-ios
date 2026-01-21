@@ -1793,7 +1793,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1827,7 +1827,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1858,7 +1858,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1974,7 +1974,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2008,7 +2008,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2040,7 +2040,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2090,7 +2090,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2123,7 +2123,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2155,7 +2155,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2187,7 +2187,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2353,7 +2353,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2394,7 +2394,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
