@@ -1,5 +1,5 @@
 {
-  "originHash" : "ee1d4c16ac38a711e278ea52995de1223b16c7c7cafdc7f9429a1b35fbde2dc1",
+  "originHash" : "e233c7ef9b8ac9692514b63d8505fd8737d63ead7fdeb124b15e7ddf0e6427a8",
   "pins" : [
     {
       "identity" : "codescanner",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nmdias/FeedKit.git",
       "state" : {
-        "revision" : "7cd3569dac2a82118eb22d8bce48d040ef0d014d",
-        "version" : "10.1.3"
+        "revision" : "66e3122dff80e01c419f76eadb19e410c5c8702a",
+        "version" : "10.3.0"
       }
     },
     {

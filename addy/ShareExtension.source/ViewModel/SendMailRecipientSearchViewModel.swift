@@ -5,9 +5,9 @@
 //  Created by Stijn van de Water on 06/07/2024.
 //
 
-import addy_shared
 import Combine
 import Foundation
+import addy_shared
 
 class SendMailRecipientSearchViewModel: ObservableObject {
     var sortFilterRequest = AliasSortFilterRequest(

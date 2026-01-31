@@ -222,6 +222,7 @@ public class SettingsManager {
       */
 
     public func clearSettingsAndCloseApp() {
+#if os(iOS)
         // Clear shortcuts and badges
         DispatchQueue.main.async {
             UIApplication.shared.shortcutItems = []
@@ -236,6 +237,7 @@ public class SettingsManager {
                 )
             }
         }
+#endif
 
         SettingsManager(encrypted: false).clearAllData()
         SettingsManager(encrypted: true).clearAllData()

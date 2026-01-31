@@ -5,9 +5,9 @@
 //  Created by Stijn van de Water on 18/07/2024.
 //
 
-import addy_shared
 import SwiftUI
 import WidgetKit
+import addy_shared
 
 private func getUserResource() -> UserResource? {
     return CacheHelper.getBackgroundServiceCacheUserResource()

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+public import Combine
 
 public class AppState: ObservableObject {
     public static let shared = AppState() // Shared instance
