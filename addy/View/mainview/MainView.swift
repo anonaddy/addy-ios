@@ -5,6 +5,8 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var mainViewState: MainViewState
+    @EnvironmentObject var connectivity: iOSConnectivityManager
+
     @StateObject private var aliasesViewState = AliasesViewState.shared // Needs to be shared so that filters can be applied from other views
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -122,6 +124,13 @@ struct MainView: View {
                     }
                 )
             }
+        }
+        .sheet(isPresented: $connectivity.showSetupSheet) {
+            NavigationStack {
+                AddyWatchKitSetupBottomSheet()
+                    .environmentObject(connectivity)
+                    .environmentObject(mainViewState)
+            }.presentationDetents([.medium])
         }
         .sheet(isPresented: $isShowingAddApiSheet) {
             NavigationStack {

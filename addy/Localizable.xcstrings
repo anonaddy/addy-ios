@@ -1548,6 +1548,16 @@
         }
       }
     },
+    "confirm_and_setup" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm and setup"
+          }
+        }
+      }
+    },
     "contact_support" : {
       "localizations" : {
         "en" : {
@@ -2336,6 +2346,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dismiss"
+          }
+        }
+      }
+    },
+    "do_not_ask_again" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do not ask again"
           }
         }
       }
@@ -6425,6 +6445,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Protect your real email address using email aliases"
+          }
+        }
+      }
+    },
+    "setup_wearable_app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup Apple Watch app"
+          }
+        }
+      }
+    },
+    "setup_wearable_app_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to setup the addy.io app on %@ with the account %@? The settings will remain on Apple Watch even after resetting the app on this device."
           }
         }
       }

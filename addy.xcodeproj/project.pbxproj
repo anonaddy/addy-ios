@@ -45,6 +45,8 @@
 		048B08842F2E96750032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
 		048B08892F2E96860032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
 		048B088E2F2E96AE0032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
+		048B08CA2F2FE6E90032F025 /* iOSConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B08C92F2FE6E90032F025 /* iOSConnectivityManager.swift */; };
+		048B08CD2F2FE7FD0032F025 /* AddySetupSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */; };
 		8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8001D9D12BEA1E3600AAD10E /* CodeScanner */; };
 		8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003C36A2C1A27D90005D742 /* AppDelegate.swift */; };
 		800E9ABB2CBDB1880014164E /* altsource.json in Resources */ = {isa = PBXBuildFile; fileRef = 800E9AB72CBDB1880014164E /* altsource.json */; };
@@ -340,6 +342,8 @@
 /* Begin PBXFileReference section */
 		048B07F62F2E8D0D0032F025 /* addy_watchkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy_watchkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B08162F2E937C0032F025 /* addy_shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = addy_shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		048B08C92F2FE6E90032F025 /* iOSConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSConnectivityManager.swift; sourceTree = "<group>"; };
+		048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySetupSheet.swift; sourceTree = "<group>"; };
 		8003C36A2C1A27D90005D742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		800E9AB02CBDB1880014164E /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		800E9AB12CBDB1880014164E /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
@@ -602,6 +606,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		048B08CB2F2FE7F30032F025 /* watchkit */ = {
+			isa = PBXGroup;
+			children = (
+				048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */,
+			);
+			path = watchkit;
+			sourceTree = "<group>";
+		};
 		8001DA002BEA515C00AAD10E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1144,6 +1156,7 @@
 		80D4F2D92C17083A00D313EC /* appsettings */ = {
 			isa = PBXGroup;
 			children = (
+				048B08CB2F2FE7F30032F025 /* watchkit */,
 				80A9ABA82CA1DB13009E4CF5 /* DeleteAccountConfirmationView.swift */,
 				806AE69D2C1A1A1600F3CA92 /* features */,
 				806AE6902C19ED0300F3CA92 /* update */,
@@ -1198,6 +1211,7 @@
 		80DCF3A32BF118900022690F /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				048B08C92F2FE6E90032F025 /* iOSConnectivityManager.swift */,
 				809F874E2C29D892002A89C0 /* QuickActionsManager.swift */,
 				80ECA1002C1DA00100788D75 /* BackgroundWorkerHelper.swift */,
 			);
@@ -1693,6 +1707,7 @@
 				80B2FB6E2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift in Sources */,
 				80ECA1012C1DA00100788D75 /* BackgroundWorkerHelper.swift in Sources */,
 				8073C9412C78717600DE3640 /* AccountNotificationsView.swift in Sources */,
+				048B08CD2F2FE7FD0032F025 /* AddySetupSheet.swift in Sources */,
 				809F874F2C29D892002A89C0 /* QuickActionsManager.swift in Sources */,
 				80A9ABA92CA1DB13009E4CF5 /* DeleteAccountConfirmationView.swift in Sources */,
 				805A74552C1F5FC200C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift in Sources */,
@@ -1759,6 +1774,7 @@
 				8058ADB52C32B2470004AF81 /* ChartGridShape.swift in Sources */,
 				8058ADB62C32B2470004AF81 /* Range+Extension.swift in Sources */,
 				8058ADB72C32B2470004AF81 /* ViewPreferenceKey.swift in Sources */,
+				048B08CA2F2FE6E90032F025 /* iOSConnectivityManager.swift in Sources */,
 				8047EA6D2C454F1B00A04D28 /* HomeCardView.swift in Sources */,
 				8058ADBA2C32B2470004AF81 /* Array+Extension.swift in Sources */,
 				8058ADBB2C32B2470004AF81 /* GridOptions.swift in Sources */,
@@ -1916,7 +1932,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Addy-Watchkit-Info.plist";
+				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -2003,7 +2019,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Addy-Watchkit-Info.plist";
+				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -2089,7 +2105,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Addy-Watchkit-Info.plist";
+				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -2175,7 +2191,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Addy-Watchkit-Info.plist";
+				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";

@@ -13,6 +13,7 @@ import SwiftUI
 struct addyApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
+    @StateObject private var connectivity = iOSConnectivityManager()
     @StateObject private var appState = AppState.shared
     @StateObject private var mainViewState = MainViewState.shared // Needs to be shared so that notifications work
     @StateObject private var setupViewState = SetupViewState.shared // Needs to be shared so that notifications work
@@ -22,6 +23,7 @@ struct addyApp: App {
                 if appState.apiKey != nil {
                     MainView()
                         .environmentObject(mainViewState)
+                        .environmentObject(connectivity)
                         .transition(.asymmetric(insertion: AnyTransition.scale(scale: 1.1).combined(with: .opacity), removal: AnyTransition.opacity.animation(.easeInOut(duration: 0.5))))
                         .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
                         .onOpenURL { url in
@@ -36,6 +38,7 @@ struct addyApp: App {
                     SetupView()
                         .environmentObject(appState)
                         .environmentObject(setupViewState)
+                        .environmentObject(connectivity)
                         .transition(.opacity)
                         .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
                         .onOpenURL { url in
