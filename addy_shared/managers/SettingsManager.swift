@@ -58,12 +58,24 @@ public class SettingsManager {
     public init(encrypted: Bool, user: Int = 1) {
         self.user = user
         useKeychain = encrypted
+        
+    #if os(watchOS)
+        // WatchOS Configuration
         #if DEBUG
-            let suiteName = "group.host.stjin.addy.debug"
-
+        let suiteName = "group.host.stjin.addy.debug.watchkitapp"
         #else
-            let suiteName = "group.host.stjin.addy"
+        let suiteName = "group.host.stjin.addy.watchkitapp"
         #endif
+
+    #elseif os(iOS)
+        // iOS Configuration
+        #if DEBUG
+        let suiteName = "group.host.stjin.addy.debug"
+        #else
+        let suiteName = "group.host.stjin.addy"
+        #endif
+    #endif
+        
         keychain.accessGroup = suiteName
 
         if encrypted {

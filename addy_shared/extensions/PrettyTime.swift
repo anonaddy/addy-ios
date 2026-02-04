@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-    func futureDateDisplay() -> String {
+    public func futureDateDisplay() -> String {
         let calendar = Calendar.current
         let minutesUntil = calendar.date(byAdding: .minute, value: 1, to: Date())!
         let hourUntil = calendar.date(byAdding: .hour, value: 1, to: Date())!
@@ -50,7 +50,7 @@ extension Date {
         }
     }
 
-    func aliasRowDateDisplay() -> String {
+    public func aliasRowDateDisplay() -> String {
         let calendar = Calendar.current
         let currentDate = Date()
 

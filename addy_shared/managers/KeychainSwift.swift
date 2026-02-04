@@ -202,6 +202,11 @@ class KeychainSwift {
         lastResultCode = withUnsafeMutablePointer(to: &result) {
             SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
         }
+        
+        #if DEBUG
+        var test = lastResultCode
+        print(test)
+        #endif
 
         if lastResultCode == noErr {
             return result as? Data

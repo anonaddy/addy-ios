@@ -23,6 +23,7 @@
 
     },
     "1_day_ago" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1773,6 +1774,7 @@
       }
     },
     "d_days_ago" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1849,6 +1851,7 @@
       }
     },
     "d_months_ago" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4005,6 +4008,7 @@
       }
     },
     "just_now" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4026,6 +4030,7 @@
       }
     },
     "last_d_at" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
