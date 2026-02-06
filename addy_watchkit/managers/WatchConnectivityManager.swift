@@ -25,7 +25,6 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     override init() {
         super.init()
         setupSession()
-        startPeriodicNagging()
     }
     
     private func setupSession() {
@@ -57,14 +56,10 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
 #endif
                 
                 if request_id == self.requestId {
-                    // TODO: This is not working
                     let encryptedSettingsManager = SettingsManager(encrypted: true)
                     encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.apiKey, string: apiKey)
                     encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.baseUrl, string: baseUrl)
-                    
-                    let test = encryptedSettingsManager.getSettingsString(key: SettingsManager.Prefs.apiKey) ?? "nope"
-                    
-                    
+                    replyHandler(["setup_app_confirm": true])
                     DispatchQueue.main.async {
                         self.onSetupComplete?(apiKey)
                     }
@@ -93,21 +88,66 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         DispatchQueue.main.async {
             self.isReachable = session.isReachable
+        }
+    }
+    
+    public func startPeriodicNagging() {
+        retryTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
             if self.isReachable {
-                self.nagForSetup() // Send immediately when connected
+                if self.shouldNagiPhone {
+                    self.nagForSetup()
+                }
             }
         }
     }
     
-    private func startPeriodicNagging() {
-        retryTimer = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: true) { _ in
-            if self.shouldNagiPhone {
-                self.nagForSetup()
+    public func sendLogsToDevice(logs: [Logs]?,
+                                 replyHandler: @escaping (Bool) -> Void,
+                                 errorHandler: @escaping (Error) -> Void
+    ){
+        WCSession.default.sendMessage(["show_logs": true, "logs": logs ?? ""], replyHandler: { reply in
+            DispatchQueue.main.async {
+                if reply["show_logs_confirm"] as? Bool == true {
+                    replyHandler(true)
+                }
             }
-        }
+        }, errorHandler: { error in
+            LoggingHelper().addLog(
+                importance: LogImportance.warning,
+                error: "Error sending logs to watch: \(error.localizedDescription)",
+                method: "sendLogsToDevice",
+                extra: nil
+            )
+            DispatchQueue.main.async {
+                errorHandler(error)
+            }
+        })
     }
     
-    private func nagForSetup() {
+    public func showAliasOnWatch(aliasId: String,
+                                 replyHandler: @escaping (Bool) -> Void,
+                                 errorHandler: @escaping (Error) -> Void
+    ){
+        WCSession.default.sendMessage(["show_alias": true, "alias_id": aliasId], replyHandler: { reply in
+            DispatchQueue.main.async {
+                if reply["show_alias_confirm"] as? Bool == true {
+                    replyHandler(true)
+                }
+            }
+        }, errorHandler: { error in
+            LoggingHelper().addLog(
+                importance: LogImportance.warning,
+                error: "Error opening alias on watch: \(error.localizedDescription)",
+                method: "showAliasOnWatch",
+                extra: nil
+            )
+            DispatchQueue.main.async {
+                errorHandler(error)
+            }
+        })
+    }
+    
+    public func nagForSetup() {
         guard WCSession.default.isReachable else { return }
         #if DEBUG
         print("🐛 Nagging iPhone for setup...")
@@ -117,7 +157,7 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         // Send requestSetup to iPhone, including watchName and a unique ID for later confirmation (to make sure the incoming configuration is really meant for this Watch
         WCSession.default.sendMessage(["request_setup": true, "watch_name": watchName, "request_id": UUID().uuidString], replyHandler: { reply in
             DispatchQueue.main.async {
-                if reply["setup_request_received"] as? Bool == true {
+                if reply["request_setup_confirm"] as? Bool == true {
                     if let requestId = reply["request_id"] as? String {
                         // setupRequest was confirmed by iPhone, we can stop nagging now, and we know the unique ID to listen to for further information
 #if DEBUG

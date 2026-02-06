@@ -63,18 +63,17 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
                 self.watchName = watchName
                 self.requestId = requestId
                 
-                replyHandler(["setup_request_received": true, "request_id": requestId])
+                replyHandler(["request_setup_confirm": true, "request_id": requestId])
                 
             }
             
-            if message["open_alias"] as? Bool == true {
-                // Trigger your open alias logic here
-                //self.showAliasSheet = true
+            if message["show_alias"] as? Bool == true {
+                replyHandler(["show_alias_confirm": true])
             }
-
-            if message["reset"] as? Bool == true {
+            
+            if message["show_logs"] as? Bool == true {
                 // Trigger your reset logic here
-                //self.performReset()
+                replyHandler(["show_logs_confirm": true])
             }
         }
     }

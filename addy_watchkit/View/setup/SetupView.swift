@@ -25,7 +25,7 @@ struct SetupView: View {
                     .resizable()
                     .frame(width: 56, height: 56)
                     .onTapGesture {
-                        connectivity.shouldNagiPhone = true
+                        connectivity.nagForSetup()
                     }
 
                 VStack(spacing: 6) {
@@ -40,9 +40,10 @@ struct SetupView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 20)
             }
-            .padding(.top, 40)
+            .padding(.top, 35)
             .frame(minHeight: 300)
         }.onAppear {
+            connectivity.startPeriodicNagging()
             connectivity.onSetupComplete = { apiKey in
                 self.appState.apiKey = apiKey
             }

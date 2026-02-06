@@ -9,117 +9,221 @@ import SwiftUI
 import addy_shared
 
 struct AliasesView: View {
-    // Inject your manager/viewmodel
-        @StateObject private var viewModel = AliasViewModel()
-        
-        var body: some View {
-            NavigationStack {
-                List {
-                    // Action Row (Top "Add/Manage" button equivalent)
-                    Section {
-                        Button(action: {
-                            // Handle "AliasActionRow" click (e.g., create new)
-                        }) {
-                            HStack {
-                                Image(systemName: "plus.circle.fill")
-                                    .foregroundStyle(.blue)
-                                Text("Create New Alias")
+    @StateObject private var aliasesViewModel = AliasViewModel()
+    @StateObject private var favoritesHelper = FavoriteAliasHelper()
+    @State private var showingSettings = false
+    @EnvironmentObject var appState: AppState
+
+
+    // Local state for quickly checking favorite status
+    @State private var favoriteIds: Set<String> = []
+
+    var body: some View {
+        NavigationStack {
+            List {
+
+                if aliasesViewModel.isLoading {
+                    loadingView
+                } else if let aliasList = aliasesViewModel.aliasList {
+                    if aliasList.data.isEmpty {
+                        noAliasesView
+                    } else {
+                        
+                        if !favoriteIds.isEmpty {
+                            if let bulkAliasList = aliasesViewModel.bulkAliasList {
+                                if !bulkAliasList.data.isEmpty {
+                                    Section("aliases_favorite_aliases") {
+                                        ForEach(bulkAliasList.data) { alias in
+                                            AliasRow(
+                                                alias: alias,
+                                                isFavorite: favoriteIds.contains(alias.id)
+                                            )
+                                            //                                .swipeActions(edge: .leading) {
+                                            //                                    Button {
+                                            //                                        toggleFavorite(alias: alias)
+                                            //                                    } label: {
+                                            //                                        Label("favorite", systemImage: "star")
+                                            //                                    }
+                                            //                                    .tint(.yellow)
+                                            //                                }
+                                        }
+                                    }
+                                }
+                                
                             }
                         }
-                    }
-                    
-                    // The Alias Items
-                    Section("Active Aliases") {
-                        if viewModel.isLoading {
-                            ProgressView()
-                        } else if viewModel.aliases.isEmpty {
-                            Text("No aliases found")
-                                .foregroundStyle(.secondary)
-                        } else {
-                            ForEach(viewModel.aliases) { alias in
+                        
+                        
+                        Section("aliases_recent_aliases") {
+                            ForEach(aliasList.data) { alias in
                                 AliasRow(
                                     alias: alias,
-                                    isFavorite: viewModel.favoriteAliases.contains(alias.id)
+                                    isFavorite: favoriteIds.contains(alias.id)
                                 )
-                                .swipeActions(edge: .leading) {
-                                    Button {
-                                        viewModel.toggleFavorite(id: alias.id)
-                                    } label: {
-                                        Label("Favorite", systemImage: "star")
-                                    }
-                                    .tint(.yellow)
-                                }
+//                                .swipeActions(edge: .leading) {
+//                                    Button {
+//                                        toggleFavorite(alias: alias)
+//                                    } label: {
+//                                        Label("favorite", systemImage: "star")
+//                                    }
+//                                    .tint(.yellow)
+//                                }
                             }
                         }
                     }
-                }
-                .navigationTitle("Aliases")
-                // watchOS 10: Colored background for the entire list container
-                .containerBackground(Color.gray.opacity(0.1).gradient, for: .navigation)
-                .onAppear {
-                    viewModel.fetchAliases()
-                }
-            }
-        }
-    }
-
-    // Subview for the individual row (Equivalent to your Chip)
-    struct AliasRow: View {
-        let alias: Aliases
-        let isFavorite: Bool
-        
-        var body: some View {
-            // NavigationLink gives you the "Card/Chip" tap effect automatically in List
-            NavigationLink(value: alias) {
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack {
-                        // Star Icon
-                        Image(systemName: isFavorite ? "star.fill" : "star")
-                            .font(.system(size: 16))
-                            .foregroundStyle(isFavorite ? .yellow : .gray)
-                        
-                        Text(alias.email)
-                            .font(.headline)
-                            .lineLimit(1)
-                            .truncationMode(.middle)
+                } else {
+                    if aliasesViewModel.networkError != "" {
+                        errorView
+                    } else {
+                        loadingView
                     }
-                    
-                    Text(alias.description ?? createdText(alias.created_at))
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
                 }
             }
-            // Navigation destination would be defined in the parent NavigationStack
+            .containerBackground(Color.gray.opacity(0.1).gradient, for: .navigation)
             .navigationDestination(for: Aliases.self) { alias in
                 ManageAliasView(alias: alias)
             }
-        }
-        
-        private func localizedDate(_ dateString: String) -> String {
-            do {
-                return try DateTimeUtils
-                    .convertStringToLocalTimeZoneDate(dateString)
-                    .aliasRowDateDisplay()
-            } catch {
-                return DateTimeUtils.convertStringToLocalTimeZoneString(dateString)
+            .navigationDestination(isPresented: $showingSettings) {
+                SettingsView()
+                    .environmentObject(appState)
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        self.showingSettings = true
+                    } label: {
+                        Image(systemName:"gear")
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        // Perform an action here.
+                    } label: {
+                        Image(systemName:"plus")
+                    }
+                }
+            }
+            .navigationTitle("Aliases")
+            .onAppear {
+                // Initialize favorites state from helper
+                if let stored = favoritesHelper.getFavoriteAliases() {
+                    favoriteIds = Set(stored)
+                }
+                
+                Task {
+                    // Load aliases
+                    await aliasesViewModel.getAliases(excludeAliases: favoriteIds.sorted())
+                    
+                    if !favoriteIds.isEmpty {
+                        await aliasesViewModel.bulkGetAlias(aliases: favoriteIds.sorted())
+                    }
+                }
+                
             }
         }
-        
-        private func createdText(_ createdAt: String) -> String {
-            String(format: NSLocalizedString("created_at_s", comment: ""), localizedDate(createdAt))
-        }
-
     }
 
-    // Placeholder for Detail View
-    struct ManageAliasView: View {
-        let alias: Aliases
-        var body: some View {
-            Text("Manage \(alias.email)")
-                .navigationTitle("Manage")
+    // MARK: - Subviews
+
+    private var loadingView: some View {
+        VStack(alignment: .center, spacing: 0) {
+            Spacer()
+            ContentUnavailableView {
+                Label(String(localized: "obtaining_aliases"), systemImage: "globe")
+            } description: {
+                Text(String(localized: "obtaining_desc"))
+            }
+
+            ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: 50)
+            Spacer()
         }
     }
+
+    private var noAliasesView: some View {
+        ContentUnavailableView {
+            Label(String(localized: "no_aliases"), systemImage: "at.badge.plus")
+        } description: {
+            Text(String(localized: "no_aliases_desc"))
+        }
+    }
+
+    private var errorView: some View {
+        ContentUnavailableView {
+            Label(String(localized: "something_went_wrong_retrieving_aliases"), systemImage: "wifi.slash")
+        } description: {
+            Text(aliasesViewModel.networkError)
+        } actions: {
+            Button(String(localized: "try_again")) {
+                Task {
+                    await aliasesViewModel.getAliases(excludeAliases: favoriteIds.sorted())
+                    await aliasesViewModel.bulkGetAlias(aliases: favoriteIds.sorted())
+                }
+            }
+        }
+    }
+
+//    // MARK: - Favorites
+//
+//    private func toggleFavorite(alias: Aliases) {
+//        if favoriteIds.contains(alias.id) {
+//            favoritesHelper.removeAliasAsFavorite(alias.id)
+//            favoriteIds.remove(alias.id)
+//        } else {
+//            if favoritesHelper.addAliasAsFavorite(alias.id) {
+//                favoriteIds.insert(alias.id)
+//            } else {
+//                // TODO: Show error to user if needed
+//            }
+//        }
+//    }
+}
+
+// MARK: - Row
+
+struct AliasRow: View {
+    let alias: Aliases
+    let isFavorite: Bool
+
+    var body: some View {
+        NavigationLink(value: alias) {
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Image(systemName: isFavorite ? "star.fill" : "star")
+                        .font(.system(size: 16))
+                        .foregroundStyle(isFavorite ? .yellow : .gray)
+
+                    Text(alias.email)
+                        .font(.headline)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                }
+
+                Text(alias.description ?? createdText(alias.created_at))
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+            }
+        }
+    }
+
+    private func localizedDate(_ dateString: String) -> String {
+        do {
+            return try DateTimeUtils
+                .convertStringToLocalTimeZoneDate(dateString)
+                .aliasRowDateDisplay()
+        } catch {
+            return DateTimeUtils.convertStringToLocalTimeZoneString(dateString)
+        }
+    }
+
+    private func createdText(_ createdAt: String) -> String {
+        String(
+            format: NSLocalizedString("created_at_s", comment: ""),
+            localizedDate(createdAt)
+        )
+    }
+}
 
 #Preview {
     AliasesView()

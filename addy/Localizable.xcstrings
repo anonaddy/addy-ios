@@ -3027,15 +3027,7 @@
       }
     },
     "error_edit_active" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "An error occurred while changing the active state"
-          }
-        }
-      }
+
     },
     "error_edit_can_login" : {
       "extractionState" : "manual",

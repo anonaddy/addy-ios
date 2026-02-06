@@ -32,6 +32,8 @@ public class SettingsManager {
         case startupPage
 
         // WatchOS
+        case watchosSkipAliasCreateGuide
+        case watchosFavoriteAliases
         case backgroundServiceCacheFavoriteAliasesData
         case backgroundServiceCacheLastUpdatedAliasesData
 

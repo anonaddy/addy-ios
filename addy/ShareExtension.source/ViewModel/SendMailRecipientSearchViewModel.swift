@@ -7,7 +7,7 @@
 
 import Combine
 import Foundation
-import addy_shared
+@preconcurrency import addy_shared
 
 class SendMailRecipientSearchViewModel: ObservableObject {
     var sortFilterRequest = AliasSortFilterRequest(

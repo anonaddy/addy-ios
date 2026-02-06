@@ -29,6 +29,7 @@ struct addyApp: App {
                 if appState.apiKey != nil {
                     AliasesView()
                         .environmentObject(mainViewState)
+                        .environmentObject(appState)
                 } else {
                     SetupView()
                         .environmentObject(appState)

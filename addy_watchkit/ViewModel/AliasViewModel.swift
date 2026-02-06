@@ -8,31 +8,100 @@
 import Foundation
 import Combine
 import addy_shared
+import SwiftUI
 
 
 class AliasViewModel: ObservableObject {
-    @Published var aliases: [Aliases] = []
-    @Published var favoriteAliases: Set<String> = [] // Using Set for fast lookup
+    @Published var aliasList: AliasesArray? = nil
+    @Published var bulkAliasList: BulkAliasesArray? = nil
     @Published var isLoading = false
+    @Published var networkError: String = ""
+
     
-    func fetchAliases() {
-        isLoading = true
-        // Simulate Network Call
-//            self.aliases = [
-//                Aliases(from: Aliases.self as! Decoder, id: "1", email: "test@anonaddy.com", description: nil, createdAt: Date()),
-//                Aliases(id: "2", email: "shop@anonaddy.com", description: "Shopping", createdAt: Date().addingTimeInterval(-86400))
-//            ]
-            self.favoriteAliases = ["1"]
-            self.isLoading = false
+    var aliasSortFilterRequest = AliasSortFilterRequest(
+        onlyActiveAliases: true,
+        onlyDeletedAliases: false,
+        onlyInactiveAliases: false,
+        onlyWatchedAliases: false,
+        sort: "updated_at",
+        sortDesc: true,
+        filter: nil
+    )
+    
+    func getAliases(excludeAliases: [String]? = nil) async {
+            DispatchQueue.main.async {
+                self.isLoading = true
+                self.networkError = ""
+            }
+
+            let networkHelper = NetworkHelper()
+
+                do {
+                    let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, size: 15)
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+
+                        if let aliasArray = aliasArray {
+                            var aliases = aliasArray
+                            var aliases2 = aliases.data
+                            if let excludeAliases = excludeAliases {
+                                // Remove matching items (no assignment needed)
+                                aliases2.removeAll { excludeAliases.contains($0.id) }
+                            }
+                            // Apply changes back
+                            aliases.data = aliases2
+                            self.aliasList = aliases  // Fixed: assign modified aliases, not original
+                        } else {
+                            self.networkError = String(
+                                format: String(localized: "details_about_error_s"),
+                                "\(String(localized: "error_unknown_refer_to_logs"))"
+                            )
+                        }
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                        self.networkError = error.localizedDescription
+                    }
+                    LoggingHelper().addLog(
+                        importance: LogImportance.critical,
+                        error: error.localizedDescription,
+                        method: "getAliases", extra: nil
+                    )
+                }
+            
         
     }
     
-    func toggleFavorite(id: String) {
-        if favoriteAliases.contains(id) {
-            favoriteAliases.remove(id)
-        } else {
-            favoriteAliases.insert(id)
-        }
-        // Sync with cache/backend here
+    func bulkGetAlias(aliases: [String]) async {
+            DispatchQueue.main.async {
+                self.isLoading = true
+                self.networkError = ""
+            }
+
+            let networkHelper = NetworkHelper()
+
+                do {
+                    let bulkAliasList = try await networkHelper.bulkGetAlias(aliases: aliases)
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+
+                        if let bulkAliasList = bulkAliasList {
+                            self.bulkAliasList = bulkAliasList
+                        } else {
+                            self.networkError = String(format: String(localized: "details_about_error_s"), "\(String(localized: "error_unknown_refer_to_logs"))")
+                        }
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                        self.networkError = error.localizedDescription
+                    }
+                    LoggingHelper().addLog(
+                        importance: LogImportance.critical,
+                        error: error.localizedDescription,
+                        method: "bulkGetAlias", extra: nil
+                    )
+                }
     }
 }
