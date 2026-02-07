@@ -73,6 +73,9 @@ struct CreateNewAliasIntent: AppIntent {
         case random_characters
         case uuid
         case random_words
+        case random_male_name
+        case random_female_name
+        case random_noun
 
         static var typeDisplayName: LocalizedStringResource = "format"
 
@@ -82,6 +85,9 @@ struct CreateNewAliasIntent: AppIntent {
             .random_characters: "domains_format_random_characters",
             .uuid: "domains_format_uuid",
             .random_words: "domains_format_random_words",
+            .random_male_name: "domains_format_random_male_name",
+            .random_female_name: "domains_format_random_female_name",
+            .random_noun: "domains_format_random_noun",
         ]
     }
 
