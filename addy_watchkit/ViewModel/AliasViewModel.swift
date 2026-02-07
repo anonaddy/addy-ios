@@ -53,8 +53,8 @@ class AliasViewModel: ObservableObject {
                             self.aliasList = aliases  // Fixed: assign modified aliases, not original
                         } else {
                             self.networkError = String(
-                                format: String(localized: "details_about_error_s"),
-                                "\(String(localized: "error_unknown_refer_to_logs"))"
+                                format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)),
+                                "\(String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self)))"
                             )
                         }
                     }
@@ -89,7 +89,7 @@ class AliasViewModel: ObservableObject {
                         if let bulkAliasList = bulkAliasList {
                             self.bulkAliasList = bulkAliasList
                         } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s"), "\(String(localized: "error_unknown_refer_to_logs"))")
+                            self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self)))")
                         }
                     }
                 } catch {

@@ -37,7 +37,7 @@ struct LogViewerView: View {
                         }
                     } header: {
                         HStack(spacing: 6) {
-                            Text(String(localized: "logs"))
+                            Text(String(localized: "logs", bundle: Bundle(for: SharedData.self)))
 
                             if logsViewModel.isLoading {
                                 ProgressView()
@@ -66,7 +66,7 @@ struct LogViewerView: View {
                     ContentUnavailableView {
                         Label(String(localized: "obtaining_logs"), systemImage: "magnifyingglass")
                     } description: {
-                        Text(String(localized: "obtaining_desc"))
+                        Text(String(localized: "obtaining_desc", bundle: Bundle(for: SharedData.self)))
                     }
 
                     ProgressView()
@@ -75,7 +75,7 @@ struct LogViewerView: View {
                 }
             }
         })
-        .navigationTitle(String(localized: "logs"))
+        .navigationTitle(String(localized: "logs", bundle: Bundle(for: SharedData.self)))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .destructiveAction) {

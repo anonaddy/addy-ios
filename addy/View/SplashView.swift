@@ -36,7 +36,7 @@ struct SplashView: View {
         }
         .alert(isPresented: $isShowingDetailedErrorAlert, content: {
             Alert(
-                title: Text(String(localized: "error")), message: Text(detailedError ?? String(localized: "unknown"))
+                title: Text(String(localized: "error", bundle: Bundle(for: SharedData.self))), message: Text(detailedError ?? String(localized: "unknown"))
             )
         })
         .sheet(isPresented: $isPresentUnsupportedVersionBottomDialog, onDismiss: {
@@ -112,7 +112,7 @@ struct SplashView: View {
                             loadDataAndStartApp()
 
                         }, style: AddyButtonStyle()) {
-                            Text(String(localized: "try_again")).foregroundColor(Color.white)
+                            Text(String(localized: "try_again", bundle: Bundle(for: SharedData.self))).foregroundColor(Color.white)
                         }
 
                         AddyButton(action: {
@@ -120,7 +120,7 @@ struct SplashView: View {
                             settingsManager.clearSettingsAndCloseApp()
 
                         }, style: AddyButtonStyle(buttonStyle: .destructive)) { // TODO: Make red
-                            Text(String(localized: "reset_app")).foregroundColor(Color.white)
+                            Text(String(localized: "reset_app", bundle: Bundle(for: SharedData.self))).foregroundColor(Color.white)
                         }
                     }.padding()
 

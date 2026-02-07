@@ -149,7 +149,7 @@ struct AddAliasBottomSheet: View {
                     .siriTipViewStyle(.automatic)
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
         }
-        .navigationTitle(String(localized: "add_alias")).pickerStyle(.navigationLink)
+        .navigationTitle(String(localized: "add_alias", bundle: Bundle(for: SharedData.self))).pickerStyle(.navigationLink)
         .task {
             if domains.isEmpty {
                 await loadDomains()
@@ -174,7 +174,7 @@ struct AddAliasBottomSheet: View {
                 Button {
                     dismiss()
                 } label: {
-                    Label(String(localized: "cancel"), systemImage: "xmark")
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
             }
         })

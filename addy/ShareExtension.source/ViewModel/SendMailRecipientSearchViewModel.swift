@@ -89,7 +89,7 @@ class SendMailRecipientSearchViewModel: ObservableObject {
             } catch {
                 DispatchQueue.main.async {
                     self.isLoading = false
-                    self.networkError = String(localized: "something_went_wrong_retrieving_aliases")
+                    self.networkError = String(localized: "something_went_wrong_retrieving_aliases", bundle: Bundle(for: SharedData.self))
                 }
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,

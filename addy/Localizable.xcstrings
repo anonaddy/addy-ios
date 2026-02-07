@@ -22,39 +22,6 @@
     "0" : {
 
     },
-    "1_day_ago" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "1 day ago"
-          }
-        }
-      }
-    },
-    "1_hour_ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "1 hour ago"
-          }
-        }
-      }
-    },
-    "1_month_ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "1 month ago"
-          }
-        }
-      }
-    },
     "about_this_app" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -188,15 +155,7 @@
       }
     },
     "add_alias" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add alias"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "add_alias_desc" : {
       "extractionState" : "manual",
@@ -494,26 +453,10 @@
       }
     },
     "alias_activated" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alias activated"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "alias_deactivated" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alias deactivated"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "alias_edit_recipients_desc" : {
       "extractionState" : "manual",
@@ -580,26 +523,10 @@
       }
     },
     "alias_status_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Use this alias for mail forwarding"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "aliases" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aliases"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "aliases_d" : {
       "extractionState" : "manual",
@@ -1320,14 +1247,7 @@
       }
     },
     "cancel" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancel"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "cannot_reply_send" : {
       "extractionState" : "manual",
@@ -1484,15 +1404,7 @@
       }
     },
     "close" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Close"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "code" : {
       "extractionState" : "manual",
@@ -1668,15 +1580,7 @@
       }
     },
     "crafted_with_love_and_privacy" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Crafted with love and privacy"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "create" : {
       "localizations" : {
@@ -1710,14 +1614,7 @@
       }
     },
     "created_at_s" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Created %@"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "credentials" : {
       "localizations" : {
@@ -1773,28 +1670,6 @@
         }
       }
     },
-    "d_days_ago" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d days ago"
-          }
-        }
-      }
-    },
-    "d_days_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d days from now on"
-          }
-        }
-      }
-    },
     "d_forwarded" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1802,72 +1677,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ forwarded"
-          }
-        }
-      }
-    },
-    "d_hours_ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d hours ago"
-          }
-        }
-      }
-    },
-    "d_hrs_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d hours from now on"
-          }
-        }
-      }
-    },
-    "d_min_ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d minutes ago"
-          }
-        }
-      }
-    },
-    "d_min_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d min from now on"
-          }
-        }
-      }
-    },
-    "d_months_ago" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d months ago"
-          }
-        }
-      }
-    },
-    "d_months_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d months from now on"
           }
         }
       }
@@ -1883,28 +1692,6 @@
         }
       }
     },
-    "d_sec_ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d seconds ago"
-          }
-        }
-      }
-    },
-    "d_sec_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d seconds from now on"
-          }
-        }
-      }
-    },
     "d_sent" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1912,28 +1699,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ sent"
-          }
-        }
-      }
-    },
-    "d_weeks_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d weeks from now on"
-          }
-        }
-      }
-    },
-    "d_years_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d year(s) from now on"
           }
         }
       }
@@ -2311,15 +2076,7 @@
       }
     },
     "details_about_error_s" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Details about the error:\n%@"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "dev_base_url" : {
       "extractionState" : "manual",
@@ -2888,15 +2645,7 @@
       }
     },
     "error" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "error_adding_alias" : {
       "localizations" : {
@@ -3027,7 +2776,7 @@
       }
     },
     "error_edit_active" : {
-
+      "comment" : "MOVED TO SHARED"
     },
     "error_edit_can_login" : {
       "extractionState" : "manual",
@@ -3172,15 +2921,7 @@
       }
     },
     "error_unknown_refer_to_logs" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error unknown, please refer to the app logs for more information about this error."
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "failed_deliveries" : {
       "extractionState" : "manual",
@@ -3999,17 +3740,6 @@
         }
       }
     },
-    "just_now" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Just now"
-          }
-        }
-      }
-    },
     "last_blocked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4017,17 +3747,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Last blocked"
-          }
-        }
-      }
-    },
-    "last_d_at" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "last %@ at %@"
           }
         }
       }
@@ -4250,15 +3969,7 @@
       }
     },
     "logs" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Logs"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "manage" : {
       "extractionState" : "manual",
@@ -4545,15 +4256,7 @@
       }
     },
     "no_aliases" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nothing to see here"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "no_aliases_desc" : {
       "extractionState" : "manual",
@@ -4972,26 +4675,10 @@
       }
     },
     "obtaining_aliases" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Obtaining your aliases"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "obtaining_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This shouldn't take long…"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "obtaining_domains" : {
       "extractionState" : "manual",
@@ -5846,15 +5533,7 @@
       }
     },
     "reset_app" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reset app"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "reset_app_anyways" : {
       "extractionState" : "manual",
@@ -6293,15 +5972,7 @@
       }
     },
     "settings" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Settings"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "setup_api_key" : {
       "extractionState" : "manual",
@@ -6575,14 +6246,7 @@
       }
     },
     "something_went_wrong_retrieving_aliases" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Something went wrong retrieving failed aliases"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "something_went_wrong_retrieving_domains" : {
       "localizations" : {
@@ -6925,15 +6589,7 @@
       }
     },
     "store_logs" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Store logs"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "store_logs_desc" : {
       "extractionState" : "manual",
@@ -7243,15 +6899,7 @@
       }
     },
     "try_again" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Try again"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "turn_PGP_encryption_off" : {
       "extractionState" : "manual",
@@ -7265,15 +6913,7 @@
       }
     },
     "understood" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Understood"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "unknown" : {
       "extractionState" : "manual",
@@ -7990,17 +7630,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Colorful background"
-          }
-        }
-      }
-    },
-    "yesterday_at" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "yesterday at %@"
           }
         }
       }

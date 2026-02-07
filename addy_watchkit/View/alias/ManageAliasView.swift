@@ -49,8 +49,8 @@ public struct ManageAliasView: View {
                 
             Toggle(isOn: $isAliasActive) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(isAliasActive ? String(localized: "alias_activated") : String(localized: "alias_deactivated"))
-                    Text(isChangingActivationStatus ? String(localized: "changing_status") : String(localized: "alias_status_desc"))
+                    Text(isAliasActive ? String(localized: "alias_activated", bundle: Bundle(for: SharedData.self)) : String(localized: "alias_deactivated", bundle: Bundle(for: SharedData.self)))
+                    Text(isChangingActivationStatus ? String(localized: "changing_status") : String(localized: "alias_status_desc", bundle: Bundle(for: SharedData.self)))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -117,10 +117,10 @@ public struct ManageAliasView: View {
             isChangingActivationStatus = false
             isAliasActive = false
             
-            let okAction = WKAlertAction(title: String(localized: "close"), style: .default) {  }
+            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
             WKInterfaceDevice.current().play(.failure)
             WKExtension.shared().visibleInterfaceController?.presentAlert(
-                withTitle: String(localized: "error_edit_active"),
+                withTitle: String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self)),
                 message: error.localizedDescription,
                 preferredStyle: .alert,
                 actions: [okAction]
@@ -136,10 +136,10 @@ public struct ManageAliasView: View {
                 isChangingActivationStatus = false
                 isAliasActive = false
             } else {
-                let okAction = WKAlertAction(title: String(localized: "close"), style: .default) {  }
+                let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
                 WKInterfaceDevice.current().play(.failure)
                 WKExtension.shared().visibleInterfaceController?.presentAlert(
-                    withTitle: String(localized: "error_edit_active"),
+                    withTitle: String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self)),
                     message: result,
                     preferredStyle: .alert,
                     actions: [okAction]
@@ -150,10 +150,10 @@ public struct ManageAliasView: View {
             isChangingActivationStatus = false
             isAliasActive = true
             
-            let okAction = WKAlertAction(title: String(localized: "close"), style: .default) {  }
+            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
             WKInterfaceDevice.current().play(.failure)
             WKExtension.shared().visibleInterfaceController?.presentAlert(
-                withTitle: String(localized: "error_edit_active"),
+                withTitle: String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self)),
                 message: error.localizedDescription,
                 preferredStyle: .alert,
                 actions: [okAction]
@@ -168,10 +168,10 @@ public struct ManageAliasView: View {
             if (!favoritesHelper.addAliasAsFavorite(alias.id)){
                 self.isAliasFavorite = false
                 
-                let okAction = WKAlertAction(title: String(localized: "close"), style: .default) {  }
+                let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
                 WKInterfaceDevice.current().play(.failure)
                 WKExtension.shared().visibleInterfaceController?.presentAlert(
-                    withTitle: String(localized: "error"),
+                    withTitle: String(localized: "error", bundle: Bundle(for: SharedData.self)),
                     message: String(localized: "max_favorites_reached"),
                     preferredStyle: .alert,
                     actions: [okAction]
@@ -193,7 +193,7 @@ public struct ManageAliasView: View {
             DispatchQueue.main.async {
                 self.isSendingAliasToDevice = false
                 
-                let successAction = WKAlertAction(title: String(localized: "close") , style: .default) {  }
+                let successAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)) , style: .default) {  }
                 WKInterfaceDevice.current().play(.success)
                 WKExtension.shared().visibleInterfaceController?.presentAlert(
                     withTitle: String(localized: "success"),
@@ -212,10 +212,10 @@ public struct ManageAliasView: View {
                 self.isSendingAliasToDevice = false
                 
                 
-                let okAction = WKAlertAction(title: String(localized: "close"), style: .default) {  }
+                let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
                 WKInterfaceDevice.current().play(.failure)
                 WKExtension.shared().visibleInterfaceController?.presentAlert(
-                    withTitle: String(localized: "error"),
+                    withTitle: String(localized: "error", bundle: Bundle(for: SharedData.self)),
                     message: error.localizedDescription,
                     preferredStyle: .alert,
                     actions: [okAction]

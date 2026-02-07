@@ -58,7 +58,7 @@ struct MailToActionSheet: View {
                         if openedThroughShareSheet {
                             $0.toolbar {
                                 ToolbarItem(placement: .cancellationAction) {
-                                    Button(String(localized: "cancel")) {
+                                    Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self))) {
                                         self.close()
                                     }
                                 }
@@ -251,7 +251,7 @@ struct MailToActionSheet: View {
             }
 
         } catch {
-            errorTitle = String(localized: "something_went_wrong_retrieving_aliases")
+            errorTitle = String(localized: "something_went_wrong_retrieving_aliases", bundle: Bundle(for: SharedData.self))
             errorMessage = error.localizedDescription
         }
     }

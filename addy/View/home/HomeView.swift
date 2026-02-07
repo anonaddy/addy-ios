@@ -105,7 +105,7 @@ struct HomeView: View {
                             }
 
                             VStack(alignment: .leading, spacing: 4) {
-                                Text(String(localized: "aliases"))
+                                Text(String(localized: "aliases", bundle: Bundle(for: SharedData.self)))
                                     .fontWeight(.semibold)
                                     .opacity(0.60)
                                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))

@@ -62,10 +62,10 @@ struct MainView: View {
             }
             .navigationTitle(String(localized: "addyio_locked"))
             .alert(String(localized: "authentication_splash_error_unavailable"), isPresented: $showBiometricsAlert) {
-                Button(String(localized: "try_again")) {
+                Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) { authenticate() }
                 }
-                Button(String(localized: "reset_app"), role: .destructive) {
+                Button(String(localized: "reset_app", bundle: Bundle(for: SharedData.self)), role: .destructive) {
                     SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 }
             }

@@ -124,7 +124,7 @@ struct RegistrationFormBottomSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "cancel"), systemImage: "xmark")
+                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                     }
                 }
             })
@@ -134,7 +134,7 @@ struct RegistrationFormBottomSheet: View {
             case .error:
                 return Alert(title: Text(String(localized: "registration_register")), message: Text(alertMessage))
             case .completionMessage:
-                return Alert(title: Text(String(localized: "registration_register")), message: Text(alertMessage), dismissButton: .default(Text(String(localized: "understood"))) {
+                return Alert(title: Text(String(localized: "registration_register")), message: Text(alertMessage), dismissButton: .default(Text(String(localized: "understood", bundle: Bundle(for: SharedData.self)))) {
                     self.dismiss()
                     showOnboarding = false
                 })

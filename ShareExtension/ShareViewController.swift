@@ -138,7 +138,7 @@ class ShareViewController: UIViewController {
         let alert = UIAlertController(title: String(localized: "shareviewcontroller_pending_url_scheduled"), message: String(localized: "shareviewcontroller_pending_url_scheduled_desc"), preferredStyle: .alert)
 
         // Add an action to the alert
-        alert.addAction(UIAlertAction(title: String(localized: "understood"), style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: String(localized: "understood", bundle: Bundle(for: SharedData.self)), style: .default, handler: { _ in
             self.close()
         }))
 
@@ -153,7 +153,7 @@ class ShareViewController: UIViewController {
         let alert = UIAlertController(title: String(localized: "shareviewcontroller_pending_alias_scheduled"), message: String(localized: "shareviewcontroller_pending_alias_scheduled_desc"), preferredStyle: .alert)
 
         // Add an action to the alert
-        alert.addAction(UIAlertAction(title: String(localized: "understood"), style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: String(localized: "understood", bundle: Bundle(for: SharedData.self)), style: .default, handler: { _ in
             self.close()
         }))
 

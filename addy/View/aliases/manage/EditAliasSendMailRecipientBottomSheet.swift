@@ -7,6 +7,7 @@
 
 import AVFoundation
 import SwiftUI
+import addy_shared
 
 struct EditAliasSendMailRecipientBottomSheet: View {
     @State private var aliasEmail: String
@@ -65,7 +66,7 @@ struct EditAliasSendMailRecipientBottomSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "cancel"), systemImage: "xmark")
+                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                     }
                 }
             })

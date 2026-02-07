@@ -151,7 +151,7 @@ struct ProfileBottomSheet: View {
                             .font(.system(size: 16))
                             .frame(maxWidth: .infinity)
                             .padding(.bottom, 1)
-                        Text(String(localized: "crafted_with_love_and_privacy"))
+                        Text(String(localized: "crafted_with_love_and_privacy", bundle: Bundle(for: SharedData.self)))
                             .multilineTextAlignment(.center)
                             .font(.system(size: 14))
                             .frame(maxWidth: .infinity)

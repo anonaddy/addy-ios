@@ -28,7 +28,7 @@ struct SettingsView: View {
             Section("favorite_aliases") {
                 Button {
                     
-                    let cancelAction = WKAlertAction(title: String(localized: "cancel"), style: .cancel) {  }
+                    let cancelAction = WKAlertAction(title: String(localized: "cancel", bundle: Bundle(for: SharedData.self)), style: .cancel) {  }
                     let resetAction = WKAlertAction(title: String(localized: "clear"), style: .default) {
                        WKInterfaceDevice.current().play(.failure)
                     favoriteAliasHelper.clearFavoriteAliases()
@@ -45,9 +45,9 @@ struct SettingsView: View {
                 }
             }
 
-            Section("logs") {
+            Section(String(localized: "logs", bundle: Bundle(for: SharedData.self))) {
                 Toggle(isOn: $storeLogs) {
-                    Text("store_logs")
+                    Text(String(localized: "store_logs", bundle: Bundle(for: SharedData.self)))
                 }
                 .onChange(of: storeLogs) {
                     settingsManager.putSettingsBool(key: SettingsManager.Prefs.storeLogs, boolean: storeLogs)
@@ -66,24 +66,24 @@ struct SettingsView: View {
 
             Section("") {
                 Button(role: .destructive) {
-                    let cancelAction = WKAlertAction(title: String(localized: "cancel"), style: .cancel) {  }
+                    let cancelAction = WKAlertAction(title: String(localized: "cancel", bundle: Bundle(for: SharedData.self)), style: .cancel) {  }
                     let resetAction = WKAlertAction(title: String(localized: "reset"), style: .destructive) {
                        WKInterfaceDevice.current().play(.failure)
                        resetApp()
                    }
                    
                    WKExtension.shared().visibleInterfaceController?.presentAlert(
-                       withTitle: String(localized: "reset_app"),
+                       withTitle: String(localized: "reset_app", bundle: Bundle(for: SharedData.self)),
                        message: String(localized: "reset_app_desc"),
                        preferredStyle: .alert,
                        actions: [cancelAction, resetAction]
                    )
                 } label: {
                     VStack(alignment: .leading, spacing: 2) {
-                        Label("reset_app", systemImage: "arrow.counterclockwise")
+                        Label(String(localized: "reset_app", bundle: Bundle(for: SharedData.self)), systemImage: "arrow.counterclockwise")
                             .labelStyle(.titleOnly)  // Hide icon for main label
                         
-                        Text("reset_app_label_desc")
+                        Text(String(localized: "reset_app_label_desc"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -92,7 +92,7 @@ struct SettingsView: View {
 
             Section {
                 VStack(spacing: 0) {
-                    Text("crafted_with_love_and_privacy").multilineTextAlignment(.center)
+                    Text("crafted_with_love_and_privacy", bundle: Bundle(for: SharedData.self)).multilineTextAlignment(.center)
                     Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")
                 }
                 .opacity(0.5)
@@ -102,7 +102,7 @@ struct SettingsView: View {
             }
         }
         .listStyle(.carousel)
-        .navigationTitle("settings")
+        .navigationTitle(String(localized: "settings", bundle: Bundle(for: SharedData.self)))
         .onAppear {
             loadSettings()
         }
@@ -139,7 +139,7 @@ struct SettingsView: View {
         connectivity.sendLogsToDevice(logs: logsJson, replyHandler: { success in
                 isShowingSendLogsProgress = false
                 
-                let successAction = WKAlertAction(title: String(localized: "close") , style: .default) {  }
+                let successAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)) , style: .default) {  }
                 WKInterfaceDevice.current().play(.success)
                 WKExtension.shared().visibleInterfaceController?.presentAlert(
                     withTitle: String(localized: "success"),
@@ -156,10 +156,10 @@ struct SettingsView: View {
         }, errorHandler: { error in
                 isShowingSendLogsProgress = false
                 
-                let okAction = WKAlertAction(title: String(localized: "close"), style: .default) {  }
+                let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
                 WKInterfaceDevice.current().play(.failure)
                 WKExtension.shared().visibleInterfaceController?.presentAlert(
-                    withTitle: String(localized: "error"),
+                    withTitle: String(localized: "error", bundle: Bundle(for: SharedData.self)),
                     message: error.localizedDescription,
                     preferredStyle: .alert,
                     actions: [okAction]

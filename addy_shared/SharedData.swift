@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SharedData {
+public class SharedData {
     static let shared = SharedData()
 
     private init() {

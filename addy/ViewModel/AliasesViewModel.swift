@@ -120,7 +120,7 @@ class AliasesViewModel: ObservableObject {
                                 // Since the bulkGetAlias func always returns everything we are always at the last page
                                 self.hasArrivedAtTheLastPage = true
                             } else {
-                                self.networkError = String(format: String(localized: "details_about_error_s"), "\(String(localized: "error_unknown_refer_to_logs"))")
+                                self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self)))")
                             }
                         }
                     } catch {
@@ -166,7 +166,7 @@ class AliasesViewModel: ObservableObject {
 
                         } else {
                             self.hasArrivedAtTheLastPage = true
-                            self.networkError = String(format: String(localized: "details_about_error_s"), "\(String(localized: "error_unknown_refer_to_logs"))")
+                            self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self)))")
                         }
                     }
                 } catch {

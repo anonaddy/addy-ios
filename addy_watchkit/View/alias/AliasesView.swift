@@ -12,9 +12,10 @@ struct AliasesView: View {
     @StateObject private var aliasesViewModel = AliasViewModel()
     @StateObject private var favoritesHelper = FavoriteAliasHelper()
     @State private var showingSettings = false
+    @State private var showingCreateAlias = false
     @EnvironmentObject var appState: AppState
-
-
+    @EnvironmentObject var mainViewState: MainViewState
+    
     // Local state for quickly checking favorite status
     @State private var favoriteIds: Set<String> = []
 
@@ -87,6 +88,11 @@ struct AliasesView: View {
                 SettingsView()
                     .environmentObject(appState)
             }
+            .navigationDestination(isPresented: $showingCreateAlias) {
+                CreateAliasView()
+                    .environmentObject(appState)
+                    .environmentObject(mainViewState)
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
@@ -97,13 +103,13 @@ struct AliasesView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        // Perform an action here.
+                        self.showingCreateAlias = true
                     } label: {
                         Image(systemName:"plus")
                     }
                 }
             }
-            .navigationTitle("Aliases")
+            .navigationTitle(String(localized: "aliases", bundle: Bundle(for: SharedData.self)))
             .onAppear {
                 // Initialize favorites state from helper
                 if let stored = favoritesHelper.getFavoriteAliases() {
@@ -111,6 +117,9 @@ struct AliasesView: View {
                 }
                 
                 Task {
+                    // Cache userResource
+                    _ = await NetworkHelper().cacheUserResourceForWidget()
+                    
                     // Load aliases
                     await aliasesViewModel.getAliases(excludeAliases: favoriteIds.sorted())
                     
@@ -129,9 +138,9 @@ struct AliasesView: View {
         VStack(alignment: .center, spacing: 0) {
             Spacer()
             ContentUnavailableView {
-                Label(String(localized: "obtaining_aliases"), systemImage: "globe")
+                Label(String(localized: "obtaining_aliases", bundle: Bundle(for: SharedData.self)), systemImage: "globe")
             } description: {
-                Text(String(localized: "obtaining_desc"))
+                Text(String(localized: "obtaining_desc", bundle: Bundle(for: SharedData.self)))
             }
 
             ProgressView()
@@ -142,7 +151,7 @@ struct AliasesView: View {
 
     private var noAliasesView: some View {
         ContentUnavailableView {
-            Label(String(localized: "no_aliases"), systemImage: "at.badge.plus")
+            Label(String(localized: "no_aliases", bundle: Bundle(for: SharedData.self)), systemImage: "at.badge.plus")
         } description: {
             Text(String(localized: "no_aliases_desc"))
         }
@@ -150,11 +159,11 @@ struct AliasesView: View {
 
     private var errorView: some View {
         ContentUnavailableView {
-            Label(String(localized: "something_went_wrong_retrieving_aliases"), systemImage: "wifi.slash")
+            Label(String(localized: "something_went_wrong_retrieving_aliases", bundle: Bundle(for: SharedData.self)), systemImage: "wifi.slash")
         } description: {
             Text(aliasesViewModel.networkError)
         } actions: {
-            Button(String(localized: "try_again")) {
+            Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                 Task {
                     await aliasesViewModel.getAliases(excludeAliases: favoriteIds.sorted())
                     await aliasesViewModel.bulkGetAlias(aliases: favoriteIds.sorted())
@@ -219,7 +228,7 @@ struct AliasRow: View {
 
     private func createdText(_ createdAt: String) -> String {
         String(
-            format: NSLocalizedString("created_at_s", comment: ""),
+            format: NSLocalizedString("created_at_s", bundle: Bundle(for: SharedData.self), comment: ""),
             localizedDate(createdAt)
         )
     }
