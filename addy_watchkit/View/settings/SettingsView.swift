@@ -59,9 +59,16 @@ struct SettingsView: View {
                     if isShowingSendLogsProgress {
                         ProgressView()
                     } else {
-                        Label("send_logs_to_device", systemImage: "iphone.gen3")
+                        HStack(alignment: .center, spacing: 6) {
+                            Image(systemName: "iphone.gen3")
+                                .imageScale(.medium)
+                                .alignmentGuide(.firstTextBaseline) { d in d[VerticalAlignment.center] }
+                            Text("send_logs_to_device")
+                                .alignmentGuide(.firstTextBaseline) { d in d[VerticalAlignment.center] }
+                        }
                     }
                 }
+
             }
 
             Section("") {

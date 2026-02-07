@@ -59,7 +59,7 @@ public struct ManageAliasView: View {
                 toggleActive(activate: isAliasActive)
             }
         }
-        .navigationTitle("Manage Alias")
+        .navigationTitle(alias.email)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             

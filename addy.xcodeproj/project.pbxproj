@@ -324,6 +324,16 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		049EBED12F3791700028B819 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8001DA032BEA516000AAD10E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1350,6 +1360,7 @@
 				048B07F32F2E8D0D0032F025 /* Frameworks */,
 				048B07F42F2E8D0D0032F025 /* Resources */,
 				048B08ED2F33C7620032F025 /* Embed Frameworks */,
+				049EBED12F3791700028B819 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1946,6 +1957,7 @@
 				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSSiriUsageDescription = "Create aliases using Siri";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = host.stjin.addy.debug;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2034,6 +2046,7 @@
 				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSSiriUsageDescription = "Create aliases using Siri";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = host.stjin.addy.debug;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2121,6 +2134,7 @@
 				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSSiriUsageDescription = "Create aliases using Siri";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = host.stjin.addy.debug;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2208,6 +2222,7 @@
 				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSSiriUsageDescription = "Create aliases using Siri";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = host.stjin.addy.debug;
 				LD_RUNPATH_SEARCH_PATHS = (
