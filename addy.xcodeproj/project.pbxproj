@@ -47,6 +47,7 @@
 		048B08CD2F2FE7FD0032F025 /* AddySetupSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */; };
 		048B08EB2F33C7620032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
 		048B08EC2F33C7620032F025 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		04F45D712F38A794009FEDB2 /* AppSettingsWatchKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */; };
 		8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8001D9D12BEA1E3600AAD10E /* CodeScanner */; };
 		8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003C36A2C1A27D90005D742 /* AppDelegate.swift */; };
 		800E9ABB2CBDB1880014164E /* altsource.json in Resources */ = {isa = PBXBuildFile; fileRef = 800E9AB72CBDB1880014164E /* altsource.json */; };
@@ -363,6 +364,7 @@
 		048B07F62F2E8D0D0032F025 /* addy_watchkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy_watchkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B08162F2E937C0032F025 /* addy_shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = addy_shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySetupSheet.swift; sourceTree = "<group>"; };
+		04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsWatchKitView.swift; sourceTree = "<group>"; };
 		8003C36A2C1A27D90005D742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		800E9AB02CBDB1880014164E /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		800E9AB12CBDB1880014164E /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
@@ -628,6 +630,7 @@
 		048B08CB2F2FE7F30032F025 /* watchkit */ = {
 			isa = PBXGroup;
 			children = (
+				04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */,
 				048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */,
 			);
 			path = watchkit;
@@ -1713,6 +1716,7 @@
 				80B2FB942C3C4388009977B6 /* AddyChipModel.swift in Sources */,
 				80B2FBC82C3C4E6D009977B6 /* AnonAddyUtils.swift in Sources */,
 				809CB9502C2358CA00DBBD03 /* FailedDeliveriesIcon.swift in Sources */,
+				04F45D712F38A794009FEDB2 /* AppSettingsWatchKitView.swift in Sources */,
 				80E082692BF7DA8200B51FB8 /* FilterOptionsAliasBottomSheet.swift in Sources */,
 				80813B752C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift in Sources */,
 				80AC67082BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift in Sources */,

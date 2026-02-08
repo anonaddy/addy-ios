@@ -30,7 +30,8 @@ struct AddyWatchKitSetupBottomSheet: View {
                         }
                         
                         Button(String(localized: "do_not_ask_again")) {
-                            //self.onClickIgnore()
+                            mainViewState.settingsManager.putSettingsBool(key: .enableWatchKitQuickSetupDialog, boolean: false)
+                            dismiss()
                         }.frame(maxWidth: .infinity)
                     }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
                 } header: {

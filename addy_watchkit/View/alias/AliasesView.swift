@@ -15,7 +15,8 @@ struct AliasesView: View {
     @State private var showingCreateAlias = false
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var mainViewState: MainViewState
-    
+    @Environment(\.scenePhase) private var scenePhase
+
     // Local state for quickly checking favorite status
     @State private var favoriteIds: Set<String> = []
 
@@ -117,22 +118,35 @@ struct AliasesView: View {
                 }
                 
                 Task {
-                    // Cache userResource
-                    _ = await NetworkHelper().cacheUserResourceForWidget()
-                    
-                    // Load aliases
-                    await aliasesViewModel.getAliases(excludeAliases: favoriteIds.sorted())
-                    
-                    if !favoriteIds.isEmpty {
-                        await aliasesViewModel.bulkGetAlias(aliases: favoriteIds.sorted())
-                    }
+                    await loadData()
                 }
                 
             }
         }
+        .onChange(of: scenePhase) {
+                        if scenePhase == .active {
+                            Task {
+                                await loadData()
+                            }
+                        }
+                    }
+    }
+    
+    
+    private func loadData() async {
+        // Cache userResource
+        _ = await NetworkHelper().cacheUserResourceForWidget()
+        
+        // Load aliases (exclude favorites)
+        await aliasesViewModel.getAliases(excludeAliases: favoriteIds.sorted())
+        
+        // Load favorites if any exist
+        if !favoriteIds.isEmpty {
+            await aliasesViewModel.bulkGetAlias(aliases: favoriteIds.sorted())
+        }
     }
 
-    // MARK: - Subviews
+    
 
     private var loadingView: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -233,6 +247,8 @@ struct AliasRow: View {
         )
     }
 }
+
+
 
 #Preview {
     AliasesView()

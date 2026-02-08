@@ -9,6 +9,7 @@
 import Foundation
 import WatchConnectivity
 import Combine
+import addy_shared
 
 final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     @Published var showSetupSheet = false
@@ -52,9 +53,6 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
 
         DispatchQueue.main.async {
             if message["request_setup"] as? Bool == true {
-                self.showSetupSheet = true
-                
-                
                 guard let watchName = message["watch_name"] as? String,
                               let requestId = message["request_id"] as? String else {
                             replyHandler(["error": "Invalid message"]) //TODO: to localizable
@@ -63,15 +61,36 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
                 self.watchName = watchName
                 self.requestId = requestId
                 
+                if SettingsManager(encrypted: true).getSettingsString(key: .apiKey) != nil {
+                    if SettingsManager(encrypted: false).getSettingsBool(key: .enableWatchKitQuickSetupDialog, default: true) {
+                        self.showSetupSheet = true
+                        NotificationHelper().createSetupWatchkitNotification(watchName: watchName)
+                    }
+                } else {
+                    NotificationHelper().createSetupAppFirstWatchkitNotification()
+                }
                 replyHandler(["request_setup_confirm": true, "request_id": requestId])
-                
+
             }
             
             if message["show_alias"] as? Bool == true {
+                NotificationHelper().createOpenAliasFromWatchkitNotification(
+                    id: message["alias_id"] as! String,
+                    email: message["email"] as! String
+                )
                 replyHandler(["show_alias_confirm": true])
             }
             
             if message["show_logs"] as? Bool == true {
+                var logs = message["logs"] as? String
+                LoggingHelper(logFile: .watchosLogs).setList(logs: stringToLogs(logs ?? ""))
+                LoggingHelper().addLog(
+                    importance: LogImportance.info,
+                    error: "User requested to show logs",
+                    method: "session(_:didReceiveMessage:replyHandler:)",
+                    extra: "\(String(describing: logs))"
+                )
+                NotificationHelper().createOpenLogsFromWatchkitNotification()
                 // Trigger your reset logic here
                 replyHandler(["show_logs_confirm": true])
             }
@@ -82,7 +101,40 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
     func setupAppleWatchApp(requestId: String, baseUrl: String, apiKey: String) {
         WCSession.default.sendMessage(["setup_app": true, "request_id": requestId, "base_url": baseUrl, "api_key": apiKey], replyHandler: { reply in
         }, errorHandler: { error in
-            print("Failed to send confirmation: \(error)")
+            LoggingHelper().addLog(
+                importance: LogImportance.critical,
+                error: "Failed to setup Apple Watch app: \(error)",
+                method: "setupAppleWatchApp",
+                extra: error.localizedDescription
+            )
+        })
+    }
+    
+    func getSettingsBool(key: SettingsManager.Prefs, value: @escaping (Bool?) -> Void) {
+        WCSession.default.sendMessage(["get_setting_bool": true, "key": key], replyHandler: { reply in
+            value(reply["value"] as? Bool)
+        }, errorHandler: { error in
+            LoggingHelper().addLog(
+                importance: LogImportance.critical,
+                error: "Failed to get setting: \(error)",
+                method: "getSettingsBool",
+                extra: error.localizedDescription
+            )
+            value(nil)
+        })
+    }
+    
+    func setSettingsBool(key: SettingsManager.Prefs, value: Bool, result: @escaping (Bool) -> Void) {
+        WCSession.default.sendMessage(["set_setting_bool": true, "key": key, "value": value], replyHandler: { reply in
+            return result(reply["set_setting_bool_confirm"] as? Bool == true)
+        }, errorHandler: { error in
+            LoggingHelper().addLog(
+                importance: LogImportance.critical,
+                error: "Failed to set setting: \(error)",
+                method: "setSettingsBool",
+                extra: error.localizedDescription
+            )
+            return result(false)
         })
     }
 }

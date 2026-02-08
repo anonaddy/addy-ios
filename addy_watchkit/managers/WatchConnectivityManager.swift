@@ -71,16 +71,6 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
                 
                 
             }
-            
-            if message["open_alias"] as? Bool == true {
-                // Trigger your open alias logic here
-                //self.showAliasSheet = true
-            }
-
-            if message["reset"] as? Bool == true {
-                // Trigger your reset logic here
-                //self.performReset()
-            }
         }
     }
     
@@ -105,7 +95,8 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
                                  replyHandler: @escaping (Bool) -> Void,
                                  errorHandler: @escaping (Error) -> Void
     ){
-        WCSession.default.sendMessage(["show_logs": true, "logs": logs ?? ""], replyHandler: { reply in
+        let logsInString = logsToString(logs ?? [])
+        WCSession.default.sendMessage(["show_logs": true, "logs": logsInString ?? ""], replyHandler: { reply in
             DispatchQueue.main.async {
                 if reply["show_logs_confirm"] as? Bool == true {
                     replyHandler(true)
@@ -124,11 +115,11 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         })
     }
     
-    public func showAliasOnWatch(aliasId: String,
+    public func showAliasOnWatch(aliasId: String, email: String,
                                  replyHandler: @escaping (Bool) -> Void,
                                  errorHandler: @escaping (Error) -> Void
     ){
-        WCSession.default.sendMessage(["show_alias": true, "alias_id": aliasId], replyHandler: { reply in
+        WCSession.default.sendMessage(["show_alias": true, "alias_id": aliasId, "email": email], replyHandler: { reply in
             DispatchQueue.main.async {
                 if reply["show_alias_confirm"] as? Bool == true {
                     replyHandler(true)

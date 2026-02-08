@@ -84,6 +84,9 @@ struct AppSettingsView: View {
                 NavigationLink(destination: AppSettingsFeaturesView()) {
                     AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor)
                 }
+                NavigationLink(destination: AppSettingsWatchKitView()) {
+                    AddySection(title: String(localized: "addyio_for_watchkit"), description: String(localized: "addyio_for_watchkit_desc"), leadingSystemimage: "applewatch", leadingSystemimageColor: .mint)
+                                }
 
                 //                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor){
                 //

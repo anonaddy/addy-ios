@@ -189,7 +189,7 @@ public struct ManageAliasView: View {
     private func showOnPairedDevice() {
         self.isSendingAliasToDevice = true
         
-        connectivity.showAliasOnWatch(aliasId: alias.id, replyHandler: { reply in
+        connectivity.showAliasOnWatch(aliasId: alias.id, email: alias.email, replyHandler: { reply in
             DispatchQueue.main.async {
                 self.isSendingAliasToDevice = false
                 

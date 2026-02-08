@@ -34,6 +34,7 @@ public class SettingsManager {
         // WatchOS
         case watchosSkipAliasCreateGuide
         case watchosFavoriteAliases
+        case enableWatchKitQuickSetupDialog
         case backgroundServiceCacheFavoriteAliasesData
         case backgroundServiceCacheLastUpdatedAliasesData
 
@@ -100,7 +101,7 @@ public class SettingsManager {
         }
     }
 
-    public func getSettingsBool(key: Prefs) -> Bool {
+    public func getSettingsBool(key: Prefs, default: Bool = false) -> Bool {
         let userKey = "\(user)_\(key)"
 
         if useKeychain {

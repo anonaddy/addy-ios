@@ -40,6 +40,81 @@ class NotificationHelper {
         UNUserNotificationCenter.current().add(request)
         UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
     }
+    
+    func createOpenAliasFromWatchkitNotification(id: String, email: String) {
+        let content = UNMutableNotificationContent()
+        content.title = String(localized: "notification_open_alias_from_watchkit")
+
+        if SettingsManager(encrypted: true).getSettingsBool(key: .privacyMode) {
+            content.subtitle = String(format: String(localized: "notification_open_alias_from_watchkit_desc"), String(localized: "one_of_your_aliases"))
+        } else {
+            content.subtitle = String(format: String(localized: "notification_open_alias_from_watchkit_desc"), email)
+        }
+
+        content.sound = .default
+        content.userInfo = ["aliasId": id]
+
+        content.categoryIdentifier = notificationActions.openAlias
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: notificationActions.openAlias, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+    }
+    
+    func createSetupWatchkitNotification(watchName: String) {
+        let content = UNMutableNotificationContent()
+        content.title = String(localized: "setup_wearable_app")
+        content.subtitle = String(format: String(localized: "notification_setup_wearable_app_desc"), watchName)
+        content.sound = .default
+        content.categoryIdentifier = notificationActions.openApp
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: notificationActions.openApp, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+    }
+    
+    func createSetupAppFirstWatchkitNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = String(localized: "notification_setup_app_first")
+        content.subtitle = String(localized: "notification_setup_app_first_desc")
+        content.sound = .default
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: notificationActions.openApp, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+    }
+    
+    func createOpenLogsFromWatchkitNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = String(localized: "notification_open_logs_from_watchkit")
+        content.subtitle = String(localized: "notification_open_logs_from_watchkit_desc")
+        content.sound = .default
+        content.categoryIdentifier = notificationActions.openSettings
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: notificationActions.openSettings, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+    }
 
     func createAliasWatcherAliasDoesNotExistAnymoreNotification(email: String) {
         let content = UNMutableNotificationContent()

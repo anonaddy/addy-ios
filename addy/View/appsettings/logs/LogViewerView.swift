@@ -9,7 +9,13 @@ import addy_shared
 import SwiftUI
 
 struct LogViewerView: View {
-    @StateObject var logsViewModel = LogsViewModel()
+    @StateObject var logsViewModel: LogsViewModel
+    @State var showWatchOsLogs: Bool
+
+    init(showWatchOsLogs: Bool = false) {
+        _logsViewModel = StateObject(wrappedValue: LogsViewModel(watchosLogs: showWatchOsLogs))
+        self.showWatchOsLogs = showWatchOsLogs
+    }
 
     var body: some View {
         #if DEBUG
@@ -75,13 +81,13 @@ struct LogViewerView: View {
                 }
             }
         })
-        .navigationTitle(String(localized: "logs", bundle: Bundle(for: SharedData.self)))
+        .navigationTitle(self.showWatchOsLogs ? String(localized: "logs_watchkit") : String(localized: "logs", bundle: Bundle(for: SharedData.self)))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .destructiveAction) {
                 Menu(content: {
                     Button(String(localized: "clear_logs")) {
-                        LoggingHelper().clearLogs()
+                        LoggingHelper(logFile: showWatchOsLogs ? .watchosLogs : .default).clearLogs()
                         logsViewModel.getLogs()
                     }
                 }, label: {

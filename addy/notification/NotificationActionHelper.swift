@@ -9,6 +9,7 @@ import addy_shared
 import UserNotifications
 
 enum notificationActions {
+    static let openApp = "openApp"
     static let openSettings = "openSettings"
     static let openAlias = "openAlias"
     static let disableAlias = "disableAlias"

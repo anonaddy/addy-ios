@@ -13,8 +13,7 @@ public class LoggingHelper {
 
     public enum LogFiles: String {
         case `default` = "host.stjin.addy_logs"
-        // case backupLogs = "host.stjin.anonaddy_logs_backups"
-        // case watchosLogs = "host.stjin.anonaddy_logs_watchos"
+        case watchosLogs = "host.stjin.addy_logs.watchkit"
     }
 
     public init(logFile: LogFiles = .default) {
@@ -22,12 +21,17 @@ public class LoggingHelper {
         prefs = UserDefaults(suiteName: logFile.rawValue)!
     }
 
-    private func setList(logs: [Logs]?) {
+    public func setList(logs: [Logs]?) {
         let logsData = try? JSONEncoder().encode(logs?.suffix(100))
         prefs.set(logsData, forKey: "logs")
     }
 
     public func getLogs() -> [Logs]? {
+        guard let logsData = prefs.data(forKey: "logs") else { return nil }
+        return try? JSONDecoder().decode([Logs].self, from: logsData)
+    }
+    
+    public func getWatchOsLogs() -> [Logs]? {
         guard let logsData = prefs.data(forKey: "logs") else { return nil }
         return try? JSONDecoder().decode([Logs].self, from: logsData)
     }
