@@ -37,7 +37,7 @@ struct AppSettingsWatchKitView: View {
             Section {
                 AddyToggle(isOn: $enableWatchKitQuickSetupDialog, title: String(localized: "wearable_quick_setup"), description: String(localized: "wearable_quick_setup_desc"), leadingSystemimage: "bell")
                     .onAppear {
-                        self.enableWatchKitQuickSetupDialog = MainViewState.shared.settingsManager.getSettingsBool(key: .enableWatchKitQuickSetupDialog)
+                        self.enableWatchKitQuickSetupDialog = MainViewState.shared.settingsManager.getSettingsBool(key: .enableWatchKitQuickSetupDialog, default: true)
                     }
                     .onChange(of: enableWatchKitQuickSetupDialog) {
                         MainViewState.shared.settingsManager.putSettingsBool(key: .enableWatchKitQuickSetupDialog, boolean: enableWatchKitQuickSetupDialog)
