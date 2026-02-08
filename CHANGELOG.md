@@ -1,6 +1,6 @@
 # Changelog
 
-## [v2.0.0] - 2026-02-15
+## [v2.0.1] - 2026-02-15
 
 *What time is it?*  
 Let me check my... **Apple Watch 🍎⌚️!**
@@ -19,7 +19,7 @@ With the addy.io app on your Apple Watch, you can quickly check your alias stati
 - New subject placeholder hints when adding a new action  
 - Performance enhancements and other improvements for a smoother experience  
 
-### addy.io for Apple Watch (1.0.0)
+### addy.io for Apple Watch (1.0.1)
 
 **Features**  
 - Create aliases  

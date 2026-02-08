@@ -105,9 +105,9 @@ public class SettingsManager {
         let userKey = "\(user)_\(key)"
 
         if useKeychain {
-            return keychain.getBool(userKey) ?? false
+            return keychain.getBool(userKey) ?? `default`
         } else {
-            return prefs?.bool(forKey: userKey) ?? false
+            return prefs?.bool(forKey: userKey) ?? `default`
         }
     }
 
