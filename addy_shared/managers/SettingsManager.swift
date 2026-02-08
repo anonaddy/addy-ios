@@ -107,7 +107,11 @@ public class SettingsManager {
         if useKeychain {
             return keychain.getBool(userKey) ?? `default`
         } else {
-            return prefs?.bool(forKey: userKey) ?? `default`
+            // Check if the object exists at all, else it will return false
+            guard let result = prefs?.object(forKey: userKey) as? Bool else {
+                return `default`
+            }
+            return result
         }
     }
 
