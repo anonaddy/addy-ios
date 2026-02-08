@@ -81,7 +81,7 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
     
-    public func startPeriodicNagging() {
+    func startPeriodicNagging() {
         retryTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
             if self.isReachable {
                 if self.shouldNagiPhone {
@@ -91,7 +91,7 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
     
-    public func sendLogsToDevice(logs: [Logs]?,
+    func sendLogsToDevice(logs: [Logs]?,
                                  replyHandler: @escaping (Bool) -> Void,
                                  errorHandler: @escaping (Error) -> Void
     ){
@@ -115,7 +115,7 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         })
     }
     
-    public func showAliasOnWatch(aliasId: String, email: String,
+    func showAliasOnWatch(aliasId: String, email: String,
                                  replyHandler: @escaping (Bool) -> Void,
                                  errorHandler: @escaping (Error) -> Void
     ){
@@ -138,7 +138,7 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         })
     }
     
-    public func nagForSetup() {
+    func nagForSetup() {
         guard WCSession.default.isReachable else { return }
         #if DEBUG
         print("🐛 Nagging iPhone for setup...")

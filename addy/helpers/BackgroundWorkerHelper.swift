@@ -19,7 +19,7 @@ class BackgroundWorkerHelper {
     static let shared = BackgroundWorkerHelper()
     static let backgroundWorker = BackgroundWorker()
 
-    public init() {}
+    init() {}
 }
 
 extension BackgroundWorkerHelper {

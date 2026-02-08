@@ -33,7 +33,7 @@ struct CreateAliasView: View {
             } else {
                 AliasCreateGuide(
                     onIUnderstand: {
-                        skipAliasCreateGuide = true
+                        SettingsManager(encrypted: true).putSettingsBool(key: .watchosSkipAliasCreateGuide, boolean: true)
                         viewModel.createAlias()
                     }
                 )
@@ -44,13 +44,14 @@ struct CreateAliasView: View {
         .containerBackground(Color.gray.opacity(0.1).gradient, for: .navigation)
         .task {
             await viewModel.checkUserAndCreate(
-                skipAliasCreateGuide: $skipAliasCreateGuide,
+                skipAliasCreateGuide: skipAliasCreateGuide,
                 appState: appState,
                 mainViewState: mainViewState
             )
         }
         .onAppear {
             viewModel.setDismissAction { dismiss() }
+            self.skipAliasCreateGuide = SettingsManager(encrypted: true).getSettingsBool(key: .watchosSkipAliasCreateGuide)
         }
     }
 }
@@ -64,17 +65,15 @@ class CreateAliasViewModel: ObservableObject {
     private var onDismiss: (() -> Void)?
     
     func checkUserAndCreate(
-        skipAliasCreateGuide: Binding<Bool>,
+        skipAliasCreateGuide: Bool,
         appState: AppState,
         mainViewState: MainViewState
     ) async {
         self.appState = appState
         self.mainViewState = mainViewState
-        
         guard appState.apiKey != nil else { return }
         
-        let skipGuide = SettingsManager(encrypted: true).getSettingsBool(key: .watchosSkipAliasCreateGuide)
-        if skipGuide {
+        if skipAliasCreateGuide {
             createAlias(domain: mainViewState.userResource?.default_alias_domain)
         }
     }

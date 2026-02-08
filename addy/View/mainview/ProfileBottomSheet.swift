@@ -13,7 +13,6 @@ import SwiftUI
 struct ProfileBottomSheet: View {
     @Binding var isPresentingProfileBottomSheet: Bool
     @EnvironmentObject var mainViewState: MainViewState
-    @EnvironmentObject var connectivity: iOSConnectivityManager
     @State var horizontalSize: UserInterfaceSizeClass
     
 

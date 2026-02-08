@@ -6152,7 +6152,15 @@
       }
     },
     "settings" : {
-      "comment" : "MOVED TO SHARED"
+      "comment" : "ALSO MOVED TO SHARED, used for mainviewstate nav",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
     },
     "setup_api_key" : {
       "extractionState" : "manual",

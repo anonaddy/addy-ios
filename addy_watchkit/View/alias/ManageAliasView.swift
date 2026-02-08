@@ -6,7 +6,7 @@
 import SwiftUI
 import addy_shared
 
-public struct ManageAliasView: View {
+struct ManageAliasView: View {
     @State private var alias: Aliases
     @State private var isAliasActive: Bool = false
     @State private var isChangingActivationStatus: Bool = false
@@ -15,7 +15,7 @@ public struct ManageAliasView: View {
     @StateObject private var favoritesHelper = FavoriteAliasHelper()
     @StateObject private var connectivity = WatchConnectivityManager()
 
-    public init(alias: Aliases) {
+    init(alias: Aliases) {
         _alias = State(initialValue: alias)
     }
     
@@ -145,10 +145,9 @@ public struct ManageAliasView: View {
                     actions: [okAction]
                 )
             }
-            
         } catch {
             isChangingActivationStatus = false
-            isAliasActive = true
+            isAliasActive = false
             
             let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
             WKInterfaceDevice.current().play(.failure)

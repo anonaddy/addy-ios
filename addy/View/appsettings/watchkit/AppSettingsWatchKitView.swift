@@ -10,8 +10,6 @@ import SwiftUI
 
 struct AppSettingsWatchKitView: View {
     @State private var showAlert: Bool = false
-    @StateObject private var connectivity = iOSConnectivityManager()
-
     @State private var errorAlertMessage = ""
 
     @State private var enableWatchKitQuickSetupDialog: Bool = false

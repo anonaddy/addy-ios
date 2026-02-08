@@ -12,7 +12,6 @@ import addy_shared
 import Combine
 
 struct SetupView: View {
-    @State private var hasPairedDevice = false
     @EnvironmentObject var appState: AppState
     @StateObject private var connectivity = WatchConnectivityManager()
 

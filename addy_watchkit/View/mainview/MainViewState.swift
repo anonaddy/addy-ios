@@ -46,32 +46,4 @@ class MainViewState: ObservableObject {
             }
         }
     }
-
-    @Published var userResourceExtendedData: String? {
-        didSet {
-            userResourceExtendedData.map { encryptedSettingsManager.putSettingsString(key: .userResourceExtended, string: $0) }
-        }
-    }
-
-    var userResourceExtended: UserResourceExtended? {
-        get {
-            if let jsonString = userResourceExtendedData,
-               let jsonData = jsonString.data(using: .utf8)
-            {
-                let decoder = JSONDecoder()
-                return try? decoder.decode(UserResourceExtended.self, from: jsonData)
-            }
-            return nil
-        }
-        set {
-            if let newValue = newValue {
-                let encoder = JSONEncoder()
-                if let jsonData = try? encoder.encode(newValue),
-                   let jsonString = String(data: jsonData, encoding: .utf8)
-                {
-                    userResourceExtendedData = jsonString
-                }
-            }
-        }
-    }
 }

@@ -78,10 +78,19 @@ struct MainView: View {
         Group {
             TabView(selection: $mainViewState.selectedTab) {
                 ForEach(tabDestinations, id: \.self) { destination in
-                    destination.view(horizontalSize: .constant(horizontalSizeClass!), refreshGeneralData: refreshGeneralData)
-                        .tag(destination)
-                        .tabItem { Label(destination.title, systemImage: destination.systemImage) }
-                        .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
+                    
+                    if let sizeClass = horizontalSizeClass {
+                        destination.view(horizontalSize: .constant(sizeClass), refreshGeneralData: refreshGeneralData)
+                            .tag(destination)
+                            .tabItem { Label(destination.title, systemImage: destination.systemImage) }
+                            .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
+                    } else {
+                        // Fallback, e.g. .compact
+                        destination.view(horizontalSize: .constant(.compact), refreshGeneralData: refreshGeneralData)
+                            .tag(destination)
+                            .tabItem { Label(destination.title, systemImage: destination.systemImage) }
+                            .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
+                    }
                 }
             }
             .apply {
@@ -202,9 +211,15 @@ struct MainView: View {
                 if mainViewState.showSubscriptionExpirationWarning { return .subscriptionExpiration }
                 return nil
             },
-            set: { _ in }
+            set: { newValue in
+                if newValue == nil {
+                    mainViewState.showApiExpirationWarning = false
+                    mainViewState.showSubscriptionExpirationWarning = false
+                }
+            }
         )
     }
+
 
     private func handleOnAppear() {
         // Also perform BGTask immediately when opening the app

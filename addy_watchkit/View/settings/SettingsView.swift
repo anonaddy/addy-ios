@@ -12,7 +12,6 @@ import addy_shared
 
 struct SettingsView: View {
     @State private var storeLogs: Bool = false
-    @State private var hasPairedDevices: Bool = false
     @State private var isShowingSendLogsProgress: Bool = false
     @EnvironmentObject var appState: AppState
     @StateObject private var connectivity = WatchConnectivityManager()
@@ -119,25 +118,6 @@ struct SettingsView: View {
         storeLogs = settingsManager.getSettingsBool(key: SettingsManager.Prefs.storeLogs)
     }
 
-    private func index(for minutes: Int) -> Int {
-        switch minutes {
-        case 15: return 1
-        case 30: return 2
-        case 60: return 3
-        case 120: return 4
-        default: return 2
-        }
-    }
-
-    private func value(for index: Int) -> Int {
-        switch index {
-        case 1: return 15
-        case 2: return 30
-        case 3: return 60
-        case 4: return 120
-        default: return 30
-        }
-    }
 
     private func sendLogsToPairedDevice() {
         isShowingSendLogsProgress = true
