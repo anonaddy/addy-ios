@@ -28,13 +28,22 @@
             ],
             "versions": [
                 {
+                    "version": "2.0.1",
+                    "date": "2026-02-14T00:00:00+02:00",
+                    "size": 32047487,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/ee8a0dda8cb021e7d67f3d9fb30519ef722787bf/builds/appstorelessRelease%202026-02-08%2020-55-22/addy.ipa",
+                    "localizedDescription": "- Support for the Apple Watch companion app\n- Support for new alias formats  ",
+                    "minOSVersion": "17.0"
+                },
+                {
                     "version": "1.4.3",
                     "date": "2026-01-21T00:00:00+02:00",
                     "size": 24160922,
                     "downloadURL": "https://github.com/anonaddy/addy-ios/raw/5674498b8dedc66006e252a77e0466744e94719a/builds/appstorelessRelease%202026-01-21%2019-35-58/addy.ipa",
                     "localizedDescription": "- Added support for new 'Remove PGP Keys for a Specific Recipient' and 'Remove PGP Signatures for a Specific Recipient' features\n- Performance improvements and other things to make the app even smoother",
                     "minOSVersion": "17.0"
-                },{
+                },
+                {
                     "version": "1.4.2",
                     "date": "2026-01-08T00:00:00+02:00",
                     "size": 24153752,
