@@ -188,7 +188,7 @@ struct DomainsView: View {
                     } description: {
                         Text(domainsViewModel.networkError)
                     } actions: {
-                        Button(String(localized: "try_again")) {
+                        Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                             Task {
                                 await getUserResource()
                                 await domainsViewModel.getDomains()
@@ -202,7 +202,7 @@ struct DomainsView: View {
                         ContentUnavailableView {
                             Label(String(localized: "obtaining_domains"), systemImage: "globe")
                         } description: {
-                            Text(String(localized: "obtaining_desc"))
+                            Text(String(localized: "obtaining_desc", bundle: Bundle(for: SharedData.self)))
                         }
 
                         ProgressView()

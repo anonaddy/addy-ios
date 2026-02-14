@@ -158,7 +158,7 @@ struct RecipientsView: View {
                         }
                     })
                 case .resendConfirmationMailRecipientSuccess:
-                    return Alert(title: Text(String(localized: "verification_email_has_been_sent")), dismissButton: .default(Text(String(localized: "close"))))
+                    return Alert(title: Text(String(localized: "verification_email_has_been_sent")), dismissButton: .default(Text(String(localized: "close", bundle: Bundle(for: SharedData.self)))))
                 case .resendConfirmationMailRecipientConfirmation:
                     return Alert(title: Text(String(localized: "verification_email_confirmation")), message: Text(String(localized: "verification_email_confirmation_desc")), primaryButton: .default(Text(String(localized: "resend_email"))) {
                         Task {
@@ -196,7 +196,7 @@ struct RecipientsView: View {
                         } description: {
                             Text(recipientsViewModel.networkError)
                         } actions: {
-                            Button(String(localized: "try_again")) {
+                            Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                                 Task {
                                     await getUserResource()
                                     await recipientsViewModel.getRecipients()
@@ -210,7 +210,7 @@ struct RecipientsView: View {
                             ContentUnavailableView {
                                 Label(String(localized: "obtaining_recipients"), systemImage: "globe")
                             } description: {
-                                Text(String(localized: "obtaining_desc"))
+                                Text(String(localized: "obtaining_desc", bundle: Bundle(for: SharedData.self)))
                             }
 
                             ProgressView()

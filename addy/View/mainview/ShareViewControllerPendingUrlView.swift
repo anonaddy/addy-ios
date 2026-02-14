@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import addy_shared
 
 struct ShareViewControllerPendingUrlView: View {
     @State var pendingURLFromShareViewController: IdentifiableURL
@@ -28,7 +29,7 @@ struct ShareViewControllerPendingUrlView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "cancel"), systemImage: "xmark")
+                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                     }
                 }
             })

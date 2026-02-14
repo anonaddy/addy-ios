@@ -22,38 +22,6 @@
     "0" : {
 
     },
-    "1_day_ago" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "1 day ago"
-          }
-        }
-      }
-    },
-    "1_hour_ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "1 hour ago"
-          }
-        }
-      }
-    },
-    "1_month_ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "1 month ago"
-          }
-        }
-      }
-    },
     "about_this_app" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -186,16 +154,19 @@
         }
       }
     },
-    "add_alias" : {
+    "add_action_subject_info" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add alias"
+            "value" : "Use {{subject}} placeholder to include the original subject (e.g. to prepend or append text)"
           }
         }
       }
+    },
+    "add_alias" : {
+      "comment" : "MOVED TO SHARED"
     },
     "add_alias_desc" : {
       "extractionState" : "manual",
@@ -361,6 +332,28 @@
         }
       }
     },
+    "addyio_for_watchkit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch"
+          }
+        }
+      }
+    },
+    "addyio_for_watchkit_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With the addy.io app on your Apple Watch, you gain quick access to your alias statistics and can swiftly create new aliases"
+          }
+        }
+      }
+    },
     "addyio_help" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -493,26 +486,10 @@
       }
     },
     "alias_activated" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alias activated"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "alias_deactivated" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alias deactivated"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "alias_edit_recipients_desc" : {
       "extractionState" : "manual",
@@ -579,26 +556,10 @@
       }
     },
     "alias_status_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Use this alias for mail forwarding"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "aliases" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aliases"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "aliases_d" : {
       "extractionState" : "manual",
@@ -717,6 +678,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "All usernames"
+          }
+        }
+      }
+    },
+    "an_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An alias"
           }
         }
       }
@@ -865,7 +837,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 1.4.3**\n\n**Added**\n- Added support for new 'Remove PGP Keys for a Specific Recipient' and 'Remove PGP Signatures for a Specific Recipient' features\n\n**Fixed/Improved**\n- Performance improvements and other things to make the app even smoother"
+            "value" : "*What time is it?*  \nLet me check my... **Apple Watch 🍎⌚️!**\n\n**Introducing the Apple Watch Companion App**\n\nWith the addy.io app on your Apple Watch, you can quickly check your alias statistics and effortlessly create new aliases.\n\n**What’s new in addy.io for iOS 2.0.0**\n\n**Added**  \n- Support for the Apple Watch companion app  \n- Support for new alias formats  \n\n**Fixed & Improved**  \n- New subject placeholder hints when adding a new action  \n- Performance enhancements and other improvements for a smoother experience  \n\n**What’s new in addy.io for Apple Watch 1.0.0**\n\n**Features**  \n- Create aliases  \n- Enable & disable aliases  \n- Favorite aliases  \n- Send logs to the main app\n"
           }
         }
       }
@@ -1319,14 +1291,7 @@
       }
     },
     "cancel" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancel"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "cannot_reply_send" : {
       "extractionState" : "manual",
@@ -1483,15 +1448,7 @@
       }
     },
     "close" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Close"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "code" : {
       "extractionState" : "manual",
@@ -1544,6 +1501,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configuration error"
+          }
+        }
+      }
+    },
+    "confirm_and_setup" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm and setup"
           }
         }
       }
@@ -1657,15 +1624,7 @@
       }
     },
     "crafted_with_love_and_privacy" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Crafted with love and privacy"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "create" : {
       "localizations" : {
@@ -1699,14 +1658,7 @@
       }
     },
     "created_at_s" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Created %@"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "credentials" : {
       "localizations" : {
@@ -1762,27 +1714,6 @@
         }
       }
     },
-    "d_days_ago" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d days ago"
-          }
-        }
-      }
-    },
-    "d_days_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d days from now on"
-          }
-        }
-      }
-    },
     "d_forwarded" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1790,71 +1721,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ forwarded"
-          }
-        }
-      }
-    },
-    "d_hours_ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d hours ago"
-          }
-        }
-      }
-    },
-    "d_hrs_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d hours from now on"
-          }
-        }
-      }
-    },
-    "d_min_ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d minutes ago"
-          }
-        }
-      }
-    },
-    "d_min_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d min from now on"
-          }
-        }
-      }
-    },
-    "d_months_ago" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d months ago"
-          }
-        }
-      }
-    },
-    "d_months_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d months from now on"
           }
         }
       }
@@ -1870,28 +1736,6 @@
         }
       }
     },
-    "d_sec_ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d seconds ago"
-          }
-        }
-      }
-    },
-    "d_sec_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d seconds from now on"
-          }
-        }
-      }
-    },
     "d_sent" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1899,28 +1743,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ sent"
-          }
-        }
-      }
-    },
-    "d_weeks_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d weeks from now on"
-          }
-        }
-      }
-    },
-    "d_years_from_now_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d year(s) from now on"
           }
         }
       }
@@ -2298,15 +2120,7 @@
       }
     },
     "details_about_error_s" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Details about the error:\n%@"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "dev_base_url" : {
       "extractionState" : "manual",
@@ -2336,6 +2150,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dismiss"
+          }
+        }
+      }
+    },
+    "do_not_ask_again" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do not ask again"
           }
         }
       }
@@ -2514,6 +2338,17 @@
         }
       }
     },
+    "domains_format_not_available_for_this_subscription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This domain format is not available for your current subscription"
+          }
+        }
+      }
+    },
     "domains_format_random_characters" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2525,6 +2360,42 @@
         }
       }
     },
+    "domains_format_random_female_name" : {
+      "comment" : "Display representation for the \"random_female_name\" case of the `ShortcutableFormat` enum.",
+      "isCommentAutoGenerated" : true,
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random female name"
+          }
+        }
+      }
+    },
+    "domains_format_random_male_name" : {
+      "comment" : "Display representation for the \"random_male_name` case of the `ShortcutableFormat` enum.",
+      "isCommentAutoGenerated" : true,
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random male name"
+          }
+        }
+      }
+    },
+    "domains_format_random_noun" : {
+      "comment" : "Display name for the \"random_noun\" case of the `ShortcutableFormat` enum.",
+      "isCommentAutoGenerated" : true,
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random noun"
+          }
+        }
+      }
+    },
     "domains_format_random_words" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2532,17 +2403,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Random words"
-          }
-        }
-      }
-    },
-    "domains_format_random_words_not_available_for_this_subscription" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Random words is not available for your current subscription"
           }
         }
       }
@@ -2865,15 +2725,7 @@
       }
     },
     "error" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "error_adding_alias" : {
       "localizations" : {
@@ -3004,15 +2856,7 @@
       }
     },
     "error_edit_active" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "An error occurred while changing the active state"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "error_edit_can_login" : {
       "extractionState" : "manual",
@@ -3157,15 +3001,7 @@
       }
     },
     "error_unknown_refer_to_logs" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error unknown, please refer to the app logs for more information about this error."
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "failed_deliveries" : {
       "extractionState" : "manual",
@@ -3984,16 +3820,6 @@
         }
       }
     },
-    "just_now" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Just now"
-          }
-        }
-      }
-    },
     "last_blocked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4001,16 +3827,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Last blocked"
-          }
-        }
-      }
-    },
-    "last_d_at" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "last %@ at %@"
           }
         }
       }
@@ -4233,12 +4049,15 @@
       }
     },
     "logs" : {
+      "comment" : "MOVED TO SHARED"
+    },
+    "logs_watchkit" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Logs"
+            "value" : "Logs (Apple Watch)"
           }
         }
       }
@@ -4528,15 +4347,7 @@
       }
     },
     "no_aliases" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nothing to see here"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "no_aliases_desc" : {
       "extractionState" : "manual",
@@ -4844,6 +4655,50 @@
         }
       }
     },
+    "notification_open_alias_from_watchkit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to open alias"
+          }
+        }
+      }
+    },
+    "notification_open_alias_from_watchkit_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ received from Apple Watch, tap this notification to manage this alias"
+          }
+        }
+      }
+    },
+    "notification_open_logs_from_watchkit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to view logs"
+          }
+        }
+      }
+    },
+    "notification_open_logs_from_watchkit_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logs received from Apple Watch, tap this notification to view them"
+          }
+        }
+      }
+    },
     "notification_permissions_required_desc" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4851,6 +4706,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notification permissions are required to fully use the app. Tap here to allow the addy.io app to send notifications. You retain control over which notification the app can send."
+          }
+        }
+      }
+    },
+    "notification_setup_app_first" : {
+      "comment" : "Text displayed in a notification when the user has not yet installed the app on their watch.",
+      "isCommentAutoGenerated" : true,
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot setup Apple Watch app"
+          }
+        }
+      }
+    },
+    "notification_setup_app_first_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The addy.io app has not been set up on this device yet. Tap here to setup the app"
+          }
+        }
+      }
+    },
+    "notification_setup_wearable_app_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap here to setup the addy.io app on %@"
           }
         }
       }
@@ -4955,26 +4844,10 @@
       }
     },
     "obtaining_aliases" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Obtaining your aliases"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "obtaining_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This shouldn't take long…"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "obtaining_domains" : {
       "extractionState" : "manual",
@@ -5831,15 +5704,7 @@
       }
     },
     "reset_app" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reset app"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "reset_app_anyways" : {
       "extractionState" : "manual",
@@ -5892,6 +5757,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Could not delete the API key, do you want to reset the app anyways?"
+          }
+        }
+      }
+    },
+    "reset_app_on_wearable_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remotely reset the addy.io app on your Apple Watch"
           }
         }
       }
@@ -6278,7 +6154,7 @@
       }
     },
     "settings" : {
-      "extractionState" : "manual",
+      "comment" : "ALSO MOVED TO SHARED, used for mainviewstate nav",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -6295,6 +6171,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "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 "
+          }
+        }
+      }
+    },
+    "setup_app_on_wearable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup app"
+          }
+        }
+      }
+    },
+    "setup_app_on_wearable_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set up the app on your Apple Watch with the same account that this app is set up with"
           }
         }
       }
@@ -6431,6 +6329,28 @@
         }
       }
     },
+    "setup_wearable_app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup Apple Watch app"
+          }
+        }
+      }
+    },
+    "setup_wearable_app_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to setup the addy.io app on %@ with the account %@? The settings will remain on Apple Watch even after resetting the app on this device."
+          }
+        }
+      }
+    },
     "shareviewcontroller_pending_alias_scheduled" : {
       "localizations" : {
         "en" : {
@@ -6538,14 +6458,7 @@
       }
     },
     "something_went_wrong_retrieving_aliases" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Something went wrong retrieving failed aliases"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "something_went_wrong_retrieving_domains" : {
       "localizations" : {
@@ -6888,15 +6801,7 @@
       }
     },
     "store_logs" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Store logs"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "store_logs_desc" : {
       "extractionState" : "manual",
@@ -7159,6 +7064,17 @@
         }
       }
     },
+    "this_device" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This device"
+          }
+        }
+      }
+    },
     "this_field_cannot_be_empty" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7206,15 +7122,7 @@
       }
     },
     "try_again" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Try again"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "turn_PGP_encryption_off" : {
       "extractionState" : "manual",
@@ -7228,15 +7136,7 @@
       }
     },
     "understood" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Understood"
-          }
-        }
-      }
+      "comment" : "MOVED TO SHARED"
     },
     "unknown" : {
       "extractionState" : "manual",
@@ -7587,6 +7487,17 @@
         }
       }
     },
+    "view_store_logs_watchkit_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send logs by opening settings on the addy.io app on Apple Watch"
+          }
+        }
+      }
+    },
     "visit_addyio_helps_section" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7627,6 +7538,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Keep track of emails being forwarded through a specific alias. Open the management page of an alias and enable \"Watch alias\" to be notified of a new forwarded message.\n\nYou can watch a maximum of 25 aliases."
+          }
+        }
+      }
+    },
+    "wearable_quick_setup" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quick setup"
+          }
+        }
+      }
+    },
+    "wearable_quick_setup_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When the addy.io app is opened for the first time on Apple Watch. Show a message on this device to quickly set up the app"
           }
         }
       }
@@ -7953,17 +7884,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Colorful background"
-          }
-        }
-      }
-    },
-    "yesterday_at" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "yesterday at %@"
           }
         }
       }

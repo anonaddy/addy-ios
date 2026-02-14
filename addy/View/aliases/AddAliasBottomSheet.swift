@@ -32,7 +32,10 @@ struct AddAliasBottomSheet: View {
         [[String(localized: "domains_format_random_characters", comment: ""), "random_characters"],
          [String(localized: "domains_format_uuid", comment: ""), "uuid"],
          [String(localized: "domains_format_random_words", comment: ""), "random_words"],
-         [String(localized: "domains_format_custom", comment: ""), "custom"]]
+         [String(localized: "domains_format_custom", comment: ""), "custom"],
+         [String(localized: "domains_format_random_male_name", comment: ""), "random_male_name"],
+         [String(localized: "domains_format_random_female_name", comment: ""), "random_female_name"],
+         [String(localized: "domains_format_random_noun", comment: ""), "random_noun"]]
 
     @State private var selectedDomain: String = ""
 
@@ -149,7 +152,7 @@ struct AddAliasBottomSheet: View {
                     .siriTipViewStyle(.automatic)
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
         }
-        .navigationTitle(String(localized: "add_alias")).pickerStyle(.navigationLink)
+        .navigationTitle(String(localized: "add_alias", bundle: Bundle(for: SharedData.self))).pickerStyle(.navigationLink)
         .task {
             if domains.isEmpty {
                 await loadDomains()
@@ -174,7 +177,7 @@ struct AddAliasBottomSheet: View {
                 Button {
                     dismiss()
                 } label: {
-                    Label(String(localized: "cancel"), systemImage: "xmark")
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
             }
         })
@@ -209,10 +212,31 @@ struct AddAliasBottomSheet: View {
 
         if selectedFormat == "random_words" {
             if mainViewState.userResource!.hasUserFreeSubscription() {
-                aliasError = String(localized: "domains_format_random_words_not_available_for_this_subscription")
+                aliasError = String(localized: "domains_format_not_available_for_this_subscription")
                 formatValidationError = true
                 isLoadingAddButton = false
 
+                return
+            }
+        } else if selectedFormat == "random_male_name" {
+            if mainViewState.userResource!.hasUserFreeSubscription() {
+                aliasError = String(localized: "domains_format_not_available_for_this_subscription")
+                formatValidationError = true
+                isLoadingAddButton = false
+                return
+            }
+        } else if selectedFormat == "random_female_name" {
+            if mainViewState.userResource!.hasUserFreeSubscription() {
+                aliasError = String(localized: "domains_format_not_available_for_this_subscription")
+                formatValidationError = true
+                isLoadingAddButton = false
+                return
+            }
+        } else if selectedFormat == "random_noun" {
+            if mainViewState.userResource!.hasUserFreeSubscription() {
+                aliasError = String(localized: "domains_format_not_available_for_this_subscription")
+                formatValidationError = true
+                isLoadingAddButton = false
                 return
             }
         } else if selectedFormat == "custom" {

@@ -38,7 +38,7 @@ class RecipientsViewModel: ObservableObject {
             } catch {
                 DispatchQueue.main.async {
                     self.isLoading = false
-                    self.networkError = String(format: String(localized: "details_about_error_s"), "\(error.localizedDescription)")
+                    self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
                 }
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,

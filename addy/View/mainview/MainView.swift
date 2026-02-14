@@ -5,6 +5,8 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var mainViewState: MainViewState
+    @EnvironmentObject var connectivity: iOSConnectivityManager
+
     @StateObject private var aliasesViewState = AliasesViewState.shared // Needs to be shared so that filters can be applied from other views
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -60,10 +62,10 @@ struct MainView: View {
             }
             .navigationTitle(String(localized: "addyio_locked"))
             .alert(String(localized: "authentication_splash_error_unavailable"), isPresented: $showBiometricsAlert) {
-                Button(String(localized: "try_again")) {
+                Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) { authenticate() }
                 }
-                Button(String(localized: "reset_app"), role: .destructive) {
+                Button(String(localized: "reset_app", bundle: Bundle(for: SharedData.self)), role: .destructive) {
                     SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 }
             }
@@ -76,10 +78,19 @@ struct MainView: View {
         Group {
             TabView(selection: $mainViewState.selectedTab) {
                 ForEach(tabDestinations, id: \.self) { destination in
-                    destination.view(horizontalSize: .constant(horizontalSizeClass!), refreshGeneralData: refreshGeneralData)
-                        .tag(destination)
-                        .tabItem { Label(destination.title, systemImage: destination.systemImage) }
-                        .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
+                    
+                    if let sizeClass = horizontalSizeClass {
+                        destination.view(horizontalSize: .constant(sizeClass), refreshGeneralData: refreshGeneralData)
+                            .tag(destination)
+                            .tabItem { Label(destination.title, systemImage: destination.systemImage) }
+                            .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
+                    } else {
+                        // Fallback, e.g. .compact
+                        destination.view(horizontalSize: .constant(.compact), refreshGeneralData: refreshGeneralData)
+                            .tag(destination)
+                            .tabItem { Label(destination.title, systemImage: destination.systemImage) }
+                            .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
+                    }
                 }
             }
             .apply {
@@ -122,6 +133,13 @@ struct MainView: View {
                     }
                 )
             }
+        }
+        .sheet(isPresented: $connectivity.showSetupSheet) {
+            NavigationStack {
+                AddyWatchKitSetupBottomSheet()
+                    .environmentObject(connectivity)
+                    .environmentObject(mainViewState)
+            }.presentationDetents([.medium])
         }
         .sheet(isPresented: $isShowingAddApiSheet) {
             NavigationStack {
@@ -193,9 +211,15 @@ struct MainView: View {
                 if mainViewState.showSubscriptionExpirationWarning { return .subscriptionExpiration }
                 return nil
             },
-            set: { _ in }
+            set: { newValue in
+                if newValue == nil {
+                    mainViewState.showApiExpirationWarning = false
+                    mainViewState.showSubscriptionExpirationWarning = false
+                }
+            }
         )
     }
+
 
     private func handleOnAppear() {
         // Also perform BGTask immediately when opening the app

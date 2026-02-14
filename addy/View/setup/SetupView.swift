@@ -11,6 +11,8 @@ import SwiftUI
 struct SetupView: View {
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var setupViewState: SetupViewState
+    @EnvironmentObject var connectivity: iOSConnectivityManager //TODO: Do something with this
+
 
     let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
     @State private var text = String(localized: "setup_api_key")

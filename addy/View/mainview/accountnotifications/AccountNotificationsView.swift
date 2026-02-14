@@ -135,7 +135,7 @@ struct AccountNotificationsView: View {
                         } description: {
                             Text(accountNotificationsViewModel.networkError)
                         } actions: {
-                            Button(String(localized: "try_again")) {
+                            Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                                 Task {
                                     await accountNotificationsViewModel.getAccountNotifications()
                                 }
@@ -149,7 +149,7 @@ struct AccountNotificationsView: View {
                             ContentUnavailableView {
                                 Label(String(localized: "obtaining_account_notifications"), systemImage: "globe")
                             } description: {
-                                Text(String(localized: "obtaining_desc"))
+                                Text(String(localized: "obtaining_desc", bundle: Bundle(for: SharedData.self)))
                             }
 
                             ProgressView()

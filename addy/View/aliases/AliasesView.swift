@@ -132,7 +132,7 @@ struct AliasesView: View {
                     }
                 }
                 
-                Button(String(localized: "cancel"), role: .cancel) {}
+                Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), role: .cancel) {}
             } message: {
                 Text(String(localized: "select_mail_client"))
             }
@@ -140,7 +140,7 @@ struct AliasesView: View {
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
                 case .reachedMaxAliases:
-                    return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood"))))
+                    return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood", bundle: Bundle(for: SharedData.self)))))
                 case .deleteAlias:
                     return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))) {
                         Task {
@@ -201,7 +201,7 @@ struct AliasesView: View {
                         // If there is NO data inside the list AND the user has NOT tried searching for something
                     } else if aliasList.data.isEmpty, aliasesViewModel.searchQuery.isEmpty {
                         ContentUnavailableView {
-                            Label(String(localized: "no_aliases"), systemImage: "at.badge.plus")
+                            Label(String(localized: "no_aliases", bundle: Bundle(for: SharedData.self)), systemImage: "at.badge.plus")
                         } description: {
                             Text(String(localized: "no_aliases_desc"))
                         }
@@ -213,11 +213,11 @@ struct AliasesView: View {
                     if aliasesViewModel.networkError != "" {
                         // Error screen
                         ContentUnavailableView {
-                            Label(String(localized: "something_went_wrong_retrieving_aliases"), systemImage: "wifi.slash")
+                            Label(String(localized: "something_went_wrong_retrieving_aliases", bundle: Bundle(for: SharedData.self)), systemImage: "wifi.slash")
                         } description: {
                             Text(aliasesViewModel.networkError)
                         } actions: {
-                            Button(String(localized: "try_again")) {
+                            Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                                 Task {
                                     await aliasesViewModel.getAliases(forceReload: true)
                                 }
@@ -228,9 +228,9 @@ struct AliasesView: View {
                         VStack(alignment: .center, spacing: 0) {
                             Spacer()
                             ContentUnavailableView {
-                                Label(String(localized: "obtaining_aliases"), systemImage: "globe")
+                                Label(String(localized: "obtaining_aliases", bundle: Bundle(for: SharedData.self)), systemImage: "globe")
                             } description: {
-                                Text(String(localized: "obtaining_desc"))
+                                Text(String(localized: "obtaining_desc", bundle: Bundle(for: SharedData.self)))
                             }
                             
                             ProgressView()
@@ -240,7 +240,7 @@ struct AliasesView: View {
                     }
                 }
             })
-            .navigationTitle(String(localized: "aliases"))
+            .navigationTitle(String(localized: "aliases", bundle: Bundle(for: SharedData.self)))
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     ProfilePicture().environmentObject(mainViewState)
@@ -631,7 +631,7 @@ struct AliasesView: View {
         } catch {
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -645,13 +645,13 @@ struct AliasesView: View {
             } else {
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
                 errorAlertMessage = result
             }
         } catch {
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -740,7 +740,7 @@ struct AliasesView: View {
                 activeAlert = .error
                 showAlert = true
                 errorAlertTitle = String(localized: "error_restoring_alias")
-                errorAlertMessage = String(localized: "error_unknown_refer_to_logs")
+                errorAlertMessage = String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self))
             }
         } catch {
             activeAlert = .error

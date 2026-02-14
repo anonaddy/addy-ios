@@ -5,9 +5,9 @@
 //  Created by Stijn van de Water on 18/07/2024.
 //
 
-import addy_shared
 import SwiftUI
 import WidgetKit
+import addy_shared
 
 private func getUserResource() -> UserResource? {
     return CacheHelper.getBackgroundServiceCacheUserResource()
@@ -246,13 +246,13 @@ struct AliasWidgetRowView: View {
                             if let description = alias.description {
                                 aliasDescription = String(format: String(localized: "s_s_s"),
                                                           description,
-                                                          String(format: NSLocalizedString("created_at_s", comment: ""),
+                                                          String(format: NSLocalizedString("created_at_s", bundle: Bundle(for: SharedData.self), comment: ""),
                                                                  DateTimeUtils.convertStringToLocalTimeZoneString(alias.created_at)),
                                                           String(format: String(localized: "updated_at_s"),
                                                                  DateTimeUtils.convertStringToLocalTimeZoneString(alias.updated_at)))
                             } else {
                                 aliasDescription = String(format: String(localized: "s_s"),
-                                                          String(format: NSLocalizedString("created_at_s", comment: ""),
+                                                          String(format: NSLocalizedString("created_at_s", bundle: Bundle(for: SharedData.self), comment: ""),
                                                                  DateTimeUtils.convertStringToLocalTimeZoneString(alias.created_at)),
                                                           String(format: String(localized: "updated_at_s"),
                                                                  DateTimeUtils.convertStringToLocalTimeZoneString(alias.updated_at)))

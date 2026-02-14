@@ -290,7 +290,7 @@ struct DomainsDetailView: View {
             isActive = false
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -307,7 +307,7 @@ struct DomainsDetailView: View {
                 isActive = true
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
                 errorAlertMessage = result
             }
         } catch {
@@ -315,7 +315,7 @@ struct DomainsDetailView: View {
             isActive = true
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }

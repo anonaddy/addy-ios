@@ -14,6 +14,7 @@ struct ProfileBottomSheet: View {
     @Binding var isPresentingProfileBottomSheet: Bool
     @EnvironmentObject var mainViewState: MainViewState
     @State var horizontalSize: UserInterfaceSizeClass
+    
 
     @State var isShowingDomainsView = false
     @State var isShowingSubscriptionView = false
@@ -151,7 +152,7 @@ struct ProfileBottomSheet: View {
                             .font(.system(size: 16))
                             .frame(maxWidth: .infinity)
                             .padding(.bottom, 1)
-                        Text(String(localized: "crafted_with_love_and_privacy"))
+                        Text(String(localized: "crafted_with_love_and_privacy", bundle: Bundle(for: SharedData.self)))
                             .multilineTextAlignment(.center)
                             .font(.system(size: 14))
                             .frame(maxWidth: .infinity)

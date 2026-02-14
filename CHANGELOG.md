@@ -1,5 +1,33 @@
 # Changelog
 
+## [v2.0.1] - 2026-02-15
+
+*What time is it?*  
+Let me check my... **Apple Watch 🍎⌚️!**
+
+**Introducing the Apple Watch Companion App**
+
+With the addy.io app on your Apple Watch, you can quickly check your alias statistics and effortlessly create new aliases.
+
+### addy.io
+
+**Added**  
+- Support for the Apple Watch companion app  
+- Support for new alias formats  
+
+**Fixed & Improved**  
+- New subject placeholder hints when adding a new action  
+- Performance enhancements and other improvements for a smoother experience  
+
+### addy.io for Apple Watch (1.0.1)
+
+**Features**  
+- Create aliases  
+- Enable & disable aliases  
+- Favorite aliases  
+- Send logs to the main app
+
+
 ## [v1.4.3] - 2026-01-21
 
 ### addy.io

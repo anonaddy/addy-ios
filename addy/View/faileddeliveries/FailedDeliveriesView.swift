@@ -172,7 +172,7 @@ struct FailedDeliveriesView: View {
                             } description: {
                                 Text(failedDeliveriesViewModel.networkError)
                             } actions: {
-                                Button(String(localized: "try_again")) {
+                                Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                                     Task {
                                         await failedDeliveriesViewModel.getFailedDeliveries()
                                     }
@@ -187,7 +187,7 @@ struct FailedDeliveriesView: View {
                             ContentUnavailableView {
                                 Label(String(localized: "obtaining_failed_deliveries"), systemImage: "globe")
                             } description: {
-                                Text(String(localized: "obtaining_desc"))
+                                Text(String(localized: "obtaining_desc", bundle: Bundle(for: SharedData.self)))
                             }
 
                             ProgressView()

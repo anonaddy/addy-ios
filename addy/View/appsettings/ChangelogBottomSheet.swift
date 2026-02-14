@@ -14,26 +14,26 @@ struct ChangelogBottomSheet: View {
         #if DEBUG
             let _ = Self._printChanges()
         #endif
-        List {
-            Section {
+        VStack(spacing: 0) {
+            // Custom header mimicking section
+            VStack(alignment: .leading, spacing: 12) {
                 let formattedString = String.localizedStringWithFormat(NSLocalizedString("app_changelog", comment: ""))
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)
-                    .padding(.bottom)
-            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-
-        }.navigationTitle(String(localized: "changelog"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark")
-                    }
-                }
-            })
+                    .padding(.top, 20)  // Safe top spacing
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 8)
+            .background(Color.clear)
+            
+            Spacer()
+        }
+        .ignoresSafeArea(.container, edges: .bottom)  // Extend to bottom if needed
+        .navigationTitle(String(localized: "changelog"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar { /* unchanged */ }
     }
+
 }
 
 #Preview {

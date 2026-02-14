@@ -67,6 +67,7 @@ struct ActionBottomSheet: View {
                     selectedActionsType == "displayFrom"
                 {
                     ValidatingTextField(value: self.$value, placeholder: self.$valuePlaceHolder, fieldType: .text, error: $valuePlaceHolderValidationError)
+                    
                 }
 
                 if selectedActionsType == "forwardTo" {
@@ -104,6 +105,10 @@ struct ActionBottomSheet: View {
                         .padding(.bottom)
 
                 }.frame(maxWidth: .infinity, alignment: .center)
+            } footer: {
+                if selectedActionsType == "subject" {
+                    Text(String(localized: "add_action_subject_info"))
+              }
             }.textCase(nil)
 
         }.navigationTitle(String(localized: "add_action")).pickerStyle(.navigationLink)
@@ -121,7 +126,7 @@ struct ActionBottomSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "cancel"), systemImage: "xmark")
+                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                     }
                 }
             })

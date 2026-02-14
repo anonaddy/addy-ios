@@ -84,6 +84,9 @@ struct AppSettingsView: View {
                 NavigationLink(destination: AppSettingsFeaturesView()) {
                     AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor)
                 }
+                NavigationLink(destination: AppSettingsWatchKitView()) {
+                    AddySection(title: String(localized: "addyio_for_watchkit"), description: String(localized: "addyio_for_watchkit_desc"), leadingSystemimage: "applewatch", leadingSystemimageColor: .mint)
+                                }
 
                 //                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor){
                 //
@@ -120,7 +123,7 @@ struct AppSettingsView: View {
             }.textCase(nil)
 
             Section {
-                AddyToggle(isOn: $storeLogs, title: String(localized: "store_logs"), description: String(localized: "store_logs_desc"), leadingSystemimage: "exclamationmark.magnifyingglass")
+                AddyToggle(isOn: $storeLogs, title: String(localized: "store_logs", bundle: Bundle(for: SharedData.self)), description: String(localized: "store_logs_desc"), leadingSystemimage: "exclamationmark.magnifyingglass")
                     .onAppear {
                         self.storeLogs = MainViewState.shared.settingsManager.getSettingsBool(key: .storeLogs)
                     }
@@ -187,7 +190,7 @@ struct AppSettingsView: View {
                     }
                     let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
 
-                    Text(String(localized: "crafted_with_love_and_privacy"))
+                    Text(String(localized: "crafted_with_love_and_privacy", bundle: Bundle(for: SharedData.self)))
                         .multilineTextAlignment(.center)
                         .font(.system(size: 14))
                         .frame(maxWidth: .infinity)
@@ -204,7 +207,7 @@ struct AppSettingsView: View {
 
             }.textCase(nil)
         }
-        .navigationTitle(String(localized: "settings"))
+        .navigationTitle(String(localized: "settings", bundle: Bundle(for: SharedData.self)))
         .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
         .toolbar {
             if horizontalSize == .regular {
@@ -228,9 +231,9 @@ struct AppSettingsView: View {
         .alert(isPresented: $showAlert, content: {
             switch activeAlert {
             case .resetAppError:
-                return Alert(title: Text(String(localized: "reset_app")), message: Text(String(localized: "reset_app_logout_failure")), primaryButton: .default(Text(String(localized: "reset_app_anyways"))), secondaryButton: .cancel())
+                return Alert(title: Text(String(localized: "reset_app", bundle: Bundle(for: SharedData.self))), message: Text(String(localized: "reset_app_logout_failure")), primaryButton: .default(Text(String(localized: "reset_app_anyways"))), secondaryButton: .cancel())
             case .resetApp:
-                return Alert(title: Text(String(localized: "reset_app")), message: Text(String(localized: "reset_app_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "reset_app"))) {
+                return Alert(title: Text(String(localized: "reset_app", bundle: Bundle(for: SharedData.self))), message: Text(String(localized: "reset_app_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "reset_app", bundle: Bundle(for: SharedData.self)))) {
                     Task {
                         await logoutAndReset()
                     }

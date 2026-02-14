@@ -5,9 +5,9 @@
 //  Created by Stijn van de Water on 06/07/2024.
 //
 
-import addy_shared
 import Combine
 import Foundation
+@preconcurrency import addy_shared
 
 class SendMailRecipientSearchViewModel: ObservableObject {
     var sortFilterRequest = AliasSortFilterRequest(
@@ -89,7 +89,7 @@ class SendMailRecipientSearchViewModel: ObservableObject {
             } catch {
                 DispatchQueue.main.async {
                     self.isLoading = false
-                    self.networkError = String(localized: "something_went_wrong_retrieving_aliases")
+                    self.networkError = String(localized: "something_went_wrong_retrieving_aliases", bundle: Bundle(for: SharedData.self))
                 }
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,

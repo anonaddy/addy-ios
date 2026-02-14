@@ -9,7 +9,13 @@ import addy_shared
 import SwiftUI
 
 struct LogViewerView: View {
-    @StateObject var logsViewModel = LogsViewModel()
+    @StateObject var logsViewModel: LogsViewModel
+    @State var showWatchOsLogs: Bool
+
+    init(showWatchOsLogs: Bool = false) {
+        _logsViewModel = StateObject(wrappedValue: LogsViewModel(watchosLogs: showWatchOsLogs))
+        self.showWatchOsLogs = showWatchOsLogs
+    }
 
     var body: some View {
         #if DEBUG
@@ -37,7 +43,7 @@ struct LogViewerView: View {
                         }
                     } header: {
                         HStack(spacing: 6) {
-                            Text(String(localized: "logs"))
+                            Text(String(localized: "logs", bundle: Bundle(for: SharedData.self)))
 
                             if logsViewModel.isLoading {
                                 ProgressView()
@@ -66,7 +72,7 @@ struct LogViewerView: View {
                     ContentUnavailableView {
                         Label(String(localized: "obtaining_logs"), systemImage: "magnifyingglass")
                     } description: {
-                        Text(String(localized: "obtaining_desc"))
+                        Text(String(localized: "obtaining_desc", bundle: Bundle(for: SharedData.self)))
                     }
 
                     ProgressView()
@@ -75,13 +81,13 @@ struct LogViewerView: View {
                 }
             }
         })
-        .navigationTitle(String(localized: "logs"))
+        .navigationTitle(self.showWatchOsLogs ? String(localized: "logs_watchkit") : String(localized: "logs", bundle: Bundle(for: SharedData.self)))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .destructiveAction) {
                 Menu(content: {
                     Button(String(localized: "clear_logs")) {
-                        LoggingHelper().clearLogs()
+                        LoggingHelper(logFile: showWatchOsLogs ? .watchosLogs : .default).clearLogs()
                         logsViewModel.getLogs()
                     }
                 }, label: {

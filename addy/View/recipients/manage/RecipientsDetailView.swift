@@ -326,7 +326,7 @@ struct RecipientsDetailView: View {
             replySendAllowed = false
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -343,7 +343,7 @@ struct RecipientsDetailView: View {
                 replySendAllowed = true
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
                 errorAlertMessage = result
             }
         } catch {
@@ -351,7 +351,7 @@ struct RecipientsDetailView: View {
             replySendAllowed = true
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -368,7 +368,7 @@ struct RecipientsDetailView: View {
             shouldEncrypt = false
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -385,7 +385,7 @@ struct RecipientsDetailView: View {
                 shouldEncrypt = true
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
                 errorAlertMessage = result
             }
         } catch {
@@ -393,7 +393,7 @@ struct RecipientsDetailView: View {
             shouldEncrypt = true
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -410,7 +410,7 @@ struct RecipientsDetailView: View {
             protectedHeaders = false
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -427,7 +427,7 @@ struct RecipientsDetailView: View {
                 protectedHeaders = true
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
                 errorAlertMessage = result
             }
         } catch {
@@ -435,7 +435,7 @@ struct RecipientsDetailView: View {
             protectedHeaders = true
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -452,7 +452,7 @@ struct RecipientsDetailView: View {
             inlineEncryption = false
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -469,7 +469,7 @@ struct RecipientsDetailView: View {
                 inlineEncryption = true
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
                 errorAlertMessage = result
             }
         } catch {
@@ -477,7 +477,7 @@ struct RecipientsDetailView: View {
             inlineEncryption = true
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -495,7 +495,7 @@ struct RecipientsDetailView: View {
             removePgpKeys = false
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -512,7 +512,7 @@ struct RecipientsDetailView: View {
                 removePgpKeys = true
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
                 errorAlertMessage = result
             }
         } catch {
@@ -520,7 +520,7 @@ struct RecipientsDetailView: View {
             removePgpKeys = true
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -538,7 +538,7 @@ struct RecipientsDetailView: View {
             removePgpSignatures = false
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -555,7 +555,7 @@ struct RecipientsDetailView: View {
                 removePgpSignatures = true
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
                 errorAlertMessage = result
             }
         } catch {
@@ -563,7 +563,7 @@ struct RecipientsDetailView: View {
             removePgpSignatures = true
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }

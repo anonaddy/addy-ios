@@ -99,7 +99,7 @@ struct SendMailRecipientView: View {
                 }
             }
 
-            Button(String(localized: "cancel"), role: .cancel) {}
+            Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), role: .cancel) {}
         } message: {
             Text(String(localized: "select_mail_client"))
         }
@@ -125,7 +125,7 @@ struct SendMailRecipientView: View {
                 Button {
                     self.close()
                 } label: {
-                    Label(String(localized: "cancel"), systemImage: "xmark")
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
             }
             ToolbarItem(placement: .confirmationAction) {

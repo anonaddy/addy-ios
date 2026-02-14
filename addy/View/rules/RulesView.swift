@@ -264,7 +264,7 @@ struct RulesView: View {
                     } description: {
                         Text(rulesViewModel.networkError)
                     } actions: {
-                        Button(String(localized: "try_again")) {
+                        Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                             Task {
                                 await getUserResource()
                                 await rulesViewModel.getRules()
@@ -278,7 +278,7 @@ struct RulesView: View {
                         ContentUnavailableView {
                             Label(String(localized: "obtaining_rules"), systemImage: "globe")
                         } description: {
-                            Text(String(localized: "obtaining_desc"))
+                            Text(String(localized: "obtaining_desc", bundle: Bundle(for: SharedData.self)))
                         }
 
                         ProgressView()

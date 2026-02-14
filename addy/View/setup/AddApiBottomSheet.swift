@@ -91,7 +91,7 @@ struct AddApiBottomSheet: View {
                         }
                     }.frame(maxHeight: .infinity)
                         .alert(isPresented: $showInvalidQrAlert, content: {
-                            Alert(title: Text(String(localized: "api_setup_qr_code_scan_wrong")), message: Text(String(localized: "api_setup_qr_code_scan_wrong_desc")), dismissButton: .default(Text(String(localized: "understood"))))
+                            Alert(title: Text(String(localized: "api_setup_qr_code_scan_wrong")), message: Text(String(localized: "api_setup_qr_code_scan_wrong_desc")), dismissButton: .default(Text(String(localized: "understood", bundle: Bundle(for: SharedData.self)))))
                         })
 
                 }.frame(height: 200).listRowInsets(EdgeInsets())
@@ -180,7 +180,7 @@ struct AddApiBottomSheet: View {
                     Button(String(localized: "get_my_key")) {
                         openURL(URL(string: "\(instance)/settings/api")!)
                     }
-                    Button(String(localized: "cancel")) {
+                    Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self))) {
                         dismiss()
                     }
                 }, label: {

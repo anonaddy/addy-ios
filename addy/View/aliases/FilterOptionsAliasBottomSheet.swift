@@ -126,7 +126,7 @@ struct FilterOptionsAliasBottomSheet: View {
 
                             LoadFilter(aliasSortFilterRequest: aliasSortFilterRequest)
                         }
-                        Button(String(localized: "cancel")) {
+                        Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self))) {
                             dismiss()
                         }
                     }, label: {

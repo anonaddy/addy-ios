@@ -163,7 +163,7 @@ private func deletedText(_ deletedAt: String) -> String {
 }
 
 private func createdText(_ createdAt: String) -> String {
-    String(format: NSLocalizedString("created_at_s", comment: ""), localizedDate(createdAt))
+    String(format: NSLocalizedString("created_at_s", bundle: Bundle(for: SharedData.self), comment: ""), localizedDate(createdAt))
 }
 
 private func updatedText(_ updatedAt: String) -> String {

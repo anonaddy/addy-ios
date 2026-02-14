@@ -80,7 +80,7 @@ struct DeleteAccountConfirmationView: View {
                     await deleteAccount()
                 }
             }
-            Button(String(localized: "cancel"), role: .cancel) {}
+            Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), role: .cancel) {}
         } message: {
             Text(alertMessage)
         }

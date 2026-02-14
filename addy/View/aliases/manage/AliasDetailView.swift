@@ -172,7 +172,7 @@ struct AliasDetailView: View {
                 }
 
                 Section {
-                    AddyToggle(isOn: $isAliasActive, isLoading: isSwitchingAliasActiveState, title: alias.active ? String(localized: "alias_activated") : String(localized: "alias_deactivated"), description: String(localized: "alias_status_desc"))
+                    AddyToggle(isOn: $isAliasActive, isLoading: isSwitchingAliasActiveState, title: alias.active ? String(localized: "alias_activated", bundle: Bundle(for: SharedData.self)) : String(localized: "alias_deactivated", bundle: Bundle(for: SharedData.self)), description: String(localized: "alias_status_desc", bundle: Bundle(for: SharedData.self)))
                         .onChange(of: isAliasActive) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if isAliasActive != alias.active {
@@ -258,10 +258,10 @@ struct AliasDetailView: View {
                                 description: alias.last_blocked != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_blocked) : String(localized: "unknown"),
                                 leadingSystemimage: nil, trailingSystemimage: nil) {}
                     AddySection(title: String(localized: "created_at"),
-                                description: alias.created_at != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.created_at) : String(localized: "unknown"),
+                                description: DateTimeUtils.convertStringToLocalTimeZoneString(alias.created_at),
                                 leadingSystemimage: nil, trailingSystemimage: nil) {}
                     AddySection(title: String(localized: "updated_at"),
-                                description: alias.updated_at != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.updated_at) : String(localized: "unknown"),
+                                description: DateTimeUtils.convertStringToLocalTimeZoneString(alias.updated_at),
                                 leadingSystemimage: nil, trailingSystemimage: nil) {}
 
                 } header: {
@@ -302,7 +302,7 @@ struct AliasDetailView: View {
             }
             .overlay {
                 ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
-                ToastOverlay(showToast: $aliasDeactivatedOverlayShown, text: String(localized: "alias_deactivated"))
+                ToastOverlay(showToast: $aliasDeactivatedOverlayShown, text: String(localized: "alias_deactivated", bundle: Bundle(for: SharedData.self)))
             }
             .confirmationDialog(String(localized: "send_mail"), isPresented: $isPresentingEmailSelectionDialog) {
                 ForEach(clients, id: \.self) { item in
@@ -311,7 +311,7 @@ struct AliasDetailView: View {
                     }
                 }
 
-                Button(String(localized: "cancel"), role: .cancel) {}
+                Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), role: .cancel) {}
             } message: {
                 Text(String(localized: "select_mail_client"))
             }
@@ -388,7 +388,7 @@ struct AliasDetailView: View {
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
                 case .reachedMaxAliases:
-                    return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood"))))
+                    return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood", bundle: Bundle(for: SharedData.self)))))
                 case .deleteAliases:
                     return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))) {
                         isDeletingAlias = true
@@ -600,7 +600,7 @@ struct AliasDetailView: View {
             isAliasActive = false
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }
@@ -706,7 +706,7 @@ struct AliasDetailView: View {
                 isAliasActive = true
                 activeAlert = .error
                 showAlert = true
-                errorAlertTitle = String(localized: "error_edit_active")
+                errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
                 errorAlertMessage = result
             }
         } catch {
@@ -714,7 +714,7 @@ struct AliasDetailView: View {
             isAliasActive = true
             activeAlert = .error
             showAlert = true
-            errorAlertTitle = String(localized: "error_edit_active")
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }

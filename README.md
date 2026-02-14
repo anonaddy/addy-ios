@@ -16,11 +16,12 @@ Easily create and manage your addy.io aliases, recipients and more from your pho
 
 > addy.io
 
-- addy.io instance running v1.3.7 or higher (current version of the addy.io app has been tested with v1.3.7)
+- addy.io instance running v1.3.8 or higher (current version of the addy.io app has been tested with v1.3.8)
 
-> iOS and iPadOS
+> iOS, iPadOS and WatchOS
 
 - iOS 17 or newer
+- WatchOS 10 or higher (addy.io for Apple Watch)
 
 ## Characteristics
 
@@ -38,6 +39,7 @@ Easily create and manage your addy.io aliases, recipients and more from your pho
   - Manage your addy.io subscription
 - Enable error logging to *locally* store exceptions for easy troubleshooting
 - Widgets!
+- Manage and create aliases on the go with the WatchOS app, including support for Siri
 
 > Seriously 👓
 

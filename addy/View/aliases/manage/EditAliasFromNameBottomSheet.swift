@@ -72,7 +72,7 @@ struct EditAliasFromNameBottomSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Label(String(localized: "cancel"), systemImage: "xmark")
+                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                     }
                 }
             })

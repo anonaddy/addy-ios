@@ -36,8 +36,19 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		048B08002F2E8D0E0032F025 /* addy_watchkit.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 048B07F62F2E8D0D0032F025 /* addy_watchkit.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		048B08772F2E94AE0032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
+		048B08782F2E94AE0032F025 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		048B087D2F2E95840032F025 /* SwiftHTMLtoMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = 048B087C2F2E95840032F025 /* SwiftHTMLtoMarkdown */; };
+		048B08802F2E95A00032F025 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 048B087F2F2E95A00032F025 /* FeedKit */; };
+		048B08832F2E95B70032F025 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 048B08822F2E95B70032F025 /* Shimmer */; };
+		048B08842F2E96750032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
+		048B08892F2E96860032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
+		048B08CD2F2FE7FD0032F025 /* AddySetupSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */; };
+		048B08EB2F33C7620032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
+		048B08EC2F33C7620032F025 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		04F45D712F38A794009FEDB2 /* AppSettingsWatchKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */; };
 		8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8001D9D12BEA1E3600AAD10E /* CodeScanner */; };
-		8001DA012BEA516000AAD10E /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
 		8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003C36A2C1A27D90005D742 /* AppDelegate.swift */; };
 		800E9ABB2CBDB1880014164E /* altsource.json in Resources */ = {isa = PBXBuildFile; fileRef = 800E9AB72CBDB1880014164E /* altsource.json */; };
 		800E9ABC2CBDB1880014164E /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 800E9AB42CBDB1880014164E /* 5.png */; };
@@ -63,8 +74,6 @@
 		8036F1602C49990C008627C3 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */; };
 		8042E0742C3318DA001E8366 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8042E0732C3318DA001E8366 /* ShareViewController.swift */; };
 		8042E07B2C3318DA001E8366 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8042E0712C3318DA001E8366 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8042E07F2C3318E3001E8366 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
-		80433AC02C4C272400609208 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; };
 		80433AC32C4C27BC00609208 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1432C499148008627C3 /* WidgetKit.framework */; };
 		80433AC52C4C27BD00609208 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8036F1452C499148008627C3 /* SwiftUI.framework */; };
 		80448E902C51834A00CF08BA /* PlayGround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80448E8F2C51834A00CF08BA /* PlayGround.swift */; };
@@ -126,7 +135,6 @@
 		805AFF772C08F52000B9E573 /* UnsupportedBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */; };
 		805CB1D32D47E561007ED28D /* DocumentInteractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805CB1D22D47E561007ED28D /* DocumentInteractionView.swift */; };
 		805D66A02C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D669F2C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift */; };
-		805D66A32C1F4C870085CCED /* PrettyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D66A22C1F4C860085CCED /* PrettyTime.swift */; };
 		8062CFE02C1487B600EFFB4C /* ActionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8062CFDF2C1487B600EFFB4C /* ActionBottomSheet.swift */; };
 		8062CFE22C149DCA00EFFB4C /* ConditionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8062CFE12C149DCA00EFFB4C /* ConditionBottomSheet.swift */; };
 		80676D652C18CD64008FC147 /* LogViewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80676D642C18CD64008FC147 /* LogViewerView.swift */; };
@@ -143,7 +151,6 @@
 		806F21352BE8F1B100EBEBC8 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806F21342BE8F1B100EBEBC8 /* SplashView.swift */; };
 		806F21392BE8F1B200EBEBC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F21382BE8F1B200EBEBC8 /* Assets.xcassets */; };
 		806F213C2BE8F1B200EBEBC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806F213B2BE8F1B200EBEBC8 /* Preview Assets.xcassets */; };
-		807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8001D9FF2BEA513500AAD10E /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8073C9412C78717600DE3640 /* AccountNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8073C9402C78717600DE3640 /* AccountNotificationsView.swift */; };
 		8073C9432C78718100DE3640 /* AccountNotificationBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8073C9422C78718100DE3640 /* AccountNotificationBottomSheet.swift */; };
 		8073C9472C78727E00DE3640 /* AccountNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8073C9462C78727E00DE3640 /* AccountNotificationsViewModel.swift */; };
@@ -244,11 +251,39 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8001D9FE2BEA513500AAD10E /* PBXContainerItemProxy */ = {
+		048B07FE2F2E8D0E0032F025 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8001D9F02BEA513500AAD10E;
+			containerPortal = 806F21272BE8F1B100EBEBC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 048B07F52F2E8D0D0032F025;
+			remoteInfo = "Addy Watchkit Watch App";
+		};
+		048B08792F2E94AE0032F025 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 806F21272BE8F1B100EBEBC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 048B08152F2E937C0032F025;
+			remoteInfo = addy_shared;
+		};
+		048B08862F2E96750032F025 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 806F21272BE8F1B100EBEBC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 048B08152F2E937C0032F025;
+			remoteInfo = addy_shared;
+		};
+		048B088B2F2E96860032F025 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 806F21272BE8F1B100EBEBC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 048B08152F2E937C0032F025;
+			remoteInfo = addy_shared;
+		};
+		048B08902F2E96AE0032F025 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 806F21272BE8F1B100EBEBC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 048B08152F2E937C0032F025;
 			remoteInfo = addy_shared;
 		};
 		8036F1552C499149008627C3 /* PBXContainerItemProxy */ = {
@@ -268,13 +303,45 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		048B08012F2E8D0E0032F025 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				048B08002F2E8D0E0032F025 /* addy_watchkit.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		048B08ED2F33C7620032F025 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				048B08EC2F33C7620032F025 /* addy_shared.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		049EBED12F3791700028B819 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8001DA032BEA516000AAD10E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				807337F42BEA63A900D0D7E0 /* addy_shared.framework in Embed Frameworks */,
+				048B08782F2E94AE0032F025 /* addy_shared.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,7 +361,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = addy_shared.xcodeproj; path = addy_shared/addy_shared/addy_shared.xcodeproj; sourceTree = "<group>"; };
+		048B07F62F2E8D0D0032F025 /* addy_watchkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy_watchkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		048B08162F2E937C0032F025 /* addy_shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = addy_shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySetupSheet.swift; sourceTree = "<group>"; };
+		04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsWatchKitView.swift; sourceTree = "<group>"; };
 		8003C36A2C1A27D90005D742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		800E9AB02CBDB1880014164E /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		800E9AB12CBDB1880014164E /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
@@ -383,7 +453,6 @@
 		805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBottomSheet.swift; sourceTree = "<group>"; };
 		805CB1D22D47E561007ED28D /* DocumentInteractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentInteractionView.swift; sourceTree = "<group>"; };
 		805D669F2C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyApiTokenExpiryView.swift; sourceTree = "<group>"; };
-		805D66A22C1F4C860085CCED /* PrettyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrettyTime.swift; sourceTree = "<group>"; };
 		8062CFDF2C1487B600EFFB4C /* ActionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBottomSheet.swift; sourceTree = "<group>"; };
 		8062CFE12C149DCA00EFFB4C /* ConditionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionBottomSheet.swift; sourceTree = "<group>"; };
 		80676D642C18CD64008FC147 /* LogViewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewerView.swift; sourceTree = "<group>"; };
@@ -498,17 +567,38 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		048B07F72F2E8D0D0032F025 /* addy_watchkit */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = addy_watchkit; sourceTree = "<group>"; };
+		048B08172F2E937C0032F025 /* addy_shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = addy_shared; sourceTree = "<group>"; };
+		048B08D92F32750A0032F025 /* managers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = managers; sourceTree = "<group>"; };
 		8036F1472C499148008627C3 /* AddyStatisticWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8036F15A2C499149008627C3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AddyStatisticWidget; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		048B07F32F2E8D0D0032F025 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				048B08EB2F33C7620032F025 /* addy_shared.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		048B08132F2E937C0032F025 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				048B08832F2E95B70032F025 /* Shimmer in Frameworks */,
+				048B087D2F2E95840032F025 /* SwiftHTMLtoMarkdown in Frameworks */,
+				048B08802F2E95A00032F025 /* FeedKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8036F13F2C499148008627C3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048B08892F2E96860032F025 /* addy_shared.framework in Frameworks */,
 				80433AC32C4C27BC00609208 /* WidgetKit.framework in Frameworks */,
 				80433AC52C4C27BD00609208 /* SwiftUI.framework in Frameworks */,
-				80433AC02C4C272400609208 /* addy_shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,7 +607,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80B2FBBC2C3C4C4E009977B6 /* WrappingHStack in Frameworks */,
-				8042E07F2C3318E3001E8366 /* addy_shared.framework in Frameworks */,
+				048B08842F2E96750032F025 /* addy_shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,8 +617,8 @@
 			files = (
 				80E0827B2BF7F03C00B51FB8 /* WrappingHStack in Frameworks */,
 				8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */,
-				8001DA012BEA516000AAD10E /* addy_shared.framework in Frameworks */,
 				802F061A2C98428800194AEC /* StoreKit.framework in Frameworks */,
+				048B08772F2E94AE0032F025 /* addy_shared.framework in Frameworks */,
 				8078485E2C77822400194B1A /* Shiny in Frameworks */,
 				801B92A22BE905BB00179EB5 /* Lottie in Frameworks */,
 			);
@@ -537,12 +627,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8001D9FB2BEA513500AAD10E /* Products */ = {
+		048B08CB2F2FE7F30032F025 /* watchkit */ = {
 			isa = PBXGroup;
 			children = (
-				8001D9FF2BEA513500AAD10E /* addy_shared.framework */,
+				04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */,
+				048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */,
 			);
-			name = Products;
+			path = watchkit;
 			sourceTree = "<group>";
 		};
 		8001DA002BEA515C00AAD10E /* Frameworks */ = {
@@ -807,7 +898,6 @@
 		805D66A12C1F4C810085CCED /* extensions */ = {
 			isa = PBXGroup;
 			children = (
-				805D66A22C1F4C860085CCED /* PrettyTime.swift */,
 				80B2FBB82C3C4C0A009977B6 /* Apply.swift */,
 			);
 			path = extensions;
@@ -905,10 +995,11 @@
 				8036F15D2C499757008627C3 /* AddyStatisticWidgetExtension.entitlements */,
 				8075150F2C26C69E00DE2AC7 /* InfoPlist.xcstrings */,
 				800E9ABA2CBDB1880014164E /* altsource */,
-				8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */,
 				806F21312BE8F1B100EBEBC8 /* addy */,
 				8042E0722C3318DA001E8366 /* ShareExtension */,
 				8036F1472C499148008627C3 /* AddyStatisticWidget */,
+				048B07F72F2E8D0D0032F025 /* addy_watchkit */,
+				048B08172F2E937C0032F025 /* addy_shared */,
 				8001DA002BEA515C00AAD10E /* Frameworks */,
 				806F21302BE8F1B100EBEBC8 /* Products */,
 			);
@@ -920,6 +1011,8 @@
 				806F212F2BE8F1B100EBEBC8 /* addy.app */,
 				8042E0712C3318DA001E8366 /* ShareExtension.appex */,
 				8036F1422C499148008627C3 /* AddyStatisticWidgetExtension.appex */,
+				048B07F62F2E8D0D0032F025 /* addy_watchkit.app */,
+				048B08162F2E937C0032F025 /* addy_shared.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -936,6 +1029,7 @@
 				8084AAD22C42A23D00CC7E3B /* AppShortcutsProvider */,
 				806F21382BE8F1B200EBEBC8 /* Assets.xcassets */,
 				80F22F352BEE34E1001176B4 /* dependencies */,
+				048B08D92F32750A0032F025 /* managers */,
 				805D66A12C1F4C810085CCED /* extensions */,
 				80DCF3A32BF118900022690F /* helpers */,
 				801B92A32BE90ACA00179EB5 /* Localizable.xcstrings */,
@@ -1084,6 +1178,7 @@
 		80D4F2D92C17083A00D313EC /* appsettings */ = {
 			isa = PBXGroup;
 			children = (
+				048B08CB2F2FE7F30032F025 /* watchkit */,
 				80A9ABA82CA1DB13009E4CF5 /* DeleteAccountConfirmationView.swift */,
 				806AE69D2C1A1A1600F3CA92 /* features */,
 				806AE6902C19ED0300F3CA92 /* update */,
@@ -1249,7 +1344,68 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		048B08112F2E937C0032F025 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		048B07F52F2E8D0D0032F025 /* addy_watchkit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 048B08072F2E8D0E0032F025 /* Build configuration list for PBXNativeTarget "addy_watchkit" */;
+			buildPhases = (
+				048B07F22F2E8D0D0032F025 /* Sources */,
+				048B07F32F2E8D0D0032F025 /* Frameworks */,
+				048B07F42F2E8D0D0032F025 /* Resources */,
+				048B08ED2F33C7620032F025 /* Embed Frameworks */,
+				049EBED12F3791700028B819 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				048B08912F2E96AE0032F025 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				048B07F72F2E8D0D0032F025 /* addy_watchkit */,
+			);
+			name = addy_watchkit;
+			packageProductDependencies = (
+			);
+			productName = "Addy Watchkit Watch App";
+			productReference = 048B07F62F2E8D0D0032F025 /* addy_watchkit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		048B08152F2E937C0032F025 /* addy_shared */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 048B081C2F2E937C0032F025 /* Build configuration list for PBXNativeTarget "addy_shared" */;
+			buildPhases = (
+				048B08112F2E937C0032F025 /* Headers */,
+				048B08122F2E937C0032F025 /* Sources */,
+				048B08132F2E937C0032F025 /* Frameworks */,
+				048B08142F2E937C0032F025 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				048B08172F2E937C0032F025 /* addy_shared */,
+			);
+			name = addy_shared;
+			packageProductDependencies = (
+				048B087C2F2E95840032F025 /* SwiftHTMLtoMarkdown */,
+				048B087F2F2E95A00032F025 /* FeedKit */,
+				048B08822F2E95B70032F025 /* Shimmer */,
+			);
+			productName = addy_shared;
+			productReference = 048B08162F2E937C0032F025 /* addy_shared.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		8036F1412C499148008627C3 /* AddyStatisticWidgetExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8036F15B2C499149008627C3 /* Build configuration list for PBXNativeTarget "AddyStatisticWidgetExtension" */;
@@ -1261,6 +1417,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				048B088C2F2E96860032F025 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				8036F1472C499148008627C3 /* AddyStatisticWidget */,
@@ -1283,6 +1440,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				048B08872F2E96750032F025 /* PBXTargetDependency */,
 			);
 			name = ShareExtension;
 			packageProductDependencies = (
@@ -1301,12 +1459,18 @@
 				806F212D2BE8F1B100EBEBC8 /* Resources */,
 				8001DA032BEA516000AAD10E /* Embed Frameworks */,
 				8058ADE52C32DFBA0004AF81 /* Embed Foundation Extensions */,
+				048B08012F2E8D0E0032F025 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				8042E07A2C3318DA001E8366 /* PBXTargetDependency */,
 				8036F1562C499149008627C3 /* PBXTargetDependency */,
+				048B07FF2F2E8D0E0032F025 /* PBXTargetDependency */,
+				048B087A2F2E94AE0032F025 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				048B08D92F32750A0032F025 /* managers */,
 			);
 			name = addy;
 			packageProductDependencies = (
@@ -1326,9 +1490,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1600;
+				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					048B07F52F2E8D0D0032F025 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					048B08152F2E937C0032F025 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 					80274F952C5E223300C8C6A1 = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -1360,37 +1530,40 @@
 				8001D9D02BEA1E3600AAD10E /* XCRemoteSwiftPackageReference "CodeScanner" */,
 				80E082792BF7F03C00B51FB8 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				8078485C2C7781FE00194B1A /* XCRemoteSwiftPackageReference "shiny" */,
+				048B087B2F2E95840032F025 /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */,
+				048B087E2F2E95A00032F025 /* XCRemoteSwiftPackageReference "FeedKit" */,
+				048B08812F2E95B70032F025 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
 			);
 			productRefGroup = 806F21302BE8F1B100EBEBC8 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 8001D9FB2BEA513500AAD10E /* Products */;
-					ProjectRef = 8001D9FA2BEA513500AAD10E /* addy_shared.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				806F212E2BE8F1B100EBEBC8 /* addy */,
 				8036F1412C499148008627C3 /* AddyStatisticWidgetExtension */,
 				8042E0702C3318DA001E8366 /* ShareExtension */,
+				048B07F52F2E8D0D0032F025 /* addy_watchkit */,
+				048B08152F2E937C0032F025 /* addy_shared */,
 				80F6B29C2C5E1DBE002E1238 /* Periphery */,
 				80274F952C5E223300C8C6A1 /* Privacy Manifest */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		8001D9FF2BEA513500AAD10E /* addy_shared.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = addy_shared.framework;
-			remoteRef = 8001D9FE2BEA513500AAD10E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
+		048B07F42F2E8D0D0032F025 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		048B08142F2E937C0032F025 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8036F1402C499148008627C3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1480,6 +1653,20 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		048B07F22F2E8D0D0032F025 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		048B08122F2E937C0032F025 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8036F13E2C499148008627C3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1529,6 +1716,7 @@
 				80B2FB942C3C4388009977B6 /* AddyChipModel.swift in Sources */,
 				80B2FBC82C3C4E6D009977B6 /* AnonAddyUtils.swift in Sources */,
 				809CB9502C2358CA00DBBD03 /* FailedDeliveriesIcon.swift in Sources */,
+				04F45D712F38A794009FEDB2 /* AppSettingsWatchKitView.swift in Sources */,
 				80E082692BF7DA8200B51FB8 /* FilterOptionsAliasBottomSheet.swift in Sources */,
 				80813B752C0DF592009C4E6A /* FailedDeliveryBottomSheet.swift in Sources */,
 				80AC67082BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift in Sources */,
@@ -1546,6 +1734,7 @@
 				80B2FB6E2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift in Sources */,
 				80ECA1012C1DA00100788D75 /* BackgroundWorkerHelper.swift in Sources */,
 				8073C9412C78717600DE3640 /* AccountNotificationsView.swift in Sources */,
+				048B08CD2F2FE7FD0032F025 /* AddySetupSheet.swift in Sources */,
 				809F874F2C29D892002A89C0 /* QuickActionsManager.swift in Sources */,
 				80A9ABA92CA1DB13009E4CF5 /* DeleteAccountConfirmationView.swift in Sources */,
 				805A74552C1F5FC200C94E2D /* AppSettingsFeaturesNotifySubscriptionExpiryView.swift in Sources */,
@@ -1639,7 +1828,6 @@
 				80B2FB782C3C4331009977B6 /* AddyChipView.swift in Sources */,
 				8073C9432C78718100DE3640 /* AccountNotificationBottomSheet.swift in Sources */,
 				80E512512C04EA5700B7537E /* AddRecipientPublicGpgKeyBottomSheet.swift in Sources */,
-				805D66A32C1F4C870085CCED /* PrettyTime.swift in Sources */,
 				80813B642C0DE1FF009C4E6A /* DomainsDetailView.swift in Sources */,
 				8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */,
 				80E9B22D2C0B238900C7EF99 /* AddUsernameBottomSheet.swift in Sources */,
@@ -1669,6 +1857,31 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		048B07FF2F2E8D0E0032F025 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 048B07F52F2E8D0D0032F025 /* addy_watchkit */;
+			targetProxy = 048B07FE2F2E8D0E0032F025 /* PBXContainerItemProxy */;
+		};
+		048B087A2F2E94AE0032F025 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 048B08152F2E937C0032F025 /* addy_shared */;
+			targetProxy = 048B08792F2E94AE0032F025 /* PBXContainerItemProxy */;
+		};
+		048B08872F2E96750032F025 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 048B08152F2E937C0032F025 /* addy_shared */;
+			targetProxy = 048B08862F2E96750032F025 /* PBXContainerItemProxy */;
+		};
+		048B088C2F2E96860032F025 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 048B08152F2E937C0032F025 /* addy_shared */;
+			targetProxy = 048B088B2F2E96860032F025 /* PBXContainerItemProxy */;
+		};
+		048B08912F2E96AE0032F025 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 048B08152F2E937C0032F025 /* addy_shared */;
+			targetProxy = 048B08902F2E96AE0032F025 /* PBXContainerItemProxy */;
+		};
 		8036F1562C499149008627C3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8036F1412C499148008627C3 /* AddyStatisticWidgetExtension */;
@@ -1682,6 +1895,761 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		048B08022F2E8D0E0032F025 /* appstoreDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = addy_watchkit/addy_watchkit.debug.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMPANION_APP_BUNDLE_ID = host.stjin.addy.debug;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 3;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSSiriUsageDescription = "Create aliases using Siri";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = host.stjin.addy.debug;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+			};
+			name = appstoreDebug;
+		};
+		048B08032F2E8D0E0032F025 /* appstorelessDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = addy_watchkit/addy_watchkit.debug.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMPANION_APP_BUNDLE_ID = host.stjin.addy.debug;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 3;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSSiriUsageDescription = "Create aliases using Siri";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = host.stjin.addy.debug;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+			};
+			name = appstorelessDebug;
+		};
+		048B08042F2E8D0E0032F025 /* appstoreRelease */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = addy_watchkit/addy_watchkit.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMPANION_APP_BUNDLE_ID = host.stjin.addy;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 3;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSSiriUsageDescription = "Create aliases using Siri";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = host.stjin.addy;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+			};
+			name = appstoreRelease;
+		};
+		048B08052F2E8D0E0032F025 /* appstorelessRelease */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = addy_watchkit/addy_watchkit.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMPANION_APP_BUNDLE_ID = host.stjin.addy;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 3;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "addy_watchkit/Addy-Watchkit-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSSiriUsageDescription = "Create aliases using Siri";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = host.stjin.addy;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+			};
+			name = appstorelessRelease;
+		};
+		048B081D2F2E937C0032F025 /* appstoreDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "host.stjin.addy-shared";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,4,7";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = appstoreDebug;
+		};
+		048B081E2F2E937C0032F025 /* appstorelessDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "host.stjin.addy-shared";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,4,7";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = appstorelessDebug;
+		};
+		048B081F2F2E937C0032F025 /* appstoreRelease */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "host.stjin.addy-shared";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,4,7";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = appstoreRelease;
+		};
+		048B08202F2E937C0032F025 /* appstorelessRelease */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 83RFSJ6CUP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "host.stjin.addy-shared";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,4,7";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = appstorelessRelease;
+		};
 		80274F972C5E223300C8C6A1 /* appstoreDebug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1773,7 +2741,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -1793,7 +2761,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1813,7 +2781,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1827,7 +2795,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1844,7 +2812,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1858,7 +2826,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1954,7 +2922,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -1974,7 +2942,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1994,7 +2962,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2008,7 +2976,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2026,7 +2994,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2040,7 +3008,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2076,7 +3044,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2090,7 +3058,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2109,7 +3077,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2123,7 +3091,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2141,7 +3109,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2155,7 +3123,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2173,7 +3141,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2187,7 +3155,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2333,7 +3301,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -2353,7 +3321,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2374,7 +3342,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -2394,7 +3362,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2425,6 +3393,28 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		048B08072F2E8D0E0032F025 /* Build configuration list for PBXNativeTarget "addy_watchkit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				048B08022F2E8D0E0032F025 /* appstoreDebug */,
+				048B08032F2E8D0E0032F025 /* appstorelessDebug */,
+				048B08042F2E8D0E0032F025 /* appstoreRelease */,
+				048B08052F2E8D0E0032F025 /* appstorelessRelease */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = appstoreRelease;
+		};
+		048B081C2F2E937C0032F025 /* Build configuration list for PBXNativeTarget "addy_shared" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				048B081D2F2E937C0032F025 /* appstoreDebug */,
+				048B081E2F2E937C0032F025 /* appstorelessDebug */,
+				048B081F2F2E937C0032F025 /* appstoreRelease */,
+				048B08202F2E937C0032F025 /* appstorelessRelease */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = appstoreRelease;
+		};
 		80274F962C5E223300C8C6A1 /* Build configuration list for PBXAggregateTarget "Privacy Manifest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2494,6 +3484,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		048B087B2F2E95840032F025 /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ActuallyTaylor/SwiftHTMLToMarkdown";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
+		048B087E2F2E95A00032F025 /* XCRemoteSwiftPackageReference "FeedKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nmdias/FeedKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.3.0;
+			};
+		};
+		048B08812F2E95B70032F025 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.1;
+			};
+		};
 		8001D9D02BEA1E3600AAD10E /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/CodeScanner";
@@ -2529,6 +3543,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		048B087C2F2E95840032F025 /* SwiftHTMLtoMarkdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 048B087B2F2E95840032F025 /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */;
+			productName = SwiftHTMLtoMarkdown;
+		};
+		048B087F2F2E95A00032F025 /* FeedKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 048B087E2F2E95A00032F025 /* XCRemoteSwiftPackageReference "FeedKit" */;
+			productName = FeedKit;
+		};
+		048B08822F2E95B70032F025 /* Shimmer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 048B08812F2E95B70032F025 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
+			productName = Shimmer;
+		};
 		8001D9D12BEA1E3600AAD10E /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8001D9D02BEA1E3600AAD10E /* XCRemoteSwiftPackageReference "CodeScanner" */;

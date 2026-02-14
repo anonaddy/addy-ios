@@ -180,7 +180,7 @@ struct UsernamesView: View {
                     } description: {
                         Text(usernamesViewModel.networkError)
                     } actions: {
-                        Button(String(localized: "try_again")) {
+                        Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                             Task {
                                 await getUserResource()
                                 await usernamesViewModel.getUsernames()
@@ -194,7 +194,7 @@ struct UsernamesView: View {
                         ContentUnavailableView {
                             Label(String(localized: "obtaining_usernames"), systemImage: "globe")
                         } description: {
-                            Text(String(localized: "obtaining_desc"))
+                            Text(String(localized: "obtaining_desc", bundle: Bundle(for: SharedData.self)))
                         }
 
                         ProgressView()
@@ -246,13 +246,13 @@ struct UsernamesView: View {
         if let description = username.description {
             return String(format: String(localized: "s_s_s"),
                           description,
-                          String(format: NSLocalizedString("created_at_s", comment: ""),
+                          String(format: NSLocalizedString("created_at_s", bundle: Bundle(for: SharedData.self), comment: ""),
                                  DateTimeUtils.convertStringToLocalTimeZoneString(username.created_at)),
                           String(format: String(localized: "updated_at_s"),
                                  DateTimeUtils.convertStringToLocalTimeZoneString(username.updated_at)))
         } else {
             return String(format: String(localized: "s_s"),
-                          String(format: NSLocalizedString("created_at_s", comment: ""),
+                          String(format: NSLocalizedString("created_at_s", bundle: Bundle(for: SharedData.self), comment: ""),
                                  DateTimeUtils.convertStringToLocalTimeZoneString(username.created_at)),
                           String(format: String(localized: "created_at_s"),
                                  DateTimeUtils.convertStringToLocalTimeZoneString(username.updated_at)))
