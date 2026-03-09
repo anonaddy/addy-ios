@@ -20,6 +20,7 @@ struct ProfileBottomSheet: View {
     @State var isShowingSubscriptionView = false
     @State var isShowingRulesView = false
     @State var isShowingUsernamesView = false
+    @State var isShowingBlocklistView = false
     @State var isShowingAppSettingsView = false
     @State var shouldHideNavigationBarBackButtonSubscriptionView = false
 
@@ -114,7 +115,7 @@ struct ProfileBottomSheet: View {
                             self.isShowingDomainsView = true
                         }
                     }
-
+                    
                     AddySection(title: String(localized: "manage_rules"), description: String(localized: "manage_rules_desc"), trailingSystemimage: "chevron.right") {
                         if horizontalSize == .regular {
                             self.onNavigate(Destination.rules)
@@ -122,7 +123,7 @@ struct ProfileBottomSheet: View {
                             self.isShowingRulesView = true
                         }
                     }
-
+                    
                     AddySection(title: String(localized: "manage_usernames"), description: String(localized: "manage_usernames_desc"), trailingSystemimage: "chevron.right") {
                         if horizontalSize == .regular {
                             self.onNavigate(Destination.usernames)
@@ -130,7 +131,17 @@ struct ProfileBottomSheet: View {
                             self.isShowingUsernamesView = true
                         }
                     }
-
+                    
+                    AddySection(title: String(localized: "manage_blocklist"), description: String(localized: "blocklist_desc"), trailingSystemimage: "chevron.right") {
+                        if horizontalSize == .regular {
+                            self.onNavigate(Destination.blocklist)
+                        } else {
+                            self.isShowingBlocklistView = true
+                        }
+                    }
+                }
+                
+                Section {
                     AddySection(title: String(localized: "app_settings"), description: getAppVersionSectionDescription(), trailingSystemimage: "chevron.right") {
                         if horizontalSize == .regular {
                             self.onNavigate(Destination.settings)
@@ -168,6 +179,9 @@ struct ProfileBottomSheet: View {
             }
             .navigationDestination(isPresented: $isShowingUsernamesView) {
                 UsernamesView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+            }
+            .navigationDestination(isPresented: $isShowingBlocklistView) {
+                BlocklistView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
             }
             .navigationDestination(isPresented: $isShowingAppSettingsView) {
                 AppSettingsView(horizontalSize: $horizontalSize).environmentObject(mainViewState)

@@ -26,7 +26,6 @@ struct ValidatingTextField: View {
         VStack(alignment: .leading) {
             if fieldType == .bigText {
                 VStack(alignment: .leading) {
-                    // Your existing code...
                     ScrollView {
                         TextEditor(text: $value)
                             .onChange(of: value) {

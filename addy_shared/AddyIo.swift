@@ -56,6 +56,7 @@ public enum AddyIo {
     static var API_URL_FAILED_DELIVERIES: String { "\(API_BASE_URL)/api/v1/failed-deliveries" }
     static var API_URL_APP_VERSION: String { "\(API_BASE_URL)/api/v1/app-version" }
     static var API_URL_CHART_DATA: String { "\(API_BASE_URL)/api/v1/chart-data" }
+    static var API_URL_BLOCKLIST: String { "\(API_BASE_URL)/api/v1/blocklist" }
 
     static var API_URL_LOGIN: String { "\(API_BASE_URL)/api/auth/login" }
     static var API_URL_LOGOUT: String { "\(API_BASE_URL)/api/auth/logout" }

@@ -47,6 +47,9 @@
 		048B08CD2F2FE7FD0032F025 /* AddySetupSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */; };
 		048B08EB2F33C7620032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
 		048B08EC2F33C7620032F025 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		04D670492F5ED8C000ADA60D /* BlocklistEntriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D670482F5ED8C000ADA60D /* BlocklistEntriesViewModel.swift */; };
+		04D6704B2F5EDACC00ADA60D /* BlocklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6704A2F5EDACC00ADA60D /* BlocklistView.swift */; };
+		04D6704D2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6704C2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift */; };
 		04F45D712F38A794009FEDB2 /* AppSettingsWatchKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */; };
 		8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8001D9D12BEA1E3600AAD10E /* CodeScanner */; };
 		8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003C36A2C1A27D90005D742 /* AppDelegate.swift */; };
@@ -364,6 +367,9 @@
 		048B07F62F2E8D0D0032F025 /* addy_watchkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy_watchkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B08162F2E937C0032F025 /* addy_shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = addy_shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySetupSheet.swift; sourceTree = "<group>"; };
+		04D670482F5ED8C000ADA60D /* BlocklistEntriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistEntriesViewModel.swift; sourceTree = "<group>"; };
+		04D6704A2F5EDACC00ADA60D /* BlocklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistView.swift; sourceTree = "<group>"; };
+		04D6704C2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlocklistEntryBottomSheet.swift; sourceTree = "<group>"; };
 		04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsWatchKitView.swift; sourceTree = "<group>"; };
 		8003C36A2C1A27D90005D742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		800E9AB02CBDB1880014164E /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -636,6 +642,15 @@
 			path = watchkit;
 			sourceTree = "<group>";
 		};
+		04D670452F5ED6F800ADA60D /* blocklist */ = {
+			isa = PBXGroup;
+			children = (
+				04D6704C2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift */,
+				04D6704A2F5EDACC00ADA60D /* BlocklistView.swift */,
+			);
+			path = blocklist;
+			sourceTree = "<group>";
+		};
 		8001DA002BEA515C00AAD10E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -674,6 +689,7 @@
 		801B92A52BE9128500179EB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04D670452F5ED6F800ADA60D /* blocklist */,
 				805CB1D22D47E561007ED28D /* DocumentInteractionView.swift */,
 				801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */,
 				806F21322BE8F1B100EBEBC8 /* addyApp.swift */,
@@ -1092,6 +1108,7 @@
 		80A7F2012BECD7D3001A984B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				04D670482F5ED8C000ADA60D /* BlocklistEntriesViewModel.swift */,
 				8073C9462C78727E00DE3640 /* AccountNotificationsViewModel.swift */,
 				80DB9DB22C0DC7F2002B6486 /* DomainsViewModel.swift */,
 				80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */,
@@ -1751,6 +1768,7 @@
 				80B2FB472C3C425A009977B6 /* MailToActionSheet.swift in Sources */,
 				8012019A2C542FC7006F4FE6 /* EditUsernameAutoCreateRegexBottomSheet.swift in Sources */,
 				80B2FB482C3C425A009977B6 /* MailToActionSheetData.swift in Sources */,
+				04D670492F5ED8C000ADA60D /* BlocklistEntriesViewModel.swift in Sources */,
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
 				805535642C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift in Sources */,
 				80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */,
@@ -1764,6 +1782,7 @@
 				80A7F2072BECFA5B001A984B /* AliasRowView.swift in Sources */,
 				80E9B2342C0B7D2D00C7EF99 /* EditUsernameDescriptionBottomSheet.swift in Sources */,
 				806AE6922C19ED1700F3CA92 /* AppSettingsUpdateView.swift in Sources */,
+				04D6704D2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift in Sources */,
 				80DCF3AE2BF1347F0022690F /* AddySection.swift in Sources */,
 				80E9B2362C0B7E5C00C7EF99 /* EditUsernameFromNameBottomSheet.swift in Sources */,
 				80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */,
@@ -1799,6 +1818,7 @@
 				8058ADB32C32B2470004AF81 /* ChartGridBaseShape.swift in Sources */,
 				8058ADB42C32B2470004AF81 /* Color+Extension.swift in Sources */,
 				8058ADB52C32B2470004AF81 /* ChartGridShape.swift in Sources */,
+				04D6704B2F5EDACC00ADA60D /* BlocklistView.swift in Sources */,
 				8058ADB62C32B2470004AF81 /* Range+Extension.swift in Sources */,
 				8058ADB72C32B2470004AF81 /* ViewPreferenceKey.swift in Sources */,
 				8047EA6D2C454F1B00A04D28 /* HomeCardView.swift in Sources */,
