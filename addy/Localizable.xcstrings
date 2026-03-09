@@ -559,7 +559,15 @@
       "comment" : "MOVED TO SHARED"
     },
     "aliases" : {
-      "comment" : "MOVED TO SHARED"
+      "comment" : "MOVED TO SHARED, but keeping for navigation",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aliases"
+          }
+        }
+      }
     },
     "aliases_d" : {
       "extractionState" : "manual",

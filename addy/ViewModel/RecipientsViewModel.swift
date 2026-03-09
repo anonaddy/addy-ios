@@ -9,6 +9,9 @@ import addy_shared
 import Combine
 import SwiftUI
 
+// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
+// and handle all @Published updates safely on the main thread.
+@MainActor
 class RecipientsViewModel: ObservableObject {
     @Published var recipients: [Recipients]? = nil
 
@@ -24,26 +27,23 @@ class RecipientsViewModel: ObservableObject {
 
     func getRecipients() async {
         if !isLoading {
-            DispatchQueue.main.async {
-                self.isLoading = true
-                self.networkError = ""
-            }
+            self.isLoading = true
+            self.networkError = ""
+            
             let networkHelper = NetworkHelper()
             do {
                 let recipients = try await networkHelper.getRecipients(verifiedOnly: verifiedOnly)
-                DispatchQueue.main.async {
-                    self.isLoading = false
-                    self.recipients = recipients
-                }
+                self.isLoading = false
+                self.recipients = recipients
             } catch {
-                DispatchQueue.main.async {
-                    self.isLoading = false
-                    self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
-                }
+                self.isLoading = false
+                self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
+                
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,
-                    method: "getRecipients", extra: nil
+                    method: "getRecipients",
+                    extra: nil
                 )
             }
         }
