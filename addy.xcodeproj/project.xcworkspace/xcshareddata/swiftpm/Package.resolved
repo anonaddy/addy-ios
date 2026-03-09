@@ -1,5 +1,5 @@
 {
-  "originHash" : "e233c7ef9b8ac9692514b63d8505fd8737d63ead7fdeb124b15e7ddf0e6427a8",
+  "originHash" : "831a7e708df83cfa561a7e8ccd0ca790a36739d24393732d726dcf91d5d1ae7e",
   "pins" : [
     {
       "identity" : "codescanner",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nmdias/FeedKit.git",
       "state" : {
-        "revision" : "66e3122dff80e01c419f76eadb19e410c5c8702a",
-        "version" : "10.3.0"
+        "revision" : "e55b2cafaf67370092c91193cfb8a8b008e05888",
+        "version" : "10.4.0"
       }
     },
     {
@@ -24,17 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/airbnb/lottie-spm.git",
       "state" : {
-        "revision" : "04f2fd18cc9404a0a0917265a449002674f24ec9",
-        "version" : "4.5.2"
-      }
-    },
-    {
-      "identity" : "lrucache",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/nicklockwood/LRUCache.git",
-      "state" : {
-        "revision" : "e0e9e039b33db8f2ef39b8e25607e38f46b13584",
-        "version" : "1.1.2"
+        "revision" : "69faaefa7721fba9e434a52c16adf4329c9084db",
+        "version" : "4.6.0"
       }
     },
     {
@@ -47,21 +38,12 @@
       }
     },
     {
-      "identity" : "swift-atomics",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-atomics.git",
-      "state" : {
-        "revision" : "b601256eab081c0f92f059e12818ac1d4f178ff7",
-        "version" : "1.3.0"
-      }
-    },
-    {
       "identity" : "swifthtmltomarkdown",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ActuallyTaylor/SwiftHTMLToMarkdown",
+      "location" : "https://github.com/Stjin/SwiftHTMLToMarkdown",
       "state" : {
-        "revision" : "d533b9cb47a8defaa8d9432fad20ecf5964c0668",
-        "version" : "1.1.1"
+        "branch" : "main",
+        "revision" : "aa4c0be2996ba3e06bade57b0b0e7eae9d23393f"
       }
     },
     {
@@ -69,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/scinfu/SwiftSoup.git",
       "state" : {
-        "revision" : "db0428bcfced386943c05ba8ea3e607baa715e45",
-        "version" : "2.11.0"
+        "revision" : "dba183c96b2da4e4b80bb31b1e2e59cb9542b8fc",
+        "version" : "2.13.0"
       }
     },
     {

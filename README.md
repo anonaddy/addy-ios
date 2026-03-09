@@ -16,7 +16,7 @@ Easily create and manage your addy.io aliases, recipients and more from your pho
 
 > addy.io
 
-- addy.io instance running v1.3.8 or higher (current version of the addy.io app has been tested with v1.3.8)
+- addy.io instance running v1.4.0 or higher (current version of the addy.io app has been tested with v1.4.0)
 
 > iOS, iPadOS and WatchOS
 
@@ -58,6 +58,7 @@ Easily create and manage your addy.io aliases, recipients and more from your pho
 - Domains
 - Usernames
 - Rules
+- Blocklist
 - Failed deliveries
 
 ## Download

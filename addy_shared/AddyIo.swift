@@ -15,8 +15,8 @@ public enum AddyIo {
 
     // 1.3.7
     public static let MINIMUMVERSIONCODEMAJOR = 1
-    public static let MINIMUMVERSIONCODEMINOR = 3
-    public static let MINIMUMVERSIONCODEPATCH = 8
+    public static let MINIMUMVERSIONCODEMINOR = 4
+    public static let MINIMUMVERSIONCODEPATCH = 0
 
     public static var VERSIONMAJOR = 0
     public static var VERSIONMINOR = 0
