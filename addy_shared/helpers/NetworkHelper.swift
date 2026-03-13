@@ -2327,6 +2327,107 @@ public class NetworkHelper {
             throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
         }
     }
+    
+    public func pinSpecificAlias(aliasId: String) async throws -> Aliases? {
+        #if DEBUG
+            print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+        #endif
+        let url = URL(string: "\(AddyIo.API_URL_PINNED_ALIASES)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": aliasId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "pinSpecificAlias",
+                extra: error.failureURLString
+            )
+            throw error
+        }
+
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleAlias.self, from: data)
+            return addyIoData.data
+        case 401:
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")"
+            )
+
+            createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "pinSpecificAlias",
+                extra: ErrorHelper.getErrorMessage(data: data)
+            )
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        }
+    }
+    
+    public func unpinSpecificAlias(aliasId: String) async throws -> String {
+        #if DEBUG
+            print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
+        #endif
+        let url = URL(string: "\(AddyIo.API_URL_PINNED_ALIASES)/\(aliasId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            let error = URLError(.badServerResponse)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: error.localizedDescription,
+                method: "unpinSpecificAlias",
+                extra: error.failureURLString
+            )
+            throw error
+        }
+
+        switch httpResponse.statusCode {
+        case 204:
+            return "204"
+        case 401:
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: "401, app will reset",
+                method: #function,
+                extra: "data: \(data.base64EncodedString()), shouldBeheaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")"
+            )
+
+            createAppResetDueToInvalidAPIKeyNotification()
+            SettingsManager(encrypted: true).clearSettingsAndCloseApp()
+            throw URLError(.userAuthenticationRequired, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        default:
+            let errorMessage = "Error: \(httpResponse.statusCode) - \(httpResponse.debugDescription)"
+            print(errorMessage)
+            loggingHelper.addLog(
+                importance: LogImportance.critical,
+                error: errorMessage,
+                method: "unpinSpecificAlias",
+                extra: ErrorHelper.getErrorMessage(data: data)
+            )
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: ErrorHelper.getErrorMessage(data: data)])
+        }
+    }
 
     public func deactivateSpecificRule(ruleId: String) async throws -> String {
         #if DEBUG

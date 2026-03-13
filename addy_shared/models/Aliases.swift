@@ -35,6 +35,7 @@ public struct Aliases: Identifiable, Codable, Hashable {
     public let domain: String
     public var email: String
     public var active: Bool
+    public var pinned: Bool
     public let description: String?
     public let from_name: String?
     public var attached_recipients_only: Bool

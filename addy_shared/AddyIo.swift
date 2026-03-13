@@ -32,6 +32,7 @@ public enum AddyIo {
     static var API_URL_ALLOWED_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/allowed-recipients" }
     static var API_URL_ALIAS: String { "\(API_BASE_URL)/api/v1/aliases" }
     static var API_URL_ACTIVE_ALIAS: String { "\(API_BASE_URL)/api/v1/active-aliases" }
+    static var API_URL_PINNED_ALIASES: String { "\(API_BASE_URL)/api/v1/pinned-aliases" }
     static var API_URL_ALIAS_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/alias-recipients" }
     static var API_URL_DOMAIN_OPTIONS: String { "\(API_BASE_URL)/api/v1/domain-options" }
     static var API_URL_ENCRYPTED_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/encrypted-recipients" }
