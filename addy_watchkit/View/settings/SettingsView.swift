@@ -19,30 +19,9 @@ struct SettingsView: View {
 
     private let settingsManager = SettingsManager(encrypted: false)
     private let encryptedSettingsManager = SettingsManager(encrypted: true)
-    private let favoriteAliasHelper = FavoriteAliasHelper()
 
     var body: some View {
         List {
-
-            Section("favorite_aliases") {
-                Button {
-                    
-                    let cancelAction = WKAlertAction(title: String(localized: "cancel", bundle: Bundle(for: SharedData.self)), style: .cancel) {  }
-                    let resetAction = WKAlertAction(title: String(localized: "clear"), style: .default) {
-                       WKInterfaceDevice.current().play(.failure)
-                    favoriteAliasHelper.clearFavoriteAliases()
-                   }
-                   
-                   WKExtension.shared().visibleInterfaceController?.presentAlert(
-                       withTitle: String(localized: "clear_favorites"),
-                       message: String(localized: "clear_favorites_desc"),
-                       preferredStyle: .alert,
-                       actions: [cancelAction, resetAction]
-                   )
-                } label: {
-                    Label("clear_favorites", systemImage: "star")
-                }
-            }
 
             Section(String(localized: "logs", bundle: Bundle(for: SharedData.self))) {
                 Toggle(isOn: $storeLogs) {

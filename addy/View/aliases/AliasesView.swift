@@ -388,6 +388,23 @@ struct AliasesView: View {
                         Label(String(localized: "send_mail"), systemImage: "paperplane")
                     }
                     
+                    if alias.pinned {
+                        Button {
+                            Task {
+                                await unpinAlias(alias: alias)
+                            }
+                        } label: {
+                            Label(String(localized: "unpin_alias", bundle: Bundle(for: SharedData.self)), systemImage: "pin.slash.fill")
+                        }
+                    } else {
+                        Button {
+                            Task {
+                                await pinAlias(alias: alias)
+                            }
+                        } label: {
+                            Label(String(localized: "pin_alias", bundle: Bundle(for: SharedData.self)), systemImage: "pin.fill")
+                        }
+                    }
                     if alias.deleted_at != nil {
                         Button {
                             self.activeAlert = .restoreAlias
@@ -486,11 +503,20 @@ struct AliasesView: View {
     
     func ApplyFilter(chipId: String) {
         switch chipId {
+        case "filter_pinned_aliases":
+            aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
+            aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
+            aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
+            aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
+            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = true
+            aliasesViewModel.aliasSortFilterRequest.sort = nil
+            aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_all_aliases":
             aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
+            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
             aliasesViewModel.aliasSortFilterRequest.sort = nil
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_active_aliases":
@@ -498,6 +524,7 @@ struct AliasesView: View {
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = true
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
+            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
             aliasesViewModel.aliasSortFilterRequest.sort = nil
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_inactive_aliases":
@@ -505,6 +532,7 @@ struct AliasesView: View {
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = true
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
+            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
             aliasesViewModel.aliasSortFilterRequest.sort = nil
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_deleted_aliases":
@@ -512,6 +540,7 @@ struct AliasesView: View {
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = true
+            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
             aliasesViewModel.aliasSortFilterRequest.sort = nil
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_watched_only":
@@ -519,6 +548,7 @@ struct AliasesView: View {
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
+            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
             aliasesViewModel.aliasSortFilterRequest.sort = nil
             aliasesViewModel.aliasSortFilterRequest.sortDesc = false
         case "filter_custom":
@@ -529,6 +559,7 @@ struct AliasesView: View {
             aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
             aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
+            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
         }
         
         SaveFilter(chipId: chipId, aliasSortFilterRequest: aliasesViewModel.aliasSortFilterRequest)
@@ -629,7 +660,15 @@ struct AliasesView: View {
         let networkHelper = NetworkHelper()
         do {
             _ = try await networkHelper.activateSpecificAlias(aliasId: alias.id)
-            await aliasesViewModel.getAliases(forceReload: true)
+            // Instead of reloading the entire list, mark this alias as active
+            if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
+                aliasesViewModel.aliasList?.data[index].active = true
+                
+                // If we were only showing inactive aliases, remove it from the list
+                if aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases || aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases {
+                    aliasesViewModel.aliasList?.data.remove(at: index)
+                }
+            }
         } catch {
             activeAlert = .error
             showAlert = true
@@ -643,7 +682,15 @@ struct AliasesView: View {
         do {
             let result = try await networkHelper.deactivateSpecificAlias(aliasId: alias.id)
             if result == "204" {
-                await aliasesViewModel.getAliases(forceReload: true)
+                // Instead of reloading the entire list, mark this alias as inactive
+                if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
+                    aliasesViewModel.aliasList?.data[index].active = false
+                    
+                    // If we were only showing active aliases, remove it from the list
+                    if aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases {
+                        aliasesViewModel.aliasList?.data.remove(at: index)
+                    }
+                }
             } else {
                 activeAlert = .error
                 showAlert = true
@@ -658,12 +705,61 @@ struct AliasesView: View {
         }
     }
     
+    
+    private func pinAlias(alias: Aliases) async {
+        let networkHelper = NetworkHelper()
+        do {
+            _ = try await networkHelper.pinSpecificAlias(aliasId: alias.id)
+            // Instead of reloading the entire list, mark this alias as pinned
+            if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
+                aliasesViewModel.aliasList?.data[index].pinned = true
+            }
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self))
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+    
+    
+    private func unpinAlias(alias: Aliases) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.unpinSpecificAlias(aliasId: alias.id)
+            if result == "204" {
+                // Instead of reloading the entire list, mark this alias as unpinned
+                if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
+                    aliasesViewModel.aliasList?.data[index].pinned = false
+                    
+                    // If we were only showing pinned aliases, remove it from the list
+                    if aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases {
+                        aliasesViewModel.aliasList?.data.remove(at: index)
+                    }
+                }
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self))
+                errorAlertMessage = result
+            }
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self))
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+    
     private func deleteAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
         do {
             let result = try await networkHelper.deleteAlias(aliasId: alias.id)
             if result == "204" {
-                await aliasesViewModel.getAliases(forceReload: true)
+                // Instead of reloading the entire list, remove just this alias
+                if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
+                    aliasesViewModel.aliasList?.data.remove(at: index)
+                }
             } else {
                 activeAlert = .error
                 showAlert = true
@@ -737,7 +833,15 @@ struct AliasesView: View {
         do {
             let restoredAlias = try await networkHelper.restoreAlias(aliasId: alias.id)
             if restoredAlias != nil {
-                await aliasesViewModel.getAliases(forceReload: true)
+                // Instead of reloading the entire list, mark this alias as restored
+                if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
+                    // If we were only showing deleted aliases, remove it from the list
+                    if aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases {
+                        aliasesViewModel.aliasList?.data.remove(at: index)
+                    } else {
+                        aliasesViewModel.aliasList?.data[index].deleted_at = nil
+                    }
+                }
             } else {
                 activeAlert = .error
                 showAlert = true
@@ -755,6 +859,7 @@ struct AliasesView: View {
     func GetFilterChips() -> [AddyChipModel] {
         return [
             AddyChipModel(chipId: "filter_all_aliases", label: String(localized: "filter_all_aliases")),
+            AddyChipModel(chipId: "filter_pinned_aliases", label: String(localized: "filter_pinned_aliases")),
             AddyChipModel(chipId: "filter_active_aliases", label: String(localized: "filter_active_aliases")),
             AddyChipModel(chipId: "filter_inactive_aliases", label: String(localized: "filter_inactive_aliases")),
             AddyChipModel(chipId: "filter_deleted_aliases", label: String(localized: "filter_deleted_aliases")),

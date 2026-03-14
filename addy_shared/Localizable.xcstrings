@@ -328,6 +328,17 @@
         }
       }
     },
+    "error_edit_pinned" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the pinned state"
+          }
+        }
+      }
+    },
     "error_unknown_refer_to_logs" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -437,6 +448,17 @@
         }
       }
     },
+    "pin_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pin alias"
+          }
+        }
+      }
+    },
     "reset_app" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -509,6 +531,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Understood"
+          }
+        }
+      }
+    },
+    "unpin_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unpin alias"
           }
         }
       }

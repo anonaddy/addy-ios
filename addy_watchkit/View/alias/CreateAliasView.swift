@@ -116,10 +116,10 @@ class CreateAliasViewModel: ObservableObject {
 
 // MARK: - Supporting Views (stubs - implement based on your Kotlin components)
 struct CreatedAliasDetails: View {
-    @StateObject private var favoritesHelper = FavoriteAliasHelper()
     @StateObject private var connectivity = WatchConnectivityManager()
-    @State private var isAliasFavorite: Bool = false
     @State private var isSendingAliasToDevice: Bool = false
+    @State private var isAliasPinned: Bool = false
+    @State private var IsLoadingPinnedButton: Bool = false
     
     let alias: Aliases
     
@@ -135,11 +135,17 @@ struct CreatedAliasDetails: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                    Toggle("", systemImage: isAliasFavorite ? "star.fill" : "star", isOn: $isAliasFavorite)
+                Toggle("", systemImage: isAliasPinned ? "pin.fill" : "pin", isOn: $isAliasPinned)
                         .toggleStyle(.button)
-                        .foregroundStyle(isAliasFavorite ? .yellow : .secondary)
-                        .onChange(of: isAliasFavorite) { _, newValue in
-                            toggleFavorite()
+                        .foregroundStyle(isAliasPinned ? .primary : .secondary)
+                        .overlay {
+                            if IsLoadingPinnedButton {
+                                ProgressView()
+                                    .controlSize(.small)
+                            }
+                        }
+                        .onChange(of: isAliasPinned) { _, newValue in
+                            togglePinned()
                         }
                                 
                     Spacer()
@@ -158,32 +164,77 @@ struct CreatedAliasDetails: View {
         }
         .containerBackground(Color.gray.opacity(0.1).gradient, for: .navigation)
         .onAppear {
-            isAliasFavorite = favoritesHelper.favoriteAliases.contains(alias.id)
+            isAliasPinned = alias.pinned
         }
     }
     
     
-    private func toggleFavorite() {
-        if (isAliasFavorite == favoritesHelper.favoriteAliases.contains(alias.id)) { return }
-        if (isAliasFavorite) {
-            if (!favoritesHelper.addAliasAsFavorite(alias.id)){
-                self.isAliasFavorite = false
-                
+    private func togglePinned() {
+        IsLoadingPinnedButton = true
+
+        if (isAliasPinned) {
+            Task {
+               await pinAlias(alias: alias)
+            }
+        } else {
+            Task {
+                await unpinAlias(alias: alias)
+            }
+        }
+    }
+    
+    private func pinAlias(alias: Aliases) async {
+        let networkHelper = NetworkHelper()
+        do {
+            guard (try await networkHelper.pinSpecificAlias(aliasId: alias.id)) != nil else { return }
+            IsLoadingPinnedButton = false
+            isAliasPinned = true
+        } catch {
+            IsLoadingPinnedButton = false
+            isAliasPinned = false
+            
+            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
+            WKInterfaceDevice.current().play(.failure)
+            WKExtension.shared().visibleInterfaceController?.presentAlert(
+                withTitle: String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self)),
+                message: error.localizedDescription,
+                preferredStyle: .alert,
+                actions: [okAction]
+            )
+        }
+    }
+    
+    private func unpinAlias(alias: Aliases) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.unpinSpecificAlias(aliasId: alias.id)
+            IsLoadingPinnedButton = false
+            if result == "204" {
+                isAliasPinned = false
+            } else {
+                isAliasPinned = true
+            
                 let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
                 WKInterfaceDevice.current().play(.failure)
                 WKExtension.shared().visibleInterfaceController?.presentAlert(
-                    withTitle: String(localized: "error", bundle: Bundle(for: SharedData.self)),
-                    message: String(localized: "max_favorites_reached"),
+                    withTitle: String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self)),
+                    message: result,
                     preferredStyle: .alert,
                     actions: [okAction]
                 )
-                
-            } else {
-                self.isAliasFavorite = true
             }
-        } else {
-            favoritesHelper.removeAliasAsFavorite(alias.id)
-            self.isAliasFavorite = false
+        } catch {
+            IsLoadingPinnedButton = false
+            isAliasPinned = true
+            
+            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
+            WKInterfaceDevice.current().play(.failure)
+            WKExtension.shared().visibleInterfaceController?.presentAlert(
+                withTitle: String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self)),
+                message: error.localizedDescription,
+                preferredStyle: .alert,
+                actions: [okAction]
+            )
         }
     }
     

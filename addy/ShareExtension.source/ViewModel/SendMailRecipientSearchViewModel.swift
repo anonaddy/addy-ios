@@ -15,6 +15,7 @@ class SendMailRecipientSearchViewModel: ObservableObject {
         onlyDeletedAliases: false,
         onlyInactiveAliases: false,
         onlyWatchedAliases: false,
+        onlyPinnedAliases: false,
         sort: "created_at",
         sortDesc: false,
         filter: ""

@@ -4390,6 +4390,8 @@ public class NetworkHelper {
             parameters.append(URLQueryItem(name: "filter[active]", value: "false"))
         } else if aliasSortFilterRequest.onlyDeletedAliases {
             parameters.append(URLQueryItem(name: "filter[deleted]", value: "only"))
+        } else if aliasSortFilterRequest.onlyPinnedAliases {
+            parameters.append(URLQueryItem(name: "filter[pinned]", value: "true"))
         } else {
             parameters.append(URLQueryItem(name: "filter[deleted]", value: "with"))
         }
@@ -4564,6 +4566,7 @@ public class NetworkHelper {
             onlyDeletedAliases: false,
             onlyInactiveAliases: false,
             onlyWatchedAliases: false,
+            onlyPinnedAliases: false,
             sort: "emails_forwarded",
             sortDesc: true,
             filter: nil

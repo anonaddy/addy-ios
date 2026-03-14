@@ -23,6 +23,7 @@ class AliasViewModel: ObservableObject {
         onlyDeletedAliases: false,
         onlyInactiveAliases: false,
         onlyWatchedAliases: false,
+        onlyPinnedAliases: false,
         sort: "updated_at",
         sortDesc: true,
         filter: nil

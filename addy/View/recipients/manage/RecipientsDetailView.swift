@@ -681,7 +681,7 @@ struct RecipientsDetailView: View {
 
     private func getAliasesAndAddThemToList(recipient: Recipients, workingAliasList: AliasesArray? = nil) async {
         let networkHelper = NetworkHelper()
-        let aliasSortFilterRequest = AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, sort: nil, sortDesc: false, filter: nil)
+        let aliasSortFilterRequest = AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, onlyPinnedAliases: false, sort: nil, sortDesc: false, filter: nil)
         do {
             if let list = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (workingAliasList?.meta?.current_page ?? 0) + 1, size: 100, recipient: recipientId) {
                 addAliasesToList(recipient: recipient, aliasesArray: list, workingAliasListInbound: workingAliasList)
