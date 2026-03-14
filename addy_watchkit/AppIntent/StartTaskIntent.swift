@@ -19,7 +19,7 @@ struct StartTaskIntent: AppIntent {
     func perform() async throws -> some IntentResult & ReturnsValue<String> & ProvidesDialog {
         if let userResource = getUserResource() {
             do {
-                if let alias = try await NetworkHelper().addAlias(domain: userResource.default_alias_domain, description: String(localized: "created_on_apple_watch") , format: userResource.default_alias_format == "custom" ? "random_characters" : userResource.default_alias_format, localPart: "", recipients: nil)
+                if let alias = try await NetworkHelper().addAlias(domain: userResource.default_alias_domain, description: String(localized: "created_on_apple_watch"), format: userResource.default_alias_format == "custom" ? "random_characters" : userResource.default_alias_format, localPart: "", recipients: nil)
                 {
                     let localizedString = LocalizedStringResource("app_intent_alias_added\(alias.email)")
                     return .result(value: alias.email, dialog: IntentDialog(localizedString))
