@@ -662,6 +662,8 @@ struct RecipientsDetailView: View {
                     self.shouldEncrypt = recipient.should_encrypt
                     self.inlineEncryption = recipient.inline_encryption
                     self.protectedHeaders = recipient.protected_headers
+                    self.removePgpKeys = recipient.remove_pgp_keys
+                    self.removePgpSignatures = recipient.remove_pgp_signatures
                 }
 
                 // Reset total counts
