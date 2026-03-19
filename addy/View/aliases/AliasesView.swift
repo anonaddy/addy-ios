@@ -374,7 +374,7 @@ struct AliasesView: View {
         ZStack {
             AliasRowView(alias: alias, isPreview: false)
                 .listRowBackground(Color.clear)
-                .contextMenu { //TODO: Add pin and watch
+                .contextMenu { //TODO: Add watch
                     Button {
                         UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
                         showCopiedToClipboardAnimation()

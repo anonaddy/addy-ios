@@ -80,6 +80,14 @@ struct AliasRowView: View {
                     .minimumScaleFactor(0.5)
                     .padding(.vertical, 4)
             }
+        }.overlay(alignment: .topTrailing) {
+            if alias.pinned {
+                Image(systemName: "pin.fill")
+                    .font(.system(size: 10)) // "Tiny" as requested
+                    .foregroundColor(.secondary)
+                    .padding(.top, 8)    // Adjust these to sit nicely
+                    .padding(.trailing, 4) // within your list row padding
+            }
         }
         .padding()
     }
