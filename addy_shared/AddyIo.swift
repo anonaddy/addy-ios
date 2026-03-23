@@ -13,9 +13,9 @@ public enum AddyIo {
     // The versioncode is a combination of MAJOR MINOR PATCH
     // TODO: Update on every release
 
-    // 1.3.7
+    // 1.5.0
     public static let MINIMUMVERSIONCODEMAJOR = 1
-    public static let MINIMUMVERSIONCODEMINOR = 4
+    public static let MINIMUMVERSIONCODEMINOR = 5
     public static let MINIMUMVERSIONCODEPATCH = 0
 
     public static var VERSIONMAJOR = 0
