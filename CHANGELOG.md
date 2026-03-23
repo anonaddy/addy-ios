@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.1.0] - 2026-03-09
+
+### addy.io
+
+**Added**
+- Support for the new blocklist feature
+
+**Fixed & Improved**
+- Performance enhancements and other improvements for a smoother experience
+
+**addy.io for Apple Watch 1.0.2**
+
+**Fixed & Improved**  
+- Performance enhancements and other improvements for a smoother experience
+
+
 ## [v2.0.1] - 2026-02-15
 
 *What time is it?*  

@@ -85,7 +85,7 @@ class CreateAliasViewModel: ObservableObject {
                 
                 let result = try await NetworkHelper().addAlias(
                     domain: domain ?? userResource.default_alias_domain,
-                    description: "",
+                    description: String(localized: "created_on_apple_watch"),
                     format: userResource.default_alias_format == "custom" ? "random_characters" : userResource.default_alias_format,
                     localPart: "", recipients: nil
                 )

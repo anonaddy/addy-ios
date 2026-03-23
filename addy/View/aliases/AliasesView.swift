@@ -273,7 +273,9 @@ struct AliasesView: View {
             }
             .searchable(text: $aliasesViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "aliases_search")) // TODO: Move to tabbar
             .onSubmit(of: .search) {
-                aliasesViewModel.searchAliases(searchQuery: aliasesViewModel.searchQuery)
+                Task {
+                    await aliasesViewModel.searchAliases(searchQuery: aliasesViewModel.searchQuery)
+                }
             }
             .autocorrectionDisabled(true)
             .textInputAutocapitalization(.never)

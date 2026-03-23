@@ -15,8 +15,8 @@ public enum AddyIo {
 
     // 1.3.7
     public static let MINIMUMVERSIONCODEMAJOR = 1
-    public static let MINIMUMVERSIONCODEMINOR = 3
-    public static let MINIMUMVERSIONCODEPATCH = 8
+    public static let MINIMUMVERSIONCODEMINOR = 4
+    public static let MINIMUMVERSIONCODEPATCH = 0
 
     public static var VERSIONMAJOR = 0
     public static var VERSIONMINOR = 0
@@ -56,6 +56,7 @@ public enum AddyIo {
     static var API_URL_FAILED_DELIVERIES: String { "\(API_BASE_URL)/api/v1/failed-deliveries" }
     static var API_URL_APP_VERSION: String { "\(API_BASE_URL)/api/v1/app-version" }
     static var API_URL_CHART_DATA: String { "\(API_BASE_URL)/api/v1/chart-data" }
+    static var API_URL_BLOCKLIST: String { "\(API_BASE_URL)/api/v1/blocklist" }
 
     static var API_URL_LOGIN: String { "\(API_BASE_URL)/api/auth/login" }
     static var API_URL_LOGOUT: String { "\(API_BASE_URL)/api/auth/logout" }

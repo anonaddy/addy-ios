@@ -39,7 +39,6 @@
 		048B08002F2E8D0E0032F025 /* addy_watchkit.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 048B07F62F2E8D0D0032F025 /* addy_watchkit.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		048B08772F2E94AE0032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
 		048B08782F2E94AE0032F025 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		048B087D2F2E95840032F025 /* SwiftHTMLtoMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = 048B087C2F2E95840032F025 /* SwiftHTMLtoMarkdown */; };
 		048B08802F2E95A00032F025 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 048B087F2F2E95A00032F025 /* FeedKit */; };
 		048B08832F2E95B70032F025 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 048B08822F2E95B70032F025 /* Shimmer */; };
 		048B08842F2E96750032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
@@ -47,6 +46,10 @@
 		048B08CD2F2FE7FD0032F025 /* AddySetupSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */; };
 		048B08EB2F33C7620032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
 		048B08EC2F33C7620032F025 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		04D670492F5ED8C000ADA60D /* BlocklistEntriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D670482F5ED8C000ADA60D /* BlocklistEntriesViewModel.swift */; };
+		04D6704B2F5EDACC00ADA60D /* BlocklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6704A2F5EDACC00ADA60D /* BlocklistView.swift */; };
+		04D6704D2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6704C2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift */; };
+		04D6705A2F5EFAB400ADA60D /* SwiftHTMLtoMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = 04D670592F5EFAB400ADA60D /* SwiftHTMLtoMarkdown */; };
 		04F45D712F38A794009FEDB2 /* AppSettingsWatchKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */; };
 		8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8001D9D12BEA1E3600AAD10E /* CodeScanner */; };
 		8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003C36A2C1A27D90005D742 /* AppDelegate.swift */; };
@@ -364,6 +367,9 @@
 		048B07F62F2E8D0D0032F025 /* addy_watchkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy_watchkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B08162F2E937C0032F025 /* addy_shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = addy_shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySetupSheet.swift; sourceTree = "<group>"; };
+		04D670482F5ED8C000ADA60D /* BlocklistEntriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistEntriesViewModel.swift; sourceTree = "<group>"; };
+		04D6704A2F5EDACC00ADA60D /* BlocklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistView.swift; sourceTree = "<group>"; };
+		04D6704C2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlocklistEntryBottomSheet.swift; sourceTree = "<group>"; };
 		04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsWatchKitView.swift; sourceTree = "<group>"; };
 		8003C36A2C1A27D90005D742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		800E9AB02CBDB1880014164E /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -586,8 +592,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D6705A2F5EFAB400ADA60D /* SwiftHTMLtoMarkdown in Frameworks */,
 				048B08832F2E95B70032F025 /* Shimmer in Frameworks */,
-				048B087D2F2E95840032F025 /* SwiftHTMLtoMarkdown in Frameworks */,
 				048B08802F2E95A00032F025 /* FeedKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -636,6 +642,15 @@
 			path = watchkit;
 			sourceTree = "<group>";
 		};
+		04D670452F5ED6F800ADA60D /* blocklist */ = {
+			isa = PBXGroup;
+			children = (
+				04D6704C2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift */,
+				04D6704A2F5EDACC00ADA60D /* BlocklistView.swift */,
+			);
+			path = blocklist;
+			sourceTree = "<group>";
+		};
 		8001DA002BEA515C00AAD10E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -674,6 +689,7 @@
 		801B92A52BE9128500179EB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04D670452F5ED6F800ADA60D /* blocklist */,
 				805CB1D22D47E561007ED28D /* DocumentInteractionView.swift */,
 				801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */,
 				806F21322BE8F1B100EBEBC8 /* addyApp.swift */,
@@ -1092,6 +1108,7 @@
 		80A7F2012BECD7D3001A984B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				04D670482F5ED8C000ADA60D /* BlocklistEntriesViewModel.swift */,
 				8073C9462C78727E00DE3640 /* AccountNotificationsViewModel.swift */,
 				80DB9DB22C0DC7F2002B6486 /* DomainsViewModel.swift */,
 				80813B702C0DF2EF009C4E6A /* FailedDeliveriesViewModel.swift */,
@@ -1398,9 +1415,9 @@
 			);
 			name = addy_shared;
 			packageProductDependencies = (
-				048B087C2F2E95840032F025 /* SwiftHTMLtoMarkdown */,
 				048B087F2F2E95A00032F025 /* FeedKit */,
 				048B08822F2E95B70032F025 /* Shimmer */,
+				04D670592F5EFAB400ADA60D /* SwiftHTMLtoMarkdown */,
 			);
 			productName = addy_shared;
 			productReference = 048B08162F2E937C0032F025 /* addy_shared.framework */;
@@ -1530,9 +1547,9 @@
 				8001D9D02BEA1E3600AAD10E /* XCRemoteSwiftPackageReference "CodeScanner" */,
 				80E082792BF7F03C00B51FB8 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				8078485C2C7781FE00194B1A /* XCRemoteSwiftPackageReference "shiny" */,
-				048B087B2F2E95840032F025 /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */,
 				048B087E2F2E95A00032F025 /* XCRemoteSwiftPackageReference "FeedKit" */,
 				048B08812F2E95B70032F025 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
+				04D670582F5EFAB400ADA60D /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */,
 			);
 			productRefGroup = 806F21302BE8F1B100EBEBC8 /* Products */;
 			projectDirPath = "";
@@ -1751,6 +1768,7 @@
 				80B2FB472C3C425A009977B6 /* MailToActionSheet.swift in Sources */,
 				8012019A2C542FC7006F4FE6 /* EditUsernameAutoCreateRegexBottomSheet.swift in Sources */,
 				80B2FB482C3C425A009977B6 /* MailToActionSheetData.swift in Sources */,
+				04D670492F5ED8C000ADA60D /* BlocklistEntriesViewModel.swift in Sources */,
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
 				805535642C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift in Sources */,
 				80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */,
@@ -1764,6 +1782,7 @@
 				80A7F2072BECFA5B001A984B /* AliasRowView.swift in Sources */,
 				80E9B2342C0B7D2D00C7EF99 /* EditUsernameDescriptionBottomSheet.swift in Sources */,
 				806AE6922C19ED1700F3CA92 /* AppSettingsUpdateView.swift in Sources */,
+				04D6704D2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift in Sources */,
 				80DCF3AE2BF1347F0022690F /* AddySection.swift in Sources */,
 				80E9B2362C0B7E5C00C7EF99 /* EditUsernameFromNameBottomSheet.swift in Sources */,
 				80A7F2052BECD840001A984B /* AliasesViewModel.swift in Sources */,
@@ -1799,6 +1818,7 @@
 				8058ADB32C32B2470004AF81 /* ChartGridBaseShape.swift in Sources */,
 				8058ADB42C32B2470004AF81 /* Color+Extension.swift in Sources */,
 				8058ADB52C32B2470004AF81 /* ChartGridShape.swift in Sources */,
+				04D6704B2F5EDACC00ADA60D /* BlocklistView.swift in Sources */,
 				8058ADB62C32B2470004AF81 /* Range+Extension.swift in Sources */,
 				8058ADB72C32B2470004AF81 /* ViewPreferenceKey.swift in Sources */,
 				8047EA6D2C454F1B00A04D28 /* HomeCardView.swift in Sources */,
@@ -1936,7 +1956,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMPANION_APP_BUNDLE_ID = host.stjin.addy.debug;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -1969,7 +1989,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2031,7 +2051,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMPANION_APP_BUNDLE_ID = host.stjin.addy.debug;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2058,7 +2078,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.watchkitapp;
@@ -2119,7 +2139,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMPANION_APP_BUNDLE_ID = host.stjin.addy;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2146,7 +2166,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.watchkitapp;
@@ -2207,7 +2227,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMPANION_APP_BUNDLE_ID = host.stjin.addy;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2234,7 +2254,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.watchkitapp;
@@ -2741,7 +2761,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -2761,7 +2781,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2781,7 +2801,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2795,7 +2815,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2812,7 +2832,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2826,7 +2846,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2922,7 +2942,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -2942,7 +2962,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2962,7 +2982,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2976,7 +2996,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2994,7 +3014,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3008,7 +3028,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3044,7 +3064,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3058,7 +3078,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3077,7 +3097,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3091,7 +3111,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyStatisticWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3109,7 +3129,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3123,7 +3143,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3141,7 +3161,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3155,7 +3175,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.AddyShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3301,7 +3321,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -3321,7 +3341,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3342,7 +3362,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -3362,7 +3382,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = host.stjin.addy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3484,14 +3504,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		048B087B2F2E95840032F025 /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ActuallyTaylor/SwiftHTMLToMarkdown";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.1;
-			};
-		};
 		048B087E2F2E95A00032F025 /* XCRemoteSwiftPackageReference "FeedKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nmdias/FeedKit.git";
@@ -3506,6 +3518,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.5.1;
+			};
+		};
+		04D670582F5EFAB400ADA60D /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Stjin/SwiftHTMLToMarkdown";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 		8001D9D02BEA1E3600AAD10E /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
@@ -3543,11 +3563,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		048B087C2F2E95840032F025 /* SwiftHTMLtoMarkdown */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 048B087B2F2E95840032F025 /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */;
-			productName = SwiftHTMLtoMarkdown;
-		};
 		048B087F2F2E95A00032F025 /* FeedKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 048B087E2F2E95A00032F025 /* XCRemoteSwiftPackageReference "FeedKit" */;
@@ -3557,6 +3572,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 048B08812F2E95B70032F025 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
 			productName = Shimmer;
+		};
+		04D670592F5EFAB400ADA60D /* SwiftHTMLtoMarkdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04D670582F5EFAB400ADA60D /* XCRemoteSwiftPackageReference "SwiftHTMLToMarkdown" */;
+			productName = SwiftHTMLtoMarkdown;
 		};
 		8001D9D12BEA1E3600AAD10E /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;

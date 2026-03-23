@@ -147,7 +147,6 @@ struct AliasRowView: View {
 }
 
 // MARK: - Date Formatting Helpers
-
 private func localizedDate(_ dateString: String) -> String {
     do {
         return try DateTimeUtils

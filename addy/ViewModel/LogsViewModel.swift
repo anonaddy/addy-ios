@@ -9,10 +9,14 @@ import addy_shared
 import Combine
 import SwiftUI
 
+// Marked as @MainActor to ensure all @Published updates
+// happen on the main thread and resolve Sendable warnings.
+@MainActor
 class LogsViewModel: ObservableObject {
     @Published var logs: [Logs]? = nil
     @Published var isLoading = false
-    @State private var watchosLogs: Bool
+    
+    private var watchosLogs: Bool
 
     init(watchosLogs: Bool) {
         self.watchosLogs = watchosLogs
@@ -21,25 +25,27 @@ class LogsViewModel: ObservableObject {
 
     func getWatchOsLogs() {
         if !isLoading {
-            isLoading = true
-            logs = LoggingHelper(logFile: .watchosLogs).getLogs()?.reversed() ?? []
-            isLoading = false
+            self.isLoading = true
+            // Accessing local logs is synchronous, but we still
+            // wrap it in the MainActor context of the class.
+            self.logs = LoggingHelper(logFile: .watchosLogs).getLogs()?.reversed() ?? []
+            self.isLoading = false
         }
     }
     
     func getLogs() {
         if watchosLogs {
             getWatchOsLogs()
-        } else{
+        } else {
             getDeviceLogs()
         }
     }
     
     func getDeviceLogs() {
         if !isLoading {
-            isLoading = true
-            logs = LoggingHelper().getLogs()?.reversed() ?? []
-            isLoading = false
+            self.isLoading = true
+            self.logs = LoggingHelper().getLogs()?.reversed() ?? []
+            self.isLoading = false
         }
     }
 }

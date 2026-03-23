@@ -471,10 +471,10 @@ struct MainView: View {
 }
 
 enum Destination: Hashable, CaseIterable {
-    case home, aliases, recipients, usernames, domains, failedDeliveries, rules, settings, subscription
+    case home, aliases, recipients, usernames, domains, failedDeliveries, rules, blocklist, settings, subscription
 
     static var iPhoneCases: [Destination] { [.home, .aliases, .recipients] }
-    static var otherCases: [Destination] { [.home, .aliases, .recipients, .usernames, .domains, .failedDeliveries, .rules, .settings] }
+    static var otherCases: [Destination] { [.home, .aliases, .recipients, .usernames, .domains, .failedDeliveries, .rules, .blocklist, .settings] }
 
     var title: LocalizedStringKey {
         switch self {
@@ -485,6 +485,7 @@ enum Destination: Hashable, CaseIterable {
         case .domains: "domains"
         case .failedDeliveries: "failed_deliveries"
         case .rules: "rules"
+        case .blocklist: "blocklist"
         case .settings: "settings"
         case .subscription: "subscription"
         }
@@ -499,6 +500,7 @@ enum Destination: Hashable, CaseIterable {
         case .domains: return "domains"
         case .failedDeliveries: return "failed_deliveries"
         case .rules: return "rules"
+        case .blocklist: return "blocklist"
         case .settings: return "settings"
         case .subscription: return "subscription"
         }
@@ -513,6 +515,7 @@ enum Destination: Hashable, CaseIterable {
         case .domains: "globe"
         case .failedDeliveries: "exclamationmark.triangle.fill"
         case .rules: "checklist"
+        case .blocklist: "nosign"
         case .settings: "gear"
         case .subscription: "creditcard.fill"
         }
@@ -527,6 +530,7 @@ enum Destination: Hashable, CaseIterable {
         case .domains: AnyView(DomainsView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .failedDeliveries: AnyView(FailedDeliveriesView(horizontalSize: horizontalSize.wrappedValue, onRefreshGeneralData: refreshGeneralData))
         case .rules: AnyView(RulesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
+        case .blocklist: AnyView(BlocklistView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .settings: AnyView(AppSettingsView(horizontalSize: horizontalSize))
         case .subscription: AnyView(ManageSubscriptionView(horizontalSize: horizontalSize, shouldHideNavigationBarBackButtonSubscriptionView: .constant(false)))
         }

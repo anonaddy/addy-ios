@@ -9,6 +9,9 @@ import addy_shared
 import Combine
 import SwiftUI
 
+// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
+// and handle all @Published updates safely on the main thread.
+@MainActor
 class RulesViewModel: ObservableObject {
     @Published var rules: RulesArray? = nil
     @Published var recipients: [Recipients] = []
@@ -24,29 +27,28 @@ class RulesViewModel: ObservableObject {
 
     func getRules() async {
         if !isLoading {
-            DispatchQueue.main.async {
-                self.isLoading = true
-                self.networkError = ""
-            }
+            self.isLoading = true
+            self.networkError = ""
+            
             let networkHelper = NetworkHelper()
             do {
+                // Sequential async calls: Recipients must succeed before fetching rules
                 if let recipients = try await networkHelper.getRecipients(verifiedOnly: false) {
                     let rules = try await networkHelper.getRules()
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-                        self.rules = rules
-                        self.recipients = recipients
-                    }
+                    
+                    self.isLoading = false
+                    self.rules = rules
+                    self.recipients = recipients
                 }
             } catch {
-                DispatchQueue.main.async {
-                    self.isLoading = false
-                    self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
-                }
+                self.isLoading = false
+                self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
+                
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,
-                    method: "getRules", extra: nil
+                    method: "getRules",
+                    extra: nil
                 )
             }
         }

@@ -58,7 +58,7 @@ struct AccountNotificationsView: View {
                                             .font(.system(size: 14))
                                             .foregroundColor(.gray)
                                             .lineLimit(4)
-                                    }.padding(EdgeInsets())
+                                    }
                                     Button(action: {
                                         self.accountNotificationToShow = accountNotification
                                     }) {

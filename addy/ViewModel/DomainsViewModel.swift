@@ -9,6 +9,9 @@ import addy_shared
 import Combine
 import SwiftUI
 
+// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
+// and remove the need for manual DispatchQueue.main.async calls.
+@MainActor
 class DomainsViewModel: ObservableObject {
     @Published var domains: DomainsArray? = nil
 
@@ -23,26 +26,23 @@ class DomainsViewModel: ObservableObject {
 
     func getDomains() async {
         if !isLoading {
-            DispatchQueue.main.async {
-                self.isLoading = true
-                self.networkError = ""
-            }
+            self.isLoading = true
+            self.networkError = ""
+            
             let networkHelper = NetworkHelper()
             do {
                 let domains = try await networkHelper.getDomains()
-                DispatchQueue.main.async {
-                    self.isLoading = false
-                    self.domains = domains
-                }
+                self.isLoading = false
+                self.domains = domains
             } catch {
-                DispatchQueue.main.async {
-                    self.isLoading = false
-                    self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
-                }
+                self.isLoading = false
+                self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
+                
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,
-                    method: "getDomains", extra: nil
+                    method: "getDomains",
+                    extra: nil
                 )
             }
         }

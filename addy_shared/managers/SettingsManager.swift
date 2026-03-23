@@ -39,6 +39,7 @@ public class SettingsManager {
         case backgroundServiceCacheLastUpdatedAliasesData
 
         case backgroundServiceCacheFailedDeliveriesCount
+        case backgroundServiceCacheBlocklistEntriesCount
         case backgroundServiceCacheAccountNotificationsCount
         case backgroundServiceCacheApiKeyExpiryLeftCount
         case backgroundServiceCacheSubscriptionExpiryLeftCount
