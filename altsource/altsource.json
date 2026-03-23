@@ -28,6 +28,14 @@
             ],
             "versions": [
                 {
+                    "version": "2.1.0",
+                    "date": "2026-03-23T00:00:00+02:00",
+                    "size": 34156692,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/8de239d3af167d57197313dab10130ba0f46b63b/builds/appstorelessRelease%202026-03-09%2014-10-05/addy.ipa",
+                    "localizedDescription": "- Support for the new blocklist feature",
+                    "minOSVersion": "17.0"
+                },
+                {
                     "version": "2.0.1",
                     "date": "2026-02-14T00:00:00+02:00",
                     "size": 32047487,

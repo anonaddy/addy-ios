@@ -841,7 +841,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 2.1.0**\n\n**Added**\n- Support for the new blocklist feature\n\n**Fixed & Improved**\n- Performance enhancements and other improvements for a smoother experience\n\n**What’s new in addy.io for Apple Watch 1.0.2**\n\n**Fixed & Improved**  \n- Performance enhancements and other improvements for a smoother experience"
+            "value" : "**What’s new in addy.io for iOS 2.2.0**\n\n**Added**\n- Support for pinning and unpinning aliases\n\n**Fixed & Improved**\n- Fixed an issue where removing PGP keys and signatures states did not properly reflects the backend fields\n- Performance enhancements and other improvements for a smoother experience\n\n**What’s new in addy.io for Apple Watch 1.1.0**\n\n**Added**\n- Support for pinning and unpinning aliases\n\n**Fixed & Improved**  \n- Performance enhancements and other improvements for a smoother experience"
           }
         }
       }
@@ -5341,6 +5341,7 @@
       }
     },
     "rate_this_app" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5351,6 +5352,7 @@
       }
     },
     "rate_this_app_desc" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
