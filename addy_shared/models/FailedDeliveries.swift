@@ -29,6 +29,8 @@ public struct FailedDeliveries: Identifiable, Codable {
     let status: String
     public let code: String
     public let is_stored: Bool
+    public let quarantined: Bool
+    public let resent: Bool
     public let attempted_at: String
     public let created_at: String
     let updated_at: String

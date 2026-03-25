@@ -88,9 +88,12 @@ struct FailedDeliveryBottomSheet: View {
                 ToolbarSpacer(placement: .bottomBar)
             }
 
-            ToolbarItem(placement: .bottomBar) {
-                resendFailedDeliveryButton()
+            if self.failedDelivery.is_stored && !self.failedDelivery.quarantined && !self.failedDelivery.resent {
+                ToolbarItem(placement: .bottomBar) {
+                    resendFailedDeliveryButton()
+                }
             }
+            
 
         })
         .alert(isPresented: $showAlert) {
