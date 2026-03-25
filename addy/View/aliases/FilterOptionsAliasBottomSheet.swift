@@ -64,7 +64,8 @@ struct FilterOptionsAliasBottomSheet: View {
                         Text(String(localized: "filter_all_aliases")).tag(0)
                         Text(String(localized: "filter_active_aliases")).tag(1)
                         Text(String(localized: "filter_inactive_aliases")).tag(2)
-                        Text(String(localized: "filter_deleted_aliases")).tag(3)
+                        Text(String(localized: "filter_pinned_aliases")).tag(3)
+                        Text(String(localized: "filter_deleted_aliases")).tag(4)
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .disabled(filter2Selection == 1) // means if alias is set to Watch Only
@@ -121,6 +122,7 @@ struct FilterOptionsAliasBottomSheet: View {
                             aliasSortFilterRequest.onlyInactiveAliases = false
                             aliasSortFilterRequest.onlyWatchedAliases = false
                             aliasSortFilterRequest.onlyDeletedAliases = false
+                            aliasSortFilterRequest.onlyPinnedAliases = false
                             aliasSortFilterRequest.sort = nil
                             aliasSortFilterRequest.sortDesc = false
 
@@ -153,18 +155,27 @@ struct FilterOptionsAliasBottomSheet: View {
             aliasSortFilterRequest.onlyActiveAliases = true
             aliasSortFilterRequest.onlyInactiveAliases = false
             aliasSortFilterRequest.onlyDeletedAliases = false
+            aliasSortFilterRequest.onlyPinnedAliases = false
         case 2:
             aliasSortFilterRequest.onlyActiveAliases = false
             aliasSortFilterRequest.onlyInactiveAliases = true
             aliasSortFilterRequest.onlyDeletedAliases = false
+            aliasSortFilterRequest.onlyPinnedAliases = false
         case 3:
             aliasSortFilterRequest.onlyActiveAliases = false
             aliasSortFilterRequest.onlyInactiveAliases = false
+            aliasSortFilterRequest.onlyDeletedAliases = false
+            aliasSortFilterRequest.onlyPinnedAliases = true
+        case 4:
+            aliasSortFilterRequest.onlyActiveAliases = false
+            aliasSortFilterRequest.onlyInactiveAliases = false
             aliasSortFilterRequest.onlyDeletedAliases = true
+            aliasSortFilterRequest.onlyPinnedAliases = false
         default:
             aliasSortFilterRequest.onlyActiveAliases = false
             aliasSortFilterRequest.onlyInactiveAliases = false
             aliasSortFilterRequest.onlyDeletedAliases = false
+            aliasSortFilterRequest.onlyPinnedAliases = false
         }
 
         switch filter2Selection {
@@ -227,6 +238,7 @@ struct FilterOptionsAliasBottomSheet_Previews: PreviewProvider {
         onlyDeletedAliases: true,
         onlyInactiveAliases: false,
         onlyWatchedAliases: false,
+        onlyPinnedAliases: false,
         sort: nil,
         sortDesc: false,
         filter: nil

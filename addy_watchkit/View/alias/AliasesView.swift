@@ -10,15 +10,11 @@ import addy_shared
 
 struct AliasesView: View {
     @StateObject private var aliasesViewModel = AliasViewModel()
-    @StateObject private var favoritesHelper = FavoriteAliasHelper()
     @State private var showingSettings = false
     @State private var showingCreateAlias = false
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var mainViewState: MainViewState
     @Environment(\.scenePhase) private var scenePhase
-
-    // Local state for quickly checking favorite status
-    @State private var favoriteIds: Set<String> = []
 
     var body: some View {
         NavigationStack {
@@ -30,46 +26,11 @@ struct AliasesView: View {
                     if aliasList.data.isEmpty {
                         noAliasesView
                     } else {
-                        
-                        if !favoriteIds.isEmpty {
-                            if let bulkAliasList = aliasesViewModel.bulkAliasList {
-                                if !bulkAliasList.data.isEmpty {
-                                    Section("aliases_favorite_aliases") {
-                                        ForEach(bulkAliasList.data) { alias in
-                                            AliasRow(
-                                                alias: alias,
-                                                isFavorite: favoriteIds.contains(alias.id)
-                                            )
-                                            //                                .swipeActions(edge: .leading) {
-                                            //                                    Button {
-                                            //                                        toggleFavorite(alias: alias)
-                                            //                                    } label: {
-                                            //                                        Label("favorite", systemImage: "star")
-                                            //                                    }
-                                            //                                    .tint(.yellow)
-                                            //                                }
-                                        }
-                                    }
-                                }
-                                
-                            }
-                        }
-                        
-                        
-                        Section("aliases_recent_aliases") {
+                        Section(String(localized: "aliases", bundle: Bundle(for: SharedData.self))) {
                             ForEach(aliasList.data) { alias in
                                 AliasRow(
-                                    alias: alias,
-                                    isFavorite: favoriteIds.contains(alias.id)
+                                    alias: alias
                                 )
-//                                .swipeActions(edge: .leading) {
-//                                    Button {
-//                                        toggleFavorite(alias: alias)
-//                                    } label: {
-//                                        Label("favorite", systemImage: "star")
-//                                    }
-//                                    .tint(.yellow)
-//                                }
                             }
                         }
                     }
@@ -112,11 +73,6 @@ struct AliasesView: View {
             }
             .navigationTitle(String(localized: "aliases", bundle: Bundle(for: SharedData.self)))
             .onAppear {
-                // Initialize favorites state from helper
-                if let stored = favoritesHelper.getFavoriteAliases() {
-                    favoriteIds = Set(stored)
-                }
-                
                 Task {
                     await loadData()
                 }
@@ -137,13 +93,8 @@ struct AliasesView: View {
         // Cache userResource
         _ = await NetworkHelper().cacheUserResourceForWidget()
         
-        // Load aliases (exclude favorites)
-        await aliasesViewModel.getAliases(excludeAliases: favoriteIds.sorted())
-        
-        // Load favorites if any exist
-        if !favoriteIds.isEmpty {
-            await aliasesViewModel.bulkGetAlias(aliases: favoriteIds.sorted())
-        }
+        // Load aliases
+        await aliasesViewModel.getAliases()
     }
 
     
@@ -179,47 +130,33 @@ struct AliasesView: View {
         } actions: {
             Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                 Task {
-                    await aliasesViewModel.getAliases(excludeAliases: favoriteIds.sorted())
-                    await aliasesViewModel.bulkGetAlias(aliases: favoriteIds.sorted())
+                    await aliasesViewModel.getAliases()
                 }
             }
         }
     }
-
-//    // MARK: - Favorites
-//
-//    private func toggleFavorite(alias: Aliases) {
-//        if favoriteIds.contains(alias.id) {
-//            favoritesHelper.removeAliasAsFavorite(alias.id)
-//            favoriteIds.remove(alias.id)
-//        } else {
-//            if favoritesHelper.addAliasAsFavorite(alias.id) {
-//                favoriteIds.insert(alias.id)
-//            } else {
-//                // TODO: Show error to user if needed
-//            }
-//        }
-//    }
 }
 
 // MARK: - Row
 
 struct AliasRow: View {
     let alias: Aliases
-    let isFavorite: Bool
 
     var body: some View {
         NavigationLink(value: alias) {
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
-                        .font(.system(size: 16))
-                        .foregroundStyle(isFavorite ? .yellow : .gray)
-
                     Text(alias.email)
                         .font(.headline)
                         .lineLimit(1)
                         .truncationMode(.middle)
+
+                    if alias.pinned {
+                        Spacer()
+                        Image(systemName: "pin.fill")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
                 }
 
                 Text(alias.description ?? createdText(alias.created_at))

@@ -26,6 +26,7 @@ struct AliasDetailView: View {
     @State private var isDeletingAlias: Bool = false
     @State private var isRestoringAlias: Bool = false
     @State private var isForgettingAlias: Bool = false
+    @State private var IsLoadingPinnedButton: Bool = true
 
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
@@ -38,6 +39,7 @@ struct AliasDetailView: View {
     @State private var sendToRecipients: String? = nil
 
     @State private var isAliasActive: Bool = false
+    @State private var isAliasPinned: Bool = false
     @State private var isSwitchingAliasActiveState: Bool = false
     @State private var isSwitchingAttachedRecipientsOnlyEnabledState: Bool = false
     @State private var isAliasBeingWatched: Bool = false
@@ -66,389 +68,422 @@ struct AliasDetailView: View {
         #if DEBUG
             let _ = Self._printChanges()
         #endif
-        if let alias = alias {
-            Form {
-                Section {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Color.clear
-                                .aspectRatio(1, contentMode: .fill)
-                                .overlay(
-                                    BarChart()
-                                        .data(chartData)
-                                        .chartStyle(ChartStyle(backgroundColor: .white,
-                                                               foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
-                                                                                 ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
-                                                                                 ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
-                                                                                 ColorGradient(.softRed, .softRed.opacity(0.7))]))
-                                        .allowsHitTesting(false)
-                                        .padding(.horizontal).padding(.top)
-                                )
-                                .clipShape(RoundedRectangle(cornerRadius: 13))
-                                .frame(maxWidth: 150)
-                            Spacer()
-
-                            VStack(alignment: .trailing) {
+        Group {
+            if let alias = alias {
+                Form {
+                    Section {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Color.clear
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .overlay(
+                                        BarChart()
+                                            .data(chartData)
+                                            .chartStyle(ChartStyle(backgroundColor: .white,
+                                                                   foregroundColor: [ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
+                                                                                     ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
+                                                                                     ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
+                                                                                     ColorGradient(.softRed, .softRed.opacity(0.7))]))
+                                            .allowsHitTesting(false)
+                                            .padding(.horizontal).padding(.top)
+                                    )
+                                    .clipShape(RoundedRectangle(cornerRadius: 13))
+                                    .frame(maxWidth: 150)
                                 Spacer()
 
-                                Label(title: {
-                                    Text(String(format: String(localized: "d_forwarded"), "\(alias.emails_forwarded)"))
-                                        .font(.subheadline)
-                                        .foregroundStyle(Color.gray)
-                                        .minimumScaleFactor(0.5)
-                                        .lineLimit(1)
+                                VStack(alignment: .trailing) {
+                                    Spacer()
 
-                                }, icon: {
-                                    Image(systemName: "tray")
-                                        .foregroundColor(.portalOrange)
-                                        .font(.system(size: 18, weight: .bold))
-                                })
-                                Spacer()
-                                Label(title: {
-                                    Text(String(format: String(localized: "d_replied"), "\(alias.emails_replied)"))
-                                        .font(.subheadline)
-                                        .foregroundStyle(Color.gray)
-                                        .minimumScaleFactor(0.5)
-                                        .lineLimit(1)
+                                    Label(title: {
+                                        Text(String(format: String(localized: "d_forwarded"), "\(alias.emails_forwarded)"))
+                                            .font(.subheadline)
+                                            .foregroundStyle(Color.gray)
+                                            .minimumScaleFactor(0.5)
+                                            .lineLimit(1)
 
-                                }, icon: {
-                                    Image(systemName: "arrow.turn.up.left")
-                                        .foregroundColor(.easternBlue)
-                                        .font(.system(size: 18, weight: .bold))
-                                })
-                                Spacer()
-                                Label(title: {
-                                    Text(String(format: String(localized: "d_sent"), "\(alias.emails_sent)"))
-                                        .font(.subheadline)
-                                        .foregroundStyle(Color.gray)
-                                        .minimumScaleFactor(0.5)
-                                        .lineLimit(1)
+                                    }, icon: {
+                                        Image(systemName: "tray")
+                                            .foregroundColor(.portalOrange)
+                                            .font(.system(size: 18, weight: .bold))
+                                    })
+                                    Spacer()
+                                    Label(title: {
+                                        Text(String(format: String(localized: "d_replied"), "\(alias.emails_replied)"))
+                                            .font(.subheadline)
+                                            .foregroundStyle(Color.gray)
+                                            .minimumScaleFactor(0.5)
+                                            .lineLimit(1)
 
-                                }, icon: {
-                                    Image(systemName: "paperplane")
-                                        .foregroundColor(.portalBlue)
-                                        .font(.system(size: 18, weight: .bold))
-                                })
-                                Spacer()
-                                Label(title: {
-                                    Text(String(format: String(localized: "d_blocked"), "\(alias.emails_blocked)"))
-                                        .font(.subheadline)
-                                        .foregroundStyle(Color.gray)
-                                        .minimumScaleFactor(0.5)
-                                        .lineLimit(1)
+                                    }, icon: {
+                                        Image(systemName: "arrow.turn.up.left")
+                                            .foregroundColor(.easternBlue)
+                                            .font(.system(size: 18, weight: .bold))
+                                    })
+                                    Spacer()
+                                    Label(title: {
+                                        Text(String(format: String(localized: "d_sent"), "\(alias.emails_sent)"))
+                                            .font(.subheadline)
+                                            .foregroundStyle(Color.gray)
+                                            .minimumScaleFactor(0.5)
+                                            .lineLimit(1)
 
-                                }, icon: {
-                                    Image(systemName: "slash.circle")
-                                        .foregroundColor(.softRed)
-                                        .font(.system(size: 18, weight: .bold))
-                                })
-                                Spacer()
-                            }
-                            .padding(.leading, 15)
-                            .labelStyle(MyAliasLabelStyle())
-                        }
-                        Spacer()
-                        HStack {
-                            Button(action: {
-                                self.copyToClipboard(alias: alias)
-                            }) {
-                                Label(String(localized: "copy_alias"), systemImage: "clipboard")
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity, maxHeight: 24).frame(alignment: .leading)
-                                    .font(.system(size: 14))
+                                    }, icon: {
+                                        Image(systemName: "paperplane")
+                                            .foregroundColor(.portalBlue)
+                                            .font(.system(size: 18, weight: .bold))
+                                    })
+                                    Spacer()
+                                    Label(title: {
+                                        Text(String(format: String(localized: "d_blocked"), "\(alias.emails_blocked)"))
+                                            .font(.subheadline)
+                                            .foregroundStyle(Color.gray)
+                                            .minimumScaleFactor(0.5)
+                                            .lineLimit(1)
+
+                                    }, icon: {
+                                        Image(systemName: "slash.circle")
+                                            .foregroundColor(.softRed)
+                                            .font(.system(size: 18, weight: .bold))
+                                    })
+                                    Spacer()
+                                }
+                                .padding(.leading, 15)
+                                .labelStyle(MyAliasLabelStyle())
                             }
                             Spacer()
-                            Button(action: {
-                                isPresentingEditAliasSendMailRecipientBottomSheet = true
-                            }) {
-                                Label(String(localized: "send_mail"), systemImage: "paperplane")
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity, maxHeight: 24).frame(alignment: .leading)
-                                    .font(.system(size: 14))
-                            }
-                        }.padding(.top, 8).buttonStyle(.borderedProminent)
+                            HStack {
+                                Button(action: {
+                                    self.copyToClipboard(alias: alias)
+                                }) {
+                                    Label(String(localized: "copy_alias"), systemImage: "clipboard")
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity, maxHeight: 24).frame(alignment: .leading)
+                                        .font(.system(size: 14))
+                                }
+                                Spacer()
+                                Button(action: {
+                                    isPresentingEditAliasSendMailRecipientBottomSheet = true
+                                }) {
+                                    Label(String(localized: "send_mail"), systemImage: "paperplane")
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity, maxHeight: 24).frame(alignment: .leading)
+                                        .font(.system(size: 14))
+                                }
+                            }.padding(.top, 8).buttonStyle(.borderedProminent)
 
-                    }.frame(height: 200)
-                }
+                        }.frame(height: 200)
+                    }
 
-                Section {
-                    AddyToggle(isOn: $isAliasActive, isLoading: isSwitchingAliasActiveState, title: alias.active ? String(localized: "alias_activated", bundle: Bundle(for: SharedData.self)) : String(localized: "alias_deactivated", bundle: Bundle(for: SharedData.self)), description: String(localized: "alias_status_desc", bundle: Bundle(for: SharedData.self)))
-                        .onChange(of: isAliasActive) {
-                            // Only fire when the value is NOT the same as the value already in the model
-                            if isAliasActive != alias.active {
-                                self.isSwitchingAliasActiveState = true
+                    Section {
+                        AddyToggle(isOn: $isAliasActive, isLoading: isSwitchingAliasActiveState, title: alias.active ? String(localized: "alias_activated", bundle: Bundle(for: SharedData.self)) : String(localized: "alias_deactivated", bundle: Bundle(for: SharedData.self)), description: String(localized: "alias_status_desc", bundle: Bundle(for: SharedData.self)))
+                            .onChange(of: isAliasActive) {
+                                // Only fire when the value is NOT the same as the value already in the model
+                                if isAliasActive != alias.active {
+                                    self.isSwitchingAliasActiveState = true
 
-                                if alias.active {
-                                    Task {
-                                        await self.deactivateAlias(alias: alias)
-                                    }
-                                } else {
-                                    Task {
-                                        await self.activateAlias(alias: alias)
+                                    if alias.active {
+                                        Task {
+                                            await self.deactivateAlias(alias: alias)
+                                        }
+                                    } else {
+                                        Task {
+                                            await self.activateAlias(alias: alias)
+                                        }
                                     }
                                 }
                             }
+
+                        AddyToggle(isOn: $isAliasBeingWatched, title: String(localized: "watch_alias"), description: String(localized: "watch_alias_desc"))
+                            .onChange(of: isAliasBeingWatched) {
+                                // This changes the icon on the view in aliasesview
+                                // So we update the list when coming back
+                                shouldReloadDataInParent = true
+
+                                // Only fire when the value is NOT the same as the value already in the model
+                                if isAliasBeingWatched != AliasWatcher().getAliasesToWatch().contains(aliasId) {
+                                    if AliasWatcher().getAliasesToWatch().contains(aliasId) {
+                                        AliasWatcher().removeAliasToWatch(alias: aliasId)
+                                    } else {
+                                        if !AliasWatcher().addAliasToWatch(alias: aliasId) {
+                                            // Could not add to watchlist (watchlist reached max?)
+                                            activeAlert = .reachedMaxAliases
+                                            showAlert = true
+                                            isAliasBeingWatched = false
+                                        }
+                                    }
+                                }
+                            }
+
+                        AddyToggle(isOn: $isAttachedRecipientsOnlyEnabled, isLoading: isSwitchingAttachedRecipientsOnlyEnabledState, title: String(localized: "limit_replies_sends_attached_recipients_only"), description: String(localized: "limit_replies_sends_attached_recipients_only_desc"))
+                            .onChange(of: isAttachedRecipientsOnlyEnabled) {
+                                // Only fire when the value is NOT the same as the value already in the model
+                                if isAttachedRecipientsOnlyEnabled != alias.attached_recipients_only {
+                                    self.isSwitchingAttachedRecipientsOnlyEnabledState = true
+
+                                    if alias.attached_recipients_only {
+                                        Task {
+                                            await self.disableAttachedRecipientsOnly(alias: alias)
+                                        }
+                                    } else {
+                                        Task {
+                                            await self.enableAttachedRecipientsOnly(alias: alias)
+                                        }
+                                    }
+                                }
+                            }
+
+                        AddySection(title: String(localized: "description"), description: alias.description ?? String(localized: "alias_no_description"), leadingSystemimage: nil, trailingSystemimage: "pencil") {
+                            isPresentingEditAliasDescriptionBottomSheet = true
                         }
 
-                    AddyToggle(isOn: $isAliasBeingWatched, title: String(localized: "watch_alias"), description: String(localized: "watch_alias_desc"))
-                        .onChange(of: isAliasBeingWatched) {
-                            // This changes the icon on the view in aliasesview
+                        AddySection(title: String(localized: "recipients"), description: getRecipients(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil") {
+                            isPresentingEditAliasRecipientsBottomSheet = true
+                        }
+
+                        AddySection(title: String(localized: "from_name"), description: getFromName(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil") {
+                            if !mainViewState.userResource!.hasUserFreeSubscription() {
+                                isPresentingEditAliasFromNameBottomSheet = true
+                            } else {
+                                HapticHelper.playHapticFeedback(hapticType: .error)
+                            }
+                        }
+
+                        AddySection(title: String(localized: "last_forwarded"),
+                                    description: alias.last_forwarded != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_forwarded) : String(localized: "unknown"),
+                                    leadingSystemimage: nil, trailingSystemimage: nil) {}
+                        AddySection(title: String(localized: "last_replied"),
+                                    description: alias.last_replied != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_replied) : String(localized: "unknown"),
+                                    leadingSystemimage: nil, trailingSystemimage: nil) {}
+                        AddySection(title: String(localized: "last_sent"),
+                                    description: alias.last_sent != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_sent) : String(localized: "unknown"),
+                                    leadingSystemimage: nil, trailingSystemimage: nil) {}
+                        AddySection(title: String(localized: "last_blocked"),
+                                    description: alias.last_blocked != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_blocked) : String(localized: "unknown"),
+                                    leadingSystemimage: nil, trailingSystemimage: nil) {}
+                        AddySection(title: String(localized: "created_at"),
+                                    description: DateTimeUtils.convertStringToLocalTimeZoneString(alias.created_at),
+                                    leadingSystemimage: nil, trailingSystemimage: nil) {}
+                        AddySection(title: String(localized: "updated_at"),
+                                    description: DateTimeUtils.convertStringToLocalTimeZoneString(alias.updated_at),
+                                    leadingSystemimage: nil, trailingSystemimage: nil) {}
+
+                    } header: {
+                        Text(String(localized: "general"))
+                    }.textCase(nil).disabled(alias.deleted_at != nil).opacity(alias.deleted_at != nil ? 0.5 : 1.0) // If alias is deleted, disable the entire section and set opacity
+
+                    Section {
+                        // If alias is not deleted, show the delete button section
+                        if alias.deleted_at == nil {
+                            AddySectionButton(title: String(localized: "delete_alias"), description: String(localized: "delete_alias_desc"),
+                                              leadingSystemimage: "trash", colorAccent: .softRed, isLoading: isDeletingAlias)
+                            {
+                                activeAlert = .deleteAliases
+                                showAlert = true
+                            }
+                        }
+
+                        // If alias is deleted, show the restore button section
+                        if alias.deleted_at != nil {
+                            AddySectionButton(title: String(localized: "restore_alias"), description: String(localized: "restore_alias_desc"),
+                                              leadingSystemimage: "arrow.up.trash", colorAccent: .accentColor, isLoading: isRestoringAlias)
+                            {
+                                activeAlert = .restoreAlias
+                                showAlert = true
+                            }
+                        }
+
+                        AddySectionButton(title: String(localized: "forget_alias"), description: String(localized: "forget_alias_desc"),
+                                          leadingSystemimage: "eraser", colorAccent: .red, isLoading: isForgettingAlias)
+                        {
+                            activeAlert = .forgetAlias
+                            showAlert = true
+                        }
+                    }
+                }
+                .refreshable {
+                    await getAlias(aliasId: self.aliasId)
+                }
+                .overlay {
+                    ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
+                    ToastOverlay(showToast: $aliasDeactivatedOverlayShown, text: String(localized: "alias_deactivated", bundle: Bundle(for: SharedData.self)))
+                }
+                .confirmationDialog(String(localized: "send_mail"), isPresented: $isPresentingEmailSelectionDialog) {
+                    ForEach(clients, id: \.self) { item in
+                        Button(item.name) {
+                            self.onPressSend(client: item, sendToRecipients: self.sendToRecipients ?? "")
+                        }
+                    }
+
+                    Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), role: .cancel) {}
+                } message: {
+                    Text(String(localized: "select_mail_client"))
+                }
+                .onAppear(perform: {
+                    // Get the available mail clients
+                    self.clients = ThirdPartyMailClient.clients.filter { ThirdPartyMailer.isMailClientAvailable($0) }
+                    self.clients.append(ThirdPartyMailClient.systemDefault)
+
+                    if shouldDisableAlias {
+                        if alias.active {
+                            self.isSwitchingAliasActiveState = true
+
+                            Task {
+                                await self.deactivateAlias(alias: alias, shouldShowToastOnFinished: true)
+                            }
+                        }
+                        self.shouldDisableAlias = false
+                    }
+                })
+                .disabled(isDeletingAlias || isRestoringAlias || isForgettingAlias)
+                .sheet(isPresented: $isPresentingEditAliasDescriptionBottomSheet) {
+                    NavigationStack {
+                        EditAliasDescriptionBottomSheet(aliasId: alias.id, description: alias.description ?? "") { alias in
+                            self.alias = alias
+                            isPresentingEditAliasDescriptionBottomSheet = false
+
+                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
                             // So we update the list when coming back
                             shouldReloadDataInParent = true
-
-                            // Only fire when the value is NOT the same as the value already in the model
-                            if isAliasBeingWatched != AliasWatcher().getAliasesToWatch().contains(aliasId) {
-                                if AliasWatcher().getAliasesToWatch().contains(aliasId) {
-                                    AliasWatcher().removeAliasToWatch(alias: aliasId)
-                                } else {
-                                    if !AliasWatcher().addAliasToWatch(alias: aliasId) {
-                                        // Could not add to watchlist (watchlist reached max?)
-                                        activeAlert = .reachedMaxAliases
-                                        showAlert = true
-                                        isAliasBeingWatched = false
-                                    }
-                                }
-                            }
                         }
+                    }
+                    .presentationDetents([.large])
+                }
+                .sheet(isPresented: $isPresentingEditAliasRecipientsBottomSheet) {
+                    NavigationStack {
+                        EditAliasRecipientsBottomSheet(aliasId: alias.id, selectedRecipientsIds: getRecipientsIds(recipients: alias.recipients)) { alias in
+                            self.alias = alias
+                            isPresentingEditAliasRecipientsBottomSheet = false
 
-                    AddyToggle(isOn: $isAttachedRecipientsOnlyEnabled, isLoading: isSwitchingAttachedRecipientsOnlyEnabledState, title: String(localized: "limit_replies_sends_attached_recipients_only"), description: String(localized: "limit_replies_sends_attached_recipients_only_desc"))
-                        .onChange(of: isAttachedRecipientsOnlyEnabled) {
-                            // Only fire when the value is NOT the same as the value already in the model
-                            if isAttachedRecipientsOnlyEnabled != alias.attached_recipients_only {
-                                self.isSwitchingAttachedRecipientsOnlyEnabledState = true
-
-                                if alias.attached_recipients_only {
-                                    Task {
-                                        await self.disableAttachedRecipientsOnly(alias: alias)
-                                    }
-                                } else {
-                                    Task {
-                                        await self.enableAttachedRecipientsOnly(alias: alias)
-                                    }
-                                }
-                            }
+                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // So we update the list when coming back
+                            shouldReloadDataInParent = true
                         }
-
-                    AddySection(title: String(localized: "description"), description: alias.description ?? String(localized: "alias_no_description"), leadingSystemimage: nil, trailingSystemimage: "pencil") {
-                        isPresentingEditAliasDescriptionBottomSheet = true
                     }
+                    .presentationDetents([.medium, .large])
+                }
+                .sheet(isPresented: $isPresentingEditAliasFromNameBottomSheet) {
+                    NavigationStack {
+                        EditAliasFromNameBottomSheet(aliasId: alias.id, aliasEmail: alias.email, fromName: alias.from_name) { alias in
+                            self.alias = alias
+                            isPresentingEditAliasFromNameBottomSheet = false
 
-                    AddySection(title: String(localized: "recipients"), description: getRecipients(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil") {
-                        isPresentingEditAliasRecipientsBottomSheet = true
+                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // So we update the list when coming back
+                            shouldReloadDataInParent = true
+                        }
                     }
+                    .presentationDetents([.large])
+                }
+                .sheet(isPresented: $isPresentingEditAliasSendMailRecipientBottomSheet) {
+                    NavigationStack {
+                        EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email, onPressSend: { addresses in
+                            self.onPressSend(client: nil, sendToRecipients: addresses)
+                            isPresentingEditAliasSendMailRecipientBottomSheet = false
+                        }, onPressCopy: { addresses in
+                            self.onPressCopy(sendToRecipients: addresses)
+                            isPresentingEditAliasSendMailRecipientBottomSheet = false
+                        })
+                    }
+                    .presentationDetents([.large])
+                }
+                .alert(isPresented: $showAlert) {
+                    switch activeAlert {
+                    case .reachedMaxAliases:
+                        return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood", bundle: Bundle(for: SharedData.self)))))
+                    case .deleteAliases:
+                        return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))) {
+                            isDeletingAlias = true
 
-                    AddySection(title: String(localized: "from_name"), description: getFromName(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil") {
-                        if !mainViewState.userResource!.hasUserFreeSubscription() {
-                            isPresentingEditAliasFromNameBottomSheet = true
-                        } else {
+                            Task {
+                                await deleteAlias(alias: alias)
+                            }
+                        }, secondaryButton: .cancel())
+                    case .restoreAlias:
+                        return Alert(title: Text(String(localized: "restore_alias")), message: Text(String(localized: "restore_alias_confirmation_desc")), primaryButton: .default(Text(String(localized: "restore"))) {
+                            isRestoringAlias = true
+
+                            Task {
+                                await restoreAlias(alias: alias)
+                            }
+                        }, secondaryButton: .cancel())
+                    case .forgetAlias:
+                        return Alert(title: Text(String(localized: "forget_alias")), message: Text(String(localized: "forget_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "forget"))) {
+                            isForgettingAlias = true
+
+                            Task {
+                                await forgetAlias(alias: alias)
+                            }
+                        }, secondaryButton: .cancel())
+                    case .error:
+                        return Alert(
+                            title: Text(errorAlertTitle),
+                            message: Text(errorAlertMessage)
+                        )
+                    }
+                }
+
+            } else {
+                VStack {
+                    if let errorText = errorText {
+                        ContentUnavailableView {
+                            Label(String(localized: "error_obtaining_alias"), systemImage: "questionmark")
+                        } description: {
+                            Text(errorText)
+                        }.onAppear {
                             HapticHelper.playHapticFeedback(hapticType: .error)
                         }
-                    }
-
-                    AddySection(title: String(localized: "last_forwarded"),
-                                description: alias.last_forwarded != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_forwarded) : String(localized: "unknown"),
-                                leadingSystemimage: nil, trailingSystemimage: nil) {}
-                    AddySection(title: String(localized: "last_replied"),
-                                description: alias.last_replied != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_replied) : String(localized: "unknown"),
-                                leadingSystemimage: nil, trailingSystemimage: nil) {}
-                    AddySection(title: String(localized: "last_sent"),
-                                description: alias.last_sent != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_sent) : String(localized: "unknown"),
-                                leadingSystemimage: nil, trailingSystemimage: nil) {}
-                    AddySection(title: String(localized: "last_blocked"),
-                                description: alias.last_blocked != nil ? DateTimeUtils.convertStringToLocalTimeZoneString(alias.last_blocked) : String(localized: "unknown"),
-                                leadingSystemimage: nil, trailingSystemimage: nil) {}
-                    AddySection(title: String(localized: "created_at"),
-                                description: DateTimeUtils.convertStringToLocalTimeZoneString(alias.created_at),
-                                leadingSystemimage: nil, trailingSystemimage: nil) {}
-                    AddySection(title: String(localized: "updated_at"),
-                                description: DateTimeUtils.convertStringToLocalTimeZoneString(alias.updated_at),
-                                leadingSystemimage: nil, trailingSystemimage: nil) {}
-
-                } header: {
-                    Text(String(localized: "general"))
-                }.textCase(nil).disabled(alias.deleted_at != nil).opacity(alias.deleted_at != nil ? 0.5 : 1.0) // If alias is deleted, disable the entire section and set opacity
-
-                Section {
-                    // If alias is not deleted, show the delete button section
-                    if alias.deleted_at == nil {
-                        AddySectionButton(title: String(localized: "delete_alias"), description: String(localized: "delete_alias_desc"),
-                                          leadingSystemimage: "trash", colorAccent: .softRed, isLoading: isDeletingAlias)
-                        {
-                            activeAlert = .deleteAliases
-                            showAlert = true
+                    } else {
+                        VStack(spacing: 20) {
+                            LottieView(animation: .named("gray_ic_loading_logo.shapeshifter"))
+                                .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
+                                .animationSpeed(Double(2))
+                                .frame(maxHeight: 128)
+                                .opacity(0.5)
                         }
                     }
-
-                    // If alias is deleted, show the restore button section
-                    if alias.deleted_at != nil {
-                        AddySectionButton(title: String(localized: "restore_alias"), description: String(localized: "restore_alias_desc"),
-                                          leadingSystemimage: "arrow.up.trash", colorAccent: .accentColor, isLoading: isRestoringAlias)
-                        {
-                            activeAlert = .restoreAlias
-                            showAlert = true
-                        }
-                    }
-
-                    AddySectionButton(title: String(localized: "forget_alias"), description: String(localized: "forget_alias_desc"),
-                                      leadingSystemimage: "eraser", colorAccent: .red, isLoading: isForgettingAlias)
-                    {
-                        activeAlert = .forgetAlias
-                        showAlert = true
-                    }
+                }.task {
+                    await getAlias(aliasId: self.aliasId)
                 }
             }
-            .refreshable {
-                await getAlias(aliasId: self.aliasId)
-            }
-            .overlay {
-                ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
-                ToastOverlay(showToast: $aliasDeactivatedOverlayShown, text: String(localized: "alias_deactivated", bundle: Bundle(for: SharedData.self)))
-            }
-            .confirmationDialog(String(localized: "send_mail"), isPresented: $isPresentingEmailSelectionDialog) {
-                ForEach(clients, id: \.self) { item in
-                    Button(item.name) {
-                        self.onPressSend(client: item, sendToRecipients: self.sendToRecipients ?? "")
-                    }
-                }
-
-                Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), role: .cancel) {}
-            } message: {
-                Text(String(localized: "select_mail_client"))
-            }
-            .onAppear(perform: {
-                // Get the available mail clients
-                self.clients = ThirdPartyMailClient.clients.filter { ThirdPartyMailer.isMailClientAvailable($0) }
-                self.clients.append(ThirdPartyMailClient.systemDefault)
-
-                if shouldDisableAlias {
-                    if alias.active {
-                        self.isSwitchingAliasActiveState = true
-
-                        Task {
-                            await self.deactivateAlias(alias: alias, shouldShowToastOnFinished: true)
-                        }
-                    }
-                    self.shouldDisableAlias = false
-                }
-            })
-            .disabled(isDeletingAlias || isRestoringAlias || isForgettingAlias)
-            .navigationTitle(aliasEmail)
-            .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $isPresentingEditAliasDescriptionBottomSheet) {
-                NavigationStack {
-                    EditAliasDescriptionBottomSheet(aliasId: alias.id, description: alias.description ?? "") { alias in
-                        self.alias = alias
-                        isPresentingEditAliasDescriptionBottomSheet = false
-
-                        // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
-                        // So we update the list when coming back
-                        shouldReloadDataInParent = true
-                    }
-                }
-                .presentationDetents([.large])
-            }
-            .sheet(isPresented: $isPresentingEditAliasRecipientsBottomSheet) {
-                NavigationStack {
-                    EditAliasRecipientsBottomSheet(aliasId: alias.id, selectedRecipientsIds: getRecipientsIds(recipients: alias.recipients)) { alias in
-                        self.alias = alias
-                        isPresentingEditAliasRecipientsBottomSheet = false
-
-                        // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
-                        // So we update the list when coming back
-                        shouldReloadDataInParent = true
-                    }
-                }
-                .presentationDetents([.medium, .large])
-            }
-            .sheet(isPresented: $isPresentingEditAliasFromNameBottomSheet) {
-                NavigationStack {
-                    EditAliasFromNameBottomSheet(aliasId: alias.id, aliasEmail: alias.email, fromName: alias.from_name) { alias in
-                        self.alias = alias
-                        isPresentingEditAliasFromNameBottomSheet = false
-
-                        // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
-                        // So we update the list when coming back
-                        shouldReloadDataInParent = true
-                    }
-                }
-                .presentationDetents([.large])
-            }
-            .sheet(isPresented: $isPresentingEditAliasSendMailRecipientBottomSheet) {
-                NavigationStack {
-                    EditAliasSendMailRecipientBottomSheet(aliasEmail: alias.email, onPressSend: { addresses in
-                        self.onPressSend(client: nil, sendToRecipients: addresses)
-                        isPresentingEditAliasSendMailRecipientBottomSheet = false
-                    }, onPressCopy: { addresses in
-                        self.onPressCopy(sendToRecipients: addresses)
-                        isPresentingEditAliasSendMailRecipientBottomSheet = false
-                    })
-                }
-                .presentationDetents([.large])
-            }
-            .alert(isPresented: $showAlert) {
-                switch activeAlert {
-                case .reachedMaxAliases:
-                    return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood", bundle: Bundle(for: SharedData.self)))))
-                case .deleteAliases:
-                    return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))) {
-                        isDeletingAlias = true
-
-                        Task {
-                            await deleteAlias(alias: alias)
-                        }
-                    }, secondaryButton: .cancel())
-                case .restoreAlias:
-                    return Alert(title: Text(String(localized: "restore_alias")), message: Text(String(localized: "restore_alias_confirmation_desc")), primaryButton: .default(Text(String(localized: "restore"))) {
-                        isRestoringAlias = true
-
-                        Task {
-                            await restoreAlias(alias: alias)
-                        }
-                    }, secondaryButton: .cancel())
-                case .forgetAlias:
-                    return Alert(title: Text(String(localized: "forget_alias")), message: Text(String(localized: "forget_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "forget"))) {
-                        isForgettingAlias = true
-
-                        Task {
-                            await forgetAlias(alias: alias)
-                        }
-                    }, secondaryButton: .cancel())
-                case .error:
-                    return Alert(
-                        title: Text(errorAlertTitle),
-                        message: Text(errorAlertMessage)
-                    )
-                }
-            }
-
-        } else {
-            VStack {
-                if let errorText = errorText {
-                    ContentUnavailableView {
-                        Label(String(localized: "error_obtaining_alias"), systemImage: "questionmark")
-                    } description: {
-                        Text(errorText)
-                    }.onAppear {
-                        HapticHelper.playHapticFeedback(hapticType: .error)
-                    }
-                } else {
-                    VStack(spacing: 20) {
-                        LottieView(animation: .named("gray_ic_loading_logo.shapeshifter"))
-                            .playbackMode(.playing(.toProgress(1, loopMode: .loop)))
-                            .animationSpeed(Double(2))
-                            .frame(maxHeight: 128)
-                            .opacity(0.5)
-                    }
-                }
-            }.task {
-                await getAlias(aliasId: self.aliasId)
-            }
-
-            .navigationTitle(aliasEmail)
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle(aliasEmail)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    pinButton()
+                }
+            }
+        
     }
 
+    
+    private func pinButton() -> some View {
+        Group {
+                if IsLoadingPinnedButton {
+                    ProgressView()
+                        .controlSize(.small)
+                } else {
+                    Button {
+                        if let alias = alias {
+                            Task {
+                                IsLoadingPinnedButton = true
+                                if isAliasPinned {
+                                    await self.unpinAlias(alias: alias)
+                                } else {
+                                    await self.pinAlias(alias: alias)
+                                }
+                                IsLoadingPinnedButton = false
+                            }
+                        }
+                        } label: {
+                            Image(systemName: isAliasPinned ? "pin.fill" : "pin")
+                        }
+                    
+                }
+            
+        }
+    }
+    
     private func addQuickActions(alias: Aliases) {
         if !mainViewState.encryptedSettingsManager.getSettingsBool(key: .privacyMode) {
             // Only add shortcuts when PRIVACY_MODE is disabled to hide aliases
@@ -718,6 +753,52 @@ struct AliasDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+    
+    
+    private func pinAlias(alias: Aliases) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let pinnedAlias = try await networkHelper.pinSpecificAlias(aliasId: alias.id)
+            IsLoadingPinnedButton = false
+            self.alias = pinnedAlias
+            isAliasPinned = true
+            shouldReloadDataInParent = true
+        } catch {
+            IsLoadingPinnedButton = false
+            isAliasPinned = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self))
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+    
+    private func unpinAlias(alias: Aliases) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.unpinSpecificAlias(aliasId: alias.id)
+            IsLoadingPinnedButton = false
+            if result == "204" {
+                self.alias?.pinned = false
+                isAliasPinned = false
+                shouldReloadDataInParent = true
+            } else {
+                isAliasPinned = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self))
+                errorAlertMessage = result
+            }
+        } catch {
+            IsLoadingPinnedButton = false
+            isAliasPinned = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self))
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
 
     private func deleteAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
@@ -748,6 +829,10 @@ struct AliasDetailView: View {
             if let alias = try await networkHelper.getSpecificAlias(aliasId: aliasId) {
                 withAnimation {
                     self.isAliasActive = alias.active
+                    
+                    self.isAliasPinned = alias.pinned
+                    self.IsLoadingPinnedButton = false
+                    
                     self.isAliasBeingWatched = AliasWatcher().getAliasesToWatch().contains(aliasId)
 
                     self.alias = alias

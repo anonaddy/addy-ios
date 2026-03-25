@@ -1,5 +1,25 @@
 # Changelog
 
+## [v2.2.0] - 2026-03-23
+
+### addy.io
+
+**Added**
+- Support for pinning and unpinning aliases
+
+**Fixed & Improved**
+- Fixed an issue where removing PGP keys and signatures states did not properly reflects the backend fields
+- Performance enhancements and other improvements for a smoother experience
+
+**addy.io for Apple Watch 1.1.0**
+
+**Added**
+- Support for pinning and unpinning aliases
+
+**Fixed & Improved**  
+- Performance enhancements and other improvements for a smoother experience
+
+
 ## [v2.1.0] - 2026-03-09
 
 ### addy.io

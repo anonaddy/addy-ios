@@ -80,6 +80,14 @@ struct AliasRowView: View {
                     .minimumScaleFactor(0.5)
                     .padding(.vertical, 4)
             }
+        }.overlay(alignment: .topTrailing) {
+            if alias.pinned {
+                Image(systemName: "pin.fill")
+                    .font(.system(size: 10)) // "Tiny" as requested
+                    .foregroundColor(.secondary)
+                    .padding(.top, 8)    // Adjust these to sit nicely
+                    .padding(.trailing, 4) // within your list row padding
+            }
         }
         .padding()
     }
@@ -103,6 +111,15 @@ struct AliasRowView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(height: 90)
+        .overlay(alignment: .topTrailing) {
+            if alias.pinned {
+                Image(systemName: "pin.fill")
+                    .font(.system(size: 10)) // "Tiny" as requested
+                    .foregroundColor(.secondary)
+                    .padding(.top, 8)    // Adjust these to sit nicely
+                    .padding(.trailing, 4) // within your list row padding
+            }
+        }
     }
     
     @ViewBuilder
@@ -123,18 +140,18 @@ struct AliasRowView: View {
     
     private var statsLabels: some View {
         VStack(alignment: .trailing) {
-            statsLabel("tray", "d_forwarded", alias.emails_forwarded, .portalOrange)
-            statsLabel("arrow.turn.up.left", "d_replied", alias.emails_replied, .easternBlue)
-            statsLabel("paperplane", "d_sent", alias.emails_sent, .portalBlue)
-            statsLabel("slash.circle", "d_blocked", alias.emails_blocked, .softRed)
+            statsLabel("tray", String(format: String(localized: "d_forwarded", comment: ""), "\(alias.emails_forwarded)"), .portalOrange)
+            statsLabel("arrow.turn.up.left", String(format: String(localized: "d_replied", comment: ""), "\(alias.emails_replied)"), .easternBlue)
+            statsLabel("paperplane", String(format: String(localized: "d_sent", comment: ""), "\(alias.emails_sent)"), .portalBlue)
+            statsLabel("slash.circle", String(format: String(localized: "d_blocked", comment: ""), "\(alias.emails_blocked)"), .softRed)
         }
         .labelStyle(MyAliasLabelStyle())
     }
     
     @ViewBuilder
-    private func statsLabel(_ systemImage: String, _ localizedKey: String, _ count: Int, _ color: Color) -> some View {
+    private func statsLabel(_ systemImage: String, _ string: String, _ color: Color) -> some View {
         Label(title: {
-            Text(String(format: String(localized: "\(localizedKey)", comment: ""), "\(count)"))
+            Text(string)
                 .font(.subheadline)
                 .foregroundStyle(.gray)
                 .lineLimit(1)

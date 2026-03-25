@@ -224,6 +224,7 @@ struct MailToActionSheet: View {
                 onlyDeletedAliases: false,
                 onlyInactiveAliases: false,
                 onlyWatchedAliases: false,
+                onlyPinnedAliases: false,
                 sort: nil,
                 sortDesc: true,
                 filter: text

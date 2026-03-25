@@ -13,9 +13,9 @@ public enum AddyIo {
     // The versioncode is a combination of MAJOR MINOR PATCH
     // TODO: Update on every release
 
-    // 1.3.7
+    // 1.5.0
     public static let MINIMUMVERSIONCODEMAJOR = 1
-    public static let MINIMUMVERSIONCODEMINOR = 4
+    public static let MINIMUMVERSIONCODEMINOR = 5
     public static let MINIMUMVERSIONCODEPATCH = 0
 
     public static var VERSIONMAJOR = 0
@@ -32,6 +32,7 @@ public enum AddyIo {
     static var API_URL_ALLOWED_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/allowed-recipients" }
     static var API_URL_ALIAS: String { "\(API_BASE_URL)/api/v1/aliases" }
     static var API_URL_ACTIVE_ALIAS: String { "\(API_BASE_URL)/api/v1/active-aliases" }
+    static var API_URL_PINNED_ALIASES: String { "\(API_BASE_URL)/api/v1/pinned-aliases" }
     static var API_URL_ALIAS_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/alias-recipients" }
     static var API_URL_DOMAIN_OPTIONS: String { "\(API_BASE_URL)/api/v1/domain-options" }
     static var API_URL_ENCRYPTED_RECIPIENTS: String { "\(API_BASE_URL)/api/v1/encrypted-recipients" }
