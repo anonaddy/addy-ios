@@ -297,6 +297,7 @@
       }
     },
     "dev_base_url" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

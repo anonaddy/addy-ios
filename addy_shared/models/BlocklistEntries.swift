@@ -17,12 +17,14 @@ struct SingleBlocklistEntry: Codable {
 }
 
 public struct BlocklistEntries: Identifiable, Codable {
-    public let created_at: String
     public let id: String
-    public let type: String
-    let updated_at: String
     let user_id: String
     public let value: String
+    public let type: String
+    public let blocked: Int?
+    public let last_blocked: String?
+    public let created_at: String
+    let updated_at: String
 }
 
 public struct NewBlocklistEntry: Codable {
