@@ -247,16 +247,19 @@ struct BlocklistView: View {
                 }
                 
                 if #available(iOS 26.0, *) {
-                                    ToolbarSpacer(.flexible)
-                                }
+                    ToolbarSpacer(.flexible)
+                }
 
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {
-                    self.isPresentingAddblocklistEntryBottomSheet = true
-                }) {
-                    Image(systemName: "plus")
-                        .frame(width: 24, height: 24)
+            
+            if !mainViewState.userResource!.hasUserFreeSubscription() {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        self.isPresentingAddblocklistEntryBottomSheet = true
+                    }) {
+                        Image(systemName: "plus")
+                            .frame(width: 24, height: 24)
+                    }
                 }
             }
         }
