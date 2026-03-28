@@ -797,12 +797,28 @@ public class NetworkHelper {
         }
     }
 
-    public func getFailedDeliveries() async throws -> FailedDeliveriesArray? {
+    public func getFailedDeliveries(page: Int? = nil, size: Int? = 25, filter: String? = nil) async throws -> FailedDeliveriesArray? {
         #if DEBUG
             print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
         #endif
-        let url = URL(string: AddyIo.API_URL_FAILED_DELIVERIES)!
-        var request = URLRequest(url: url)
+        var parameters: [URLQueryItem] = []
+
+        if let size = size {
+            parameters.append(URLQueryItem(name: "page[size]", value: "\(size)"))
+        }
+
+        if let page = page {
+            parameters.append(URLQueryItem(name: "page[number]", value: "\(page)"))
+        }
+
+        if let filter = filter {
+            parameters.append(URLQueryItem(name: "filter[email_type]", value: filter))
+        }
+
+        var urlComponents = URLComponents(string: AddyIo.API_URL_FAILED_DELIVERIES)!
+        urlComponents.queryItems = parameters
+
+        var request = URLRequest(url: urlComponents.url!)
         request.allHTTPHeaderFields = getHeaders()
 
         let (data, response) = try await URLSession.shared.data(for: request)
@@ -4597,15 +4613,16 @@ public class NetworkHelper {
             print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
         #endif
         do {
-            let result = try await getFailedDeliveries()
+            let result = try await getFailedDeliveries(size: 100)
             guard let result = result else {
                 // Result is null, return false to let the caller know the task failed.
                 return false
             }
 
             // Store a copy of the just received data locally
+            let totalCount = result.meta?.total ?? result.data.count
             encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCountPrevious, int: encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount))
-            encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount, int: result.data.count)
+            encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount, int: totalCount)
 
             // Stored data, return true to let the caller know the task succeeded
             return true

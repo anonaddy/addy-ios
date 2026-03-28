@@ -55,6 +55,14 @@ struct FailedDeliveryBottomSheet: View {
                                                                        failedDelivery.code)
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)
+            } header: {
+                Text(failedDelivery.getEmailTypeLabel().uppercased()) // Calling the method from the model
+                    .font(.system(size: 10, weight: .bold))
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(Color.accentColor.opacity(0.1))
+                    .foregroundColor(.accentColor)
+                    .cornerRadius(4)
             }
         }
         .navigationTitle(String(localized: "details"))
@@ -88,7 +96,7 @@ struct FailedDeliveryBottomSheet: View {
                 ToolbarSpacer(placement: .bottomBar)
             }
 
-            if self.failedDelivery.is_stored && !self.failedDelivery.quarantined && !self.failedDelivery.resent {
+            if self.failedDelivery.is_stored && !self.failedDelivery.quarantined && !self.failedDelivery.resent && self.failedDelivery.email_type == "F" {
                 ToolbarItem(placement: .bottomBar) {
                     resendFailedDeliveryButton()
                 }
