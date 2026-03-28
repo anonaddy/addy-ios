@@ -57,7 +57,7 @@ struct FailedDeliveriesView: View {
                                                 Text(String(localized: "alias"))
                                                     .font(.system(size: 16, weight: .medium))
                                                 
-                                                Text(failedDelivery.getEmailTypeLabel().uppercased())
+                                                Text(failedDelivery.email_type_text.uppercased())
                                                     .font(.system(size: 10, weight: .bold))
                                                     .padding(.horizontal, 6)
                                                     .padding(.vertical, 2)

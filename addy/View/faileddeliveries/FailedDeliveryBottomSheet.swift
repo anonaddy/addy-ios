@@ -56,7 +56,7 @@ struct FailedDeliveryBottomSheet: View {
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)
             } header: {
-                Text(failedDelivery.getEmailTypeLabel().uppercased()) // Calling the method from the model
+                Text(failedDelivery.email_type_text.uppercased())
                     .font(.system(size: 10, weight: .bold))
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)

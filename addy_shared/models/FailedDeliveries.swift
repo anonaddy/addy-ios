@@ -28,6 +28,7 @@ public struct FailedDeliveries: Identifiable, Codable {
     public let remote_mta: String
     public let sender: String?
     public let email_type: String
+    public let email_type_text: String
     let status: String
     public let code: String
     public let is_stored: Bool
@@ -36,20 +37,5 @@ public struct FailedDeliveries: Identifiable, Codable {
     public let attempted_at: String
     public let created_at: String
     let updated_at: String
-
-    public func getEmailTypeLabel() -> String {
-        switch self.email_type {
-        case "IR":
-            return String(localized: "inbound", bundle: Bundle(for: SharedData.self))
-        case "F":
-            return String(localized: "forwarded", bundle: Bundle(for: SharedData.self))
-        case "R":
-            return String(localized: "replies", bundle: Bundle(for: SharedData.self))
-        case "S":
-            return String(localized: "sent", bundle: Bundle(for: SharedData.self))
-        default:
-            return String(localized: "other", bundle: Bundle(for: SharedData.self))
-        }
-    }
 }
 
