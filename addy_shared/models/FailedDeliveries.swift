@@ -39,48 +39,16 @@ public struct FailedDeliveries: Identifiable, Codable {
 
     public func getEmailTypeLabel() -> String {
         switch self.email_type {
+        case "IR":
+            return String(localized: "inbound", bundle: Bundle(for: SharedData.self))
         case "F":
             return String(localized: "forwarded", bundle: Bundle(for: SharedData.self))
         case "R":
             return String(localized: "replies", bundle: Bundle(for: SharedData.self))
         case "S":
             return String(localized: "sent", bundle: Bundle(for: SharedData.self))
-        case "RP":
-            return String(localized: "reset_password", bundle: Bundle(for: SharedData.self))
-        case "FDN":
-            return String(localized: "failed_delivery", bundle: Bundle(for: SharedData.self))
-        case "DMI":
-            return String(localized: "domain_mx_invalid", bundle: Bundle(for: SharedData.self))
-        case "DRU":
-            return String(localized: "default_recipient_updated", bundle: Bundle(for: SharedData.self))
-        case "NRV":
-            return String(localized: "new_recipient_verified", bundle: Bundle(for: SharedData.self))
-        case "FLA":
-            return String(localized: "failed_login_attempt", bundle: Bundle(for: SharedData.self))
-        case "TES":
-            return String(localized: "token_expiring_soon", bundle: Bundle(for: SharedData.self))
-        case "UR":
-            return String(localized: "username_reminder", bundle: Bundle(for: SharedData.self))
-        case "VR":
-            return String(localized: "verify_recipient", bundle: Bundle(for: SharedData.self))
-        case "VU":
-            return String(localized: "verify_user", bundle: Bundle(for: SharedData.self))
-        case "DRSA":
-            return String(localized: "disallowed_reply_send_attempt", bundle: Bundle(for: SharedData.self))
-        case "DUS":
-            return String(localized: "domain_unverified_for_sending", bundle: Bundle(for: SharedData.self))
-        case "GKE":
-            return String(localized: "pgp_key_expired", bundle: Bundle(for: SharedData.self))
-        case "NBL":
-            return String(localized: "near_bandwidth_limit", bundle: Bundle(for: SharedData.self))
-        case "RSL":
-            return String(localized: "reached_reply_send_limit", bundle: Bundle(for: SharedData.self))
-        case "SRSA":
-            return String(localized: "spam_reply_send_attempt", bundle: Bundle(for: SharedData.self))
-        case "AIF":
-            return String(localized: "aliases_import_finished", bundle: Bundle(for: SharedData.self))
         default:
-            return String(localized: "forwarded", bundle: Bundle(for: SharedData.self))
+            return String(localized: "other", bundle: Bundle(for: SharedData.self))
         }
     }
 }
