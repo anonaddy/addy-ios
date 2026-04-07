@@ -80,11 +80,6 @@ class AliasesViewModel: ObservableObject {
             self.isLoading = true
             self.networkError = ""
 
-            if forceReload {
-                // This will make sure that the meta resets and jumps back to 0
-                self.aliasList = nil
-            }
-
             #if DEBUG
                 print("page is \(aliasList?.meta?.current_page ?? 0)")
             #endif
@@ -133,12 +128,13 @@ class AliasesViewModel: ObservableObject {
 
             } else {
                 do {
-                    let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (aliasList?.meta?.current_page ?? 0) + 1, size: 25)
+                    let pageToLoad = forceReload ? 1 : ((aliasList?.meta?.current_page ?? 0) + 1)
+                    let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: pageToLoad, size: 25)
                     
                     self.isLoading = false
 
                     if let aliasArray = aliasArray {
-                        if self.aliasList == nil {
+                        if self.aliasList == nil || forceReload {
                             // If aliasList is empty, assign it
                             self.aliasList = aliasArray
                         } else {

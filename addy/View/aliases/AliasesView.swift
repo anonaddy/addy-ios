@@ -82,7 +82,6 @@ struct AliasesView: View {
                         VStack(alignment: .leading, spacing: 24) {
                             if aliasesViewModel.networkError == "" {
                                 AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
-                                    selectedFilterChip = onTappedChip.chipId
                                     ApplyFilter(chipId: onTappedChip.chipId)
                                 }.scrollClipDisabled()
                             }
@@ -502,64 +501,31 @@ struct AliasesView: View {
     }
     
     func ApplyFilter(chipId: String) {
-        switch chipId {
-        case "filter_pinned_aliases":
-            aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = true
-            aliasesViewModel.aliasSortFilterRequest.sort = nil
-            aliasesViewModel.aliasSortFilterRequest.sortDesc = false
-        case "filter_all_aliases":
-            aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = nil
-            aliasesViewModel.aliasSortFilterRequest.sortDesc = false
-        case "filter_active_aliases":
-            aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = true
-            aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = nil
-            aliasesViewModel.aliasSortFilterRequest.sortDesc = false
-        case "filter_inactive_aliases":
-            aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = true
-            aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = nil
-            aliasesViewModel.aliasSortFilterRequest.sortDesc = false
-        case "filter_deleted_aliases":
-            aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = true
-            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = nil
-            aliasesViewModel.aliasSortFilterRequest.sortDesc = false
-        case "filter_watched_only":
-            aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = true
-            aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.sort = nil
-            aliasesViewModel.aliasSortFilterRequest.sortDesc = false
-        case "filter_custom":
+        if chipId != "filter_custom" {
+            var newFilter = aliasesViewModel.defaultSortFilterRequest
+            newFilter.filter = aliasesViewModel.aliasSortFilterRequest.filter
+
+            switch chipId {
+            case "filter_pinned_aliases":
+                newFilter.onlyPinnedAliases = true
+            case "filter_all_aliases":
+                break // Keeps defaults
+            case "filter_active_aliases":
+                newFilter.onlyActiveAliases = true
+            case "filter_inactive_aliases":
+                newFilter.onlyInactiveAliases = true
+            case "filter_deleted_aliases":
+                newFilter.onlyDeletedAliases = true
+            case "filter_watched_only":
+                newFilter.onlyWatchedAliases = true
+            default:
+                break
+            }
+            
+            aliasesViewModel.aliasSortFilterRequest = newFilter
+        } else {
             isPresentingFilterOptionsAliasBottomSheet = true
             return // Nothing to save yet so let's return
-        default:
-            aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyActiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyInactiveAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases = false
-            aliasesViewModel.aliasSortFilterRequest.onlyPinnedAliases = false
         }
         
         SaveFilter(chipId: chipId, aliasSortFilterRequest: aliasesViewModel.aliasSortFilterRequest)
@@ -599,8 +565,28 @@ struct AliasesView: View {
         
         filterChips = GetFilterChips()
         
-        if let i = GetFilterChips().firstIndex(where: { $0.chipId == aliasSortFilterObject?.filterId }) {
-            selectedFilterChip = GetFilterChips()[i].chipId
+        var filterWithoutSearch = aliasesViewModel.aliasSortFilterRequest
+        filterWithoutSearch.filter = nil
+        
+        var defaultSortFilterRequest = aliasesViewModel.defaultSortFilterRequest
+        defaultSortFilterRequest.filter = nil
+        
+        withAnimation {
+            if filterWithoutSearch.onlyPinnedAliases {
+                selectedFilterChip = "filter_pinned_aliases"
+            } else if filterWithoutSearch.onlyActiveAliases {
+                selectedFilterChip = "filter_active_aliases"
+            } else if filterWithoutSearch.onlyInactiveAliases {
+                selectedFilterChip = "filter_inactive_aliases"
+            } else if filterWithoutSearch.onlyDeletedAliases {
+                selectedFilterChip = "filter_deleted_aliases"
+            } else if filterWithoutSearch.onlyWatchedAliases {
+                selectedFilterChip = "filter_watched_only"
+            } else if filterWithoutSearch == defaultSortFilterRequest {
+                selectedFilterChip = "filter_all_aliases"
+            } else {
+                selectedFilterChip = "filter_custom"
+            }
         }
         
         // Always try to restore (re-set) the filter after loading a filter from settings.

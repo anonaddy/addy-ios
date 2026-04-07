@@ -11,6 +11,7 @@ import SwiftUI
 
 struct FailedDeliveryBottomSheet: View {
     @State var failedDelivery: FailedDeliveries
+    @EnvironmentObject var mainViewState: MainViewState
 
     let onDeleted: () -> Void
 
@@ -22,12 +23,14 @@ struct FailedDeliveryBottomSheet: View {
     @State var isLoadingDeleteButton: Bool = false
     @State var isLoadingDownloadButton: Bool = false
     @State var isLoadingResendButton: Bool = false
+    @State var isLoadingBlocklistButton: Bool = false
     @State private var isShowingPicker = false
     @State private var fileURL: URL?
 
     enum ActiveAlert {
         case error
         case resend
+        case blocklist
     }
 
     @State private var activeAlert: ActiveAlert = .error
@@ -46,12 +49,11 @@ struct FailedDeliveryBottomSheet: View {
             Section {
                 let formattedString = String.localizedStringWithFormat(NSLocalizedString("failed_delivery_details_text", comment: ""),
                                                                        failedDelivery.created_at,
-                                                                       failedDelivery.attempted_at,
+                                                                       failedDelivery.destination ?? "",
                                                                        failedDelivery.alias_email ?? "",
-                                                                       failedDelivery.recipient_email ?? "",
-                                                                       failedDelivery.bounce_type,
-                                                                       failedDelivery.remote_mta,
                                                                        failedDelivery.sender ?? "",
+                                                                       failedDelivery.remote_mta,
+                                                                       failedDelivery.attempted_at,
                                                                        failedDelivery.code)
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)
@@ -84,6 +86,12 @@ struct FailedDeliveryBottomSheet: View {
 
             ToolbarItem(placement: .bottomBar) {
                 deleteFailedDeliveryButton()
+            }
+
+            if let sender = self.failedDelivery.sender, !sender.isEmpty, !mainViewState.userResource!.hasUserFreeSubscription() {
+                ToolbarItem(placement: .bottomBar) {
+                    blocklistSenderButton()
+                }
             }
 
             if self.failedDelivery.is_stored {
@@ -120,6 +128,19 @@ struct FailedDeliveryBottomSheet: View {
                 }, secondaryButton: .cancel {
                     isLoadingResendButton = false
                 })
+            case .blocklist:
+                return Alert(
+                    title: Text(String(localized: "blocklist_add")),
+                    message: Text(String(format: String(localized: "blocklist_add_confirmation"), failedDelivery.sender ?? "")),
+                    primaryButton: .destructive(Text(String(localized: "blocklist_add"))) {
+                        Task {
+                            isLoadingBlocklistButton = true
+                            await self.blocklistSender()
+                        }
+                    }, secondaryButton: .cancel {
+                        isLoadingBlocklistButton = false
+                    }
+                )
             }
         }
     }
@@ -180,6 +201,49 @@ struct FailedDeliveryBottomSheet: View {
                     }
                 )
             }
+        }
+    }
+
+    private func blocklistSenderButton() -> some View {
+        Group {
+            if isLoadingBlocklistButton {
+                AnyView(ProgressView().progressViewStyle(.circular))
+            } else {
+                AnyView(
+                    Button {
+                        activeAlert = .blocklist
+                        showAlert = true
+                    } label: {
+                        Label(String(localized: "blocklist_add"), systemImage: "nosign")
+                    }
+                )
+            }
+        }
+    }
+
+    private func blocklistSender() async {
+        guard let sender = failedDelivery.sender, !sender.isEmpty else {
+            isLoadingBlocklistButton = false
+            return
+        }
+
+        let type = sender.contains("@") ? "email" : "domain"
+        let entry = NewBlocklistEntry(type: type, value: sender)
+        
+        let networkHelper = NetworkHelper()
+        do {
+            _ = try await networkHelper.addBlocklistEntry(entry: entry)
+            isLoadingBlocklistButton = false
+            errorAlertTitle = String(localized: "blocklist_add")
+            errorAlertMessage = String(localized: "blocklist_add_success")
+            activeAlert = .error
+            showAlert = true
+        } catch {
+            isLoadingBlocklistButton = false
+            errorAlertTitle = String(localized: "error", bundle: Bundle(for: SharedData.self))
+            errorAlertMessage = error.localizedDescription
+            activeAlert = .error
+            showAlert = true
         }
     }
 

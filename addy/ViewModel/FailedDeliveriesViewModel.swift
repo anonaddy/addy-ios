@@ -31,22 +31,19 @@ class FailedDeliveriesViewModel: ObservableObject {
         if !isLoading {
             self.isLoading = true
             self.networkError = ""
-
-            if forceReload {
-                self.failedDeliveries = nil
-            }
             
             let networkHelper = NetworkHelper()
             do {
+                let pageToLoad = forceReload ? 1 : ((failedDeliveries?.meta?.current_page ?? 0) + 1)
                 let failedDeliveriesArray = try await networkHelper.getFailedDeliveries(
-                    page: (failedDeliveries?.meta?.current_page ?? 0) + 1,
+                    page: pageToLoad,
                     size: 25,
                     filter: filter
                 )
                 self.isLoading = false
 
                 if let failedDeliveriesArray = failedDeliveriesArray {
-                    if self.failedDeliveries == nil {
+                    if self.failedDeliveries == nil || forceReload {
                         self.failedDeliveries = failedDeliveriesArray
                     } else {
                         self.failedDeliveries?.meta = failedDeliveriesArray.meta

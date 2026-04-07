@@ -27,6 +27,7 @@ public struct FailedDeliveries: Identifiable, Codable {
     public let bounce_type: String
     public let remote_mta: String
     public let sender: String?
+    public let destination: String?
     public let email_type: String
     public let email_type_text: String
     let status: String
