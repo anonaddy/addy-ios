@@ -4624,7 +4624,6 @@ public class NetworkHelper {
             }
 
             let totalCount = result.meta?.total ?? result.data.count
-            encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCountPrevious, int: encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount))
             encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount, int: totalCount)
 
             // Store a copy of the just received data locally
