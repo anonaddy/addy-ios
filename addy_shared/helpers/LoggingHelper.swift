@@ -30,11 +30,6 @@ public class LoggingHelper {
         guard let logsData = prefs.data(forKey: "logs") else { return nil }
         return try? JSONDecoder().decode([Logs].self, from: logsData)
     }
-    
-    public func getWatchOsLogs() -> [Logs]? {
-        guard let logsData = prefs.data(forKey: "logs") else { return nil }
-        return try? JSONDecoder().decode([Logs].self, from: logsData)
-    }
 
     public func addLog(importance: LogImportance, error: String, method: String, extra: String?) {
         if settingsManager.getSettingsBool(key: .storeLogs) {

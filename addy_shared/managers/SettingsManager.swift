@@ -34,13 +34,9 @@ public class SettingsManager {
 
         // WatchOS
         case watchosSkipAliasCreateGuide
-        case watchosFavoriteAliases
         case enableWatchKitQuickSetupDialog
-        case backgroundServiceCacheFavoriteAliasesData
-        case backgroundServiceCacheLastUpdatedAliasesData
 
         case backgroundServiceCacheFailedDeliveriesLatestId
-        case backgroundServiceCacheBlocklistEntriesCount
         case backgroundServiceCacheAccountNotificationsCount
         case backgroundServiceCacheApiKeyExpiryLeftCount
         case backgroundServiceCacheSubscriptionExpiryLeftCount

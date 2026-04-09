@@ -847,7 +847,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 2.2.0**\n\n**Added**\n- Support for pinning and unpinning aliases\n\n**Fixed & Improved**\n- Fixed an issue where removing PGP keys and signatures states did not properly reflects the backend fields\n- Performance enhancements and other improvements for a smoother experience\n\n**What’s new in addy.io for Apple Watch 1.1.0**\n\n**Added**\n- Support for pinning and unpinning aliases\n\n**Fixed & Improved**  \n- Performance enhancements and other improvements for a smoother experience"
+            "value" : "**What’s new in addy.io for iOS 2.3.0**\n\n**Added**\n- Support for the new ‘inbound rejection’ feature\n\n**Fixed & Improved**\n- Completely redesigned the failed delivery view\u0003\n- Redesigned blocklist UI\n- Added the option to only be notified for inbound or outbound failed deliveries\n- Performance enhancements and other improvements for a smoother experience\n\n**What’s new in addy.io for Apple Watch 1.1.1**\n\n**Fixed & Improved**  \n- Performance enhancements and other improvements for a smoother experience"
           }
         }
       }
@@ -5417,6 +5417,7 @@
       }
     },
     "rate_this_app" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5427,6 +5428,7 @@
       }
     },
     "rate_this_app_desc" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

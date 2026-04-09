@@ -26,8 +26,6 @@ struct BlocklistView: View {
 
     @State private var isPresentingAddblocklistEntryBottomSheet = false
 
-    @State private var shouldReloadDataInParent = false
-
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     

@@ -109,32 +109,4 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
             )
         })
     }
-    
-    func getSettingsBool(key: SettingsManager.Prefs, value: @escaping (Bool?) -> Void) {
-        WCSession.default.sendMessage(["get_setting_bool": true, "key": key], replyHandler: { reply in
-            value(reply["value"] as? Bool)
-        }, errorHandler: { error in
-            LoggingHelper().addLog(
-                importance: LogImportance.critical,
-                error: "Failed to get setting: \(error)",
-                method: "getSettingsBool",
-                extra: error.localizedDescription
-            )
-            value(nil)
-        })
-    }
-    
-    func setSettingsBool(key: SettingsManager.Prefs, value: Bool, result: @escaping (Bool) -> Void) {
-        WCSession.default.sendMessage(["set_setting_bool": true, "key": key, "value": value], replyHandler: { reply in
-            return result(reply["set_setting_bool_confirm"] as? Bool == true)
-        }, errorHandler: { error in
-            LoggingHelper().addLog(
-                importance: LogImportance.critical,
-                error: "Failed to set setting: \(error)",
-                method: "setSettingsBool",
-                extra: error.localizedDescription
-            )
-            return result(false)
-        })
-    }
 }
