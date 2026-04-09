@@ -269,14 +269,16 @@ class BackgroundWorker {
                     )
                 #endif
                 if settingsManager.getSettingsBool(key: .notifyFailedDeliveries) {
+                    let previousFailedDeliveryId = encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
+                    
                     let _ = await networkHelper.cacheFailedDeliveryCountForWidgetAndBackgroundService()
                     // Store the result if the data succeeded to update in a boolean
 
-                    let currentFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
-                    let previousFailedDeliveries = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCountPrevious)
-                    // If the current failed delivery count is bigger than the previous list. That means there are new failed deliveries
-                    if currentFailedDeliveries > previousFailedDeliveries {
-                        NotificationHelper().createFailedDeliveryNotification(difference: currentFailedDeliveries - previousFailedDeliveries)
+                    let currentFailedDeliveryId = encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
+                    
+                    // If the current failed delivery id is different from the previous. That means there is a new failed delivery
+                    if let currentId = currentFailedDeliveryId, let previousId = previousFailedDeliveryId, currentId != previousId, !currentId.isEmpty {
+                        NotificationHelper().createFailedDeliveryNotification(difference: 1)
                     }
                 }
 

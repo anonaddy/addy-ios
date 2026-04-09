@@ -14,6 +14,7 @@ public class SettingsManager {
         case versionCode
         case notifyUpdates
         case notifyFailedDeliveries
+        case notifyFailedDeliveriesType
         case notifyAccountNotifications
         case notifyApiTokenExpiry
         case notifyDomainError
@@ -38,12 +39,13 @@ public class SettingsManager {
         case backgroundServiceCacheFavoriteAliasesData
         case backgroundServiceCacheLastUpdatedAliasesData
 
-        case backgroundServiceCacheFailedDeliveriesCount
+        case backgroundServiceCacheFailedDeliveriesLatestId
         case backgroundServiceCacheBlocklistEntriesCount
         case backgroundServiceCacheAccountNotificationsCount
         case backgroundServiceCacheApiKeyExpiryLeftCount
         case backgroundServiceCacheSubscriptionExpiryLeftCount
         case backgroundServiceCacheDomainErrorCount
+        case backgroundServiceCacheFailedDeliveriesCount
         case backgroundServiceCacheFailedDeliveriesCountPrevious
         case backgroundServiceCacheAccountNotificationsCountPrevious
         case backgroundServiceWatchAliasList

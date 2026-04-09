@@ -665,7 +665,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All failed deliveries"
+            "value" : "Failed deliveries"
           }
         }
       }
@@ -3126,6 +3126,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Failed deliveries"
+          }
+        }
+      }
+    },
+    "failed_deliveries_filtered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed deliveries (filter active)"
           }
         }
       }

@@ -11,10 +11,12 @@ import Foundation
 public class NetworkHelper {
     private let loggingHelper: LoggingHelper
     private let encryptedSettingsManager: SettingsManager
+    private let settingsManager: SettingsManager
 
     public init() {
         loggingHelper = LoggingHelper()
         encryptedSettingsManager = SettingsManager(encrypted: true)
+        settingsManager = SettingsManager(encrypted: false)
         AddyIo.API_BASE_URL = encryptedSettingsManager.getSettingsString(key: .baseUrl) ?? AddyIo.API_BASE_URL
     }
 
@@ -4613,16 +4615,24 @@ public class NetworkHelper {
             print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
         #endif
         do {
-            let result = try await getFailedDeliveries(size: 100)
+            let filterType = settingsManager.getSettingsString(key: .notifyFailedDeliveriesType) ?? "all"
+            let filter = filterType == "all" ? nil : filterType
+            let result = try await getFailedDeliveries(size: 1, filter: filter)
             guard let result = result else {
                 // Result is null, return false to let the caller know the task failed.
                 return false
             }
 
-            // Store a copy of the just received data locally
             let totalCount = result.meta?.total ?? result.data.count
             encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCountPrevious, int: encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount))
             encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount, int: totalCount)
+
+            // Store a copy of the just received data locally
+            if let latestId = result.data.first?.id {
+                encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: latestId)
+            } else {
+                encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: "")
+            }
 
             // Stored data, return true to let the caller know the task succeeded
             return true

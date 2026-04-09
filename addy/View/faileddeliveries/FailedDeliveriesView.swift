@@ -47,8 +47,8 @@ struct FailedDeliveriesView: View {
         NavigationStack {
             List {
                 if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
-                    if !failedDeliveries.data.isEmpty {
-                        Section {
+                    Section {
+                        if !failedDeliveries.data.isEmpty {
                             ForEach(failedDeliveries.data) { failedDelivery in
                                 VStack(alignment: .leading) {
                                     HStack {
@@ -110,30 +110,34 @@ struct FailedDeliveriesView: View {
                                         failedDeliveriesViewModel.loadMoreContent()
                                     }
                             }
-                        } header: {
-                            VStack(alignment: .leading, spacing: 24) {
-                                AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
-                                    withAnimation {
-                                        selectedFilterChip = onTappedChip.chipId
-                                    }
+                        }
+                    } header: {
+                        VStack(alignment: .leading, spacing: 24) {
+                            AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
+                                withAnimation {
+                                    selectedFilterChip = onTappedChip.chipId
+                                }
 
-                                    ApplyFilter(chipId: onTappedChip.chipId)
-                                }.scrollClipDisabled()
+                                ApplyFilter(chipId: onTappedChip.chipId)
+                            }.scrollClipDisabled()
 
-                                HStack(spacing: 6) {
+                            HStack(spacing: 6) {
+                                if selectedFilterChip != "all" {
+                                    Text(String(localized: "failed_deliveries_filtered"))
+                                } else {
                                     Text(String(localized: "all_failed_deliveries"))
+                                }
 
-                                    if failedDeliveriesViewModel.isLoading {
-                                        ProgressView()
-                                            .frame(maxHeight: 4)
-                                    }
+                                if failedDeliveriesViewModel.isLoading {
+                                    ProgressView()
+                                        .frame(maxHeight: 4)
                                 }
                             }
-                            // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
-                        }.textCase(nil).onAppear(perform: {
-                            updateTheCacheFDCount(count: failedDeliveries.meta?.total ?? failedDeliveries.data.count)
-                        })
-                    }
+                        }
+                        // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
+                    }.textCase(nil).onAppear(perform: {
+                        updateTheCacheFDCount(count: failedDeliveries.meta?.total ?? failedDeliveries.data.count)
+                    })
                 }
 
             }.refreshable {
@@ -175,7 +179,7 @@ struct FailedDeliveriesView: View {
                     )
                 }
             }
-            .overlay(Group {
+            .background(Group {
                 // If there is an failedDeliveries (aka, if the list is visible)
                 if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
                     if failedDeliveries.data.isEmpty {
