@@ -13,7 +13,6 @@ import SwiftUI
 
 class AliasViewModel: ObservableObject {
     @Published var aliasList: AliasesArray? = nil
-    @Published var bulkAliasList: BulkAliasesArray? = nil
     @Published var isLoading = false
     @Published var networkError: String = ""
 
@@ -73,36 +72,5 @@ class AliasViewModel: ObservableObject {
             
         
     }
-    
-    func bulkGetAlias(aliases: [String]) async {
-            DispatchQueue.main.async {
-                self.isLoading = true
-                self.networkError = ""
-            }
 
-            let networkHelper = NetworkHelper()
-
-                do {
-                    let bulkAliasList = try await networkHelper.bulkGetAlias(aliases: aliases)
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-
-                        if let bulkAliasList = bulkAliasList {
-                            self.bulkAliasList = bulkAliasList
-                        } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self)))")
-                        }
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-                        self.networkError = error.localizedDescription
-                    }
-                    LoggingHelper().addLog(
-                        importance: LogImportance.critical,
-                        error: error.localizedDescription,
-                        method: "bulkGetAlias", extra: nil
-                    )
-                }
-    }
 }

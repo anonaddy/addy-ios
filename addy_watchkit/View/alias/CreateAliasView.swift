@@ -60,8 +60,6 @@ struct CreateAliasView: View {
 class CreateAliasViewModel: ObservableObject {
     @Published var alias: Aliases?
     
-    private weak var appState: AppState?
-    private weak var mainViewState: MainViewState?
     private var onDismiss: (() -> Void)?
     
     func checkUserAndCreate(
@@ -69,8 +67,6 @@ class CreateAliasViewModel: ObservableObject {
         appState: AppState,
         mainViewState: MainViewState
     ) async {
-        self.appState = appState
-        self.mainViewState = mainViewState
         guard appState.apiKey != nil else { return }
         
         if skipAliasCreateGuide {

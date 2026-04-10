@@ -296,16 +296,6 @@
         }
       }
     },
-    "dev_base_url" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "https://app.addy.io"
-          }
-        }
-      }
-    },
     "error" : {
       "extractionState" : "manual",
       "localizations" : {

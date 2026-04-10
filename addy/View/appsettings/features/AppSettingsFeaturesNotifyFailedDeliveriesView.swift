@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import addy_shared
 
 struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
     @State var isShowingFailedDeliveriesView: Bool = false
     @State var notifyFailedDeliveries: Bool = false
+    @State var notifyFailedDeliveriesType: String = ""
+
+    let types = ["all", "inbound", "outbound"]
 
     var body: some View {
         #if DEBUG
@@ -22,6 +26,7 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
                 AddyToggle(isOn: $notifyFailedDeliveries, title: String(localized: "enable_feature"), description: String(localized: "notify_failed_deliveries_feature_section_desc"))
                     .onAppear {
                         self.notifyFailedDeliveries = MainViewState.shared.settingsManager.getSettingsBool(key: .notifyFailedDeliveries)
+                        self.notifyFailedDeliveriesType = MainViewState.shared.settingsManager.getSettingsString(key: .notifyFailedDeliveriesType) ?? "all"
                     }
                     .onChange(of: notifyFailedDeliveries) {
                         // Only fire when the value is NOT the same as the value already in the model
@@ -30,6 +35,19 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
                             BackgroundWorkerHelper().scheduleAppRefresh()
                         }
                     }
+
+                if notifyFailedDeliveries {
+                    Picker(selection: $notifyFailedDeliveriesType, label: Text(String(localized: "type"))) {
+                        ForEach(types, id: \.self) { type in
+                            Text(type.capitalized).tag(type)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .onChange(of: notifyFailedDeliveriesType) {
+                        MainViewState.shared.settingsManager.putSettingsString(key: .notifyFailedDeliveriesType, string: notifyFailedDeliveriesType)
+                        BackgroundWorkerHelper().scheduleAppRefresh()
+                    }
+                }
 
                 AddySection(title: String(localized: "view_failed_deliveries"), description: String(localized: "view_failed_deliveries_desc")) {
                     isShowingFailedDeliveriesView = true

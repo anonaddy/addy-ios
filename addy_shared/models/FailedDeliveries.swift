@@ -9,6 +9,8 @@ import Foundation
 
 public struct FailedDeliveriesArray: Codable {
     public var data: [FailedDeliveries]
+    public var links: Links?
+    public var meta: Meta?
 }
 
 struct SingleFailedDelivery: Codable {
@@ -25,11 +27,16 @@ public struct FailedDeliveries: Identifiable, Codable {
     public let bounce_type: String
     public let remote_mta: String
     public let sender: String?
-    let email_type: String
+    public let destination: String?
+    public let email_type: String
+    public let email_type_text: String
     let status: String
     public let code: String
     public let is_stored: Bool
+    public let quarantined: Bool
+    public let resent: Bool
     public let attempted_at: String
     public let created_at: String
     let updated_at: String
 }
+

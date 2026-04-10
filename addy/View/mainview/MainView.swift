@@ -379,8 +379,9 @@ struct MainView: View {
         do {
             if let result = try await NetworkHelper().getFailedDeliveries() {
                 let currentCount = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
-                if result.data.count > currentCount {
-                    withAnimation { mainViewState.newFailedDeliveries = result.data.count - currentCount }
+                let totalCount = result.meta?.total ?? result.data.count
+                if totalCount > currentCount {
+                    withAnimation { mainViewState.newFailedDeliveries = totalCount - currentCount }
                 }
             }
         } catch {

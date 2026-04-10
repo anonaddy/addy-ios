@@ -13,7 +13,6 @@ class MainViewState: ObservableObject {
     static let shared = MainViewState() // Shared instance
 
     @Published var encryptedSettingsManager = SettingsManager(encrypted: true)
-    @Published var settingsManager = SettingsManager(encrypted: false)
 
     let userResourceChanged = PassthroughSubject<Void, Never>()
 

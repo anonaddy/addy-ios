@@ -26,10 +26,14 @@ struct FailedDeliveriesView: View {
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
 
+    @State var selectedFilterChip: String = "all"
+    @State var filterChips: [AddyChipModel] = []
+
     @State var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)?
 
     @Environment(\.dismiss) var dismiss
+
 
     init(horizontalSize: UserInterfaceSizeClass?, onRefreshGeneralData: (() -> Void)? = nil) {
         self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
@@ -43,14 +47,24 @@ struct FailedDeliveriesView: View {
         NavigationStack {
             List {
                 if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
-                    if !failedDeliveries.data.isEmpty {
-                        Section {
+                    Section {
+                        if !failedDeliveries.data.isEmpty {
                             ForEach(failedDeliveries.data) { failedDelivery in
                                 VStack(alignment: .leading) {
                                     HStack {
                                         VStack(alignment: .leading) {
-                                            Text(String(localized: "alias"))
-                                                .font(.system(size: 16, weight: .medium))
+                                            HStack {
+                                                Text(String(localized: "alias"))
+                                                    .font(.system(size: 16, weight: .medium))
+                                                
+                                                Text(failedDelivery.email_type_text.uppercased())
+                                                    .font(.system(size: 10, weight: .bold))
+                                                    .padding(.horizontal, 6)
+                                                    .padding(.vertical, 2)
+                                                    .background(Color.accentColor.opacity(0.1))
+                                                    .foregroundColor(.accentColor)
+                                                    .cornerRadius(4)
+                                            }
                                             Text(failedDelivery.alias_email ?? "")
                                                 .font(.system(size: 14))
                                                 .foregroundColor(.gray)
@@ -88,20 +102,42 @@ struct FailedDeliveriesView: View {
                                     }
                                 }
                             }.onDelete(perform: deleteFailedDelivery)
-                        } header: {
+
+                            if !failedDeliveriesViewModel.hasArrivedAtTheLastPage {
+                                ProgressView()
+                                    .frame(maxWidth: .infinity, maxHeight: 50)
+                                    .onAppear {
+                                        failedDeliveriesViewModel.loadMoreContent()
+                                    }
+                            }
+                        }
+                    } header: {
+                        VStack(alignment: .leading, spacing: 24) {
+                            AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
+                                withAnimation {
+                                    selectedFilterChip = onTappedChip.chipId
+                                }
+
+                                ApplyFilter(chipId: onTappedChip.chipId)
+                            }.scrollClipDisabled()
+
                             HStack(spacing: 6) {
-                                Text(String(localized: "all_failed_deliveries"))
+                                if selectedFilterChip != "all" {
+                                    Text(String(localized: "failed_deliveries_filtered"))
+                                } else {
+                                    Text(String(localized: "all_failed_deliveries"))
+                                }
 
                                 if failedDeliveriesViewModel.isLoading {
                                     ProgressView()
                                         .frame(maxHeight: 4)
                                 }
                             }
-                            // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
-                        }.textCase(nil).onAppear(perform: {
-                            updateTheCacheFDCount(count: failedDeliveries.data.count)
-                        })
-                    }
+                        }
+                        // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
+                    }.textCase(nil).onAppear(perform: {
+                        updateTheCacheFDCount(count: failedDeliveries.meta?.total ?? failedDeliveries.data.count)
+                    })
                 }
 
             }.refreshable {
@@ -110,7 +146,7 @@ struct FailedDeliveriesView: View {
                     self.onRefreshGeneralData?()
                 }
 
-                await self.failedDeliveriesViewModel.getFailedDeliveries()
+                await self.failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
             }
             .sheet(item: $failedDeliveryToShow) { failedDelivery in
                 NavigationStack {
@@ -118,7 +154,7 @@ struct FailedDeliveriesView: View {
                         self.failedDeliveryToShow = nil
 
                         Task {
-                            await failedDeliveriesViewModel.getFailedDeliveries()
+                            await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
                         }
                     }
                 }
@@ -133,7 +169,7 @@ struct FailedDeliveriesView: View {
                         }
                     }, secondaryButton: .cancel {
                         Task {
-                            await failedDeliveriesViewModel.getFailedDeliveries()
+                            await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
                         }
                     })
                 case .error:
@@ -143,7 +179,7 @@ struct FailedDeliveriesView: View {
                     )
                 }
             }
-            .overlay(Group {
+            .background(Group {
                 // If there is an failedDeliveries (aka, if the list is visible)
                 if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
                     if failedDeliveries.data.isEmpty {
@@ -174,7 +210,7 @@ struct FailedDeliveriesView: View {
                             } actions: {
                                 Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                                     Task {
-                                        await failedDeliveriesViewModel.getFailedDeliveries()
+                                        await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
                                     }
                                 }
                             }
@@ -225,14 +261,44 @@ struct FailedDeliveriesView: View {
             }
         }
         .onAppear(perform: {
+            LoadFilter()
             if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
                 if failedDeliveries.data.isEmpty {
                     Task {
-                        await failedDeliveriesViewModel.getFailedDeliveries()
+                        await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
                     }
                 }
             }
         })
+    }
+
+    func ApplyFilter(chipId: String) {
+        switch chipId {
+        case "inbound":
+            failedDeliveriesViewModel.filter = "inbound"
+        case "outbound":
+            failedDeliveriesViewModel.filter = "outbound"
+        case "all":
+            failedDeliveriesViewModel.filter = nil
+        default:
+            failedDeliveriesViewModel.filter = nil
+        }
+
+        Task {
+            await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
+        }
+    }
+
+    func LoadFilter() {
+        filterChips = GetFilterChips()
+    }
+
+    func GetFilterChips() -> [AddyChipModel] {
+        return [
+            AddyChipModel(chipId: "all", label: String(localized: "filter_all")),
+            AddyChipModel(chipId: "inbound", label: String(localized: "filter_inbound")),
+            AddyChipModel(chipId: "outbound", label: String(localized: "filter_outbound"))
+        ]
     }
 
     private func updateTheCacheFDCount(count: Int) {
@@ -248,7 +314,7 @@ struct FailedDeliveriesView: View {
         do {
             let result = try await networkHelper.deleteFailedDelivery(failedDeliveryId: failedDelivery.id)
             if result == "204" {
-                await failedDeliveriesViewModel.getFailedDeliveries()
+                await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
             } else {
                 activeAlert = .error
                 showAlert = true

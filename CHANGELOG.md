@@ -1,5 +1,24 @@
 # Changelog
 
+## [v2.3.0] - 2026-04-12
+
+### addy.io
+
+**Added**
+- Support for the new ‘inbound rejection’ feature
+
+**Fixed & Improved**
+- Completely redesigned the failed delivery view
+- Redesigned blocklist UI
+- Added the option to only be notified for inbound or outbound failed deliveries
+- Performance enhancements and other improvements for a smoother experience
+
+**What’s new in addy.io for Apple Watch 1.1.1**
+
+**Fixed & Improved**  
+- Performance enhancements and other improvements for a smoother experience
+
+
 ## [v2.2.0] - 2026-03-23
 
 ### addy.io

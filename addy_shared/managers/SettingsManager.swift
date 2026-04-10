@@ -14,6 +14,7 @@ public class SettingsManager {
         case versionCode
         case notifyUpdates
         case notifyFailedDeliveries
+        case notifyFailedDeliveriesType
         case notifyAccountNotifications
         case notifyApiTokenExpiry
         case notifyDomainError
@@ -33,18 +34,14 @@ public class SettingsManager {
 
         // WatchOS
         case watchosSkipAliasCreateGuide
-        case watchosFavoriteAliases
         case enableWatchKitQuickSetupDialog
-        case backgroundServiceCacheFavoriteAliasesData
-        case backgroundServiceCacheLastUpdatedAliasesData
 
-        case backgroundServiceCacheFailedDeliveriesCount
-        case backgroundServiceCacheBlocklistEntriesCount
+        case backgroundServiceCacheFailedDeliveriesLatestId
         case backgroundServiceCacheAccountNotificationsCount
         case backgroundServiceCacheApiKeyExpiryLeftCount
         case backgroundServiceCacheSubscriptionExpiryLeftCount
         case backgroundServiceCacheDomainErrorCount
-        case backgroundServiceCacheFailedDeliveriesCountPrevious
+        case backgroundServiceCacheFailedDeliveriesCount
         case backgroundServiceCacheAccountNotificationsCountPrevious
         case backgroundServiceWatchAliasList
         case backgroundServiceCacheWatchAliasData

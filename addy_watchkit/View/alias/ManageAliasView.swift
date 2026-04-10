@@ -20,7 +20,7 @@ struct ManageAliasView: View {
         _alias = State(initialValue: alias)
     }
     
-    public var body: some View {
+    var body: some View {
         List {
 
             StatRow(

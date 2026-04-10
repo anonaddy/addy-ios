@@ -26,8 +26,6 @@ struct BlocklistView: View {
 
     @State private var isPresentingAddblocklistEntryBottomSheet = false
 
-    @State private var shouldReloadDataInParent = false
-
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     
@@ -87,9 +85,23 @@ struct BlocklistView: View {
                                                     .foregroundColor(.accentColor)
                                                     .cornerRadius(4)
 
-                                                Text(DateTimeUtils.convertStringToLocalTimeZoneString(blocklistEntry.created_at))
-                                                    .font(.caption)
-                                                    .foregroundColor(.secondary)
+                                                Text("•")
+                                                    .font(.caption2)
+                                                    .foregroundColor(.secondary.opacity(0.5))
+
+                                                // Blocked Count Section
+                                                HStack(spacing: 3) {
+                                                    Image(systemName: "slash.circle")
+                                                        .font(.system(size: 10))
+                                                    Text("\(blocklistEntry.blocked ?? 0)")
+                                                        .font(.caption)
+                                                    
+                                                    if let lastBlocked = blocklistEntry.last_blocked, !lastBlocked.isEmpty {
+                                                        Text("(\(DateTimeUtils.convertStringToLocalTimeZoneString(lastBlocked)))")
+                                                            .font(.caption)
+                                                    }
+                                                }
+                                                .foregroundColor(.secondary)
                                             }
                                         }
                             }
@@ -97,6 +109,16 @@ struct BlocklistView: View {
                     } header: {
                         HStack(spacing: 6) {
                             Text(String(localized: "blocklist_entries"))
+                            
+                            if let count = blocklistEntriesViewModel.blocklistEntries?.data.count, count > 0 {
+                                Text("\(count)")
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 2)
+                                    .background(Color.secondary.opacity(0.1))
+                                    .clipShape(Capsule())
+                            }
                             
                             if blocklistEntriesViewModel.isLoading {
                                 ProgressView()
@@ -149,6 +171,7 @@ struct BlocklistView: View {
                 )
             }
         }
+        
         .overlay(Group {
             // If there is an blocklistEntries (aka, if the list is visible)
             if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
@@ -161,18 +184,26 @@ struct BlocklistView: View {
                 }
             } else {
                 // If there is NO blocklistEntries (aka, if the list is not visible)
-
                 // No blocklistEntries, check if there is an error
                 if blocklistEntriesViewModel.networkError != "" {
-                    // Error screen
-                    ContentUnavailableView {
-                        Label(String(localized: "something_went_wrong_retrieving_blocklist_entries"), systemImage: "wifi.slash")
-                    } description: {
-                        Text(blocklistEntriesViewModel.networkError)
-                    } actions: {
-                        Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
-                            Task {
-                                await blocklistEntriesViewModel.getblocklistEntries()
+                    if mainViewState.userResource!.hasUserFreeSubscription() {
+                        // Error screen
+                        ContentUnavailableView {
+                            Label(String(localized: "no_blocklist_entries"), systemImage: "exclamationmark.triangle.fill")
+                        } description: {
+                            Text(String(localized: "feature_not_available_subscription"))
+                        }
+                    } else {
+                        // Error screen
+                        ContentUnavailableView {
+                            Label(String(localized: "something_went_wrong_retrieving_blocklist_entries"), systemImage: "wifi.slash")
+                        } description: {
+                            Text(blocklistEntriesViewModel.networkError)
+                        } actions: {
+                            Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
+                                Task {
+                                    await blocklistEntriesViewModel.getblocklistEntries()
+                                }
                             }
                         }
                     }
@@ -214,16 +245,19 @@ struct BlocklistView: View {
                 }
                 
                 if #available(iOS 26.0, *) {
-                                    ToolbarSpacer(.flexible)
-                                }
+                    ToolbarSpacer(.flexible)
+                }
 
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {
-                    self.isPresentingAddblocklistEntryBottomSheet = true
-                }) {
-                    Image(systemName: "plus")
-                        .frame(width: 24, height: 24)
+            
+            if !mainViewState.userResource!.hasUserFreeSubscription() {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        self.isPresentingAddblocklistEntryBottomSheet = true
+                    }) {
+                        Image(systemName: "plus")
+                            .frame(width: 24, height: 24)
+                    }
                 }
             }
         }
