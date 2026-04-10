@@ -28,6 +28,14 @@
             ],
             "versions": [
                 {
+                    "version": "2.3.0",
+                    "date": "2026-04-12T00:00:00+02:00",
+                    "size": 34238643,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/d8dcd55481f2c79bbe4ced5d84c9542bc9a9802a/builds/appstorelessRelease%202026-04-09%2022-51-59/addy.ipa",
+                    "localizedDescription": "- Support for the new ‘inbound rejection’ feature",
+                    "minOSVersion": "17.0"
+                },
+                {
                     "version": "2.2.0",
                     "date": "2026-03-25T00:00:00+02:00",
                     "size": 34167559,
