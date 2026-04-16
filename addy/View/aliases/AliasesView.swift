@@ -86,13 +86,22 @@ struct AliasesView: View {
                                 }.scrollClipDisabled()
                             }
                             HStack(spacing: 6) {
+                                
                                 if aliasesViewModel.aliasSortFilterRequest != aliasesViewModel.defaultSortFilterRequest {
-                                    Text(String(format: String(localized: "aliases_filtered_d"),
-                                                 aliasList.meta?.total ?? 0))
-                                    
+                                    Text(String(localized: "aliases_filtered"))
+                                
                                 } else {
-                                    Text(String(format: String(localized: "aliases_d"),
-                                                 aliasList.meta?.total ?? 0))
+                                    Text(String(localized: "aliases"))
+                                }
+                                
+                                if let count = aliasesViewModel.aliasList?.meta?.total, count > 0 {
+                                    Text("\(count)")
+                                        .font(.caption)
+                                        .fontWeight(.bold)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 2)
+                                        .background(Color.secondary.opacity(0.1))
+                                        .clipShape(Capsule())
                                 }
                                 
                                 if aliasesViewModel.isLoading {

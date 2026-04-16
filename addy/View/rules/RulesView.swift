@@ -187,12 +187,22 @@ struct RulesView: View {
 
                     } header: {
                         HStack(spacing: 6) {
-                            Text(String(localized: "all_rules"))
+                            Text(String(localized: "rules"))
 
                             if rulesViewModel.isLoading {
                                 ProgressView()
                                     .frame(maxHeight: 4)
                             }
+                            
+                            if let count = rulesViewModel.rules?.data.count, count > 0 {
+                                                                                                Text("\(count)")
+                                                                                                    .font(.caption)
+                                                                                                    .fontWeight(.bold)
+                                                                                                    .padding(.horizontal, 8)
+                                                                                                    .padding(.vertical, 2)
+                                                                                                    .background(Color.secondary.opacity(0.1))
+                                                                                                    .clipShape(Capsule())
+                                                                                            }
                         }
 
                     } footer: {

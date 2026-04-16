@@ -4646,12 +4646,24 @@ public class NetworkHelper {
          * BLOCKLIST
          */
 
-        public func getAllBlocklistEntries() async throws -> BlocklistEntriesArray? {
+        public func getAllBlocklistEntries(page: Int? = nil, size: Int? = 100) async throws -> BlocklistEntriesArray? {
             #if DEBUG
                 print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
             #endif
-            let url = URL(string: AddyIo.API_URL_BLOCKLIST)!
-            var request = URLRequest(url: url)
+            var parameters: [URLQueryItem] = []
+
+            if let size = size {
+                parameters.append(URLQueryItem(name: "page[size]", value: "\(size)"))
+            }
+
+            if let page = page {
+                parameters.append(URLQueryItem(name: "page[number]", value: "\(page)"))
+            }
+
+            var urlComponents = URLComponents(string: AddyIo.API_URL_BLOCKLIST)!
+            urlComponents.queryItems = parameters
+
+            var request = URLRequest(url: urlComponents.url!)
             request.allHTTPHeaderFields = getHeaders()
 
             let (data, response) = try await URLSession.shared.data(for: request)

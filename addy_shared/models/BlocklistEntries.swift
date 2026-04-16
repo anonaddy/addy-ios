@@ -10,6 +10,8 @@ import Foundation
 
 public struct BlocklistEntriesArray: Codable {
     public var data: [BlocklistEntries]
+    public var links: Links?
+    public var meta: Meta?
 }
 
 struct SingleBlocklistEntry: Codable {

@@ -117,6 +117,16 @@ struct RecipientsView: View {
                                     ProgressView()
                                         .frame(maxHeight: 4)
                                 }
+                                
+                                if let count = recipientsViewModel.recipients?.count, count > 0 {
+                                                                        Text("\(count)")
+                                                                            .font(.caption)
+                                                                            .fontWeight(.bold)
+                                                                            .padding(.horizontal, 8)
+                                                                            .padding(.vertical, 2)
+                                                                            .background(Color.secondary.opacity(0.1))
+                                                                            .clipShape(Capsule())
+                                                                    }
                             }
                         }
 

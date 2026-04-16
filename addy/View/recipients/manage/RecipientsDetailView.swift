@@ -85,8 +85,20 @@ struct RecipientsDetailView: View {
                         .padding(.top, 5)
 
                 } header: {
-                    Text(String(format: String(localized: "recipient_aliases_d"),
-                                String(recipient.aliases_count ?? 0)))
+                    
+                    HStack(spacing: 6) {
+                        Text(String(localized: "recipient_aliases"))
+                        
+                        if let count = recipient.aliases_count, count > 0 {
+                            Text("\(count)")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background(Color.secondary.opacity(0.1))
+                                .clipShape(Capsule())
+                        }
+                    }
                 }.textCase(nil)
 
                 Section {

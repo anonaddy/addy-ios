@@ -125,13 +125,23 @@ struct FailedDeliveriesView: View {
                                 if selectedFilterChip != "all" {
                                     Text(String(localized: "failed_deliveries_filtered"))
                                 } else {
-                                    Text(String(localized: "all_failed_deliveries"))
+                                    Text(String(localized: "failed_deliveries"))
                                 }
 
                                 if failedDeliveriesViewModel.isLoading {
                                     ProgressView()
                                         .frame(maxHeight: 4)
                                 }
+                                
+                                if let count = failedDeliveriesViewModel.failedDeliveries?.data.count, count > 0 {
+                                                                                                    Text("\(count)")
+                                                                                                        .font(.caption)
+                                                                                                        .fontWeight(.bold)
+                                                                                                        .padding(.horizontal, 8)
+                                                                                                        .padding(.vertical, 2)
+                                                                                                        .background(Color.secondary.opacity(0.1))
+                                                                                                        .clipShape(Capsule())
+                                                                                                }
                             }
                         }
                         // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
@@ -179,7 +189,7 @@ struct FailedDeliveriesView: View {
                     )
                 }
             }
-            .background(Group {
+            .overlay(Group {
                 // If there is an failedDeliveries (aka, if the list is visible)
                 if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
                     if failedDeliveries.data.isEmpty {
@@ -276,6 +286,8 @@ struct FailedDeliveriesView: View {
         switch chipId {
         case "inbound":
             failedDeliveriesViewModel.filter = "inbound"
+        case "inbound_quarantined":
+            failedDeliveriesViewModel.filter = "inbound_quarantined"
         case "outbound":
             failedDeliveriesViewModel.filter = "outbound"
         case "all":
@@ -297,6 +309,7 @@ struct FailedDeliveriesView: View {
         return [
             AddyChipModel(chipId: "all", label: String(localized: "filter_all")),
             AddyChipModel(chipId: "inbound", label: String(localized: "filter_inbound")),
+            AddyChipModel(chipId: "inbound_quarantined", label: String(localized: "filter_inbound_quarantined")),
             AddyChipModel(chipId: "outbound", label: String(localized: "filter_outbound"))
         ]
     }

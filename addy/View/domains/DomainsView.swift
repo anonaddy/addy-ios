@@ -112,12 +112,23 @@ struct DomainsView: View {
                         }.onDelete(perform: deleteDomain)
                     } header: {
                         HStack(spacing: 6) {
-                            Text(String(localized: "all_domains"))
+                            Text(String(localized: "domains"))
 
                             if domainsViewModel.isLoading {
                                 ProgressView()
                                     .frame(maxHeight: 4)
                             }
+                            
+                            if let count = domainsViewModel.domains?.data.count, count > 0 {
+                                                                    Text("\(count)")
+                                                                        .font(.caption)
+                                                                        .fontWeight(.bold)
+                                                                        .padding(.horizontal, 8)
+                                                                        .padding(.vertical, 2)
+                                                                        .background(Color.secondary.opacity(0.1))
+                                                                        .clipShape(Capsule())
+                                                                }
+
                         }
 
                     } footer: {

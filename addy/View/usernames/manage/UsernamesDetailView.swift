@@ -81,8 +81,19 @@ struct UsernamesDetailView: View {
                         .padding(.top, 5)
 
                 } header: {
-                    Text(String(format: String(localized: "username_aliases_d"),
-                                String(username.aliases_count ?? 0)))
+                    HStack(spacing: 6) {
+                        Text(String(localized: "username_aliases"))
+                        
+                        if let count = username.aliases_count, count > 0 {
+                            Text("\(count)")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background(Color.secondary.opacity(0.1))
+                                .clipShape(Capsule())
+                        }
+                    }
                 }.textCase(nil)
 
                 Section {

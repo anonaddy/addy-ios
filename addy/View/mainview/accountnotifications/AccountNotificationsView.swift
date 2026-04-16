@@ -77,7 +77,7 @@ struct AccountNotificationsView: View {
                             }
                         } header: {
                             HStack(spacing: 6) {
-                                Text(String(localized: "all_account_notifications"))
+                                Text(String(localized: "account_notifications"))
 
                                 if accountNotificationsViewModel.isLoading {
                                     ProgressView()

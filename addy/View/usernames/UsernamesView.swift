@@ -101,13 +101,23 @@ struct UsernamesView: View {
                     }.onDelete(perform: deleteUsername)
                 } header: {
                     HStack(spacing: 6) {
-                        Text(String(localized: "all_usernames"))
+                        Text(String(localized: "usernames"))
 
                         if usernamesViewModel.isLoading {
                             ProgressView()
                                 .frame(maxHeight: 4)
                         }
-                    }
+                        
+                        if let count = usernamesViewModel.usernames?.data.count, count > 0 {
+                                Text("\(count)")
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 2)
+                                    .background(Color.secondary.opacity(0.1))
+                                    .clipShape(Capsule())
+                            }
+                        }
 
                 } footer: {
                     Text(String(format: String(localized: "you_ve_used_d_out_of_d_usernames"), String(username_count), String(username_limit))).padding(.top)

@@ -85,8 +85,19 @@ struct DomainsDetailView: View {
                         .padding(.top, 5)
 
                 } header: {
-                    Text(String(format: String(localized: "domain_aliases_d"),
-                                String(domain.aliases_count ?? 0)))
+                    HStack(spacing: 6) {
+                        Text(String(localized: "domain_aliases_d"))
+                        
+                        if let count = domain.aliases_count, count > 0 {
+                            Text("\(count)")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background(Color.secondary.opacity(0.1))
+                                .clipShape(Capsule())
+                        }
+                    }
                 }.textCase(nil)
 
                 Section {

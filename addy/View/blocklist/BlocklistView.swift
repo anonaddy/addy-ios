@@ -52,7 +52,7 @@ struct BlocklistView: View {
             if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
                 if blocklistEntries.data.isEmpty {
                     Task {
-                        await blocklistEntriesViewModel.getblocklistEntries()
+                        await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
                     }
                 }
             }
@@ -106,11 +106,19 @@ struct BlocklistView: View {
                                         }
                             }
                         }.onDelete(perform: deleteblocklistEntry)
+
+                        if !blocklistEntriesViewModel.hasArrivedAtTheLastPage {
+                            ProgressView()
+                                .frame(maxWidth: .infinity, maxHeight: 50)
+                                .onAppear {
+                                    blocklistEntriesViewModel.loadMoreContent()
+                                }
+                        }
                     } header: {
                         HStack(spacing: 6) {
                             Text(String(localized: "blocklist_entries"))
                             
-                            if let count = blocklistEntriesViewModel.blocklistEntries?.data.count, count > 0 {
+                            if let count = blocklistEntriesViewModel.blocklistEntries?.meta?.total, count > 0 {
                                 Text("\(count)")
                                     .font(.caption)
                                     .fontWeight(.bold)
@@ -129,7 +137,7 @@ struct BlocklistView: View {
                     } footer: {
                         Text(String(localized: "manage_blocklist_desc")).padding(.top)
                         
-                    }
+                    }.textCase(nil)
                 }
             }
 
@@ -138,13 +146,13 @@ struct BlocklistView: View {
                 // When in regular size (tablet) mode, refreshing aliases also ask the mainView to update general data
                 self.onRefreshGeneralData?()
             }
-            await self.blocklistEntriesViewModel.getblocklistEntries()
+            await self.blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
         }
         .sheet(isPresented: $isPresentingAddblocklistEntryBottomSheet) {
             NavigationStack {
                 AddBlocklistEntryBottomSheet() {
                     Task {
-                        await blocklistEntriesViewModel.getblocklistEntries()
+                        await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
                     }
 
                     isPresentingAddblocklistEntryBottomSheet = false
@@ -161,7 +169,7 @@ struct BlocklistView: View {
                     }
                 }, secondaryButton: .cancel {
                     Task {
-                        await blocklistEntriesViewModel.getblocklistEntries()
+                        await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
                     }
                 })
             case .error:
@@ -202,7 +210,7 @@ struct BlocklistView: View {
                         } actions: {
                             Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                                 Task {
-                                    await blocklistEntriesViewModel.getblocklistEntries()
+                                    await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
                                 }
                             }
                         }
@@ -270,7 +278,7 @@ struct BlocklistView: View {
         do {
             let result = try await networkHelper.deleteBlocklistEntry(blocklistId: blocklistEntry.id)
             if result == "204" {
-                await blocklistEntriesViewModel.getblocklistEntries()
+                await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
             } else {
                 activeAlert = .error
                 showAlert = true
