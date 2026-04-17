@@ -1246,6 +1246,16 @@
         }
       }
     },
+    "blocklist_entries_filtered" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocklist entries (filter active)"
+          }
+        }
+      }
+    },
     "bug_found" : {
       "extractionState" : "manual",
       "localizations" : {

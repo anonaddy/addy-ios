@@ -4646,7 +4646,7 @@ public class NetworkHelper {
          * BLOCKLIST
          */
 
-        public func getAllBlocklistEntries(page: Int? = nil, size: Int? = 100) async throws -> BlocklistEntriesArray? {
+        public func getAllBlocklistEntries(page: Int? = nil, size: Int? = 100, filter: String? = nil) async throws -> BlocklistEntriesArray? {
             #if DEBUG
                 print("\(#function) called from \((#file as NSString).lastPathComponent):\(#line)")
             #endif
@@ -4658,6 +4658,10 @@ public class NetworkHelper {
 
             if let page = page {
                 parameters.append(URLQueryItem(name: "page[number]", value: "\(page)"))
+            }
+
+            if let filter = filter {
+                parameters.append(URLQueryItem(name: "filter[type]", value: filter))
             }
 
             var urlComponents = URLComponents(string: AddyIo.API_URL_BLOCKLIST)!

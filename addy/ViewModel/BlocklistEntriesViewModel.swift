@@ -17,6 +17,8 @@ class BlocklistEntriesViewModel: ObservableObject {
     @Published var hasArrivedAtTheLastPage = true
     @Published var networkError: String = ""
 
+    @Published var filter: String? = nil
+
     init() {
         Task {
             await self.getblocklistEntries(forceReload: true)
@@ -35,7 +37,8 @@ class BlocklistEntriesViewModel: ObservableObject {
                 let pageToLoad = forceReload ? 1 : ((blocklistEntries?.meta?.current_page ?? 0) + 1)
                 let entries = try await networkHelper.getAllBlocklistEntries(
                     page: pageToLoad,
-                    size: 100
+                    size: 100,
+                    filter: filter
                 )
                 self.isLoading = false
 

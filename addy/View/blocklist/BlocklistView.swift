@@ -29,6 +29,9 @@ struct BlocklistView: View {
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     
+    @State var selectedFilterChip: String = "all"
+    @State var filterChips: [AddyChipModel] = []
+
     @Binding var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)? = nil
     
@@ -49,6 +52,7 @@ struct BlocklistView: View {
                 blocklistEntriesViewBody
             }
         }.onAppear(perform: {
+            LoadFilter()
             if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
                 if blocklistEntries.data.isEmpty {
                     Task {
@@ -115,22 +119,36 @@ struct BlocklistView: View {
                                 }
                         }
                     } header: {
-                        HStack(spacing: 6) {
-                            Text(String(localized: "blocklist_entries"))
-                            
-                            if let count = blocklistEntriesViewModel.blocklistEntries?.meta?.total, count > 0 {
-                                Text("\(count)")
-                                    .font(.caption)
-                                    .fontWeight(.bold)
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 2)
-                                    .background(Color.secondary.opacity(0.1))
-                                    .clipShape(Capsule())
-                            }
-                            
-                            if blocklistEntriesViewModel.isLoading {
-                                ProgressView()
-                                    .frame(maxHeight: 4)
+                        VStack(alignment: .leading, spacing: 24) {
+                            AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
+                                withAnimation {
+                                    selectedFilterChip = onTappedChip.chipId
+                                }
+
+                                ApplyFilter(chipId: onTappedChip.chipId)
+                            }.scrollClipDisabled()
+
+                            HStack(spacing: 6) {
+                                if selectedFilterChip != "all" {
+                                    Text(String(localized: "blocklist_entries_filtered"))
+                                } else {
+                                    Text(String(localized: "blocklist_entries"))
+                                }
+                                
+                                if let count = blocklistEntriesViewModel.blocklistEntries?.meta?.total, count > 0 {
+                                    Text("\(count)")
+                                        .font(.caption)
+                                        .fontWeight(.bold)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 2)
+                                        .background(Color.secondary.opacity(0.1))
+                                        .clipShape(Capsule())
+                                }
+                                
+                                if blocklistEntriesViewModel.isLoading {
+                                    ProgressView()
+                                        .frame(maxHeight: 4)
+                                }
                             }
                         }
                         
@@ -272,6 +290,35 @@ struct BlocklistView: View {
     }
 
 
+
+    func ApplyFilter(chipId: String) {
+        switch chipId {
+        case "email":
+            blocklistEntriesViewModel.filter = "email"
+        case "domain":
+            blocklistEntriesViewModel.filter = "domain"
+        case "all":
+            blocklistEntriesViewModel.filter = nil
+        default:
+            blocklistEntriesViewModel.filter = nil
+        }
+
+        Task {
+            await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
+        }
+    }
+
+    func LoadFilter() {
+        filterChips = GetFilterChips()
+    }
+
+    func GetFilterChips() -> [AddyChipModel] {
+        return [
+            AddyChipModel(chipId: "all", label: String(localized: "filter_all")),
+            AddyChipModel(chipId: "email", label: String(localized: "email")),
+            AddyChipModel(chipId: "domain", label: String(localized: "domain"))
+        ]
+    }
 
     private func deleteblocklistEntry(blocklistEntry: BlocklistEntries) async {
         let networkHelper = NetworkHelper()
