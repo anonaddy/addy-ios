@@ -10,23 +10,16 @@ import AVFoundation
 import SwiftUI
 
 struct EditDomainRecipientsBottomSheet: View {
-    let domainId: String
-    let recipientsEdited: (Domains) -> Void
+    @Environment(\.dismiss) var dismiss
 
     @State var recipientsLoaded: Bool = false
     @State var selectedRecipientChip: [String]
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
-
-    init(domainId: String, selectedRecipientId: String?, recipientsEdited: @escaping (Domains) -> Void) {
-        self.domainId = domainId
-        selectedRecipientChip = selectedRecipientId != nil ? [selectedRecipientId!] : []
-        self.recipientsEdited = recipientsEdited
-    }
-
     @State private var recipientsRequestError: String? = ""
-
     @State var IsLoadingSaveButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    let domainId: String
+    let recipientsEdited: (Domains) -> Void
 
     var body: some View {
         #if DEBUG
@@ -111,6 +104,12 @@ struct EditDomainRecipientsBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(domainId: String, selectedRecipientId: String?, recipientsEdited: @escaping (Domains) -> Void) {
+        self.domainId = domainId
+        selectedRecipientChip = selectedRecipientId != nil ? [selectedRecipientId!] : []
+        self.recipientsEdited = recipientsEdited
     }
 
     private func getAllRecipients() async {

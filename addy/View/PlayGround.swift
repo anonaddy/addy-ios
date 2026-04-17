@@ -10,6 +10,62 @@ import SwiftUI
 @available(iOS 18.0, *)
 struct PlayGround: View {
     @State var isPlayingAnimation = false
+    @State private var animationTitleText1 = ""
+    @State private var animationTitleTextArray1 = [
+        "TH.E0.ADDY",
+        "IO.AP.P0FO",
+        "R0.IO.S0IS",
+        "0F.IN.ALLY",
+        "0H.ER.E0AN",
+        "D0.IT.0IS0",
+        "AW.ES.OME0",
+        "CO.MI.NG0T",
+        "O0.YO.UR0I",
+        "PH.ON.E0VE",
+        "RY.0S.OON0",
+        "05.10.2024",
+    ]
+    @State private var animationTitleTextArray2 = [
+        "TH.E0.ADDY",
+        "TH.E0.ADDY",
+        "IO.AP.P0FO",
+        "R0.IO.S0IS",
+        "0F.IN.ALLY",
+        "0H.ER.E0AN",
+        "D0.IT.0IS0",
+        "AW.ES.OME0",
+        "CO.MI.NG0T",
+        "O0.YO.UR0I",
+        "PH.ON.E0VE",
+        "RY.0S.OON0",
+        "05.10.2024",
+    ]
+    @State private var animationTitleTextArray3 = [
+        "TH.E0.ADDY",
+        "TH.E0.ADDY",
+        "TH.E0.ADDY",
+        "IO.AP.P0FO",
+        "R0.IO.S0IS",
+        "0F.IN.ALLY",
+        "0H.ER.E0AN",
+        "D0.IT.0IS0",
+        "AW.ES.OME0",
+        "CO.MI.NG0T",
+        "O0.YO.UR0I",
+        "PH.ON.E0VE",
+        "RY.0S.OON0",
+        "05.10.2024",
+    ]
+    @State private var animationTitleText1Bold = false
+    @State private var animationTitleText1Size = 36
+    @State private var isBlurred = false
+    @State private var isFaded = false
+    @State private var isMonoSpaced = false
+    @State private var animationTitleText2 = ""
+    @State private var animationTitleText3 = ""
+    @State private var animationTitleText4 = ""
+    @State private var blurRadius = 0
+
     var body: some View {
         TabView {
           Tab("Time", systemImage: "1.circle") {
@@ -36,59 +92,6 @@ struct PlayGround: View {
 //        }
     }
 
-    @State private var animationTitleText1 = ""
-    @State private var animationTitleTextArray1 = [
-        "TH.E0.ADDY",
-        "IO.AP.P0FO",
-        "R0.IO.S0IS",
-        "0F.IN.ALLY",
-        "0H.ER.E0AN",
-        "D0.IT.0IS0",
-        "AW.ES.OME0",
-        "CO.MI.NG0T",
-        "O0.YO.UR0I",
-        "PH.ON.E0VE",
-        "RY.0S.OON0",
-        "05.10.2024",
-    ]
-
-    @State private var animationTitleTextArray2 = [
-        "TH.E0.ADDY",
-        "TH.E0.ADDY",
-        "IO.AP.P0FO",
-        "R0.IO.S0IS",
-        "0F.IN.ALLY",
-        "0H.ER.E0AN",
-        "D0.IT.0IS0",
-        "AW.ES.OME0",
-        "CO.MI.NG0T",
-        "O0.YO.UR0I",
-        "PH.ON.E0VE",
-        "RY.0S.OON0",
-        "05.10.2024",
-    ]
-
-    @State private var animationTitleTextArray3 = [
-        "TH.E0.ADDY",
-        "TH.E0.ADDY",
-        "TH.E0.ADDY",
-        "IO.AP.P0FO",
-        "R0.IO.S0IS",
-        "0F.IN.ALLY",
-        "0H.ER.E0AN",
-        "D0.IT.0IS0",
-        "AW.ES.OME0",
-        "CO.MI.NG0T",
-        "O0.YO.UR0I",
-        "PH.ON.E0VE",
-        "RY.0S.OON0",
-        "05.10.2024",
-    ]
-    @State private var animationTitleText1Bold = false
-    @State private var animationTitleText1Size = 36
-    @State private var isBlurred = false
-    @State private var isFaded = false
-    @State private var isMonoSpaced = false
     var animationViewFlavor1: some View {
         Group {
             Text(animationTitleText1)
@@ -153,10 +156,6 @@ struct PlayGround: View {
         }
     }
 
-    @State private var animationTitleText2 = ""
-    @State private var animationTitleText3 = ""
-    @State private var animationTitleText4 = ""
-    @State private var blurRadius = 0
     var animationViewFlavor2: some View {
         Group {
             ZStack {

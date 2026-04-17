@@ -11,33 +11,7 @@ import AVFoundation
 import SwiftUI
 
 struct AddAliasBottomSheet: View {
-    let onAdded: () -> Void
     @EnvironmentObject var mainViewState: MainViewState
-
-    init(onAdded: @escaping () -> Void) {
-        self.onAdded = onAdded
-    }
-
-    @State private var localPartValidationError: String?
-    @State private var descriptionValidationError: String?
-
-    @State private var showAlert: Bool = false
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-
-    @State private var domains: [String] = []
-    @State private var sharedDomains: [String] = []
-
-    @State private var formats: [[String]] =
-        [[String(localized: "domains_format_random_characters", comment: ""), "random_characters"],
-         [String(localized: "domains_format_uuid", comment: ""), "uuid"],
-         [String(localized: "domains_format_random_words", comment: ""), "random_words"],
-         [String(localized: "domains_format_custom", comment: ""), "custom"],
-         [String(localized: "domains_format_random_male_name", comment: ""), "random_male_name"],
-         [String(localized: "domains_format_random_female_name", comment: ""), "random_female_name"],
-         [String(localized: "domains_format_random_noun", comment: ""), "random_noun"]]
-
-    @State private var selectedDomain: String = ""
 
     #if DEBUG
         @State private var selectedFormat: String = "custom"
@@ -62,6 +36,29 @@ struct AddAliasBottomSheet: View {
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
 
     @State var isLoadingAddButton: Bool = false
+    
+    let onAdded: () -> Void
+    
+    @State private var localPartValidationError: String?
+    @State private var descriptionValidationError: String?
+    @State private var showAlert: Bool = false
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @State private var domains: [String] = []
+    @State private var sharedDomains: [String] = []
+    @State private var selectedDomain: String = ""
+    @State private var formats: [[String]] =
+        [[String(localized: "domains_format_random_characters", comment: ""), "random_characters"],
+         [String(localized: "domains_format_uuid", comment: ""), "uuid"],
+         [String(localized: "domains_format_random_words", comment: ""), "random_words"],
+         [String(localized: "domains_format_custom", comment: ""), "custom"],
+         [String(localized: "domains_format_random_male_name", comment: ""), "random_male_name"],
+         [String(localized: "domains_format_random_female_name", comment: ""), "random_female_name"],
+         [String(localized: "domains_format_random_noun", comment: ""), "random_noun"]]
+
+    init(onAdded: @escaping () -> Void) {
+        self.onAdded = onAdded
+    }
 
     @Environment(\.dismiss) var dismiss
 
@@ -314,6 +311,8 @@ struct AddAliasBottomSheet: View {
             recipientsRequestError = error.localizedDescription
         }
     }
+
+    
 }
 
 #Preview {

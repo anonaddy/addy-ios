@@ -12,14 +12,14 @@ import SwiftUI
 
 struct SplashView: View {
     @EnvironmentObject var mainViewState: MainViewState
+
+    @Environment(\.openURL) var openURL
+
     @State private var showError = false
     @State private var isPresentUnsupportedVersionBottomDialog = false
     @State private var networkHelper: NetworkHelper? = nil
-
     @State private var isShowingDetailedErrorAlert = false
     @State private var detailedError: String? = ""
-
-    @Environment(\.openURL) var openURL
 
     var body: some View {
         #if DEBUG

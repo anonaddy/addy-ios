@@ -13,27 +13,25 @@ import SwiftUI
 
 struct BlocklistView: View {
     @EnvironmentObject var mainViewState: MainViewState
-    @StateObject var blocklistEntriesViewModel = BlocklistEntriesViewModel()
 
-    enum ActiveAlert {
-        case error, deleteblocklistEntry
-    }
+    @StateObject var blocklistEntriesViewModel = BlocklistEntriesViewModel()
 
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
-
     @State private var blocklistEntryToDelete: BlocklistEntries? = nil
-
     @State private var isPresentingAddblocklistEntryBottomSheet = false
-
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     
     @State var selectedFilterChip: String = "all"
     @State var filterChips: [AddyChipModel] = []
-
     @Binding var horizontalSize: UserInterfaceSizeClass
+
+    enum ActiveAlert {
+        case error, deleteblocklistEntry
+    }
     var onRefreshGeneralData: (() -> Void)? = nil
+
     
 
 
@@ -288,8 +286,6 @@ struct BlocklistView: View {
             }
         }
     }
-
-
 
     func ApplyFilter(chipId: String) {
         switch chipId {

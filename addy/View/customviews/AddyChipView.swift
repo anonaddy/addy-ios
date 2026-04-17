@@ -12,16 +12,9 @@ import WrappingHStack
 struct AddyChipView: View {
     @Binding var chips: [AddyChipModel]
     @Binding var selectedChip: String
+
     var singleLine: Bool
-
     let onTap: (AddyChipModel) -> Void
-
-    init(chips: Binding<[AddyChipModel]>, selectedChip: Binding<String>, singleLine: Bool, onTap: @escaping (AddyChipModel) -> Void) {
-        _chips = chips
-        _selectedChip = selectedChip
-        self.singleLine = singleLine
-        self.onTap = onTap
-    }
 
     var body: some View {
         if singleLine {
@@ -91,6 +84,13 @@ struct AddyChipView: View {
                 }
             }.textCase(nil)
         }
+    }
+
+    init(chips: Binding<[AddyChipModel]>, selectedChip: Binding<String>, singleLine: Bool, onTap: @escaping (AddyChipModel) -> Void) {
+        _chips = chips
+        _selectedChip = selectedChip
+        self.singleLine = singleLine
+        self.onTap = onTap
     }
 }
 

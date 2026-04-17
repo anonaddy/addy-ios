@@ -10,23 +10,16 @@ import AVFoundation
 import SwiftUI
 
 struct ConditionBottomSheet: View {
+    @Environment(\.dismiss) var dismiss
+
     @State private var value = ""
     @State private var valuePlaceHolder = String(localized: "enter_values_comma_separated")
     @State private var valuePlaceHolderValidationError: String?
-
     @State private var selectedConditionType = "sender"
     @State private var selectedConditionMatch = "contains"
 
     private var conditionEditObject: Condition?
-
     let onAddedCondition: (Condition?, Condition) -> Void
-
-    init(conditionEditObject: Condition?, onAddedCondition: @escaping (Condition?, Condition) -> Void) {
-        self.onAddedCondition = onAddedCondition
-        self.conditionEditObject = conditionEditObject
-    }
-
-    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         #if DEBUG
@@ -102,6 +95,11 @@ struct ConditionBottomSheet: View {
                 }
             }
         )
+    }
+
+    init(conditionEditObject: Condition?, onAddedCondition: @escaping (Condition?, Condition) -> Void) {
+        self.onAddedCondition = onAddedCondition
+        self.conditionEditObject = conditionEditObject
     }
 }
 

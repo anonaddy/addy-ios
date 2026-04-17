@@ -5,16 +5,6 @@ struct AddyButton<Content: View>: View {
     let content: Content
     var action: () -> Void = {}
 
-    init(action: @escaping () -> Void, style: AddyButtonStyle? = nil, @ViewBuilder builder: () -> Content) {
-        let defaultStyle = AddyButtonStyle(width: .infinity,
-                                           height: 56,
-                                           buttonStyle: .primary)
-
-        self.style = style ?? defaultStyle
-        content = builder()
-        self.action = action
-    }
-
     var body: some View {
         Button(action: {
             action()
@@ -44,5 +34,15 @@ struct AddyButton<Content: View>: View {
         }
         .frame(maxWidth: style.width, maxHeight: style.height)
         .padding()
+    }
+
+    init(action: @escaping () -> Void, style: AddyButtonStyle? = nil, @ViewBuilder builder: () -> Content) {
+        let defaultStyle = AddyButtonStyle(width: .infinity,
+                                           height: 56,
+                                           buttonStyle: .primary)
+
+        self.style = style ?? defaultStyle
+        content = builder()
+        self.action = action
     }
 }

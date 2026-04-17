@@ -10,13 +10,14 @@ import SwiftUI
 
 struct AddyToggle: View {
     @Binding var isOn: Bool
+    @State var lineLimit: Int? = 3
+
     var isLoading: Bool = false
     var title: String
     var description: String? = nil
     var leadingSystemimage: String? = nil
     var leadingSystemimageColor: Color = .blue
     var fontWeight: Font.Weight = .medium
-    @State var lineLimit: Int? = 3
     var onTap: (() -> Void)? = nil
 
     var body: some View {

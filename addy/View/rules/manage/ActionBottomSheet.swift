@@ -10,34 +10,19 @@ import AVFoundation
 import SwiftUI
 
 struct ActionBottomSheet: View {
+    @Environment(\.dismiss) var dismiss
+
     @State private var value = ""
     @State private var valuePlaceHolder = String(localized: "enter_value")
     @State private var valuePlaceHolderValidationError: String?
-
     @State private var selectedActionsType = "subject"
     @State private var selectedBannerLocationOptions = "top"
-
     @State var selectedRecipientChip: [String]
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
 
     private var actionEditObject: Action?
     private var recipients: [Recipients]
-
     let onAddedAction: (Action?, Action) -> Void
-
-    init(recipients: [Recipients], actionEditObject: Action?, onAddedAction: @escaping (Action?, Action) -> Void) {
-        self.onAddedAction = onAddedAction
-        self.actionEditObject = actionEditObject
-        self.recipients = recipients
-
-        if actionEditObject?.type == "forwardTo" {
-            selectedRecipientChip = [actionEditObject?.value ?? ""]
-        } else {
-            selectedRecipientChip = []
-        }
-    }
-
-    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         #if DEBUG
@@ -193,6 +178,18 @@ struct ActionBottomSheet: View {
                 }
             }
         )
+    }
+
+    init(recipients: [Recipients], actionEditObject: Action?, onAddedAction: @escaping (Action?, Action) -> Void) {
+        self.onAddedAction = onAddedAction
+        self.actionEditObject = actionEditObject
+        self.recipients = recipients
+
+        if actionEditObject?.type == "forwardTo" {
+            selectedRecipientChip = [actionEditObject?.value ?? ""]
+        } else {
+            selectedRecipientChip = []
+        }
     }
 }
 

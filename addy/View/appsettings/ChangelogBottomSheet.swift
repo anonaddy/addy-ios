@@ -33,7 +33,6 @@ struct ChangelogBottomSheet: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { /* unchanged */ }
     }
-
 }
 
 #Preview {

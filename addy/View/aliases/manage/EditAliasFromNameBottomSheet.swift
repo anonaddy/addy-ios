@@ -10,24 +10,17 @@ import AVFoundation
 import SwiftUI
 
 struct EditAliasFromNameBottomSheet: View {
-    let aliasId: String
-    let aliasEmail: String
+    @Environment(\.dismiss) var dismiss
+
     @State var fromName: String
     @State var fromNamePlaceholder: String = .init(localized: "from_name")
-    let fromNameEdited: (Aliases) -> Void
-
-    init(aliasId: String, aliasEmail: String, fromName: String?, fromNameEdited: @escaping (Aliases) -> Void) {
-        self.aliasId = aliasId
-        self.aliasEmail = aliasEmail
-        self.fromName = fromName ?? ""
-        self.fromNameEdited = fromNameEdited
-    }
-
     @State private var fromNameValidationError: String?
     @State private var fromNameRequestError: String?
-
     @State var IsLoadingSaveButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    let aliasId: String
+    let aliasEmail: String
+    let fromNameEdited: (Aliases) -> Void
 
     var body: some View {
         #if DEBUG
@@ -102,6 +95,13 @@ struct EditAliasFromNameBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(aliasId: String, aliasEmail: String, fromName: String?, fromNameEdited: @escaping (Aliases) -> Void) {
+        self.aliasId = aliasId
+        self.aliasEmail = aliasEmail
+        self.fromName = fromName ?? ""
+        self.fromNameEdited = fromNameEdited
     }
 
     private func editFromName(fromName: String?) async {

@@ -11,14 +11,10 @@ import AVFoundation
 import SwiftUI
 
 struct AccountNotificationBottomSheet: View {
-    @State var accountNotification: AccountNotifications
-
-    init(accountNotification: AccountNotifications) {
-        self.accountNotification = accountNotification
-    }
-
     @Environment(\.dismiss) var dismiss
     @Environment(\.openURL) var openURL
+
+    @State var accountNotification: AccountNotifications
 
     var body: some View {
         #if DEBUG
@@ -60,5 +56,9 @@ struct AccountNotificationBottomSheet: View {
                     }
                 }
             })
+    }
+
+    init(accountNotification: AccountNotifications) {
+        self.accountNotification = accountNotification
     }
 }

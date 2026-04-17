@@ -11,51 +11,40 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct UsernamesDetailView: View {
-    enum ActiveAlert {
-        case deleteUsername, error
-    }
+    @EnvironmentObject var mainViewState: MainViewState
 
-    let usernameId: String
-    let usernameUsername: String
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @Binding var shouldReloadDataInParent: Bool
-
     @State private var activeAlert: ActiveAlert = .deleteUsername
     @State private var showAlert: Bool = false
     @State private var isDeletingUsername: Bool = false
-
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-    @EnvironmentObject var mainViewState: MainViewState
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
     @State private var username: Usernames? = nil
     @State private var errorText: String? = nil
-
     @State private var isActive: Bool = false
     @State private var catchAllEnabled: Bool = false
     @State private var canLogin: Bool = false
     @State private var isSwitchingisActiveState: Bool = false
     @State private var isSwitchingCatchAllEnabledState: Bool = false
     @State private var isSwitchingCanLoginState: Bool = false
-
     @State private var isPresentingEditUsernameDescriptionBottomSheet: Bool = false
     @State private var isPresentingEditUsernameFromNameBottomSheet: Bool = false
     @State private var isPresentingEditUsernameRecipientsBottomSheet: Bool = false
     @State private var isPresentingEditUsernameAutoCreateRegexBottomSheet: Bool = false
-
     @State private var aliasList: [String] = []
-
     @State private var totalForwarded: Int = 0
     @State private var totalBlocked: Int = 0
     @State private var totalReplies: Int = 0
     @State private var totalSent: Int = 0
 
-    init(usernameId: String, usernameUsername: String, shouldReloadDataInParent: Binding<Bool>) {
-        self.usernameId = usernameId
-        self.usernameUsername = usernameUsername
-        _shouldReloadDataInParent = shouldReloadDataInParent
+    enum ActiveAlert {
+        case deleteUsername, error
     }
+    let usernameId: String
+    let usernameUsername: String
+    // Function to add aliases to the list
 
     var body: some View {
         #if DEBUG
@@ -288,6 +277,12 @@ struct UsernamesDetailView: View {
             .navigationTitle(usernameUsername)
             .navigationBarTitleDisplayMode(.inline)
         }
+    }
+
+    init(usernameId: String, usernameUsername: String, shouldReloadDataInParent: Binding<Bool>) {
+        self.usernameId = usernameId
+        self.usernameUsername = usernameUsername
+        _shouldReloadDataInParent = shouldReloadDataInParent
     }
 
     private func getDefaultRecipient(username: Usernames) -> String {
@@ -531,7 +526,6 @@ struct UsernamesDetailView: View {
         }
     }
 
-    // Function to add aliases to the list
     func addAliasesToList(username: Usernames, aliasesArray: AliasesArray, workingAliasListInbound: AliasesArray? = nil) {
         var workingAliasList = workingAliasListInbound
 

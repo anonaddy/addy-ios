@@ -9,12 +9,8 @@ import SwiftUI
 
 struct ToastOverlay: View {
     @Binding private var showToast: Bool
-    private var text: String
 
-    init(showToast: Binding<Bool>, text: String) {
-        _showToast = showToast
-        self.text = text
-    }
+    private var text: String
 
     var body: some View {
         if showToast {
@@ -28,6 +24,11 @@ struct ToastOverlay: View {
                 .transition(.move(edge: .bottom))
                 .frame(maxHeight: .infinity, alignment: .bottom)
         }
+    }
+
+    init(showToast: Binding<Bool>, text: String) {
+        _showToast = showToast
+        self.text = text
     }
 }
 

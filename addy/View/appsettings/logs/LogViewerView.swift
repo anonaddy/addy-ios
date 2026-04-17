@@ -10,12 +10,8 @@ import SwiftUI
 
 struct LogViewerView: View {
     @StateObject var logsViewModel: LogsViewModel
-    @State var showWatchOsLogs: Bool
 
-    init(showWatchOsLogs: Bool = false) {
-        _logsViewModel = StateObject(wrappedValue: LogsViewModel(watchosLogs: showWatchOsLogs))
-        self.showWatchOsLogs = showWatchOsLogs
-    }
+    @State var showWatchOsLogs: Bool
 
     var body: some View {
         #if DEBUG
@@ -102,6 +98,11 @@ struct LogViewerView: View {
                 }
             }
         })
+    }
+
+    init(showWatchOsLogs: Bool = false) {
+        _logsViewModel = StateObject(wrappedValue: LogsViewModel(watchosLogs: showWatchOsLogs))
+        self.showWatchOsLogs = showWatchOsLogs
     }
 
     private func getImportanceColor(importance: LogImportance) -> Color {

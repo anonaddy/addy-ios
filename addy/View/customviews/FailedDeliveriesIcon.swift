@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FailedDeliveriesIcon: View {
     @EnvironmentObject var mainViewState: MainViewState
+
     @Binding var horizontalSize: UserInterfaceSizeClass
 
     var body: some View {

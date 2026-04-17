@@ -7,16 +7,6 @@ struct AddyLoadingButton<Content: View>: View {
     let content: Content
     var action: () -> Void = {}
 
-    init(action: @escaping () -> Void, isLoading: Binding<Bool>, style: AddyLoadingButtonStyle? = nil, @ViewBuilder builder: () -> Content) {
-        let defaultStyle = AddyLoadingButtonStyle(width: .infinity,
-                                                  height: 56)
-
-        _isLoading = isLoading
-        self.style = style ?? defaultStyle
-        content = builder()
-        self.action = action
-    }
-
     var body: some View {
         Button(action: {
             if !isLoading {
@@ -56,5 +46,15 @@ struct AddyLoadingButton<Content: View>: View {
         .padding()
         .disabled(isLoading)
         .animation(.easeInOut, value: isLoading)
+    }
+
+    init(action: @escaping () -> Void, isLoading: Binding<Bool>, style: AddyLoadingButtonStyle? = nil, @ViewBuilder builder: () -> Content) {
+        let defaultStyle = AddyLoadingButtonStyle(width: .infinity,
+                                                  height: 56)
+
+        _isLoading = isLoading
+        self.style = style ?? defaultStyle
+        content = builder()
+        self.action = action
     }
 }

@@ -11,28 +11,19 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct RecipientsDetailView: View {
-    enum ActiveAlert {
-        case deleteRecipient, error, removePgpKey
-    }
+    @EnvironmentObject var mainViewState: MainViewState
 
-    let recipientId: String
-    let recipientEmail: String
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @Binding var shouldReloadDataInParent: Bool
-
     @State private var activeAlert: ActiveAlert = .deleteRecipient
     @State private var showAlert: Bool = false
     @State private var isDeletingRecipient: Bool = false
     @State private var isRemovingPgpKey: Bool = false
-
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-    @EnvironmentObject var mainViewState: MainViewState
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
     @State private var recipient: Recipients? = nil
     @State private var errorText: String? = nil
-
     @State private var replySendAllowed: Bool = false
     @State private var shouldEncrypt: Bool = false
     @State private var inlineEncryption: Bool = false
@@ -46,19 +37,18 @@ struct RecipientsDetailView: View {
     @State private var isSwitchingRemovePgpKeysRecipients: Bool = false
     @State private var isSwitchingRemovePgpSignaturesRecipients: Bool = false
     @State private var isPresentingAddRecipientPublicGpgKeyBottomSheet = false
-
     @State private var aliasList: [String] = []
-
     @State private var totalForwarded: Int = 0
     @State private var totalBlocked: Int = 0
     @State private var totalReplies: Int = 0
     @State private var totalSent: Int = 0
 
-    init(recipientId: String, recipientEmail: String, shouldReloadDataInParent: Binding<Bool>) {
-        self.recipientId = recipientId
-        self.recipientEmail = recipientEmail
-        _shouldReloadDataInParent = shouldReloadDataInParent
+    enum ActiveAlert {
+        case deleteRecipient, error, removePgpKey
     }
+    let recipientId: String
+    let recipientEmail: String
+    // Function to add aliases to the list
 
     var body: some View {
         #if DEBUG
@@ -326,6 +316,12 @@ struct RecipientsDetailView: View {
         }
     }
 
+    init(recipientId: String, recipientEmail: String, shouldReloadDataInParent: Binding<Bool>) {
+        self.recipientId = recipientId
+        self.recipientEmail = recipientEmail
+        _shouldReloadDataInParent = shouldReloadDataInParent
+    }
+
     private func allowRecipientToReplySend(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
         do {
@@ -493,6 +489,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
     
     private func enableRemovePGPKeysForASpecificRecipient(recipient: Recipients) async {
@@ -536,6 +533,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
     
      private func enableRemovePGPSignaturesForASpecificRecipient(recipient: Recipients) async {
@@ -579,6 +577,7 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
 
     private func removeGpgKeyHttpRequest(recipient: Recipients) async {
@@ -707,7 +706,6 @@ struct RecipientsDetailView: View {
         }
     }
 
-    // Function to add aliases to the list
     func addAliasesToList(recipient: Recipients, aliasesArray: AliasesArray, workingAliasListInbound: AliasesArray? = nil) {
         var workingAliasList = workingAliasListInbound
 

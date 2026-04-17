@@ -51,28 +51,25 @@ enum RulesOption {
 
 struct RulesView: View {
     @EnvironmentObject var mainViewState: MainViewState
+
     @StateObject var rulesViewModel = RulesViewModel()
+
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var showAlert: Bool = false
+    @State private var ruleToDelete: Rules? = nil
+    @State private var rule_count: Int = 0
+    @State private var rule_limit: Int? = 0
+    @State private var shouldReloadDataInParent = false
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
         case error, deleteRule
     }
-
-    @State private var activeAlert: ActiveAlert = .error
-    @State private var showAlert: Bool = false
-
-    @State private var ruleToDelete: Rules? = nil
-
     // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
-    @State private var rule_count: Int = 0
-    @State private var rule_limit: Int? = 0
-
-    @State private var shouldReloadDataInParent = false
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-
-    @Binding var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)? = nil
+    // Add this function
 
     var body: some View {
         #if DEBUG
@@ -386,7 +383,6 @@ struct RulesView: View {
         }
     }
 
-    // Add this function
     func moveRule(from source: IndexSet, to destination: Int) {
         rulesViewModel.rules?.data.move(fromOffsets: source, toOffset: destination)
 

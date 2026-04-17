@@ -10,34 +10,28 @@ import SwiftUI
 
 struct RecipientsView: View {
     @EnvironmentObject var mainViewState: MainViewState
+
     @StateObject var recipientsViewModel = RecipientsViewModel()
+
+    @State private var activeAlert: ActiveAlert = .resendConfirmationMailRecipientConfirmation
+    @State private var showAlert: Bool = false
+    @State private var recipientToDelete: Recipients? = nil
+    @State private var recipient_count: Int = 0
+    @State private var recipient_limit: Int? = 0
+    @State private var isPresentingAddRecipientBottomSheet = false
+    @State private var recipientsToResendConfirmationEmailTo: Recipients? = nil
+    @State private var shouldReloadDataInParent = false
+    @Binding var horizontalSize: UserInterfaceSizeClass
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @State var selectedFilterChip: String = "all"
+    @State var filterChips: [AddyChipModel] = []
 
     enum ActiveAlert {
         case resendConfirmationMailRecipientConfirmation, resendConfirmationMailRecipientSuccess, error, deleteRecipient
     }
-
-    @State private var activeAlert: ActiveAlert = .resendConfirmationMailRecipientConfirmation
-    @State private var showAlert: Bool = false
-
-    @State private var recipientToDelete: Recipients? = nil
-
     // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
-    @State private var recipient_count: Int = 0
-    @State private var recipient_limit: Int? = 0
-
-    @State private var isPresentingAddRecipientBottomSheet = false
-    @State private var recipientsToResendConfirmationEmailTo: Recipients? = nil
-
-    @State private var shouldReloadDataInParent = false
-
-    @Binding var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)? = nil
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-
-    @State var selectedFilterChip: String = "all"
-    @State var filterChips: [AddyChipModel] = []
 
     var body: some View {
         #if DEBUG

@@ -8,23 +8,67 @@ struct MainView: View {
     @EnvironmentObject var connectivity: iOSConnectivityManager
 
     @StateObject private var aliasesViewState = AliasesViewState.shared // Needs to be shared so that filters can be applied from other views
+
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    // State variables
-
-    // MARK: Share sheet AND MailTo tap action
-
     @State private var pendingURLFromShareViewController: IdentifiableURL?
-
-    // MARK: END Share sheet AND MailTo tap action
-
     @State private var apiTokenExpiryText = ""
     @State private var subscriptionExpiryText = ""
     @State private var isShowingAddApiSheet = false
     @State private var isShowingChangelogSheet = false
     @State private var showBiometricsAlert = false
     @State private var lastGeneralRefresh = Date.now
+
+    // State variables
+    // MARK: Share sheet AND MailTo tap action
+    // MARK: END Share sheet AND MailTo tap action
+    private var shouldShowLockedView: Bool {
+        mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled) && !mainViewState.isUnlocked
+    }
+    private var tabDestinations: [Destination] {
+        horizontalSizeClass == .regular ? Destination.otherCases : Destination.iPhoneCases
+    }
+    private enum AlertType: Identifiable {
+        case apiExpiration, subscriptionExpiration
+        var id: Self { self }
+    }
+    private var alertBinding: Binding<AlertType?> {
+        Binding(
+            get: {
+                if mainViewState.showApiExpirationWarning { return .apiExpiration }
+                if mainViewState.showSubscriptionExpirationWarning { return .subscriptionExpiration }
+                return nil
+            },
+            set: { newValue in
+                if newValue == nil {
+                    mainViewState.showApiExpirationWarning = false
+                    mainViewState.showSubscriptionExpirationWarning = false
+                }
+            }
+        )
+    }
+    /*
+     This method checks if there are new failed deliveries
+     It does this by getting the current failed delivery count, if that count is bigger than the failed deliveries in the cache that means there are new failed
+     deliveries.
+
+     As backgroundServiceCacheFailedDeliveriesCount is only updated in the service and in the FailedDeliveriesActivity that means that the red
+     indicator is only visible if:
+
+     - The activity has not been opened since there were new items.
+     - There are more failed deliveries than the server cached last time (in which case the user should have got a notification)
+     */
+    /*
+     This method checks if there are new account notifications
+     It does this by getting the current account notifications count, if that count is bigger than the account notifications in the cache that means there are new notifications
+
+     As backgroundServiceCacheAccountNotificationsCount is only updated in the service and in the AccountNotificationsView that means that the red
+     indicator is only visible if:
+
+     - The activity has not been opened since there were new items.
+     - There are more account notifications than the server cached last time (in which case the user should have got a notification)
+     */
 
     var body: some View {
         #if DEBUG
@@ -45,10 +89,6 @@ struct MainView: View {
         .environmentObject(aliasesViewState)
         .onChange(of: scenePhase, handleScenePhaseChange)
         .task(performInitialTasks)
-    }
-
-    private var shouldShowLockedView: Bool {
-        mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled) && !mainViewState.isUnlocked
     }
 
     private var lockedView: some View {
@@ -195,32 +235,6 @@ struct MainView: View {
         }
     }
 
-    private var tabDestinations: [Destination] {
-        horizontalSizeClass == .regular ? Destination.otherCases : Destination.iPhoneCases
-    }
-
-    private enum AlertType: Identifiable {
-        case apiExpiration, subscriptionExpiration
-        var id: Self { self }
-    }
-
-    private var alertBinding: Binding<AlertType?> {
-        Binding(
-            get: {
-                if mainViewState.showApiExpirationWarning { return .apiExpiration }
-                if mainViewState.showSubscriptionExpirationWarning { return .subscriptionExpiration }
-                return nil
-            },
-            set: { newValue in
-                if newValue == nil {
-                    mainViewState.showApiExpirationWarning = false
-                    mainViewState.showSubscriptionExpirationWarning = false
-                }
-            }
-        )
-    }
-
-
     private func handleOnAppear() {
         // Also perform BGTask immediately when opening the app
         BackgroundWorkerHelper.backgroundWorker.performRequest { _ in
@@ -363,18 +377,6 @@ struct MainView: View {
         }
     }
 
-    /*
-     This method checks if there are new failed deliveries
-     It does this by getting the current failed delivery count, if that count is bigger than the failed deliveries in the cache that means there are new failed
-     deliveries.
-
-     As backgroundServiceCacheFailedDeliveriesCount is only updated in the service and in the FailedDeliveriesActivity that means that the red
-     indicator is only visible if:
-
-     - The activity has not been opened since there were new items.
-     - There are more failed deliveries than the server cached last time (in which case the user should have got a notification)
-     */
-
     private func checkForNewFailedDeliveries() async {
         do {
             if let result = try await NetworkHelper().getFailedDeliveries() {
@@ -388,17 +390,6 @@ struct MainView: View {
             // Error will be logged when user has enabled this
         }
     }
-
-    /*
-     This method checks if there are new account notifications
-     It does this by getting the current account notifications count, if that count is bigger than the account notifications in the cache that means there are new notifications
-
-     As backgroundServiceCacheAccountNotificationsCount is only updated in the service and in the AccountNotificationsView that means that the red
-     indicator is only visible if:
-
-     - The activity has not been opened since there were new items.
-     - There are more account notifications than the server cached last time (in which case the user should have got a notification)
-     */
 
     private func checkForNewAccountNotifications() async {
         do {

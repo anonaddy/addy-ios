@@ -13,32 +13,22 @@ struct FailedDeliveriesView: View {
 
     @StateObject var failedDeliveriesViewModel = FailedDeliveriesViewModel()
 
-    enum ActiveAlert {
-        case error, deleteFailedDelivery
-    }
+    @Environment(\.dismiss) var dismiss
 
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
-
     @State private var failedDeliveryToDelete: FailedDeliveries? = nil
     @State private var failedDeliveryToShow: FailedDeliveries? = nil
-
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-
     @State var selectedFilterChip: String = "all"
     @State var filterChips: [AddyChipModel] = []
-
     @State var horizontalSize: UserInterfaceSizeClass
-    var onRefreshGeneralData: (() -> Void)?
 
-    @Environment(\.dismiss) var dismiss
-
-
-    init(horizontalSize: UserInterfaceSizeClass?, onRefreshGeneralData: (() -> Void)? = nil) {
-        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
-        self.onRefreshGeneralData = onRefreshGeneralData
+    enum ActiveAlert {
+        case error, deleteFailedDelivery
     }
+    var onRefreshGeneralData: (() -> Void)?
 
     var body: some View {
         #if DEBUG
@@ -280,6 +270,11 @@ struct FailedDeliveriesView: View {
                 }
             }
         })
+    }
+
+    init(horizontalSize: UserInterfaceSizeClass?, onRefreshGeneralData: (() -> Void)? = nil) {
+        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
+        self.onRefreshGeneralData = onRefreshGeneralData
     }
 
     func ApplyFilter(chipId: String) {

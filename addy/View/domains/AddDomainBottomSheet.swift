@@ -11,24 +11,19 @@ import Combine
 import SwiftUI
 
 struct AddDomainBottomSheet: View {
+    @Environment(\.dismiss) var dismiss
+
     @State var domain: String = ""
     @State var domainPlaceHolder: String = .init(localized: "address")
-    let onAdded: () -> Void
-
-    init(onAdded: @escaping () -> Void) {
-        self.onAdded = onAdded
-    }
-
     @State private var domainValidationError: String?
     @State private var domainRequestError: String?
     @State private var valueCopiedToClipboard: Bool = false
-
     @State var domainVerificationStatusText: String = ""
     @State var IsLoadingAddButton: Bool = false
     @State var isWaitingForDomainVerification: Bool = false
-    @Environment(\.dismiss) var dismiss
-
     @State private var timer: Timer? = nil
+
+    let onAdded: () -> Void
 
     var body: some View {
         #if DEBUG
@@ -129,6 +124,10 @@ struct AddDomainBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(onAdded: @escaping () -> Void) {
+        self.onAdded = onAdded
     }
 
     private func addDomainToAccount(domain: String) async {

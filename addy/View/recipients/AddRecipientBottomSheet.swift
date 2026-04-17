@@ -12,19 +12,15 @@ import AVFoundation
 import SwiftUI
 
 struct AddRecipientBottomSheet: View {
+    @Environment(\.dismiss) var dismiss
+
     @State var address: String = ""
     @State var addressPlaceHolder: String = .init(localized: "address")
-    let onAdded: () -> Void
-
-    init(onAdded: @escaping () -> Void) {
-        self.onAdded = onAdded
-    }
-
     @State private var recipientValidationError: String?
     @State private var recipientRequestError: String?
-
     @State var IsLoadingAddButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    let onAdded: () -> Void
 
     var body: some View {
         #if DEBUG
@@ -100,6 +96,10 @@ struct AddRecipientBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(onAdded: @escaping () -> Void) {
+        self.onAdded = onAdded
     }
 
     private func addRecipientToAccount(address: String) async {

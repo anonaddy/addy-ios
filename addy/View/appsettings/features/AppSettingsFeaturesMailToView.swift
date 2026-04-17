@@ -10,6 +10,7 @@ import SwiftUI
 struct AppSettingsFeaturesMailToView: View {
     @State var watchAlias = true
     @State var mailtoActivityShowSuggestions = false
+
     var body: some View {
         #if DEBUG
             let _ = Self._printChanges()

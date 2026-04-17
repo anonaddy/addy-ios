@@ -11,27 +11,19 @@ import SwiftUI
 struct AccountNotificationsView: View {
     @StateObject var accountNotificationsViewModel = AccountNotificationsViewModel()
 
-    enum ActiveAlert {
-        case error
-    }
+    @Environment(\.dismiss) var dismiss
 
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
-
     @State private var accountNotificationToShow: AccountNotifications? = nil
-
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-
     @State var horizontalSize: UserInterfaceSizeClass
-    var onRefreshGeneralData: (() -> Void)?
 
-    @Environment(\.dismiss) var dismiss
-
-    init(horizontalSize: UserInterfaceSizeClass?, onRefreshGeneralData: (() -> Void)? = nil) {
-        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
-        self.onRefreshGeneralData = onRefreshGeneralData
+    enum ActiveAlert {
+        case error
     }
+    var onRefreshGeneralData: (() -> Void)?
 
     var body: some View {
         #if DEBUG
@@ -180,6 +172,11 @@ struct AccountNotificationsView: View {
                 }
             }
         })
+    }
+
+    init(horizontalSize: UserInterfaceSizeClass?, onRefreshGeneralData: (() -> Void)? = nil) {
+        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
+        self.onRefreshGeneralData = onRefreshGeneralData
     }
 
     private func updateTheCacheANCount(count: Int) {

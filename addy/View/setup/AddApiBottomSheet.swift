@@ -11,22 +11,15 @@ import CodeScanner
 import SwiftUI
 
 struct AddApiBottomSheet: View {
+    @EnvironmentObject var mainViewState: MainViewState
+
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.openURL) var openURL
+    @Environment(\.scenePhase) var scenePhase
+
     @State private var showInvalidQrAlert = false
-    let apiBaseUrl: String?
-    let addKey: (String, String) -> Void
-
-    init(apiBaseUrl: String?, addKey: @escaping (String, String) -> Void) {
-        self.apiBaseUrl = apiBaseUrl
-        self.addKey = addKey
-        instance = apiBaseUrl ?? String(localized: "default_base_url")
-        apiKey = ""
-    }
-
     @State private var showAlert = false
     @State private var alertMessage = ""
-
-    @State private var otpMfaObject: LoginMfaRequired?
-
     @State private var instanceError: String?
     @State private var apiKeyError: String?
     @State private var instance: String
@@ -34,27 +27,22 @@ struct AddApiBottomSheet: View {
     @State private var apiKey: String
     @State private var apiKeyPlaceholder = String(localized: "APIKey_desc")
     @State private var cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-
     @State private var loginType: String = "login" // login or api
     @State private var apiExpiration: String = "never" // day, week, month, year or nil (never)
-
     @State private var usernamePlaceholder: String = .init(localized: "registration_username")
     @State private var usernameValidationError: String?
     @State private var username: String = ""
-
     @State private var otpPlaceholder: String = .init(localized: "registration_otp")
     @State private var otpValidationError: String?
     @State private var otp: String = ""
-
     @State private var passwordPlaceholder: String = .init(localized: "registration_password")
     @State private var passwordValidationError: String?
     @State private var password: String = ""
-
     @State var isLoadingSignIn: Bool = false
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.openURL) var openURL
-    @Environment(\.scenePhase) var scenePhase
-    @EnvironmentObject var mainViewState: MainViewState
+
+    let apiBaseUrl: String?
+    let addKey: (String, String) -> Void
+    @State private var otpMfaObject: LoginMfaRequired?
 
     var body: some View {
         #if DEBUG
@@ -222,6 +210,13 @@ struct AddApiBottomSheet: View {
                 }
             }
         }
+    }
+
+    init(apiBaseUrl: String?, addKey: @escaping (String, String) -> Void) {
+        self.apiBaseUrl = apiBaseUrl
+        self.addKey = addKey
+        instance = apiBaseUrl ?? String(localized: "default_base_url")
+        apiKey = ""
     }
 
     private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL) async {

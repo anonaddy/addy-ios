@@ -53,27 +53,30 @@ class ReceiptManager: NSObject, SKRequestDelegate {
 }
 
 struct ManageSubscriptionView: View {
+    @EnvironmentObject var mainViewState: MainViewState
+
     @StateObject private var storeManager = StoreManager()
+
+    @Environment(\.requestReview) private var requestReview
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.openURL) var openURL
+
     @State private var showPaymentStatusAlert = false
     @State private var paymentStatusMessage = ""
     @State private var paymentStatusTitle = ""
-    @EnvironmentObject var mainViewState: MainViewState
     @Binding var horizontalSize: UserInterfaceSizeClass
     @Binding var shouldHideNavigationBarBackButtonSubscriptionView: Bool
     @State private var isPresentedManageSubscription = false
     @State private var isNotifyingServer = false
     @State private var purchasedItem: StoreKit.Transaction? = nil
-    @Environment(\.requestReview) private var requestReview
+    @State private var selectedTab = "pro"
 
     let productIds = [
         "pro_yearly",
         "pro_monthly",
         "lite_yearly",
     ]
-
-    @State private var selectedTab = "pro"
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.openURL) var openURL
+    // Refresh the receipt before fetching it, once refreshed, fetch and return
 
     var body: some View {
         if isNotifyingServer {
@@ -405,7 +408,6 @@ struct ManageSubscriptionView: View {
         }
     }
 
-    // Refresh the receipt before fetching it, once refreshed, fetch and return
     private func fetchReceipt() async -> String? {
         let receiptManager = ReceiptManager()
 

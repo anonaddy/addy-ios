@@ -11,9 +11,7 @@ import SwiftUI
 struct AppSettingsWatchKitView: View {
     @State private var showAlert: Bool = false
     @State private var errorAlertMessage = ""
-
     @State private var enableWatchKitQuickSetupDialog: Bool = false
-
 
     var body: some View {
         #if DEBUG
@@ -56,7 +54,6 @@ struct AppSettingsWatchKitView: View {
         .navigationTitle(String(localized: "addyio_for_watchkit"))
         .navigationBarTitleDisplayMode(.inline)
     }
-
 }
 
 struct AppSettingsWatchKitView_Previews: PreviewProvider {

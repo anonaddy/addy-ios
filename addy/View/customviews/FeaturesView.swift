@@ -10,6 +10,27 @@ import SwiftUI
 struct FeaturesView: View {
     let items: [String]
 
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(String(localized: "why_subscribe_title"))
+                .font(.headline)
+            ForEach(items, id: \.self) { item in
+                HStack {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.accent)
+                    Text(item)
+                        .font(.subheadline)
+                }
+            }
+
+        }.frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            alignment: .topLeading
+        )
+    }
+
     init(plan: String) {
         if plan == "pro" {
             items = [String(localized: "why_subscribe_reason_1_pro"),
@@ -49,27 +70,6 @@ struct FeaturesView: View {
                      String(localized: "why_subscribe_reason_13"),
                      String(localized: "why_subscribe_reason_14")]
         }
-    }
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(String(localized: "why_subscribe_title"))
-                .font(.headline)
-            ForEach(items, id: \.self) { item in
-                HStack {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(.accent)
-                    Text(item)
-                        .font(.subheadline)
-                }
-            }
-
-        }.frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 0,
-            alignment: .topLeading
-        )
     }
 }
 

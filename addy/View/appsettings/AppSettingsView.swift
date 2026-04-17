@@ -12,23 +12,20 @@ import SwiftUI
 struct AppSettingsView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
-    @State private var isPresentingUIUXInterfaceBottomSheet: Bool = false
+    @Environment(\.openURL) var openURL
 
+    @State private var isPresentingUIUXInterfaceBottomSheet: Bool = false
     @State private var storeLogs: Bool = false
     @State private var privacyMode: Bool = false
     @State private var biometricEnabled: Bool = false
     @State private var showPlayGround: Bool = false
-
-    @Environment(\.openURL) var openURL
-
     @Binding var horizontalSize: UserInterfaceSizeClass
+    @State private var showAlert = false
+    @State private var activeAlert: ActiveAlert = .resetApp
 
     enum ActiveAlert {
         case resetAppError, resetApp
     }
-
-    @State private var showAlert = false
-    @State private var activeAlert: ActiveAlert = .resetApp
 
     var body: some View {
         #if DEBUG

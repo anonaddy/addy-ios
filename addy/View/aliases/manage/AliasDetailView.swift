@@ -11,33 +11,24 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct AliasDetailView: View {
-    enum ActiveAlert {
-        case reachedMaxAliases, deleteAliases, restoreAlias, forgetAlias, error
-    }
+    @EnvironmentObject var mainViewState: MainViewState
 
-    let aliasId: String
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     @State var aliasEmail: String
     @State var shouldDisableAlias: Bool = false
-
     @Binding var shouldReloadDataInParent: Bool
-
     @State private var activeAlert: ActiveAlert = .reachedMaxAliases
     @State private var showAlert: Bool = false
     @State private var isDeletingAlias: Bool = false
     @State private var isRestoringAlias: Bool = false
     @State private var isForgettingAlias: Bool = false
     @State private var IsLoadingPinnedButton: Bool = true
-
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-    @EnvironmentObject var mainViewState: MainViewState
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
     @State private var alias: Aliases? = nil
     @State private var errorText: String? = nil
-
     @State private var sendToRecipients: String? = nil
-
     @State private var isAliasActive: Bool = false
     @State private var isAliasPinned: Bool = false
     @State private var isSwitchingAliasActiveState: Bool = false
@@ -48,21 +39,16 @@ struct AliasDetailView: View {
     @State private var isPresentingEditAliasRecipientsBottomSheet = false
     @State private var isPresentingEditAliasFromNameBottomSheet = false
     @State private var isPresentingEditAliasSendMailRecipientBottomSheet = false
-
     @State private var copiedToClipboard: Bool = false
     @State private var aliasDeactivatedOverlayShown: Bool = false
-
     @State private var chartData: [Double] = [0, 0, 0, 0]
-
     @State private var clients: [ThirdPartyMailClient] = []
     @State private var isPresentingEmailSelectionDialog: Bool = false
 
-    init(aliasId: String, aliasEmail: String?, shouldReloadDataInParent: Binding<Bool>? = nil, shouldDisableAlias: Bool = false) {
-        self.aliasId = aliasId
-        self.aliasEmail = aliasEmail ?? ""
-        self.shouldDisableAlias = shouldDisableAlias
-        _shouldReloadDataInParent = shouldReloadDataInParent ?? .constant(false)
+    enum ActiveAlert {
+        case reachedMaxAliases, deleteAliases, restoreAlias, forgetAlias, error
     }
+    let aliasId: String
 
     var body: some View {
         #if DEBUG
@@ -483,6 +469,14 @@ struct AliasDetailView: View {
             
         }
     }
+
+    init(aliasId: String, aliasEmail: String?, shouldReloadDataInParent: Binding<Bool>? = nil, shouldDisableAlias: Bool = false) {
+        self.aliasId = aliasId
+        self.aliasEmail = aliasEmail ?? ""
+        self.shouldDisableAlias = shouldDisableAlias
+        _shouldReloadDataInParent = shouldReloadDataInParent ?? .constant(false)
+    }
+
     
     private func addQuickActions(alias: Aliases) {
         if !mainViewState.encryptedSettingsManager.getSettingsBool(key: .privacyMode) {
@@ -753,6 +747,7 @@ struct AliasDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
     
     private func pinAlias(alias: Aliases) async {
@@ -772,6 +767,7 @@ struct AliasDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
     private func unpinAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
@@ -798,7 +794,6 @@ struct AliasDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
 
     private func deleteAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()

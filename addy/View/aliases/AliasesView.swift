@@ -12,15 +12,16 @@ import UniformTypeIdentifiers
 struct AliasesView: View {
     @EnvironmentObject var mainViewState: MainViewState
     @EnvironmentObject var aliasesViewState: AliasesViewState
+
     
     @StateObject var aliasesViewModel = AliasesViewModel()
+
     @Environment(\.requestReview) private var requestReview
     
-    @State private var isPresentingFilterOptionsAliasBottomSheet = false
+    @Environment(\.scenePhase) var scenePhase
+
     
-    enum ActiveAlert {
-        case reachedMaxAliases, deleteAlias, forgetAlias, forgetAliasConfirmation, restoreAlias, error
-    }
+    @State private var isPresentingFilterOptionsAliasBottomSheet = false
     
     @State private var activeAlert: ActiveAlert = .reachedMaxAliases
     @State private var showAlert: Bool = false
@@ -38,7 +39,6 @@ struct AliasesView: View {
     @State var filterChips: [AddyChipModel] = []
     
     @Binding var horizontalSize: UserInterfaceSizeClass
-    var onRefreshGeneralData: (() -> Void)? = nil
     
     @State private var copiedToClipboard = false
     @State private var filterApplied = false
@@ -46,8 +46,13 @@ struct AliasesView: View {
     @State private var sendToRecipients: String? = nil
     @State private var clients: [ThirdPartyMailClient] = []
     @State private var isPresentingEmailSelectionDialog: Bool = false
+
     
-    @Environment(\.scenePhase) var scenePhase
+    enum ActiveAlert {
+        case reachedMaxAliases, deleteAlias, forgetAlias, forgetAliasConfirmation, restoreAlias, error
+    }
+    var onRefreshGeneralData: (() -> Void)? = nil
+
     
     var body: some View {
 #if DEBUG
@@ -376,6 +381,7 @@ struct AliasesView: View {
             
         })
     }
+
     
     @ViewBuilder
     func createAliasRow(alias: Aliases) -> some View {
@@ -486,6 +492,7 @@ struct AliasesView: View {
             }
         }
     }
+
     
     func showCopiedToClipboardAnimation() {
         withAnimation(.snappy) {
@@ -497,6 +504,7 @@ struct AliasesView: View {
             }
         }
     }
+
     
     func showFilterAppliedAnimation() {
         withAnimation(.snappy) {
@@ -508,6 +516,7 @@ struct AliasesView: View {
             }
         }
     }
+
     
     func ApplyFilter(chipId: String) {
         if chipId != "filter_custom" {
@@ -543,6 +552,7 @@ struct AliasesView: View {
             await aliasesViewModel.getAliases(forceReload: true)
         }
     }
+
     
     func SaveFilter(chipId: String, aliasSortFilterRequest: AliasSortFilterRequest) {
         var aliasSortFilterRequestTemp = aliasSortFilterRequest
@@ -560,6 +570,7 @@ struct AliasesView: View {
         
         LoadFilter()
     }
+
     
     func LoadFilter() {
         let aliasSortFilterJson = MainViewState.shared.settingsManager.getSettingsString(key: .aliasSortFilter)
@@ -604,6 +615,7 @@ struct AliasesView: View {
         
         aliasesViewModel.aliasSortFilterRequest.filter = aliasesViewModel.searchQuery
     }
+
     
     private func onPressSend(client: ThirdPartyMailClient? = nil, sendToRecipients: String) {
         // aliasToSendMailFrom will be set to nil when the EditAliasSendMailRecipientBottomSheet gets dismissed, therefore we make a copy of the item and
@@ -632,6 +644,7 @@ struct AliasesView: View {
             aliasToSendMailFromCopy = nil
         }
     }
+
     
     private func onPressCopy(sendToRecipients: String) {
         // aliasToSendMailFrom will be set to nil when the EditAliasSendMailRecipientBottomSheet gets dismissed, therefore we make a copy of the item and
@@ -650,6 +663,7 @@ struct AliasesView: View {
         
         aliasToSendMailFrom = nil
     }
+
     
     private func activateAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
@@ -671,6 +685,7 @@ struct AliasesView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
     private func deactivateAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
@@ -699,6 +714,7 @@ struct AliasesView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
     
     private func pinAlias(alias: Aliases) async {
@@ -716,6 +732,7 @@ struct AliasesView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
     
     private func unpinAlias(alias: Aliases) async {
@@ -745,6 +762,7 @@ struct AliasesView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
     private func deleteAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
@@ -768,6 +786,7 @@ struct AliasesView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
     private func forgetAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
@@ -792,6 +811,7 @@ struct AliasesView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
     private func deleteAlias(at offsets: IndexSet) {
         for index in offsets.sorted(by: >) {
@@ -807,6 +827,7 @@ struct AliasesView: View {
             }
         }
     }
+
     
     private func forgetAlias(at offsets: IndexSet) {
         for index in offsets.sorted(by: >) {
@@ -822,6 +843,7 @@ struct AliasesView: View {
             }
         }
     }
+
     
     private func restoreAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
@@ -850,6 +872,7 @@ struct AliasesView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
+
     
     func GetFilterChips() -> [AddyChipModel] {
         return [

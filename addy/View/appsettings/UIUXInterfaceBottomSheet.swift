@@ -11,6 +11,7 @@ import WrappingHStack
 
 struct UIUXInterfaceBottomSheet: View {
     @Environment(\.dismiss) var dismiss
+
     @State private var startupPage: String = "home"
     @Binding var horizontalSize: UserInterfaceSizeClass
 

@@ -10,21 +10,17 @@ import SwiftUI
 import addy_shared
 
 struct AddBlocklistEntryBottomSheet: View {
-    // 1. Added state for type selection
+    @Environment(\.dismiss) var dismiss
+
     @State var blocklistType: String = "email"
     @State var blocklistEntry: String = ""
     @State var blocklistEntryPlaceHolder: String = .init(localized: "blocklist_add_hint")
-    let onAdded: () -> Void
-
-    init(onAdded: @escaping () -> Void) {
-        self.onAdded = onAdded
-    }
-
     @State private var blocklistEntryValidationError: String?
     @State private var blocklistEntryRequestError: String?
-
     @State var IsLoadingAddButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    // 1. Added state for type selection
+    let onAdded: () -> Void
 
     var body: some View {
         #if DEBUG
@@ -115,6 +111,10 @@ struct AddBlocklistEntryBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(onAdded: @escaping () -> Void) {
+        self.onAdded = onAdded
     }
 
     private func addblocklistEntryToAccount(blocklistEntry: NewBlocklistEntry) async {

@@ -11,16 +11,10 @@ import SwiftUI
 struct ValidatingTextField: View {
     @Binding var value: String
     @Binding var placeholder: String
-    var fieldType: FieldType
     @Binding var error: String?
 
+    var fieldType: FieldType
     // Add a public initializer
-    init(value: Binding<String>, placeholder: Binding<String>, fieldType: FieldType, error: Binding<String?>) {
-        _value = value
-        _placeholder = placeholder
-        self.fieldType = fieldType
-        _error = error
-    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -87,6 +81,13 @@ struct ValidatingTextField: View {
                 }
             }
         }
+    }
+
+    init(value: Binding<String>, placeholder: Binding<String>, fieldType: FieldType, error: Binding<String?>) {
+        _value = value
+        _placeholder = placeholder
+        self.fieldType = fieldType
+        _error = error
     }
 }
 

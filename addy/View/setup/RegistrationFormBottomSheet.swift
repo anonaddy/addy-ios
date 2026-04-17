@@ -9,42 +9,34 @@ import addy_shared
 import SwiftUI
 
 struct RegistrationFormBottomSheet: View {
+    @Environment(\.openURL) var openURL
+    @Environment(\.dismiss) var dismiss
+
     @State private var passwordPlaceholder: String = .init(localized: "registration_password")
     @State private var passwordValidationError: String?
     @State private var password: String = ""
-
     @State private var passwordConfirmPlaceholder: String = .init(localized: "registration_password_confirm")
     @State private var passwordConfirmValidationError: String?
     @State private var passwordConfirm: String = ""
-
     @State private var showAlert = false
     @State private var isLoadingRegister = false
     @State private var alertMessage = ""
-
     @State private var addressPlaceholder: String = .init(localized: "registration_email")
     @State private var addressValidationError: String?
     @State private var address: String = ""
-
     @State private var addressConfirmPlaceholder: String = .init(localized: "registration_email_confirm")
     @State private var addressConfirmValidationError: String?
     @State private var addressConfirm: String = ""
-
     @State private var usernamePlaceholder: String = .init(localized: "registration_username")
     @State private var usernameValidationError: String?
     @State private var username: String = ""
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var apiExpiration: String = "never" // day, week, month, year or nil (never)
+    @Binding var showOnboarding: Bool
 
     enum ActiveAlert {
         case error, completionMessage
     }
-
-    @State private var activeAlert: ActiveAlert = .error
-
-    @State private var apiExpiration: String = "never" // day, week, month, year or nil (never)
-
-    @Binding var showOnboarding: Bool
-
-    @Environment(\.openURL) var openURL
-    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationView {
@@ -142,6 +134,35 @@ struct RegistrationFormBottomSheet: View {
         }
     }
 
+    private func registerButton() -> some View {
+        Group {
+            if isLoadingRegister {
+                AnyView(ProgressView().progressViewStyle(.circular))
+            } else {
+                AnyView(
+                    Button {
+                        // First check for existing validation errors
+                        if usernameValidationError == nil &&
+                            addressValidationError == nil &&
+                            addressConfirmValidationError == nil &&
+                            passwordValidationError == nil &&
+                            passwordConfirmValidationError == nil
+                        {
+                            Task {
+                                isLoadingRegister = true
+                                await registerUser()
+                            }
+                        } else {
+                            resetButton()
+                        }
+                    } label: {
+                        Text(String(localized: "registration_register"))
+                    }
+                )
+            }
+        }
+    }
+
     func registerUser() async {
         usernameValidationError = nil
         addressValidationError = nil
@@ -207,35 +228,6 @@ struct RegistrationFormBottomSheet: View {
                 resetButton()
             }
         })
-    }
-
-    private func registerButton() -> some View {
-        Group {
-            if isLoadingRegister {
-                AnyView(ProgressView().progressViewStyle(.circular))
-            } else {
-                AnyView(
-                    Button {
-                        // First check for existing validation errors
-                        if usernameValidationError == nil &&
-                            addressValidationError == nil &&
-                            addressConfirmValidationError == nil &&
-                            passwordValidationError == nil &&
-                            passwordConfirmValidationError == nil
-                        {
-                            Task {
-                                isLoadingRegister = true
-                                await registerUser()
-                            }
-                        } else {
-                            resetButton()
-                        }
-                    } label: {
-                        Text(String(localized: "registration_register"))
-                    }
-                )
-            }
-        }
     }
 
     private func resetButton() {

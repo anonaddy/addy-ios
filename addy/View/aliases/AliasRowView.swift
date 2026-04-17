@@ -11,7 +11,6 @@ import SwiftUI
 struct AliasRowView: View {
     let alias: Aliases
     let isPreview: Bool
-
     private var chartData: [Double] {
         let total = Double(alias.emails_forwarded + alias.emails_replied + alias.emails_sent + alias.emails_blocked)
         let normalizedTotal = total != 0 ? total : 10.0
@@ -40,6 +39,7 @@ struct AliasRowView: View {
             ColorGradient(.softRed, .softRed.opacity(0.7))
         ]
     }
+
     
     var body: some View {
         #if DEBUG
@@ -54,6 +54,7 @@ struct AliasRowView: View {
             }
         }
     }
+
     
     private var previewBody: some View {
         VStack(alignment: .leading) {
@@ -91,6 +92,7 @@ struct AliasRowView: View {
         }
         .padding()
     }
+
     
     private var listBody: some View {
         HStack {
@@ -121,6 +123,7 @@ struct AliasRowView: View {
             }
         }
     }
+
     
     @ViewBuilder
     private func chartView(width: CGFloat) -> some View {
@@ -137,6 +140,7 @@ struct AliasRowView: View {
             .clipShape(RoundedRectangle(cornerRadius: 13))
             .frame(maxWidth: width)
     }
+
     
     private var statsLabels: some View {
         VStack(alignment: .trailing) {
@@ -147,6 +151,7 @@ struct AliasRowView: View {
         }
         .labelStyle(MyAliasLabelStyle())
     }
+
     
     @ViewBuilder
     private func statsLabel(_ systemImage: String, _ string: String, _ color: Color) -> some View {

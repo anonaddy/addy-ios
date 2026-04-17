@@ -10,24 +10,17 @@ import AVFoundation
 import SwiftUI
 
 struct EditUsernameFromNameBottomSheet: View {
-    let usernameId: String
-    let username: String
+    @Environment(\.dismiss) var dismiss
+
     @State var fromName: String
     @State var fromNamePlaceholder: String = .init(localized: "from_name")
-    let fromNameEdited: (Usernames) -> Void
-
-    init(usernameId: String, username: String, fromName: String?, fromNameEdited: @escaping (Usernames) -> Void) {
-        self.usernameId = usernameId
-        self.username = username
-        self.fromName = fromName ?? ""
-        self.fromNameEdited = fromNameEdited
-    }
-
     @State private var fromNameValidationError: String?
     @State private var fromNameRequestError: String?
-
     @State var IsLoadingSaveButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    let usernameId: String
+    let username: String
+    let fromNameEdited: (Usernames) -> Void
 
     var body: some View {
         #if DEBUG
@@ -101,6 +94,13 @@ struct EditUsernameFromNameBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(usernameId: String, username: String, fromName: String?, fromNameEdited: @escaping (Usernames) -> Void) {
+        self.usernameId = usernameId
+        self.username = username
+        self.fromName = fromName ?? ""
+        self.fromNameEdited = fromNameEdited
     }
 
     private func editFromName(fromName: String?) async {

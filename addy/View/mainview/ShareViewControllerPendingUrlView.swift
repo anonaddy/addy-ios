@@ -9,8 +9,9 @@ import SwiftUI
 import addy_shared
 
 struct ShareViewControllerPendingUrlView: View {
-    @State var pendingURLFromShareViewController: IdentifiableURL
     @Environment(\.dismiss) var dismiss
+
+    @State var pendingURLFromShareViewController: IdentifiableURL
 
     var body: some View {
         VStack {

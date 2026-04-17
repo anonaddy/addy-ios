@@ -11,51 +11,39 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct DomainsDetailView: View {
-    enum ActiveAlert {
-        case deleteDomain, error
-    }
+    @EnvironmentObject var mainViewState: MainViewState
 
-    let domainId: String
-    let domainDomain: String
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.openURL) var openURL
 
     @Binding var shouldReloadDataInParent: Bool
-
     @State private var activeAlert: ActiveAlert = .deleteDomain
     @State private var showAlert: Bool = false
     @State private var isDeletingDomain: Bool = false
-
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-    @EnvironmentObject var mainViewState: MainViewState
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
     @State private var domain: Domains? = nil
     @State private var errorText: String? = nil
-
     @State private var isActive: Bool = false
     @State private var catchAllEnabled: Bool = false
     @State private var isSwitchingisActiveState: Bool = false
     @State private var isSwitchingCatchAllEnabledState: Bool = false
-
     @State private var isPresentingEditDomainDescriptionBottomSheet: Bool = false
     @State private var isPresentingEditDomainFromNameBottomSheet: Bool = false
     @State private var isPresentingEditDomainRecipientsBottomSheet: Bool = false
     @State private var isPresentingEditDomainAutoCreateRegexBottomSheet: Bool = false
-
     @State private var aliasList: [String] = []
-
     @State private var totalForwarded: Int = 0
     @State private var totalBlocked: Int = 0
     @State private var totalReplies: Int = 0
     @State private var totalSent: Int = 0
 
-    init(domainId: String, domainDomain: String, shouldReloadDataInParent: Binding<Bool>) {
-        self.domainId = domainId
-        self.domainDomain = domainDomain
-        _shouldReloadDataInParent = shouldReloadDataInParent
+    enum ActiveAlert {
+        case deleteDomain, error
     }
-
-    @Environment(\.openURL) var openURL
+    let domainId: String
+    let domainDomain: String
+    // Function to add aliases to the list
 
     var body: some View {
         #if DEBUG
@@ -281,6 +269,12 @@ struct DomainsDetailView: View {
         }
     }
 
+    init(domainId: String, domainDomain: String, shouldReloadDataInParent: Binding<Bool>) {
+        self.domainId = domainId
+        self.domainDomain = domainDomain
+        _shouldReloadDataInParent = shouldReloadDataInParent
+    }
+
     private func getDefaultRecipient(domain: Domains) -> String {
         if domain.default_recipient != nil {
             return domain.default_recipient!.email
@@ -483,7 +477,6 @@ struct DomainsDetailView: View {
         }
     }
 
-    // Function to add aliases to the list
     func addAliasesToList(domain: Domains, aliasesArray: AliasesArray, workingAliasListInbound: AliasesArray? = nil) {
         var workingAliasList = workingAliasListInbound
 

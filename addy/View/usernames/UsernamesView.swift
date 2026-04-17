@@ -10,28 +10,24 @@ import SwiftUI
 
 struct UsernamesView: View {
     @EnvironmentObject var mainViewState: MainViewState
+
     @StateObject var usernamesViewModel = UsernamesViewModel()
+
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var showAlert: Bool = false
+    @State private var usernameToDelete: Usernames? = nil
+    @State private var username_count: Int = 0
+    @State private var username_limit: Int = 0
+    @State private var isPresentingAddUsernameBottomSheet = false
+    @State private var shouldReloadDataInParent = false
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
         case error, deleteUsername
     }
-
-    @State private var activeAlert: ActiveAlert = .error
-    @State private var showAlert: Bool = false
-
-    @State private var usernameToDelete: Usernames? = nil
-
     // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
-    @State private var username_count: Int = 0
-    @State private var username_limit: Int = 0
-
-    @State private var isPresentingAddUsernameBottomSheet = false
-
-    @State private var shouldReloadDataInParent = false
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-    @Binding var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)? = nil
 
     var body: some View {

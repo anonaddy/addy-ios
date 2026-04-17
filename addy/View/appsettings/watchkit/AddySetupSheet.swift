@@ -10,10 +10,13 @@ import SwiftUI
 import addy_shared
 
 struct AddyWatchKitSetupBottomSheet: View {
-    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var mainViewState: MainViewState
     @EnvironmentObject var connectivityManager: iOSConnectivityManager
+
+    @Environment(\.dismiss) private var dismiss
+
     @State private var isLoading = false
+
     
     var body: some View {
         NavigationStack {
@@ -55,6 +58,7 @@ struct AddyWatchKitSetupBottomSheet: View {
             
         }
     }
+
     
     private func handleConfirm() {
         isLoading = true

@@ -10,29 +10,24 @@ import SwiftUI
 
 struct DomainsView: View {
     @EnvironmentObject var mainViewState: MainViewState
+
     @StateObject var domainsViewModel = DomainsViewModel()
+
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var showAlert: Bool = false
+    @State private var domainToDelete: Domains? = nil
+    @State private var domain_count: Int = 0
+    @State private var domain_limit: Int? = 0
+    @State private var isPresentingAddDomainBottomSheet = false
+    @State private var shouldReloadDataInParent = false
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
         case error, deleteDomain
     }
-
-    @State private var activeAlert: ActiveAlert = .error
-    @State private var showAlert: Bool = false
-
-    @State private var domainToDelete: Domains? = nil
-
     // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
-    @State private var domain_count: Int = 0
-    @State private var domain_limit: Int? = 0
-
-    @State private var isPresentingAddDomainBottomSheet = false
-
-    @State private var shouldReloadDataInParent = false
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-
-    @Binding var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)? = nil
 
     var body: some View {

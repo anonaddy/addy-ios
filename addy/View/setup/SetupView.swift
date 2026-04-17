@@ -13,17 +13,15 @@ struct SetupView: View {
     @EnvironmentObject var setupViewState: SetupViewState
     @EnvironmentObject var connectivity: iOSConnectivityManager //TODO: Do something with this
 
-
-    let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
     @State private var text = String(localized: "setup_api_key")
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var isLoadingGetStarted: Bool = false
-
     @State private var showOnboarding = false
     @State private var isPresentingAddApiBottomSheet = false
-
     @State private var showAlert = false
     @State private var alertMessage = ""
+
+    let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
         #if DEBUG

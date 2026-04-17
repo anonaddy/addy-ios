@@ -11,8 +11,12 @@ import Shiny
 import SwiftUI
 
 struct ProfileBottomSheet: View {
-    @Binding var isPresentingProfileBottomSheet: Bool
     @EnvironmentObject var mainViewState: MainViewState
+
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.openURL) var openURL
+
+    @Binding var isPresentingProfileBottomSheet: Bool
     @State var horizontalSize: UserInterfaceSizeClass
     
 
@@ -25,15 +29,6 @@ struct ProfileBottomSheet: View {
     @State var shouldHideNavigationBarBackButtonSubscriptionView = false
 
     let onNavigate: (Destination) -> Void
-
-    init(onNavigate: @escaping (Destination) -> Void, isPresentingProfileBottomSheet: Binding<Bool>, horizontalSize: UserInterfaceSizeClass?) {
-        self.onNavigate = onNavigate
-        _isPresentingProfileBottomSheet = isPresentingProfileBottomSheet
-        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact // In case horizontalSize cannot be determined, go with the compact mode (iPhone)
-    }
-
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.openURL) var openURL
 
     var body: some View {
         #if DEBUG
@@ -206,6 +201,12 @@ struct ProfileBottomSheet: View {
         }.onAppear {
             checkForAnyInteractiveActions()
         }
+    }
+
+    init(onNavigate: @escaping (Destination) -> Void, isPresentingProfileBottomSheet: Binding<Bool>, horizontalSize: UserInterfaceSizeClass?) {
+        self.onNavigate = onNavigate
+        _isPresentingProfileBottomSheet = isPresentingProfileBottomSheet
+        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact // In case horizontalSize cannot be determined, go with the compact mode (iPhone)
     }
 
     private func getAppVersionSectionDescription() -> String {
