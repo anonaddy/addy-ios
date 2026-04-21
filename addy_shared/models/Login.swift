@@ -14,14 +14,14 @@ public struct Login: Decodable {
     let expires_at: String?
 }
 
-// 422
+/// 422
 public struct LoginMfaRequired: Decodable {
     let message: String
     public let mfa_key: String
     public let csrf_token: String
 }
 
-// 401
+/// 401
 struct LoginError: Decodable {
     let message: String
 }

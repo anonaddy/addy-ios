@@ -30,7 +30,8 @@ struct RecipientsView: View {
     enum ActiveAlert {
         case resendConfirmationMailRecipientConfirmation, resendConfirmationMailRecipientSuccess, error, deleteRecipient
     }
-    // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
+
+    /// Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
     var onRefreshGeneralData: (() -> Void)? = nil
 
     var body: some View {
@@ -111,16 +112,16 @@ struct RecipientsView: View {
                                     ProgressView()
                                         .frame(maxHeight: 4)
                                 }
-                                
+
                                 if let count = recipientsViewModel.recipients?.count, count > 0 {
-                                                                        Text("\(count)")
-                                                                            .font(.caption)
-                                                                            .fontWeight(.bold)
-                                                                            .padding(.horizontal, 8)
-                                                                            .padding(.vertical, 2)
-                                                                            .background(Color.secondary.opacity(0.1))
-                                                                            .clipShape(Capsule())
-                                                                    }
+                                    Text("\(count)")
+                                        .font(.caption)
+                                        .fontWeight(.bold)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 2)
+                                        .background(Color.secondary.opacity(0.1))
+                                        .clipShape(Capsule())
+                                }
                             }
                         }
 
@@ -233,7 +234,7 @@ struct RecipientsView: View {
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }

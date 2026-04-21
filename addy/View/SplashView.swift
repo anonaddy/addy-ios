@@ -71,8 +71,8 @@ struct SplashView: View {
                         .animationSpeed(Double(2))
                         .frame(maxHeight: 128)
                         .opacity(0.5)
-
-                })
+                }
+            )
     }
 
     private var errorView: some View {
@@ -123,8 +123,8 @@ struct SplashView: View {
                             Text(String(localized: "reset_app", bundle: Bundle(for: SharedData.self))).foregroundColor(Color.white)
                         }
                     }.padding()
-
-                })
+                }
+            )
     }
 
     private func loadDataAndStartApp() {

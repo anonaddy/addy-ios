@@ -46,6 +46,7 @@ struct RecipientsDetailView: View {
     enum ActiveAlert {
         case deleteRecipient, error, removePgpKey
     }
+
     let recipientId: String
     let recipientEmail: String
     // Function to add aliases to the list
@@ -75,10 +76,9 @@ struct RecipientsDetailView: View {
                         .padding(.top, 5)
 
                 } header: {
-                    
                     HStack(spacing: 6) {
                         Text(String(localized: "recipient_aliases"))
-                        
+
                         if let count = recipient.aliases_count, count > 0 {
                             Text("\(count)")
                                 .font(.caption)
@@ -121,7 +121,7 @@ struct RecipientsDetailView: View {
                                 }
                             }
                         }
-                    
+
                     AddyToggle(isOn: $protectedHeaders, isLoading: isSwitchingProtectedHeadersState, title: String(localized: "protected_headers"), description: getProtectedHeadersDescription(recipient: recipient))
                         .onChange(of: protectedHeaders) {
                             // Only fire when the value is NOT the same as the value already in the model
@@ -213,7 +213,7 @@ struct RecipientsDetailView: View {
                                 }
                             }
                         }
-                    
+
                     AddyToggle(isOn: $removePgpSignatures, isLoading: isSwitchingRemovePgpSignaturesRecipients, title: String(localized: "remove_pgp_signature_from_rs"), description: String(localized: "remove_pgp_signature_from_rs_desc"))
                         .onChange(of: removePgpSignatures) {
                             // Only fire when the value is NOT the same as the value already in the model
@@ -490,8 +490,6 @@ struct RecipientsDetailView: View {
         }
     }
 
-    
-    
     private func enableRemovePGPKeysForASpecificRecipient(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
         do {
@@ -534,9 +532,7 @@ struct RecipientsDetailView: View {
         }
     }
 
-    
-    
-     private func enableRemovePGPSignaturesForASpecificRecipient(recipient: Recipients) async {
+    private func enableRemovePGPSignaturesForASpecificRecipient(recipient: Recipients) async {
         let networkHelper = NetworkHelper()
         do {
             let recipient = try await networkHelper.enableRemovePgpSignaturesRecipients(recipientId: recipient.id)
@@ -577,8 +573,6 @@ struct RecipientsDetailView: View {
             errorAlertMessage = error.localizedDescription
         }
     }
-
-    
 
     private func removeGpgKeyHttpRequest(recipient: Recipients) async {
         let networkHelper = NetworkHelper()

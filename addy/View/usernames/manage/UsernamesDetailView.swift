@@ -42,6 +42,7 @@ struct UsernamesDetailView: View {
     enum ActiveAlert {
         case deleteUsername, error
     }
+
     let usernameId: String
     let usernameUsername: String
     // Function to add aliases to the list
@@ -72,7 +73,7 @@ struct UsernamesDetailView: View {
                 } header: {
                     HStack(spacing: 6) {
                         Text(String(localized: "username_aliases"))
-                        
+
                         if let count = username.aliases_count, count > 0 {
                             Text("\(count)")
                                 .font(.caption)

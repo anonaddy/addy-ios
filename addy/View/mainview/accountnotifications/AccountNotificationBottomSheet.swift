@@ -57,8 +57,4 @@ struct AccountNotificationBottomSheet: View {
                 }
             })
     }
-
-    init(accountNotification: AccountNotifications) {
-        self.accountNotification = accountNotification
-    }
 }

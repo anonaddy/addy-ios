@@ -9,8 +9,8 @@ import addy_shared
 import Combine
 import SwiftUI
 
-// Marked as @MainActor to ensure all updates to @Published properties
-// and the Task lifecycle happen safely on the main thread.
+/// Marked as @MainActor to ensure all updates to @Published properties
+/// and the Task lifecycle happen safely on the main thread.
 @MainActor
 class AccountNotificationsViewModel: ObservableObject {
     @Published var accountNotifications: AccountNotificationsArray? = nil
@@ -27,18 +27,18 @@ class AccountNotificationsViewModel: ObservableObject {
     func getAccountNotifications() async {
         if !isLoading {
             // Context is already main thread, so manual dispatch is removed
-            self.isLoading = true
-            self.networkError = ""
-            
+            isLoading = true
+            networkError = ""
+
             let networkHelper = NetworkHelper()
             do {
                 let notifications = try await networkHelper.getAllAccountNotifications()
-                self.isLoading = false
-                self.accountNotifications = notifications
+                isLoading = false
+                accountNotifications = notifications
             } catch {
-                self.isLoading = false
-                self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
-                
+                isLoading = false
+                networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
+
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,

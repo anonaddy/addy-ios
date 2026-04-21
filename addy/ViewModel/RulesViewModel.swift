@@ -9,8 +9,8 @@ import addy_shared
 import Combine
 import SwiftUI
 
-// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
-// and handle all @Published updates safely on the main thread.
+/// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
+/// and handle all @Published updates safely on the main thread.
 @MainActor
 class RulesViewModel: ObservableObject {
     @Published var rules: RulesArray? = nil
@@ -27,23 +27,23 @@ class RulesViewModel: ObservableObject {
 
     func getRules() async {
         if !isLoading {
-            self.isLoading = true
-            self.networkError = ""
-            
+            isLoading = true
+            networkError = ""
+
             let networkHelper = NetworkHelper()
             do {
                 // Sequential async calls: Recipients must succeed before fetching rules
                 if let recipients = try await networkHelper.getRecipients(verifiedOnly: false) {
                     let rules = try await networkHelper.getRules()
-                    
-                    self.isLoading = false
+
+                    isLoading = false
                     self.rules = rules
                     self.recipients = recipients
                 }
             } catch {
-                self.isLoading = false
-                self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
-                
+                isLoading = false
+                networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
+
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,

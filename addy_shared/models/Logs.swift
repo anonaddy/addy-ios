@@ -27,7 +27,7 @@ public func logsToString(_ logs: [Logs]) -> String? {
     let encoder = JSONEncoder()
     // Correct property: dateEncodingStrategy
     encoder.dateEncodingStrategy = .iso8601
-    
+
     guard let data = try? encoder.encode(logs) else { return nil }
     return String(data: data, encoding: .utf8)
 }
@@ -36,9 +36,10 @@ public func stringToLogs(_ jsonString: String) -> [Logs] {
     let decoder = JSONDecoder()
     // Correct property: dateDecodingStrategy (Notice the "De")
     decoder.dateDecodingStrategy = .iso8601
-    
+
     guard let data = jsonString.data(using: .utf8),
-          let logs = try? decoder.decode([Logs].self, from: data) else {
+          let logs = try? decoder.decode([Logs].self, from: data)
+    else {
         return []
     }
     return logs

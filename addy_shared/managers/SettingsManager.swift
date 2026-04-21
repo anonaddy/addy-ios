@@ -59,24 +59,24 @@ public class SettingsManager {
     public init(encrypted: Bool, user: Int = 1) {
         self.user = user
         useKeychain = encrypted
-        
-    #if os(watchOS)
-        // WatchOS Configuration
-        #if DEBUG
-        let suiteName = "group.host.stjin.addy.debug.watchkitapp"
-        #else
-        let suiteName = "group.host.stjin.addy.watchkitapp"
+
+        #if os(watchOS)
+            // WatchOS Configuration
+            #if DEBUG
+                let suiteName = "group.host.stjin.addy.debug.watchkitapp"
+            #else
+                let suiteName = "group.host.stjin.addy.watchkitapp"
+            #endif
+
+        #elseif os(iOS)
+            // iOS Configuration
+            #if DEBUG
+                let suiteName = "group.host.stjin.addy.debug"
+            #else
+                let suiteName = "group.host.stjin.addy"
+            #endif
         #endif
 
-    #elseif os(iOS)
-        // iOS Configuration
-        #if DEBUG
-        let suiteName = "group.host.stjin.addy.debug"
-        #else
-        let suiteName = "group.host.stjin.addy"
-        #endif
-    #endif
-        
         keychain.accessGroup = suiteName
 
         if encrypted {
@@ -239,22 +239,22 @@ public class SettingsManager {
       */
 
     public func clearSettingsAndCloseApp() {
-#if os(iOS)
-        // Clear shortcuts and badges
-        DispatchQueue.main.async {
-            UIApplication.shared.shortcutItems = []
+        #if os(iOS)
+            // Clear shortcuts and badges
+            DispatchQueue.main.async {
+                UIApplication.shared.shortcutItems = []
 
-            // Reset badge number
-            UNUserNotificationCenter.current().setBadgeCount(0) { error in
-                LoggingHelper().addLog(
-                    importance: LogImportance.critical,
-                    error: "Cannot set badge to 0",
-                    method: "MainView.newPhase",
-                    extra: error.debugDescription
-                )
+                // Reset badge number
+                UNUserNotificationCenter.current().setBadgeCount(0) { error in
+                    LoggingHelper().addLog(
+                        importance: LogImportance.critical,
+                        error: "Cannot set badge to 0",
+                        method: "MainView.newPhase",
+                        extra: error.debugDescription
+                    )
+                }
             }
-        }
-#endif
+        #endif
 
         SettingsManager(encrypted: false).clearAllData()
         SettingsManager(encrypted: true).clearAllData()

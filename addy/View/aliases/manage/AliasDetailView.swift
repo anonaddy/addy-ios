@@ -48,6 +48,7 @@ struct AliasDetailView: View {
     enum ActiveAlert {
         case reachedMaxAliases, deleteAliases, restoreAlias, forgetAlias, error
     }
+
     let aliasId: String
 
     var body: some View {
@@ -433,40 +434,36 @@ struct AliasDetailView: View {
             }
         }
         .navigationTitle(aliasEmail)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    pinButton()
-                }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                pinButton()
             }
-        
+        }
     }
 
-    
     private func pinButton() -> some View {
         Group {
-                if IsLoadingPinnedButton {
-                    ProgressView()
-                        .controlSize(.small)
-                } else {
-                    Button {
-                        if let alias = alias {
-                            Task {
-                                IsLoadingPinnedButton = true
-                                if isAliasPinned {
-                                    await self.unpinAlias(alias: alias)
-                                } else {
-                                    await self.pinAlias(alias: alias)
-                                }
-                                IsLoadingPinnedButton = false
+            if IsLoadingPinnedButton {
+                ProgressView()
+                    .controlSize(.small)
+            } else {
+                Button {
+                    if let alias = alias {
+                        Task {
+                            IsLoadingPinnedButton = true
+                            if isAliasPinned {
+                                await self.unpinAlias(alias: alias)
+                            } else {
+                                await self.pinAlias(alias: alias)
                             }
+                            IsLoadingPinnedButton = false
                         }
-                        } label: {
-                            Image(systemName: isAliasPinned ? "pin.fill" : "pin")
-                        }
-                    
+                    }
+                } label: {
+                    Image(systemName: isAliasPinned ? "pin.fill" : "pin")
                 }
-            
+            }
         }
     }
 
@@ -477,7 +474,6 @@ struct AliasDetailView: View {
         _shouldReloadDataInParent = shouldReloadDataInParent ?? .constant(false)
     }
 
-    
     private func addQuickActions(alias: Aliases) {
         if !mainViewState.encryptedSettingsManager.getSettingsBool(key: .privacyMode) {
             // Only add shortcuts when PRIVACY_MODE is disabled to hide aliases
@@ -748,8 +744,6 @@ struct AliasDetailView: View {
         }
     }
 
-    
-    
     private func pinAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
         do {
@@ -768,7 +762,6 @@ struct AliasDetailView: View {
         }
     }
 
-    
     private func unpinAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
         do {
@@ -824,10 +817,10 @@ struct AliasDetailView: View {
             if let alias = try await networkHelper.getSpecificAlias(aliasId: aliasId) {
                 withAnimation {
                     self.isAliasActive = alias.active
-                    
+
                     self.isAliasPinned = alias.pinned
                     self.IsLoadingPinnedButton = false
-                    
+
                     self.isAliasBeingWatched = AliasWatcher().getAliasesToWatch().contains(aliasId)
 
                     self.alias = alias

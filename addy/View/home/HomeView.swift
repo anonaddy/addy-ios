@@ -24,6 +24,7 @@ struct HomeView: View {
     enum ActiveAlert {
         case error
     }
+
     var onRefreshGeneralData: (() -> Void)? = nil
 
     var body: some View {
@@ -156,7 +157,7 @@ struct HomeView: View {
                     if #available(iOS 26.0, *) {
                         ToolbarSpacer(placement: .topBarLeading)
                     }
-                    
+
                     ToolbarItem(placement: .topBarLeading) {
                         FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                     }

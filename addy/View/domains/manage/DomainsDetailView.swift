@@ -41,6 +41,7 @@ struct DomainsDetailView: View {
     enum ActiveAlert {
         case deleteDomain, error
     }
+
     let domainId: String
     let domainDomain: String
     // Function to add aliases to the list
@@ -75,7 +76,7 @@ struct DomainsDetailView: View {
                 } header: {
                     HStack(spacing: 6) {
                         Text(String(localized: "domain_aliases_d"))
-                        
+
                         if let count = domain.aliases_count, count > 0 {
                             Text("\(count)")
                                 .font(.caption)

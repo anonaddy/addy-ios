@@ -28,6 +28,7 @@ struct FailedDeliveriesView: View {
     enum ActiveAlert {
         case error, deleteFailedDelivery
     }
+
     var onRefreshGeneralData: (() -> Void)?
 
     var body: some View {
@@ -46,7 +47,7 @@ struct FailedDeliveriesView: View {
                                             HStack {
                                                 Text(String(localized: "alias"))
                                                     .font(.system(size: 16, weight: .medium))
-                                                
+
                                                 Text(failedDelivery.email_type_text.uppercased())
                                                     .font(.system(size: 10, weight: .bold))
                                                     .padding(.horizontal, 6)
@@ -122,16 +123,16 @@ struct FailedDeliveriesView: View {
                                     ProgressView()
                                         .frame(maxHeight: 4)
                                 }
-                                
+
                                 if let count = failedDeliveriesViewModel.failedDeliveries?.data.count, count > 0 {
-                                                                                                    Text("\(count)")
-                                                                                                        .font(.caption)
-                                                                                                        .fontWeight(.bold)
-                                                                                                        .padding(.horizontal, 8)
-                                                                                                        .padding(.vertical, 2)
-                                                                                                        .background(Color.secondary.opacity(0.1))
-                                                                                                        .clipShape(Capsule())
-                                                                                                }
+                                    Text("\(count)")
+                                        .font(.caption)
+                                        .fontWeight(.bold)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 2)
+                                        .background(Color.secondary.opacity(0.1))
+                                        .clipShape(Capsule())
+                                }
                             }
                         }
                         // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
@@ -237,7 +238,6 @@ struct FailedDeliveriesView: View {
             .navigationTitle(String(localized: "failed_deliveries"))
             .toolbar {
                 if horizontalSize == .regular {
-
                     ToolbarItem(placement: .topBarLeading) {
                         ProfilePicture().environmentObject(mainViewState)
                     }
@@ -245,7 +245,7 @@ struct FailedDeliveriesView: View {
                     if #available(iOS 26.0, *) {
                         ToolbarSpacer(placement: .topBarLeading)
                     }
-                    
+
                     ToolbarItem(placement: .topBarLeading) {
                         AccountNotificationsIcon().environmentObject(mainViewState)
                     }
@@ -305,7 +305,7 @@ struct FailedDeliveriesView: View {
             AddyChipModel(chipId: "all", label: String(localized: "filter_all")),
             AddyChipModel(chipId: "inbound", label: String(localized: "filter_inbound")),
             AddyChipModel(chipId: "inbound_quarantined", label: String(localized: "filter_inbound_quarantined")),
-            AddyChipModel(chipId: "outbound", label: String(localized: "filter_outbound"))
+            AddyChipModel(chipId: "outbound", label: String(localized: "filter_outbound")),
         ]
     }
 

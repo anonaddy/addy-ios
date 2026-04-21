@@ -83,7 +83,7 @@ struct AppSettingsView: View {
                 }
                 NavigationLink(destination: AppSettingsWatchKitView()) {
                     AddySection(title: String(localized: "addyio_for_watchkit"), description: String(localized: "addyio_for_watchkit_desc"), leadingSystemimage: "applewatch", leadingSystemimageColor: .mint)
-                                }
+                }
 
                 //                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor){
                 //
@@ -215,7 +215,7 @@ struct AppSettingsView: View {
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }

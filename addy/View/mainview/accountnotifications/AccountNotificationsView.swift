@@ -23,6 +23,7 @@ struct AccountNotificationsView: View {
     enum ActiveAlert {
         case error
     }
+
     var onRefreshGeneralData: (() -> Void)?
 
     var body: some View {

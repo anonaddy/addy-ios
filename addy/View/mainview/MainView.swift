@@ -22,17 +22,24 @@ struct MainView: View {
 
     // State variables
     // MARK: Share sheet AND MailTo tap action
+
     // MARK: END Share sheet AND MailTo tap action
+
     private var shouldShowLockedView: Bool {
         mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled) && !mainViewState.isUnlocked
     }
+
     private var tabDestinations: [Destination] {
         horizontalSizeClass == .regular ? Destination.otherCases : Destination.iPhoneCases
     }
+
     private enum AlertType: Identifiable {
         case apiExpiration, subscriptionExpiration
-        var id: Self { self }
+        var id: Self {
+            self
+        }
     }
+
     private var alertBinding: Binding<AlertType?> {
         Binding(
             get: {
@@ -48,6 +55,7 @@ struct MainView: View {
             }
         )
     }
+
     /*
      This method checks if there are new failed deliveries
      It does this by getting the current failed delivery count, if that count is bigger than the failed deliveries in the cache that means there are new failed
@@ -109,7 +117,7 @@ struct MainView: View {
                     SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 }
             }
-        }.onAppear{
+        }.onAppear {
             authenticate()
         }
     }
@@ -118,7 +126,6 @@ struct MainView: View {
         Group {
             TabView(selection: $mainViewState.selectedTab) {
                 ForEach(tabDestinations, id: \.self) { destination in
-                    
                     if let sizeClass = horizontalSizeClass {
                         destination.view(horizontalSize: .constant(sizeClass), refreshGeneralData: refreshGeneralData)
                             .tag(destination)
@@ -465,8 +472,13 @@ struct MainView: View {
 enum Destination: Hashable, CaseIterable {
     case home, aliases, recipients, usernames, domains, failedDeliveries, rules, blocklist, settings, subscription
 
-    static var iPhoneCases: [Destination] { [.home, .aliases, .recipients] }
-    static var otherCases: [Destination] { [.home, .aliases, .recipients, .usernames, .domains, .failedDeliveries, .rules, .blocklist, .settings] }
+    static var iPhoneCases: [Destination] {
+        [.home, .aliases, .recipients]
+    }
+
+    static var otherCases: [Destination] {
+        [.home, .aliases, .recipients, .usernames, .domains, .failedDeliveries, .rules, .blocklist, .settings]
+    }
 
     var title: LocalizedStringKey {
         switch self {

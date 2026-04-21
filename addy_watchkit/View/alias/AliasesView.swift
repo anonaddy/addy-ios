@@ -1,12 +1,12 @@
 //
-//  ContentView.swift
+//  AliasesView.swift
 //  Addy Watchkit Watch App
 //
 //  Created by Stijn van de Water on 31/01/2026.
 //
 
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct AliasesView: View {
     @StateObject private var aliasesViewModel = AliasViewModel()
@@ -19,7 +19,6 @@ struct AliasesView: View {
     var body: some View {
         NavigationStack {
             List {
-
                 if aliasesViewModel.isLoading {
                     loadingView
                 } else if let aliasList = aliasesViewModel.aliasList {
@@ -60,14 +59,14 @@ struct AliasesView: View {
                     Button {
                         self.showingSettings = true
                     } label: {
-                        Image(systemName:"gear")
+                        Image(systemName: "gear")
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         self.showingCreateAlias = true
                     } label: {
-                        Image(systemName:"plus")
+                        Image(systemName: "plus")
                     }
                 }
             }
@@ -76,28 +75,24 @@ struct AliasesView: View {
                 Task {
                     await loadData()
                 }
-                
             }
         }
         .onChange(of: scenePhase) {
-                        if scenePhase == .active {
-                            Task {
-                                await loadData()
-                            }
-                        }
-                    }
+            if scenePhase == .active {
+                Task {
+                    await loadData()
+                }
+            }
+        }
     }
-    
-    
+
     private func loadData() async {
         // Cache userResource
         _ = await NetworkHelper().cacheUserResourceForWidget()
-        
+
         // Load aliases
         await aliasesViewModel.getAliases()
     }
-
-    
 
     private var loadingView: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -184,8 +179,6 @@ struct AliasRow: View {
         )
     }
 }
-
-
 
 #Preview {
     AliasesView()

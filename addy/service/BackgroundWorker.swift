@@ -59,7 +59,7 @@ class BackgroundWorker {
                 #endif
                 _ = await networkHelper.cacheMostPopularAliasesDataForWidget()
 
-                /**
+                /* 
                  ALIAS_WATCHER FUNCTIONALITY
                  **/
                 #if DEBUG
@@ -270,12 +270,12 @@ class BackgroundWorker {
                 #endif
                 if settingsManager.getSettingsBool(key: .notifyFailedDeliveries) {
                     let previousFailedDeliveryId = encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
-                    
+
                     let _ = await networkHelper.cacheFailedDeliveryCountForWidgetAndBackgroundService()
                     // Store the result if the data succeeded to update in a boolean
 
                     let currentFailedDeliveryId = encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
-                    
+
                     // If the current failed delivery id is different from the previous. That means there is a new failed delivery
                     if let currentId = currentFailedDeliveryId, let previousId = previousFailedDeliveryId, currentId != previousId, !currentId.isEmpty {
                         NotificationHelper().createFailedDeliveryNotification(difference: 1)

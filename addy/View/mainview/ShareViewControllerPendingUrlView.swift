@@ -5,8 +5,8 @@
 //  Created by Stijn van de Water on 20/07/2024.
 //
 
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct ShareViewControllerPendingUrlView: View {
     @Environment(\.dismiss) var dismiss

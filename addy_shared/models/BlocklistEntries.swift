@@ -1,10 +1,9 @@
 //
-//  BlocklistEntriesArray.swift
+//  BlocklistEntries.swift
 //  addy
 //
 //  Created by Stijn van de Water on 09/03/2026.
 //
-
 
 import Foundation
 

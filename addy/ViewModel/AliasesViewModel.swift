@@ -64,12 +64,12 @@ class AliasesViewModel: ObservableObject {
         if trimmedSearchQuery == "" {
             // Reset Data....
             aliasSortFilterRequest.filter = ""
-            await self.getAliases(forceReload: true)
+            await getAliases(forceReload: true)
         } else {
             if trimmedSearchQuery.count >= 3 {
                 // search Data
                 aliasSortFilterRequest.filter = trimmedSearchQuery
-                await self.getAliases(forceReload: true)
+                await getAliases(forceReload: true)
             }
             // Don't search for searchTerms for < 3 chars
         }
@@ -77,8 +77,8 @@ class AliasesViewModel: ObservableObject {
 
     func getAliases(forceReload: Bool) async {
         if !isLoading {
-            self.isLoading = true
-            self.networkError = ""
+            isLoading = true
+            networkError = ""
 
             #if DEBUG
                 print("page is \(aliasList?.meta?.current_page ?? 0)")
@@ -86,7 +86,7 @@ class AliasesViewModel: ObservableObject {
 
             let networkHelper = NetworkHelper()
 
-            /**
+            /* 
              * CHECK IF WATCHED ONLY IS TRUE
              * If true simply bulk-obtain all the watched aliases
              */
@@ -98,21 +98,21 @@ class AliasesViewModel: ObservableObject {
                     do {
                         let BulkAliasesArray = try await networkHelper.bulkGetAlias(aliases: aliasesToWatch)
 
-                        self.isLoading = false
+                        isLoading = false
 
                         if let BulkAliasesArray = BulkAliasesArray {
                             let aliasArray = AliasesArray(data: BulkAliasesArray.data)
-                            self.aliasList = aliasArray
+                            aliasList = aliasArray
 
                             // Since the bulkGetAlias func always returns everything we are always at the last page
-                            self.hasArrivedAtTheLastPage = true
+                            hasArrivedAtTheLastPage = true
                         } else {
-                            self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self)))")
+                            networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self)))")
                         }
                     } catch {
-                        self.isLoading = false
-                        self.networkError = error.localizedDescription
-                        
+                        isLoading = false
+                        networkError = error.localizedDescription
+
                         LoggingHelper().addLog(
                             importance: LogImportance.critical,
                             error: error.localizedDescription,
@@ -120,40 +120,40 @@ class AliasesViewModel: ObservableObject {
                         )
                     }
                 } else {
-                    self.hasArrivedAtTheLastPage = true
-                    self.isLoading = false
+                    hasArrivedAtTheLastPage = true
+                    isLoading = false
                     // This could be triggered if you remove the last watched alias and then refresh
-                    self.aliasList = AliasesArray(data: [])
+                    aliasList = AliasesArray(data: [])
                 }
 
             } else {
                 do {
                     let pageToLoad = forceReload ? 1 : ((aliasList?.meta?.current_page ?? 0) + 1)
                     let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: pageToLoad, size: 25)
-                    
-                    self.isLoading = false
+
+                    isLoading = false
 
                     if let aliasArray = aliasArray {
-                        if self.aliasList == nil || forceReload {
+                        if aliasList == nil || forceReload {
                             // If aliasList is empty, assign it
-                            self.aliasList = aliasArray
+                            aliasList = aliasArray
                         } else {
                             // If aliasList is not empty, set the meta and links and append retrieved aliases
-                            self.aliasList?.meta = aliasArray.meta
-                            self.aliasList?.links = aliasArray.links
-                            self.aliasList?.data.append(contentsOf: aliasArray.data)
+                            aliasList?.meta = aliasArray.meta
+                            aliasList?.links = aliasArray.links
+                            aliasList?.data.append(contentsOf: aliasArray.data)
                         }
 
-                        self.hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page || self.aliasList?.data.isEmpty == true
+                        hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page || aliasList?.data.isEmpty == true
 
                     } else {
-                        self.hasArrivedAtTheLastPage = true
-                        self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self)))")
+                        hasArrivedAtTheLastPage = true
+                        networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self)))")
                     }
                 } catch {
-                    self.isLoading = false
-                    self.networkError = error.localizedDescription
-                    
+                    isLoading = false
+                    networkError = error.localizedDescription
+
                     LoggingHelper().addLog(
                         importance: LogImportance.critical,
                         error: error.localizedDescription,

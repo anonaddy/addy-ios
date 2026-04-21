@@ -9,10 +9,15 @@ import AppIntents
 import WidgetKit
 
 struct ConfigurationAppIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource { "configuration" }
-    static var description: IntentDescription { "widget_configuration_description" }
+    static var title: LocalizedStringResource {
+        "configuration"
+    }
 
-    // An example configurable parameter.
+    static var description: IntentDescription {
+        "widget_configuration_description"
+    }
+
+    /// An example configurable parameter.
     @Parameter(title: "widget_configuration_parameter_colorful_background", default: false)
     var colorfulBackground: Bool
 }

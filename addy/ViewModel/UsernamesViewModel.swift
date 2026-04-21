@@ -9,8 +9,8 @@ import addy_shared
 import Combine
 import SwiftUI
 
-// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
-// and handle all @Published updates safely on the main thread.
+/// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
+/// and handle all @Published updates safely on the main thread.
 @MainActor
 class UsernamesViewModel: ObservableObject {
     @Published var usernames: UsernamesArray? = nil
@@ -26,18 +26,18 @@ class UsernamesViewModel: ObservableObject {
 
     func getUsernames() async {
         if !isLoading {
-            self.isLoading = true
-            self.networkError = ""
-            
+            isLoading = true
+            networkError = ""
+
             let networkHelper = NetworkHelper()
             do {
                 let usernames = try await networkHelper.getUsernames()
-                self.isLoading = false
+                isLoading = false
                 self.usernames = usernames
             } catch {
-                self.isLoading = false
-                self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
-                
+                isLoading = false
+                networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
+
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,

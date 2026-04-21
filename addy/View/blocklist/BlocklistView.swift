@@ -1,12 +1,9 @@
 //
-//  ManageBlocklistView.swift
+//  BlocklistView.swift
 //  addy
 //
 //  Created by Stijn van de Water on 09/03/2026.
 //
-
-
-import SwiftUI
 
 import addy_shared
 import SwiftUI
@@ -22,7 +19,7 @@ struct BlocklistView: View {
     @State private var isPresentingAddblocklistEntryBottomSheet = false
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-    
+
     @State var selectedFilterChip: String = "all"
     @State var filterChips: [AddyChipModel] = []
     @Binding var horizontalSize: UserInterfaceSizeClass
@@ -30,10 +27,8 @@ struct BlocklistView: View {
     enum ActiveAlert {
         case error, deleteblocklistEntry
     }
+
     var onRefreshGeneralData: (() -> Void)? = nil
-
-    
-
 
     var body: some View {
         #if DEBUG
@@ -69,43 +64,43 @@ struct BlocklistView: View {
                         ForEach(blocklistEntries.data) { blocklistEntry in
                             HStack(alignment: .center, spacing: 16) {
                                 VStack(alignment: .leading, spacing: 4) {
-                                            // Main Value (Email/Domain)
-                                            Text(blocklistEntry.value)
-                                                .font(.body) // Native list font size
-                                                .fontWeight(.medium)
-                                                .lineLimit(1)
-                                                .truncationMode(.tail)
+                                    // Main Value (Email/Domain)
+                                    Text(blocklistEntry.value)
+                                        .font(.body) // Native list font size
+                                        .fontWeight(.medium)
+                                        .lineLimit(1)
+                                        .truncationMode(.tail)
 
-                                            // Sub-information Row
-                                            HStack(spacing: 6) {
-                                                // Type Badge (Small, subtle)
-                                                Text(blocklistEntry.type.uppercased())
-                                                    .font(.system(size: 10, weight: .bold))
-                                                    .padding(.horizontal, 6)
-                                                    .padding(.vertical, 2)
-                                                    .background(Color.accentColor.opacity(0.1))
-                                                    .foregroundColor(.accentColor)
-                                                    .cornerRadius(4)
+                                    // Sub-information Row
+                                    HStack(spacing: 6) {
+                                        // Type Badge (Small, subtle)
+                                        Text(blocklistEntry.type.uppercased())
+                                            .font(.system(size: 10, weight: .bold))
+                                            .padding(.horizontal, 6)
+                                            .padding(.vertical, 2)
+                                            .background(Color.accentColor.opacity(0.1))
+                                            .foregroundColor(.accentColor)
+                                            .cornerRadius(4)
 
-                                                Text("•")
-                                                    .font(.caption2)
-                                                    .foregroundColor(.secondary.opacity(0.5))
+                                        Text("•")
+                                            .font(.caption2)
+                                            .foregroundColor(.secondary.opacity(0.5))
 
-                                                // Blocked Count Section
-                                                HStack(spacing: 3) {
-                                                    Image(systemName: "slash.circle")
-                                                        .font(.system(size: 10))
-                                                    Text("\(blocklistEntry.blocked ?? 0)")
-                                                        .font(.caption)
-                                                    
-                                                    if let lastBlocked = blocklistEntry.last_blocked, !lastBlocked.isEmpty {
-                                                        Text("(\(DateTimeUtils.convertStringToLocalTimeZoneString(lastBlocked)))")
-                                                            .font(.caption)
-                                                    }
-                                                }
-                                                .foregroundColor(.secondary)
+                                        // Blocked Count Section
+                                        HStack(spacing: 3) {
+                                            Image(systemName: "slash.circle")
+                                                .font(.system(size: 10))
+                                            Text("\(blocklistEntry.blocked ?? 0)")
+                                                .font(.caption)
+
+                                            if let lastBlocked = blocklistEntry.last_blocked, !lastBlocked.isEmpty {
+                                                Text("(\(DateTimeUtils.convertStringToLocalTimeZoneString(lastBlocked)))")
+                                                    .font(.caption)
                                             }
                                         }
+                                        .foregroundColor(.secondary)
+                                    }
+                                }
                             }
                         }.onDelete(perform: deleteblocklistEntry)
 
@@ -132,7 +127,7 @@ struct BlocklistView: View {
                                 } else {
                                     Text(String(localized: "blocklist_entries"))
                                 }
-                                
+
                                 if let count = blocklistEntriesViewModel.blocklistEntries?.meta?.total, count > 0 {
                                     Text("\(count)")
                                         .font(.caption)
@@ -142,17 +137,17 @@ struct BlocklistView: View {
                                         .background(Color.secondary.opacity(0.1))
                                         .clipShape(Capsule())
                                 }
-                                
+
                                 if blocklistEntriesViewModel.isLoading {
                                     ProgressView()
                                         .frame(maxHeight: 4)
                                 }
                             }
                         }
-                        
+
                     } footer: {
                         Text(String(localized: "manage_blocklist_desc")).padding(.top)
-                        
+
                     }.textCase(nil)
                 }
             }
@@ -166,7 +161,7 @@ struct BlocklistView: View {
         }
         .sheet(isPresented: $isPresentingAddblocklistEntryBottomSheet) {
             NavigationStack {
-                AddBlocklistEntryBottomSheet() {
+                AddBlocklistEntryBottomSheet {
                     Task {
                         await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
                     }
@@ -195,7 +190,7 @@ struct BlocklistView: View {
                 )
             }
         }
-        
+
         .overlay(Group {
             // If there is an blocklistEntries (aka, if the list is visible)
             if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
@@ -259,7 +254,7 @@ struct BlocklistView: View {
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
@@ -267,13 +262,12 @@ struct BlocklistView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     AccountNotificationsIcon().environmentObject(mainViewState)
                 }
-                
+
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(.flexible)
                 }
-
             }
-            
+
             if !mainViewState.userResource!.hasUserFreeSubscription() {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
@@ -312,7 +306,7 @@ struct BlocklistView: View {
         return [
             AddyChipModel(chipId: "all", label: String(localized: "filter_all")),
             AddyChipModel(chipId: "email", label: String(localized: "email")),
-            AddyChipModel(chipId: "domain", label: String(localized: "domain"))
+            AddyChipModel(chipId: "domain", label: String(localized: "domain")),
         ]
     }
 

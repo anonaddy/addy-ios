@@ -68,19 +68,19 @@ struct PlayGround: View {
 
     var body: some View {
         TabView {
-          Tab("Time", systemImage: "1.circle") {
-            //WorkoutsView()
-          }
+            Tab("Time", systemImage: "1.circle") {
+                // WorkoutsView()
+            }
 
-          Tab("For", systemImage: "2.circle") {
-            //ExercisesView()
-          }
-            
+            Tab("For", systemImage: "2.circle") {
+                // ExercisesView()
+            }
+
             Tab("Glass", systemImage: "3.circle") {
-              //ExercisesView()
+                // ExercisesView()
             }
         }
-        
+
 //        if isPlayingAnimation {
 //            animationViewFlavor1
 //        }

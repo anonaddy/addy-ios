@@ -52,7 +52,6 @@ struct ActionBottomSheet: View {
                     selectedActionsType == "displayFrom"
                 {
                     ValidatingTextField(value: self.$value, placeholder: self.$valuePlaceHolder, fieldType: .text, error: $valuePlaceHolderValidationError)
-                    
                 }
 
                 if selectedActionsType == "forwardTo" {
@@ -93,7 +92,7 @@ struct ActionBottomSheet: View {
             } footer: {
                 if selectedActionsType == "subject" {
                     Text(String(localized: "add_action_subject_info"))
-              }
+                }
             }.textCase(nil)
 
         }.navigationTitle(String(localized: "add_action")).pickerStyle(.navigationLink)

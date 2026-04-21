@@ -1,5 +1,5 @@
 //
-//  ManageBlocklistViewModel.swift
+//  BlocklistEntriesViewModel.swift
 //  addy
 //
 //  Created by Stijn van de Water on 09/03/2026.
@@ -9,7 +9,7 @@ import addy_shared
 import Combine
 import SwiftUI
 
-// 1. Mark the class as @MainActor to resolve Sendable/Self capture issues
+/// 1. Mark the class as @MainActor to resolve Sendable/Self capture issues
 @MainActor
 class BlocklistEntriesViewModel: ObservableObject {
     @Published var blocklistEntries: BlocklistEntriesArray? = nil
@@ -29,9 +29,9 @@ class BlocklistEntriesViewModel: ObservableObject {
         if !isLoading {
             // 2. No more DispatchQueue.main.async needed!
             // @MainActor handles the context switching automatically.
-            self.isLoading = true
-            self.networkError = ""
-            
+            isLoading = true
+            networkError = ""
+
             let networkHelper = NetworkHelper()
             do {
                 let pageToLoad = forceReload ? 1 : ((blocklistEntries?.meta?.current_page ?? 0) + 1)
@@ -40,28 +40,28 @@ class BlocklistEntriesViewModel: ObservableObject {
                     size: 100,
                     filter: filter
                 )
-                self.isLoading = false
+                isLoading = false
 
                 if let entries = entries {
-                    if self.blocklistEntries == nil || forceReload {
-                        self.blocklistEntries = entries
+                    if blocklistEntries == nil || forceReload {
+                        blocklistEntries = entries
                     } else {
-                        self.blocklistEntries?.meta = entries.meta
-                        self.blocklistEntries?.links = entries.links
-                        self.blocklistEntries?.data.append(contentsOf: entries.data)
+                        blocklistEntries?.meta = entries.meta
+                        blocklistEntries?.links = entries.links
+                        blocklistEntries?.data.append(contentsOf: entries.data)
                     }
 
-                    self.hasArrivedAtTheLastPage = entries.meta?.current_page == entries.meta?.last_page || self.blocklistEntries?.data.isEmpty == true
+                    hasArrivedAtTheLastPage = entries.meta?.current_page == entries.meta?.last_page || blocklistEntries?.data.isEmpty == true
                 } else {
-                    self.hasArrivedAtTheLastPage = true
+                    hasArrivedAtTheLastPage = true
                 }
 
             } catch {
-                self.isLoading = false
-                
+                isLoading = false
+
                 // Using your specific localized string format
-                self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
-                
+                networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
+
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,

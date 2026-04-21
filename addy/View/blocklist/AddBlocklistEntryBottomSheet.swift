@@ -5,9 +5,8 @@
 //  Created by Stijn van de Water on 09/03/2026.
 //
 
-
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct AddBlocklistEntryBottomSheet: View {
     @Environment(\.dismiss) var dismiss
@@ -19,7 +18,7 @@ struct AddBlocklistEntryBottomSheet: View {
     @State private var blocklistEntryRequestError: String?
     @State var IsLoadingAddButton: Bool = false
 
-    // 1. Added state for type selection
+    /// 1. Added state for type selection
     let onAdded: () -> Void
 
     var body: some View {
@@ -40,9 +39,9 @@ struct AddBlocklistEntryBottomSheet: View {
                 }
 
                 ValidatingTextField(value: self.$blocklistEntry,
-                                   placeholder: self.$blocklistEntryPlaceHolder,
-                                   fieldType: blocklistType == "email" ? .email : .domain,
-                                   error: $blocklistEntryValidationError)
+                                    placeholder: self.$blocklistEntryPlaceHolder,
+                                    fieldType: blocklistType == "email" ? .email : .domain,
+                                    error: $blocklistEntryValidationError)
 
             } header: {
                 VStack {
@@ -96,7 +95,7 @@ struct AddBlocklistEntryBottomSheet: View {
 
                             // 3. Construct the NewBlocklistEntry object using current state
                             let entry = NewBlocklistEntry(type: self.blocklistType, value: self.blocklistEntry)
-                            
+
                             Task {
                                 await self.addblocklistEntryToAccount(blocklistEntry: entry)
                             }
@@ -130,8 +129,9 @@ struct AddBlocklistEntryBottomSheet: View {
         }
     }
 }
+
 #Preview {
-    AddBlocklistEntryBottomSheet() {
+    AddBlocklistEntryBottomSheet {
         // Dummy function for preview
     }
 }

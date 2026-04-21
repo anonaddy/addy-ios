@@ -5,7 +5,6 @@
 //  Created by Stijn van de Water on 07/02/2026.
 //
 
-
 import AppIntents
 
 struct AddyShortcuts: AppShortcutsProvider {

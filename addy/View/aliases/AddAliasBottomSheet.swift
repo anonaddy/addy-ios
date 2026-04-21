@@ -36,9 +36,9 @@ struct AddAliasBottomSheet: View {
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
 
     @State var isLoadingAddButton: Bool = false
-    
+
     let onAdded: () -> Void
-    
+
     @State private var localPartValidationError: String?
     @State private var descriptionValidationError: String?
     @State private var showAlert: Bool = false
@@ -145,8 +145,9 @@ struct AddAliasBottomSheet: View {
 
             Section {
                 SiriTipView(
-                    intent: CreateNewAliasIntent())
-                    .siriTipViewStyle(.automatic)
+                    intent: CreateNewAliasIntent()
+                )
+                .siriTipViewStyle(.automatic)
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
         }
         .navigationTitle(String(localized: "add_alias", bundle: Bundle(for: SharedData.self))).pickerStyle(.navigationLink)
@@ -311,8 +312,6 @@ struct AddAliasBottomSheet: View {
             recipientsRequestError = error.localizedDescription
         }
     }
-
-    
 }
 
 #Preview {

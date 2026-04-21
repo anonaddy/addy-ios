@@ -97,12 +97,11 @@ struct FailedDeliveryBottomSheet: View {
                 ToolbarSpacer(placement: .bottomBar)
             }
 
-            if self.failedDelivery.is_stored && !self.failedDelivery.quarantined && !self.failedDelivery.resent && self.failedDelivery.email_type == "F" {
+            if self.failedDelivery.is_stored, !self.failedDelivery.quarantined, !self.failedDelivery.resent, self.failedDelivery.email_type == "F" {
                 ToolbarItem(placement: .bottomBar) {
                     resendFailedDeliveryButton()
                 }
             }
-            
 
         })
         .alert(isPresented: $showAlert) {
@@ -227,7 +226,7 @@ struct FailedDeliveryBottomSheet: View {
 
         let type = sender.contains("@") ? "email" : "domain"
         let entry = NewBlocklistEntry(type: type, value: sender)
-        
+
         let networkHelper = NetworkHelper()
         do {
             _ = try await networkHelper.addBlocklistEntry(entry: entry)

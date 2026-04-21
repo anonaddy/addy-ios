@@ -12,7 +12,7 @@ struct Error: Codable {
 }
 
 class ErrorHelper {
-    // Try to extract message from error. if fails return full json
+    /// Try to extract message from error. if fails return full json
     static func getErrorMessage(data: Data) -> String {
         do {
             let decoder = JSONDecoder()

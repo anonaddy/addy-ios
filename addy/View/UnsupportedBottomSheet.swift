@@ -44,11 +44,6 @@ struct UnsupportedBottomSheet: View {
             .listSectionSpacing(.compact)
             .navigationBarTitleDisplayMode(.inline)
     }
-
-    init(onClickHowToUpdate: @escaping () -> Void, onClickIgnore: @escaping () -> Void) {
-        self.onClickHowToUpdate = onClickHowToUpdate
-        self.onClickIgnore = onClickIgnore
-    }
 }
 
 #Preview {

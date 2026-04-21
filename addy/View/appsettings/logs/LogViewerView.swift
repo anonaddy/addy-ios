@@ -77,7 +77,7 @@ struct LogViewerView: View {
                 }
             }
         })
-        .navigationTitle(self.showWatchOsLogs ? String(localized: "logs_watchkit") : String(localized: "logs", bundle: Bundle(for: SharedData.self)))
+        .navigationTitle(showWatchOsLogs ? String(localized: "logs_watchkit") : String(localized: "logs", bundle: Bundle(for: SharedData.self)))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .destructiveAction) {

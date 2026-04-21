@@ -5,8 +5,8 @@
 //  Created by Stijn van de Water on 24/06/2024.
 //
 
-import Foundation
 public import Combine
+import Foundation
 
 public class AppState: ObservableObject {
     public static let shared = AppState() // Shared instance

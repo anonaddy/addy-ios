@@ -36,6 +36,7 @@ struct CreateRulesView: View {
     enum ActiveAlert {
         case error
     }
+
     let ruleId: String
     var recipients: [Recipients] = []
 
@@ -124,7 +125,7 @@ struct CreateRulesView: View {
                                         }
                                     }
                                 }.frame(width: 10)
-                                
+
                             }.listRowSeparator(.hidden).padding()
 
                             VStack {

@@ -5,9 +5,9 @@
 //  Created by Stijn van de Water on 12/05/2024.
 //
 
+import addy_shared
 import AVFoundation
 import SwiftUI
-import addy_shared
 
 struct EditAliasSendMailRecipientBottomSheet: View {
     @Environment(\.dismiss) var dismiss
@@ -38,7 +38,7 @@ struct EditAliasSendMailRecipientBottomSheet: View {
         }.navigationTitle(String(localized: "send_mail")).pickerStyle(.navigationLink)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem() {
+                ToolbarItem {
                     Button {
                         // Only perform the action whent the addresses are valid
                         if addressesValidationError == nil {

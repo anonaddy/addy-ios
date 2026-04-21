@@ -27,7 +27,8 @@ struct UsernamesView: View {
     enum ActiveAlert {
         case error, deleteUsername
     }
-    // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
+
+    /// Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
     var onRefreshGeneralData: (() -> Void)? = nil
 
     var body: some View {
@@ -103,17 +104,17 @@ struct UsernamesView: View {
                             ProgressView()
                                 .frame(maxHeight: 4)
                         }
-                        
+
                         if let count = usernamesViewModel.usernames?.data.count, count > 0 {
-                                Text("\(count)")
-                                    .font(.caption)
-                                    .fontWeight(.bold)
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 2)
-                                    .background(Color.secondary.opacity(0.1))
-                                    .clipShape(Capsule())
-                            }
+                            Text("\(count)")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background(Color.secondary.opacity(0.1))
+                                .clipShape(Capsule())
                         }
+                    }
 
                 } footer: {
                     Text(String(format: String(localized: "you_ve_used_d_out_of_d_usernames"), String(username_count), String(username_limit))).padding(.top)
@@ -221,7 +222,7 @@ struct UsernamesView: View {
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
@@ -229,11 +230,10 @@ struct UsernamesView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     AccountNotificationsIcon().environmentObject(mainViewState)
                 }
-                
-                if #available(iOS 26.0, *) {
-                                    ToolbarSpacer(.flexible)
-                                }
 
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(.flexible)
+                }
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
@@ -241,7 +241,7 @@ struct UsernamesView: View {
                 }) {
                     Image(systemName: "plus")
                         .frame(width: 24, height: 24)
-                }// Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
+                } // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
                 .disabled(mainViewState.userResource!.subscription != nil &&
                     username_count >= username_limit /* Cannot be nil since subscription is not nil */ )
             }

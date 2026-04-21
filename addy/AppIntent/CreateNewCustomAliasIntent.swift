@@ -36,7 +36,7 @@ struct CreateNewCustomAliasIntent: AppIntent {
 
     // MARK: END
 
-    /**
+    /* 
      When the system runs the intent, it calls `perform()`.
 
      Intents run on an arbitrary queue. Intents that manipulate UI need to annotate `perform()` with `@MainActor`
@@ -61,7 +61,7 @@ struct CreateNewCustomAliasIntent: AppIntent {
             }
 
         } else {
-            /// Return an empty result, indicating that the intent is complete.
+            // Return an empty result, indicating that the intent is complete.
             return .result(value: "", dialog: "app_setup_required")
         }
     }

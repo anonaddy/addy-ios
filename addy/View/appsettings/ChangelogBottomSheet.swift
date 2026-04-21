@@ -20,15 +20,15 @@ struct ChangelogBottomSheet: View {
                 let formattedString = String.localizedStringWithFormat(NSLocalizedString("app_changelog", comment: ""))
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)
-                    .padding(.top, 20)  // Safe top spacing
+                    .padding(.top, 20) // Safe top spacing
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 8)
             .background(Color.clear)
-            
+
             Spacer()
         }
-        .ignoresSafeArea(.container, edges: .bottom)  // Extend to bottom if needed
+        .ignoresSafeArea(.container, edges: .bottom) // Extend to bottom if needed
         .navigationTitle(String(localized: "changelog"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { /* unchanged */ }

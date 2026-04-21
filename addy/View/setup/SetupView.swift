@@ -11,7 +11,7 @@ import SwiftUI
 struct SetupView: View {
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var setupViewState: SetupViewState
-    @EnvironmentObject var connectivity: iOSConnectivityManager //TODO: Do something with this
+    @EnvironmentObject var connectivity: iOSConnectivityManager // TODO: Do something with this
 
     @State private var text = String(localized: "setup_api_key")
     @State var isLoadingGetStarted: Bool = false

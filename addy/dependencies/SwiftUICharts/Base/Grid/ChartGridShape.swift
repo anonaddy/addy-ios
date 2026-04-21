@@ -5,10 +5,9 @@ struct ChartGridShape: Shape {
     var numberOfVerticalLines: Int
 
     func path(in rect: CGRect) -> Path {
-        let path = Path.drawGridLines(numberOfHorizontalLines: numberOfHorizontalLines,
-                                      numberOfVerticalLines: numberOfVerticalLines,
-                                      in: rect)
-        return path
+        return Path.drawGridLines(numberOfHorizontalLines: numberOfHorizontalLines,
+                                  numberOfVerticalLines: numberOfVerticalLines,
+                                  in: rect)
     }
 }
 

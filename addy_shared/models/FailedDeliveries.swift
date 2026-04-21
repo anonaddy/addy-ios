@@ -39,4 +39,3 @@ public struct FailedDeliveries: Identifiable, Codable {
     public let created_at: String
     let updated_at: String
 }
-

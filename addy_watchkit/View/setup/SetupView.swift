@@ -5,16 +5,15 @@
 // Created by Stijn van de Water on 01/02/2026.
 //
 
+import addy_shared
+import Combine
 import SwiftUI
 import WatchConnectivity
 import WatchKit
-import addy_shared
-import Combine
 
 struct SetupView: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var connectivity = WatchConnectivityManager()
-
 
     var body: some View {
         Group {
@@ -53,5 +52,3 @@ struct SetupView: View {
         )
     }
 }
-
-

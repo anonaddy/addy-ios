@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CacheHelper {
+public enum CacheHelper {
     public static func getBackgroundServiceCacheMostActiveAliasesData() -> [Aliases]? {
         let aliasesJson = SettingsManager(encrypted: true).getSettingsString(key: .backgroundServiceCacheMostActiveAliasesData)
         return aliasesJson != nil ? GsonTools.jsonToAliasObject(json: aliasesJson!) : nil

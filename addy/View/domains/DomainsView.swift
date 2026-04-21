@@ -27,7 +27,8 @@ struct DomainsView: View {
     enum ActiveAlert {
         case error, deleteDomain
     }
-    // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
+
+    /// Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
     var onRefreshGeneralData: (() -> Void)? = nil
 
     var body: some View {
@@ -113,17 +114,16 @@ struct DomainsView: View {
                                 ProgressView()
                                     .frame(maxHeight: 4)
                             }
-                            
-                            if let count = domainsViewModel.domains?.data.count, count > 0 {
-                                                                    Text("\(count)")
-                                                                        .font(.caption)
-                                                                        .fontWeight(.bold)
-                                                                        .padding(.horizontal, 8)
-                                                                        .padding(.vertical, 2)
-                                                                        .background(Color.secondary.opacity(0.1))
-                                                                        .clipShape(Capsule())
-                                                                }
 
+                            if let count = domainsViewModel.domains?.data.count, count > 0 {
+                                Text("\(count)")
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 2)
+                                    .background(Color.secondary.opacity(0.1))
+                                    .clipShape(Capsule())
+                            }
                         }
 
                     } footer: {
@@ -229,7 +229,7 @@ struct DomainsView: View {
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
@@ -237,19 +237,19 @@ struct DomainsView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     AccountNotificationsIcon().environmentObject(mainViewState)
                 }
-                
+
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(.flexible)
                 }
             }
-            
+
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
                     self.isPresentingAddDomainBottomSheet = true
                 }) {
                     Image(systemName: "plus")
                         .frame(width: 24, height: 24)
-                }// Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
+                } // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
                 .disabled(mainViewState.userResource!.subscription != nil &&
                     domain_count >= domain_limit! /* Cannot be nil since subscription is not nil */ )
             }

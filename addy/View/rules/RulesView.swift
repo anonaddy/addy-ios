@@ -67,7 +67,8 @@ struct RulesView: View {
     enum ActiveAlert {
         case error, deleteRule
     }
-    // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
+
+    /// Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
     var onRefreshGeneralData: (() -> Void)? = nil
     // Add this function
 
@@ -190,16 +191,16 @@ struct RulesView: View {
                                 ProgressView()
                                     .frame(maxHeight: 4)
                             }
-                            
+
                             if let count = rulesViewModel.rules?.data.count, count > 0 {
-                                                                                                Text("\(count)")
-                                                                                                    .font(.caption)
-                                                                                                    .fontWeight(.bold)
-                                                                                                    .padding(.horizontal, 8)
-                                                                                                    .padding(.vertical, 2)
-                                                                                                    .background(Color.secondary.opacity(0.1))
-                                                                                                    .clipShape(Capsule())
-                                                                                            }
+                                Text("\(count)")
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 2)
+                                    .background(Color.secondary.opacity(0.1))
+                                    .clipShape(Capsule())
+                            }
                         }
 
                     } footer: {
@@ -299,7 +300,6 @@ struct RulesView: View {
         .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
         .toolbar {
             if horizontalSize == .regular {
-                
                 ToolbarItem(placement: .topBarLeading) {
                     ProfilePicture().environmentObject(mainViewState)
                 }
@@ -307,7 +307,7 @@ struct RulesView: View {
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }

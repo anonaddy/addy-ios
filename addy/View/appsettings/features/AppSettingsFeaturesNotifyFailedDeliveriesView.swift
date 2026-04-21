@@ -5,8 +5,8 @@
 //  Created by Stijn van de Water on 16/06/2024.
 //
 
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
     @State var isShowingFailedDeliveriesView: Bool = false
