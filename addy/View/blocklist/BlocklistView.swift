@@ -59,9 +59,8 @@ struct BlocklistView: View {
     private var blocklistEntriesViewBody: some View {
         List {
             if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
-                if !blocklistEntries.data.isEmpty {
-                    Section {
-                        ForEach(blocklistEntries.data) { blocklistEntry in
+                Section {
+                    ForEach(blocklistEntries.data) { blocklistEntry in
                             HStack(alignment: .center, spacing: 16) {
                                 VStack(alignment: .leading, spacing: 4) {
                                     // Main Value (Email/Domain)
@@ -113,13 +112,15 @@ struct BlocklistView: View {
                         }
                     } header: {
                         VStack(alignment: .leading, spacing: 24) {
-                            AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
-                                withAnimation {
-                                    selectedFilterChip = onTappedChip.chipId
-                                }
+                            if blocklistEntriesViewModel.networkError == "" {
+                                AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
+                                    withAnimation {
+                                        selectedFilterChip = onTappedChip.chipId
+                                    }
 
-                                ApplyFilter(chipId: onTappedChip.chipId)
-                            }.scrollClipDisabled()
+                                    ApplyFilter(chipId: onTappedChip.chipId)
+                                }.scrollClipDisabled()
+                            }
 
                             HStack(spacing: 6) {
                                 if selectedFilterChip != "all" {
@@ -149,7 +150,6 @@ struct BlocklistView: View {
                         Text(String(localized: "manage_blocklist_desc")).padding(.top)
 
                     }.textCase(nil)
-                }
             }
 
         }.refreshable {
@@ -194,7 +194,13 @@ struct BlocklistView: View {
         .overlay(Group {
             // If there is an blocklistEntries (aka, if the list is visible)
             if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
-                if blocklistEntries.data.isEmpty {
+                // If there is NO data inside the list AND the user has actually tried searching for something
+                if blocklistEntries.data.isEmpty, !blocklistEntriesViewModel.searchQuery.isEmpty {
+                    // Show the search unavailable screen
+                    ContentUnavailableView.search(text: blocklistEntriesViewModel.searchQuery)
+                    
+                // If there is NO data inside the list AND the user has NOT tried searching for something
+                } else if blocklistEntries.data.isEmpty, blocklistEntriesViewModel.searchQuery.isEmpty {
                     ContentUnavailableView {
                         Label(String(localized: "no_blocklist_entries"), systemImage: "nosign")
                     } description: {
@@ -279,6 +285,14 @@ struct BlocklistView: View {
                 }
             }
         }
+        .searchable(text: $blocklistEntriesViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "search"))
+        .onSubmit(of: .search) {
+            Task {
+                await blocklistEntriesViewModel.searchblocklistEntries(searchQuery: blocklistEntriesViewModel.searchQuery)
+            }
+        }
+        .autocorrectionDisabled(true)
+        .textInputAutocapitalization(.never)
     }
 
     func ApplyFilter(chipId: String) {

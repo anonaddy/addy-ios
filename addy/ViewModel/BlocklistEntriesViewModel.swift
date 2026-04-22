@@ -16,12 +16,44 @@ class BlocklistEntriesViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var hasArrivedAtTheLastPage = true
     @Published var networkError: String = ""
+    @Published var searchQuery: String = ""
+
+    var searchCancellable: AnyCancellable?
 
     @Published var filter: String? = nil
 
     init() {
+        searchCancellable = $searchQuery
+            .dropFirst()
+            .removeDuplicates()
+            .debounce(for: 1.0, scheduler: RunLoop.main)
+            .sink(receiveValue: { [weak self] str in
+                Task {
+                    await self?.searchblocklistEntries(searchQuery: str)
+                }
+            })
+
         Task {
             await self.getblocklistEntries(forceReload: true)
+        }
+    }
+
+    func searchblocklistEntries(searchQuery: String) async {
+        // When something is being searched cancel the loading to make sure that the networkCall will succeed
+        isLoading = false
+        let trimmedSearchQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        if trimmedSearchQuery == "" {
+            // Reset Data....
+            self.searchQuery = ""
+            await getblocklistEntries(forceReload: true)
+        } else {
+            if trimmedSearchQuery.count >= 3 {
+                // search Data
+                self.searchQuery = trimmedSearchQuery
+                await getblocklistEntries(forceReload: true)
+            }
+            // Don't search for searchTerms for < 3 chars
         }
     }
 
@@ -38,7 +70,8 @@ class BlocklistEntriesViewModel: ObservableObject {
                 let entries = try await networkHelper.getAllBlocklistEntries(
                     page: pageToLoad,
                     size: 100,
-                    filter: filter
+                    filter: filter,
+                    search: searchQuery
                 )
                 isLoading = false
 

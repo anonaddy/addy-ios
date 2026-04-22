@@ -6182,6 +6182,16 @@
         }
       }
     },
+    "search" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        }
+      }
+    },
     "security" : {
       "extractionState" : "manual",
       "localizations" : {
