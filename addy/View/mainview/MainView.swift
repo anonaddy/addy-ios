@@ -387,10 +387,20 @@ struct MainView: View {
     private func checkForNewFailedDeliveries() async {
         do {
             if let result = try await NetworkHelper().getFailedDeliveries() {
-                let currentCount = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
-                let totalCount = result.meta?.total ?? result.data.count
-                if totalCount > currentCount {
-                    withAnimation { mainViewState.newFailedDeliveries = totalCount - currentCount }
+                let previousFailedDeliveryId = mainViewState.encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
+                
+                if let currentId = result.data.first?.id, let previousId = previousFailedDeliveryId, currentId != previousId, !currentId.isEmpty {
+                    var newDeliveriesCount = 0
+                    for delivery in result.data {
+                        if delivery.id == previousId { break }
+                        newDeliveriesCount += 1
+                    }
+                    
+                    if newDeliveriesCount <= 0 {
+                        newDeliveriesCount = 1
+                    }
+                    
+                    withAnimation { mainViewState.newFailedDeliveries = newDeliveriesCount }
                 }
             }
         } catch {

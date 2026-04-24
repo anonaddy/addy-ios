@@ -351,7 +351,7 @@ public class NetworkHelper {
     }
 
     /// Using @escaping as logging errors is not a thing before the app is set-up (they cannot be seen)
-    public func loginMfa(baseUrl: String, mfa_key: String, otp: String, xCsrfToken: String, apiExpiration: String, completion: @escaping (Login?, String?) -> Void) async {
+    public func loginMfa(baseUrl: String, mfa_key: String, otp: String, apiExpiration: String, completion: @escaping (Login?, String?) -> Void) async {
         logNetworkHelperCall()
 
         // Set base URL
@@ -364,8 +364,7 @@ public class NetworkHelper {
             "Content-Type": "application/json",
             "X-Requested-With": "XMLHttpRequest",
             "Accept": "application/json",
-            "User-Agent": getUserAgent(),
-            "X-CSRF-TOKEN": xCsrfToken,
+            "User-Agent": getUserAgent()
         ]
 
         let json: [String: Any?] = ["mfa_key": mfa_key,
@@ -2151,15 +2150,15 @@ public class NetworkHelper {
         }
     }
 
-    public func cacheFailedDeliveryCountForWidgetAndBackgroundService() async -> Bool {
+    public func cacheFailedDeliveryCountForWidgetAndBackgroundService(previousId: String?) async -> Int? {
         logNetworkHelperCall()
         do {
             let filterType = settingsManager.getSettingsString(key: .notifyFailedDeliveriesType) ?? "all"
             let filter = filterType == "all" ? nil : filterType
-            let result = try await getFailedDeliveries(size: 1, filter: filter)
+            let result = try await getFailedDeliveries(size: 25, filter: filter)
             guard let result = result else {
                 // Result is null, return false to let the caller know the task failed.
-                return false
+                return nil
             }
 
             let totalCount = result.meta?.total ?? result.data.count
@@ -2172,11 +2171,21 @@ public class NetworkHelper {
                 encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: "")
             }
 
+            var newDeliveriesCount = 0
+            if let previousId = previousId {
+                for delivery in result.data {
+                    if delivery.id == previousId { break }
+                    newDeliveriesCount += 1
+                }
+            } else {
+                newDeliveriesCount = 1
+            }
+
             // Stored data, return true to let the caller know the task succeeded
-            return true
+            return newDeliveriesCount
         } catch {
             print("Failed to cache failed delivery count for widget and background service: \(error)")
-            return false
+            return nil
         }
     }
 

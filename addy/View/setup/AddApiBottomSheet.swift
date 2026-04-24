@@ -274,7 +274,7 @@ struct AddApiBottomSheet: View {
             }
 
             // OTP has been entered, do the call to the /api/auth/mfa endpoint
-            await networkHelper.loginMfa(baseUrl: baseUrl, mfa_key: otpMfaObject.mfa_key, otp: self.otp, xCsrfToken: otpMfaObject.csrf_token, apiExpiration: apiExpiration, completion: { login, error in
+            await networkHelper.loginMfa(baseUrl: baseUrl, mfa_key: otpMfaObject.mfa_key, otp: self.otp, apiExpiration: apiExpiration, completion: { login, error in
                 if let login = login {
                     // Login success
                     self.addKey(login.api_key, baseUrl)

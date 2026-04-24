@@ -18,7 +18,6 @@ public struct Login: Decodable {
 public struct LoginMfaRequired: Decodable {
     let message: String
     public let mfa_key: String
-    public let csrf_token: String
 }
 
 /// 401
