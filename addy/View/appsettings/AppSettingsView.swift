@@ -271,7 +271,7 @@ struct AppSettingsView: View {
         var error: NSError?
 
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            let reason = "Authenticate to access the app"
+            let reason = String(localized: "authentication_reason")
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, _ in
                 if success {
                     DispatchQueue.main.async {
