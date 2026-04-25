@@ -56,27 +56,6 @@ struct MainView: View {
         )
     }
 
-    /*
-     This method checks if there are new failed deliveries
-     It does this by getting the current failed delivery count, if that count is bigger than the failed deliveries in the cache that means there are new failed
-     deliveries.
-
-     As backgroundServiceCacheFailedDeliveriesCount is only updated in the service and in the FailedDeliveriesActivity that means that the red
-     indicator is only visible if:
-
-     - The activity has not been opened since there were new items.
-     - There are more failed deliveries than the server cached last time (in which case the user should have got a notification)
-     */
-    /*
-     This method checks if there are new account notifications
-     It does this by getting the current account notifications count, if that count is bigger than the account notifications in the cache that means there are new notifications
-
-     As backgroundServiceCacheAccountNotificationsCount is only updated in the service and in the AccountNotificationsView that means that the red
-     indicator is only visible if:
-
-     - The activity has not been opened since there were new items.
-     - There are more account notifications than the server cached last time (in which case the user should have got a notification)
-     */
 
     var body: some View {
         #if DEBUG

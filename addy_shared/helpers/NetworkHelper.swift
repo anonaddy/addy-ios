@@ -2150,39 +2150,34 @@ public class NetworkHelper {
         }
     }
 
-    public func cacheFailedDeliveryCountForWidgetAndBackgroundService(previousId: String?) async -> Int? {
+    public func cacheFailedDeliveryCountForWidgetAndBackgroundService(previousId: String?) async -> (Int, String?)? {
         logNetworkHelperCall()
         do {
             let filterType = settingsManager.getSettingsString(key: .notifyFailedDeliveriesType) ?? "all"
             let filter = filterType == "all" ? nil : filterType
-            let result = try await getFailedDeliveries(size: 25, filter: filter)
+            let result = try await getFailedDeliveries(size: 25, filter: nil)
             guard let result = result else {
                 // Result is null, return false to let the caller know the task failed.
                 return nil
-            }
-
-            let totalCount = result.meta?.total ?? result.data.count
-            encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount, int: totalCount)
-
-            // Store a copy of the just received data locally
-            if let latestId = result.data.first?.id {
-                encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: latestId)
-            } else {
-                encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: "")
             }
 
             var newDeliveriesCount = 0
             if let previousId = previousId {
                 for delivery in result.data {
                     if delivery.id == previousId { break }
-                    newDeliveriesCount += 1
+                    if filter == nil || delivery.email_type == filter {
+                        newDeliveriesCount += 1
+                    }
                 }
             } else {
-                newDeliveriesCount = 1
+                // If there's no previous ID, we only notify if the first item matches the filter, to avoid notifying when not requested
+                if let first = result.data.first, (filter == nil || first.email_type == filter) {
+                    newDeliveriesCount = 1
+                }
             }
 
             // Stored data, return true to let the caller know the task succeeded
-            return newDeliveriesCount
+            return (newDeliveriesCount, result.data.first?.id)
         } catch {
             print("Failed to cache failed delivery count for widget and background service: \(error)")
             return nil

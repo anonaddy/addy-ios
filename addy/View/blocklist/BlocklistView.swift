@@ -147,7 +147,9 @@ struct BlocklistView: View {
                         }
 
                     } footer: {
-                        Text(String(localized: "manage_blocklist_desc")).padding(.top)
+                        if let count = blocklistEntriesViewModel.blocklistEntries?.meta?.total, count > 0 {
+                            Text(String(localized: "manage_blocklist_desc")).padding(.top)
+                        }
 
                     }.textCase(nil)
             }

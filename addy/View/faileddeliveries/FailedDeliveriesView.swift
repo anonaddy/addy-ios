@@ -137,7 +137,10 @@ struct FailedDeliveriesView: View {
                         }
                         // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
                     }.textCase(nil).onAppear(perform: {
-                        updateTheCacheFDCount(count: failedDeliveries.meta?.total ?? failedDeliveries.data.count)
+                        updateTheCacheFDCount(
+                            count: failedDeliveries.meta?.total ?? failedDeliveries.data.count,
+                            latestId: failedDeliveries.data.first?.id
+                        )
                     })
                 }
 
@@ -309,12 +312,12 @@ struct FailedDeliveriesView: View {
         ]
     }
 
-    private func updateTheCacheFDCount(count: Int) {
-        // Set the count of failed deliveries so that we can use it for the backgroundservice AND mark this a read for the badge
-        MainViewState.shared.encryptedSettingsManager.putSettingsInt(
-            key: .backgroundServiceCacheFailedDeliveriesCount,
-            int: count
-        )
+    private func updateTheCacheFDCount(count: Int, latestId: String?) {
+        if let latestId = latestId {
+            MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: latestId)
+        } else {
+            MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: "")
+        }
     }
 
     private func deleteFailedDelivery(failedDelivery: FailedDeliveries) async {

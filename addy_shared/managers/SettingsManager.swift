@@ -41,7 +41,6 @@ public class SettingsManager {
         case backgroundServiceCacheApiKeyExpiryLeftCount
         case backgroundServiceCacheSubscriptionExpiryLeftCount
         case backgroundServiceCacheDomainErrorCount
-        case backgroundServiceCacheFailedDeliveriesCount
         case backgroundServiceCacheAccountNotificationsCountPrevious
         case backgroundServiceWatchAliasList
         case backgroundServiceCacheWatchAliasData
