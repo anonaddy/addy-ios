@@ -2155,17 +2155,25 @@ public class NetworkHelper {
         do {
             let filterType = settingsManager.getSettingsString(key: .notifyFailedDeliveriesType) ?? "all"
             let filter = filterType == "all" ? nil : filterType
+            
+            // Fetch ALL failed deliveries regardless of the notification filter. 
+            // This ensures we can reliably find the `previousId` (which might be of any type) 
+            // in the list, and keeps the widget's total count accurately reflecting all failed deliveries.
             let result = try await getFailedDeliveries(size: 25, filter: nil)
             guard let result = result else {
                 // Result is null, return false to let the caller know the task failed.
                 return nil
             }
 
+            // Count how many new deliveries have arrived since the last checked `previousId`
             var newDeliveriesCount = 0
             if let previousId = previousId {
                 for delivery in result.data {
                     if delivery.id == previousId { break }
-                    if filter == nil || delivery.email_type == filter {
+                    
+                    // Apply the user's notification filter locally. 
+                    // This ensures we only count (and thus notify for) deliveries of the requested type (e.g. 'inbound').
+                    if filter == nil || delivery.type == filter { // TODO: ALSO ADD INB QUARANTINED AS OPTION IN NOTIFS
                         newDeliveriesCount += 1
                     }
                 }
@@ -2176,7 +2184,8 @@ public class NetworkHelper {
                 }
             }
 
-            // Stored data, return true to let the caller know the task succeeded
+            // Return the count of new matching deliveries, along with the very latest ID (regardless of its type) 
+            // so the BackgroundWorker can update its pointer to the most recent item.
             return (newDeliveriesCount, result.data.first?.id)
         } catch {
             print("Failed to cache failed delivery count for widget and background service: \(error)")

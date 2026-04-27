@@ -139,7 +139,7 @@ struct FailedDeliveriesView: View {
                     }.textCase(nil).onAppear(perform: {
                         updateTheCacheFDCount(
                             count: failedDeliveries.meta?.total ?? failedDeliveries.data.count,
-                            latestId: failedDeliveries.data.first?.id
+                            latestId: failedDeliveries.data.first?.id // First in the list is actually the last ID because its sort DESC
                         )
                     })
                 }
@@ -264,6 +264,9 @@ struct FailedDeliveriesView: View {
             }
         }
         .onAppear(perform: {
+            // Instantly clear the unread badge regardless of how the view was opened (navbar or sidebar)
+            mainViewState.newFailedDeliveries = 0
+            
             LoadFilter()
             if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
                 if failedDeliveries.data.isEmpty {
@@ -313,6 +316,9 @@ struct FailedDeliveriesView: View {
     }
 
     private func updateTheCacheFDCount(count: Int, latestId: String?) {
+        // Save the latest failed delivery ID when the user views the list.
+        // This acts as the "read receipt" pointer. Background tasks will use this
+        // to determine if new deliveries have arrived since the user last checked.
         if let latestId = latestId {
             MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: latestId)
         } else {

@@ -368,18 +368,23 @@ struct MainView: View {
             if let result = try await NetworkHelper().getFailedDeliveries() {
                 let previousFailedDeliveryId = mainViewState.encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
                 
-                if let currentId = result.data.first?.id, let previousId = previousFailedDeliveryId, currentId != previousId, !currentId.isEmpty {
-                    var newDeliveriesCount = 0
-                    for delivery in result.data {
-                        if delivery.id == previousId { break }
-                        newDeliveriesCount += 1
+                if let currentId = result.data.first?.id, !currentId.isEmpty {
+                    if previousFailedDeliveryId == nil || previousFailedDeliveryId == "" {
+                        let totalCount = result.meta?.total ?? result.data.count
+                        withAnimation { mainViewState.newFailedDeliveries = totalCount }
+                    } else if let previousId = previousFailedDeliveryId, currentId != previousId {
+                        var newDeliveriesCount = 0
+                        for delivery in result.data {
+                            if delivery.id == previousId { break }
+                            newDeliveriesCount += 1
+                        }
+                        
+                        if newDeliveriesCount <= 0 {
+                            newDeliveriesCount = 1
+                        }
+                        
+                        withAnimation { mainViewState.newFailedDeliveries = newDeliveriesCount }
                     }
-                    
-                    if newDeliveriesCount <= 0 {
-                        newDeliveriesCount = 1
-                    }
-                    
-                    withAnimation { mainViewState.newFailedDeliveries = newDeliveriesCount }
                 }
             }
         } catch {

@@ -280,6 +280,10 @@ class BackgroundWorker {
 
                     // If the current failed delivery id is different from the previous. That means there is a new failed delivery
                     if let currentId = currentFailedDeliveryId, let previousId = previousFailedDeliveryId, currentId != previousId, !currentId.isEmpty {
+                        
+                        // Ensure we only create a notification if the locally applied filter found matching deliveries.
+                        // For example, if a new 'outbound' delivery arrived but the user only wants 'inbound' notifications,
+                        // newDeliveriesCount will be 0 and no notification will be triggered.
                         if newDeliveriesCount > 0 {
                             NotificationHelper().createFailedDeliveryNotification(difference: newDeliveriesCount)
                         }

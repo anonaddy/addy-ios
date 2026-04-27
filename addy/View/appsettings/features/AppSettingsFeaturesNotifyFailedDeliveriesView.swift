@@ -13,8 +13,6 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
     @State var notifyFailedDeliveries: Bool = false
     @State var notifyFailedDeliveriesType: String = ""
 
-    let types = ["all", "inbound", "outbound"]
-
     var body: some View {
         #if DEBUG
             let _ = Self._printChanges()
@@ -38,9 +36,10 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
 
                 if notifyFailedDeliveries {
                     Picker(selection: $notifyFailedDeliveriesType, label: Text(String(localized: "type"))) {
-                        ForEach(types, id: \.self) { type in
-                            Text(type.capitalized).tag(type)
-                        }
+                        Text(String(localized: "filter_all")).tag("all")
+                        Text(String(localized: "filter_inbound")).tag("inbound")
+                        Text(String(localized: "filter_inbound_quarantined")).tag("inbound_quarantined")
+                        Text(String(localized: "filter_outbound")).tag("outbound")
                     }
                     .pickerStyle(MenuPickerStyle())
                     .onChange(of: notifyFailedDeliveriesType) {
