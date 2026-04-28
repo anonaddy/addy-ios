@@ -321,8 +321,10 @@ struct FailedDeliveriesView: View {
         // to determine if new deliveries have arrived since the user last checked.
         if let latestId = latestId {
             MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: latestId)
+            MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .backgroundServiceNotifiedFailedDeliveriesLatestId, string: latestId)
         } else {
             MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: "")
+            MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .backgroundServiceNotifiedFailedDeliveriesLatestId, string: "")
         }
     }
 

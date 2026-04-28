@@ -268,7 +268,7 @@ class BackgroundWorker {
                     )
                 #endif
                 if settingsManager.getSettingsBool(key: .notifyFailedDeliveries) {
-                    let previousFailedDeliveryId = encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
+                    let previousFailedDeliveryId = encryptedSettingsManager.getSettingsString(key: .backgroundServiceNotifiedFailedDeliveriesLatestId)
 
                     var newDeliveriesCount = 0
                     var currentFailedDeliveryId: String? = nil
@@ -285,6 +285,7 @@ class BackgroundWorker {
                         if newDeliveriesCount > 0 {
                             NotificationHelper().createFailedDeliveryNotification(difference: newDeliveriesCount)
                         }
+                        encryptedSettingsManager.putSettingsString(key: .backgroundServiceNotifiedFailedDeliveriesLatestId, string: currentId)
                     }
                 }
 

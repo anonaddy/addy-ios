@@ -37,6 +37,7 @@ public class SettingsManager {
         case enableWatchKitQuickSetupDialog
 
         case backgroundServiceCacheFailedDeliveriesLatestId
+        case backgroundServiceNotifiedFailedDeliveriesLatestId
         case backgroundServiceCacheAccountNotificationsCount
         case backgroundServiceCacheApiKeyExpiryLeftCount
         case backgroundServiceCacheSubscriptionExpiryLeftCount
