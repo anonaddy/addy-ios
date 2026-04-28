@@ -59,7 +59,7 @@ class BackgroundWorker {
                 #endif
                 _ = await networkHelper.cacheMostPopularAliasesDataForWidget()
 
-                /* 
+                /*
                  ALIAS_WATCHER FUNCTIONALITY
                  **/
                 #if DEBUG
@@ -163,7 +163,7 @@ class BackgroundWorker {
                         extra: nil
                     )
                 #endif
-                
+
                 if settingsManager.getSettingsBool(key: .notifyDomainError) {
                     do {
                         let domains = try await networkHelper.getDomains()
@@ -185,7 +185,6 @@ class BackgroundWorker {
                         logger.log("Failed to get domains: \(error)")
                     }
                 }
-            
 
                 /*
                  SUBSCRIPTION EXPIRY
@@ -280,7 +279,6 @@ class BackgroundWorker {
 
                     // If the current failed delivery id is different from the previous. That means there is a new failed delivery
                     if let currentId = currentFailedDeliveryId, let previousId = previousFailedDeliveryId, currentId != previousId, !currentId.isEmpty {
-                        
                         // Ensure we only create a notification if the locally applied filter found matching deliveries.
                         // For example, if a new 'outbound' delivery arrived but the user only wants 'inbound' notifications,
                         // newDeliveriesCount will be 0 and no notification will be triggered.

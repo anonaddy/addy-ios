@@ -56,7 +56,6 @@ struct MainView: View {
         )
     }
 
-
     var body: some View {
         #if DEBUG
             let _ = Self._printChanges()
@@ -367,7 +366,7 @@ struct MainView: View {
         do {
             if let result = try await NetworkHelper().getFailedDeliveries() {
                 let previousFailedDeliveryId = mainViewState.encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
-                
+
                 if let currentId = result.data.first?.id, !currentId.isEmpty {
                     if previousFailedDeliveryId == nil || previousFailedDeliveryId == "" {
                         let totalCount = result.meta?.total ?? result.data.count
@@ -378,11 +377,11 @@ struct MainView: View {
                             if delivery.id == previousId { break }
                             newDeliveriesCount += 1
                         }
-                        
+
                         if newDeliveriesCount <= 0 {
                             newDeliveriesCount = 1
                         }
-                        
+
                         withAnimation { mainViewState.newFailedDeliveries = newDeliveriesCount }
                     }
                 }

@@ -61,97 +61,97 @@ struct BlocklistView: View {
             if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
                 Section {
                     ForEach(blocklistEntries.data) { blocklistEntry in
-                            HStack(alignment: .center, spacing: 16) {
-                                VStack(alignment: .leading, spacing: 4) {
-                                    // Main Value (Email/Domain)
-                                    Text(blocklistEntry.value)
-                                        .font(.body) // Native list font size
-                                        .fontWeight(.medium)
-                                        .lineLimit(1)
-                                        .truncationMode(.tail)
+                        HStack(alignment: .center, spacing: 16) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                // Main Value (Email/Domain)
+                                Text(blocklistEntry.value)
+                                    .font(.body) // Native list font size
+                                    .fontWeight(.medium)
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
 
-                                    // Sub-information Row
-                                    HStack(spacing: 6) {
-                                        // Type Badge (Small, subtle)
-                                        Text(blocklistEntry.type.uppercased())
-                                            .font(.system(size: 10, weight: .bold))
-                                            .padding(.horizontal, 6)
-                                            .padding(.vertical, 2)
-                                            .background(Color.accentColor.opacity(0.1))
-                                            .foregroundColor(.accentColor)
-                                            .cornerRadius(4)
-
-                                        Text("•")
-                                            .font(.caption2)
-                                            .foregroundColor(.secondary.opacity(0.5))
-
-                                        // Blocked Count Section
-                                        HStack(spacing: 3) {
-                                            Image(systemName: "slash.circle")
-                                                .font(.system(size: 10))
-                                            Text("\(blocklistEntry.blocked ?? 0)")
-                                                .font(.caption)
-
-                                            if let lastBlocked = blocklistEntry.last_blocked, !lastBlocked.isEmpty {
-                                                Text("(\(DateTimeUtils.convertStringToLocalTimeZoneString(lastBlocked)))")
-                                                    .font(.caption)
-                                            }
-                                        }
-                                        .foregroundColor(.secondary)
-                                    }
-                                }
-                            }
-                        }.onDelete(perform: deleteblocklistEntry)
-
-                        if !blocklistEntriesViewModel.hasArrivedAtTheLastPage {
-                            ProgressView()
-                                .frame(maxWidth: .infinity, maxHeight: 50)
-                                .onAppear {
-                                    blocklistEntriesViewModel.loadMoreContent()
-                                }
-                        }
-                    } header: {
-                        VStack(alignment: .leading, spacing: 24) {
-                            if blocklistEntriesViewModel.networkError == "" {
-                                AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
-                                    withAnimation {
-                                        selectedFilterChip = onTappedChip.chipId
-                                    }
-
-                                    ApplyFilter(chipId: onTappedChip.chipId)
-                                }.scrollClipDisabled()
-                            }
-
-                            HStack(spacing: 6) {
-                                if selectedFilterChip != "all" {
-                                    Text(String(localized: "blocklist_entries_filtered"))
-                                } else {
-                                    Text(String(localized: "blocklist_entries"))
-                                }
-
-                                if let count = blocklistEntriesViewModel.blocklistEntries?.meta?.total, count > 0 {
-                                    Text("\(count)")
-                                        .font(.caption)
-                                        .fontWeight(.bold)
-                                        .padding(.horizontal, 8)
+                                // Sub-information Row
+                                HStack(spacing: 6) {
+                                    // Type Badge (Small, subtle)
+                                    Text(blocklistEntry.type.uppercased())
+                                        .font(.system(size: 10, weight: .bold))
+                                        .padding(.horizontal, 6)
                                         .padding(.vertical, 2)
-                                        .background(Color.secondary.opacity(0.1))
-                                        .clipShape(Capsule())
-                                }
+                                        .background(Color.accentColor.opacity(0.1))
+                                        .foregroundColor(.accentColor)
+                                        .cornerRadius(4)
 
-                                if blocklistEntriesViewModel.isLoading {
-                                    ProgressView()
-                                        .frame(maxHeight: 4)
+                                    Text("•")
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary.opacity(0.5))
+
+                                    // Blocked Count Section
+                                    HStack(spacing: 3) {
+                                        Image(systemName: "slash.circle")
+                                            .font(.system(size: 10))
+                                        Text("\(blocklistEntry.blocked ?? 0)")
+                                            .font(.caption)
+
+                                        if let lastBlocked = blocklistEntry.last_blocked, !lastBlocked.isEmpty {
+                                            Text("(\(DateTimeUtils.convertStringToLocalTimeZoneString(lastBlocked)))")
+                                                .font(.caption)
+                                        }
+                                    }
+                                    .foregroundColor(.secondary)
                                 }
                             }
                         }
+                    }.onDelete(perform: deleteblocklistEntry)
 
-                    } footer: {
-                        if let count = blocklistEntriesViewModel.blocklistEntries?.meta?.total, count > 0 {
-                            Text(String(localized: "manage_blocklist_desc")).padding(.top)
+                    if !blocklistEntriesViewModel.hasArrivedAtTheLastPage {
+                        ProgressView()
+                            .frame(maxWidth: .infinity, maxHeight: 50)
+                            .onAppear {
+                                blocklistEntriesViewModel.loadMoreContent()
+                            }
+                    }
+                } header: {
+                    VStack(alignment: .leading, spacing: 24) {
+                        if blocklistEntriesViewModel.networkError == "" {
+                            AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
+                                withAnimation {
+                                    selectedFilterChip = onTappedChip.chipId
+                                }
+
+                                ApplyFilter(chipId: onTappedChip.chipId)
+                            }.scrollClipDisabled()
                         }
 
-                    }.textCase(nil)
+                        HStack(spacing: 6) {
+                            if selectedFilterChip != "all" {
+                                Text(String(localized: "blocklist_entries_filtered"))
+                            } else {
+                                Text(String(localized: "blocklist_entries"))
+                            }
+
+                            if let count = blocklistEntriesViewModel.blocklistEntries?.meta?.total, count > 0 {
+                                Text("\(count)")
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 2)
+                                    .background(Color.secondary.opacity(0.1))
+                                    .clipShape(Capsule())
+                            }
+
+                            if blocklistEntriesViewModel.isLoading {
+                                ProgressView()
+                                    .frame(maxHeight: 4)
+                            }
+                        }
+                    }
+
+                } footer: {
+                    if let count = blocklistEntriesViewModel.blocklistEntries?.meta?.total, count > 0 {
+                        Text(String(localized: "manage_blocklist_desc")).padding(.top)
+                    }
+
+                }.textCase(nil)
             }
 
         }.refreshable {
@@ -200,8 +200,8 @@ struct BlocklistView: View {
                 if blocklistEntries.data.isEmpty, !blocklistEntriesViewModel.searchQuery.isEmpty {
                     // Show the search unavailable screen
                     ContentUnavailableView.search(text: blocklistEntriesViewModel.searchQuery)
-                    
-                // If there is NO data inside the list AND the user has NOT tried searching for something
+
+                    // If there is NO data inside the list AND the user has NOT tried searching for something
                 } else if blocklistEntries.data.isEmpty, blocklistEntriesViewModel.searchQuery.isEmpty {
                     ContentUnavailableView {
                         Label(String(localized: "no_blocklist_entries"), systemImage: "nosign")

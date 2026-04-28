@@ -91,8 +91,6 @@ public class NetworkHelper {
         #endif
     }
 
-
-
     /// Using @escaping as logging errors is not a thing before the app is set-up (they cannot be seen)
     public func registration(username: String, email: String, password: String, apiExpiration: String, completion: @escaping (String?) -> Void) async {
         logNetworkHelperCall()
@@ -319,7 +317,7 @@ public class NetworkHelper {
             case 422:
                 completion(String(httpResponse.statusCode))
             default:
-            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+                throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
             }
         } catch {
             print(error)
@@ -364,7 +362,7 @@ public class NetworkHelper {
             "Content-Type": "application/json",
             "X-Requested-With": "XMLHttpRequest",
             "Accept": "application/json",
-            "User-Agent": getUserAgent()
+            "User-Agent": getUserAgent(),
         ]
 
         let json: [String: Any?] = ["mfa_key": mfa_key,
@@ -2155,9 +2153,9 @@ public class NetworkHelper {
         do {
             let filterType = settingsManager.getSettingsString(key: .notifyFailedDeliveriesType) ?? "all"
             let filter = filterType == "all" ? nil : filterType
-            
-            // Fetch ALL failed deliveries regardless of the notification filter. 
-            // This ensures we can reliably find the `previousId` (which might be of any type) 
+
+            // Fetch ALL failed deliveries regardless of the notification filter.
+            // This ensures we can reliably find the `previousId` (which might be of any type)
             // in the list, and keeps the widget's total count accurately reflecting all failed deliveries.
             let result = try await getFailedDeliveries(size: 25, filter: nil)
             guard let result = result else {
@@ -2170,8 +2168,8 @@ public class NetworkHelper {
             if let previousId = previousId {
                 for delivery in result.data {
                     if delivery.id == previousId { break }
-                    
-                    // Apply the user's notification filter locally. 
+
+                    // Apply the user's notification filter locally.
                     // This ensures we only count (and thus notify for) deliveries of the requested type (e.g. 'inbound').
                     if filter == nil || delivery.type == filter {
                         newDeliveriesCount += 1
@@ -2179,12 +2177,12 @@ public class NetworkHelper {
                 }
             } else {
                 // If there's no previous ID, we only notify if the first item matches the filter, to avoid notifying when not requested
-                if let first = result.data.first, (filter == nil || first.email_type == filter) {
+                if let first = result.data.first, filter == nil || first.email_type == filter {
                     newDeliveriesCount = 1
                 }
             }
 
-            // Return the count of new matching deliveries, along with the very latest ID (regardless of its type) 
+            // Return the count of new matching deliveries, along with the very latest ID (regardless of its type)
             // so the BackgroundWorker can update its pointer to the most recent item.
             return (newDeliveriesCount, result.data.first?.id)
         } catch {
@@ -2193,7 +2191,7 @@ public class NetworkHelper {
         }
     }
 
-    /* 
+    /*
      * BLOCKLIST
      */
 
