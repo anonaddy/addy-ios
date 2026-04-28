@@ -2173,7 +2173,7 @@ public class NetworkHelper {
                     
                     // Apply the user's notification filter locally. 
                     // This ensures we only count (and thus notify for) deliveries of the requested type (e.g. 'inbound').
-                    if filter == nil || delivery.type == filter { // TODO: ALSO ADD INB QUARANTINED AS OPTION IN NOTIFS
+                    if filter == nil || delivery.type == filter {
                         newDeliveriesCount += 1
                     }
                 }

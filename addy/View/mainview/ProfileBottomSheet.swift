@@ -127,11 +127,7 @@ struct ProfileBottomSheet: View {
                     }
 
                     AddySection(title: String(localized: "manage_blocklist"), description: String(localized: "blocklist_desc"), trailingSystemimage: "chevron.right") {
-                        if horizontalSize == .regular {
-                            self.onNavigate(Destination.blocklist)
-                        } else {
-                            self.isShowingBlocklistView = true
-                        }
+                        self.isShowingBlocklistView = true
                     }
                 }
 

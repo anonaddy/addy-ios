@@ -464,14 +464,14 @@ struct MainView: View {
 }
 
 enum Destination: Hashable, CaseIterable {
-    case home, aliases, recipients, usernames, domains, failedDeliveries, rules, blocklist, settings, subscription
+    case home, aliases, recipients, usernames, domains, rules, failedDeliveries, settings, subscription
 
     static var iPhoneCases: [Destination] {
         [.home, .aliases, .recipients]
     }
 
     static var otherCases: [Destination] {
-        [.home, .aliases, .recipients, .usernames, .domains, .failedDeliveries, .rules, .blocklist, .settings]
+        [.home, .aliases, .recipients, .usernames, .domains, .rules, .failedDeliveries, .settings]
     }
 
     var title: LocalizedStringKey {
@@ -481,9 +481,8 @@ enum Destination: Hashable, CaseIterable {
         case .recipients: "recipients"
         case .usernames: "usernames"
         case .domains: "domains"
-        case .failedDeliveries: "failed_deliveries"
         case .rules: "rules"
-        case .blocklist: "blocklist"
+        case .failedDeliveries: "failed_deliveries"
         case .settings: "settings"
         case .subscription: "subscription"
         }
@@ -496,9 +495,8 @@ enum Destination: Hashable, CaseIterable {
         case .recipients: return "recipients"
         case .usernames: return "usernames"
         case .domains: return "domains"
-        case .failedDeliveries: return "failed_deliveries"
         case .rules: return "rules"
-        case .blocklist: return "blocklist"
+        case .failedDeliveries: return "failed_deliveries"
         case .settings: return "settings"
         case .subscription: return "subscription"
         }
@@ -511,9 +509,8 @@ enum Destination: Hashable, CaseIterable {
         case .recipients: "person.2"
         case .usernames: "person.crop.circle.fill"
         case .domains: "globe"
-        case .failedDeliveries: "exclamationmark.triangle.fill"
         case .rules: "checklist"
-        case .blocklist: "nosign"
+        case .failedDeliveries: "exclamationmark.triangle.fill"
         case .settings: "gear"
         case .subscription: "creditcard.fill"
         }
@@ -526,9 +523,8 @@ enum Destination: Hashable, CaseIterable {
         case .recipients: AnyView(RecipientsView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .usernames: AnyView(UsernamesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .domains: AnyView(DomainsView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
-        case .failedDeliveries: AnyView(FailedDeliveriesView(horizontalSize: horizontalSize.wrappedValue, onRefreshGeneralData: refreshGeneralData))
         case .rules: AnyView(RulesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
-        case .blocklist: AnyView(BlocklistView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
+        case .failedDeliveries: AnyView(FailedDeliveriesView(horizontalSize: horizontalSize.wrappedValue, onRefreshGeneralData: refreshGeneralData))
         case .settings: AnyView(AppSettingsView(horizontalSize: horizontalSize))
         case .subscription: AnyView(ManageSubscriptionView(horizontalSize: horizontalSize, shouldHideNavigationBarBackButtonSubscriptionView: .constant(false)))
         }

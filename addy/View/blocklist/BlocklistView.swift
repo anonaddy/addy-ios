@@ -254,28 +254,6 @@ struct BlocklistView: View {
         .navigationTitle(String(localized: "blocklist"))
         .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
         .toolbar {
-            if horizontalSize == .regular {
-                ToolbarItem(placement: .topBarLeading) {
-                    ProfilePicture().environmentObject(mainViewState)
-                }
-
-                if #available(iOS 26.0, *) {
-                    ToolbarSpacer(placement: .topBarLeading)
-                }
-
-                ToolbarItem(placement: .topBarLeading) {
-                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                }
-
-                ToolbarItem(placement: .topBarLeading) {
-                    AccountNotificationsIcon().environmentObject(mainViewState)
-                }
-
-                if #available(iOS 26.0, *) {
-                    ToolbarSpacer(.flexible)
-                }
-            }
-
             if !mainViewState.userResource!.hasUserFreeSubscription() {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
