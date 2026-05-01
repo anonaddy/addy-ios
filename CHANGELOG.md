@@ -1,6 +1,6 @@
 # Changelog
 
-## [v2.3.1] - TBD
+## [v2.3.2] - TBD
 
 ### addy.io
 
@@ -17,7 +17,7 @@
 **Removed**
 - Removed Global Search in favor of new searchbars
 
-**What’s new in addy.io for Apple Watch 1.1.2**
+**What’s new in addy.io for Apple Watch 1.1.3**
 
 **Fixed & Improved**  
 - Performance enhancements and other improvements for a smoother experience
