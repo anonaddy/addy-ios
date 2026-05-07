@@ -28,6 +28,14 @@
             ],
             "versions": [
                 {
+                    "version": "2.3.2",
+                    "date": "2026-05-07T00:00:00+02:00",
+                    "size": 33916192,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/1f01a5aa237731ddeab7cf0e6cb47ac5137e9c50/builds/appstorelessRelease%202026-04-28%2016-26-12/addy.ipa",
+                    "localizedDescription": "- Added support for blocklist pagination\n- Added support for blocklist filtering\n- Added support for searching through blocklist items\n- Added support for filtering failed deliveries for inbound quarantined\n- Reworked logic for counting failed deliveries\n- Performance enhancements and other improvements for a smoother experience",
+                    "minOSVersion": "17.0"
+                },
+                {
                     "version": "2.3.0",
                     "date": "2026-04-12T00:00:00+02:00",
                     "size": 34238643,
