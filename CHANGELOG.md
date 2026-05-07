@@ -10,7 +10,7 @@
 - Added support for searching through blocklist items
 - Added support for filtering failed deliveries for inbound quarantined
 - Reworked logic for counting failed deliveries
-- Performance enhancements and other improvements for a smoother experience
+- Performance enhancements and other improvements for a smoother experience
 
 **What’s new in addy.io for Apple Watch 1.1.3**
 
