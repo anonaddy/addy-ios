@@ -1,15 +1,16 @@
 //
-//  BlocklistEntriesArray.swift
+//  BlocklistEntries.swift
 //  addy
 //
 //  Created by Stijn van de Water on 09/03/2026.
 //
 
-
 import Foundation
 
 public struct BlocklistEntriesArray: Codable {
     public var data: [BlocklistEntries]
+    public var links: Links?
+    public var meta: Meta?
 }
 
 struct SingleBlocklistEntry: Codable {

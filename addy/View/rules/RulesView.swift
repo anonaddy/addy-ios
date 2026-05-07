@@ -51,28 +51,26 @@ enum RulesOption {
 
 struct RulesView: View {
     @EnvironmentObject var mainViewState: MainViewState
+
     @StateObject var rulesViewModel = RulesViewModel()
+
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var showAlert: Bool = false
+    @State private var ruleToDelete: Rules? = nil
+    @State private var rule_count: Int = 0
+    @State private var rule_limit: Int? = 0
+    @State private var shouldReloadDataInParent = false
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
         case error, deleteRule
     }
 
-    @State private var activeAlert: ActiveAlert = .error
-    @State private var showAlert: Bool = false
-
-    @State private var ruleToDelete: Rules? = nil
-
-    // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
-    @State private var rule_count: Int = 0
-    @State private var rule_limit: Int? = 0
-
-    @State private var shouldReloadDataInParent = false
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-
-    @Binding var horizontalSize: UserInterfaceSizeClass
+    /// Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
     var onRefreshGeneralData: (() -> Void)? = nil
+    // Add this function
 
     var body: some View {
         #if DEBUG
@@ -187,11 +185,21 @@ struct RulesView: View {
 
                     } header: {
                         HStack(spacing: 6) {
-                            Text(String(localized: "all_rules"))
+                            Text(String(localized: "rules"))
 
                             if rulesViewModel.isLoading {
                                 ProgressView()
                                     .frame(maxHeight: 4)
+                            }
+
+                            if let count = rulesViewModel.rules?.data.count, count > 0 {
+                                Text("\(count)")
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 2)
+                                    .background(Color.secondary.opacity(0.1))
+                                    .clipShape(Capsule())
                             }
                         }
 
@@ -292,7 +300,6 @@ struct RulesView: View {
         .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
         .toolbar {
             if horizontalSize == .regular {
-                
                 ToolbarItem(placement: .topBarLeading) {
                     ProfilePicture().environmentObject(mainViewState)
                 }
@@ -300,7 +307,7 @@ struct RulesView: View {
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
@@ -376,7 +383,6 @@ struct RulesView: View {
         }
     }
 
-    // Add this function
     func moveRule(from source: IndexSet, to destination: Int) {
         rulesViewModel.rules?.data.move(fromOffsets: source, toOffset: destination)
 

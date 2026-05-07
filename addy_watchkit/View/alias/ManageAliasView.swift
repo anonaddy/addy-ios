@@ -3,8 +3,8 @@
 //  Addy Watchkit Watch App
 //
 
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct ManageAliasView: View {
     @State private var alias: Aliases
@@ -19,10 +19,9 @@ struct ManageAliasView: View {
     init(alias: Aliases) {
         _alias = State(initialValue: alias)
     }
-    
+
     var body: some View {
         List {
-
             StatRow(
                 label: "Forwarded",
                 count: alias.emails_forwarded,
@@ -47,7 +46,7 @@ struct ManageAliasView: View {
                 systemImage: "xmark.circle",
                 color: Color.red.opacity(0.8)
             )
-                
+
             Toggle(isOn: $isAliasActive) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(isAliasActive ? String(localized: "alias_activated", bundle: Bundle(for: SharedData.self)) : String(localized: "alias_deactivated", bundle: Bundle(for: SharedData.self)))
@@ -63,34 +62,32 @@ struct ManageAliasView: View {
         .navigationTitle(alias.email)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            
             ToolbarItemGroup(placement: .bottomBar) {
-                    Toggle("", systemImage: isAliasPinned ? "pin.fill" : "pin", isOn: $isAliasPinned)
-                        .toggleStyle(.button)
-                        .foregroundStyle(isAliasPinned ? .primary : .secondary)
-                        .overlay {
-                            if IsLoadingPinnedButton {
-                                ProgressView()
-                                    .controlSize(.small)
-                            }
-                        }
-                        .onChange(of: isAliasPinned) { _, newValue in
-                            togglePinned()
-                        }
-                                
-                    Spacer()
-                    
-                
-                    Button {
-                        showOnPairedDevice()
-                    } label: {
-                        if isSendingAliasToDevice {
+                Toggle("", systemImage: isAliasPinned ? "pin.fill" : "pin", isOn: $isAliasPinned)
+                    .toggleStyle(.button)
+                    .foregroundStyle(isAliasPinned ? .primary : .secondary)
+                    .overlay {
+                        if IsLoadingPinnedButton {
                             ProgressView()
-                        } else {
-                            Image(systemName:"iphone.gen3")
+                                .controlSize(.small)
                         }
                     }
+                    .onChange(of: isAliasPinned) { _, _ in
+                        togglePinned()
+                    }
+
+                Spacer()
+
+                Button {
+                    showOnPairedDevice()
+                } label: {
+                    if isSendingAliasToDevice {
+                        ProgressView()
+                    } else {
+                        Image(systemName: "iphone.gen3")
+                    }
                 }
+            }
         }
         .containerBackground(Color.gray.opacity(0.1).gradient, for: .navigation)
         .onAppear {
@@ -98,9 +95,7 @@ struct ManageAliasView: View {
             isAliasPinned = alias.pinned
         }
     }
-    
-    
-    
+
     private func toggleActive(activate: Bool) {
         if activate {
             Task {
@@ -112,7 +107,7 @@ struct ManageAliasView: View {
             }
         }
     }
-    
+
     private func activateAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
         do {
@@ -123,8 +118,8 @@ struct ManageAliasView: View {
         } catch {
             isChangingActivationStatus = false
             isAliasActive = false
-            
-            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
+
+            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}
             WKInterfaceDevice.current().play(.failure)
             WKExtension.shared().visibleInterfaceController?.presentAlert(
                 withTitle: String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self)),
@@ -134,7 +129,7 @@ struct ManageAliasView: View {
             )
         }
     }
-    
+
     private func deactivateAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
         do {
@@ -143,7 +138,7 @@ struct ManageAliasView: View {
                 isChangingActivationStatus = false
                 isAliasActive = false
             } else {
-                let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
+                let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}
                 WKInterfaceDevice.current().play(.failure)
                 WKExtension.shared().visibleInterfaceController?.presentAlert(
                     withTitle: String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self)),
@@ -155,8 +150,8 @@ struct ManageAliasView: View {
         } catch {
             isChangingActivationStatus = false
             isAliasActive = false
-            
-            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
+
+            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}
             WKInterfaceDevice.current().play(.failure)
             WKExtension.shared().visibleInterfaceController?.presentAlert(
                 withTitle: String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self)),
@@ -166,13 +161,12 @@ struct ManageAliasView: View {
             )
         }
     }
-    
-    
+
     private func togglePinned() {
         IsLoadingPinnedButton = true
-        if (isAliasPinned) {
+        if isAliasPinned {
             Task {
-               await pinAlias(alias: alias)
+                await pinAlias(alias: alias)
             }
         } else {
             Task {
@@ -180,7 +174,7 @@ struct ManageAliasView: View {
             }
         }
     }
-    
+
     private func pinAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
         do {
@@ -195,8 +189,8 @@ struct ManageAliasView: View {
         } catch {
             IsLoadingPinnedButton = false
             isAliasPinned = false
-            
-            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
+
+            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}
             WKInterfaceDevice.current().play(.failure)
             WKExtension.shared().visibleInterfaceController?.presentAlert(
                 withTitle: String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self)),
@@ -206,7 +200,7 @@ struct ManageAliasView: View {
             )
         }
     }
-    
+
     private func unpinAlias(alias: Aliases) async {
         let networkHelper = NetworkHelper()
         do {
@@ -217,8 +211,8 @@ struct ManageAliasView: View {
                 isAliasPinned = false
             } else {
                 isAliasPinned = true
-            
-                let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
+
+                let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}
                 WKInterfaceDevice.current().play(.failure)
                 WKExtension.shared().visibleInterfaceController?.presentAlert(
                     withTitle: String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self)),
@@ -230,8 +224,8 @@ struct ManageAliasView: View {
         } catch {
             IsLoadingPinnedButton = false
             isAliasPinned = true
-            
-            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
+
+            let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}
             WKInterfaceDevice.current().play(.failure)
             WKExtension.shared().visibleInterfaceController?.presentAlert(
                 withTitle: String(localized: "error_edit_pinned", bundle: Bundle(for: SharedData.self)),
@@ -241,16 +235,15 @@ struct ManageAliasView: View {
             )
         }
     }
-    
-    
+
     private func showOnPairedDevice() {
-        self.isSendingAliasToDevice = true
-        
-        connectivity.showAliasOnWatch(aliasId: alias.id, email: alias.email, replyHandler: { reply in
+        isSendingAliasToDevice = true
+
+        connectivity.showAliasOnWatch(aliasId: alias.id, email: alias.email, replyHandler: { _ in
             DispatchQueue.main.async {
                 self.isSendingAliasToDevice = false
-                
-                let successAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)) , style: .default) {  }
+
+                let successAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}
                 WKInterfaceDevice.current().play(.success)
                 WKExtension.shared().visibleInterfaceController?.presentAlert(
                     withTitle: String(localized: "success"),
@@ -258,7 +251,7 @@ struct ManageAliasView: View {
                     preferredStyle: .alert,
                     actions: [successAction]
                 )
-                
+
                 // Dismiss after 2s
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     WKExtension.shared().visibleInterfaceController?.dismiss()
@@ -267,9 +260,8 @@ struct ManageAliasView: View {
         }, errorHandler: { error in
             DispatchQueue.main.async {
                 self.isSendingAliasToDevice = false
-                
-                
-                let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {  }
+
+                let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}
                 WKInterfaceDevice.current().play(.failure)
                 WKExtension.shared().visibleInterfaceController?.presentAlert(
                     withTitle: String(localized: "error", bundle: Bundle(for: SharedData.self)),
@@ -280,7 +272,6 @@ struct ManageAliasView: View {
             }
         })
     }
-    
 }
 
 struct StatRow: View {
@@ -288,13 +279,13 @@ struct StatRow: View {
     let count: Int
     let systemImage: String
     let color: Color
-    
+
     var body: some View {
         HStack {
             Image(systemName: systemImage)
                 .foregroundStyle(color)
                 .font(.title3)
-            
+
             VStack(alignment: .leading) {
                 Text(label)
                     .font(.caption)
@@ -304,10 +295,8 @@ struct StatRow: View {
                     .fontWeight(.bold)
                     .foregroundStyle(color)
             }
-            
+
             Spacer()
         }
-        
     }
 }
-

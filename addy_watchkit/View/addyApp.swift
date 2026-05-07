@@ -5,7 +5,6 @@
 //  Created by Stijn van de Water on 01/02/2026.
 //
 
-
 //
 //  addyApp.swift
 //  addy
@@ -19,7 +18,6 @@ import SwiftUI
 
 @main
 struct addyApp: App {
-
     @StateObject private var appState = AppState.shared
     @StateObject private var mainViewState = MainViewState.shared
 

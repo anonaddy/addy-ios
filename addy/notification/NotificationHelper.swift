@@ -40,7 +40,7 @@ class NotificationHelper {
         UNUserNotificationCenter.current().add(request)
         UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
     }
-    
+
     func createOpenAliasFromWatchkitNotification(id: String, email: String) {
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_open_alias_from_watchkit")
@@ -65,7 +65,7 @@ class NotificationHelper {
         // add our notification request
         UNUserNotificationCenter.current().add(request)
     }
-    
+
     func createSetupWatchkitNotification(watchName: String) {
         let content = UNMutableNotificationContent()
         content.title = String(localized: "setup_wearable_app")
@@ -82,7 +82,7 @@ class NotificationHelper {
         // add our notification request
         UNUserNotificationCenter.current().add(request)
     }
-    
+
     func createSetupAppFirstWatchkitNotification() {
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_setup_app_first")
@@ -98,7 +98,7 @@ class NotificationHelper {
         // add our notification request
         UNUserNotificationCenter.current().add(request)
     }
-    
+
     func createOpenLogsFromWatchkitNotification() {
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_open_logs_from_watchkit")

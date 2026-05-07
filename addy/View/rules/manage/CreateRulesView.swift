@@ -10,81 +10,35 @@ import Lottie
 import SwiftUI
 
 struct CreateRulesView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    @State var ruleName: String
+    @State var ruleNamePlaceholder: String = .init(localized: "enter_name")
+    @State private var actionToEdit: Action? = nil
+    @State private var conditionToEdit: Condition? = nil
+    @Binding var shouldReloadDataInParent: Bool
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var showAlert: Bool = false
+    @State private var isSavingRule: Bool = false
+    @State private var conditionOperator: String = "AND"
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @State var selectedChips: [String] = []
+    @State var rulesRunOnChips: [AddyChipModel] = [AddyChipModel(chipId: "forwards", label: String(localized: "forwards")),
+                                                   AddyChipModel(chipId: "replies", label: String(localized: "replies")),
+                                                   AddyChipModel(chipId: "sends", label: String(localized: "sends"))]
+    @State private var ruleNameValidationError: String?
+    @State private var rule: Rules? = nil
+    @State private var errorText: String? = nil
+    @State private var isPresentingAddNewActionBottomSheet = false
+    @State private var isPresentingAddNewConditionBottomSheet = false
+
     enum ActiveAlert {
         case error
     }
 
     let ruleId: String
     var recipients: [Recipients] = []
-    @State var ruleName: String
-    @State var ruleNamePlaceholder: String = .init(localized: "enter_name")
-
-    @State private var actionToEdit: Action? = nil
-    @State private var conditionToEdit: Condition? = nil
-
-    @Binding var shouldReloadDataInParent: Bool
-    @State private var activeAlert: ActiveAlert = .error
-    @State private var showAlert: Bool = false
-    @State private var isSavingRule: Bool = false
-
-    @State private var conditionOperator: String = "AND"
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-    @State var selectedChips: [String] = []
-    @State var rulesRunOnChips: [AddyChipModel] = [AddyChipModel(chipId: "forwards", label: String(localized: "forwards")),
-                                                   AddyChipModel(chipId: "replies", label: String(localized: "replies")),
-                                                   AddyChipModel(chipId: "sends", label: String(localized: "sends"))]
-
-    @State private var ruleNameValidationError: String?
-
-    @State private var rule: Rules? = nil
-    @State private var errorText: String? = nil
-
-    @State private var isPresentingAddNewActionBottomSheet = false
-    @State private var isPresentingAddNewConditionBottomSheet = false
-
-    init(recipients: [Recipients], ruleId: String?, ruleName: String, shouldReloadDataInParent: Binding<Bool>) {
-        self.recipients = recipients
-
-        if let ruleId = ruleId {
-            self.ruleId = ruleId
-            self.ruleName = ruleName
-        } else {
-            // RuleId is nil, load in the template rule
-            let rule = Rules(
-                id: "",
-                user_id: "",
-                name: "First Rule",
-                order: 0,
-                conditions: [
-                    Condition(type: "sender", match: "is exactly", values: ["will@addy.io", "no-reply@addy.io"]),
-                    Condition(type: "subject", match: "contains", values: ["newsletter", "subscription"]),
-                ],
-                actions: [
-                    Action(type: "subject", value: "SPAM"),
-                    Action(type: "block", value: "true"),
-                ],
-                operator: "AND",
-                forwards: true,
-                replies: true,
-                sends: true,
-                active: true,
-                applied: 0,
-                last_applied: "",
-                created_at: "",
-                updated_at: ""
-            )
-
-            self.rule = rule
-            self.ruleId = rule.id
-            self.ruleName = rule.name
-        }
-
-        _shouldReloadDataInParent = shouldReloadDataInParent
-    }
 
     var body: some View {
         #if DEBUG
@@ -171,7 +125,7 @@ struct CreateRulesView: View {
                                         }
                                     }
                                 }.frame(width: 10)
-                                
+
                             }.listRowSeparator(.hidden).padding()
 
                             VStack {
@@ -416,6 +370,46 @@ struct CreateRulesView: View {
                 )
             }
         }
+    }
+
+    init(recipients: [Recipients], ruleId: String?, ruleName: String, shouldReloadDataInParent: Binding<Bool>) {
+        self.recipients = recipients
+
+        if let ruleId = ruleId {
+            self.ruleId = ruleId
+            self.ruleName = ruleName
+        } else {
+            // RuleId is nil, load in the template rule
+            let rule = Rules(
+                id: "",
+                user_id: "",
+                name: "First Rule",
+                order: 0,
+                conditions: [
+                    Condition(type: "sender", match: "is exactly", values: ["will@addy.io", "no-reply@addy.io"]),
+                    Condition(type: "subject", match: "contains", values: ["newsletter", "subscription"]),
+                ],
+                actions: [
+                    Action(type: "subject", value: "SPAM"),
+                    Action(type: "block", value: "true"),
+                ],
+                operator: "AND",
+                forwards: true,
+                replies: true,
+                sends: true,
+                active: true,
+                applied: 0,
+                last_applied: "",
+                created_at: "",
+                updated_at: ""
+            )
+
+            self.rule = rule
+            self.ruleId = rule.id
+            self.ruleName = rule.name
+        }
+
+        _shouldReloadDataInParent = shouldReloadDataInParent
     }
 
     private func updateUi(rule: Rules) {

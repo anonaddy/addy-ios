@@ -11,9 +11,7 @@ import SwiftUI
 struct AppSettingsWatchKitView: View {
     @State private var showAlert: Bool = false
     @State private var errorAlertMessage = ""
-
     @State private var enableWatchKitQuickSetupDialog: Bool = false
-
 
     var body: some View {
         #if DEBUG
@@ -22,8 +20,8 @@ struct AppSettingsWatchKitView: View {
         List {
             AddySettingsHeader(title: String(localized: "addyio_for_watchkit"), description: String(localized: "addyio_for_watchkit_desc"), systemimage: "applewatch", systemimageColor: .mint)
 
-            //TODO: Tips?
-            
+            // TODO: Tips?
+
             Section {
                 NavigationLink(destination: LogViewerView(showWatchOsLogs: true)) {
                     AddySection(title: String(localized: "view_store_logs"), description: String(localized: "view_store_logs_watchkit_desc"), leadingSystemimage: "exclamationmark.magnifyingglass", leadingSystemimageColor: .blue)
@@ -32,8 +30,7 @@ struct AppSettingsWatchKitView: View {
             } header: {
                 Text(String(localized: "logs", bundle: Bundle(for: SharedData.self)))
             }.textCase(nil)
-            
-            
+
             Section {
                 AddyToggle(isOn: $enableWatchKitQuickSetupDialog, title: String(localized: "wearable_quick_setup"), description: String(localized: "wearable_quick_setup_desc"), leadingSystemimage: "bell")
                     .onAppear {
@@ -56,7 +53,6 @@ struct AppSettingsWatchKitView: View {
         .navigationTitle(String(localized: "addyio_for_watchkit"))
         .navigationBarTitleDisplayMode(.inline)
     }
-
 }
 
 struct AppSettingsWatchKitView_Previews: PreviewProvider {

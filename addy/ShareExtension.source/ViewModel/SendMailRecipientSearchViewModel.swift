@@ -5,9 +5,9 @@
 //  Created by Stijn van de Water on 06/07/2024.
 //
 
+@preconcurrency import addy_shared
 import Combine
 import Foundation
-@preconcurrency import addy_shared
 
 class SendMailRecipientSearchViewModel: ObservableObject {
     var sortFilterRequest = AliasSortFilterRequest(

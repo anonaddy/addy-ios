@@ -10,23 +10,16 @@ import AVFoundation
 import SwiftUI
 
 struct EditAliasRecipientsBottomSheet: View {
-    let aliasId: String
-    let recipientsEdited: (Aliases) -> Void
+    @Environment(\.dismiss) var dismiss
 
     @State var recipientsLoaded: Bool = false
     @State var selectedChips: [String] = []
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
-
-    init(aliasId: String, selectedRecipientsIds: [String]?, recipientsEdited: @escaping (Aliases) -> Void) {
-        self.aliasId = aliasId
-        selectedChips = selectedRecipientsIds ?? []
-        self.recipientsEdited = recipientsEdited
-    }
-
     @State private var recipientsRequestError: String? = ""
-
     @State var IsLoadingSaveButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    let aliasId: String
+    let recipientsEdited: (Aliases) -> Void
 
     var body: some View {
         #if DEBUG
@@ -110,6 +103,12 @@ struct EditAliasRecipientsBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(aliasId: String, selectedRecipientsIds: [String]?, recipientsEdited: @escaping (Aliases) -> Void) {
+        self.aliasId = aliasId
+        selectedChips = selectedRecipientsIds ?? []
+        self.recipientsEdited = recipientsEdited
     }
 
     private func getAllRecipients() async {

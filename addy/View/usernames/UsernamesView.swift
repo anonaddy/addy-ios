@@ -10,28 +10,25 @@ import SwiftUI
 
 struct UsernamesView: View {
     @EnvironmentObject var mainViewState: MainViewState
+
     @StateObject var usernamesViewModel = UsernamesViewModel()
+
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var showAlert: Bool = false
+    @State private var usernameToDelete: Usernames? = nil
+    @State private var username_count: Int = 0
+    @State private var username_limit: Int = 0
+    @State private var isPresentingAddUsernameBottomSheet = false
+    @State private var shouldReloadDataInParent = false
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
         case error, deleteUsername
     }
 
-    @State private var activeAlert: ActiveAlert = .error
-    @State private var showAlert: Bool = false
-
-    @State private var usernameToDelete: Usernames? = nil
-
-    // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
-    @State private var username_count: Int = 0
-    @State private var username_limit: Int = 0
-
-    @State private var isPresentingAddUsernameBottomSheet = false
-
-    @State private var shouldReloadDataInParent = false
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-    @Binding var horizontalSize: UserInterfaceSizeClass
+    /// Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
     var onRefreshGeneralData: (() -> Void)? = nil
 
     var body: some View {
@@ -101,11 +98,21 @@ struct UsernamesView: View {
                     }.onDelete(perform: deleteUsername)
                 } header: {
                     HStack(spacing: 6) {
-                        Text(String(localized: "all_usernames"))
+                        Text(String(localized: "usernames"))
 
                         if usernamesViewModel.isLoading {
                             ProgressView()
                                 .frame(maxHeight: 4)
+                        }
+
+                        if let count = usernamesViewModel.usernames?.data.count, count > 0 {
+                            Text("\(count)")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background(Color.secondary.opacity(0.1))
+                                .clipShape(Capsule())
                         }
                     }
 
@@ -215,7 +222,7 @@ struct UsernamesView: View {
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
@@ -223,11 +230,10 @@ struct UsernamesView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     AccountNotificationsIcon().environmentObject(mainViewState)
                 }
-                
-                if #available(iOS 26.0, *) {
-                                    ToolbarSpacer(.flexible)
-                                }
 
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(.flexible)
+                }
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
@@ -235,7 +241,7 @@ struct UsernamesView: View {
                 }) {
                     Image(systemName: "plus")
                         .frame(width: 24, height: 24)
-                }// Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
+                } // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
                 .disabled(mainViewState.userResource!.subscription != nil &&
                     username_count >= username_limit /* Cannot be nil since subscription is not nil */ )
             }

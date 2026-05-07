@@ -11,41 +11,40 @@ import SwiftUI
 struct AliasRowView: View {
     let alias: Aliases
     let isPreview: Bool
-
     private var chartData: [Double] {
         let total = Double(alias.emails_forwarded + alias.emails_replied + alias.emails_sent + alias.emails_blocked)
         let normalizedTotal = total != 0 ? total : 10.0
-        
+
         return [
             Double(alias.emails_forwarded) / normalizedTotal * 100,
             Double(alias.emails_replied) / normalizedTotal * 100,
             Double(alias.emails_sent) / normalizedTotal * 100,
-            Double(alias.emails_blocked) / normalizedTotal * 100
+            Double(alias.emails_blocked) / normalizedTotal * 100,
         ]
     }
-    
+
     private var aliasDescription: String {
         localizedDateText(for: alias)
     }
-    
+
     private var isWatchingAlias: Bool {
         AliasWatcher().getAliasesToWatch().contains(alias.id)
     }
-    
+
     private var chartColors: [ColorGradient] {
         [
             ColorGradient(.portalOrange, .portalOrange.opacity(0.7)),
             ColorGradient(.easternBlue, .easternBlue.opacity(0.7)),
             ColorGradient(.portalBlue, .portalBlue.opacity(0.7)),
-            ColorGradient(.softRed, .softRed.opacity(0.7))
+            ColorGradient(.softRed, .softRed.opacity(0.7)),
         ]
     }
-    
+
     var body: some View {
         #if DEBUG
-        let _ = Self._printChanges()
+            let _ = Self._printChanges()
         #endif
-        
+
         Group {
             if isPreview {
                 previewBody
@@ -54,7 +53,7 @@ struct AliasRowView: View {
             }
         }
     }
-    
+
     private var previewBody: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
@@ -63,16 +62,16 @@ struct AliasRowView: View {
                     .bold()
                     .lineLimit(1)
                     .truncationMode(.tail)
-                
+
                 HStack(alignment: .center) {
                     chartView(width: 100)
-                    
+
                     Spacer()
-                    
+
                     statsLabels
                 }
             }
-            
+
             if isWatchingAlias {
                 Label(String(localized: "you_ll_be_notified_if_this_alias_has_activity"), systemImage: "eyes")
                     .foregroundStyle(.gray.opacity(0.4))
@@ -85,25 +84,25 @@ struct AliasRowView: View {
                 Image(systemName: "pin.fill")
                     .font(.system(size: 10)) // "Tiny" as requested
                     .foregroundColor(.secondary)
-                    .padding(.top, 8)    // Adjust these to sit nicely
+                    .padding(.top, 8) // Adjust these to sit nicely
                     .padding(.trailing, 4) // within your list row padding
             }
         }
         .padding()
     }
-    
+
     private var listBody: some View {
         HStack {
             chartView(width: 50)
                 .grayscale(alias.active ? 0 : 1)
                 .padding(.trailing)
-            
+
             VStack(alignment: .leading) {
                 Text(alias.email)
                     .font(.headline)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
-                
+
                 Text(aliasDescription)
                     .font(.subheadline)
                     .lineLimit(2)
@@ -116,13 +115,12 @@ struct AliasRowView: View {
                 Image(systemName: "pin.fill")
                     .font(.system(size: 10)) // "Tiny" as requested
                     .foregroundColor(.secondary)
-                    .padding(.top, 8)    // Adjust these to sit nicely
+                    .padding(.top, 8) // Adjust these to sit nicely
                     .padding(.trailing, 4) // within your list row padding
             }
         }
     }
-    
-    @ViewBuilder
+
     private func chartView(width: CGFloat) -> some View {
         Color.clear
             .aspectRatio(1, contentMode: .fill)
@@ -137,7 +135,7 @@ struct AliasRowView: View {
             .clipShape(RoundedRectangle(cornerRadius: 13))
             .frame(maxWidth: width)
     }
-    
+
     private var statsLabels: some View {
         VStack(alignment: .trailing) {
             statsLabel("tray", String(format: String(localized: "d_forwarded", comment: ""), "\(alias.emails_forwarded)"), .portalOrange)
@@ -147,8 +145,7 @@ struct AliasRowView: View {
         }
         .labelStyle(MyAliasLabelStyle())
     }
-    
-    @ViewBuilder
+
     private func statsLabel(_ systemImage: String, _ string: String, _ color: Color) -> some View {
         Label(title: {
             Text(string)
@@ -164,6 +161,7 @@ struct AliasRowView: View {
 }
 
 // MARK: - Date Formatting Helpers
+
 private func localizedDate(_ dateString: String) -> String {
     do {
         return try DateTimeUtils

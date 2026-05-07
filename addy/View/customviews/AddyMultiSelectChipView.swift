@@ -12,8 +12,8 @@ import WrappingHStack
 struct AddyMultiSelectChipView: View {
     @Binding var chips: [AddyChipModel]
     @Binding var selectedChips: [String]
-    var singleLine: Bool
 
+    var singleLine: Bool
     let onTap: (AddyChipModel) -> Void
 
     var body: some View {

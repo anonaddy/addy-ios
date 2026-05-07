@@ -12,14 +12,14 @@ import SwiftUI
 
 struct SplashView: View {
     @EnvironmentObject var mainViewState: MainViewState
+
+    @Environment(\.openURL) var openURL
+
     @State private var showError = false
     @State private var isPresentUnsupportedVersionBottomDialog = false
     @State private var networkHelper: NetworkHelper? = nil
-
     @State private var isShowingDetailedErrorAlert = false
     @State private var detailedError: String? = ""
-
-    @Environment(\.openURL) var openURL
 
     var body: some View {
         #if DEBUG
@@ -71,8 +71,8 @@ struct SplashView: View {
                         .animationSpeed(Double(2))
                         .frame(maxHeight: 128)
                         .opacity(0.5)
-
-                })
+                }
+            )
     }
 
     private var errorView: some View {
@@ -123,8 +123,8 @@ struct SplashView: View {
                             Text(String(localized: "reset_app", bundle: Bundle(for: SharedData.self))).foregroundColor(Color.white)
                         }
                     }.padding()
-
-                })
+                }
+            )
     }
 
     private func loadDataAndStartApp() {

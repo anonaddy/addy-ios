@@ -10,22 +10,16 @@ import AVFoundation
 import SwiftUI
 
 struct AddRecipientPublicGpgKeyBottomSheet: View {
-    let recipientId: String
+    @Environment(\.dismiss) var dismiss
+
     @State private var publicGpgKey: String = ""
-
     @State private var publicGpgKeyPlaceholder: String = .init(localized: "public_key_placeholder")
-    let onKeyAdded: (Recipients) -> Void
-
-    init(recipientId: String, onKeyAdded: @escaping (Recipients) -> Void) {
-        self.recipientId = recipientId
-        self.onKeyAdded = onKeyAdded
-    }
-
     @State private var publicGpgKeyValidationError: String?
     @State private var publicGpgKeyRequestError: String?
-
     @State var IsLoadingSaveButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    let recipientId: String
+    let onKeyAdded: (Recipients) -> Void
 
     var body: some View {
         #if DEBUG
@@ -98,6 +92,11 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(recipientId: String, onKeyAdded: @escaping (Recipients) -> Void) {
+        self.recipientId = recipientId
+        self.onKeyAdded = onKeyAdded
     }
 
     private func addGpgKeyHttp(publicGpgKey: String) async {

@@ -8,23 +8,53 @@ struct MainView: View {
     @EnvironmentObject var connectivity: iOSConnectivityManager
 
     @StateObject private var aliasesViewState = AliasesViewState.shared // Needs to be shared so that filters can be applied from other views
+
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    // State variables
-
-    // MARK: Share sheet AND MailTo tap action
-
     @State private var pendingURLFromShareViewController: IdentifiableURL?
-
-    // MARK: END Share sheet AND MailTo tap action
-
     @State private var apiTokenExpiryText = ""
     @State private var subscriptionExpiryText = ""
     @State private var isShowingAddApiSheet = false
     @State private var isShowingChangelogSheet = false
     @State private var showBiometricsAlert = false
     @State private var lastGeneralRefresh = Date.now
+
+    // State variables
+    // MARK: Share sheet AND MailTo tap action
+
+    // MARK: END Share sheet AND MailTo tap action
+
+    private var shouldShowLockedView: Bool {
+        mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled) && !mainViewState.isUnlocked
+    }
+
+    private var tabDestinations: [Destination] {
+        horizontalSizeClass == .regular ? Destination.otherCases : Destination.iPhoneCases
+    }
+
+    private enum AlertType: Identifiable {
+        case apiExpiration, subscriptionExpiration
+        var id: Self {
+            self
+        }
+    }
+
+    private var alertBinding: Binding<AlertType?> {
+        Binding(
+            get: {
+                if mainViewState.showApiExpirationWarning { return .apiExpiration }
+                if mainViewState.showSubscriptionExpirationWarning { return .subscriptionExpiration }
+                return nil
+            },
+            set: { newValue in
+                if newValue == nil {
+                    mainViewState.showApiExpirationWarning = false
+                    mainViewState.showSubscriptionExpirationWarning = false
+                }
+            }
+        )
+    }
 
     var body: some View {
         #if DEBUG
@@ -47,10 +77,6 @@ struct MainView: View {
         .task(performInitialTasks)
     }
 
-    private var shouldShowLockedView: Bool {
-        mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled) && !mainViewState.isUnlocked
-    }
-
     private var lockedView: some View {
         NavigationStack {
             ContentUnavailableView {
@@ -69,7 +95,7 @@ struct MainView: View {
                     SettingsManager(encrypted: true).clearSettingsAndCloseApp()
                 }
             }
-        }.onAppear{
+        }.onAppear {
             authenticate()
         }
     }
@@ -78,7 +104,6 @@ struct MainView: View {
         Group {
             TabView(selection: $mainViewState.selectedTab) {
                 ForEach(tabDestinations, id: \.self) { destination in
-                    
                     if let sizeClass = horizontalSizeClass {
                         destination.view(horizontalSize: .constant(sizeClass), refreshGeneralData: refreshGeneralData)
                             .tag(destination)
@@ -194,32 +219,6 @@ struct MainView: View {
                 .presentationDetents([.medium, .large])
         }
     }
-
-    private var tabDestinations: [Destination] {
-        horizontalSizeClass == .regular ? Destination.otherCases : Destination.iPhoneCases
-    }
-
-    private enum AlertType: Identifiable {
-        case apiExpiration, subscriptionExpiration
-        var id: Self { self }
-    }
-
-    private var alertBinding: Binding<AlertType?> {
-        Binding(
-            get: {
-                if mainViewState.showApiExpirationWarning { return .apiExpiration }
-                if mainViewState.showSubscriptionExpirationWarning { return .subscriptionExpiration }
-                return nil
-            },
-            set: { newValue in
-                if newValue == nil {
-                    mainViewState.showApiExpirationWarning = false
-                    mainViewState.showSubscriptionExpirationWarning = false
-                }
-            }
-        )
-    }
-
 
     private func handleOnAppear() {
         // Also perform BGTask immediately when opening the app
@@ -363,42 +362,34 @@ struct MainView: View {
         }
     }
 
-    /*
-     This method checks if there are new failed deliveries
-     It does this by getting the current failed delivery count, if that count is bigger than the failed deliveries in the cache that means there are new failed
-     deliveries.
-
-     As backgroundServiceCacheFailedDeliveriesCount is only updated in the service and in the FailedDeliveriesActivity that means that the red
-     indicator is only visible if:
-
-     - The activity has not been opened since there were new items.
-     - There are more failed deliveries than the server cached last time (in which case the user should have got a notification)
-     */
-
     private func checkForNewFailedDeliveries() async {
         do {
             if let result = try await NetworkHelper().getFailedDeliveries() {
-                let currentCount = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheFailedDeliveriesCount)
-                let totalCount = result.meta?.total ?? result.data.count
-                if totalCount > currentCount {
-                    withAnimation { mainViewState.newFailedDeliveries = totalCount - currentCount }
+                let previousFailedDeliveryId = mainViewState.encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
+
+                if let currentId = result.data.first?.id, !currentId.isEmpty {
+                    if previousFailedDeliveryId == nil || previousFailedDeliveryId == "" {
+                        let totalCount = result.meta?.total ?? result.data.count
+                        withAnimation { mainViewState.newFailedDeliveries = totalCount }
+                    } else if let previousId = previousFailedDeliveryId, currentId != previousId {
+                        var newDeliveriesCount = 0
+                        for delivery in result.data {
+                            if delivery.id == previousId { break }
+                            newDeliveriesCount += 1
+                        }
+
+                        if newDeliveriesCount <= 0 {
+                            newDeliveriesCount = 1
+                        }
+
+                        withAnimation { mainViewState.newFailedDeliveries = newDeliveriesCount }
+                    }
                 }
             }
         } catch {
             // Error will be logged when user has enabled this
         }
     }
-
-    /*
-     This method checks if there are new account notifications
-     It does this by getting the current account notifications count, if that count is bigger than the account notifications in the cache that means there are new notifications
-
-     As backgroundServiceCacheAccountNotificationsCount is only updated in the service and in the AccountNotificationsView that means that the red
-     indicator is only visible if:
-
-     - The activity has not been opened since there were new items.
-     - There are more account notifications than the server cached last time (in which case the user should have got a notification)
-     */
 
     private func checkForNewAccountNotifications() async {
         do {
@@ -472,10 +463,15 @@ struct MainView: View {
 }
 
 enum Destination: Hashable, CaseIterable {
-    case home, aliases, recipients, usernames, domains, failedDeliveries, rules, blocklist, settings, subscription
+    case home, aliases, recipients, usernames, domains, rules, failedDeliveries, settings, subscription
 
-    static var iPhoneCases: [Destination] { [.home, .aliases, .recipients] }
-    static var otherCases: [Destination] { [.home, .aliases, .recipients, .usernames, .domains, .failedDeliveries, .rules, .blocklist, .settings] }
+    static var iPhoneCases: [Destination] {
+        [.home, .aliases, .recipients]
+    }
+
+    static var otherCases: [Destination] {
+        [.home, .aliases, .recipients, .usernames, .domains, .rules, .failedDeliveries, .settings]
+    }
 
     var title: LocalizedStringKey {
         switch self {
@@ -484,9 +480,8 @@ enum Destination: Hashable, CaseIterable {
         case .recipients: "recipients"
         case .usernames: "usernames"
         case .domains: "domains"
-        case .failedDeliveries: "failed_deliveries"
         case .rules: "rules"
-        case .blocklist: "blocklist"
+        case .failedDeliveries: "failed_deliveries"
         case .settings: "settings"
         case .subscription: "subscription"
         }
@@ -499,9 +494,8 @@ enum Destination: Hashable, CaseIterable {
         case .recipients: return "recipients"
         case .usernames: return "usernames"
         case .domains: return "domains"
-        case .failedDeliveries: return "failed_deliveries"
         case .rules: return "rules"
-        case .blocklist: return "blocklist"
+        case .failedDeliveries: return "failed_deliveries"
         case .settings: return "settings"
         case .subscription: return "subscription"
         }
@@ -514,9 +508,8 @@ enum Destination: Hashable, CaseIterable {
         case .recipients: "person.2"
         case .usernames: "person.crop.circle.fill"
         case .domains: "globe"
-        case .failedDeliveries: "exclamationmark.triangle.fill"
         case .rules: "checklist"
-        case .blocklist: "nosign"
+        case .failedDeliveries: "exclamationmark.triangle.fill"
         case .settings: "gear"
         case .subscription: "creditcard.fill"
         }
@@ -529,9 +522,8 @@ enum Destination: Hashable, CaseIterable {
         case .recipients: AnyView(RecipientsView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .usernames: AnyView(UsernamesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .domains: AnyView(DomainsView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
-        case .failedDeliveries: AnyView(FailedDeliveriesView(horizontalSize: horizontalSize.wrappedValue, onRefreshGeneralData: refreshGeneralData))
         case .rules: AnyView(RulesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
-        case .blocklist: AnyView(BlocklistView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
+        case .failedDeliveries: AnyView(FailedDeliveriesView(horizontalSize: horizontalSize.wrappedValue, onRefreshGeneralData: refreshGeneralData))
         case .settings: AnyView(AppSettingsView(horizontalSize: horizontalSize))
         case .subscription: AnyView(ManageSubscriptionView(horizontalSize: horizontalSize, shouldHideNavigationBarBackButtonSubscriptionView: .constant(false)))
         }

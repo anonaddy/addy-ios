@@ -51,9 +51,7 @@ public enum DateTimeUtils {
         let zonedDateTime = ldt.toDate(timeZone: serverZoneId!)
         let defaultZoneId = TimeZone.current
 
-        let localTimeZoneDate = zonedDateTime.toDate(timeZone: defaultZoneId)
-
-        return localTimeZoneDate
+        return zonedDateTime.toDate(timeZone: defaultZoneId)
     }
 
     private static func turnStringIntoLocalDateTime(_ string: String?) throws -> Date {

@@ -5,11 +5,10 @@
 //  Created by Stijn van de Water on 01/02/2026.
 //
 
-
+import addy_shared
+import Combine
 import Foundation
 import WatchConnectivity
-import Combine
-import addy_shared
 
 final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     @Published var showSetupSheet = false
@@ -30,37 +29,40 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
 
     // MARK: - WCSessionDelegate
 
-    func session(_ session: WCSession,
-                 activationDidCompleteWith activationState: WCSessionActivationState,
-                 error: Error?) {
-#if DEBUG
-        print("iOS Session activation completed")
-#endif
+    func session(_: WCSession,
+                 activationDidCompleteWith _: WCSessionActivationState,
+                 error _: Error?)
+    {
+        #if DEBUG
+            print("iOS Session activation completed")
+        #endif
     }
 
-    func sessionDidBecomeInactive(_ session: WCSession) {
+    func sessionDidBecomeInactive(_: WCSession) {
         // Can hold off on sending data until session is active again
     }
-    func sessionDidDeactivate(_ session: WCSession) {
+
+    func sessionDidDeactivate(_: WCSession) {
         // Activate a new session
         WCSession.default.activate()
     }
 
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-#if DEBUG
-        print("iOSConnectivityManager, received message: \(message)")
-#endif
+    func session(_: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
+        #if DEBUG
+            print("iOSConnectivityManager, received message: \(message)")
+        #endif
 
         DispatchQueue.main.async {
             if message["request_setup"] as? Bool == true {
                 guard let watchName = message["watch_name"] as? String,
-                              let requestId = message["request_id"] as? String else {
-                            replyHandler(["error": "Invalid message"]) //TODO: to localizable
-                            return
-                        }
+                      let requestId = message["request_id"] as? String
+                else {
+                    replyHandler(["error": "Invalid message"]) // TODO: to localizable
+                    return
+                }
                 self.watchName = watchName
                 self.requestId = requestId
-                
+
                 if SettingsManager(encrypted: true).getSettingsString(key: .apiKey) != nil {
                     if SettingsManager(encrypted: false).getSettingsBool(key: .enableWatchKitQuickSetupDialog, default: true) {
                         self.showSetupSheet = true
@@ -70,9 +72,8 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
                     NotificationHelper().createSetupAppFirstWatchkitNotification()
                 }
                 replyHandler(["request_setup_confirm": true, "request_id": requestId])
-
             }
-            
+
             if message["show_alias"] as? Bool == true {
                 NotificationHelper().createOpenAliasFromWatchkitNotification(
                     id: message["alias_id"] as! String,
@@ -80,7 +81,7 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
                 )
                 replyHandler(["show_alias_confirm": true])
             }
-            
+
             if message["show_logs"] as? Bool == true {
                 var logs = message["logs"] as? String
                 LoggingHelper(logFile: .watchosLogs).setList(logs: stringToLogs(logs ?? ""))
@@ -96,10 +97,9 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
             }
         }
     }
-    
-    
+
     func setupAppleWatchApp(requestId: String, baseUrl: String, apiKey: String) {
-        WCSession.default.sendMessage(["setup_app": true, "request_id": requestId, "base_url": baseUrl, "api_key": apiKey], replyHandler: { reply in
+        WCSession.default.sendMessage(["setup_app": true, "request_id": requestId, "base_url": baseUrl, "api_key": apiKey], replyHandler: { _ in
         }, errorHandler: { error in
             LoggingHelper().addLog(
                 importance: LogImportance.critical,

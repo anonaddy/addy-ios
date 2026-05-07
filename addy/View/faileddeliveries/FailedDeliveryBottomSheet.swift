@@ -10,35 +10,28 @@ import AVFoundation
 import SwiftUI
 
 struct FailedDeliveryBottomSheet: View {
-    @State var failedDelivery: FailedDeliveries
     @EnvironmentObject var mainViewState: MainViewState
 
-    let onDeleted: () -> Void
+    @Environment(\.dismiss) var dismiss
 
-    init(failedDelivery: FailedDeliveries, onDeleted: @escaping () -> Void) {
-        self.failedDelivery = failedDelivery
-        self.onDeleted = onDeleted
-    }
-
+    @State var failedDelivery: FailedDeliveries
     @State var isLoadingDeleteButton: Bool = false
     @State var isLoadingDownloadButton: Bool = false
     @State var isLoadingResendButton: Bool = false
     @State var isLoadingBlocklistButton: Bool = false
     @State private var isShowingPicker = false
     @State private var fileURL: URL?
-
-    enum ActiveAlert {
-        case error
-        case resend
-        case blocklist
-    }
-
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
 
-    @Environment(\.dismiss) var dismiss
+    let onDeleted: () -> Void
+    enum ActiveAlert {
+        case error
+        case resend
+        case blocklist
+    }
 
     var body: some View {
         #if DEBUG
@@ -104,12 +97,11 @@ struct FailedDeliveryBottomSheet: View {
                 ToolbarSpacer(placement: .bottomBar)
             }
 
-            if self.failedDelivery.is_stored && !self.failedDelivery.quarantined && !self.failedDelivery.resent && self.failedDelivery.email_type == "F" {
+            if self.failedDelivery.is_stored, !self.failedDelivery.quarantined, !self.failedDelivery.resent, self.failedDelivery.email_type == "F" {
                 ToolbarItem(placement: .bottomBar) {
                     resendFailedDeliveryButton()
                 }
             }
-            
 
         })
         .alert(isPresented: $showAlert) {
@@ -221,6 +213,11 @@ struct FailedDeliveryBottomSheet: View {
         }
     }
 
+    init(failedDelivery: FailedDeliveries, onDeleted: @escaping () -> Void) {
+        self.failedDelivery = failedDelivery
+        self.onDeleted = onDeleted
+    }
+
     private func blocklistSender() async {
         guard let sender = failedDelivery.sender, !sender.isEmpty else {
             isLoadingBlocklistButton = false
@@ -229,7 +226,7 @@ struct FailedDeliveryBottomSheet: View {
 
         let type = sender.contains("@") ? "email" : "domain"
         let entry = NewBlocklistEntry(type: type, value: sender)
-        
+
         let networkHelper = NetworkHelper()
         do {
             _ = try await networkHelper.addBlocklistEntry(entry: entry)

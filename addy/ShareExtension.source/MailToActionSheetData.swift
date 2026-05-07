@@ -10,8 +10,4 @@ import Foundation
 struct MailToActionSheetData: Identifiable {
     let id = UUID()
     let value: String
-
-    init(value: String) {
-        self.value = value
-    }
 }

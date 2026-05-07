@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler()
     }
 
-    /**
+    /* 
      when a notification arrives and your app is in the foreground, the system calls this method. The completion handler is then called with the .list, .banner and .sound options, which means the alert dialog or banner is presented to the user and the sound associated with the notification is played. This also triggers the userNotificationCenter(_:didReceive:withCompletionHandler:) method.
      */
 
@@ -105,8 +105,8 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
 
-    // This function is called when your app launches.
-    // Check to see if our app was launched with a universal link.
+    /// This function is called when your app launches.
+    /// Check to see if our app was launched with a universal link.
     func scene(_: UIScene, willConnectTo _: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let urlContext = connectionOptions.urlContexts.first {
             let url = urlContext.url

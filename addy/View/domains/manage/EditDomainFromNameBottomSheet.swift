@@ -10,24 +10,17 @@ import AVFoundation
 import SwiftUI
 
 struct EditDomainFromNameBottomSheet: View {
-    let domainId: String
-    let domain: String
+    @Environment(\.dismiss) var dismiss
+
     @State var fromName: String
     @State var fromNamePlaceholder: String = .init(localized: "from_name")
-    let fromNameEdited: (Domains) -> Void
-
-    init(domainId: String, domain: String, fromName: String?, fromNameEdited: @escaping (Domains) -> Void) {
-        self.domainId = domainId
-        self.domain = domain
-        self.fromName = fromName ?? ""
-        self.fromNameEdited = fromNameEdited
-    }
-
     @State private var fromNameValidationError: String?
     @State private var fromNameRequestError: String?
-
     @State var IsLoadingSaveButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    let domainId: String
+    let domain: String
+    let fromNameEdited: (Domains) -> Void
 
     var body: some View {
         #if DEBUG
@@ -103,6 +96,13 @@ struct EditDomainFromNameBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(domainId: String, domain: String, fromName: String?, fromNameEdited: @escaping (Domains) -> Void) {
+        self.domainId = domainId
+        self.domain = domain
+        self.fromName = fromName ?? ""
+        self.fromNameEdited = fromNameEdited
     }
 
     private func editFromName(fromName: String?) async {

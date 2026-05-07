@@ -5,28 +5,21 @@
 //  Created by Stijn van de Water on 01/06/2024.
 //
 
-import SwiftUI
-
 import addy_shared
 import AVFoundation
 import SwiftUI
 
 struct AddUsernameBottomSheet: View {
+    @Environment(\.dismiss) var dismiss
+
     @State var username: String = ""
     @State var usernameLimit: Int
     @State var usernamePlaceHolder: String = .init(localized: "username")
-    let onAdded: () -> Void
-
-    init(usernameLimit: Int, onAdded: @escaping () -> Void) {
-        self.usernameLimit = usernameLimit
-        self.onAdded = onAdded
-    }
-
     @State private var usernameValidationError: String?
     @State private var usernameRequestError: String?
-
     @State var IsLoadingAddButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    let onAdded: () -> Void
 
     var body: some View {
         #if DEBUG
@@ -100,6 +93,11 @@ struct AddUsernameBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(usernameLimit: Int, onAdded: @escaping () -> Void) {
+        self.usernameLimit = usernameLimit
+        self.onAdded = onAdded
     }
 
     private func addUsernameToAccount(username: String) async {

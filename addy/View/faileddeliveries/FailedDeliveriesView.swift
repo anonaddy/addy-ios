@@ -13,32 +13,23 @@ struct FailedDeliveriesView: View {
 
     @StateObject var failedDeliveriesViewModel = FailedDeliveriesViewModel()
 
+    @Environment(\.dismiss) var dismiss
+
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var showAlert: Bool = false
+    @State private var failedDeliveryToDelete: FailedDeliveries? = nil
+    @State private var failedDeliveryToShow: FailedDeliveries? = nil
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @State var selectedFilterChip: String = "all"
+    @State var filterChips: [AddyChipModel] = []
+    @State var horizontalSize: UserInterfaceSizeClass
+
     enum ActiveAlert {
         case error, deleteFailedDelivery
     }
 
-    @State private var activeAlert: ActiveAlert = .error
-    @State private var showAlert: Bool = false
-
-    @State private var failedDeliveryToDelete: FailedDeliveries? = nil
-    @State private var failedDeliveryToShow: FailedDeliveries? = nil
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-
-    @State var selectedFilterChip: String = "all"
-    @State var filterChips: [AddyChipModel] = []
-
-    @State var horizontalSize: UserInterfaceSizeClass
     var onRefreshGeneralData: (() -> Void)?
-
-    @Environment(\.dismiss) var dismiss
-
-
-    init(horizontalSize: UserInterfaceSizeClass?, onRefreshGeneralData: (() -> Void)? = nil) {
-        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
-        self.onRefreshGeneralData = onRefreshGeneralData
-    }
 
     var body: some View {
         #if DEBUG
@@ -56,7 +47,7 @@ struct FailedDeliveriesView: View {
                                             HStack {
                                                 Text(String(localized: "alias"))
                                                     .font(.system(size: 16, weight: .medium))
-                                                
+
                                                 Text(failedDelivery.email_type_text.uppercased())
                                                     .font(.system(size: 10, weight: .bold))
                                                     .padding(.horizontal, 6)
@@ -125,18 +116,31 @@ struct FailedDeliveriesView: View {
                                 if selectedFilterChip != "all" {
                                     Text(String(localized: "failed_deliveries_filtered"))
                                 } else {
-                                    Text(String(localized: "all_failed_deliveries"))
+                                    Text(String(localized: "failed_deliveries"))
                                 }
 
                                 if failedDeliveriesViewModel.isLoading {
                                     ProgressView()
                                         .frame(maxHeight: 4)
                                 }
+
+                                if let count = failedDeliveriesViewModel.failedDeliveries?.data.count, count > 0 {
+                                    Text("\(count)")
+                                        .font(.caption)
+                                        .fontWeight(.bold)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 2)
+                                        .background(Color.secondary.opacity(0.1))
+                                        .clipShape(Capsule())
+                                }
                             }
                         }
                         // When this section is visible that means there is data. Make sure to update the amount of failed deliveries in cache
                     }.textCase(nil).onAppear(perform: {
-                        updateTheCacheFDCount(count: failedDeliveries.meta?.total ?? failedDeliveries.data.count)
+                        updateTheCacheFDCount(
+                            count: failedDeliveries.meta?.total ?? failedDeliveries.data.count,
+                            latestId: failedDeliveries.data.first?.id // First in the list is actually the last ID because its sort DESC
+                        )
                     })
                 }
 
@@ -179,7 +183,7 @@ struct FailedDeliveriesView: View {
                     )
                 }
             }
-            .background(Group {
+            .overlay(Group {
                 // If there is an failedDeliveries (aka, if the list is visible)
                 if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
                     if failedDeliveries.data.isEmpty {
@@ -237,7 +241,6 @@ struct FailedDeliveriesView: View {
             .navigationTitle(String(localized: "failed_deliveries"))
             .toolbar {
                 if horizontalSize == .regular {
-
                     ToolbarItem(placement: .topBarLeading) {
                         ProfilePicture().environmentObject(mainViewState)
                     }
@@ -245,7 +248,7 @@ struct FailedDeliveriesView: View {
                     if #available(iOS 26.0, *) {
                         ToolbarSpacer(placement: .topBarLeading)
                     }
-                    
+
                     ToolbarItem(placement: .topBarLeading) {
                         AccountNotificationsIcon().environmentObject(mainViewState)
                     }
@@ -261,6 +264,9 @@ struct FailedDeliveriesView: View {
             }
         }
         .onAppear(perform: {
+            // Instantly clear the unread badge regardless of how the view was opened (navbar or sidebar)
+            mainViewState.newFailedDeliveries = 0
+
             LoadFilter()
             if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
                 if failedDeliveries.data.isEmpty {
@@ -272,10 +278,17 @@ struct FailedDeliveriesView: View {
         })
     }
 
+    init(horizontalSize: UserInterfaceSizeClass?, onRefreshGeneralData: (() -> Void)? = nil) {
+        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
+        self.onRefreshGeneralData = onRefreshGeneralData
+    }
+
     func ApplyFilter(chipId: String) {
         switch chipId {
         case "inbound":
             failedDeliveriesViewModel.filter = "inbound"
+        case "inbound_quarantined":
+            failedDeliveriesViewModel.filter = "inbound_quarantined"
         case "outbound":
             failedDeliveriesViewModel.filter = "outbound"
         case "all":
@@ -297,16 +310,22 @@ struct FailedDeliveriesView: View {
         return [
             AddyChipModel(chipId: "all", label: String(localized: "filter_all")),
             AddyChipModel(chipId: "inbound", label: String(localized: "filter_inbound")),
-            AddyChipModel(chipId: "outbound", label: String(localized: "filter_outbound"))
+            AddyChipModel(chipId: "inbound_quarantined", label: String(localized: "filter_inbound_quarantined")),
+            AddyChipModel(chipId: "outbound", label: String(localized: "filter_outbound")),
         ]
     }
 
-    private func updateTheCacheFDCount(count: Int) {
-        // Set the count of failed deliveries so that we can use it for the backgroundservice AND mark this a read for the badge
-        MainViewState.shared.encryptedSettingsManager.putSettingsInt(
-            key: .backgroundServiceCacheFailedDeliveriesCount,
-            int: count
-        )
+    private func updateTheCacheFDCount(count _: Int, latestId: String?) {
+        // Save the latest failed delivery ID when the user views the list.
+        // This acts as the "read receipt" pointer. Background tasks will use this
+        // to determine if new deliveries have arrived since the user last checked.
+        if let latestId = latestId {
+            MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: latestId)
+            MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .backgroundServiceNotifiedFailedDeliveriesLatestId, string: latestId)
+        } else {
+            MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId, string: "")
+            MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .backgroundServiceNotifiedFailedDeliveriesLatestId, string: "")
+        }
     }
 
     private func deleteFailedDelivery(failedDelivery: FailedDeliveries) async {

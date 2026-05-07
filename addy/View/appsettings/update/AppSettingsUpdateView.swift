@@ -9,20 +9,16 @@ import addy_shared
 import SwiftUI
 
 struct AppSettingsUpdateView: View {
+    @Environment(\.openURL) var openURL
+
     @State private var showAlert: Bool = false
-
     @State private var errorAlertMessage = ""
-
     @State private var isCheckingForUpdates: Bool = false
     @State private var checkedForUpdates: Bool = false
-
     @State var updateStatusTitle = String(localized: "check_for_updates")
     @State var updateStatusDescription = String(localized: "check_for_updates_desc")
-
     @State private var notifyUpdates: Bool = false
     @State private var isPresentingChangelogBottomSheet = false
-
-    @Environment(\.openURL) var openURL
 
     var body: some View {
         #if DEBUG

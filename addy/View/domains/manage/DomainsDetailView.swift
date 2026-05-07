@@ -11,51 +11,40 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct DomainsDetailView: View {
+    @EnvironmentObject var mainViewState: MainViewState
+
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.openURL) var openURL
+
+    @Binding var shouldReloadDataInParent: Bool
+    @State private var activeAlert: ActiveAlert = .deleteDomain
+    @State private var showAlert: Bool = false
+    @State private var isDeletingDomain: Bool = false
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @State private var domain: Domains? = nil
+    @State private var errorText: String? = nil
+    @State private var isActive: Bool = false
+    @State private var catchAllEnabled: Bool = false
+    @State private var isSwitchingisActiveState: Bool = false
+    @State private var isSwitchingCatchAllEnabledState: Bool = false
+    @State private var isPresentingEditDomainDescriptionBottomSheet: Bool = false
+    @State private var isPresentingEditDomainFromNameBottomSheet: Bool = false
+    @State private var isPresentingEditDomainRecipientsBottomSheet: Bool = false
+    @State private var isPresentingEditDomainAutoCreateRegexBottomSheet: Bool = false
+    @State private var aliasList: [String] = []
+    @State private var totalForwarded: Int = 0
+    @State private var totalBlocked: Int = 0
+    @State private var totalReplies: Int = 0
+    @State private var totalSent: Int = 0
+
     enum ActiveAlert {
         case deleteDomain, error
     }
 
     let domainId: String
     let domainDomain: String
-
-    @Binding var shouldReloadDataInParent: Bool
-
-    @State private var activeAlert: ActiveAlert = .deleteDomain
-    @State private var showAlert: Bool = false
-    @State private var isDeletingDomain: Bool = false
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-    @EnvironmentObject var mainViewState: MainViewState
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-    @State private var domain: Domains? = nil
-    @State private var errorText: String? = nil
-
-    @State private var isActive: Bool = false
-    @State private var catchAllEnabled: Bool = false
-    @State private var isSwitchingisActiveState: Bool = false
-    @State private var isSwitchingCatchAllEnabledState: Bool = false
-
-    @State private var isPresentingEditDomainDescriptionBottomSheet: Bool = false
-    @State private var isPresentingEditDomainFromNameBottomSheet: Bool = false
-    @State private var isPresentingEditDomainRecipientsBottomSheet: Bool = false
-    @State private var isPresentingEditDomainAutoCreateRegexBottomSheet: Bool = false
-
-    @State private var aliasList: [String] = []
-
-    @State private var totalForwarded: Int = 0
-    @State private var totalBlocked: Int = 0
-    @State private var totalReplies: Int = 0
-    @State private var totalSent: Int = 0
-
-    init(domainId: String, domainDomain: String, shouldReloadDataInParent: Binding<Bool>) {
-        self.domainId = domainId
-        self.domainDomain = domainDomain
-        _shouldReloadDataInParent = shouldReloadDataInParent
-    }
-
-    @Environment(\.openURL) var openURL
+    // Function to add aliases to the list
 
     var body: some View {
         #if DEBUG
@@ -85,8 +74,19 @@ struct DomainsDetailView: View {
                         .padding(.top, 5)
 
                 } header: {
-                    Text(String(format: String(localized: "domain_aliases_d"),
-                                String(domain.aliases_count ?? 0)))
+                    HStack(spacing: 6) {
+                        Text(String(localized: "domain_aliases_d"))
+
+                        if let count = domain.aliases_count, count > 0 {
+                            Text("\(count)")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background(Color.secondary.opacity(0.1))
+                                .clipShape(Capsule())
+                        }
+                    }
                 }.textCase(nil)
 
                 Section {
@@ -268,6 +268,12 @@ struct DomainsDetailView: View {
             .navigationTitle(domainDomain)
             .navigationBarTitleDisplayMode(.inline)
         }
+    }
+
+    init(domainId: String, domainDomain: String, shouldReloadDataInParent: Binding<Bool>) {
+        self.domainId = domainId
+        self.domainDomain = domainDomain
+        _shouldReloadDataInParent = shouldReloadDataInParent
     }
 
     private func getDefaultRecipient(domain: Domains) -> String {
@@ -472,7 +478,6 @@ struct DomainsDetailView: View {
         }
     }
 
-    // Function to add aliases to the list
     func addAliasesToList(domain: Domains, aliasesArray: AliasesArray, workingAliasListInbound: AliasesArray? = nil) {
         var workingAliasList = workingAliasListInbound
 

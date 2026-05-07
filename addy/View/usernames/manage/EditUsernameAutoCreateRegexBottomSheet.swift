@@ -10,24 +10,17 @@ import AVFoundation
 import SwiftUI
 
 struct EditUsernameAutoCreateRegexBottomSheet: View {
-    let usernameId: String
-    let username: String
+    @Environment(\.dismiss) var dismiss
+
     @State var autoCreateRegex: String
     @State var autoCreateRegexPlaceholder: String = .init(localized: "auto_create_regex_hint")
-    let autoCreateRegexEdited: (Usernames) -> Void
-
-    init(usernameId: String, username: String, autoCreateRegex: String?, autoCreateRegexEdited: @escaping (Usernames) -> Void) {
-        self.usernameId = usernameId
-        self.username = username
-        self.autoCreateRegex = autoCreateRegex ?? ""
-        self.autoCreateRegexEdited = autoCreateRegexEdited
-    }
-
     @State private var autoCreateRegexValidationError: String?
     @State private var autoCreateRegexRequestError: String?
-
     @State var IsLoadingSaveButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    let usernameId: String
+    let username: String
+    let autoCreateRegexEdited: (Usernames) -> Void
 
     var body: some View {
         #if DEBUG
@@ -101,6 +94,13 @@ struct EditUsernameAutoCreateRegexBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(usernameId: String, username: String, autoCreateRegex: String?, autoCreateRegexEdited: @escaping (Usernames) -> Void) {
+        self.usernameId = usernameId
+        self.username = username
+        self.autoCreateRegex = autoCreateRegex ?? ""
+        self.autoCreateRegexEdited = autoCreateRegexEdited
     }
 
     private func editautoCreateRegex(autoCreateRegex: String?) async {

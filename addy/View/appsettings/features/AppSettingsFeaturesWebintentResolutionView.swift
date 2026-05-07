@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppSettingsFeaturesWebintentResolutionView: View {
     @State var webIntentResolutionEnabled = true
+
     var body: some View {
         #if DEBUG
             let _ = Self._printChanges()

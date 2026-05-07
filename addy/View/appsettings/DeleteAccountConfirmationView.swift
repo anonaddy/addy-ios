@@ -33,17 +33,16 @@ class TimerViewModel: ObservableObject {
 struct DeleteAccountConfirmationView: View {
     @StateObject private var viewModel = TimerViewModel()
 
-    let addyButtonDeleteStyle = AddyButtonStyle(width: .infinity,
-                                                height: 56,
-                                                buttonStyle: .destructive)
-
-    let addyButtonGrayStyle = AddyButtonStyle(width: .infinity,
-                                              height: 56,
-                                              buttonStyle: .secondary)
-
     @State private var showAlert: Bool = false
     @State private var alertMessage = String(localized: "delete_account_confirmation_alert")
     @State private var password = ""
+
+    let addyButtonDeleteStyle = AddyButtonStyle(width: .infinity,
+                                                height: 56,
+                                                buttonStyle: .destructive)
+    let addyButtonGrayStyle = AddyButtonStyle(width: .infinity,
+                                              height: 56,
+                                              buttonStyle: .secondary)
 
     var body: some View {
         VStack {

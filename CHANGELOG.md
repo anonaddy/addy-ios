@@ -1,5 +1,28 @@
 # Changelog
 
+## [v2.3.2] - TBD
+
+### addy.io
+
+**Fixed & Improved**
+- Added support for blocklist pagination
+- Added support for blocklist filtering
+- Added support for searching through blocklist items
+- Added support for filtering failed deliveries for inbound quarantined
+- Reworked logic for counting failed deliveries
+- Redesigned searchbar for aliases
+- Redesigned tablet and foldable UI
+- Performance enhancements and other improvements for a smoother experience
+
+**Removed**
+- Removed Global Search in favor of new searchbars
+
+**What’s new in addy.io for Apple Watch 1.1.3**
+
+**Fixed & Improved**  
+- Performance enhancements and other improvements for a smoother experience
+
+
 ## [v2.3.0] - 2026-04-12
 
 ### addy.io

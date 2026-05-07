@@ -7,9 +7,9 @@
 
 import SwiftUI
 #if os(iOS)
-import UIKit
+    import UIKit
 #elseif os(watchOS)
-import WatchKit
+    import WatchKit
 #endif
 
 public enum HapticHelper {
@@ -20,22 +20,22 @@ public enum HapticHelper {
 
     public static func playHapticFeedback(hapticType: HapticType) {
         #if os(iOS)
-        // iOS - UIKit haptics
-        switch hapticType {
-        case .tap:
-            let generator = UIImpactFeedbackGenerator(style: .light)
-            generator.impactOccurred()
-        case .error:
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-        }
+            // iOS - UIKit haptics
+            switch hapticType {
+            case .tap:
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                generator.impactOccurred()
+            case .error:
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+            }
         #elseif os(watchOS)
-        // watchOS - WKInterfaceDevice haptics
-        switch hapticType {
-        case .tap:
-            WKInterfaceDevice.current().play(.click)
-        case .error:
-            WKInterfaceDevice.current().play(.notification)
-        }
+            // watchOS - WKInterfaceDevice haptics
+            switch hapticType {
+            case .tap:
+                WKInterfaceDevice.current().play(.click)
+            case .error:
+                WKInterfaceDevice.current().play(.notification)
+            }
         #endif
     }
 }

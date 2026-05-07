@@ -59,7 +59,7 @@ class BackgroundWorker {
                 #endif
                 _ = await networkHelper.cacheMostPopularAliasesDataForWidget()
 
-                /**
+                /*
                  ALIAS_WATCHER FUNCTIONALITY
                  **/
                 #if DEBUG
@@ -163,27 +163,26 @@ class BackgroundWorker {
                         extra: nil
                     )
                 #endif
-                Task {
-                    if settingsManager.getSettingsBool(key: .notifyDomainError) {
-                        do {
-                            let domains = try await networkHelper.getDomains()
-                            if let domains = domains, !domains.data.isEmpty {
-                                // Check the amount of domains with MX errors
-                                let amountOfDomainsWithErrors = domains.data.filter { $0.domain_mx_validated_at == nil }.count
-                                if amountOfDomainsWithErrors > 0 {
-                                    // Check if the notification has already been fired for this count of domains
-                                    let previousNotificationLeftDays = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheDomainErrorCount)
 
-                                    // If the domains with errors have been changed, fire a notification
-                                    if previousNotificationLeftDays != amountOfDomainsWithErrors {
-                                        encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheDomainErrorCount, int: amountOfDomainsWithErrors)
-                                        NotificationHelper().createDomainErrorNotification(count: amountOfDomainsWithErrors)
-                                    }
+                if settingsManager.getSettingsBool(key: .notifyDomainError) {
+                    do {
+                        let domains = try await networkHelper.getDomains()
+                        if let domains = domains, !domains.data.isEmpty {
+                            // Check the amount of domains with MX errors
+                            let amountOfDomainsWithErrors = domains.data.filter { $0.domain_mx_validated_at == nil }.count
+                            if amountOfDomainsWithErrors > 0 {
+                                // Check if the notification has already been fired for this count of domains
+                                let previousNotificationLeftDays = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheDomainErrorCount)
+
+                                // If the domains with errors have been changed, fire a notification
+                                if previousNotificationLeftDays != amountOfDomainsWithErrors {
+                                    encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheDomainErrorCount, int: amountOfDomainsWithErrors)
+                                    NotificationHelper().createDomainErrorNotification(count: amountOfDomainsWithErrors)
                                 }
                             }
-                        } catch {
-                            logger.log("Failed to get domains: \(error)")
                         }
+                    } catch {
+                        logger.log("Failed to get domains: \(error)")
                     }
                 }
 
@@ -269,16 +268,24 @@ class BackgroundWorker {
                     )
                 #endif
                 if settingsManager.getSettingsBool(key: .notifyFailedDeliveries) {
-                    let previousFailedDeliveryId = encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
-                    
-                    let _ = await networkHelper.cacheFailedDeliveryCountForWidgetAndBackgroundService()
-                    // Store the result if the data succeeded to update in a boolean
+                    let previousFailedDeliveryId = encryptedSettingsManager.getSettingsString(key: .backgroundServiceNotifiedFailedDeliveriesLatestId)
 
-                    let currentFailedDeliveryId = encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
-                    
+                    var newDeliveriesCount = 0
+                    var currentFailedDeliveryId: String? = nil
+                    if let result = await networkHelper.cacheFailedDeliveryCountForWidgetAndBackgroundService(previousId: previousFailedDeliveryId) {
+                        newDeliveriesCount = result.0
+                        currentFailedDeliveryId = result.1
+                    }
+
                     // If the current failed delivery id is different from the previous. That means there is a new failed delivery
                     if let currentId = currentFailedDeliveryId, let previousId = previousFailedDeliveryId, currentId != previousId, !currentId.isEmpty {
-                        NotificationHelper().createFailedDeliveryNotification(difference: 1)
+                        // Ensure we only create a notification if the locally applied filter found matching deliveries.
+                        // For example, if a new 'outbound' delivery arrived but the user only wants 'inbound' notifications,
+                        // newDeliveriesCount will be 0 and no notification will be triggered.
+                        if newDeliveriesCount > 0 {
+                            NotificationHelper().createFailedDeliveryNotification(difference: newDeliveriesCount)
+                        }
+                        encryptedSettingsManager.putSettingsString(key: .backgroundServiceNotifiedFailedDeliveriesLatestId, string: currentId)
                     }
                 }
 

@@ -26,3 +26,5 @@ builds/**/Packaging.log
 StoreKitConfiguration.storekit
 .DS_Store
 duplicate_keys.txt
+refactor.py
+refactor.py

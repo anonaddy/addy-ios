@@ -11,11 +11,6 @@ struct UnsupportedBottomSheet: View {
     let onClickHowToUpdate: () -> Void
     let onClickIgnore: () -> Void
 
-    init(onClickHowToUpdate: @escaping () -> Void, onClickIgnore: @escaping () -> Void) {
-        self.onClickHowToUpdate = onClickHowToUpdate
-        self.onClickIgnore = onClickIgnore
-    }
-
     var body: some View {
         #if DEBUG
             let _ = Self._printChanges()

@@ -5,26 +5,21 @@
 //  Created by Stijn van de Water on 09/03/2026.
 //
 
-
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct AddBlocklistEntryBottomSheet: View {
-    // 1. Added state for type selection
+    @Environment(\.dismiss) var dismiss
+
     @State var blocklistType: String = "email"
     @State var blocklistEntry: String = ""
     @State var blocklistEntryPlaceHolder: String = .init(localized: "blocklist_add_hint")
-    let onAdded: () -> Void
-
-    init(onAdded: @escaping () -> Void) {
-        self.onAdded = onAdded
-    }
-
     @State private var blocklistEntryValidationError: String?
     @State private var blocklistEntryRequestError: String?
-
     @State var IsLoadingAddButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    /// 1. Added state for type selection
+    let onAdded: () -> Void
 
     var body: some View {
         #if DEBUG
@@ -44,9 +39,9 @@ struct AddBlocklistEntryBottomSheet: View {
                 }
 
                 ValidatingTextField(value: self.$blocklistEntry,
-                                   placeholder: self.$blocklistEntryPlaceHolder,
-                                   fieldType: blocklistType == "email" ? .email : .domain,
-                                   error: $blocklistEntryValidationError)
+                                    placeholder: self.$blocklistEntryPlaceHolder,
+                                    fieldType: blocklistType == "email" ? .email : .domain,
+                                    error: $blocklistEntryValidationError)
 
             } header: {
                 VStack {
@@ -100,7 +95,7 @@ struct AddBlocklistEntryBottomSheet: View {
 
                             // 3. Construct the NewBlocklistEntry object using current state
                             let entry = NewBlocklistEntry(type: self.blocklistType, value: self.blocklistEntry)
-                            
+
                             Task {
                                 await self.addblocklistEntryToAccount(blocklistEntry: entry)
                             }
@@ -117,6 +112,10 @@ struct AddBlocklistEntryBottomSheet: View {
         }
     }
 
+    init(onAdded: @escaping () -> Void) {
+        self.onAdded = onAdded
+    }
+
     private func addblocklistEntryToAccount(blocklistEntry: NewBlocklistEntry) async {
         blocklistEntryRequestError = nil
         let networkHelper = NetworkHelper()
@@ -130,8 +129,9 @@ struct AddBlocklistEntryBottomSheet: View {
         }
     }
 }
+
 #Preview {
-    AddBlocklistEntryBottomSheet() {
+    AddBlocklistEntryBottomSheet {
         // Dummy function for preview
     }
 }

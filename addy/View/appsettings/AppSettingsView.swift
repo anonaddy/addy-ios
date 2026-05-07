@@ -12,23 +12,20 @@ import SwiftUI
 struct AppSettingsView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
-    @State private var isPresentingUIUXInterfaceBottomSheet: Bool = false
+    @Environment(\.openURL) var openURL
 
+    @State private var isPresentingUIUXInterfaceBottomSheet: Bool = false
     @State private var storeLogs: Bool = false
     @State private var privacyMode: Bool = false
     @State private var biometricEnabled: Bool = false
     @State private var showPlayGround: Bool = false
-
-    @Environment(\.openURL) var openURL
-
     @Binding var horizontalSize: UserInterfaceSizeClass
+    @State private var showAlert = false
+    @State private var activeAlert: ActiveAlert = .resetApp
 
     enum ActiveAlert {
         case resetAppError, resetApp
     }
-
-    @State private var showAlert = false
-    @State private var activeAlert: ActiveAlert = .resetApp
 
     var body: some View {
         #if DEBUG
@@ -86,7 +83,7 @@ struct AppSettingsView: View {
                 }
                 NavigationLink(destination: AppSettingsWatchKitView()) {
                     AddySection(title: String(localized: "addyio_for_watchkit"), description: String(localized: "addyio_for_watchkit_desc"), leadingSystemimage: "applewatch", leadingSystemimageColor: .mint)
-                                }
+                }
 
                 //                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor){
                 //
@@ -218,7 +215,7 @@ struct AppSettingsView: View {
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
@@ -274,7 +271,7 @@ struct AppSettingsView: View {
         var error: NSError?
 
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            let reason = "Authenticate to access the app"
+            let reason = String(localized: "authentication_reason")
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, _ in
                 if success {
                     DispatchQueue.main.async {

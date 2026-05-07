@@ -9,8 +9,8 @@ import addy_shared
 import Combine
 import SwiftUI
 
-// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
-// and handle all @Published updates safely on the main thread.
+/// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
+/// and handle all @Published updates safely on the main thread.
 @MainActor
 class FailedDeliveriesViewModel: ObservableObject {
     @Published var failedDeliveries: FailedDeliveriesArray? = nil
@@ -29,9 +29,9 @@ class FailedDeliveriesViewModel: ObservableObject {
 
     func getFailedDeliveries(forceReload: Bool) async {
         if !isLoading {
-            self.isLoading = true
-            self.networkError = ""
-            
+            isLoading = true
+            networkError = ""
+
             let networkHelper = NetworkHelper()
             do {
                 let pageToLoad = forceReload ? 1 : ((failedDeliveries?.meta?.current_page ?? 0) + 1)
@@ -40,26 +40,26 @@ class FailedDeliveriesViewModel: ObservableObject {
                     size: 25,
                     filter: filter
                 )
-                self.isLoading = false
+                isLoading = false
 
                 if let failedDeliveriesArray = failedDeliveriesArray {
-                    if self.failedDeliveries == nil || forceReload {
-                        self.failedDeliveries = failedDeliveriesArray
+                    if failedDeliveries == nil || forceReload {
+                        failedDeliveries = failedDeliveriesArray
                     } else {
-                        self.failedDeliveries?.meta = failedDeliveriesArray.meta
-                        self.failedDeliveries?.links = failedDeliveriesArray.links
-                        self.failedDeliveries?.data.append(contentsOf: failedDeliveriesArray.data)
+                        failedDeliveries?.meta = failedDeliveriesArray.meta
+                        failedDeliveries?.links = failedDeliveriesArray.links
+                        failedDeliveries?.data.append(contentsOf: failedDeliveriesArray.data)
                     }
 
-                    self.hasArrivedAtTheLastPage = failedDeliveriesArray.meta?.current_page == failedDeliveriesArray.meta?.last_page || self.failedDeliveries?.data.isEmpty == true
+                    hasArrivedAtTheLastPage = failedDeliveriesArray.meta?.current_page == failedDeliveriesArray.meta?.last_page || failedDeliveries?.data.isEmpty == true
                 } else {
-                    self.hasArrivedAtTheLastPage = true
+                    hasArrivedAtTheLastPage = true
                 }
 
             } catch {
-                self.isLoading = false
-                self.networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
-                
+                isLoading = false
+                networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
+
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,

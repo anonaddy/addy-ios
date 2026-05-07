@@ -13,8 +13,7 @@ public class GsonTools {
 
         do {
             let jsonData = json.data(using: .utf8)!
-            let aliases = try JSONDecoder().decode([Aliases].self, from: jsonData)
-            return aliases
+            return try JSONDecoder().decode([Aliases].self, from: jsonData)
         } catch {
             loggingHelper.addLog(importance: LogImportance.critical, error: error.localizedDescription, method: "jsonToAliasObject", extra: nil)
             return nil
@@ -26,8 +25,7 @@ public class GsonTools {
 
         do {
             let jsonData = json.data(using: .utf8)!
-            let userResource = try JSONDecoder().decode(UserResource.self, from: jsonData)
-            return userResource
+            return try JSONDecoder().decode(UserResource.self, from: jsonData)
         } catch {
             loggingHelper.addLog(importance: LogImportance.critical, error: error.localizedDescription, method: "jsonToUserResourceObject", extra: nil)
             return nil

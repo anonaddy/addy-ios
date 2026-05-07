@@ -10,29 +10,25 @@ import SwiftUI
 
 struct DomainsView: View {
     @EnvironmentObject var mainViewState: MainViewState
+
     @StateObject var domainsViewModel = DomainsViewModel()
+
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var showAlert: Bool = false
+    @State private var domainToDelete: Domains? = nil
+    @State private var domain_count: Int = 0
+    @State private var domain_limit: Int? = 0
+    @State private var isPresentingAddDomainBottomSheet = false
+    @State private var shouldReloadDataInParent = false
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
         case error, deleteDomain
     }
 
-    @State private var activeAlert: ActiveAlert = .error
-    @State private var showAlert: Bool = false
-
-    @State private var domainToDelete: Domains? = nil
-
-    // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
-    @State private var domain_count: Int = 0
-    @State private var domain_limit: Int? = 0
-
-    @State private var isPresentingAddDomainBottomSheet = false
-
-    @State private var shouldReloadDataInParent = false
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-
-    @Binding var horizontalSize: UserInterfaceSizeClass
+    /// Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
     var onRefreshGeneralData: (() -> Void)? = nil
 
     var body: some View {
@@ -112,11 +108,21 @@ struct DomainsView: View {
                         }.onDelete(perform: deleteDomain)
                     } header: {
                         HStack(spacing: 6) {
-                            Text(String(localized: "all_domains"))
+                            Text(String(localized: "domains"))
 
                             if domainsViewModel.isLoading {
                                 ProgressView()
                                     .frame(maxHeight: 4)
+                            }
+
+                            if let count = domainsViewModel.domains?.data.count, count > 0 {
+                                Text("\(count)")
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 2)
+                                    .background(Color.secondary.opacity(0.1))
+                                    .clipShape(Capsule())
                             }
                         }
 
@@ -223,7 +229,7 @@ struct DomainsView: View {
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
@@ -231,19 +237,19 @@ struct DomainsView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     AccountNotificationsIcon().environmentObject(mainViewState)
                 }
-                
+
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(.flexible)
                 }
             }
-            
+
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
                     self.isPresentingAddDomainBottomSheet = true
                 }) {
                     Image(systemName: "plus")
                         .frame(width: 24, height: 24)
-                }// Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
+                } // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
                 .disabled(mainViewState.userResource!.subscription != nil &&
                     domain_count >= domain_limit! /* Cannot be nil since subscription is not nil */ )
             }

@@ -10,22 +10,16 @@ import AVFoundation
 import SwiftUI
 
 struct EditDomainDescriptionBottomSheet: View {
-    let domainId: String
+    @Environment(\.dismiss) var dismiss
+
     @State private var description: String
     @State private var descriptionPlaceholder: String = .init(localized: "description")
-    let descriptionEdited: (Domains) -> Void
-
-    init(domainId: String, description: String, descriptionEdited: @escaping (Domains) -> Void) {
-        self.domainId = domainId
-        self.description = description
-        self.descriptionEdited = descriptionEdited
-    }
-
     @State private var descriptionValidationError: String?
     @State private var descriptionRequestError: String?
-
     @State var IsLoadingSaveButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    let domainId: String
+    let descriptionEdited: (Domains) -> Void
 
     var body: some View {
         #if DEBUG
@@ -99,6 +93,12 @@ struct EditDomainDescriptionBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(domainId: String, description: String, descriptionEdited: @escaping (Domains) -> Void) {
+        self.domainId = domainId
+        self.description = description
+        self.descriptionEdited = descriptionEdited
     }
 
     private func editDescription(description: String?) async {

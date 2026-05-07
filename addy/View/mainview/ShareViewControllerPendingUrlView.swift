@@ -5,12 +5,13 @@
 //  Created by Stijn van de Water on 20/07/2024.
 //
 
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct ShareViewControllerPendingUrlView: View {
-    @State var pendingURLFromShareViewController: IdentifiableURL
     @Environment(\.dismiss) var dismiss
+
+    @State var pendingURLFromShareViewController: IdentifiableURL
 
     var body: some View {
         VStack {

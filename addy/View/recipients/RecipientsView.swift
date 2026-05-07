@@ -10,34 +10,29 @@ import SwiftUI
 
 struct RecipientsView: View {
     @EnvironmentObject var mainViewState: MainViewState
+
     @StateObject var recipientsViewModel = RecipientsViewModel()
+
+    @State private var activeAlert: ActiveAlert = .resendConfirmationMailRecipientConfirmation
+    @State private var showAlert: Bool = false
+    @State private var recipientToDelete: Recipients? = nil
+    @State private var recipient_count: Int = 0
+    @State private var recipient_limit: Int? = 0
+    @State private var isPresentingAddRecipientBottomSheet = false
+    @State private var recipientsToResendConfirmationEmailTo: Recipients? = nil
+    @State private var shouldReloadDataInParent = false
+    @Binding var horizontalSize: UserInterfaceSizeClass
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @State var selectedFilterChip: String = "all"
+    @State var filterChips: [AddyChipModel] = []
 
     enum ActiveAlert {
         case resendConfirmationMailRecipientConfirmation, resendConfirmationMailRecipientSuccess, error, deleteRecipient
     }
 
-    @State private var activeAlert: ActiveAlert = .resendConfirmationMailRecipientConfirmation
-    @State private var showAlert: Bool = false
-
-    @State private var recipientToDelete: Recipients? = nil
-
-    // Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
-    @State private var recipient_count: Int = 0
-    @State private var recipient_limit: Int? = 0
-
-    @State private var isPresentingAddRecipientBottomSheet = false
-    @State private var recipientsToResendConfirmationEmailTo: Recipients? = nil
-
-    @State private var shouldReloadDataInParent = false
-
-    @Binding var horizontalSize: UserInterfaceSizeClass
+    /// Instead of mainStateView we have seperate states. To prevent the entire mainview from refreshing when updating
     var onRefreshGeneralData: (() -> Void)? = nil
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-
-    @State var selectedFilterChip: String = "all"
-    @State var filterChips: [AddyChipModel] = []
 
     var body: some View {
         #if DEBUG
@@ -116,6 +111,16 @@ struct RecipientsView: View {
                                 if recipientsViewModel.isLoading {
                                     ProgressView()
                                         .frame(maxHeight: 4)
+                                }
+
+                                if let count = recipientsViewModel.recipients?.count, count > 0 {
+                                    Text("\(count)")
+                                        .font(.caption)
+                                        .fontWeight(.bold)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 2)
+                                        .background(Color.secondary.opacity(0.1))
+                                        .clipShape(Capsule())
                                 }
                             }
                         }
@@ -229,7 +234,7 @@ struct RecipientsView: View {
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }

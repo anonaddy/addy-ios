@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppSettingsFeaturesWatchAliasView: View {
     @State var watchAlias = true
+
     var body: some View {
         #if DEBUG
             let _ = Self._printChanges()

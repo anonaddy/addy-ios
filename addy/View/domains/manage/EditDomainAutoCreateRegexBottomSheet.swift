@@ -10,24 +10,17 @@ import AVFoundation
 import SwiftUI
 
 struct EditDomainAutoCreateRegexBottomSheet: View {
-    let domainId: String
-    let domain: String
+    @Environment(\.dismiss) var dismiss
+
     @State var autoCreateRegex: String
     @State var autoCreateRegexPlaceholder: String = .init(localized: "auto_create_regex_hint")
-    let autoCreateRegexEdited: (Domains) -> Void
-
-    init(domainId: String, domain: String, autoCreateRegex: String?, autoCreateRegexEdited: @escaping (Domains) -> Void) {
-        self.domainId = domainId
-        self.domain = domain
-        self.autoCreateRegex = autoCreateRegex ?? ""
-        self.autoCreateRegexEdited = autoCreateRegexEdited
-    }
-
     @State private var autoCreateRegexValidationError: String?
     @State private var autoCreateRegexRequestError: String?
-
     @State var IsLoadingSaveButton: Bool = false
-    @Environment(\.dismiss) var dismiss
+
+    let domainId: String
+    let domain: String
+    let autoCreateRegexEdited: (Domains) -> Void
 
     var body: some View {
         #if DEBUG
@@ -100,6 +93,13 @@ struct EditDomainAutoCreateRegexBottomSheet: View {
                 )
             }
         }
+    }
+
+    init(domainId: String, domain: String, autoCreateRegex: String?, autoCreateRegexEdited: @escaping (Domains) -> Void) {
+        self.domainId = domainId
+        self.domain = domain
+        self.autoCreateRegex = autoCreateRegex ?? ""
+        self.autoCreateRegexEdited = autoCreateRegexEdited
     }
 
     private func editautoCreateRegex(autoCreateRegex: String?) async {

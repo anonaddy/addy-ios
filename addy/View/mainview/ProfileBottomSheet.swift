@@ -11,10 +11,13 @@ import Shiny
 import SwiftUI
 
 struct ProfileBottomSheet: View {
-    @Binding var isPresentingProfileBottomSheet: Bool
     @EnvironmentObject var mainViewState: MainViewState
+
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.openURL) var openURL
+
+    @Binding var isPresentingProfileBottomSheet: Bool
     @State var horizontalSize: UserInterfaceSizeClass
-    
 
     @State var isShowingDomainsView = false
     @State var isShowingSubscriptionView = false
@@ -25,15 +28,6 @@ struct ProfileBottomSheet: View {
     @State var shouldHideNavigationBarBackButtonSubscriptionView = false
 
     let onNavigate: (Destination) -> Void
-
-    init(onNavigate: @escaping (Destination) -> Void, isPresentingProfileBottomSheet: Binding<Bool>, horizontalSize: UserInterfaceSizeClass?) {
-        self.onNavigate = onNavigate
-        _isPresentingProfileBottomSheet = isPresentingProfileBottomSheet
-        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact // In case horizontalSize cannot be determined, go with the compact mode (iPhone)
-    }
-
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.openURL) var openURL
 
     var body: some View {
         #if DEBUG
@@ -115,7 +109,7 @@ struct ProfileBottomSheet: View {
                             self.isShowingDomainsView = true
                         }
                     }
-                    
+
                     AddySection(title: String(localized: "manage_rules"), description: String(localized: "manage_rules_desc"), trailingSystemimage: "chevron.right") {
                         if horizontalSize == .regular {
                             self.onNavigate(Destination.rules)
@@ -123,7 +117,7 @@ struct ProfileBottomSheet: View {
                             self.isShowingRulesView = true
                         }
                     }
-                    
+
                     AddySection(title: String(localized: "manage_usernames"), description: String(localized: "manage_usernames_desc"), trailingSystemimage: "chevron.right") {
                         if horizontalSize == .regular {
                             self.onNavigate(Destination.usernames)
@@ -131,16 +125,12 @@ struct ProfileBottomSheet: View {
                             self.isShowingUsernamesView = true
                         }
                     }
-                    
+
                     AddySection(title: String(localized: "manage_blocklist"), description: String(localized: "blocklist_desc"), trailingSystemimage: "chevron.right") {
-                        if horizontalSize == .regular {
-                            self.onNavigate(Destination.blocklist)
-                        } else {
-                            self.isShowingBlocklistView = true
-                        }
+                        self.isShowingBlocklistView = true
                     }
                 }
-                
+
                 Section {
                     AddySection(title: String(localized: "app_settings"), description: getAppVersionSectionDescription(), trailingSystemimage: "chevron.right") {
                         if horizontalSize == .regular {
@@ -206,6 +196,12 @@ struct ProfileBottomSheet: View {
         }.onAppear {
             checkForAnyInteractiveActions()
         }
+    }
+
+    init(onNavigate: @escaping (Destination) -> Void, isPresentingProfileBottomSheet: Binding<Bool>, horizontalSize: UserInterfaceSizeClass?) {
+        self.onNavigate = onNavigate
+        _isPresentingProfileBottomSheet = isPresentingProfileBottomSheet
+        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact // In case horizontalSize cannot be determined, go with the compact mode (iPhone)
     }
 
     private func getAppVersionSectionDescription() -> String {

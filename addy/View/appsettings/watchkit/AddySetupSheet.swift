@@ -5,30 +5,30 @@
 //  Created by Stijn van de Water on 01/02/2026.
 //
 
-
-import SwiftUI
 import addy_shared
+import SwiftUI
 
 struct AddyWatchKitSetupBottomSheet: View {
-    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var mainViewState: MainViewState
     @EnvironmentObject var connectivityManager: iOSConnectivityManager
+
+    @Environment(\.dismiss) private var dismiss
+
     @State private var isLoading = false
-    
+
     var body: some View {
         NavigationStack {
             List {
                 Section {
                     VStack {
-                        
                         Image("watchkit_setup")
-                        
+
                         AddyButton(action: {
                             self.handleConfirm()
                         }) {
                             Text(String(localized: "confirm_and_setup")).foregroundColor(Color.white)
                         }
-                        
+
                         Button(String(localized: "do_not_ask_again")) {
                             mainViewState.settingsManager.putSettingsBool(key: .enableWatchKitQuickSetupDialog, boolean: false)
                             dismiss()
@@ -52,18 +52,17 @@ struct AddyWatchKitSetupBottomSheet: View {
                         }
                     }
                 })
-            
         }
     }
-    
+
     private func handleConfirm() {
         isLoading = true
-        
+
         // Your setup logic here
         Task {
             var apiKey = SettingsManager(encrypted: true).getSettingsString(key: .apiKey)
             connectivityManager.setupAppleWatchApp(requestId: connectivityManager.requestId, baseUrl: AddyIo.API_BASE_URL, apiKey: apiKey!)
-            
+
             await MainActor.run {
                 isLoading = false
                 dismiss()
@@ -71,7 +70,6 @@ struct AddyWatchKitSetupBottomSheet: View {
         }
     }
 }
-
 
 #Preview {
     AddyWatchKitSetupBottomSheet()

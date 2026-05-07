@@ -15,17 +15,15 @@ struct HomeView: View {
     @EnvironmentObject var aliasesViewState: AliasesViewState
 
     @Binding var horizontalSize: UserInterfaceSizeClass
+    @State private var activeAlert: ActiveAlert = .error
+    @State private var showAlert: Bool = false
+    @State private var errorAlertTitle = ""
+    @State private var errorAlertMessage = ""
+    @State private var progress: Float = 0.7
 
     enum ActiveAlert {
         case error
     }
-
-    @State private var activeAlert: ActiveAlert = .error
-    @State private var showAlert: Bool = false
-
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-    @State private var progress: Float = 0.7
 
     var onRefreshGeneralData: (() -> Void)? = nil
 
@@ -159,7 +157,7 @@ struct HomeView: View {
                     if #available(iOS 26.0, *) {
                         ToolbarSpacer(placement: .topBarLeading)
                     }
-                    
+
                     ToolbarItem(placement: .topBarLeading) {
                         FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                     }

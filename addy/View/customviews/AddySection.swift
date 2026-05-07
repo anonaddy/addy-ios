@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AddySection: View {
+    @State var lineLimit: Int? = 3
+
     var title: String
     var description: String? = nil
     var leadingSystemimage: String? = nil
@@ -15,7 +17,6 @@ struct AddySection: View {
     var trailingSystemimage: String? = nil
     var fontWeight: Font.Weight = .medium
     var onTap: (() -> Void)? = nil
-    @State var lineLimit: Int? = 3
 
     var body: some View {
         Button(action: {

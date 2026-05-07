@@ -19,11 +19,12 @@ import AVFoundation
 import SwiftUI
 
 struct FilterOptionsAliasBottomSheet: View {
+    @Environment(\.dismiss) var dismiss
+
     @State private var filter1Selection: Int = 0
     @State private var filter2Selection: Int = 0
     @State private var sortSelection: Int = 0
     @State private var aliasSortFilterRequest: AliasSortFilterRequest
-
     @State var selectedOrderChip: String = "created_at"
     @State var orderChips: [AddyChipModel] = [
         AddyChipModel(chipId: "local_part", label: String(localized: "sort_localpart")),
@@ -45,13 +46,6 @@ struct FilterOptionsAliasBottomSheet: View {
     ]
 
     let setFilterAndSortingSettings: (AliasSortFilterRequest) -> Void
-
-    init(aliasSortFilterRequest: AliasSortFilterRequest, setFilterAndSortingSettings: @escaping (AliasSortFilterRequest) -> Void) {
-        self.aliasSortFilterRequest = aliasSortFilterRequest
-        self.setFilterAndSortingSettings = setFilterAndSortingSettings
-    }
-
-    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         #if DEBUG
@@ -147,6 +141,11 @@ struct FilterOptionsAliasBottomSheet: View {
         } label: {
             Text(String(localized: "save"))
         }
+    }
+
+    init(aliasSortFilterRequest: AliasSortFilterRequest, setFilterAndSortingSettings: @escaping (AliasSortFilterRequest) -> Void) {
+        self.aliasSortFilterRequest = aliasSortFilterRequest
+        self.setFilterAndSortingSettings = setFilterAndSortingSettings
     }
 
     func saveFilterAndSortingSettings() {

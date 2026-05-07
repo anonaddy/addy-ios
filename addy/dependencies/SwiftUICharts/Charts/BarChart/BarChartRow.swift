@@ -47,8 +47,7 @@ public struct BarChartRow: View {
                         self.chartValue.interactionInProgress = false
                         self.touchLocation = -1
                     }
-                }
-            )
+                })
         }
     }
 

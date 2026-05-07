@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct ViewGeometry<T>: View where T: PreferenceKey {
+public struct ViewGeometry<T: PreferenceKey>: View {
     public var body: some View {
         GeometryReader { geometry in
             Color.clear
