@@ -41,12 +41,12 @@ struct FailedDeliveryBottomSheet: View {
         Form {
             Section {
                 let formattedString = String.localizedStringWithFormat(NSLocalizedString("failed_delivery_details_text", comment: ""),
-                                                                       failedDelivery.created_at,
+                                                                       DateTimeUtils.convertStringToLocalTimeZoneString(failedDelivery.created_at),
                                                                        failedDelivery.destination ?? "",
                                                                        failedDelivery.alias_email ?? "",
                                                                        failedDelivery.sender ?? "",
                                                                        failedDelivery.remote_mta,
-                                                                       failedDelivery.attempted_at,
+                                                                       DateTimeUtils.convertStringToLocalTimeZoneString(failedDelivery.attempted_at),
                                                                        failedDelivery.code)
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)

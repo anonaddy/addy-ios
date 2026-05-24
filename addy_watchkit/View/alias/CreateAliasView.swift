@@ -41,15 +41,16 @@ struct CreateAliasView: View {
         .navigationBarTitleDisplayMode(.inline)
         .containerBackground(Color.gray.opacity(0.1).gradient, for: .navigation)
         .task {
+            let skipGuide = SettingsManager(encrypted: true).getSettingsBool(key: .watchosSkipAliasCreateGuide)
+            self.skipAliasCreateGuide = skipGuide
             await viewModel.checkUserAndCreate(
-                skipAliasCreateGuide: skipAliasCreateGuide,
+                skipAliasCreateGuide: skipGuide,
                 appState: appState,
                 mainViewState: mainViewState
             )
         }
         .onAppear {
             viewModel.setDismissAction { dismiss() }
-            self.skipAliasCreateGuide = SettingsManager(encrypted: true).getSettingsBool(key: .watchosSkipAliasCreateGuide)
         }
     }
 }
