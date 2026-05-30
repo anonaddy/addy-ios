@@ -46,9 +46,5 @@ struct SetupView: View {
                 self.appState.apiKey = apiKey
             }
         }
-        .background(
-            RoundedRectangle(cornerRadius: 24)
-                .fill(.ultraThinMaterial)
-        )
     }
 }

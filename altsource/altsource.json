@@ -28,6 +28,14 @@
             ],
             "versions": [
                 {
+                    "version": "2.3.4",
+                    "date": "2026-05-30T00:00:00+02:00",
+                    "size": 33912510,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/d0c13adaf65c34447b771bdca3b1e4f57bc1a51d/builds/appstorelessRelease%202026-05-24%2014-37-58/addy.ipa",
+                    "localizedDescription": "- Performance enhancements and other improvements for a smoother experience",
+                    "minOSVersion": "17.0"
+                },
+                {
                     "version": "2.3.3",
                     "date": "2026-05-25T00:00:00+02:00",
                     "size": 33900027,
