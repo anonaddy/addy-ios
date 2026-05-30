@@ -817,7 +817,7 @@ struct AliasDetailView: View {
             if let alias = try await networkHelper.getSpecificAlias(aliasId: aliasId) {
                 withAnimation {
                     self.isAliasActive = alias.active
-
+                    self.isAttachedRecipientsOnlyEnabled = alias.attached_recipients_only
                     self.isAliasPinned = alias.pinned
                     self.IsLoadingPinnedButton = false
 
@@ -826,6 +826,7 @@ struct AliasDetailView: View {
                     self.alias = alias
                     self.aliasEmail = alias.email
                     self.updateUi(alias: alias)
+                    
                 }
             }
         } catch {

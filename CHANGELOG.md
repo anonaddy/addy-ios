@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.3.4] - 2026-05-30
+
+### addy.io
+
+**Fixed & Improved**
+- Performance enhancements and other improvements for a smoother experience
+
+**What’s new in addy.io for Apple Watch 1.1.5**
+
+**Fixed & Improved**  
+- Performance enhancements and other improvements for a smoother experience
+
 ## [v2.3.3] - 2026-05-24
 
 ### addy.io
