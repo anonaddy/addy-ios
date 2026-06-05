@@ -36,6 +36,7 @@ struct RecipientsDetailView: View {
     @State private var isSwitchingRecipientCanReplySendState: Bool = false
     @State private var isSwitchingRemovePgpKeysRecipients: Bool = false
     @State private var isSwitchingRemovePgpSignaturesRecipients: Bool = false
+    @State private var isPresentingEditRecipientDescriptionBottomSheet = false
     @State private var isPresentingAddRecipientPublicGpgKeyBottomSheet = false
     @State private var aliasList: [String] = []
     @State private var totalForwarded: Int = 0
@@ -164,7 +165,12 @@ struct RecipientsDetailView: View {
                                 }
                             }
                         }
+                    
+                    AddySection(title: String(localized: "description"), description: recipient.description ?? String(localized: "recipient_no_description"), leadingSystemimage: nil, trailingSystemimage: "pencil") {
+                        isPresentingEditRecipientDescriptionBottomSheet = true
+                    }
 
+                    
                     AddySectionButton(title: recipient.fingerprint != nil ? String(localized: "change_public_gpg_key") : String(localized: "add_public_gpg_key"),
                                       colorAccent: .accentColor,
                                       isLoading: false)
@@ -251,6 +257,16 @@ struct RecipientsDetailView: View {
             }
             .navigationTitle(recipientEmail)
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $isPresentingEditRecipientDescriptionBottomSheet) {
+                NavigationStack {
+                    EditRecipientDescriptionBottomSheet(recipientId: recipient.id, description: recipient.description ?? "") { recipient in
+                        self.recipient = recipient
+                        isPresentingEditRecipientDescriptionBottomSheet = false
+                        shouldReloadDataInParent = true
+                    }
+                }
+                .presentationDetents([.large])
+            }
             .sheet(isPresented: $isPresentingAddRecipientPublicGpgKeyBottomSheet) {
                 NavigationStack {
                     AddRecipientPublicGpgKeyBottomSheet(recipientId: recipient.id) { recipient in

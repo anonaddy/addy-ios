@@ -59,10 +59,19 @@ struct RecipientsView: View {
                                             .truncationMode(.middle)
                                             .foregroundStyle(.red)
                                     } else {
-                                        Text(String(format: String(format: String(localized: "recipients_list_description"), String(recipient.aliases_count ?? 0))))
-                                            .font(.caption)
-                                            .opacity(0.625)
-                                            .truncationMode(.middle)
+                                        
+                                        if let description = recipient.description {
+                                            Text(description)
+                                                .font(.caption)
+                                                .opacity(0.625)
+                                                .truncationMode(.middle)
+                                        } else {
+                                            Text(String(format: String(format: String(localized: "recipients_list_description"), String(recipient.aliases_count ?? 0))))
+                                                .font(.caption)
+                                                .opacity(0.625)
+                                                .truncationMode(.middle)
+                                        }
+                                        
                                     }
                                 }
                                 .padding(.vertical, 4)

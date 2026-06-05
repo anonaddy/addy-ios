@@ -17,6 +17,7 @@ public struct Recipients: Identifiable, Codable, Equatable, Hashable {
     public let id: String
     let user_id: String
     public let email: String
+    public var description: String?
     public var can_reply_send: Bool
     public var should_encrypt: Bool
     public var inline_encryption: Bool

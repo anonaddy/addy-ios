@@ -779,7 +779,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 2.3.4**\n\n**Fixed & Improved**\n- Performance enhancements and other improvements for a smoother experience\u0003\n\n**What’s new in addy.io for Apple Watch 1.1.5**\n\n**Fixed & Improved**  \n- Performance enhancements and other improvements for a smoother experience"
+            "value" : "**What’s new in addy.io for iOS 2.3.5**\n\n**Added**\n- Support for adding and changing the description on recipients"
           }
         }
       }
@@ -2537,6 +2537,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Change the description for this domain, describe what this domain is used for"
+          }
+        }
+      }
+    },
+    "edit_desc_recipient_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the description for this recipient, describe what this recipient is used for"
           }
         }
       }
@@ -5414,6 +5425,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recipient aliases"
+          }
+        }
+      }
+    },
+    "recipient_no_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No description"
           }
         }
       }
