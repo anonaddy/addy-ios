@@ -28,6 +28,14 @@
             ],
             "versions": [
                 {
+                    "version": "2.3.5",
+                    "date": "2026-06-05T00:00:00+02:00",
+                    "size": 33924153,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/73bc692c394a4770930bd82bc010c989204e8bf7/builds/appstorelessRelease%202026-06-05%2019-25-49/addy.ipa",
+                    "localizedDescription": "- Support for adding and changing the description on recipients",
+                    "minOSVersion": "17.0"
+                },
+                {
                     "version": "2.3.4",
                     "date": "2026-05-30T00:00:00+02:00",
                     "size": 33912510,
