@@ -7301,6 +7301,17 @@
         }
       }
     },
+    "the_alias_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the alias label"
+          }
+        }
+      }
+    },
     "the_sender" : {
       "extractionState" : "manual",
       "localizations" : {

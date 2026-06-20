@@ -16,12 +16,13 @@ enum RulesOption {
         NSLocalizedString("rule_bannerlocation_off", comment: ""),
     ]
 
-    static let conditionsType = ["sender", "subject", "alias", "alias_description"]
+    static let conditionsType = ["sender", "subject", "alias", "alias_description", "alias_label"]
     static let conditionsTypeName = [
         NSLocalizedString("the_sender", comment: ""),
         NSLocalizedString("the_subject", comment: ""),
         NSLocalizedString("the_alias", comment: ""),
         NSLocalizedString("the_alias_description", comment: ""),
+        NSLocalizedString("the_alias_label", comment: ""),
     ]
     static let conditionsMatch = ["contains", "does not contain", "is exactly", "is not", "starts with", "does not start with", "ends with", "does not end with", "matches regex", "does not match regex"]
     static let conditionsMatchName = [
