@@ -28,6 +28,7 @@ public struct AliasSortFilterRequest: Codable, Equatable {
     public var sort: String?
     public var sortDesc: Bool
     public var filter: String?
+    public var label: String?
 
     public init(
         onlyActiveAliases: Bool,
@@ -37,7 +38,8 @@ public struct AliasSortFilterRequest: Codable, Equatable {
         onlyPinnedAliases: Bool,
         sort: String?,
         sortDesc: Bool,
-        filter: String?
+        filter: String?,
+        label: String?
     ) {
         self.onlyActiveAliases = onlyActiveAliases
         self.onlyDeletedAliases = onlyDeletedAliases
@@ -47,5 +49,6 @@ public struct AliasSortFilterRequest: Codable, Equatable {
         self.sort = sort
         self.sortDesc = sortDesc
         self.filter = filter
+        self.label = label
     }
 }

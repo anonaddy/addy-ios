@@ -148,6 +148,14 @@ public enum AddyIo {
         "\(API_BASE_URL)/api/v1/blocklist"
     }
 
+    static var API_URL_LABELS: String {
+        "\(API_BASE_URL)/api/v1/labels"
+    }
+    
+    static var API_URL_ALIASES_LABELS_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/labels/bulk"
+    }
+
     static var API_URL_LOGIN: String {
         "\(API_BASE_URL)/api/auth/login"
     }

@@ -23,7 +23,7 @@ class AliasViewModel: ObservableObject {
         onlyPinnedAliases: false,
         sort: "updated_at",
         sortDesc: true,
-        filter: nil
+        filter: nil, label: nil
     )
 
     func getAliases(excludeAliases: [String]? = nil) async {

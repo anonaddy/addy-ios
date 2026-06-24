@@ -227,7 +227,7 @@ struct MailToActionSheet: View {
                 onlyPinnedAliases: false,
                 sort: nil,
                 sortDesc: true,
-                filter: text
+                filter: text, label: nil
             )
 
             let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest)

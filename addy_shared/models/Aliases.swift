@@ -44,6 +44,7 @@ public struct Aliases: Identifiable, Codable, Hashable {
     public let emails_replied: Int
     public let emails_sent: Int
     public let recipients: [Recipients]?
+    public var labels: [Labels]?
     public let last_forwarded: String?
     public let last_blocked: String?
     public let last_replied: String?
