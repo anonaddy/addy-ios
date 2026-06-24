@@ -1804,6 +1804,28 @@ public class NetworkHelper {
         }
     }
 
+    public func updateDescriptionSpecificRecipient(recipientId: String, description: String?) async throws -> Recipients? {
+        logNetworkHelperCall()
+        let url = URL(string: "\(AddyIo.API_URL_RECIPIENTS)/\(recipientId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any?] = ["description": description]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
+            return addyIoData.data
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+
     public func updateAutoCreateRegexSpecificUsername(usernameId: String, autoCreateRegex: String?) async throws -> Usernames? {
         logNetworkHelperCall()
         let url = URL(string: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)")!
