@@ -97,7 +97,7 @@ struct LabelsView: View {
         }
         .sheet(isPresented: $isPresentingAddLabelBottomSheet) {
             NavigationStack {
-                AddLabelBottomSheet {
+                AddLabelBottomSheet {_ in 
                     Task {
                         await labelsViewModel.getLabels()
                     }
@@ -109,7 +109,7 @@ struct LabelsView: View {
         .alert(isPresented: $showAlert) {
             switch activeAlert {
             case .deleteLabel:
-                return Alert(title: Text(String(localized: "remove_label")), message: Text(String(localized: "remove_label_desc")), primaryButton: .destructive(Text(String(localized: "delete"))) {
+                return Alert(title: Text(String(localized: "delete_label")), message: Text(String(localized: "delete_label_desc")), primaryButton: .destructive(Text(String(localized: "delete"))) {
                     Task {
                         await self.deleteLabel(label: self.labelToDelete!)
                     }

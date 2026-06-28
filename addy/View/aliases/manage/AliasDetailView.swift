@@ -228,7 +228,7 @@ struct AliasDetailView: View {
                             isPresentingEditAliasRecipientsBottomSheet = true
                         }
 
-                        AddySection(title: String(localized: "labels"), description: alias.labels?.map { $0.name }.joined(separator: ", ") ?? String(localized: "no_labels_assigned"), leadingSystemimage: nil, trailingSystemimage: "pencil") {
+                        AddySection(title: String(localized: "labels"), description: alias.labels?.map { $0.name }.joined(separator: ", ") ?? String(localized: "alias_no_labels"), leadingSystemimage: nil, trailingSystemimage: "pencil") {
                             isPresentingEditAliasLabelsBottomSheet = true
                         }
 

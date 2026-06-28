@@ -13,12 +13,22 @@ struct ChipView: View {
     let color: Color
 
     var body: some View {
-        Text(label)
-            .font(.caption)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(isSelected ? color : color.opacity(0.2))
-            .foregroundColor(isSelected ? .white : color)
-            .cornerRadius(16)
+        HStack(spacing: 4) {
+            if isSelected {
+                Image(systemName: "checkmark")
+                    .font(.caption.weight(.bold))
+                    .transition(.opacity.combined(with: .scale))
+            }
+            
+            Text(label)
+                .font(.body)
+                .lineLimit(1)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(isSelected ? color : Color(.systemGray5))
+        .foregroundColor(isSelected ? .white : .primary)
+        .cornerRadius(20)
+        .animation(.spring(), value: isSelected)
     }
 }

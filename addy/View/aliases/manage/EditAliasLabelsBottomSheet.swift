@@ -7,12 +7,13 @@
 
 import addy_shared
 import SwiftUI
+import WrappingHStack
 
 struct EditAliasLabelsBottomSheet: View {
     @Environment(\.dismiss) var dismiss
 
     @State private var labelsLoaded: Bool = false
-    @State private var selectedChips: [String] = []
+    @State private var selectedLabelIds: [String]
     @State private var allLabels: [Labels] = []
     @State private var requestError: String? = ""
     @State private var isLoadingSaveButton: Bool = false
@@ -30,13 +31,13 @@ struct EditAliasLabelsBottomSheet: View {
                 } else {
                     WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                         ForEach(allLabels) { label in
-                            ChipView(label: label.name, isSelected: selectedChips.contains(label.id), color: Color(hex: label.colour))
+                            ChipView(label: label.name, isSelected: selectedLabelIds.contains(label.id), color: Color(hex: label.colour))
                                 .onTapGesture {
                                     withAnimation {
-                                        if selectedChips.contains(label.id) {
-                                            selectedChips.removeAll { $0 == label.id }
+                                        if selectedLabelIds.contains(label.id) {
+                                            selectedLabelIds.removeAll { $0 == label.id }
                                         } else {
-                                            selectedChips.append(label.id)
+                                            selectedLabelIds.append(label.id)
                                         }
                                     }
                                 }
@@ -89,9 +90,12 @@ struct EditAliasLabelsBottomSheet: View {
         }
         .sheet(isPresented: $isPresentingAddLabelBottomSheet) {
             NavigationStack {
-                AddLabelBottomSheet {
-                    Task {
-                        await getAllLabels(forceReload: true)
+                AddLabelBottomSheet { newLabel in
+                    if let newLabel = newLabel {
+                        allLabels.append(newLabel)
+                        if !selectedLabelIds.contains(newLabel.id) {
+                            selectedLabelIds.append(newLabel.id)
+                        }
                     }
                     isPresentingAddLabelBottomSheet = false
                 }
@@ -121,9 +125,9 @@ struct EditAliasLabelsBottomSheet: View {
         }
     }
 
-    init(aliasId: String, selectedLabelsIds: [String]?, labelsEdited: @escaping (Aliases) -> Void) {
+    init(aliasId: String, selectedLabelsIds: [String], labelsEdited: @escaping (Aliases) -> Void) {
         self.aliasId = aliasId
-        _selectedChips = State(initialValue: selectedLabelsIds ?? [])
+        _selectedLabelIds = State(initialValue: selectedLabelsIds)
         self.labelsEdited = labelsEdited
     }
 
@@ -131,10 +135,8 @@ struct EditAliasLabelsBottomSheet: View {
         if !labelsLoaded || forceReload {
             let networkHelper = NetworkHelper()
             do {
-                if let labels = try await networkHelper.getLabels() {
-                    withAnimation {
-                        self.allLabels = labels.data
-                    }
+                if let labels = try await networkHelper.getLabels()?.data {
+                    self.allLabels = labels
                     labelsLoaded = true
                 }
             } catch {
@@ -147,7 +149,7 @@ struct EditAliasLabelsBottomSheet: View {
         requestError = nil
         let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.updateAliasLabels(aliasIds: [aliasId], labelIds: selectedChips)
+            _ = try await networkHelper.updateAliasLabels(aliasIds: [aliasId], labelIds: selectedLabelIds)
             if let alias = try await networkHelper.getSpecificAlias(aliasId: aliasId) {
                 labelsEdited(alias)
                 dismiss()

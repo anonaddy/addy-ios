@@ -75,7 +75,7 @@ struct DomainsDetailView: View {
 
                 } header: {
                     HStack(spacing: 6) {
-                        Text(String(localized: "domain_aliases_d"))
+                        Text(String(localized: "domain_aliases"))
 
                         if let count = domain.aliases_count, count > 0 {
                             Text("\(count)")

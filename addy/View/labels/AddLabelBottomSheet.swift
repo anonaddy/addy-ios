@@ -7,45 +7,45 @@
 
 import addy_shared
 import SwiftUI
+import WrappingHStack
 
 struct AddLabelBottomSheet: View {
     @Environment(\.dismiss) var dismiss
 
     @State private var name: String = ""
-    @State private var colour: String = "#78909C"
+    @State private var colour: String = "#06b6d4"
     @State private var nameValidationError: String?
     @State private var requestError: String?
     @State private var isLoadingAddButton: Bool = false
-
-    let onAdded: () -> Void
-
-    private let colors = ["#06b6d4, #22c55e, #eab308, #f97316, #ef4444, #8b5cf6, #64748b, #ec4899, #14b8a6, #3b82f6"]
+    
+    let onAdded: (Labels?) -> Void
+    
+    private let predefinedColours = ["#06b6d4", "#22c55e", "#eab308", "#f97316", "#ef4444", "#8b5cf6", "#64748b", "#ec4899", "#14b8a6", "#3b82f6"]
 
     var body: some View {
         Form {
             Section {
-                ValidatingTextField(value: $name, placeholder: .constant("Label name"), fieldType: .text, error: $nameValidationError)
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(colors, id: \.self) { color in
-                            Circle()
-                                .fill(Color(hex: color))
-                                .frame(width: 30, height: 30)
-                                .overlay(
-                                    Circle()
-                                        .stroke(Color.accentColor, lineWidth: self.colour == color ? 2 : 0)
-                                )
-                                .scaleEffect(self.colour == color ? 1.2 : 1.0)
-                                .onTapGesture {
-                                    withAnimation {
-                                        self.colour = color
-                                    }
+                ValidatingTextField(value: $name, placeholder: .constant(String(localized: "label_name")), fieldType: .text, error: $nameValidationError)
+                
+                WrappingHStack(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 10) {
+                    ForEach(predefinedColours, id: \.self) { hexColour in
+                        Rectangle()
+                            .fill(Color(hex: hexColour))
+                            .frame(width: 40, height: 40)
+                            .cornerRadius(self.colour == hexColour ? 20 : 8)
+                            .overlay(
+                                self.colour == hexColour ?
+                                    Image(systemName: "checkmark").foregroundColor(.white) : nil
+                            )
+                            .onTapGesture {
+                                withAnimation(.spring()) {
+                                    self.colour = hexColour
                                 }
-                        }
+                            }
                     }
                 }
-                .frame(height: 50)
+                .padding(.vertical)
+                
             } header: {
                 VStack {
                     Text(String(localized: "label_add_desc"))
@@ -53,23 +53,26 @@ struct AddLabelBottomSheet: View {
                         .padding(.bottom)
                 }.frame(maxWidth: .infinity, alignment: .center)
             } footer: {
-                if let error = requestError {
+                if let error = requestError, !error.isEmpty {
                     Text(error)
                         .foregroundColor(.red)
-                        .font(.system(size: 15))
-                        .multilineTextAlignment(.leading)
-                        .padding([.horizontal], 0)
+                        .font(.caption)
                         .onAppear {
                             HapticHelper.playHapticFeedback(hapticType: .error)
                         }
                 }
-            }.textCase(nil)
+            }
+            .textCase(nil)
         }
-        .navigationTitle(String(localized: "label_add"))
+        .navigationTitle(String(localized: "add_label"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                saveButton()
+                if #available(iOS 26.0, *) {
+                    saveButton().buttonStyle(.glassProminent)
+                } else {
+                    saveButton()
+                }
             }
             ToolbarItem(placement: .cancellationAction) {
                 Button {
@@ -80,13 +83,13 @@ struct AddLabelBottomSheet: View {
             }
         }
     }
-
+    
     private func saveButton() -> some View {
         Group {
             if isLoadingAddButton {
                 ProgressView().progressViewStyle(.circular)
             } else {
-                Button {
+                Button(String(localized: "add")) {
                     if nameValidationError == nil && !name.isEmpty {
                         isLoadingAddButton = true
                         Task {
@@ -94,25 +97,29 @@ struct AddLabelBottomSheet: View {
                         }
                     } else {
                         HapticHelper.playHapticFeedback(hapticType: .error)
-                        isLoadingAddButton = false
                     }
-                } label: {
-                    Text(String(localized: "add"))
                 }
             }
         }
     }
-
+    
     private func addLabelToAccount() async {
         requestError = nil
         let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.createLabel(name: name, colour: colour)
-            onAdded()
-            dismiss()
+            if let newLabel = try await networkHelper.createLabel(name: name, colour: colour) {
+                onAdded(newLabel)
+                dismiss()
+            } else {
+                let error = "Failed to create label."
+                requestError = error
+                isLoadingAddButton = false
+                onAdded(nil)
+            }
         } catch {
             isLoadingAddButton = false
             requestError = error.localizedDescription
+            onAdded(nil)
         }
     }
 }

@@ -131,7 +131,7 @@ struct ProfileBottomSheet: View {
                         self.isShowingBlocklistView = true
                     }
                     
-                    AddySection(title: String(localized: "manage_labels"), description: String(localized: "labels_desc"), trailingSystemimage: "chevron.right") {
+                    AddySection(title: String(localized: "manage_labels"), description: String(localized: "manage_labels_desc"), trailingSystemimage: "chevron.right") {
                         self.isShowingLabelsView = true
                     }
                 }

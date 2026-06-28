@@ -713,13 +713,13 @@
 		801B92A52BE9128500179EB5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				04D670452F5ED6F800ADA60D /* blocklist */,
 				805CB1D22D47E561007ED28D /* DocumentInteractionView.swift */,
 				801B929E2BE8FF6800179EB5 /* Launch Screen.storyboard */,
 				806F21322BE8F1B100EBEBC8 /* addyApp.swift */,
 				806F21342BE8F1B100EBEBC8 /* SplashView.swift */,
 				805AFF762C08F52000B9E573 /* UnsupportedBottomSheet.swift */,
 				80E8499D2BEB801600C8D68A /* aliases */,
+				04D670452F5ED6F800ADA60D /* blocklist */,
 				80D4F2D92C17083A00D313EC /* appsettings */,
 				806D5F2B2BE94C3F00C5C109 /* customviews */,
 				80DB9DB02C0DC678002B6486 /* domains */,
