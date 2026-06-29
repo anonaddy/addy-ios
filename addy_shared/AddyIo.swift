@@ -108,6 +108,10 @@ public enum AddyIo {
         "\(API_BASE_URL)/api/v1/active-usernames"
     }
 
+    static var API_URL_ACTIVE_RECIPIENTS: String {
+        "\(API_BASE_URL)/api/v1/active-recipients"
+    }
+
     static var API_URL_CATCH_ALL_USERNAMES: String {
         "\(API_BASE_URL)/api/v1/catch-all-usernames"
     }

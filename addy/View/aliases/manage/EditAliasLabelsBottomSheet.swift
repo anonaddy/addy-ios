@@ -14,7 +14,7 @@ struct EditAliasLabelsBottomSheet: View {
 
     @State private var labelsLoaded: Bool = false
     @State private var selectedLabelIds: [String]
-    @State private var allLabels: [Labels] = []
+    @State private var allLabels: [AddyChipModel] = [AddyChipModel(chipId: "loading_labels", label: String(localized: "loading_labels"))]
     @State private var requestError: String? = ""
     @State private var isLoadingSaveButton: Bool = false
     @State private var isPresentingAddLabelBottomSheet = false
@@ -31,13 +31,13 @@ struct EditAliasLabelsBottomSheet: View {
                 } else {
                     WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                         ForEach(allLabels) { label in
-                            ChipView(label: label.name, isSelected: selectedLabelIds.contains(label.id), color: Color(hex: label.colour))
+                            ChipView(label: label.label, isSelected: selectedLabelIds.contains(label.chipId), color: Color(hex: label.color ?? "FFFFFF"))
                                 .onTapGesture {
                                     withAnimation {
-                                        if selectedLabelIds.contains(label.id) {
-                                            selectedLabelIds.removeAll { $0 == label.id }
+                                        if selectedLabelIds.contains(label.chipId) {
+                                            selectedLabelIds.removeAll { $0 == label.chipId }
                                         } else {
-                                            selectedLabelIds.append(label.id)
+                                            selectedLabelIds.append(label.chipId)
                                         }
                                     }
                                 }
@@ -96,9 +96,10 @@ struct EditAliasLabelsBottomSheet: View {
             NavigationStack {
                 AddLabelBottomSheet { newLabel in
                     if let newLabel = newLabel {
-                        allLabels.append(newLabel)
-                        if !selectedLabelIds.contains(newLabel.id) {
-                            selectedLabelIds.append(newLabel.id)
+                        let chip = AddyChipModel(chipId: newLabel.id, label: newLabel.name, color: newLabel.colour)
+                        allLabels.append(chip)
+                        if !selectedLabelIds.contains(chip.chipId) {
+                            selectedLabelIds.append(chip.chipId)
                         }
                     }
                     isPresentingAddLabelBottomSheet = false
@@ -140,7 +141,10 @@ struct EditAliasLabelsBottomSheet: View {
             let networkHelper = NetworkHelper()
             do {
                 if let labels = try await networkHelper.getLabels()?.data {
-                    self.allLabels = labels
+                    self.allLabels = []
+                    for label in labels {
+                        self.allLabels.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
+                    }
                     labelsLoaded = true
                 }
             } catch {

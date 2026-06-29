@@ -1241,6 +1241,45 @@ public class NetworkHelper {
             throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
         }
     }
+    
+    public func activateSpecificRecipient(recipientId: String) async throws -> Recipients? {
+        logNetworkHelperCall()
+        let url = URL(string: "\(AddyIo.API_URL_ACTIVE_RECIPIENTS)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": recipientId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
+            return addyIoData.data
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+
+    public func deactivateSpecificRecipient(recipientId: String) async throws -> String {
+        logNetworkHelperCall()
+        let url = URL(string: "\(AddyIo.API_URL_ACTIVE_RECIPIENTS)/\(recipientId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 204:
+            return "204"
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
 
     public func deactivateSpecificAlias(aliasId: String) async throws -> String {
         logNetworkHelperCall()

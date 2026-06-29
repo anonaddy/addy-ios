@@ -22,6 +22,7 @@ struct FilterOptionsAliasBottomSheet: View {
     @State private var labels: [Labels] = []
     @State private var selectedLabel: String? = nil
     @State private var isLoadingLabels: Bool = false
+    @State private var isLabelsExpanded: Bool = false
     @State var orderChips: [AddyChipModel] = [
         AddyChipModel(chipId: "local_part", label: String(localized: "sort_localpart")),
         AddyChipModel(chipId: "domain", label: String(localized: "sort_domain")),
@@ -76,26 +77,30 @@ struct FilterOptionsAliasBottomSheet: View {
                 }
             }.textCase(nil)
 
-            Section {
-                if isLoadingLabels {
-                    ProgressView()
-                } else {
-                    WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
-                        ForEach(labels) { label in
-                            ChipView(label: label.name, isSelected: selectedLabel == label.id, color: Color(hex: label.colour))
-                                .onTapGesture {
-                                    if selectedLabel == label.id {
-                                        selectedLabel = nil
-                                    } else {
-                                        selectedLabel = label.id
+            DisclosureGroup(
+                isExpanded: $isLabelsExpanded,
+                content: {
+                    if isLoadingLabels {
+                        ProgressView()
+                    } else {
+                        WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
+                            ForEach(labels) { label in
+                                ChipView(label: label.name, isSelected: selectedLabel == label.id, color: Color(hex: label.colour))
+                                    .onTapGesture {
+                                        if selectedLabel == label.id {
+                                            selectedLabel = nil
+                                        } else {
+                                            selectedLabel = label.id
+                                        }
                                     }
-                                }
+                            }
                         }
                     }
+                },
+                label: {
+                    Text("Labels")
                 }
-            } header: {
-                Text("Labels")
-            }
+            )
             .task {
                 await loadLabels()
             }

@@ -36,14 +36,14 @@ struct AddAliasBottomSheet: View {
     @State var selectedRecipientChips: [String] = []
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
 
-    @State private var tagsRequestError: String? = ""
-    @State var tagsLoaded: Bool = false
-    @State var selectedTagChips: [String] = []
-    @State var tagsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_labels", label: String(localized: "loading_labels"))]
+    @State private var labelsRequestError: String? = ""
+    @State var labelsLoaded: Bool = false
+    @State var selectedLabelChips: [String] = []
+    @State var labelsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_labels", label: String(localized: "loading_labels"))]
 
     @State var isLoadingAddButton: Bool = false
 
-    @State private var isTagsExpanded: Bool = true
+    @State private var isLabelsExpanded: Bool = true
 
     let onAdded: () -> Void
 
@@ -150,39 +150,24 @@ struct AddAliasBottomSheet: View {
                 Text(String(localized: "recipients"))
             }
 
-            DisclosureGroup(isExpanded: $isTagsExpanded) {
+            DisclosureGroup(isExpanded: $isLabelsExpanded) {
                 WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
-                    ForEach(tagsChips) { chip in
-                        Button(action: {
-                            withAnimation {
-                                if selectedTagChips.contains(chip.chipId) {
-                                    selectedTagChips.removeAll { $0 == chip.chipId }
-                                } else {
-                                    selectedTagChips.append(chip.chipId)
+                    ForEach(labelsChips) { chip in
+                        ChipView(label: chip.label, isSelected: selectedLabelChips.contains(chip.chipId), color: Color(hex: chip.color ?? "FFFFFF"))
+                            .onTapGesture {
+                                withAnimation {
+                                    if selectedLabelChips.contains(chip.chipId) {
+                                        selectedLabelChips.removeAll { $0 == chip.chipId }
+                                    } else {
+                                        selectedLabelChips.append(chip.chipId)
+                                    }
                                 }
                             }
-                        }, label: {
-                            HStack {
-                                if selectedTagChips.contains(chip.chipId) {
-                                    Image(systemName: "checkmark")
-                                }
-                                Text(chip.label)
-                            }
-                            .fixedSize()
-                        })
-                        .tint(chip.color != nil ? Color(hex: chip.color!) : .accentColor)
-                        .apply { View in
-                            if self.selectedTagChips.contains(chip.chipId) {
-                                View.buttonStyle(.borderedProminent)
-                            } else {
-                                View.buttonStyle(.bordered)
-                            }
-                        }
                     }
                 }
-                .disabled(!tagsLoaded)
+                .disabled(!labelsLoaded)
             } label: {
-                Text(String(localized: "tags", bundle: Bundle(for: SharedData.self)))
+                Text(String(localized: "labels"))
             }
 
             Section {
@@ -203,8 +188,8 @@ struct AddAliasBottomSheet: View {
                 await getAllRecipients()
             }
 
-            if tagsChips.contains(where: { $0.chipId == "loading_labels" }) {
-                await getAllTags()
+            if labelsChips.contains(where: { $0.chipId == "loading_labels" }) {
+                await getAllLabels()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -307,14 +292,14 @@ struct AddAliasBottomSheet: View {
         }
 
         Task {
-            await addAliasToAccount(selectedDomain: selectedDomain, description: description, selectedFormat: selectedFormat, localPart: localPart, selectedRecipients: selectedRecipientChips, selectedTags: selectedTagChips)
+            await addAliasToAccount(selectedDomain: selectedDomain, description: description, selectedFormat: selectedFormat, localPart: localPart, selectedRecipients: selectedRecipientChips, selectedLabels: selectedLabelChips)
         }
     }
 
-    private func addAliasToAccount(selectedDomain: String, description: String, selectedFormat: String, localPart: String, selectedRecipients: [String], selectedTags: [String]) async {
+    private func addAliasToAccount(selectedDomain: String, description: String, selectedFormat: String, localPart: String, selectedRecipients: [String], selectedLabels: [String]) async {
         let networkHelper = NetworkHelper()
         do {
-            if let alias = try await networkHelper.addAlias(domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients, labelIds: selectedTags) {
+            if let alias = try await networkHelper.addAlias(domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients, labelIds: selectedLabels) {
                 UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
                 onAdded()
             }
@@ -359,20 +344,20 @@ struct AddAliasBottomSheet: View {
         }
     }
 
-    private func getAllTags() async {
+    private func getAllLabels() async {
         let networkHelper = NetworkHelper()
         do {
-            if let tags = try await networkHelper.getLabels() {
-                tagsChips = []
-                tagsLoaded = true
+            if let labels = try await networkHelper.getLabels() {
+                labelsChips = []
+                labelsLoaded = true
                 withAnimation {
-                    for tag in tags.data {
-                        tagsChips.append(AddyChipModel(chipId: tag.id, label: tag.name, color: tag.colour))
+                    for label in labels.data {
+                        labelsChips.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
                     }
                 }
             }
         } catch {
-            tagsRequestError = error.localizedDescription
+            labelsRequestError = error.localizedDescription
         }
     }
 }
