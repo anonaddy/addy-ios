@@ -2147,7 +2147,7 @@ public class NetworkHelper {
         }
     }
 
-    public func getAliases(aliasSortFilterRequest: AliasSortFilterRequest, page: Int? = nil, size: Int? = 20, recipient: String? = nil, domain: String? = nil, username: String? = nil, label: String? = nil) async throws -> AliasesArray? {
+    public func getAliases(aliasSortFilterRequest: AliasSortFilterRequest, page: Int? = nil, size: Int? = 20, recipient: String? = nil, domain: String? = nil, username: String? = nil) async throws -> AliasesArray? {
         logNetworkHelperCall()
         var parameters: [URLQueryItem] = []
 
@@ -2180,7 +2180,7 @@ public class NetworkHelper {
             parameters.append(URLQueryItem(name: "sort", value: sortFilter))
         }
         
-        if let label = label {
+        if let label = aliasSortFilterRequest.label {
             parameters.append(URLQueryItem(name: "filter[label]", value: label))
         }
 

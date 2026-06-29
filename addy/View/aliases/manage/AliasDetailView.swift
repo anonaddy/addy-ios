@@ -228,7 +228,7 @@ struct AliasDetailView: View {
                             isPresentingEditAliasRecipientsBottomSheet = true
                         }
 
-                        AddySection(title: String(localized: "labels"), description: alias.labels?.map { $0.name }.joined(separator: ", ") ?? String(localized: "alias_no_labels"), leadingSystemimage: nil, trailingSystemimage: "pencil") {
+                        AddySection(title: String(localized: "labels"), description: getLabels(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil") {
                             isPresentingEditAliasLabelsBottomSheet = true
                         }
 
@@ -520,6 +520,13 @@ struct AliasDetailView: View {
         }
 
         return idArray
+    }
+
+    private func getLabels(alias: Aliases) -> String {
+        if let labelNames = alias.labels?.map({ $0.name }).joined(separator: ", "), !labelNames.isEmpty {
+            return labelNames
+        }
+        return String(localized: "alias_no_labels")
     }
 
     private func getFromName(alias: Aliases) -> String {

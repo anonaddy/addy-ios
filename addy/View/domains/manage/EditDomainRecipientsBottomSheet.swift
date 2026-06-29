@@ -100,7 +100,7 @@ struct EditDomainRecipientsBottomSheet: View {
                         }
                     } label: {
                         Text(String(localized: "save"))
-                    }
+                    }.disabled(!recipientsLoaded)
                 )
             }
         }

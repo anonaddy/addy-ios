@@ -107,11 +107,15 @@ struct FilterOptionsAliasBottomSheet: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .disabled(filter2Selection == 1) // means if alias is set to Watch Only
-                AddyChipView(chips: $orderChips, selectedChip: $selectedOrderChip, singleLine: false) { onTappedChip in
-                    withAnimation {
-                        selectedOrderChip = onTappedChip.chipId
+                WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
+                    ForEach(orderChips) { chip in
+                        ChipView(label: chip.label, isSelected: selectedOrderChip == chip.chipId, color: .accentColor)
+                            .onTapGesture {
+                                withAnimation {
+                                    selectedOrderChip = chip.chipId
+                                }
+                            }
                     }
-
                 }.disabled(filter2Selection == 1) // means if alias is set to Watch Only
 
             } header: {

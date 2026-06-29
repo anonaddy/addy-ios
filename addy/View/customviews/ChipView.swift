@@ -29,6 +29,10 @@ struct ChipView: View {
         .background(isSelected ? color : Color(.systemGray5))
         .foregroundColor(isSelected ? .white : .primary)
         .cornerRadius(20)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(isSelected ? Color(.systemGray5) : Color(.systemGray4), lineWidth: 1)
+        )
         .animation(.spring(), value: isSelected)
     }
 }

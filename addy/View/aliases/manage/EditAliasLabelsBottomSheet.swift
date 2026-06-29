@@ -46,7 +46,7 @@ struct EditAliasLabelsBottomSheet: View {
                 }
             } header: {
                 VStack(alignment: .leading) {
-                    Text(String(localized: "alias_edit_labels_desc"))
+                    Text(String(localized: "add_label_description"))
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                 }.frame(maxWidth: .infinity, alignment: .center)
@@ -67,24 +67,28 @@ struct EditAliasLabelsBottomSheet: View {
             .padding(.horizontal, 8)
             .padding(.vertical, 8)
         }
-        .navigationTitle(String(localized: "edit_labels"))
+        .navigationTitle(String(localized: "labels"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                saveButton()
+                if #available(iOS 26.0, *) {
+                        saveButton().buttonStyle(.glassProminent)
+                    } else {
+                        saveButton()
+                    }
             }
-            ToolbarItem(placement: .cancellationAction) {
+            ToolbarItem(placement: .navigationBarLeading) {
                 Button {
                     dismiss()
                 } label: {
                     Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
             }
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .cancellationAction) {
                 Button {
                     isPresentingAddLabelBottomSheet = true
                 } label: {
-                    Label(String(localized: "create_label"), systemImage: "plus")
+                    Label(String(localized: "add_label"), systemImage: "plus")
                 }
             }
         }

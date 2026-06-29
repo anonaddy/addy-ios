@@ -166,7 +166,7 @@ struct LabelsView: View {
                 }
             }
         })
-        .navigationTitle(String(localized: "labels"))
+        .navigationTitle(String(localized: "manage_labels"))
         .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {

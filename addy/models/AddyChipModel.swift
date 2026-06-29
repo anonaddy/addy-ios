@@ -11,9 +11,11 @@ class AddyChipModel: Identifiable {
     let id = UUID()
     let chipId: String
     let label: String
+    let color: String?
 
-    init(chipId: String, label: String) {
+    init(chipId: String, label: String, color: String? = nil) {
         self.chipId = chipId
         self.label = label
+        self.color = color
     }
 }
