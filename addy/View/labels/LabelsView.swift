@@ -20,6 +20,9 @@ struct LabelsView: View {
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
 
+    @State private var label_count: Int = 0
+    @State private var label_limit: Int = 0
+
     @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
@@ -50,6 +53,9 @@ struct LabelsView: View {
                 }
             }
         })
+        .task {
+            await getUserResource()
+        }
     }
 
     private var labelsViewBody: some View {
@@ -82,10 +88,8 @@ struct LabelsView: View {
                     }
 
                 } footer: {
-                    if let count = labelsViewModel.labels?.data.count, count > 0 {
-                        Text(String(localized: "manage_labels_desc")).padding(.top)
-                    }
-
+                    Text("You've created \(label_count) out of \(label_limit) labels.")
+                        .padding(.top)
                 }.textCase(nil)
             }
 
@@ -94,6 +98,7 @@ struct LabelsView: View {
                 self.onRefreshGeneralData?()
             }
             await self.labelsViewModel.getLabels()
+            await self.getUserResource()
         }
         .sheet(isPresented: $isPresentingAddLabelBottomSheet) {
             NavigationStack {
@@ -217,6 +222,28 @@ struct LabelsView: View {
                 showAlert = true
                 labelsViewModel.labels?.data.remove(atOffsets: offsets)
             }
+        }
+    }
+
+    private func getUserResource() async {
+        let networkHelper = NetworkHelper()
+        do {
+            let userResource = try await networkHelper.getUserResource()
+            if let userResource = userResource {
+                // Don't update mainView, this will refresh the entire view hierarchy
+                label_limit = 100
+                label_count = labelsViewModel.labels?.data.count ?? 0
+            } else {
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = ""
+                errorAlertMessage = String(localized: "something_went_wrong_retrieving_labels")
+            }
+        } catch {
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "something_went_wrong_retrieving_labels")
+            errorAlertMessage = error.localizedDescription
         }
     }
 }

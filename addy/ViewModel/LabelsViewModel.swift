@@ -56,7 +56,7 @@ class LabelsViewModel: ObservableObject {
 
             let networkHelper = NetworkHelper()
             do {
-                let fetchedLabels = try await networkHelper.getLabels(filter: searchQuery)
+                let fetchedLabels = try await networkHelper.getAllLabels(filter: searchQuery)
                 isLoading = false
                 self.labels = fetchedLabels
             } catch {

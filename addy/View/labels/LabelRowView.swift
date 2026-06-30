@@ -22,13 +22,9 @@ struct LabelRowView: View {
                     .fontWeight(.medium)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                HStack(spacing: 3) {
-                    Image(systemName: "tag")
-                        .font(.system(size: 10))
-                    Text("\(label.aliases_count ?? 0)")
-                        .font(.caption)
-                }
-                .foregroundColor(.secondary)
+                Text("\(label.aliases_count ?? 0) aliases")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
             }
         }
     }

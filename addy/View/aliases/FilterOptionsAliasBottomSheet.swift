@@ -94,7 +94,7 @@ struct FilterOptionsAliasBottomSheet: View {
                                         }
                                     }
                             }
-                        }
+                        }.padding(.leading, -15)
                     }
                 },
                 label: {
@@ -266,7 +266,7 @@ struct FilterOptionsAliasBottomSheet: View {
         isLoadingLabels = true
         let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.getLabels()
+            let result = try await networkHelper.getAllLabels()
             if let labels = result?.data {
                 self.labels = labels
             }

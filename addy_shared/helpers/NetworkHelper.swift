@@ -555,7 +555,7 @@ public class NetworkHelper {
         }
     }
 
-    public func getLabels(filter: String? = nil) async throws -> LabelsArray? {
+    public func getAllLabels(filter: String? = nil) async throws -> LabelsArray? {
         logNetworkHelperCall()
         var parameters: [URLQueryItem] = []
 
@@ -1630,14 +1630,16 @@ public class NetworkHelper {
         }
     }
 
-    public func createLabel(name: String, colour: String) async throws -> Labels? {
+    public func createLabel(label: NewLabel) async throws -> Labels? {
         logNetworkHelperCall()
+        
         let url = URL(string: "\(AddyIo.API_URL_LABELS)")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = getHeaders()
-        let labelData = try? JSONEncoder().encode(NewLabel(name: name, colour: colour))
-        request.httpBody = labelData
+        let json: [String: Any] = ["name": label.name, "colour": label.colour]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
 
         let (data, httpResponse) = try await performRequest(request: request)
 
@@ -1721,7 +1723,7 @@ public class NetworkHelper {
         }
     }
 
-    public func updateAliasLabels(aliasIds: [String], labelIds: [String]) async throws -> String {
+    public func bulkUpdateAliasLabels(aliasIds: [String], labelIds: [String]) async throws -> String {
         logNetworkHelperCall()
         let url = URL(string: "\(AddyIo.API_URL_ALIASES_LABELS_BULK)")!
         var request = URLRequest(url: url)

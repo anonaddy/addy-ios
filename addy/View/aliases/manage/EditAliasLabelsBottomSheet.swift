@@ -140,7 +140,7 @@ struct EditAliasLabelsBottomSheet: View {
         if !labelsLoaded || forceReload {
             let networkHelper = NetworkHelper()
             do {
-                if let labels = try await networkHelper.getLabels()?.data {
+                if let labels = try await networkHelper.getAllLabels()?.data {
                     self.allLabels = []
                     for label in labels {
                         self.allLabels.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
@@ -157,7 +157,7 @@ struct EditAliasLabelsBottomSheet: View {
         requestError = nil
         let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.updateAliasLabels(aliasIds: [aliasId], labelIds: selectedLabelIds)
+            _ = try await networkHelper.bulkUpdateAliasLabels(aliasIds: [aliasId], labelIds: selectedLabelIds)
             if let alias = try await networkHelper.getSpecificAlias(aliasId: aliasId) {
                 labelsEdited(alias)
                 dismiss()

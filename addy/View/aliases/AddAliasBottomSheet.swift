@@ -165,7 +165,7 @@ struct AddAliasBottomSheet: View {
                             }
                     }
                 }
-                .disabled(!labelsLoaded)
+                .disabled(!labelsLoaded).padding(.leading, -15)
             } label: {
                 Text(String(localized: "labels"))
             }
@@ -347,7 +347,7 @@ struct AddAliasBottomSheet: View {
     private func getAllLabels() async {
         let networkHelper = NetworkHelper()
         do {
-            if let labels = try await networkHelper.getLabels() {
+            if let labels = try await networkHelper.getAllLabels() {
                 labelsChips = []
                 labelsLoaded = true
                 withAnimation {

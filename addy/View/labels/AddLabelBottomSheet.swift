@@ -107,7 +107,7 @@ struct AddLabelBottomSheet: View {
         requestError = nil
         let networkHelper = NetworkHelper()
         do {
-            if let newLabel = try await networkHelper.createLabel(name: name, colour: colour) {
+            if let newLabel = try await networkHelper.createLabel(label: NewLabel(name: name, colour: colour)) {
                 onAdded(newLabel)
                 dismiss()
             } else {
