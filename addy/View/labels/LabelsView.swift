@@ -20,8 +20,7 @@ struct LabelsView: View {
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
 
-    @State private var label_count: Int = 0
-    @State private var label_limit: Int = 0
+    @State private var label_limit: Int = 100
 
     @Binding var horizontalSize: UserInterfaceSizeClass
 
@@ -54,7 +53,7 @@ struct LabelsView: View {
             }
         })
         .task {
-            await getUserResource()
+            //await getUserResource()
         }
     }
 
@@ -88,7 +87,7 @@ struct LabelsView: View {
                     }
 
                 } footer: {
-                    Text("You've created \(label_count) out of \(label_limit) labels.")
+                    Text("You've created \(labelsViewModel.labels?.data.count ?? 0) out of 100 labels.")
                         .padding(.top)
                 }.textCase(nil)
             }
@@ -98,7 +97,7 @@ struct LabelsView: View {
                 self.onRefreshGeneralData?()
             }
             await self.labelsViewModel.getLabels()
-            await self.getUserResource()
+            //await self.getUserResource()
         }
         .sheet(isPresented: $isPresentingAddLabelBottomSheet) {
             NavigationStack {
@@ -181,7 +180,9 @@ struct LabelsView: View {
                     Image(systemName: "plus")
                         .frame(width: 24, height: 24)
                 }
+                .disabled(labelsViewModel.labels?.data.count ?? 0 >= label_limit )
             }
+            
         }
         .searchable(text: $labelsViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "search"))
         .onSubmit(of: .search) {
@@ -225,25 +226,25 @@ struct LabelsView: View {
         }
     }
 
-    private func getUserResource() async {
-        let networkHelper = NetworkHelper()
-        do {
-            let userResource = try await networkHelper.getUserResource()
-            if let userResource = userResource {
-                // Don't update mainView, this will refresh the entire view hierarchy
-                label_limit = 100
-                label_count = labelsViewModel.labels?.data.count ?? 0
-            } else {
-                activeAlert = .error
-                showAlert = true
-                errorAlertTitle = ""
-                errorAlertMessage = String(localized: "something_went_wrong_retrieving_labels")
-            }
-        } catch {
-            activeAlert = .error
-            showAlert = true
-            errorAlertTitle = String(localized: "something_went_wrong_retrieving_labels")
-            errorAlertMessage = error.localizedDescription
-        }
-    }
+//    private func getUserResource() async {
+//        let networkHelper = NetworkHelper()
+//        do {
+//            let userResource = try await networkHelper.getUserResource()
+//            if let userResource = userResource {
+//                // Don't update mainView, this will refresh the entire view hierarchy
+//                label_limit = 100
+//                label_count = labelsViewModel.labels?.data.count ?? 0
+//            } else {
+//                activeAlert = .error
+//                showAlert = true
+//                errorAlertTitle = ""
+//                errorAlertMessage = String(localized: "something_went_wrong_retrieving_labels")
+//            }
+//        } catch {
+//            activeAlert = .error
+//            showAlert = true
+//            errorAlertTitle = String(localized: "something_went_wrong_retrieving_labels")
+//            errorAlertMessage = error.localizedDescription
+//        }
+//    }
 }
