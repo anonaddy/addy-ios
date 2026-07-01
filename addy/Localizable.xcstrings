@@ -6866,6 +6866,26 @@
         }
       }
     },
+    "show_all" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show all"
+          }
+        }
+      }
+    },
+    "show_less" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show less"
+          }
+        }
+      }
+    },
     "show_suggestions" : {
       "extractionState" : "manual",
       "localizations" : {

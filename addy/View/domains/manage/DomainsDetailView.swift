@@ -37,6 +37,7 @@ struct DomainsDetailView: View {
     @State private var totalBlocked: Int = 0
     @State private var totalReplies: Int = 0
     @State private var totalSent: Int = 0
+    @State private var showAllAliases = false
 
     enum ActiveAlert {
         case deleteDomain, error
@@ -68,10 +69,27 @@ struct DomainsDetailView: View {
                 }.textCase(nil)
 
                 Section {
-                    Text(aliasList.joined(separator: "\n"))
-                        .font(.system(size: 14)) // Set initial font size
-                        .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
-                        .padding(.top, 5)
+                    VStack(alignment: .leading) {
+                        let aliasesToShow = showAllAliases ? aliasList : Array(aliasList.prefix(10))
+
+                        Text(aliasesToShow.joined(separator: "\n"))
+                            .font(.system(size: 14)) // Set initial font size
+                            .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
+                            .padding(.top, 5)
+
+                        if aliasList.count > 10 {
+                            Button(action: {
+                                withAnimation {
+                                    showAllAliases.toggle()
+                                }
+                            }) {
+                                Text(showAllAliases ? String(localized: "show_less") : String(localized: "show_all"))
+                                    .font(.system(size: 14, weight: .bold))
+                                    .padding(.top, 5)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
 
                 } header: {
                     HStack(spacing: 6) {
@@ -491,15 +509,18 @@ struct DomainsDetailView: View {
             workingAliasList?.data.append(contentsOf: aliasesArray.data)
         }
 
+        // It seems that on this view the UI is not updating correctly.
+        // Let's try to update the UI on every page load.
+        DispatchQueue.main.async {
+            self.updateUi(aliasesArray: workingAliasList)
+        }
+
         // Check if there are more aliases to obtain (are there more pages)
         // If so, repeat.
         if (workingAliasList?.meta?.current_page ?? 0) < (workingAliasList?.meta?.last_page ?? 0) {
             Task {
                 await getAliasesAndAddThemToList(domain: domain, workingAliasList: workingAliasList)
             }
-        } else {
-            // Else, set aliasList to update UI
-            updateUi(aliasesArray: workingAliasList)
         }
     }
 }

@@ -43,7 +43,7 @@ struct AddAliasBottomSheet: View {
 
     @State var isLoadingAddButton: Bool = false
 
-    @State private var isLabelsExpanded: Bool = true
+    @State private var isLabelsExpanded: Bool = false
 
     let onAdded: () -> Void
 
