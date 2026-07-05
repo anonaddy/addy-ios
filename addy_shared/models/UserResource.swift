@@ -42,7 +42,7 @@ public struct UserResource: Codable {
     public var subscription: String? // Can be nil on selfhosted
     public var subscription_type: String? // Can be nil on selfhosted
     public var subscription_ends_at: String? // Can be nil on selfhosted
-    public var bandwidth_limit: Int64
+    public var bandwidth_limit: Int64?
     public var recipient_count: Int
     public var recipient_limit: Int? // Can be nil on selfhosted
     public var active_domain_count: Int

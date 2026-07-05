@@ -60,11 +60,11 @@ struct AddyStatisticWidgetEntryView: View {
             switch family {
             case .accessoryCircular:
                 Gauge(
-                    value: Double(userResource.bandwidth), in: 0 ... Double(userResource.bandwidth_limit),
+                    value: Double(userResource.bandwidth), in: 0 ... Double(userResource.bandwidth_limit ?? 0),
                     label: { Text(String(localized: "widget_1_bandwidth_gauge")) },
                     currentValueLabel: { Text(String(userResource.bandwidth / 1024 / 1024)) },
                     minimumValueLabel: { Text("0") },
-                    maximumValueLabel: { Text(userResource.bandwidth_limit == 0 ? "∞" : String(userResource.bandwidth_limit / 1024 / 1024)) }
+                    maximumValueLabel: { Text((userResource.bandwidth_limit ?? 0) == 0 ? "∞" : String((userResource.bandwidth_limit ?? 0) / 1024 / 1024)) }
                 ).gaugeStyle(.accessoryCircular)
 
             case .accessoryRectangular:
@@ -88,11 +88,11 @@ struct AddyStatisticWidgetEntryView: View {
                     }
                     Text(String(localized: "monthly_bandwidth")).frame(maxHeight: .infinity)
                     Gauge(
-                        value: Double(userResource.bandwidth), in: 0 ... Double(userResource.bandwidth_limit),
+                        value: Double(userResource.bandwidth), in: 0 ... Double(userResource.bandwidth_limit ?? 0),
                         label: { Text(String(localized: "widget_1_bandwidth_gauge")) },
                         currentValueLabel: { Text(String(userResource.bandwidth / 1024 / 1024)) },
                         minimumValueLabel: { Text("0") },
-                        maximumValueLabel: { Text(userResource.bandwidth_limit == 0 ? "∞" : String(userResource.bandwidth_limit / 1024 / 1024)) }
+                        maximumValueLabel: { Text((userResource.bandwidth_limit ?? 0) == 0 ? "∞" : String((userResource.bandwidth_limit ?? 0) / 1024 / 1024)) }
                     ).gaugeStyle(.accessoryLinear)
                 }
 

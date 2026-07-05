@@ -50,7 +50,7 @@ struct HomeView: View {
                                             .lineSpacing(24)
                                             .foregroundColor(.white)
                                         Spacer()
-                                        Text(userResource.bandwidth_limit == 0 ? String(format: String(localized: "home_bandwidth_text"), String(userResource.bandwidth / 1024 / 1024), "∞") : String(format: String(localized: "home_bandwidth_text"), String(userResource.bandwidth / 1024 / 1024), String(userResource.bandwidth_limit / 1024 / 1024)))
+                                        Text((userResource.bandwidth_limit ?? 0) == 0 ? String(format: String(localized: "home_bandwidth_text"), String(userResource.bandwidth / 1024 / 1024), "∞") : String(format: String(localized: "home_bandwidth_text"), String(userResource.bandwidth / 1024 / 1024), String((userResource.bandwidth_limit ?? 0) / 1024 / 1024)))
                                             .fontWeight(.medium)
                                             .lineSpacing(24)
                                             .foregroundColor(.white)
@@ -67,7 +67,7 @@ struct HomeView: View {
                                         }
                                         .apply {
                                             // Apply the shimmering effect when no limit
-                                            if userResource.bandwidth_limit == 0 {
+                                            if (userResource.bandwidth_limit ?? 0) == 0 {
                                                 $0.shimmering(animation: .easeInOut(duration: 7).repeatForever(),
                                                               gradient: Gradient(colors: [.white.opacity(0.6), .white.opacity(0.5), .white.opacity(0.5), .white.opacity(0.6), .white.opacity(0.5)]))
                                             } else {
@@ -186,10 +186,10 @@ struct HomeView: View {
             // Handle case where userResource might be nil, if needed
             return
         }
-        if userResource.bandwidth_limit == 0 {
+        if (userResource.bandwidth_limit ?? 0) == 0 {
             progress = 1.0
         } else {
-            progress = Float(Double(userResource.bandwidth) / Double(userResource.bandwidth_limit))
+            progress = Float(Double(userResource.bandwidth) / Double(userResource.bandwidth_limit ?? 1))
         }
     }
 }
