@@ -28,6 +28,14 @@
             ],
             "versions": [
                 {
+                    "version": "2.4.0",
+                    "date": "2026-07-15T00:00:00+02:00",
+                    "size": 33924153,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/ef1d3600070c1b23e4b03306d0635ab86fd7dd8d/builds/appstorelessRelease%202026-07-06%2012-19-00/addy.ipa",
+                    "localizedDescription": "- Support for labels, allowing you to organize and color-code your aliases.\n- You can now activate and deactivate recipients directly within the app.",
+                    "minOSVersion": "17.0"
+                },
+                {
                     "version": "2.3.5",
                     "date": "2026-06-05T00:00:00+02:00",
                     "size": 33924153,

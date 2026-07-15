@@ -1,6 +1,6 @@
 # Changelog
 
-## [v2.4.0] - TBD
+## [v2.4.0] - 2026-07-15
 
 **Added**
 - Support for labels, allowing you to organize and color-code your aliases.
