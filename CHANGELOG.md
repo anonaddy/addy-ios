@@ -1,5 +1,19 @@
 # Changelog
 
+## [v2.4.0] - 2026-07-15
+
+**Added**
+- Support for labels, allowing you to organize and color-code your aliases.
+- You can now activate and deactivate recipients directly within the app.
+
+**Fixed & Improved**
+- Performance enhancements and other improvements for a smoother experience
+
+**What’s new in addy.io for Apple Watch 1.1.6**
+
+**Fixed & Improved**  
+- Performance enhancements and other improvements for a smoother experience
+
 ## [v2.3.5] - 2026-06-05
 
 ### addy.io

@@ -221,7 +221,10 @@ struct AddApiBottomSheet: View {
 
     private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL) async {
         let cleanApiKey = apiKey.trimmingCharacters(in: .whitespacesAndNewlines)
-        let cleanBaseUrl = baseUrl.trimmingCharacters(in: .whitespacesAndNewlines.union(.init(charactersIn: "/")))
+        var cleanBaseUrl = baseUrl.trimmingCharacters(in: .whitespacesAndNewlines)
+        if cleanBaseUrl.hasSuffix("/") {
+            cleanBaseUrl.removeLast()
+        }
         let networkHelper = NetworkHelper()
         do {
             let result = try await networkHelper.verifyApiKey(baseUrl: cleanBaseUrl, apiKey: cleanApiKey)
@@ -263,6 +266,11 @@ struct AddApiBottomSheet: View {
             resetSignInButton()
             return
         }
+        
+        var cleanBaseUrl = baseUrl.trimmingCharacters(in: .whitespacesAndNewlines)
+        if cleanBaseUrl.hasSuffix("/") {
+            cleanBaseUrl.removeLast()
+        }
 
         let networkHelper = NetworkHelper()
 
@@ -274,10 +282,10 @@ struct AddApiBottomSheet: View {
             }
 
             // OTP has been entered, do the call to the /api/auth/mfa endpoint
-            await networkHelper.loginMfa(baseUrl: baseUrl, mfa_key: otpMfaObject.mfa_key, otp: self.otp, apiExpiration: apiExpiration, completion: { login, error in
+            await networkHelper.loginMfa(baseUrl: cleanBaseUrl, mfa_key: otpMfaObject.mfa_key, otp: self.otp, apiExpiration: apiExpiration, completion: { login, error in
                 if let login = login {
                     // Login success
-                    self.addKey(login.api_key, baseUrl)
+                    self.addKey(login.api_key, cleanBaseUrl)
                 } else {
                     withAnimation {
                         self.otpMfaObject = nil
@@ -293,10 +301,10 @@ struct AddApiBottomSheet: View {
                 }
             })
         } else {
-            await networkHelper.login(baseUrl: baseUrl, username: username, password: password, apiExpiration: apiExpiration, completion: { login, loginMfaRequired, error in
+            await networkHelper.login(baseUrl: cleanBaseUrl, username: username, password: password, apiExpiration: apiExpiration, completion: { login, loginMfaRequired, error in
                 if let login = login {
                     // Login success
-                    self.addKey(login.api_key, baseUrl)
+                    self.addKey(login.api_key, cleanBaseUrl)
                 } else if loginMfaRequired != nil {
                     // Login MFA required
                     withAnimation {

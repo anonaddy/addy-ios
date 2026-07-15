@@ -24,6 +24,7 @@ struct ProfileBottomSheet: View {
     @State var isShowingRulesView = false
     @State var isShowingUsernamesView = false
     @State var isShowingBlocklistView = false
+    @State var isShowingLabelsView = false
     @State var isShowingAppSettingsView = false
     @State var shouldHideNavigationBarBackButtonSubscriptionView = false
 
@@ -129,6 +130,10 @@ struct ProfileBottomSheet: View {
                     AddySection(title: String(localized: "manage_blocklist"), description: String(localized: "blocklist_desc"), trailingSystemimage: "chevron.right") {
                         self.isShowingBlocklistView = true
                     }
+                    
+                    AddySection(title: String(localized: "manage_labels"), description: String(localized: "manage_labels_desc"), trailingSystemimage: "chevron.right") {
+                        self.isShowingLabelsView = true
+                    }
                 }
 
                 Section {
@@ -172,6 +177,9 @@ struct ProfileBottomSheet: View {
             }
             .navigationDestination(isPresented: $isShowingBlocklistView) {
                 BlocklistView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+            }
+            .navigationDestination(isPresented: $isShowingLabelsView) {
+                LabelsView(horizontalSize: $horizontalSize).environmentObject(mainViewState)
             }
             .navigationDestination(isPresented: $isShowingAppSettingsView) {
                 AppSettingsView(horizontalSize: $horizontalSize).environmentObject(mainViewState)

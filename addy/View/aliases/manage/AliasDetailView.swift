@@ -37,6 +37,7 @@ struct AliasDetailView: View {
     @State private var isAttachedRecipientsOnlyEnabled: Bool = false
     @State private var isPresentingEditAliasDescriptionBottomSheet = false
     @State private var isPresentingEditAliasRecipientsBottomSheet = false
+    @State private var isPresentingEditAliasLabelsBottomSheet = false
     @State private var isPresentingEditAliasFromNameBottomSheet = false
     @State private var isPresentingEditAliasSendMailRecipientBottomSheet = false
     @State private var copiedToClipboard: Bool = false
@@ -227,6 +228,10 @@ struct AliasDetailView: View {
                             isPresentingEditAliasRecipientsBottomSheet = true
                         }
 
+                        AddySection(title: String(localized: "labels"), description: getLabels(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil") {
+                            isPresentingEditAliasLabelsBottomSheet = true
+                        }
+
                         AddySection(title: String(localized: "from_name"), description: getFromName(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil") {
                             if !mainViewState.userResource!.hasUserFreeSubscription() {
                                 isPresentingEditAliasFromNameBottomSheet = true
@@ -343,6 +348,16 @@ struct AliasDetailView: View {
 
                             // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
                             // So we update the list when coming back
+                            shouldReloadDataInParent = true
+                        }
+                    }
+                    .presentationDetents([.medium, .large])
+                }
+                .sheet(isPresented: $isPresentingEditAliasLabelsBottomSheet) {
+                    NavigationStack {
+                        EditAliasLabelsBottomSheet(aliasId: alias.id, selectedLabelsIds: getLabelsIds(labels: alias.labels)) { alias in
+                            self.alias = alias
+                            isPresentingEditAliasLabelsBottomSheet = false
                             shouldReloadDataInParent = true
                         }
                     }
@@ -493,6 +508,25 @@ struct AliasDetailView: View {
         }
 
         return idArray
+    }
+    
+    private func getLabelsIds(labels: [Labels]?) -> [String] {
+        var idArray = [String]()
+
+        if let labels = labels {
+            for label in labels {
+                idArray.append(label.id)
+            }
+        }
+
+        return idArray
+    }
+
+    private func getLabels(alias: Aliases) -> String {
+        if let labelNames = alias.labels?.map({ $0.name }).joined(separator: ", "), !labelNames.isEmpty {
+            return labelNames
+        }
+        return String(localized: "alias_no_labels")
     }
 
     private func getFromName(alias: Aliases) -> String {
@@ -841,7 +875,3 @@ struct AliasDetailView: View {
         }
     }
 }
-
-// #Preview {
-//    AliasDetailView(aliasId: "6a866f49-5a0b-4c7e-bc45-f46bf019c4ed", aliasEmail: "PLACEHOLDER", shouldReloadDataInParent: false)
-// }

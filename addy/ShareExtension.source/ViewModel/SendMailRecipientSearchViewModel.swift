@@ -18,7 +18,7 @@ class SendMailRecipientSearchViewModel: ObservableObject {
         onlyPinnedAliases: false,
         sort: "created_at",
         sortDesc: false,
-        filter: ""
+        filter: "", label: nil
     )
 
     @Published var searchQuery = ""

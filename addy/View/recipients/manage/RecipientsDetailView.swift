@@ -43,6 +43,9 @@ struct RecipientsDetailView: View {
     @State private var totalBlocked: Int = 0
     @State private var totalReplies: Int = 0
     @State private var totalSent: Int = 0
+    @State private var showAllAliases = false
+    @State private var isRecipientActive: Bool = false
+    @State private var isSwitchingRecipientActiveState: Bool = false
 
     enum ActiveAlert {
         case deleteRecipient, error, removePgpKey
@@ -71,10 +74,27 @@ struct RecipientsDetailView: View {
                 }.textCase(nil)
 
                 Section {
-                    Text(aliasList.joined(separator: "\n"))
-                        .font(.system(size: 14)) // Set initial font size
-                        .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
-                        .padding(.top, 5)
+                    VStack(alignment: .leading) {
+                        let aliasesToShow = showAllAliases ? aliasList : Array(aliasList.prefix(10))
+
+                        Text(aliasesToShow.joined(separator: "\n"))
+                            .font(.system(size: 14)) // Set initial font size
+                            .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
+                            .padding(.top, 5)
+
+                        if aliasList.count > 10 {
+                            Button(action: {
+                                withAnimation {
+                                    showAllAliases.toggle()
+                                }
+                            }) {
+                                Text(showAllAliases ? String(localized: "show_less") : String(localized: "show_all"))
+                                    .font(.system(size: 14, weight: .bold))
+                                    .padding(.top, 5)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
 
                 } header: {
                     HStack(spacing: 6) {
@@ -91,7 +111,7 @@ struct RecipientsDetailView: View {
                         }
                     }
                 }.textCase(nil)
-
+                
                 Section {
                     if let fingerprint = recipient.fingerprint {
                         Text(String(format: String(localized: "fingerprint_s"),
@@ -103,8 +123,25 @@ struct RecipientsDetailView: View {
                 } header: {
                     Text(String(localized: "encryption"))
                 }.textCase(nil)
-
+                
                 Section {
+                    AddyToggle(isOn: $isRecipientActive, isLoading: isSwitchingRecipientActiveState, title: recipient.active ?? false ? String(localized: "recipient_activated") : String(localized: "recipient_deactivated"), description: String(localized: "recipient_status_desc"))
+                        .onChange(of: isRecipientActive) {
+                            if isRecipientActive != recipient.active {
+                                self.isSwitchingRecipientActiveState = true
+
+                                if recipient.active {
+                                    Task {
+                                        await self.deactivateRecipient(recipient: recipient)
+                                    }
+                                 } else {
+                                    Task {
+                                        await self.activateRecipient(recipient: recipient)
+                                    }
+                                }
+                            }
+                        }
+                    
                     AddyToggle(isOn: $replySendAllowed, isLoading: isSwitchingRecipientCanReplySendState, title: recipient.can_reply_send ? String(localized: "can_reply_send") : String(localized: "cannot_reply_send"), description: String(localized: "can_reply_send_desc"))
                         .onChange(of: replySendAllowed) {
                             // Only fire when the value is NOT the same as the value already in the model
@@ -169,7 +206,6 @@ struct RecipientsDetailView: View {
                     AddySection(title: String(localized: "description"), description: recipient.description ?? String(localized: "recipient_no_description"), leadingSystemimage: nil, trailingSystemimage: "pencil") {
                         isPresentingEditRecipientDescriptionBottomSheet = true
                     }
-
                     
                     AddySectionButton(title: recipient.fingerprint != nil ? String(localized: "change_public_gpg_key") : String(localized: "add_public_gpg_key"),
                                       colorAccent: .accentColor,
@@ -241,7 +277,7 @@ struct RecipientsDetailView: View {
                 } header: {
                     Text(String(localized: "actions"))
                 }.textCase(nil)
-
+                
                 Section {
                     AddySectionButton(title: String(localized: "delete_recipient"),
                                       leadingSystemimage: "trash", colorAccent: .softRed, isLoading: isDeletingRecipient)
@@ -685,6 +721,7 @@ struct RecipientsDetailView: View {
                     self.protectedHeaders = recipient.protected_headers
                     self.removePgpKeys = recipient.remove_pgp_keys
                     self.removePgpSignatures = recipient.remove_pgp_signatures
+                    self.isRecipientActive = recipient.active
                 }
 
                 // Reset total counts
@@ -702,9 +739,51 @@ struct RecipientsDetailView: View {
         }
     }
 
+    private func activateRecipient(recipient: Recipients) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let activatedRecipient = try await networkHelper.activateSpecificRecipient(recipientId: recipient.id)
+            isSwitchingRecipientActiveState = false
+            self.recipient = activatedRecipient
+            isRecipientActive = true
+        } catch {
+            isSwitchingRecipientActiveState = false
+            isRecipientActive = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    private func deactivateRecipient(recipient: Recipients) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.deactivateSpecificRecipient(recipientId: recipient.id)
+            isSwitchingRecipientActiveState = false
+            if result == "204" {
+                self.recipient?.active = false
+                isRecipientActive = false
+            } else {
+                isRecipientActive = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
+                errorAlertMessage = result
+            }
+        } catch {
+            isSwitchingRecipientActiveState = false
+            isRecipientActive = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_active", bundle: Bundle(for: SharedData.self))
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
     private func getAliasesAndAddThemToList(recipient: Recipients, workingAliasList: AliasesArray? = nil) async {
         let networkHelper = NetworkHelper()
-        let aliasSortFilterRequest = AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, onlyPinnedAliases: false, sort: nil, sortDesc: false, filter: nil)
+        let aliasSortFilterRequest = AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, onlyPinnedAliases: false, sort: nil, sortDesc: false, filter: nil, label: nil)
         do {
             if let list = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (workingAliasList?.meta?.current_page ?? 0) + 1, size: 100, recipient: recipientId) {
                 addAliasesToList(recipient: recipient, aliasesArray: list, workingAliasListInbound: workingAliasList)
@@ -729,15 +808,18 @@ struct RecipientsDetailView: View {
             workingAliasList?.data.append(contentsOf: aliasesArray.data)
         }
 
+        // It seems that on this view the UI is not updating correctly.
+        // Let's try to update the UI on every page load.
+        DispatchQueue.main.async {
+            self.updateUi(aliasesArray: workingAliasList)
+        }
+
         // Check if there are more aliases to obtain (are there more pages)
         // If so, repeat.
         if (workingAliasList?.meta?.current_page ?? 0) < (workingAliasList?.meta?.last_page ?? 0) {
             Task {
                 await getAliasesAndAddThemToList(recipient: recipient, workingAliasList: workingAliasList)
             }
-        } else {
-            // Else, set aliasList to update UI
-            updateUi(aliasesArray: workingAliasList)
         }
     }
 }

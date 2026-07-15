@@ -19,7 +19,7 @@ class AliasesViewModel: ObservableObject {
         onlyPinnedAliases: false,
         sort: "created_at",
         sortDesc: false,
-        filter: ""
+        filter: "", label: nil
     )
 
     var defaultSortFilterRequest = AliasSortFilterRequest(
@@ -30,7 +30,7 @@ class AliasesViewModel: ObservableObject {
         onlyPinnedAliases: false,
         sort: "created_at",
         sortDesc: false,
-        filter: ""
+        filter: "", label: nil
     )
 
     @Published var searchQuery = ""

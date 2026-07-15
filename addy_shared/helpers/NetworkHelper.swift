@@ -555,6 +555,32 @@ public class NetworkHelper {
         }
     }
 
+    public func getAllLabels(filter: String? = nil) async throws -> LabelsArray? {
+        logNetworkHelperCall()
+        var parameters: [URLQueryItem] = []
+
+        if let filter = filter {
+            parameters.append(URLQueryItem(name: "filter[search]", value: filter))
+        }
+
+        var urlComponents = URLComponents(string: AddyIo.API_URL_LABELS)!
+        urlComponents.queryItems = parameters
+
+        var request = URLRequest(url: urlComponents.url!)
+        request.allHTTPHeaderFields = getHeaders()
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            return try decoder.decode(LabelsArray.self, from: data)
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+
+
     public func getDomains() async throws -> DomainsArray? {
         logNetworkHelperCall()
         let url = URL(string: AddyIo.API_URL_DOMAINS)!
@@ -813,6 +839,24 @@ public class NetworkHelper {
         }
     }
 
+    public func getSpecificLabel(labelId: String) async throws -> Labels? {
+        logNetworkHelperCall()
+        let url = URL(string: "\(AddyIo.API_URL_LABELS)/\(labelId)")!
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = getHeaders()
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleLabel.self, from: data)
+            return addyIoData.data
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+
     public func updateRule(ruleId: String, rule: Rules) async throws -> String {
         logNetworkHelperCall()
         let url = URL(string: "\(AddyIo.API_URL_RULES)/\(ruleId)")!
@@ -821,6 +865,25 @@ public class NetworkHelper {
         request.allHTTPHeaderFields = getHeaders()
         let ruleData = try? JSONEncoder().encode(rule)
         request.httpBody = ruleData
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 200:
+            return "200"
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+
+    public func updateLabel(labelId: String, name: String, colour: String) async throws -> String {
+        logNetworkHelperCall()
+        let url = URL(string: "\(AddyIo.API_URL_LABELS)/\(labelId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.allHTTPHeaderFields = getHeaders()
+        let labelData = try? JSONEncoder().encode(UpdateLabel(name: name, colour: colour))
+        request.httpBody = labelData
 
         let (data, httpResponse) = try await performRequest(request: request)
 
@@ -851,7 +914,7 @@ public class NetworkHelper {
         }
     }
 
-    public func addAlias(domain: String, description: String, format: String, localPart: String, recipients: [String]?) async throws -> Aliases? {
+    public func addAlias(domain: String, description: String, format: String, localPart: String, recipients: [String]?, labelIds: [String]? = nil) async throws -> Aliases? {
         logNetworkHelperCall()
         let url = URL(string: "\(AddyIo.API_URL_ALIAS)")!
         var request = URLRequest(url: url)
@@ -862,7 +925,8 @@ public class NetworkHelper {
                                    "description": description,
                                    "format": format,
                                    "local_part": localPart,
-                                   "recipient_ids": recipients ?? []]
+                                   "recipient_ids": recipients ?? [],
+                                   "label_ids": labelIds ?? []]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         request.httpBody = jsonData
 
@@ -1164,6 +1228,45 @@ public class NetworkHelper {
     public func deactivateSpecificDomain(domainId: String) async throws -> String {
         logNetworkHelperCall()
         let url = URL(string: "\(AddyIo.API_URL_ACTIVE_DOMAINS)/\(domainId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 204:
+            return "204"
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+    
+    public func activateSpecificRecipient(recipientId: String) async throws -> Recipients? {
+        logNetworkHelperCall()
+        let url = URL(string: "\(AddyIo.API_URL_ACTIVE_RECIPIENTS)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": recipientId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 200:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleRecipient.self, from: data)
+            return addyIoData.data
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+
+    public func deactivateSpecificRecipient(recipientId: String) async throws -> String {
+        logNetworkHelperCall()
+        let url = URL(string: "\(AddyIo.API_URL_ACTIVE_RECIPIENTS)/\(recipientId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         request.allHTTPHeaderFields = getHeaders()
@@ -1527,6 +1630,29 @@ public class NetworkHelper {
         }
     }
 
+    public func createLabel(label: NewLabel) async throws -> Labels? {
+        logNetworkHelperCall()
+        
+        let url = URL(string: "\(AddyIo.API_URL_LABELS)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["name": label.name, "colour": label.colour]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 201:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleLabel.self, from: data)
+            return addyIoData.data
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+
     public func addUsername(username: String) async throws -> Usernames? {
         logNetworkHelperCall()
         let url = URL(string: "\(AddyIo.API_URL_USERNAMES)")!
@@ -1584,6 +1710,27 @@ public class NetworkHelper {
         }
 
         let json: [String: Any] = ["ids": array]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 200:
+            return "200"
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+
+    public func bulkUpdateAliasLabels(aliasIds: [String], labelIds: [String]) async throws -> String {
+        logNetworkHelperCall()
+        let url = URL(string: "\(AddyIo.API_URL_ALIASES_LABELS_BULK)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+
+        let json: [String: Any] = ["ids": aliasIds, "label_ids": labelIds]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         request.httpBody = jsonData
 
@@ -1675,6 +1822,23 @@ public class NetworkHelper {
     public func deleteRule(ruleId: String) async throws -> String {
         logNetworkHelperCall()
         let url = URL(string: "\(AddyIo.API_URL_RULES)/\(ruleId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 204:
+            return "204"
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+
+    public func deleteLabel(labelId: String) async throws -> String {
+        logNetworkHelperCall()
+        let url = URL(string: "\(AddyIo.API_URL_LABELS)/\(labelId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         request.allHTTPHeaderFields = getHeaders()
@@ -2056,6 +2220,10 @@ public class NetworkHelper {
             let sortFilter: String = aliasSortFilterRequest.sortDesc ? "-\(sort)" : sort
             parameters.append(URLQueryItem(name: "sort", value: sortFilter))
         }
+        
+        if let label = aliasSortFilterRequest.label {
+            parameters.append(URLQueryItem(name: "filter[label]", value: label))
+        }
 
         if let recipient = recipient {
             parameters.append(URLQueryItem(name: "recipient", value: recipient))
@@ -2066,6 +2234,8 @@ public class NetworkHelper {
         if let username = username {
             parameters.append(URLQueryItem(name: "username", value: username))
         }
+        
+        parameters.append(URLQueryItem(name: "with", value: "labels"))
 
         var urlComponents = URLComponents(string: AddyIo.API_URL_ALIAS)!
         urlComponents.queryItems = parameters
@@ -2147,7 +2317,7 @@ public class NetworkHelper {
             onlyPinnedAliases: false,
             sort: "emails_forwarded",
             sortDesc: true,
-            filter: nil
+            filter: nil, label: nil
         )
         do {
             let list = try await getAliases(aliasSortFilterRequest: aliasSortFilterRequest, size: amountOfAliasesToCache)

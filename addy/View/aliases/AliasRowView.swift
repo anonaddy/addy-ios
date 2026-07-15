@@ -7,6 +7,7 @@
 
 import addy_shared
 import SwiftUI
+import WrappingHStack
 
 struct AliasRowView: View {
     let alias: Aliases
@@ -106,6 +107,22 @@ struct AliasRowView: View {
                 Text(aliasDescription)
                     .font(.subheadline)
                     .lineLimit(2)
+                
+                if let labels = alias.labels, !labels.isEmpty {
+                    HStack(spacing: 4) {
+                        ForEach(labels) { label in
+                            Text(label.name)
+                                .font(.caption2)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(Color(hex: label.colour).opacity(0.2))
+                                .foregroundColor(Color(hex: label.colour))
+                                .cornerRadius(8)
+                        }
+                    }
+                    .frame(maxHeight: 20)
+                    .clipped()
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }

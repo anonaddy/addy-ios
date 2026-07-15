@@ -13,10 +13,10 @@ public enum AddyIo {
     // The versioncode is a combination of MAJOR MINOR PATCH
     // TODO: Update on every release
 
-    // 1.6.2
+    // 1.7.0
     public static let MINIMUMVERSIONCODEMAJOR = 1
-    public static let MINIMUMVERSIONCODEMINOR = 6
-    public static let MINIMUMVERSIONCODEPATCH = 2
+    public static let MINIMUMVERSIONCODEMINOR = 7
+    public static let MINIMUMVERSIONCODEPATCH = 0
 
     public static var VERSIONMAJOR = 0
     public static var VERSIONMINOR = 0
@@ -108,6 +108,10 @@ public enum AddyIo {
         "\(API_BASE_URL)/api/v1/active-usernames"
     }
 
+    static var API_URL_ACTIVE_RECIPIENTS: String {
+        "\(API_BASE_URL)/api/v1/active-recipients"
+    }
+
     static var API_URL_CATCH_ALL_USERNAMES: String {
         "\(API_BASE_URL)/api/v1/catch-all-usernames"
     }
@@ -146,6 +150,14 @@ public enum AddyIo {
 
     static var API_URL_BLOCKLIST: String {
         "\(API_BASE_URL)/api/v1/blocklist"
+    }
+
+    static var API_URL_LABELS: String {
+        "\(API_BASE_URL)/api/v1/labels"
+    }
+    
+    static var API_URL_ALIASES_LABELS_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/labels/bulk"
     }
 
     static var API_URL_LOGIN: String {

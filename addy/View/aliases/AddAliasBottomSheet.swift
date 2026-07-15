@@ -9,6 +9,7 @@ import _AppIntents_SwiftUI
 import addy_shared
 import AVFoundation
 import SwiftUI
+import WrappingHStack
 
 struct AddAliasBottomSheet: View {
     @EnvironmentObject var mainViewState: MainViewState
@@ -35,7 +36,14 @@ struct AddAliasBottomSheet: View {
     @State var selectedRecipientChips: [String] = []
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
 
+    @State private var labelsRequestError: String? = ""
+    @State var labelsLoaded: Bool = false
+    @State var selectedLabelChips: [String] = []
+    @State var labelsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_labels", label: String(localized: "loading_labels"))]
+
     @State var isLoadingAddButton: Bool = false
+
+    @State private var isLabelsExpanded: Bool = false
 
     let onAdded: () -> Void
 
@@ -140,8 +148,27 @@ struct AddAliasBottomSheet: View {
                 }.disabled(!recipientsLoaded)
             } header: {
                 Text(String(localized: "recipients"))
+            }
 
-            }.textCase(nil).listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
+            DisclosureGroup(isExpanded: $isLabelsExpanded) {
+                WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
+                    ForEach(labelsChips) { chip in
+                        ChipView(label: chip.label, isSelected: selectedLabelChips.contains(chip.chipId), color: Color(hex: chip.color ?? "FFFFFF"))
+                            .onTapGesture {
+                                withAnimation {
+                                    if selectedLabelChips.contains(chip.chipId) {
+                                        selectedLabelChips.removeAll { $0 == chip.chipId }
+                                    } else {
+                                        selectedLabelChips.append(chip.chipId)
+                                    }
+                                }
+                            }
+                    }
+                }
+                .disabled(!labelsLoaded).padding(.leading, -15)
+            } label: {
+                Text(String(localized: "labels"))
+            }
 
             Section {
                 SiriTipView(
@@ -159,6 +186,10 @@ struct AddAliasBottomSheet: View {
             // By default there is 1 chip. (the loading recipients...)
             if recipientsChips.contains(where: { $0.chipId == "loading_recipients" }) {
                 await getAllRecipients()
+            }
+
+            if labelsChips.contains(where: { $0.chipId == "loading_labels" }) {
+                await getAllLabels()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -261,14 +292,14 @@ struct AddAliasBottomSheet: View {
         }
 
         Task {
-            await addAliasToAccount(selectedDomain: selectedDomain, description: description, selectedFormat: selectedFormat, localPart: localPart, selectedRecipients: selectedRecipientChips)
+            await addAliasToAccount(selectedDomain: selectedDomain, description: description, selectedFormat: selectedFormat, localPart: localPart, selectedRecipients: selectedRecipientChips, selectedLabels: selectedLabelChips)
         }
     }
 
-    private func addAliasToAccount(selectedDomain: String, description: String, selectedFormat: String, localPart: String, selectedRecipients: [String]) async {
+    private func addAliasToAccount(selectedDomain: String, description: String, selectedFormat: String, localPart: String, selectedRecipients: [String], selectedLabels: [String]) async {
         let networkHelper = NetworkHelper()
         do {
-            if let alias = try await networkHelper.addAlias(domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients) {
+            if let alias = try await networkHelper.addAlias(domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients, labelIds: selectedLabels) {
                 UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
                 onAdded()
             }
@@ -310,6 +341,23 @@ struct AddAliasBottomSheet: View {
             }
         } catch {
             recipientsRequestError = error.localizedDescription
+        }
+    }
+
+    private func getAllLabels() async {
+        let networkHelper = NetworkHelper()
+        do {
+            if let labels = try await networkHelper.getAllLabels() {
+                labelsChips = []
+                labelsLoaded = true
+                withAnimation {
+                    for label in labels.data {
+                        labelsChips.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
+                    }
+                }
+            }
+        } catch {
+            labelsRequestError = error.localizedDescription
         }
     }
 }

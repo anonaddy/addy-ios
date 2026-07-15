@@ -6,17 +6,10 @@
 //
 
 import SwiftUI
-
-//
-//  AddApiBottomSHeet.swift
-//  addy
-//
-//  Created by Stijn van de Water on 07/05/2024.
-//
-
 import addy_shared
 import AVFoundation
 import SwiftUI
+import WrappingHStack
 
 struct FilterOptionsAliasBottomSheet: View {
     @Environment(\.dismiss) var dismiss
@@ -26,6 +19,10 @@ struct FilterOptionsAliasBottomSheet: View {
     @State private var sortSelection: Int = 0
     @State private var aliasSortFilterRequest: AliasSortFilterRequest
     @State var selectedOrderChip: String = "created_at"
+    @State private var labels: [Labels] = []
+    @State private var selectedLabel: String? = nil
+    @State private var isLoadingLabels: Bool = false
+    @State private var isLabelsExpanded: Bool = false
     @State var orderChips: [AddyChipModel] = [
         AddyChipModel(chipId: "local_part", label: String(localized: "sort_localpart")),
         AddyChipModel(chipId: "domain", label: String(localized: "sort_domain")),
@@ -80,6 +77,34 @@ struct FilterOptionsAliasBottomSheet: View {
                 }
             }.textCase(nil)
 
+            DisclosureGroup(
+                isExpanded: $isLabelsExpanded,
+                content: {
+                    if isLoadingLabels {
+                        ProgressView()
+                    } else {
+                        WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
+                            ForEach(labels) { label in
+                                ChipView(label: label.name, isSelected: selectedLabel == label.id, color: Color(hex: label.colour))
+                                    .onTapGesture {
+                                        if selectedLabel == label.id {
+                                            selectedLabel = nil
+                                        } else {
+                                            selectedLabel = label.id
+                                        }
+                                    }
+                            }
+                        }.padding(.leading, -15)
+                    }
+                },
+                label: {
+                    Text("Labels")
+                }
+            )
+            .task {
+                await loadLabels()
+            }
+
             Section {
                 Picker(selection: $sortSelection, label: Text(String(localized: "sort_by"))) {
                     Text(String(localized: "sort_asc")).tag(0)
@@ -87,11 +112,15 @@ struct FilterOptionsAliasBottomSheet: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .disabled(filter2Selection == 1) // means if alias is set to Watch Only
-                AddyChipView(chips: $orderChips, selectedChip: $selectedOrderChip, singleLine: false) { onTappedChip in
-                    withAnimation {
-                        selectedOrderChip = onTappedChip.chipId
+                WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
+                    ForEach(orderChips) { chip in
+                        ChipView(label: chip.label, isSelected: selectedOrderChip == chip.chipId, color: .accentColor)
+                            .onTapGesture {
+                                withAnimation {
+                                    selectedOrderChip = chip.chipId
+                                }
+                            }
                     }
-
                 }.disabled(filter2Selection == 1) // means if alias is set to Watch Only
 
             } header: {
@@ -192,6 +221,7 @@ struct FilterOptionsAliasBottomSheet: View {
         }
 
         aliasSortFilterRequest.sort = selectedOrderChip
+        aliasSortFilterRequest.label = selectedLabel
 
         setFilterAndSortingSettings(aliasSortFilterRequest)
     }
@@ -228,6 +258,22 @@ struct FilterOptionsAliasBottomSheet: View {
         } else {
             selectedOrderChip = "created_at"
         }
+        
+        selectedLabel = aliasSortFilterRequest.label
+    }
+    
+    private func loadLabels() async {
+        isLoadingLabels = true
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.getAllLabels()
+            if let labels = result?.data {
+                self.labels = labels
+            }
+        } catch {
+            // handle error
+        }
+        isLoadingLabels = false
     }
 }
 
@@ -240,7 +286,8 @@ struct FilterOptionsAliasBottomSheet_Previews: PreviewProvider {
         onlyPinnedAliases: false,
         sort: nil,
         sortDesc: false,
-        filter: nil
+        filter: nil,
+        label: nil
     )
 
     static var previews: some View {
