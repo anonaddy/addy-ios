@@ -8,16 +8,74 @@
 import FeedKit
 import Foundation
 
-public class NetworkHelper {
+public class NetworkHelper: NSObject, URLSessionDelegate {
     private let loggingHelper: LoggingHelper
     private let encryptedSettingsManager: SettingsManager
     private let settingsManager: SettingsManager
+    private let p12: Data?
+    private let p12Password: String?
+    private var session: URLSession!
 
-    public init() {
-        loggingHelper = LoggingHelper()
-        encryptedSettingsManager = SettingsManager(encrypted: true)
-        settingsManager = SettingsManager(encrypted: false)
+    public init(p12: Data? = nil, p12Password: String? = nil) {
+        self.loggingHelper = LoggingHelper()
+        self.encryptedSettingsManager = SettingsManager(encrypted: true)
+        self.settingsManager = SettingsManager(encrypted: false)
+        self.p12 = p12 ?? encryptedSettingsManager.getSettingsData(key: .p12)
+        self.p12Password = p12Password ?? encryptedSettingsManager.getSettingsString(key: .p12Password)
+        super.init()
+        
+        let config = URLSessionConfiguration.default
+        self.session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
+        
         AddyIo.API_BASE_URL = encryptedSettingsManager.getSettingsString(key: .baseUrl) ?? AddyIo.API_BASE_URL
+    }
+    
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        guard let p12 = p12 else {
+            completionHandler(.performDefaultHandling, nil)
+            return
+        }
+
+        let password = p12Password ?? ""
+
+        guard let identity = createSecIdentity(from: p12, with: password) else {
+            completionHandler(.cancelAuthenticationChallenge, nil)
+            return
+        }
+
+        let certificate: SecCertificate? = copyCertificate(from: identity)
+        
+        let credential = URLCredential(identity: identity, certificates: certificate != nil ? [certificate!] : [], persistence: .none)
+        completionHandler(.useCredential, credential)
+    }
+    
+    public func isCertificatePasswordCorrect() -> Bool {
+        guard let p12 = p12 else {
+            return false
+        }
+        let password = p12Password ?? ""
+        return createSecIdentity(from: p12, with: password) != nil
+    }
+
+    private func createSecIdentity(from p12Data: Data, with password: String) -> SecIdentity? {
+        let options: [String: Any] = [kSecImportExportPassphrase as String: password]
+        var items: CFArray?
+        
+        guard SecPKCS12Import(p12Data as CFData, options as CFDictionary, &items) == errSecSuccess else {
+            return nil
+        }
+        
+        guard let aItems = items as? [[String: Any]], let firstItem = aItems.first else {
+            return nil
+        }
+        
+        return firstItem[kSecImportItemIdentity as String] as! SecIdentity
+    }
+
+    private func copyCertificate(from identity: SecIdentity) -> SecCertificate? {
+        var certificate: SecCertificate?
+        _ = SecIdentityCopyCertificate(identity, &certificate)
+        return certificate
     }
 
     private func getHeaders(apiKey: String? = nil) -> [String: String] {
@@ -46,7 +104,7 @@ public class NetworkHelper {
     }
 
     private func performRequest(request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await session.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse else {
             let error = URLError(.badServerResponse)
             loggingHelper.addLog(
@@ -118,7 +176,7 @@ public class NetworkHelper {
         request.httpBody = jsonData
 
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await session.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse else {
                 let error = URLError(.badServerResponse)
                 loggingHelper.addLog(
@@ -181,7 +239,7 @@ public class NetworkHelper {
         request.allHTTPHeaderFields = getHeaders()
 
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await session.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse else {
                 let error = URLError(.badServerResponse)
                 loggingHelper.addLog(
@@ -245,7 +303,7 @@ public class NetworkHelper {
         request.httpBody = jsonData
 
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await session.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse else {
                 let error = URLError(.badServerResponse)
                 loggingHelper.addLog(
@@ -374,7 +432,7 @@ public class NetworkHelper {
         request.httpBody = jsonData
 
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await session.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse else {
                 let error = URLError(.badServerResponse)
                 loggingHelper.addLog(
@@ -638,7 +696,7 @@ public class NetworkHelper {
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = getHeaders()
 
-        let (temporaryURL, response) = try await URLSession.shared.download(for: request)
+        let (temporaryURL, response) = try await session.download(for: request)
 
         guard let httpResponse = response as? HTTPURLResponse else {
             let error = URLError(.badServerResponse)

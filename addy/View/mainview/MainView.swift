@@ -104,18 +104,7 @@ struct MainView: View {
         Group {
             TabView(selection: $mainViewState.selectedTab) {
                 ForEach(tabDestinations, id: \.self) { destination in
-                    if let sizeClass = horizontalSizeClass {
-                        destination.view(horizontalSize: .constant(sizeClass), refreshGeneralData: refreshGeneralData)
-                            .tag(destination)
-                            .tabItem { Label(destination.title, systemImage: destination.systemImage) }
-                            .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
-                    } else {
-                        // Fallback, e.g. .compact
-                        destination.view(horizontalSize: .constant(.compact), refreshGeneralData: refreshGeneralData)
-                            .tag(destination)
-                            .tabItem { Label(destination.title, systemImage: destination.systemImage) }
-                            .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
-                    }
+                    tabItem(for: destination, sizeClass: horizontalSizeClass)
                 }
             }
             .apply {
@@ -168,7 +157,7 @@ struct MainView: View {
         }
         .sheet(isPresented: $isShowingAddApiSheet) {
             NavigationStack {
-                AddApiBottomSheet(apiBaseUrl: mainViewState.encryptedSettingsManager.getSettingsString(key: .baseUrl), addKey: addKey)
+                AddApiBottomSheet(apiBaseUrl: mainViewState.encryptedSettingsManager.getSettingsString(key: .baseUrl), addKey: addKey(apiKey:_:p12:p12Password:))
                     .environmentObject(mainViewState)
             }
             .presentationDetents([.large])
@@ -217,6 +206,22 @@ struct MainView: View {
         .sheet(isPresented: $isShowingChangelogSheet) {
             NavigationStack { ChangelogBottomSheet() }
                 .presentationDetents([.medium, .large])
+        }
+    }
+
+    @ViewBuilder
+    private func tabItem(for destination: Destination, sizeClass: UserInterfaceSizeClass?) -> some View {
+        if let sizeClass = sizeClass {
+            destination.view(horizontalSize: .constant(sizeClass), refreshGeneralData: refreshGeneralData)
+                .tag(destination)
+                .tabItem { Label(destination.title, systemImage: destination.systemImage) }
+                .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
+        } else {
+            // Fallback, e.g. .compact
+            destination.view(horizontalSize: .constant(.compact), refreshGeneralData: refreshGeneralData)
+                .tag(destination)
+                .tabItem { Label(destination.title, systemImage: destination.systemImage) }
+                .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
         }
     }
 
@@ -417,8 +422,12 @@ struct MainView: View {
         }
     }
 
-    private func addKey(apiKey: String, _: String) {
+    private func addKey(apiKey: String, _: String, p12: Data?, p12Password: String?) {
         mainViewState.encryptedSettingsManager.putSettingsString(key: .apiKey, string: apiKey)
+        mainViewState.encryptedSettingsManager.putSettingsData(key: .p12, data: p12)
+        if let p12Password = p12Password {
+            mainViewState.encryptedSettingsManager.putSettingsString(key: .p12Password, string: p12Password)
+        }
         isShowingAddApiSheet = false
     }
 

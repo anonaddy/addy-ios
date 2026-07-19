@@ -31,6 +31,8 @@ public class SettingsManager {
         case backgroundServiceCacheMostActiveAliasesData
         case timesTheAppHasBeenOpened
         case startupPage
+        case p12
+        case p12Password
 
         // WatchOS
         case watchosSkipAliasCreateGuide
@@ -128,6 +130,28 @@ public class SettingsManager {
             return keychain.get(userKey)
         } else {
             return prefs?.string(forKey: userKey)
+        }
+    }
+    
+    public func putSettingsData(key: Prefs, data: Data?) {
+        let userKey = "\(user)_\(key)"
+        if useKeychain {
+            if let data = data {
+                keychain.set(data, forKey: userKey, withAccess: .accessibleAfterFirstUnlock)
+            } else {
+                keychain.delete(userKey)
+            }
+        } else {
+            prefs?.set(data, forKey: userKey)
+        }
+    }
+
+    public func getSettingsData(key: Prefs) -> Data? {
+        let userKey = "\(user)_\(key)"
+        if useKeychain {
+            return keychain.getData(userKey)
+        } else {
+            return prefs?.data(forKey: userKey)
         }
     }
 

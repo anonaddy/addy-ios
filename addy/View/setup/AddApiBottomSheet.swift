@@ -39,9 +39,13 @@ struct AddApiBottomSheet: View {
     @State private var passwordValidationError: String?
     @State private var password: String = ""
     @State var isLoadingSignIn: Bool = false
+    @State private var certificateData: Data?
+    @State private var certificatePass: String?
+    @State private var showCertificatePasswordSheet = false
+    @State private var showCertificatePicker = false
 
     let apiBaseUrl: String?
-    let addKey: (String, String) -> Void
+    let addKey: (String, String, Data?, String?) -> Void
     @State private var otpMfaObject: LoginMfaRequired?
 
     var body: some View {
@@ -103,9 +107,15 @@ struct AddApiBottomSheet: View {
                     Text(String(localized: "login_username")).tag("login")
                     Text(String(localized: "login_api")).tag("api")
                 }.pickerStyle(.segmented)
-
-                ValidatingTextField(value: $instance, placeholder:
-                    $instancePlaceholder, fieldType: .url, error: $instanceError).disabled(apiBaseUrl != nil)
+                
+                HStack {
+                    ValidatingTextField(value: $instance, placeholder:
+                        $instancePlaceholder, fieldType: .url, error: $instanceError).disabled(apiBaseUrl != nil)
+                    if certificateData != nil {
+                        Image(systemName: "lock.fill")
+                            .foregroundColor(.green)
+                    }
+                }
 
                 if loginType == "api" {
                     ValidatingTextField(value: $apiKey, placeholder: $apiKeyPlaceholder, fieldType: .bigText, error: $apiKeyError)
@@ -151,6 +161,18 @@ struct AddApiBottomSheet: View {
                 cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
             }
         }
+        .sheet(isPresented: $showCertificatePicker) {
+            CertificatePicker(certificateData: $certificateData)
+        }
+        .sheet(isPresented: $showCertificatePasswordSheet) {
+            CertificatePasswordView(certificateData: $certificateData, certificatePass: $certificatePass)
+                .presentationDetents([.medium])
+        }
+        .onChange(of: certificateData) {
+            if certificateData != nil {
+                showCertificatePasswordSheet = true
+            }
+        }
         .navigationTitle(String(localized: "login"))
         .pickerStyle(.navigationLink)
         .navigationBarTitleDisplayMode(.inline)
@@ -167,6 +189,16 @@ struct AddApiBottomSheet: View {
                 Menu(content: {
                     Button(String(localized: "get_my_key")) {
                         openURL(URL(string: "\(instance)/settings/api")!)
+                    }
+                    if certificateData == nil {
+                        Button(String(localized: "select_certificate")) {
+                            showCertificatePicker = true
+                        }
+                    } else {
+                        Button(String(localized: "remove_certificate"), role: .destructive) {
+                            certificateData = nil
+                            certificatePass = nil
+                        }
                     }
                     Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self))) {
                         dismiss()
@@ -212,7 +244,7 @@ struct AddApiBottomSheet: View {
         }
     }
 
-    init(apiBaseUrl: String?, addKey: @escaping (String, String) -> Void) {
+    init(apiBaseUrl: String?, addKey: @escaping (String, String, Data?, String?) -> Void) {
         self.apiBaseUrl = apiBaseUrl
         self.addKey = addKey
         instance = apiBaseUrl ?? String(localized: "default_base_url")
@@ -235,7 +267,7 @@ struct AddApiBottomSheet: View {
                 if SettingsManager(encrypted: true).getSettingsString(key: .apiKey) == nil ||
                     mainViewState.userResource?.id == result?.id
                 {
-                    addKey(cleanApiKey, cleanBaseUrl)
+                    addKey(cleanApiKey, cleanBaseUrl, certificateData, certificatePass)
                 } else {
                     resetSignInButton()
                     apiKeyError = String(localized: "api_belongs_other_account")
@@ -272,7 +304,7 @@ struct AddApiBottomSheet: View {
             cleanBaseUrl.removeLast()
         }
 
-        let networkHelper = NetworkHelper()
+        let networkHelper = NetworkHelper(p12: certificateData, p12Password: certificatePass)
 
         if let otpMfaObject = otpMfaObject {
             if otp.isEmpty {
@@ -285,7 +317,7 @@ struct AddApiBottomSheet: View {
             await networkHelper.loginMfa(baseUrl: cleanBaseUrl, mfa_key: otpMfaObject.mfa_key, otp: self.otp, apiExpiration: apiExpiration, completion: { login, error in
                 if let login = login {
                     // Login success
-                    self.addKey(login.api_key, cleanBaseUrl)
+                    self.addKey(login.api_key, cleanBaseUrl, certificateData, certificatePass)
                 } else {
                     withAnimation {
                         self.otpMfaObject = nil
@@ -304,7 +336,7 @@ struct AddApiBottomSheet: View {
             await networkHelper.login(baseUrl: cleanBaseUrl, username: username, password: password, apiExpiration: apiExpiration, completion: { login, loginMfaRequired, error in
                 if let login = login {
                     // Login success
-                    self.addKey(login.api_key, cleanBaseUrl)
+                    self.addKey(login.api_key, cleanBaseUrl, certificateData, certificatePass)
                 } else if loginMfaRequired != nil {
                     // Login MFA required
                     withAnimation {
@@ -332,7 +364,7 @@ struct AddApiBottomSheet: View {
 }
 
 #Preview {
-    AddApiBottomSheet(apiBaseUrl: "TEST", addKey: { _, _ in
+    AddApiBottomSheet(apiBaseUrl: "TEST", addKey: { _, _, _, _ in
         // Dummy function for preview
     })
 }

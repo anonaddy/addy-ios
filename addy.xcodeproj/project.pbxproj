@@ -42,6 +42,8 @@
 		045E6F692FEC642A00217BBA /* AddLabelBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E6F652FEC642A00217BBA /* AddLabelBottomSheet.swift */; };
 		045E6F6B2FEC644200217BBA /* LabelsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E6F6A2FEC644200217BBA /* LabelsViewModel.swift */; };
 		045E6FEF2FEC66EE00217BBA /* LabelRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E6FEE2FEC66EE00217BBA /* LabelRowView.swift */; };
+		047CAF6B300CE7AA003D1A0D /* CertificatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047CAF6A300CE7AA003D1A0D /* CertificatePicker.swift */; };
+		047CAF6C300CE7AA003D1A0D /* CertificatePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047CAF69300CE7AA003D1A0D /* CertificatePasswordView.swift */; };
 		048B08002F2E8D0E0032F025 /* addy_watchkit.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 048B07F62F2E8D0D0032F025 /* addy_watchkit.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		048B08772F2E94AE0032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
 		048B08782F2E94AE0032F025 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -377,6 +379,8 @@
 		045E6F662FEC642A00217BBA /* LabelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsView.swift; sourceTree = "<group>"; };
 		045E6F6A2FEC644200217BBA /* LabelsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsViewModel.swift; sourceTree = "<group>"; };
 		045E6FEE2FEC66EE00217BBA /* LabelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRowView.swift; sourceTree = "<group>"; };
+		047CAF69300CE7AA003D1A0D /* CertificatePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePasswordView.swift; sourceTree = "<group>"; };
+		047CAF6A300CE7AA003D1A0D /* CertificatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePicker.swift; sourceTree = "<group>"; };
 		048B07F62F2E8D0D0032F025 /* addy_watchkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy_watchkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B08162F2E937C0032F025 /* addy_shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = addy_shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySetupSheet.swift; sourceTree = "<group>"; };
@@ -990,6 +994,8 @@
 		806D5F2B2BE94C3F00C5C109 /* customviews */ = {
 			isa = PBXGroup;
 			children = (
+				047CAF69300CE7AA003D1A0D /* CertificatePasswordView.swift */,
+				047CAF6A300CE7AA003D1A0D /* CertificatePicker.swift */,
 				80305C702C9C8ABC00F80824 /* FeaturesView.swift */,
 				8073C9482C7878CA00DE3640 /* AccountNotificationsIcon.swift */,
 				8047EA6C2C454F1B00A04D28 /* HomeCardView.swift */,
@@ -1745,6 +1751,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				047CAF6B300CE7AA003D1A0D /* CertificatePicker.swift in Sources */,
+				047CAF6C300CE7AA003D1A0D /* CertificatePasswordView.swift in Sources */,
 				804BE7A62BE95715001DDC8A /* SetupOnboarding.swift in Sources */,
 				807E06852C04F290002A3D01 /* AddRecipientBottomSheet.swift in Sources */,
 				80813B6C2C0DE288009C4E6A /* AddDomainBottomSheet.swift in Sources */,
