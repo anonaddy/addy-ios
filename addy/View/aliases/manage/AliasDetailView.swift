@@ -455,7 +455,19 @@ struct AliasDetailView: View {
                 pinButton()
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            if UIDevice.current.orientation.isLandscape {
+                self.isPresentingNatoView = true
+            }
+        }
+        .fullScreenCover(isPresented: $isPresentingNatoView) {
+            if let alias = alias {
+                AliasNatoView(alias: alias.email, isPresented: $isPresentingNatoView)
+            }
+        }
     }
+
+    @State private var isPresentingNatoView = false
 
     private func pinButton() -> some View {
         Group {

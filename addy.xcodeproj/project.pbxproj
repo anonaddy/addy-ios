@@ -44,6 +44,8 @@
 		045E6FEF2FEC66EE00217BBA /* LabelRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E6FEE2FEC66EE00217BBA /* LabelRowView.swift */; };
 		047CAF6B300CE7AA003D1A0D /* CertificatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047CAF6A300CE7AA003D1A0D /* CertificatePicker.swift */; };
 		047CAF6C300CE7AA003D1A0D /* CertificatePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047CAF69300CE7AA003D1A0D /* CertificatePasswordView.swift */; };
+		047CAFF6300CEDC9003D1A0D /* AliasNatoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047CAFF5300CEDC9003D1A0D /* AliasNatoView.swift */; };
+		047CAFF8300CEDD3003D1A0D /* NatoAlphabet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047CAFF7300CEDD3003D1A0D /* NatoAlphabet.swift */; };
 		048B08002F2E8D0E0032F025 /* addy_watchkit.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 048B07F62F2E8D0D0032F025 /* addy_watchkit.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		048B08772F2E94AE0032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
 		048B08782F2E94AE0032F025 /* addy_shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -381,6 +383,8 @@
 		045E6FEE2FEC66EE00217BBA /* LabelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRowView.swift; sourceTree = "<group>"; };
 		047CAF69300CE7AA003D1A0D /* CertificatePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePasswordView.swift; sourceTree = "<group>"; };
 		047CAF6A300CE7AA003D1A0D /* CertificatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePicker.swift; sourceTree = "<group>"; };
+		047CAFF5300CEDC9003D1A0D /* AliasNatoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasNatoView.swift; sourceTree = "<group>"; };
+		047CAFF7300CEDD3003D1A0D /* NatoAlphabet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NatoAlphabet.swift; sourceTree = "<group>"; };
 		048B07F62F2E8D0D0032F025 /* addy_watchkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = addy_watchkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B08162F2E937C0032F025 /* addy_shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = addy_shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySetupSheet.swift; sourceTree = "<group>"; };
@@ -1157,6 +1161,7 @@
 		80AC67092BFB5DAC004D227D /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				047CAFF7300CEDD3003D1A0D /* NatoAlphabet.swift */,
 				806AE6882C19EA3400F3CA92 /* Updater.swift */,
 				80B2FBC72C3C4E6D009977B6 /* AnonAddyUtils.swift */,
 			);
@@ -1336,6 +1341,7 @@
 		80E8499D2BEB801600C8D68A /* aliases */ = {
 			isa = PBXGroup;
 			children = (
+				047CAFF5300CEDC9003D1A0D /* AliasNatoView.swift */,
 				804B88EF2CCF997A004787B8 /* AliasesViewState.swift */,
 				80E082652BF7D9DC00B51FB8 /* manage */,
 				80F3C6632BFB6E6D0028A486 /* AddAliasBottomSheet.swift */,
@@ -1809,6 +1815,7 @@
 				80D82DC42BE95BAF009440DC /* AddyLoadingButton.swift in Sources */,
 				805535642C4BF20A00886256 /* ShareViewControllerPendingUrlView.swift in Sources */,
 				80D82DC52BE95BAF009440DC /* AddyLoadingButtonStyle.swift in Sources */,
+				047CAFF6300CEDC9003D1A0D /* AliasNatoView.swift in Sources */,
 				80DCF39F2BF1095B0022690F /* AddyToggle.swift in Sources */,
 				8047EA6A2C454D4700A04D28 /* GradientProgressBar.swift in Sources */,
 				80E849B32BEBA82A00C8D68A /* RecipientsView.swift in Sources */,
@@ -1864,6 +1871,7 @@
 				8058ADB62C32B2470004AF81 /* Range+Extension.swift in Sources */,
 				8058ADB72C32B2470004AF81 /* ViewPreferenceKey.swift in Sources */,
 				8047EA6D2C454F1B00A04D28 /* HomeCardView.swift in Sources */,
+				047CAFF8300CEDD3003D1A0D /* NatoAlphabet.swift in Sources */,
 				8058ADBA2C32B2470004AF81 /* Array+Extension.swift in Sources */,
 				8058ADBB2C32B2470004AF81 /* GridOptions.swift in Sources */,
 				045E6F642FEC641E00217BBA /* ChipView.swift in Sources */,
@@ -2818,7 +2826,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2992,14 +3000,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = addy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
+				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows for scanning the QR code so that you can quickly set-up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3378,7 +3386,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3412,14 +3420,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = addy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
+				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows for scanning the QR code so that you can quickly set-up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
