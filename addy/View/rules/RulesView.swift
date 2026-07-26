@@ -38,13 +38,15 @@ enum RulesOption {
         NSLocalizedString("does_not_match_regex", comment: ""),
     ]
 
-    static let actionsType = ["subject", "displayFrom", "encryption", "banner", "block", "removeAttachments", "forwardTo"]
+    static let actionsType = ["subject", "displayFrom", "encryption", "banner", "block", "blocklistSender", "blocklistDomain", "removeAttachments", "forwardTo"]
     static let actionsTypeName = [
         NSLocalizedString("replace_the_subject_with", comment: ""),
         NSLocalizedString("replace_the_from_name_with", comment: ""),
         NSLocalizedString("turn_PGP_encryption_off", comment: ""),
         NSLocalizedString("set_the_banner_information_location_to", comment: ""),
         NSLocalizedString("block_the_email", comment: ""),
+        NSLocalizedString("add_sender_to_blocklist", comment: ""),
+        NSLocalizedString("add_domain_to_blocklist", comment: ""),
         NSLocalizedString("remove_attachments", comment: ""),
         NSLocalizedString("forward_to", comment: ""),
     ]
