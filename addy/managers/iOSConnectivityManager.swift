@@ -98,8 +98,16 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
         }
     }
 
-    func setupAppleWatchApp(requestId: String, baseUrl: String, apiKey: String) {
-        WCSession.default.sendMessage(["setup_app": true, "request_id": requestId, "base_url": baseUrl, "api_key": apiKey], replyHandler: { _ in
+    func setupAppleWatchApp(requestId: String, baseUrl: String, apiKey: String, p12Data: Data?, p12Password: String?) {
+        var message: [String: Any] = ["setup_app": true, "request_id": requestId, "base_url": baseUrl, "api_key": apiKey]
+        if let p12Data = p12Data {
+            message["p12_data"] = p12Data
+        }
+        if let p12Password = p12Password {
+            message["p12_password"] = p12Password
+        }
+
+        WCSession.default.sendMessage(message, replyHandler: { _ in
         }, errorHandler: { error in
             LoggingHelper().addLog(
                 importance: LogImportance.critical,
