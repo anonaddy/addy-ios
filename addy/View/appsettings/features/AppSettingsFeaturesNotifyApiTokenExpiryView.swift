@@ -50,7 +50,7 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
         .sheet(isPresented: $isShowingAddApiBottomSheet) {
             let baseUrl = MainViewState.shared.encryptedSettingsManager.getSettingsString(key: .baseUrl)
             NavigationStack {
-                AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:_:)).environmentObject(MainViewState.shared)
+                AddApiBottomSheet(apiBaseUrl: baseUrl, addKey: addKey(apiKey:_:p12:p12Password:)).environmentObject(MainViewState.shared)
             }
             .presentationDetents([.large])
         }
@@ -58,8 +58,12 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    private func addKey(apiKey: String, _: String) {
+    private func addKey(apiKey: String, _: String, p12: Data?, p12Password: String?) {
         MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .apiKey, string: apiKey)
+        MainViewState.shared.encryptedSettingsManager.putSettingsData(key: .p12, data: p12)
+        if let p12Password = p12Password {
+            MainViewState.shared.encryptedSettingsManager.putSettingsString(key: .p12Password, string: p12Password)
+        }
         isShowingAddApiBottomSheet = false
 
         Task {

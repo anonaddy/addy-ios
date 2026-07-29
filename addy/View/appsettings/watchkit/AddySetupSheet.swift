@@ -60,8 +60,18 @@ struct AddyWatchKitSetupBottomSheet: View {
 
         // Your setup logic here
         Task {
-            var apiKey = SettingsManager(encrypted: true).getSettingsString(key: .apiKey)
-            connectivityManager.setupAppleWatchApp(requestId: connectivityManager.requestId, baseUrl: AddyIo.API_BASE_URL, apiKey: apiKey!)
+            let encryptedSettingsManager = SettingsManager(encrypted: true)
+            let apiKey = encryptedSettingsManager.getSettingsString(key: .apiKey)
+            let p12Data = encryptedSettingsManager.getSettingsData(key: .p12)
+            let p12Password = encryptedSettingsManager.getSettingsString(key: .p12Password)
+
+            connectivityManager.setupAppleWatchApp(
+                requestId: connectivityManager.requestId,
+                baseUrl: AddyIo.API_BASE_URL,
+                apiKey: apiKey!,
+                p12Data: p12Data,
+                p12Password: p12Password
+            )
 
             await MainActor.run {
                 isLoading = false

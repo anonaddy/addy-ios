@@ -57,39 +57,43 @@ struct LabelsView: View {
         }
     }
 
+    @ViewBuilder
     private var labelsViewBody: some View {
-        List {
+        let list = List {
             if let labels = labelsViewModel.labels {
-                Section {
-                    ForEach(labels.data) { label in
-                        LabelRowView(label: label)
-                    }.onDelete(perform: deleteLabel)
-                } header: {
-                    VStack(alignment: .leading, spacing: 24) {
-                        HStack(spacing: 6) {
-                            Text(String(localized: "labels"))
-
-                            if let count = labelsViewModel.labels?.data.count, count > 0 {
-                                Text("\(count)")
-                                    .font(.caption)
-                                    .fontWeight(.bold)
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 2)
-                                    .background(Color.secondary.opacity(0.1))
-                                    .clipShape(Capsule())
-                            }
-
-                            if labelsViewModel.isLoading {
-                                ProgressView()
-                                    .frame(maxHeight: 4)
+                if !labels.data.isEmpty {
+                    Section {
+                        ForEach(labels.data) { label in
+                            LabelRowView(label: label)
+                        }.onDelete(perform: deleteLabel)
+                    } header: {
+                        VStack(alignment: .leading, spacing: 24) {
+                            HStack(spacing: 6) {
+                                Text(String(localized: "labels"))
+                                
+                                if let count = labelsViewModel.labels?.data.count, count > 0 {
+                                    Text("\(count)")
+                                        .font(.caption)
+                                        .fontWeight(.bold)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 2)
+                                        .background(Color.secondary.opacity(0.1))
+                                        .clipShape(Capsule())
+                                }
+                                
+                                if labelsViewModel.isLoading {
+                                    ProgressView()
+                                        .frame(maxHeight: 4)
+                                }
                             }
                         }
-                    }
-
-                } footer: {
-                    Text("You've created \(labelsViewModel.labels?.data.count ?? 0) out of 100 labels.")
-                        .padding(.top)
-                }.textCase(nil)
+                        
+                    } footer: {
+                        Text("You've created \(labelsViewModel.labels?.data.count ?? 0) out of 100 labels.")
+                            .padding(.top)
+                    }.textCase(nil)
+                }
+                
             }
 
         }.refreshable {
@@ -97,11 +101,11 @@ struct LabelsView: View {
                 self.onRefreshGeneralData?()
             }
             await self.labelsViewModel.getLabels()
-            //await self.getUserResource()
+            // await self.getUserResource()
         }
         .sheet(isPresented: $isPresentingAddLabelBottomSheet) {
             NavigationStack {
-                AddLabelBottomSheet {_ in 
+                AddLabelBottomSheet { _ in
                     Task {
                         await labelsViewModel.getLabels()
                     }
@@ -180,18 +184,23 @@ struct LabelsView: View {
                     Image(systemName: "plus")
                         .frame(width: 24, height: 24)
                 }
-                .disabled(labelsViewModel.labels?.data.count ?? 0 >= label_limit )
-            }
-            
-        }
-        .searchable(text: $labelsViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "search"))
-        .onSubmit(of: .search) {
-            Task {
-                await labelsViewModel.searchLabels(searchQuery: labelsViewModel.searchQuery)
+                .disabled(labelsViewModel.labels?.data.count ?? 0 >= label_limit)
             }
         }
-        .autocorrectionDisabled(true)
-        .textInputAutocapitalization(.never)
+
+        if let labels = labelsViewModel.labels, !(labels.data.isEmpty && labelsViewModel.searchQuery.isEmpty) {
+            list
+                .searchable(text: $labelsViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "search"))
+                .onSubmit(of: .search) {
+                    Task {
+                        await labelsViewModel.searchLabels(searchQuery: labelsViewModel.searchQuery)
+                    }
+                }
+                .autocorrectionDisabled(true)
+                .textInputAutocapitalization(.never)
+        } else {
+            list
+        }
     }
 
     private func deleteLabel(label: Labels) async {

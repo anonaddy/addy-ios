@@ -152,6 +152,14 @@ struct ActionBottomSheet: View {
                 else if selectedActionsType == "encryption" {
                     newAction.value = String(true)
                 }
+                // If the type is set to add sender to blocklist send a true
+                else if selectedActionsType == "blocklistSender" {
+                    newAction.value = String(true)
+                }
+                // If the type is set to add domain to blocklist send a true
+                else if selectedActionsType == "blocklistDomain" {
+                    newAction.value = String(true)
+                }
                 // If the type is set to remove attachments send a true
                 else if selectedActionsType == "removeAttachments" {
                     newAction.value = String(true)

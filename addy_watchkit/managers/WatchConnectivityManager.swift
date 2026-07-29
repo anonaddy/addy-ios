@@ -53,6 +53,14 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
                     let encryptedSettingsManager = SettingsManager(encrypted: true)
                     encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.apiKey, string: apiKey)
                     encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.baseUrl, string: baseUrl)
+                    
+                    if let p12Data = message["p12_data"] as? Data {
+                        encryptedSettingsManager.putSettingsData(key: .p12, data: p12Data)
+                    }
+                    if let p12Password = message["p12_password"] as? String {
+                        encryptedSettingsManager.putSettingsString(key: .p12Password, string: p12Password)
+                    }
+                    
                     replyHandler(["setup_app_confirm": true])
                     DispatchQueue.main.async {
                         self.onSetupComplete?(apiKey)

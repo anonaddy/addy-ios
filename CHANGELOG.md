@@ -1,5 +1,23 @@
 # Changelog
 
+## [v2.5.0] - 2026-07-30
+
+**Added**
+- Support for mTLS, protect your self-hosted instanced the right way!
+- Added NATO view! Simply rotate your iPhone to landscape when viewing an alias to show it clearly to the cashier.
+- Add the sender's email or domain to the blocklist on your account straight from a rule-action
+
+**Fixed & Improved**
+- Performance enhancements and other improvements for a smoother experience
+
+**What’s new in addy.io for Apple Watch 1.1.7**
+
+**Added**
+- Support for mTLS, protect your self-hosted instanced the right way!
+
+**Fixed & Improved**  
+- Performance enhancements and other improvements for a smoother experience
+
 ## [v2.4.0] - 2026-07-15
 
 **Added**

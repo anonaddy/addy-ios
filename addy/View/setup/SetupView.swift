@@ -120,7 +120,7 @@ struct SetupView: View {
             isLoadingGetStarted = false
         }) {
             NavigationStack {
-                AddApiBottomSheet(apiBaseUrl: nil, addKey: addKey(apiKey:baseUrl:)).environmentObject(MainViewState.shared)
+                AddApiBottomSheet(apiBaseUrl: nil, addKey: addKey).environmentObject(MainViewState.shared)
             }
             .presentationDetents([.large])
         }.alert(isPresented: $showAlert) {
@@ -144,12 +144,12 @@ struct SetupView: View {
         return String(dummyApi)
     }
 
-    private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL) async {
-        let networkHelper = NetworkHelper()
+    private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL, p12: Data? = nil, p12Password: String? = nil) async {
+        let networkHelper = NetworkHelper(p12: p12, p12Password: p12Password)
         do {
             let result = try await networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: apiKey)
             if result != nil {
-                addKey(apiKey: apiKey, baseUrl: baseUrl)
+                addKey(apiKey: apiKey, baseUrl: baseUrl, p12: p12, p12Password: p12Password)
             } else {
                 isLoadingGetStarted = false
                 isPresentingAddApiBottomSheet = true
@@ -165,7 +165,7 @@ struct SetupView: View {
         await networkHelper.verifyRegistration(query: query, completion: { apiKey, error in
             if let apiKey = apiKey {
                 // Login success
-                self.addKey(apiKey: apiKey, baseUrl: AddyIo.API_BASE_URL)
+                self.addKey(apiKey: apiKey, baseUrl: AddyIo.API_BASE_URL, p12: nil, p12Password: nil)
             } else {
                 // Show error
                 self.alertMessage = error!
@@ -176,10 +176,15 @@ struct SetupView: View {
         })
     }
 
-    private func addKey(apiKey: String, baseUrl: String) {
+    private func addKey(apiKey: String, baseUrl: String, p12: Data?, p12Password: String?) {
         let encryptedSettingsManager = SettingsManager(encrypted: true)
         encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.apiKey, string: apiKey)
         encryptedSettingsManager.putSettingsString(key: SettingsManager.Prefs.baseUrl, string: baseUrl)
+        encryptedSettingsManager.putSettingsData(key: SettingsManager.Prefs.p12, data: p12)
+        if let p12Password = p12Password {
+            encryptedSettingsManager.putSettingsString(key: .p12Password, string: p12Password)
+        }
+        
         DispatchQueue.main.async {
             isPresentingAddApiBottomSheet = false
             appState.apiKey = apiKey
