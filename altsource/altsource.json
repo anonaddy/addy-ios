@@ -31,7 +31,7 @@
                     "version": "2.5.0",
                     "date": "2026-07-30T00:00:00+02:00",
                     "size": 34090509,
-                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/ef1d3600070c1b23e4b03306d0635ab86fd7dd8d/builds/appstorelessRelease%202026-07-06%2012-19-00/addy.ipa",
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/8a103fb383144df72ff6df7cc5b80f3d5a267d4a/builds/appstorelessRelease%202026-07-29%2011-57-32/addy.ipa",
                     "localizedDescription": "- Support for mTLS, protect your self-hosted instanced the right way!\n- Added NATO view! Simply rotate your iPhone to landscape when viewing an alias to show it clearly to the cashier.\n- Add the sender's email or domain to the blocklist on your account straight from a rule-action",
                     "minOSVersion": "17.0"
                 },
