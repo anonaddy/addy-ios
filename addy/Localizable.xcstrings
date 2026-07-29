@@ -839,7 +839,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 2.4.0**\n\n**Added**\n- Support for labels, allowing you to organize and color-code your aliases.\n- You can now activate and deactivate recipients directly within the app.\n\n**Fixed & Improved**\n- Performance enhancements and other improvements for a smoother experience\u0003\n\n**What’s new in addy.io for Apple Watch 1.1.6**\n\n**Fixed & Improved**  \n- Performance enhancements and other improvements for a smoother experience"
+            "value" : "**What’s new in addy.io for iOS 2.5.0**\n\n**Added**\n- Support for mTLS, protect your self-hosted instanced the right way!\n- Added NATO view! Simply rotate your iPhone to landscape when viewing an alias to show it clearly to the cashier.\n- Add the sender's email or domain to the blocklist on your account straight from a rule-action\n\n**Fixed & Improved**\n- Performance enhancements and other improvements for a smoother experience\u0003\n\n**What’s new in addy.io for Apple Watch 1.1.7**\n\n**Added**\n- Support for mTLS, protect your self-hosted instanced the right way!\n\n**Fixed & Improved**  \n- Performance enhancements and other improvements for a smoother experience"
           }
         }
       }
@@ -5657,6 +5657,7 @@
       }
     },
     "rate_this_app" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5667,6 +5668,7 @@
       }
     },
     "rate_this_app_desc" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

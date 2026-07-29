@@ -456,6 +456,9 @@ struct AliasDetailView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            // Ensure this only triggers on an iPhone, not an iPad or Mac
+            guard UIDevice.current.userInterfaceIdiom == .phone else { return }
+            
             if UIDevice.current.orientation.isLandscape {
                 self.isPresentingNatoView = true
             }
