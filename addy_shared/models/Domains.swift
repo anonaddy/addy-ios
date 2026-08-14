@@ -20,9 +20,11 @@ public struct Domains: Identifiable, Codable {
     public let description: String?
     public let from_name: String?
     public var aliases_count: Int?
+    public var family_aliases_count: Int?
     public let default_recipient: Recipients?
     public var active: Bool
     public var catch_all: Bool
+    public var shared_with_family: Bool?
     public var auto_create_regex: String?
     public let domain_verified_at: String?
     public let domain_mx_validated_at: String?

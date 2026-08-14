@@ -34,16 +34,33 @@ struct ConditionBottomSheet: View {
                         Text($0).tag(tag)
                     }
                 }.pickerStyle(.menu)
-
-                Picker(selection: $selectedConditionMatch, label: Text(String(localized: "match"))) {
-                    ForEach(RulesOption.conditionsMatchName, id: \.self) {
-                        let typeIndex = RulesOption.conditionsMatchName.firstIndex(of: $0) ?? 0
-                        let tag = RulesOption.conditionsMatch[typeIndex]
-                        Text($0).tag(tag)
+                .onChange(of: selectedConditionType) { _, newType in
+                    let availableMatches = RulesOption.matches(for: newType)
+                    if !availableMatches.contains(selectedConditionMatch) {
+                        selectedConditionMatch = availableMatches.first ?? ""
                     }
-                }.pickerStyle(.menu)
+                    updatePlaceholder(for: newType)
+                    valuePlaceHolderValidationError = nil
+                }
 
-                ValidatingTextField(value: self.$value, placeholder: self.$valuePlaceHolder, fieldType: .bigText, error: $valuePlaceHolderValidationError)
+                if !RulesOption.isBooleanCondition(type: selectedConditionType) {
+                    let matches = RulesOption.matches(for: selectedConditionType)
+                    let matchNames = RulesOption.matchNames(for: selectedConditionType)
+                    Picker(selection: $selectedConditionMatch, label: Text(String(localized: "match"))) {
+                        ForEach(matchNames, id: \.self) {
+                            let typeIndex = matchNames.firstIndex(of: $0) ?? 0
+                            let tag = matches[typeIndex]
+                            Text($0).tag(tag)
+                        }
+                    }.pickerStyle(.menu)
+
+                    ValidatingTextField(
+                        value: self.$value,
+                        placeholder: self.$valuePlaceHolder,
+                        fieldType: RulesOption.isNumericCondition(type: selectedConditionType) ? .numeric : (RulesOption.isHeaderCondition(type: selectedConditionType) ? .text : .bigText),
+                        error: $valuePlaceHolderValidationError
+                    )
+                }
 
             } header: {
                 VStack {
@@ -76,17 +93,46 @@ struct ConditionBottomSheet: View {
             .onAppear(perform: {
                 if let conditionEditObject = conditionEditObject {
                     self.selectedConditionType = conditionEditObject.type
-                    self.selectedConditionMatch = conditionEditObject.match
-                    self.value = conditionEditObject.values.joined(separator: ",")
+                    let availableMatches = RulesOption.matches(for: conditionEditObject.type)
+                    self.selectedConditionMatch = conditionEditObject.match ?? (availableMatches.first ?? "")
+                    self.value = conditionEditObject.values?.joined(separator: ",") ?? ""
+                } else {
+                    let availableMatches = RulesOption.matches(for: selectedConditionType)
+                    if !availableMatches.contains(selectedConditionMatch) {
+                        selectedConditionMatch = availableMatches.first ?? ""
+                    }
                 }
+                updatePlaceholder(for: selectedConditionType)
             })
+    }
+
+    private func updatePlaceholder(for conditionType: String) {
+        if RulesOption.isHeaderCondition(type: conditionType) {
+            valuePlaceHolder = String(localized: "enter_header_name")
+        } else if conditionType == "email_size" {
+            valuePlaceHolder = String(localized: "enter_size_in_bytes")
+        } else if conditionType == "alias_emails_forwarded" {
+            valuePlaceHolder = String(localized: "enter_email_count")
+        } else {
+            valuePlaceHolder = String(localized: "enter_values_comma_separated")
+        }
     }
 
     private func saveButton() -> some View {
         AnyView(
             Button {
-                let condition = Condition(type: self.selectedConditionType, match: self.selectedConditionMatch, values: self.value.split(separator: ",").map { String($0) })
-                self.onAddedCondition(conditionEditObject, condition)
+                if RulesOption.isBooleanCondition(type: self.selectedConditionType) {
+                    let condition = Condition(type: self.selectedConditionType, match: nil, values: nil)
+                    self.onAddedCondition(conditionEditObject, condition)
+                } else {
+                    if self.value.trimmingCharacters(in: .whitespaces).isEmpty {
+                        valuePlaceHolderValidationError = String(localized: "this_field_cannot_be_empty")
+                        return
+                    }
+                    let valuesList = self.value.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
+                    let condition = Condition(type: self.selectedConditionType, match: self.selectedConditionMatch, values: valuesList)
+                    self.onAddedCondition(conditionEditObject, condition)
+                }
             } label: {
                 if conditionEditObject != nil {
                     Text(String(localized: "save"))

@@ -100,6 +100,10 @@ public enum AddyIo {
         "\(API_BASE_URL)/api/v1/catch-all-domains"
     }
 
+    static var API_URL_SHARED_WITH_FAMILY_DOMAINS: String {
+        "\(API_BASE_URL)/api/v1/shared-with-family-domains"
+    }
+
     static var API_URL_USERNAMES: String {
         "\(API_BASE_URL)/api/v1/usernames"
     }

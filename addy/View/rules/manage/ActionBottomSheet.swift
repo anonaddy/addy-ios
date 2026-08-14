@@ -37,6 +37,10 @@ struct ActionBottomSheet: View {
                         Text($0).tag(tag)
                     }
                 }.pickerStyle(.menu)
+                .onChange(of: selectedActionsType) { _, newType in
+                    updatePlaceholder(for: newType)
+                    valuePlaceHolderValidationError = nil
+                }
 
                 if selectedActionsType == "banner" {
                     Picker(selection: $selectedBannerLocationOptions, label: Text(String(localized: "banner_location"))) {
@@ -48,9 +52,7 @@ struct ActionBottomSheet: View {
                     }.pickerStyle(.menu)
                 }
 
-                if selectedActionsType == "subject" ||
-                    selectedActionsType == "displayFrom"
-                {
+                if RulesOption.isTextAction(type: selectedActionsType) {
                     ValidatingTextField(value: self.$value, placeholder: self.$valuePlaceHolder, fieldType: .text, error: $valuePlaceHolderValidationError)
                 }
 
@@ -124,6 +126,8 @@ struct ActionBottomSheet: View {
                     self.value = actionEditObject.value
                 }
 
+                updatePlaceholder(for: selectedActionsType)
+
                 // Load recipients
 
                 recipientsChips = []
@@ -135,6 +139,16 @@ struct ActionBottomSheet: View {
             })
     }
 
+    private func updatePlaceholder(for actionType: String) {
+        if actionType == "addLabel" || actionType == "removeLabel" {
+            valuePlaceHolder = String(localized: "enter_label_name")
+        } else if actionType == "setAliasDescription" {
+            valuePlaceHolder = String(localized: "enter_description")
+        } else {
+            valuePlaceHolder = String(localized: "enter_value")
+        }
+    }
+
     private func saveButton() -> some View {
         AnyView(
             Button {
@@ -144,24 +158,8 @@ struct ActionBottomSheet: View {
                 if selectedActionsType == "banner" {
                     newAction.value = selectedBannerLocationOptions
                 }
-                // If the type is set to block email send a true
-                else if selectedActionsType == "block" {
-                    newAction.value = String(true)
-                }
-                // If the type is set to turn off PGP send a true
-                else if selectedActionsType == "encryption" {
-                    newAction.value = String(true)
-                }
-                // If the type is set to add sender to blocklist send a true
-                else if selectedActionsType == "blocklistSender" {
-                    newAction.value = String(true)
-                }
-                // If the type is set to add domain to blocklist send a true
-                else if selectedActionsType == "blocklistDomain" {
-                    newAction.value = String(true)
-                }
-                // If the type is set to remove attachments send a true
-                else if selectedActionsType == "removeAttachments" {
+                // If the type is a boolean action, send "true"
+                else if RulesOption.isBooleanAction(type: selectedActionsType) {
                     newAction.value = String(true)
                 }
                 // If the type is set to forward to send selected recipientID
@@ -171,6 +169,12 @@ struct ActionBottomSheet: View {
                     } else {
                         newAction.value = selectedRecipientChip.first!
                     }
+                } else if RulesOption.isTextAction(type: selectedActionsType) {
+                    if self.value.trimmingCharacters(in: .whitespaces).isEmpty {
+                        valuePlaceHolderValidationError = String(localized: "this_field_cannot_be_empty")
+                        return
+                    }
+                    newAction.value = self.value.trimmingCharacters(in: .whitespaces)
                 } else {
                     // Else just get the textfield value
                     newAction.value = self.value
