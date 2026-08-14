@@ -8,7 +8,7 @@
 - Added new rule actions (add label, remove label, set alias description, deactivate alias, delete alias)
 
 **Fixed & Improved**
-- Updated minimum supported addy.io instance version to 1.8.0
+- Updated minimum supported addy.io instance version to 1.7.2
 - Performance enhancements and other improvements for a smoother experience
 
 ## [v2.5.0] - 2026-07-30
