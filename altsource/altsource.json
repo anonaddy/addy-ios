@@ -30,8 +30,8 @@
                 {
                     "version": "2.6.0",
                     "date": "2026-08-14T00:00:00+02:00",
-                    "size": 34554547,
-                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/663bd53b081666d6f48d66946606d070a6474700/builds/appstorelessRelease%202026-08-14%2019-51-09/addy.ipa",
+                    "size": 34554301,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/refs/heads/2.6.0/builds/appstorelessRelease%202026-08-14%2020-40-57/addy.ipa",
                     "localizedDescription": "- Support for Family Plans: Share custom domains with family plan members\n- Added new rule conditions (from name, headers, catch-all status, attachments, spam status, DMARC validation, email size, forwarded count)\n- Added new rule actions (add label, remove label, set alias description, deactivate alias, delete alias)",
                     "minOSVersion": "17.0"
                 },
