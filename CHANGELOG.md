@@ -1,4 +1,15 @@
 # Changelog
+ 
+## [v2.6.0] - 2026-08-16
+
+**Added**
+- Support for Family Plans: Share custom domains with family plan members
+- Added new rule conditions (from name, headers, catch-all status, attachments, spam status, DMARC validation, email size, forwarded count)
+- Added new rule actions (add label, remove label, set alias description, deactivate alias, delete alias)
+
+**Fixed & Improved**
+- Updated minimum supported addy.io instance version to 1.8.0
+- Performance enhancements and other improvements for a smoother experience
 
 ## [v2.5.0] - 2026-07-30
 

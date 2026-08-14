@@ -883,7 +883,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 2.5.0**\n\n**Added**\n- Support for mTLS, protect your self-hosted instanced the right way!\n- Added NATO view! Simply rotate your iPhone to landscape when viewing an alias to show it clearly to the cashier.\n- Add the sender's email or domain to the blocklist on your account straight from a rule-action\n\n**Fixed & Improved**\n- Performance enhancements and other improvements for a smoother experience\u0003\n\n**What’s new in addy.io for Apple Watch 1.1.7**\n\n**Added**\n- Support for mTLS, protect your self-hosted instanced the right way!\n\n**Fixed & Improved**  \n- Performance enhancements and other improvements for a smoother experience"
+            "value" : "**What’s new in addy.io for iOS 2.6.0**\n\n**Added**\n- Support for Family Plans: Share custom domains with family plan members\n- Added new rule conditions (from name, headers, catch-all status, attachments, spam status, DMARC validation, email size, forwarded count)\n- Added new rule actions (add label, remove label, set alias description, deactivate alias, delete alias)\n\n**Fixed & Improved**\n- Updated minimum supported addy.io instance version to 1.8.0\n- Performance enhancements and other improvements for a smoother experience"
           }
         }
       }
@@ -5855,6 +5855,7 @@
       }
     },
     "rate_this_app" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5865,6 +5866,7 @@
       }
     },
     "rate_this_app_desc" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
