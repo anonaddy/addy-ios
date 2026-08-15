@@ -205,9 +205,14 @@ enum RulesOption {
         return [
             "subject",
             "displayFrom",
+            "setAliasDescription",
+        ].contains(type)
+    }
+
+    static func isLabelAction(type: String) -> Bool {
+        return [
             "addLabel",
             "removeLabel",
-            "setAliasDescription",
         ].contains(type)
     }
 

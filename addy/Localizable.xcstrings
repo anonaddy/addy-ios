@@ -6825,6 +6825,17 @@
         }
       }
     },
+    "select_a_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a label"
+          }
+        }
+      }
+    },
     "select_a_recipient" : {
       "extractionState" : "manual",
       "localizations" : {
