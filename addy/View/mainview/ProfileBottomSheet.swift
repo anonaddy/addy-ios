@@ -52,17 +52,24 @@ struct ProfileBottomSheet: View {
                             .font(.headline)
 
                         if mainViewState.userResource!.subscription != nil {
-                            Text(String(format: String(localized: "subscription_user"), mainViewState.userResource!.subscription!))
-                                .font(.headline)
-                                .opacity(0.6)
-                                .apply {
-                                    // Apply a shiny effect when the user does not have a free subcription. (So Lite or Pro)
-                                    if !(mainViewState.userResource!.hasUserFreeSubscription()) {
-                                        $0.shiny()
-                                    } else {
-                                        $0
-                                    }
+                            HStack(spacing: 4) {
+                                Text(String(format: String(localized: "subscription_user"), mainViewState.userResource!.subscription!))
+                                    .font(.headline)
+
+                                if mainViewState.userResource!.family_plan_role != nil {
+                                    Image(systemName: "person.3.fill")
+                                        .font(.footnote)
                                 }
+                            }
+                            .opacity(0.6)
+                            .apply {
+                                // Apply a shiny effect when the user does not have a free subcription. (So Lite or Pro)
+                                if !(mainViewState.userResource!.hasUserFreeSubscription()) {
+                                    $0.shiny()
+                                } else {
+                                    $0
+                                }
+                            }
 
                             if mainViewState.userResource!.subscription_ends_at != nil {
                                 Text(getSubscriptionUntilText())

@@ -38,8 +38,6 @@ struct SendMailRecipientView: View {
     @StateObject private var viewModel = SendMailRecipientSearchViewModel()
     @State private var copiedToClipboard = false
 
-    @State private var clients: [ThirdPartyMailClient] = []
-
     init(openedThroughShareSheet: Bool, recipients: [String], validCcRecipients: [String], validBccRecipients: [String], emailSubject: String, emailBody: String, domainOptions: [String], close: @escaping () -> Void, openMailToShareSheet: @escaping (URL) -> Void) {
         self.openedThroughShareSheet = openedThroughShareSheet
         self.domainOptions = domainOptions
@@ -92,24 +90,14 @@ struct SendMailRecipientView: View {
             ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
         }
         .disabled(isCreatingAlias)
-        .confirmationDialog(String(localized: "send_mail"), isPresented: $isPresentingEmailSelectionDialog) {
-            ForEach(clients, id: \.self) { item in
-                Button(item.name) {
-                    sendMail(client: item)
-                }
+        .sheet(isPresented: $isPresentingEmailSelectionDialog) {
+            SelectMailClientBottomSheet { selectedClient in
+                self.sendMail(client: selectedClient)
             }
-
-            Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), role: .cancel) {}
-        } message: {
-            Text(String(localized: "select_mail_client"))
+            .presentationDetents([.medium, .large])
         }
         .onAppear(perform: {
             self.viewModel.setDomainOptions(domainOptions: domainOptions)
-
-            // Get the available mail clients
-            self.clients = ThirdPartyMailClient.clients.filter { ThirdPartyMailer.isMailClientAvailable($0) }
-            self.clients.append(ThirdPartyMailClient.systemDefault)
-
         })
         .alert(isPresented: $showAlert, content: {
             Alert(
@@ -150,74 +138,66 @@ struct SendMailRecipientView: View {
     }
 
     private func sendMail(client: ThirdPartyMailClient? = nil) {
-        // .disabled on the Button will take care of this
-        //        if addressesValidationError != nil {
-        //            return
-        //        }
-        //
-        //        if aliasValidationError != nil {
-        //            return
-        //        }
-
-        // Check if client is nil, if so, ask the user to select a client
-        if client == nil {
+        let settingsManager = SettingsManager(encrypted: false)
+        guard let resolvedClient = client ?? ThirdPartyMailClient.getPreferredClient(settingsManager: settingsManager) else {
             isPresentingEmailSelectionDialog = true
+            return
+        }
+
+        // Check if alias is empty, if alias is empty just forward the recipient to the default mail app without generating an alias
+        if viewModel.searchQuery.isEmpty {
+            let composeUrl = resolvedClient.composeURL(to: addresses.split(separator: ",").map(String.init), subject: emailSubject, body: emailBody, cc: validCcRecipients, bcc: validBccRecipients)
+            openMailToShareSheet(composeUrl)
         } else {
-            // Check if alias is empty, if alias is empty just forward the recipient to the default mail app without generating an alias
-            if viewModel.searchQuery.isEmpty {
-                let composeUrl = client!.composeURL(to: addresses.split(separator: ",").map(String.init), subject: emailSubject, body: emailBody, cc: validCcRecipients, bcc: validBccRecipients)
-                openMailToShareSheet(composeUrl)
-            } else {
-                // As we can dynamically create aliases, we need to check if the entered alias has a domain name that we can use
+            // As we can dynamically create aliases, we need to check if the entered alias has a domain name that we can use
 
-                // splittedEmailAddress[0] = custom part
-                // splittedEmailAddress[1] = domain name
-                let splittedEmailAddress = viewModel.searchQuery.split(separator: "@")
+            // splittedEmailAddress[0] = custom part
+            // splittedEmailAddress[1] = domain name
+            let splittedEmailAddress = viewModel.searchQuery.split(separator: "@")
 
-                if domainOptions.contains(where: { $0 == splittedEmailAddress[1] }) {
-                    // This is a valid domain name the user has added to their addy.io account
+            if domainOptions.contains(where: { $0 == splittedEmailAddress[1] }) {
+                // This is a valid domain name the user has added to their addy.io account
 
-                    // Get the first alias that matched the email address with the one entered in the adapter
-                    if let alias = viewModel.aliases?.first(where: { $0.email == viewModel.searchQuery }) {
-                        // This alias already exists
+                // Get the first alias that matched the email address with the one entered in the adapter
+                if let alias = viewModel.aliases?.first(where: { $0.email == viewModel.searchQuery }) {
+                    // This alias already exists
 
-                        let anonaddyRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: addresses.split(separator: ",").map { String($0) }, alias: alias)
-                        let anonaddyCcRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: validCcRecipients, alias: alias)
-                        let anonaddyBccRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: validBccRecipients, alias: alias)
+                    let anonaddyRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: addresses.split(separator: ",").map { String($0) }, alias: alias)
+                    let anonaddyCcRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: validCcRecipients, alias: alias)
+                    let anonaddyBccRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: validBccRecipients, alias: alias)
 
-                        let composeUrl = client!.composeURL(to: anonaddyRecipientAddresses, subject: emailSubject, body: emailBody, cc: anonaddyCcRecipientAddresses, bcc: anonaddyBccRecipientAddresses)
+                    let composeUrl = resolvedClient.composeURL(to: anonaddyRecipientAddresses, subject: emailSubject, body: emailBody, cc: anonaddyCcRecipientAddresses, bcc: anonaddyBccRecipientAddresses)
 
-                        UIPasteboard.general.setValue(anonaddyRecipientAddresses, forPasteboardType: UTType.plainText.identifier)
-                        showCopiedToClipboardAnimation()
-                        openMailToShareSheet(composeUrl)
+                    UIPasteboard.general.setValue(anonaddyRecipientAddresses, forPasteboardType: UTType.plainText.identifier)
+                    showCopiedToClipboardAnimation()
+                    openMailToShareSheet(composeUrl)
 
-                    } else {
-                        // This alias does not exist (in the current searchQuery)
-                        isCreatingAlias = true
-                        Task {
-                            if let alias = await addAliasToAccount(domain: String(splittedEmailAddress[1]), description: "", format: "custom", localPart: String(splittedEmailAddress[0])) {
-                                isCreatingAlias = false
+                } else {
+                    // This alias does not exist (in the current searchQuery)
+                    isCreatingAlias = true
+                    Task {
+                        if let alias = await addAliasToAccount(domain: String(splittedEmailAddress[1]), description: "", format: "custom", localPart: String(splittedEmailAddress[0])) {
+                            isCreatingAlias = false
 
-                                let anonaddyRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: self.addresses.split(separator: ",").map { String($0) }, alias: alias)
-                                let anonaddyCcRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: validCcRecipients, alias: alias)
-                                let anonaddyBccRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: self.validBccRecipients, alias: alias)
+                            let anonaddyRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: self.addresses.split(separator: ",").map { String($0) }, alias: alias)
+                            let anonaddyCcRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: validCcRecipients, alias: alias)
+                            let anonaddyBccRecipientAddresses = AnonAddyUtils.getSendAddress(recipientEmails: self.validBccRecipients, alias: alias)
 
-                                let composeUrl = client!.composeURL(to: anonaddyRecipientAddresses, subject: emailSubject, body: emailBody, cc: anonaddyCcRecipientAddresses, bcc: anonaddyBccRecipientAddresses)
+                            let composeUrl = resolvedClient.composeURL(to: anonaddyRecipientAddresses, subject: emailSubject, body: emailBody, cc: anonaddyCcRecipientAddresses, bcc: anonaddyBccRecipientAddresses)
 
-                                UIPasteboard.general.setValue(anonaddyRecipientAddresses, forPasteboardType: UTType.plainText.identifier)
-                                showCopiedToClipboardAnimation()
+                            UIPasteboard.general.setValue(anonaddyRecipientAddresses, forPasteboardType: UTType.plainText.identifier)
+                            showCopiedToClipboardAnimation()
 
-                                self.openMailToShareSheet(composeUrl)
+                            self.openMailToShareSheet(composeUrl)
 
-                            } else {
-                                isCreatingAlias = false
-                            }
+                        } else {
+                            isCreatingAlias = false
                         }
                     }
-                } else {
-                    aliasValidationError = String(format: String(localized: "you_do_not_own_this_domain"))
-                    return
                 }
+            } else {
+                aliasValidationError = String(format: String(localized: "you_do_not_own_this_domain"))
+                return
             }
         }
     }

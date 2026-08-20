@@ -18,6 +18,8 @@ struct AppSettingsView: View {
     @State private var storeLogs: Bool = false
     @State private var privacyMode: Bool = false
     @State private var biometricEnabled: Bool = false
+    @State private var preferredMailClient: String = ""
+    @State private var isPresentingSelectMailClientBottomSheet: Bool = false
     @State private var showPlayGround: Bool = false
     @Binding var horizontalSize: UserInterfaceSizeClass
     @State private var showAlert = false
@@ -75,6 +77,20 @@ struct AppSettingsView: View {
                 AddySection(title: String(localized: "interface"), description: String(localized: "interface_desc"), leadingSystemimage: "app.dashed", leadingSystemimageColor: .orange) {
                     isPresentingUIUXInterfaceBottomSheet = true
                 }
+
+                AddySection(
+                    title: String(localized: "preferred_email_client"),
+                    description: getPreferredClientName(),
+                    leadingSystemimage: "envelope.fill",
+                    leadingSystemimageColor: .blue,
+                    trailingSystemimage: "chevron.right"
+                ) {
+                    isPresentingSelectMailClientBottomSheet = true
+                }
+                .onAppear {
+                    self.preferredMailClient = MainViewState.shared.settingsManager.getSettingsString(key: .preferredMailClient) ?? ""
+                }
+                
                 NavigationLink(destination: AppSettingsUpdateView()) {
                     AddySection(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_desc"), leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue)
                 }
@@ -115,6 +131,8 @@ struct AppSettingsView: View {
                         UIApplication.shared.shortcutItems = []
                     }
                 }
+
+                
             } header: {
                 Text(String(localized: "general"))
             }.textCase(nil)
@@ -244,6 +262,12 @@ struct AppSettingsView: View {
             }
             .presentationDetents([.medium, .large])
         })
+        .sheet(isPresented: $isPresentingSelectMailClientBottomSheet) {
+            SelectMailClientBottomSheet(isSettingsMode: true) { _ in
+                self.preferredMailClient = MainViewState.shared.settingsManager.getSettingsString(key: .preferredMailClient) ?? ""
+            }
+            .presentationDetents([.medium, .large])
+        }
     }
 
     func logoutAndReset() async {
@@ -311,6 +335,20 @@ struct AppSettingsView: View {
                 }
             }
         }
+    }
+
+    private func getPreferredClientName() -> String {
+        let scheme = preferredMailClient
+        if scheme.isEmpty {
+            return String(localized: "always_ask")
+        }
+        if scheme == ThirdPartyMailClient.systemDefault.URLScheme {
+            return ThirdPartyMailClient.systemDefault.name
+        }
+        if let client = ThirdPartyMailClient.clients.first(where: { $0.URLScheme == scheme }) {
+            return client.name
+        }
+        return String(localized: "always_ask")
     }
 
     func requestBackgroundAppRefresh() {

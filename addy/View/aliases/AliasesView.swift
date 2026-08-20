@@ -42,7 +42,6 @@ struct AliasesView: View {
     @State private var filterApplied = false
 
     @State private var sendToRecipients: String? = nil
-    @State private var clients: [ThirdPartyMailClient] = []
     @State private var isPresentingEmailSelectionDialog: Bool = false
 
     enum ActiveAlert {
@@ -134,16 +133,11 @@ struct AliasesView: View {
                 self.onRefreshGeneralData?()
                 await self.aliasesViewModel.getAliases(forceReload: true)
             }
-            .confirmationDialog(String(localized: "send_mail"), isPresented: $isPresentingEmailSelectionDialog) {
-                ForEach(clients, id: \.self) { item in
-                    Button(item.name) {
-                        self.onPressSend(client: item, sendToRecipients: self.sendToRecipients ?? "")
-                    }
+            .sheet(isPresented: $isPresentingEmailSelectionDialog) {
+                SelectMailClientBottomSheet { selectedClient in
+                    self.onPressSend(client: selectedClient, sendToRecipients: self.sendToRecipients ?? "")
                 }
-
-                Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), role: .cancel) {}
-            } message: {
-                Text(String(localized: "select_mail_client"))
+                .presentationDetents([.medium, .large])
             }
 
             .alert(isPresented: $showAlert) {
@@ -349,10 +343,6 @@ struct AliasesView: View {
                 .presentationDetents([.large])
             }
         }.onAppear(perform: {
-            // Get the available mail clients
-            self.clients = ThirdPartyMailClient.clients.filter { ThirdPartyMailer.isMailClientAvailable($0) }
-            self.clients.append(ThirdPartyMailClient.systemDefault)
-
             LoadFilter()
 
             // Set new filter if set by viewState
@@ -610,11 +600,7 @@ struct AliasesView: View {
         // return if both are nil
         guard let alias = aliasToSendMailFrom ?? aliasToSendMailFromCopy else { return }
 
-        if client == nil {
-            isPresentingEmailSelectionDialog = true
-            self.sendToRecipients = sendToRecipients
-            aliasToSendMailFromCopy = alias
-        } else {
+        if let preferredClient = client ?? ThirdPartyMailClient.getPreferredClient(settingsManager: mainViewState.settingsManager) {
             // Get recipients
             let recipients = AnonAddyUtils.getSendAddress(recipientEmails: sendToRecipients.split(separator: ",").map { String($0) }, alias: alias)
 
@@ -623,13 +609,17 @@ struct AliasesView: View {
             showCopiedToClipboardAnimation()
 
             // Prepare mailto URL
-            let mailtoURL = client!.composeURL(to: recipients)
+            let mailtoURL = preferredClient.composeURL(to: recipients)
 
             // Open mailto URL
             UIApplication.shared.open(mailtoURL)
 
             // Set aliasToSendMailFromCopy to nil
             aliasToSendMailFromCopy = nil
+        } else {
+            isPresentingEmailSelectionDialog = true
+            self.sendToRecipients = sendToRecipients
+            aliasToSendMailFromCopy = alias
         }
     }
 

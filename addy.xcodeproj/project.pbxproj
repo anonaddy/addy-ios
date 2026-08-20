@@ -196,6 +196,8 @@
 		80A9ABA92CA1DB13009E4CF5 /* DeleteAccountConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9ABA82CA1DB13009E4CF5 /* DeleteAccountConfirmationView.swift */; };
 		80AC67082BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */; };
 		80B2FB462C3C425A009977B6 /* SendMailRecipientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB432C3C425A009977B6 /* SendMailRecipientView.swift */; };
+		80F2A1022C3C425A009977B6 /* SelectMailClientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2A1012C3C425A009977B6 /* SelectMailClientBottomSheet.swift */; };
+		80F2A1032C3C425A009977B6 /* SelectMailClientBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2A1012C3C425A009977B6 /* SelectMailClientBottomSheet.swift */; };
 		80B2FB472C3C425A009977B6 /* MailToActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB442C3C425A009977B6 /* MailToActionSheet.swift */; };
 		80B2FB482C3C425A009977B6 /* MailToActionSheetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB422C3C425A009977B6 /* MailToActionSheetData.swift */; };
 		80B2FB6E2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB6D2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift */; };
@@ -528,6 +530,7 @@
 		80AC67072BFB586A004D227D /* EditAliasSendMailRecipientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasSendMailRecipientBottomSheet.swift; sourceTree = "<group>"; };
 		80B2FB422C3C425A009977B6 /* MailToActionSheetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailToActionSheetData.swift; sourceTree = "<group>"; };
 		80B2FB432C3C425A009977B6 /* SendMailRecipientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMailRecipientView.swift; sourceTree = "<group>"; };
+		80F2A1012C3C425A009977B6 /* SelectMailClientBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMailClientBottomSheet.swift; sourceTree = "<group>"; };
 		80B2FB442C3C425A009977B6 /* MailToActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailToActionSheet.swift; sourceTree = "<group>"; };
 		80B2FB6D2C3C4308009977B6 /* SendMailRecipientSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMailRecipientSearchViewModel.swift; sourceTree = "<group>"; };
 		80B2FB6F2C3C4328009977B6 /* ValidatingFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatingFieldModel.swift; sourceTree = "<group>"; };
@@ -1174,6 +1177,7 @@
 				80B2FB9C2C3C4478009977B6 /* ViewModel */,
 				80B2FB422C3C425A009977B6 /* MailToActionSheetData.swift */,
 				80B2FB432C3C425A009977B6 /* SendMailRecipientView.swift */,
+				80F2A1012C3C425A009977B6 /* SelectMailClientBottomSheet.swift */,
 				80B2FB442C3C425A009977B6 /* MailToActionSheet.swift */,
 			);
 			path = ShareExtension.source;
@@ -1746,6 +1750,7 @@
 				80B2FB982C3C4452009977B6 /* MailToActionSheetData.swift in Sources */,
 				80B2FBA02C3C44AF009977B6 /* ValidatingFieldModel.swift in Sources */,
 				80B2FB992C3C4455009977B6 /* SendMailRecipientView.swift in Sources */,
+				80F2A1022C3C425A009977B6 /* SelectMailClientBottomSheet.swift in Sources */,
 				80B2FBBA2C3C4C18009977B6 /* Apply.swift in Sources */,
 				80B2FBC92C3C4E96009977B6 /* AnonAddyUtils.swift in Sources */,
 				805535612C4BF10500886256 /* IdentifiableURL.swift in Sources */,
@@ -1808,6 +1813,7 @@
 				80E849A12BEB803400C8D68A /* AliasesView.swift in Sources */,
 				8012019C2C5431EC006F4FE6 /* EditDomainAutoCreateRegexBottomSheet.swift in Sources */,
 				80B2FB462C3C425A009977B6 /* SendMailRecipientView.swift in Sources */,
+				80F2A1032C3C425A009977B6 /* SelectMailClientBottomSheet.swift in Sources */,
 				80B2FB472C3C425A009977B6 /* MailToActionSheet.swift in Sources */,
 				8012019A2C542FC7006F4FE6 /* EditUsernameAutoCreateRegexBottomSheet.swift in Sources */,
 				80B2FB482C3C425A009977B6 /* MailToActionSheetData.swift in Sources */,

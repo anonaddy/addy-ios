@@ -5855,7 +5855,6 @@
       }
     },
     "rate_this_app" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5866,7 +5865,6 @@
       }
     },
     "rate_this_app_desc" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -6853,6 +6851,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select certificate"
+          }
+        }
+      }
+    },
+    "always_ask" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Always ask"
+          }
+        }
+      }
+    },
+    "preferred_email_client" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferred email client"
+          }
+        }
+      }
+    },
+    "preferred_email_client_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose the default email app to open when sending emails through aliases."
+          }
+        }
+      }
+    },
+    "set_as_preferred_email_client" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set as preferred email client"
           }
         }
       }

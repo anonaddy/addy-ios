@@ -20,6 +20,7 @@ public class SettingsManager {
         case notifyDomainError
         case notifySubscriptionExpiry
         case mailtoActivityShowSuggestions
+        case preferredMailClient
         case aliasSortFilter
         case pendingURLFromShareViewController
         case biometricEnabled
