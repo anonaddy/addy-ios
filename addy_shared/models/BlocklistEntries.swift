@@ -29,8 +29,8 @@ public struct BlocklistEntries: Identifiable, Codable {
 }
 
 public struct NewBlocklistEntry: Codable {
-    let type: String
-    let value: String
+    public let type: String
+    public let value: String
 
     public init(type: String, value: String) {
         self.type = type

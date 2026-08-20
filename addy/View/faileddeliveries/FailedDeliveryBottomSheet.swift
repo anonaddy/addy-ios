@@ -19,6 +19,7 @@ struct FailedDeliveryBottomSheet: View {
     @State var isLoadingDownloadButton: Bool = false
     @State var isLoadingResendButton: Bool = false
     @State var isLoadingBlocklistButton: Bool = false
+    @State private var blocklistEntryToAdd: NewBlocklistEntry?
     @State private var isShowingPicker = false
     @State private var fileURL: URL?
     @State private var activeAlert: ActiveAlert = .error
@@ -121,13 +122,16 @@ struct FailedDeliveryBottomSheet: View {
                     isLoadingResendButton = false
                 })
             case .blocklist:
+                let valueToBlock = blocklistEntryToAdd?.value ?? failedDelivery.sender ?? ""
                 return Alert(
                     title: Text(String(localized: "blocklist_add")),
-                    message: Text(String(format: String(localized: "blocklist_add_confirmation"), failedDelivery.sender ?? "")),
+                    message: Text(String(format: String(localized: "blocklist_add_confirmation"), valueToBlock)),
                     primaryButton: .destructive(Text(String(localized: "blocklist_add"))) {
-                        Task {
-                            isLoadingBlocklistButton = true
-                            await self.blocklistSender()
+                        if let entry = blocklistEntryToAdd {
+                            Task {
+                                isLoadingBlocklistButton = true
+                                await self.blocklist(entry: entry)
+                            }
                         }
                     }, secondaryButton: .cancel {
                         isLoadingBlocklistButton = false
@@ -196,19 +200,63 @@ struct FailedDeliveryBottomSheet: View {
         }
     }
 
+    private func extractDomain(from sender: String) -> String? {
+        let cleaned = sender.trimmingCharacters(in: CharacterSet(charactersIn: "<> \t\n\r"))
+        if let atIndex = cleaned.lastIndex(of: "@") {
+            let domain = String(cleaned[cleaned.index(after: atIndex)...]).trimmingCharacters(in: .whitespacesAndNewlines)
+            return domain.isEmpty ? nil : domain
+        }
+        return nil
+    }
+
+    private func extractEmail(from sender: String) -> String {
+        return sender.trimmingCharacters(in: CharacterSet(charactersIn: "<> \t\n\r"))
+    }
+
     private func blocklistSenderButton() -> some View {
         Group {
             if isLoadingBlocklistButton {
                 AnyView(ProgressView().progressViewStyle(.circular))
-            } else {
-                AnyView(
-                    Button {
-                        activeAlert = .blocklist
-                        showAlert = true
-                    } label: {
-                        Label(String(localized: "blocklist_add"), systemImage: "nosign")
-                    }
-                )
+            } else if let sender = failedDelivery.sender, !sender.isEmpty {
+                if sender.contains("@") {
+                    let email = extractEmail(from: sender)
+                    let domain = extractDomain(from: sender)
+
+                    AnyView(
+                        Menu {
+                            Button {
+                                blocklistEntryToAdd = NewBlocklistEntry(type: "email", value: email)
+                                activeAlert = .blocklist
+                                showAlert = true
+                            } label: {
+                                Label(String(localized: "blocklist_add_sender"), systemImage: "envelope")
+                            }
+
+                            if let domain = domain {
+                                Button {
+                                    blocklistEntryToAdd = NewBlocklistEntry(type: "domain", value: domain)
+                                    activeAlert = .blocklist
+                                    showAlert = true
+                                } label: {
+                                    Label(String(localized: "blocklist_add_domain"), systemImage: "globe")
+                                }
+                            }
+                        } label: {
+                            Label(String(localized: "blocklist_add"), systemImage: "nosign")
+                        }
+                    )
+                } else {
+                    AnyView(
+                        Button {
+                            let domain = extractEmail(from: sender)
+                            blocklistEntryToAdd = NewBlocklistEntry(type: "domain", value: domain)
+                            activeAlert = .blocklist
+                            showAlert = true
+                        } label: {
+                            Label(String(localized: "blocklist_add"), systemImage: "nosign")
+                        }
+                    )
+                }
             }
         }
     }
@@ -218,15 +266,7 @@ struct FailedDeliveryBottomSheet: View {
         self.onDeleted = onDeleted
     }
 
-    private func blocklistSender() async {
-        guard let sender = failedDelivery.sender, !sender.isEmpty else {
-            isLoadingBlocklistButton = false
-            return
-        }
-
-        let type = sender.contains("@") ? "email" : "domain"
-        let entry = NewBlocklistEntry(type: type, value: sender)
-
+    private func blocklist(entry: NewBlocklistEntry) async {
         let networkHelper = NetworkHelper()
         do {
             _ = try await networkHelper.addBlocklistEntry(entry: entry)
