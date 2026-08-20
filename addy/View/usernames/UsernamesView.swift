@@ -74,6 +74,7 @@ struct UsernamesView: View {
                             VStack(alignment: .leading) {
                                 Text(username.username)
                                     .font(.headline)
+                                    .lineLimit(1)
                                     .truncationMode(.tail)
                                     .frame(minWidth: 20)
 

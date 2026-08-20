@@ -4942,6 +4942,17 @@
         }
       }
     },
+    "no_aliases_directly_assigned" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No aliases directly assigned"
+          }
+        }
+      }
+    },
     "no_blocklist_entries" : {
       "localizations" : {
         "en" : {
@@ -5891,6 +5902,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recipient aliases"
+          }
+        }
+      }
+    },
+    "recipient_aliases_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This only shows the total number of aliases that the recipient is directly assigned to."
           }
         }
       }

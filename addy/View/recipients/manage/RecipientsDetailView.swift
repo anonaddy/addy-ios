@@ -75,24 +75,31 @@ struct RecipientsDetailView: View {
 
                 Section {
                     VStack(alignment: .leading) {
-                        let aliasesToShow = showAllAliases ? aliasList : Array(aliasList.prefix(10))
+                        if aliasList.isEmpty {
+                            Text(String(localized: "no_aliases_directly_assigned"))
+                                .font(.system(size: 14))
+                                .foregroundColor(.secondary)
+                                .padding(.top, 5)
+                        } else {
+                            let aliasesToShow = showAllAliases ? aliasList : Array(aliasList.prefix(10))
 
-                        Text(aliasesToShow.joined(separator: "\n"))
-                            .font(.system(size: 14)) // Set initial font size
-                            .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
-                            .padding(.top, 5)
+                            Text(aliasesToShow.joined(separator: "\n"))
+                                .font(.system(size: 14)) // Set initial font size
+                                .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
+                                .padding(.top, 5)
 
-                        if aliasList.count > 10 {
-                            Button(action: {
-                                withAnimation {
-                                    showAllAliases.toggle()
+                            if aliasList.count > 10 {
+                                Button(action: {
+                                    withAnimation {
+                                        showAllAliases.toggle()
+                                    }
+                                }) {
+                                    Text(showAllAliases ? String(localized: "show_less") : String(localized: "show_all"))
+                                        .font(.system(size: 14, weight: .bold))
+                                        .padding(.top, 5)
                                 }
-                            }) {
-                                Text(showAllAliases ? String(localized: "show_less") : String(localized: "show_all"))
-                                    .font(.system(size: 14, weight: .bold))
-                                    .padding(.top, 5)
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
                     }
 
@@ -110,6 +117,8 @@ struct RecipientsDetailView: View {
                                 .clipShape(Capsule())
                         }
                     }
+                } footer: {
+                    Text(String(localized: "recipient_aliases_desc"))
                 }.textCase(nil)
                 
                 Section {

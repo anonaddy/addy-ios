@@ -328,11 +328,13 @@ struct RulesView: View {
                                         if rule.active {
                                             Text(rule.name)
                                                 .font(.headline)
+                                                .lineLimit(1)
                                                 .truncationMode(.tail)
                                                 .frame(minWidth: 20)
                                         } else {
                                             Text(rule.name)
                                                 .font(.headline)
+                                                .lineLimit(1)
                                                 .truncationMode(.tail)
                                                 .frame(minWidth: 20)
                                                 .opacity(0.5)

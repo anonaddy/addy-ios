@@ -49,6 +49,7 @@ struct RecipientsView: View {
                                 VStack(alignment: .leading) {
                                     Text(recipient.email)
                                         .font(.headline)
+                                        .lineLimit(1)
                                         .truncationMode(.tail)
                                         .frame(minWidth: 20)
 
@@ -56,6 +57,7 @@ struct RecipientsView: View {
                                         Text(String(localized: "not_verified"))
                                             .font(.caption)
                                             .opacity(0.625)
+                                            .lineLimit(1)
                                             .truncationMode(.middle)
                                             .foregroundStyle(.red)
                                     } else {
@@ -64,11 +66,13 @@ struct RecipientsView: View {
                                             Text(description)
                                                 .font(.caption)
                                                 .opacity(0.625)
+                                                .lineLimit(1)
                                                 .truncationMode(.middle)
                                         } else {
                                             Text(String(format: String(format: String(localized: "recipients_list_description"), String(recipient.aliases_count ?? 0))))
                                                 .font(.caption)
                                                 .opacity(0.625)
+                                                .lineLimit(1)
                                                 .truncationMode(.middle)
                                         }
                                         

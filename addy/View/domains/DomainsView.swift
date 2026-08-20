@@ -75,6 +75,7 @@ struct DomainsView: View {
                                 VStack(alignment: .leading) {
                                     Text(domain.domain)
                                         .font(.headline)
+                                        .lineLimit(1)
                                         .truncationMode(.tail)
                                         .frame(minWidth: 20)
 
@@ -82,14 +83,24 @@ struct DomainsView: View {
                                         Text(String(localized: "configuration_error"))
                                             .font(.caption)
                                             .opacity(0.625)
+                                            .lineLimit(1)
                                             .truncationMode(.middle)
                                             .foregroundStyle(.red)
 
                                     } else {
-                                        Text(String(format: String(format: String(localized: "domains_list_description"), String(domain.aliases_count ?? 0))))
-                                            .font(.caption)
-                                            .opacity(0.625)
-                                            .truncationMode(.middle)
+                                        if let description = domain.description {
+                                            Text(description)
+                                                .font(.caption)
+                                                .opacity(0.625)
+                                                .lineLimit(1)
+                                                .truncationMode(.middle)
+                                        } else {
+                                            Text(String(format: String(format: String(localized: "domains_list_description"), String(domain.aliases_count ?? 0))))
+                                                .font(.caption)
+                                                .opacity(0.625)
+                                                .lineLimit(1)
+                                                .truncationMode(.middle)
+                                        }
                                     }
                                 }
                                 .padding(.vertical, 4)
