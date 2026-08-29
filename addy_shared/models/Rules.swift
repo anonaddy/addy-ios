@@ -8,7 +8,7 @@
 import Foundation
 
 /// The Action struct represents an action with a unique identifier (UUID), type, and value.
-public struct Action: Identifiable, Hashable, Codable {
+public struct Action: Identifiable, Hashable, Codable, Sendable {
     /// The id is a unique identifier for each action. It's a UUID which is a universally unique identifier.
     public var id: UUID
     /// The type of the action.
@@ -59,7 +59,7 @@ public struct Action: Identifiable, Hashable, Codable {
 }
 
 /// The Condition struct represents a condition with a unique identifier (UUID), type, match, and values.
-public struct Condition: Identifiable, Hashable, Codable {
+public struct Condition: Identifiable, Hashable, Codable, Sendable {
     // The id is a unique identifier for each condition. It's a UUID which is a universally unique identifier.
     public var id: UUID
     public let type: String
@@ -104,15 +104,11 @@ public struct Condition: Identifiable, Hashable, Codable {
     }
 }
 
-struct SingleRule: Codable {
+struct SingleRule: Codable, Sendable {
     var data: Rules
 }
 
-public struct RulesArray: Codable {
-    public var data: [Rules]
-}
-
-public struct Rules: Identifiable, Codable {
+public struct Rules: Identifiable, Codable, Sendable {
     public let id: String
     let user_id: String
     public var name: String

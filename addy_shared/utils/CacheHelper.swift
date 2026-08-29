@@ -10,11 +10,11 @@ import Foundation
 public enum CacheHelper {
     public static func getBackgroundServiceCacheMostActiveAliasesData() -> [Aliases]? {
         let aliasesJson = SettingsManager(encrypted: true).getSettingsString(key: .backgroundServiceCacheMostActiveAliasesData)
-        return aliasesJson != nil ? GsonTools.jsonToAliasObject(json: aliasesJson!) : nil
+        return aliasesJson.flatMap { GsonTools.jsonToAliasObject(json: $0) }
     }
 
     public static func getBackgroundServiceCacheUserResource() -> UserResource? {
         let userResourceJson = SettingsManager(encrypted: true).getSettingsString(key: .userResource)
-        return userResourceJson != nil ? GsonTools.jsonToUserResourceObject(json: userResourceJson!) : nil
+        return userResourceJson.flatMap { GsonTools.jsonToUserResourceObject(json: $0) }
     }
 }

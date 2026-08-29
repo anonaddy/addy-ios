@@ -5,7 +5,7 @@
 //  Created by Stijn van de Water on 09/05/2024.
 //
 
-public struct AliasSortFilter: Codable, Equatable {
+public struct AliasSortFilter: Codable, Equatable, Sendable {
     public var aliasSortFilterRequest: AliasSortFilterRequest
 
     public var filterId: String? // MARK: iOS only
@@ -19,7 +19,7 @@ public struct AliasSortFilter: Codable, Equatable {
     }
 }
 
-public struct AliasSortFilterRequest: Codable, Equatable {
+public struct AliasSortFilterRequest: Codable, Equatable, Sendable {
     public var onlyActiveAliases: Bool
     public var onlyDeletedAliases: Bool
     public var onlyInactiveAliases: Bool

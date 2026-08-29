@@ -4,16 +4,11 @@
 //
 //  Created by Stijn van de Water on 20/05/2024.
 //
-
-public struct DomainsArray: Codable {
-    public var data: [Domains]
-}
-
-struct SingleDomain: Codable {
+struct SingleDomain: Codable, Sendable {
     let data: Domains
 }
 
-public struct Domains: Identifiable, Codable {
+public struct Domains: Identifiable, Codable, Sendable {
     public let id: String
     let user_id: String
     public let domain: String
@@ -33,7 +28,7 @@ public struct Domains: Identifiable, Codable {
     public let updated_at: String
 }
 
-public struct DomainOptions: Codable {
+public struct DomainOptions: Codable, Sendable {
     public let data, sharedDomains: [String]
     public let defaultAliasDomain, defaultAliasFormat: String
 }

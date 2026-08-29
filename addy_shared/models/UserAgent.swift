@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserAgent {
+struct UserAgent: Sendable {
     var userAgentApplicationID: String
     var userAgentVersion: String
     var userAgentVersionCode: Int

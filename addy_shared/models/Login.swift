@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Login: Decodable {
+public struct Login: Decodable, Sendable {
     public let api_key: String
     let name: String
     let created_at: String
@@ -15,12 +15,12 @@ public struct Login: Decodable {
 }
 
 /// 422
-public struct LoginMfaRequired: Decodable {
+public struct LoginMfaRequired: Decodable, Sendable {
     let message: String
     public let mfa_key: String
 }
 
 /// 401
-struct LoginError: Decodable {
+struct LoginError: Decodable, Sendable {
     let message: String
 }

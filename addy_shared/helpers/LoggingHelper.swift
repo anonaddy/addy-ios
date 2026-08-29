@@ -18,7 +18,7 @@ public class LoggingHelper {
 
     public init(logFile: LogFiles = .default) {
         settingsManager = SettingsManager(encrypted: false)
-        prefs = UserDefaults(suiteName: logFile.rawValue)!
+        prefs = UserDefaults(suiteName: logFile.rawValue) ?? UserDefaults.standard
     }
 
     public func setList(logs: [Logs]?) {
@@ -41,7 +41,7 @@ public class LoggingHelper {
 
     public func clearLogs() {
         prefs.removeObject(forKey: "logs")
-        addLog(importance: .info, error: NSLocalizedString("logs_cleared", bundle: Bundle(for: LoggingHelper.self), comment: ""), method: "getLogs()", extra: nil)
+        addLog(importance: .info, error: NSLocalizedString("logs_cleared", bundle: Bundle(for: LoggingHelper.self), comment: ""), method: "clearLogs()", extra: nil)
     }
 
     private func getDateTime() -> String {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Logs: Codable, Identifiable {
+public struct Logs: Codable, Identifiable, Sendable {
     public var id = UUID() // Add this line
 
     /*
@@ -45,7 +45,7 @@ public func stringToLogs(_ jsonString: String) -> [Logs] {
     return logs
 }
 
-public enum LogImportance: Int, Encodable, Decodable {
+public enum LogImportance: Int, Encodable, Decodable, Sendable {
     case critical = 0
     case warning = 1
     case info = 2

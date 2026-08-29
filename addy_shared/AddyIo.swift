@@ -48,10 +48,6 @@ public enum AddyIo {
         "\(API_BASE_URL)/api/v1/pinned-aliases"
     }
 
-    static var API_URL_ALIAS_RECIPIENTS: String {
-        "\(API_BASE_URL)/api/v1/alias-recipients"
-    }
-
     static var API_URL_DOMAIN_OPTIONS: String {
         "\(API_BASE_URL)/api/v1/domain-options"
     }
@@ -148,10 +144,6 @@ public enum AddyIo {
         "\(API_BASE_URL)/api/v1/app-version"
     }
 
-    static var API_URL_CHART_DATA: String {
-        "\(API_BASE_URL)/api/v1/chart-data"
-    }
-
     static var API_URL_BLOCKLIST: String {
         "\(API_BASE_URL)/api/v1/blocklist"
     }
@@ -162,6 +154,38 @@ public enum AddyIo {
     
     static var API_URL_ALIASES_LABELS_BULK: String {
         "\(API_BASE_URL)/api/v1/aliases/labels/bulk"
+    }
+
+    static var API_URL_ALIASES_DELETE_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/delete/bulk"
+    }
+
+    static var API_URL_ALIASES_RESTORE_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/restore/bulk"
+    }
+
+    static var API_URL_ALIASES_FORGET_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/forget/bulk"
+    }
+
+    static var API_URL_ALIASES_ACTIVATE_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/activate/bulk"
+    }
+
+    static var API_URL_ALIASES_DEACTIVATE_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/deactivate/bulk"
+    }
+
+    static var API_URL_ALIASES_PIN_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/pin/bulk"
+    }
+
+    static var API_URL_ALIASES_UNPIN_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/unpin/bulk"
+    }
+
+    static var API_URL_ALIASES_RECIPIENTS_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/recipients/bulk"
     }
 
     static var API_URL_LOGIN: String {

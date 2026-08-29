@@ -6,7 +6,10 @@
 //
 
 import Foundation
+#if os(iOS)
 import UIKit
+import UserNotifications
+#endif
 
 public class SettingsManager {
     public enum Prefs {
@@ -179,24 +182,6 @@ public class SettingsManager {
         }
     }
 
-    func putSettingsFloat(key: Prefs, float: Float) {
-        let userKey = "\(user)_\(key)"
-        if useKeychain {
-            keychain.set("\(float)", forKey: userKey, withAccess: .accessibleAfterFirstUnlock)
-        } else {
-            prefs?.set(float, forKey: userKey)
-        }
-    }
-
-    func getSettingsFloat(key: Prefs) -> Float {
-        let userKey = "\(user)_\(key)"
-        if useKeychain {
-            return Float(keychain.get(userKey)!) ?? 0.0
-        } else {
-            return prefs?.float(forKey: userKey) ?? 0.0
-        }
-    }
-
     public func putStringSet(key: Prefs, mutableSet: Set<String>) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
@@ -239,16 +224,24 @@ public class SettingsManager {
         if useKeychain {
             keychain.clear()
         } else {
-            #if DEBUG
-                let suiteName = "group.host.stjin.addy.debug"
-
+            #if os(watchOS)
+                #if DEBUG
+                    let suiteName = "group.host.stjin.addy.debug.watchkitapp"
+                #else
+                    let suiteName = "group.host.stjin.addy.watchkitapp"
+                #endif
             #else
-                let suiteName = "group.host.stjin.addy"
+                #if DEBUG
+                    let suiteName = "group.host.stjin.addy.debug"
+                #else
+                    let suiteName = "group.host.stjin.addy"
+                #endif
             #endif
 
-            let keys = UserDefaults(suiteName: suiteName)?.dictionaryRepresentation().keys
-            for key in keys! {
-                prefs?.removeObject(forKey: key)
+            if let keys = UserDefaults(suiteName: suiteName)?.dictionaryRepresentation().keys {
+                for key in keys {
+                    prefs?.removeObject(forKey: key)
+                }
             }
         }
 

@@ -6,16 +6,11 @@
 //
 
 import Foundation
-
-public struct LabelsArray: Codable {
-    public var data: [Labels]
-}
-
-struct SingleLabel: Codable {
+struct SingleLabel: Codable, Sendable {
     let data: Labels
 }
 
-public struct Labels: Codable, Identifiable, Hashable {
+public struct Labels: Codable, Identifiable, Hashable, Sendable {
     public var id: String
     public var user_id: String
     public var name: String
@@ -25,9 +20,9 @@ public struct Labels: Codable, Identifiable, Hashable {
     public var updated_at: String
 }
 
-public struct NewLabel: Codable {
-    let name: String
-    let colour: String
+public struct NewLabel: Codable, Sendable {
+    public let name: String
+    public let colour: String
 
     public init(name: String, colour: String) {
         self.name = name
@@ -35,12 +30,4 @@ public struct NewLabel: Codable {
     }
 }
 
-public struct UpdateLabel: Codable {
-    let name: String
-    let colour: String
-
-    public init(name: String, colour: String) {
-        self.name = name
-        self.colour = colour
-    }
-}
+public typealias UpdateLabel = NewLabel

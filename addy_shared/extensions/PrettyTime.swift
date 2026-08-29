@@ -6,42 +6,61 @@
 import Foundation
 
 public extension Date {
+    private static let shortTimeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .none
+        return formatter
+    }()
+
+    private static let mediumDateTimeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter
+    }()
+
+    private static let mediumDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
+
     func futureDateDisplay() -> String {
         let calendar = Calendar.current
-        let minutesUntil = calendar.date(byAdding: .minute, value: 1, to: Date())!
-        let hourUntil = calendar.date(byAdding: .hour, value: 1, to: Date())!
-        let dayUntil = calendar.date(byAdding: .day, value: 1, to: Date())!
-        let weekUntil = calendar.date(byAdding: .day, value: 7, to: Date())!
-        let monthUntil = calendar.date(byAdding: .month, value: 1, to: Date())!
-        let yearUntil = calendar.date(byAdding: .year, value: 1, to: Date())!
+        let now = Date()
+        let minutesUntil = calendar.date(byAdding: .minute, value: 1, to: now) ?? now
+        let hourUntil = calendar.date(byAdding: .hour, value: 1, to: now) ?? now
+        let dayUntil = calendar.date(byAdding: .day, value: 1, to: now) ?? now
+        let weekUntil = calendar.date(byAdding: .day, value: 7, to: now) ?? now
+        let monthUntil = calendar.date(byAdding: .month, value: 1, to: now) ?? now
+        let yearUntil = calendar.date(byAdding: .year, value: 1, to: now) ?? now
 
         if minutesUntil > self {
-            let diff = Calendar.current.dateComponents([.second], from: Date(), to: self).second ?? 0
+            let diff = calendar.dateComponents([.second], from: now, to: self).second ?? 0
             return String(format: NSLocalizedString("d_sec_from_now_on", bundle: Bundle(for: SharedData.self), comment: ""), diff)
         } else if hourUntil > self {
-            let diff = Calendar.current.dateComponents([.minute], from: Date(), to: self).minute ?? 0
+            let diff = calendar.dateComponents([.minute], from: now, to: self).minute ?? 0
             return String(format: NSLocalizedString("d_min_from_now_on", bundle: Bundle(for: SharedData.self), comment: ""), diff)
         } else if dayUntil > self {
-            let diff = Calendar.current.dateComponents([.hour], from: Date(), to: self).hour ?? 0
+            let diff = calendar.dateComponents([.hour], from: now, to: self).hour ?? 0
             return String(format: NSLocalizedString("d_hrs_from_now_on", bundle: Bundle(for: SharedData.self), comment: ""), diff)
         } else if weekUntil > self {
-            let diff = Calendar.current.dateComponents([.day], from: Date(), to: self).day ?? 0
+            let diff = calendar.dateComponents([.day], from: now, to: self).day ?? 0
             return String(format: NSLocalizedString("d_days_from_now_on", bundle: Bundle(for: SharedData.self), comment: ""), diff)
         } else if monthUntil > self {
-            let diff = Calendar.current.dateComponents([.weekOfMonth], from: Date(), to: self).weekOfMonth ?? 0
+            let diff = calendar.dateComponents([.weekOfMonth], from: now, to: self).weekOfMonth ?? 0
             return String(format: NSLocalizedString("d_weeks_from_now_on", bundle: Bundle(for: SharedData.self), comment: ""), diff)
         } else if yearUntil > self {
-            let diff = Calendar.current.dateComponents([.month], from: Date(), to: self).month ?? 0
+            let diff = calendar.dateComponents([.month], from: now, to: self).month ?? 0
             return String(format: NSLocalizedString("d_months_from_now_on", bundle: Bundle(for: SharedData.self), comment: ""), diff)
         } else {
-            let diff = Calendar.current.dateComponents([.year], from: Date(), to: self).year ?? 0
+            let diff = calendar.dateComponents([.year], from: now, to: self).year ?? 0
             if diff > 1 {
                 return String(format: NSLocalizedString("d_years_from_now_on", bundle: Bundle(for: SharedData.self), comment: ""), diff)
             } else {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateStyle = .medium
-                dateFormatter.timeStyle = .short
-                return dateFormatter.string(from: self)
+                return Date.mediumDateTimeFormatter.string(from: self)
             }
         }
     }
@@ -87,32 +106,21 @@ public extension Date {
                                     return String(format: NSLocalizedString("d_months_ago", bundle: Bundle(for: SharedData.self), comment: ""), diffMonths)
                                 }
                             } else {
-                                let dateFormatter = DateFormatter()
-                                dateFormatter.dateStyle = .medium
-                                dateFormatter.timeStyle = .none
-                                return dateFormatter.string(from: self)
+                                return Date.mediumDateFormatter.string(from: self)
                             }
                         }
                     }
                 }
             }
         } else if calendar.isDateInYesterday(self) {
-            let timeFormatter = DateFormatter()
-            timeFormatter.timeStyle = .short
-            timeFormatter.dateStyle = .none
-            return String(format: NSLocalizedString("yesterday_at", bundle: Bundle(for: SharedData.self), comment: ""), timeFormatter.string(from: self))
+            return String(format: NSLocalizedString("yesterday_at", bundle: Bundle(for: SharedData.self), comment: ""), Date.shortTimeFormatter.string(from: self))
         } else if let weekAgo = calendar.date(byAdding: .day, value: -7, to: currentDate), self >= weekAgo {
             let weekday = calendar.component(.weekday, from: self)
-            let dayName = DateFormatter().weekdaySymbols[weekday - 1].lowercased()
-            let timeFormatter = DateFormatter()
-            timeFormatter.timeStyle = .short
-            timeFormatter.dateStyle = .none
-            return String(format: NSLocalizedString("last_d_at", bundle: Bundle(for: SharedData.self), comment: ""), dayName, timeFormatter.string(from: self))
+            let weekdaySymbols = Date.shortTimeFormatter.weekdaySymbols ?? Calendar.current.weekdaySymbols
+            let dayName = weekdaySymbols[weekday - 1].lowercased()
+            return String(format: NSLocalizedString("last_d_at", bundle: Bundle(for: SharedData.self), comment: ""), dayName, Date.shortTimeFormatter.string(from: self))
         } else {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
-            dateFormatter.timeStyle = .short
-            return dateFormatter.string(from: self)
+            return Date.mediumDateTimeFormatter.string(from: self)
         }
     }
 }

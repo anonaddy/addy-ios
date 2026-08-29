@@ -6,13 +6,11 @@
 //
 
 import Foundation
+#if canImport(SwiftHTMLtoMarkdown)
 import SwiftHTMLtoMarkdown
+#endif
 
-public struct AccountNotificationsArray: Codable {
-    public let data: [AccountNotifications]
-}
-
-public struct AccountNotifications: Identifiable, Codable {
+public struct AccountNotifications: Identifiable, Codable, Sendable {
     public let created_at: String
     public let id: String
     public let link: String?
@@ -21,6 +19,7 @@ public struct AccountNotifications: Identifiable, Codable {
     public let title: String
 
     public func textAsMarkdown() -> String {
+        #if canImport(SwiftHTMLtoMarkdown)
         do {
             var document = BasicHTML(rawHTML: text)
             try document.parse()
@@ -30,5 +29,8 @@ public struct AccountNotifications: Identifiable, Codable {
             print("There's an error converting to markdown, return the original text \(error)")
             return text
         }
+        #else
+        return text
+        #endif
     }
 }

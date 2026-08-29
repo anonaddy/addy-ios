@@ -4,16 +4,11 @@
 //
 //  Created by Stijn van de Water on 01/06/2024.
 //
-
-public struct UsernamesArray: Codable {
-    public var data: [Usernames]
-}
-
-struct SingleUsername: Codable {
+struct SingleUsername: Codable, Sendable {
     let data: Usernames
 }
 
-public struct Usernames: Identifiable, Codable {
+public struct Usernames: Identifiable, Codable, Sendable {
     public let id: String
     let user_id: String
     public let username: String

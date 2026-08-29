@@ -8,27 +8,22 @@
 import Foundation
 
 public class GsonTools {
-    public static func jsonToAliasObject(json: String) -> [Aliases]? {
+    public static func decode<T: Decodable>(_ type: T.Type = T.self, from json: String) -> T? {
         let loggingHelper = LoggingHelper()
-
         do {
-            let jsonData = json.data(using: .utf8)!
-            return try JSONDecoder().decode([Aliases].self, from: jsonData)
+            guard let jsonData = json.data(using: .utf8) else { return nil }
+            return try JSONDecoder().decode(type, from: jsonData)
         } catch {
-            loggingHelper.addLog(importance: LogImportance.critical, error: error.localizedDescription, method: "jsonToAliasObject", extra: nil)
+            loggingHelper.addLog(importance: LogImportance.critical, error: error.localizedDescription, method: "decode<\(T.self)>", extra: nil)
             return nil
         }
     }
 
-    public static func jsonToUserResourceObject(json: String) -> UserResource? {
-        let loggingHelper = LoggingHelper()
+    public static func jsonToAliasObject(json: String) -> [Aliases]? {
+        return decode([Aliases].self, from: json)
+    }
 
-        do {
-            let jsonData = json.data(using: .utf8)!
-            return try JSONDecoder().decode(UserResource.self, from: jsonData)
-        } catch {
-            loggingHelper.addLog(importance: LogImportance.critical, error: error.localizedDescription, method: "jsonToUserResourceObject", extra: nil)
-            return nil
-        }
+    public static func jsonToUserResourceObject(json: String) -> UserResource? {
+        return decode(UserResource.self, from: json)
     }
 }

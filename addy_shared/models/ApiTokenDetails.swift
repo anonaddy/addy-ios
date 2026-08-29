@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ApiTokenDetails: Decodable {
+public struct ApiTokenDetails: Decodable, Sendable {
     let created_at: String
     public let expires_at: String?
     public let name: String
