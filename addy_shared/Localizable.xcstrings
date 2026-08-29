@@ -329,6 +329,12 @@
         }
       }
     },
+    "error_invalid_url" : {
+      "comment" : "Invalid URL"
+    },
+    "error_unauthorized" : {
+      "comment" : "Unauthorized"
+    },
     "error_unknown_refer_to_logs" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         if let shortcutItem = options.shortcutItem {
-            QuickActionsManager.instance.handleQaItem(shortcutItem)
+            QuickActionsManager.shared.handleQaItem(shortcutItem)
         }
 
         let sceneConfiguration = UISceneConfiguration(name: "Custom Configuration", sessionRole: connectingSceneSession.role)
@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
     func windowScene(_: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler _: @escaping (Bool) -> Void) {
-        QuickActionsManager.instance.handleQaItem(shortcutItem)
+        QuickActionsManager.shared.handleQaItem(shortcutItem)
     }
 
     func sceneDidEnterBackground(_: UIScene) {

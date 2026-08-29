@@ -5,93 +5,92 @@ class NatoAlphabet {
     struct NatoItem {
         let character: Character
         let word: String
-        let phonetic: String
     }
 
     static func getWord(_ character: Character) -> NatoItem {
         switch character.lowercased() {
         case "a":
-            return NatoItem(character: character, word: "Alfa", phonetic: "AL FAH")
+            return NatoItem(character: character, word: "Alfa")
         case "b":
-            return NatoItem(character: character, word: "Bravo", phonetic: "BRAH VOH")
+            return NatoItem(character: character, word: "Bravo")
         case "c":
-            return NatoItem(character: character, word: "Charlie", phonetic: "CHAR LEE")
+            return NatoItem(character: character, word: "Charlie")
         case "d":
-            return NatoItem(character: character, word: "Delta", phonetic: "DELL TAH")
+            return NatoItem(character: character, word: "Delta")
         case "e":
-            return NatoItem(character: character, word: "Echo", phonetic: "ECK OH")
+            return NatoItem(character: character, word: "Echo")
         case "f":
-            return NatoItem(character: character, word: "Foxtrot", phonetic: "FOKS TROT")
+            return NatoItem(character: character, word: "Foxtrot")
         case "g":
-            return NatoItem(character: character, word: "Golf", phonetic: "GOLF")
+            return NatoItem(character: character, word: "Golf")
         case "h":
-            return NatoItem(character: character, word: "Hotel", phonetic: "HOH TELL")
+            return NatoItem(character: character, word: "Hotel")
         case "i":
-            return NatoItem(character: character, word: "India", phonetic: "IN DEE AH")
+            return NatoItem(character: character, word: "India")
         case "j":
-            return NatoItem(character: character, word: "Juliett", phonetic: "JEW LEE ETT")
+            return NatoItem(character: character, word: "Juliett")
         case "k":
-            return NatoItem(character: character, word: "Kilo", phonetic: "KEY LOH")
+            return NatoItem(character: character, word: "Kilo")
         case "l":
-            return NatoItem(character: character, word: "Lima", phonetic: "LEE MAH")
+            return NatoItem(character: character, word: "Lima")
         case "m":
-            return NatoItem(character: character, word: "Mike", phonetic: "MIKE")
+            return NatoItem(character: character, word: "Mike")
         case "n":
-            return NatoItem(character: character, word: "November", phonetic: "NO VEM BER")
+            return NatoItem(character: character, word: "November")
         case "o":
-            return NatoItem(character: character, word: "Oscar", phonetic: "OSS CAH")
+            return NatoItem(character: character, word: "Oscar")
         case "p":
-            return NatoItem(character: character, word: "Papa", phonetic: "PAH PAH")
+            return NatoItem(character: character, word: "Papa")
         case "q":
-            return NatoItem(character: character, word: "Quebec", phonetic: "KEH BECK")
+            return NatoItem(character: character, word: "Quebec")
         case "r":
-            return NatoItem(character: character, word: "Romeo", phonetic: "ROW ME OH")
+            return NatoItem(character: character, word: "Romeo")
         case "s":
-            return NatoItem(character: character, word: "Sierra", phonetic: "SEE AIRRAH")
+            return NatoItem(character: character, word: "Sierra")
         case "t":
-            return NatoItem(character: character, word: "Tango", phonetic: "TANG GO")
+            return NatoItem(character: character, word: "Tango")
         case "u":
-            return NatoItem(character: character, word: "Uniform", phonetic: "YOU NEE FORM")
+            return NatoItem(character: character, word: "Uniform")
         case "v":
-            return NatoItem(character: character, word: "Victor", phonetic: "VIK TAH")
+            return NatoItem(character: character, word: "Victor")
         case "w":
-            return NatoItem(character: character, word: "Whiskey", phonetic: "WISS KEY")
+            return NatoItem(character: character, word: "Whiskey")
         case "x":
-            return NatoItem(character: character, word: "X-ray", phonetic: "ECKS RAY")
+            return NatoItem(character: character, word: "X-ray")
         case "y":
-            return NatoItem(character: character, word: "Yankee", phonetic: "YANG KEY")
+            return NatoItem(character: character, word: "Yankee")
         case "z":
-            return NatoItem(character: character, word: "Zulu", phonetic: "ZOO LOO")
+            return NatoItem(character: character, word: "Zulu")
         case "0":
-            return NatoItem(character: character, word: "Zero", phonetic: "ZE RO")
+            return NatoItem(character: character, word: "Zero")
         case "1":
-            return NatoItem(character: character, word: "One", phonetic: "WUN")
+            return NatoItem(character: character, word: "One")
         case "2":
-            return NatoItem(character: character, word: "Two", phonetic: "TOO")
+            return NatoItem(character: character, word: "Two")
         case "3":
-            return NatoItem(character: character, word: "Three", phonetic: "TREE")
+            return NatoItem(character: character, word: "Three")
         case "4":
-            return NatoItem(character: character, word: "Four", phonetic: "FOW ER")
+            return NatoItem(character: character, word: "Four")
         case "5":
-            return NatoItem(character: character, word: "Five", phonetic: "FIFE")
+            return NatoItem(character: character, word: "Five")
         case "6":
-            return NatoItem(character: character, word: "Six", phonetic: "SIX")
+            return NatoItem(character: character, word: "Six")
         case "7":
-            return NatoItem(character: character, word: "Seven", phonetic: "SEV EN")
+            return NatoItem(character: character, word: "Seven")
         case "8":
-            return NatoItem(character: character, word: "Eight", phonetic: "AIT")
+            return NatoItem(character: character, word: "Eight")
         case "9":
-            return NatoItem(character: character, word: "Nine", phonetic: "NIN ER")
+            return NatoItem(character: character, word: "Nine")
         case ".":
-            return NatoItem(character: character, word: "Dot", phonetic: "DOT")
+            return NatoItem(character: character, word: "Dot")
         case "@":
-            return NatoItem(character: character, word: "At", phonetic: "AT")
+            return NatoItem(character: character, word: "At")
         case "-":
-            return NatoItem(character: character, word: "Dash", phonetic: "DASH")
+            return NatoItem(character: character, word: "Dash")
         case "_":
-            return NatoItem(character: character, word: "Underscore", phonetic: "UNDERSCORE")
+            return NatoItem(character: character, word: "Underscore")
         default:
-            return NatoItem(character: character, word: String(character), phonetic: "")
+            return NatoItem(character: character, word: String(character))
         }
     }
 }

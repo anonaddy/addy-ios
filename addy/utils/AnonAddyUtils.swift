@@ -7,13 +7,12 @@
 
 import addy_shared
 import Foundation
-import SwiftUI
 
 class AnonAddyUtils {
     static func getSendAddress(recipientEmails: [String], alias: Aliases) -> [String] {
         var toAddresses = [String]()
 
-        for (_, email) in recipientEmails.enumerated() {
+        for email in recipientEmails {
             let leftPartOfAlias = alias.local_part
             let domain = alias.domain
             let recipientLeftPartOfEmail = email.components(separatedBy: "@").first ?? ""
