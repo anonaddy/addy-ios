@@ -10,11 +10,9 @@ import SwiftUI
 
 struct ValidatingTextField: View {
     @Binding var value: String
-    @Binding var placeholder: String
+    var placeholder: String
     @Binding var error: String?
-
     var fieldType: FieldType
-    // Add a public initializer
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -29,7 +27,7 @@ struct ValidatingTextField: View {
                             }
                             .frame(height: 150)
                             .scrollContentBackground(.hidden)
-                            .disableAutocorrection(true)
+                            .autocorrectionDisabled(true)
                             .keyboardType(fieldType.getKeyboardType())
                     }
                     .scrollContentBackground(.hidden)
@@ -37,7 +35,7 @@ struct ValidatingTextField: View {
 
                 }.overlay {
                     if value.isEmpty {
-                        TextEditor(text: self.$placeholder)
+                        TextEditor(text: .constant(placeholder))
                             .font(.body)
                             .foregroundColor(.gray.opacity(0.5))
                             .disabled(true)
@@ -53,7 +51,7 @@ struct ValidatingTextField: View {
                         }
                     }
 
-                    .disableAutocorrection(true)
+                    .autocorrectionDisabled(true)
                     .keyboardType(fieldType.getKeyboardType())
 
             } else {
@@ -64,7 +62,7 @@ struct ValidatingTextField: View {
                         }
                     }
 
-                    .disableAutocorrection(true)
+                    .autocorrectionDisabled(true)
                     .keyboardType(fieldType.getKeyboardType())
             }
 
@@ -83,9 +81,16 @@ struct ValidatingTextField: View {
         }
     }
 
+    init(value: Binding<String>, placeholder: String, fieldType: FieldType, error: Binding<String?>) {
+        _value = value
+        self.placeholder = placeholder
+        self.fieldType = fieldType
+        _error = error
+    }
+
     init(value: Binding<String>, placeholder: Binding<String>, fieldType: FieldType, error: Binding<String?>) {
         _value = value
-        _placeholder = placeholder
+        self.placeholder = placeholder.wrappedValue
         self.fieldType = fieldType
         _error = error
     }
@@ -93,10 +98,9 @@ struct ValidatingTextField: View {
 
 struct ValidatingTextField_Previews: PreviewProvider {
     static var previews: some View {
-        @State var addressesPlaceholder = String(localized: "addresses")
         @State var addressesValidationError: String?
         @State var addresses = ""
 
-        ValidatingTextField(value: $addresses, placeholder: $addressesPlaceholder, fieldType: .bigText, error: $addressesValidationError)
+        ValidatingTextField(value: $addresses, placeholder: String(localized: "addresses"), fieldType: .bigText, error: $addressesValidationError)
     }
 }

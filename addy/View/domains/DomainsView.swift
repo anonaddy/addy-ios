@@ -11,7 +11,7 @@ import SwiftUI
 struct DomainsView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
-    @StateObject var domainsViewModel = DomainsViewModel()
+    @StateObject private var domainsViewModel = DomainsViewModel()
 
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
@@ -47,8 +47,8 @@ struct DomainsView: View {
             }
         }.onAppear(perform: {
             // Set stats, update later
-            domain_count = mainViewState.userResource!.active_domain_count
-            domain_limit = mainViewState.userResource!.active_domain_limit
+            domain_count = mainViewState.userResource?.active_domain_count ?? 0
+            domain_limit = mainViewState.userResource?.active_domain_limit
 
             if let domains = domainsViewModel.domains {
                 if domains.data.isEmpty {
@@ -95,7 +95,7 @@ struct DomainsView: View {
                                                 .lineLimit(1)
                                                 .truncationMode(.middle)
                                         } else {
-                                            Text(String(format: String(format: String(localized: "domains_list_description"), String(domain.aliases_count ?? 0))))
+                                            Text(String(format: String(localized: "domains_list_description"), String(domain.aliases_count ?? 0)))
                                                 .font(.caption)
                                                 .opacity(0.625)
                                                 .lineLimit(1)
@@ -138,7 +138,7 @@ struct DomainsView: View {
                         }
 
                     } footer: {
-                        Text(String(format: String(localized: "you_ve_used_d_out_of_d_domains"), String(domain_count), (mainViewState.userResource!.subscription != nil ? String(domain_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited")))).padding(.top)
+                        Text(String(format: String(localized: "you_ve_used_d_out_of_d_domains"), String(domain_count), ((mainViewState.userResource?.subscription != nil && domain_limit != nil) ? String(domain_limit!) : String(localized: "unlimited")))).padding(.top)
 
                     }.textCase(nil)
                 }
@@ -261,16 +261,15 @@ struct DomainsView: View {
                     Image(systemName: "plus")
                         .frame(width: 24, height: 24)
                 } // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
-                .disabled(mainViewState.userResource!.subscription != nil &&
-                    domain_count >= domain_limit! /* Cannot be nil since subscription is not nil */ )
+                .disabled(mainViewState.userResource?.subscription != nil &&
+                    domain_limit != nil && domain_count >= domain_limit!)
             }
         }
     }
 
     private func deleteDomain(domain: Domains) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteDomain(domainId: domain.id)
+            let result = try await DomainRepository.shared.deleteDomain(domainId: domain.id)
             if result == "204" {
                 await getUserResource()
                 await domainsViewModel.getDomains()
@@ -303,20 +302,13 @@ struct DomainsView: View {
     }
 
     private func getUserResource() async {
-        let networkHelper = NetworkHelper()
         do {
-            let userResource = try await networkHelper.getUserResource()
-            if let userResource = userResource {
-                // Don't update mainView, this will refresh the entire view hierarchy
-                domain_limit = userResource.active_domain_limit
-                domain_count = userResource.active_domain_count
-            } else {
-                activeAlert = .error
-                showAlert = true
-                errorAlertTitle = ""
-                errorAlertMessage = String(localized: "something_went_wrong_retrieving_domains")
-            }
+            let userResource = try await UserRepository.shared.getUserResource()
+            // Don't update mainView, this will refresh the entire view hierarchy
+            domain_limit = userResource.active_domain_limit
+            domain_count = userResource.active_domain_count
         } catch {
+            guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
             activeAlert = .error
             showAlert = true
             errorAlertTitle = String(localized: "something_went_wrong_retrieving_domains")

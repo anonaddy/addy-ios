@@ -28,7 +28,7 @@ struct SetupOnboarding: View {
 
                 // Night mode overlay
                 Rectangle()
-                    .fill(.nightMode)
+                    .fill(Color(uiColor: .systemBackground))
                     .opacity(0.6)
                     .ignoresSafeArea()
 

@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct EditUsernameRecipientsBottomSheet: View {
@@ -16,10 +15,16 @@ struct EditUsernameRecipientsBottomSheet: View {
     @State var selectedRecipientChip: [String]
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
     @State private var recipientsRequestError: String? = ""
-    @State var IsLoadingSaveButton: Bool = false
+    @State var isLoadingSaveButton: Bool = false
 
     let usernameId: String
     let recipientsEdited: (Usernames) -> Void
+
+    init(usernameId: String, selectedRecipientId: String?, recipientsEdited: @escaping (Usernames) -> Void) {
+        self.usernameId = usernameId
+        self._selectedRecipientChip = State(initialValue: selectedRecipientId != nil ? [selectedRecipientId!] : [])
+        self.recipientsEdited = recipientsEdited
+    }
 
     var body: some View {
         #if DEBUG
@@ -63,66 +68,57 @@ struct EditUsernameRecipientsBottomSheet: View {
                 }
             }.textCase(nil).listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
 
-        }.navigationTitle(String(localized: "edit_recipients")).pickerStyle(.navigationLink)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        saveButton().buttonStyle(.glassProminent)
-                    } else {
-                        saveButton()
-                    }
+        }
+        .navigationTitle(String(localized: "edit_recipients"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26.0, *) {
+                    saveButton().buttonStyle(.glassProminent)
+                } else {
+                    saveButton()
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                    }
-                }
-            })
-            .task {
-                await getAllRecipients()
             }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
+                }
+            }
+        }
+        .task {
+            await getAllRecipients()
+        }
     }
 
     private func saveButton() -> some View {
         Group {
-            if IsLoadingSaveButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
+            if isLoadingSaveButton {
+                ProgressView().progressViewStyle(.circular)
             } else {
-                AnyView(
-                    Button {
-                        IsLoadingSaveButton = true
+                Button {
+                    isLoadingSaveButton = true
 
-                        Task {
-                            await self.editRecipients()
-                        }
-                    } label: {
-                        Text(String(localized: "save"))
-                    }.disabled(!recipientsLoaded)
-                )
+                    Task {
+                        await self.editRecipients()
+                    }
+                } label: {
+                    Text(String(localized: "save"))
+                }.disabled(!recipientsLoaded)
             }
         }
     }
 
-    init(usernameId: String, selectedRecipientId: String?, recipientsEdited: @escaping (Usernames) -> Void) {
-        self.usernameId = usernameId
-        selectedRecipientChip = selectedRecipientId != nil ? [selectedRecipientId!] : []
-        self.recipientsEdited = recipientsEdited
-    }
-
     private func getAllRecipients() async {
         recipientsRequestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            if let recipients = try await networkHelper.getRecipients(verifiedOnly: true) {
-                recipientsChips = []
-                recipientsLoaded = true
-                withAnimation {
-                    for recipient in recipients {
-                        recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
-                    }
+            let recipients = try await RecipientRepository.shared.getRecipients(verifiedOnly: true)
+            recipientsChips = []
+            recipientsLoaded = true
+            withAnimation {
+                for recipient in recipients {
+                    recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
                 }
             }
         } catch {
@@ -132,13 +128,11 @@ struct EditUsernameRecipientsBottomSheet: View {
 
     private func editRecipients() async {
         recipientsRequestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            if let username = try await networkHelper.updateDefaultRecipientForSpecificUsername(usernameId: usernameId, recipientId: selectedRecipientChip.first) {
-                recipientsEdited(username)
-            }
+            let username = try await UsernameRepository.shared.updateDefaultRecipient(usernameId: usernameId, recipientId: selectedRecipientChip.first)
+            recipientsEdited(username)
         } catch {
-            IsLoadingSaveButton = false
+            isLoadingSaveButton = false
             recipientsRequestError = error.localizedDescription
         }
     }

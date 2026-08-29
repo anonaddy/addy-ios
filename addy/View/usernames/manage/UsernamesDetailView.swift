@@ -8,12 +8,11 @@
 import addy_shared
 import Lottie
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct UsernamesDetailView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) private var dismiss
 
     @Binding var shouldReloadDataInParent: Bool
     @State private var activeAlert: ActiveAlert = .deleteUsername
@@ -26,7 +25,7 @@ struct UsernamesDetailView: View {
     @State private var isActive: Bool = false
     @State private var catchAllEnabled: Bool = false
     @State private var canLogin: Bool = false
-    @State private var isSwitchingisActiveState: Bool = false
+    @State private var isSwitchingActiveState: Bool = false
     @State private var isSwitchingCatchAllEnabledState: Bool = false
     @State private var isSwitchingCanLoginState: Bool = false
     @State private var isPresentingEditUsernameDescriptionBottomSheet: Bool = false
@@ -46,14 +45,13 @@ struct UsernamesDetailView: View {
 
     let usernameId: String
     let usernameUsername: String
-    // Function to add aliases to the list
-
     var body: some View {
         #if DEBUG
             let _ = Self._printChanges()
         #endif
-        if let username = username {
-            Form {
+        Group {
+            if let username = username {
+                Form {
                 Section {
                     Text(String(format: String(localized: "manage_username_basic_info"),
                                 username.username,
@@ -67,24 +65,31 @@ struct UsernamesDetailView: View {
 
                 Section {
                     VStack(alignment: .leading) {
-                        let aliasesToShow = showAllAliases ? aliasList : Array(aliasList.prefix(10))
+                        if aliasList.isEmpty {
+                            Text(String(localized: "no_aliases_directly_assigned"))
+                                .font(.system(size: 14))
+                                .foregroundColor(.secondary)
+                                .padding(.top, 5)
+                        } else {
+                            let aliasesToShow = showAllAliases ? aliasList : Array(aliasList.prefix(10))
 
-                        Text(aliasesToShow.joined(separator: "\n"))
-                            .font(.system(size: 14)) // Set initial font size
-                            .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
-                            .padding(.top, 5)
+                            Text(aliasesToShow.joined(separator: "\n"))
+                                .font(.system(size: 14)) // Set initial font size
+                                .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
+                                .padding(.top, 5)
 
-                        if aliasList.count > 10 {
-                            Button(action: {
-                                withAnimation {
-                                    showAllAliases.toggle()
+                            if aliasList.count > 10 {
+                                Button(action: {
+                                    withAnimation {
+                                        showAllAliases.toggle()
+                                    }
+                                }) {
+                                    Text(showAllAliases ? String(localized: "show_less") : String(localized: "show_all"))
+                                        .font(.system(size: 14, weight: .bold))
+                                        .padding(.top, 5)
                                 }
-                            }) {
-                                Text(showAllAliases ? String(localized: "show_less") : String(localized: "show_all"))
-                                    .font(.system(size: 14, weight: .bold))
-                                    .padding(.top, 5)
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
                     }
 
@@ -105,11 +110,11 @@ struct UsernamesDetailView: View {
                 }.textCase(nil)
 
                 Section {
-                    AddyToggle(isOn: $isActive, isLoading: isSwitchingisActiveState, title: username.active ? String(localized: "username_activated") : String(localized: "username_deactivated"), description: String(localized: "username_status_desc"))
+                    AddyToggle(isOn: $isActive, isLoading: isSwitchingActiveState, title: username.active ? String(localized: "username_activated") : String(localized: "username_deactivated"), description: String(localized: "username_status_desc"))
                         .onChange(of: isActive) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if isActive != username.active {
-                                self.isSwitchingisActiveState = true
+                                self.isSwitchingActiveState = true
 
                                 if username.active {
                                     Task {
@@ -164,14 +169,14 @@ struct UsernamesDetailView: View {
                     }
 
                     AddySection(title: String(localized: "from_name"), description: getFromName(username: username), leadingSystemimage: nil, trailingSystemimage: "pencil") {
-                        if !mainViewState.userResource!.hasUserFreeSubscription() {
+                        if !(mainViewState.userResource?.hasUserFreeSubscription() ?? true) {
                             isPresentingEditUsernameFromNameBottomSheet = true
                         } else {
                             HapticHelper.playHapticFeedback(hapticType: .error)
                         }
                     }
                     AddySection(title: String(localized: "auto_create_regex"), description: getAutoCreateRegex(username: username), leadingSystemimage: nil, trailingSystemimage: "pencil") {
-                        if !mainViewState.userResource!.hasUserFreeSubscription() {
+                        if !(mainViewState.userResource?.hasUserFreeSubscription() ?? true) {
                             isPresentingEditUsernameAutoCreateRegexBottomSheet = true
                         } else {
                             HapticHelper.playHapticFeedback(hapticType: .error)
@@ -199,15 +204,13 @@ struct UsernamesDetailView: View {
                 .refreshable {
                     await getUsername(usernameId: self.usernameId)
                 }
-                .navigationTitle(usernameUsername)
-                .navigationBarTitleDisplayMode(.inline)
                 .sheet(isPresented: $isPresentingEditUsernameDescriptionBottomSheet) {
                     NavigationStack {
                         EditUsernameDescriptionBottomSheet(usernameId: username.id, description: username.description ?? "") { username in
                             self.username = username
                             isPresentingEditUsernameDescriptionBottomSheet = false
 
-                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // This changes the last updated time of the username which is being shown in the list in the usernamesView.
                             // So we update the list when coming back
                             shouldReloadDataInParent = true
                         }
@@ -220,7 +223,7 @@ struct UsernamesDetailView: View {
                             self.username = username
                             isPresentingEditUsernameFromNameBottomSheet = false
 
-                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // This changes the last updated time of the username which is being shown in the list in the usernamesView.
                             // So we update the list when coming back
                             shouldReloadDataInParent = true
                         }
@@ -233,7 +236,7 @@ struct UsernamesDetailView: View {
                             self.username = username
                             isPresentingEditUsernameAutoCreateRegexBottomSheet = false
 
-                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // This changes the last updated time of the username which is being shown in the list in the usernamesView.
                             // So we update the list when coming back
                             shouldReloadDataInParent = true
                         }
@@ -246,7 +249,7 @@ struct UsernamesDetailView: View {
                             self.username = username
                             isPresentingEditUsernameRecipientsBottomSheet = false
 
-                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // This changes the last updated time of the username which is being shown in the list in the usernamesView.
                             // So we update the list when coming back
                             shouldReloadDataInParent = true
                         }
@@ -293,9 +296,10 @@ struct UsernamesDetailView: View {
             }.task {
                 await getUsername(usernameId: self.usernameId)
             }
-            .navigationTitle(usernameUsername)
-            .navigationBarTitleDisplayMode(.inline)
         }
+        }
+        .navigationTitle(usernameUsername)
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     init(usernameId: String, usernameUsername: String, shouldReloadDataInParent: Binding<Bool>) {
@@ -305,22 +309,21 @@ struct UsernamesDetailView: View {
     }
 
     private func getDefaultRecipient(username: Usernames) -> String {
-        if username.default_recipient != nil {
-            return username.default_recipient!.email
+        if let defaultRecipient = username.default_recipient {
+            return defaultRecipient.email
         } else {
-            return String(format: String(localized: "default_recipient_s"), mainViewState.userResourceExtended!.default_recipient_email)
+            return String(format: String(localized: "default_recipient_s"), mainViewState.userResourceExtended?.default_recipient_email ?? "")
         }
     }
 
     private func activateUsername(username: Usernames) async {
-        let networkHelper = NetworkHelper()
         do {
-            let activatedUsername = try await networkHelper.activateSpecificUsername(usernameId: username.id)
-            isSwitchingisActiveState = false
+            let activatedUsername = try await UsernameRepository.shared.activateUsername(usernameId: username.id)
+            isSwitchingActiveState = false
             self.username = activatedUsername
             isActive = true
         } catch {
-            isSwitchingisActiveState = false
+            isSwitchingActiveState = false
             isActive = false
             activeAlert = .error
             showAlert = true
@@ -330,10 +333,9 @@ struct UsernamesDetailView: View {
     }
 
     private func deactivateUsername(username: Usernames) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deactivateSpecificUsername(usernameId: username.id)
-            isSwitchingisActiveState = false
+            let result = try await UsernameRepository.shared.deactivateUsername(usernameId: username.id)
+            isSwitchingActiveState = false
             if result == "204" {
                 self.username?.active = false
                 isActive = false
@@ -345,7 +347,7 @@ struct UsernamesDetailView: View {
                 errorAlertMessage = result
             }
         } catch {
-            isSwitchingisActiveState = false
+            isSwitchingActiveState = false
             isActive = true
             activeAlert = .error
             showAlert = true
@@ -355,9 +357,8 @@ struct UsernamesDetailView: View {
     }
 
     private func enableCatchAll(username: Usernames) async {
-        let networkHelper = NetworkHelper()
         do {
-            let enabledUsername = try await networkHelper.enableCatchAllSpecificUsername(usernameId: username.id)
+            let enabledUsername = try await UsernameRepository.shared.enableCatchAll(usernameId: username.id)
             isSwitchingCatchAllEnabledState = false
             self.username = enabledUsername
             catchAllEnabled = true
@@ -372,9 +373,8 @@ struct UsernamesDetailView: View {
     }
 
     private func disableCatchAll(username: Usernames) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.disableCatchAllSpecificUsername(usernameId: username.id)
+            let result = try await UsernameRepository.shared.disableCatchAll(usernameId: username.id)
             isSwitchingCatchAllEnabledState = false
             if result == "204" {
                 self.username?.catch_all = false
@@ -397,9 +397,8 @@ struct UsernamesDetailView: View {
     }
 
     private func enableCanLogin(username: Usernames) async {
-        let networkHelper = NetworkHelper()
         do {
-            let enabledUsername = try await networkHelper.enableCanLoginSpecificUsername(usernameId: username.id)
+            let enabledUsername = try await UsernameRepository.shared.enableCanLogin(usernameId: username.id)
             isSwitchingCanLoginState = false
             self.username = enabledUsername
             canLogin = true
@@ -414,9 +413,8 @@ struct UsernamesDetailView: View {
     }
 
     private func disableCanLogin(username: Usernames) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.disableCanLoginSpecificUsername(usernameId: username.id)
+            let result = try await UsernameRepository.shared.disableCanLogin(usernameId: username.id)
             isSwitchingCanLoginState = false
             if result == "204" {
                 self.username?.can_login = false
@@ -453,7 +451,7 @@ struct UsernamesDetailView: View {
     }
 
     private func getFromName(username: Usernames) -> String {
-        if mainViewState.userResource!.hasUserFreeSubscription() {
+        if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
             return String(localized: "feature_not_available_subscription")
         } else {
             // Set description based on alias.from_name and initialize the bottom dialog fragment
@@ -466,7 +464,7 @@ struct UsernamesDetailView: View {
     }
 
     private func getAutoCreateRegex(username: Usernames) -> String {
-        if mainViewState.userResource!.hasUserFreeSubscription() {
+        if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
             return String(localized: "feature_not_available_subscription")
         } else {
             // Set description based on alias.auto_create_regex and initialize the bottom dialog fragment
@@ -479,13 +477,12 @@ struct UsernamesDetailView: View {
     }
 
     private func deleteUsername(username: Usernames) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteUsername(usernameId: username.id)
+            let result = try await UsernameRepository.shared.deleteUsername(usernameId: username.id)
             isDeletingUsername = false
             if result == "204" {
                 shouldReloadDataInParent = true
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             } else {
                 activeAlert = .error
                 showAlert = true
@@ -502,28 +499,21 @@ struct UsernamesDetailView: View {
     }
 
     private func getUsername(usernameId: String) async {
-        let networkHelper = NetworkHelper()
         do {
-            if let username = try await networkHelper.getSpecificUsername(usernameId: usernameId) {
-                withAnimation {
-                    self.username = username
-                    self.catchAllEnabled = username.catch_all
-                    self.canLogin = username.can_login
-                    self.isActive = username.active
-                }
-
-                // Reset total counts
-                totalForwarded = 0
-                totalBlocked = 0
-                totalReplies = 0
-                totalSent = 0
-                // Reset total counts
-                totalForwarded = 0
-                totalBlocked = 0
-                totalReplies = 0
-                totalSent = 0
-                await getAliasesAndAddThemToList(username: username)
+            let username = try await UsernameRepository.shared.getUsername(usernameId: usernameId)
+            withAnimation {
+                self.username = username
+                self.catchAllEnabled = username.catch_all
+                self.canLogin = username.can_login
+                self.isActive = username.active
             }
+
+            // Reset total counts
+            totalForwarded = 0
+            totalBlocked = 0
+            totalReplies = 0
+            totalSent = 0
+            await getAliasesAndAddThemToList(username: username)
         } catch {
             withAnimation {
                 self.errorText = error.localizedDescription
@@ -532,12 +522,10 @@ struct UsernamesDetailView: View {
     }
 
     private func getAliasesAndAddThemToList(username: Usernames, workingAliasList: AliasesArray? = nil) async {
-        let networkHelper = NetworkHelper()
         let aliasSortFilterRequest = AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, onlyPinnedAliases: false, sort: nil, sortDesc: false, filter: nil, label: nil)
         do {
-            if let list = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (workingAliasList?.meta?.current_page ?? 0) + 1, size: 100, username: usernameId) {
-                addAliasesToList(username: username, aliasesArray: list, workingAliasListInbound: workingAliasList)
-            }
+            let list = try await AliasRepository.shared.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (workingAliasList?.meta?.current_page ?? 0) + 1, size: 100, username: usernameId)
+            addAliasesToList(username: username, aliasesArray: list, workingAliasListInbound: workingAliasList)
         } catch {
             withAnimation {
                 self.errorText = error.localizedDescription

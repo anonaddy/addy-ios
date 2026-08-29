@@ -27,23 +27,8 @@ struct GradientProgressBar: View {
         }.cornerRadius(10.0)
     }
 }
-
-struct ContentView: View {
-    @State private var progress: Float = 0.5
-
-    var body: some View {
-        VStack {
-            GradientProgressBar(value: $progress)
-                .frame(height: 20)
-                .padding(24)
-            Slider(value: $progress)
-                .padding()
-        }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+#Preview {
+    GradientProgressBar(value: .constant(0.5))
+        .frame(height: 20)
+        .padding()
 }

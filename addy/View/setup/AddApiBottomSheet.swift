@@ -23,19 +23,14 @@ struct AddApiBottomSheet: View {
     @State private var instanceError: String?
     @State private var apiKeyError: String?
     @State private var instance: String
-    @State private var instancePlaceholder: String = .init(localized: "addyio_instance")
     @State private var apiKey: String
-    @State private var apiKeyPlaceholder = String(localized: "APIKey_desc")
     @State private var cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
     @State private var loginType: String = "login" // login or api
     @State private var apiExpiration: String = "never" // day, week, month, year or nil (never)
-    @State private var usernamePlaceholder: String = .init(localized: "registration_username")
     @State private var usernameValidationError: String?
     @State private var username: String = ""
-    @State private var otpPlaceholder: String = .init(localized: "registration_otp")
     @State private var otpValidationError: String?
     @State private var otp: String = ""
-    @State private var passwordPlaceholder: String = .init(localized: "registration_password")
     @State private var passwordValidationError: String?
     @State private var password: String = ""
     @State var isLoadingSignIn: Bool = false
@@ -109,8 +104,7 @@ struct AddApiBottomSheet: View {
                 }.pickerStyle(.segmented)
                 
                 HStack {
-                    ValidatingTextField(value: $instance, placeholder:
-                        $instancePlaceholder, fieldType: .url, error: $instanceError).disabled(apiBaseUrl != nil)
+                    ValidatingTextField(value: $instance, placeholder: String(localized: "addyio_instance"), fieldType: .url, error: $instanceError).disabled(apiBaseUrl != nil)
                     if certificateData != nil {
                         Image(systemName: "lock.fill")
                             .foregroundColor(.green)
@@ -118,18 +112,18 @@ struct AddApiBottomSheet: View {
                 }
 
                 if loginType == "api" {
-                    ValidatingTextField(value: $apiKey, placeholder: $apiKeyPlaceholder, fieldType: .bigText, error: $apiKeyError)
+                    ValidatingTextField(value: $apiKey, placeholder: String(localized: "APIKey_desc"), fieldType: .bigText, error: $apiKeyError)
                 } else {
-                    ValidatingTextField(value: self.$username, placeholder: $usernamePlaceholder, fieldType: .text, error: $usernameValidationError).onAppear {
+                    ValidatingTextField(value: self.$username, placeholder: String(localized: "registration_username"), fieldType: .text, error: $usernameValidationError).onAppear {
                         if apiBaseUrl != nil {
-                            self.username = mainViewState.userResource!.username
+                            self.username = mainViewState.userResource?.username ?? ""
                         }
                     }.disabled(apiBaseUrl != nil)
 
-                    ValidatingTextField(value: self.$password, placeholder: $passwordPlaceholder, fieldType: .password, error: $passwordValidationError)
+                    ValidatingTextField(value: self.$password, placeholder: String(localized: "registration_password"), fieldType: .password, error: $passwordValidationError)
 
                     if otpMfaObject != nil {
-                        ValidatingTextField(value: self.$otp, placeholder: $otpPlaceholder, fieldType: .otp, error: $otpValidationError)
+                        ValidatingTextField(value: self.$otp, placeholder: String(localized: "registration_otp"), fieldType: .otp, error: $otpValidationError)
                     }
 
                     Picker(selection: $apiExpiration, label: Text(String(localized: "login_expiration"))) {
@@ -161,20 +155,29 @@ struct AddApiBottomSheet: View {
                 cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
             }
         }
-        .sheet(isPresented: $showCertificatePicker) {
-            CertificatePicker(certificateData: $certificateData)
+        .fileImporter(
+            isPresented: $showCertificatePicker,
+            allowedContentTypes: [.pkcs12]
+        ) { result in
+            switch result {
+            case .success(let url):
+                guard url.startAccessingSecurityScopedResource() else { return }
+                defer { url.stopAccessingSecurityScopedResource() }
+                do {
+                    certificateData = try Data(contentsOf: url)
+                    showCertificatePasswordSheet = true
+                } catch {
+                    print("Error reading certificate data: \(error)")
+                }
+            case .failure(let error):
+                print("Error selecting certificate: \(error)")
+            }
         }
         .sheet(isPresented: $showCertificatePasswordSheet) {
             CertificatePasswordView(certificateData: $certificateData, certificatePass: $certificatePass)
                 .presentationDetents([.medium])
         }
-        .onChange(of: certificateData) {
-            if certificateData != nil {
-                showCertificatePasswordSheet = true
-            }
-        }
         .navigationTitle(String(localized: "login"))
-        .pickerStyle(.navigationLink)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .confirmationAction) {
@@ -257,9 +260,9 @@ struct AddApiBottomSheet: View {
         if cleanBaseUrl.hasSuffix("/") {
             cleanBaseUrl.removeLast()
         }
-        let networkHelper = NetworkHelper()
+        let userRepo = UserRepository(apiClient: APIClient(p12: certificateData, p12Password: certificatePass))
         do {
-            let result = try await networkHelper.verifyApiKey(baseUrl: cleanBaseUrl, apiKey: cleanApiKey)
+            let result = try await userRepo.verifyApiKey(baseUrl: cleanBaseUrl, apiKey: cleanApiKey)
             if result != nil {
                 // APIKey is verified if the API_KEY is currently nil (aka empty)
                 // Or
@@ -304,7 +307,7 @@ struct AddApiBottomSheet: View {
             cleanBaseUrl.removeLast()
         }
 
-        let networkHelper = NetworkHelper(p12: certificateData, p12Password: certificatePass)
+        let userRepo = UserRepository(apiClient: APIClient(p12: certificateData, p12Password: certificatePass))
 
         if let otpMfaObject = otpMfaObject {
             if otp.isEmpty {
@@ -314,43 +317,37 @@ struct AddApiBottomSheet: View {
             }
 
             // OTP has been entered, do the call to the /api/auth/mfa endpoint
-            await networkHelper.loginMfa(baseUrl: cleanBaseUrl, mfa_key: otpMfaObject.mfa_key, otp: self.otp, apiExpiration: apiExpiration, completion: { login, error in
-                if let login = login {
-                    // Login success
-                    self.addKey(login.api_key, cleanBaseUrl, certificateData, certificatePass)
-                } else {
-                    withAnimation {
-                        self.otpMfaObject = nil
-                        self.otp = ""
-                        self.otpValidationError = nil
-                    }
-
-                    // Show error
-                    self.alertMessage = error!
-                    self.showAlert = true
-
-                    resetSignInButton()
+            do {
+                let login = try await userRepo.loginMfa(baseUrl: cleanBaseUrl, mfaKey: otpMfaObject.mfa_key, otp: self.otp, apiExpiration: apiExpiration)
+                self.addKey(login.api_key, cleanBaseUrl, certificateData, certificatePass)
+            } catch {
+                withAnimation {
+                    self.otpMfaObject = nil
+                    self.otp = ""
+                    self.otpValidationError = nil
                 }
-            })
+
+                self.alertMessage = error.localizedDescription
+                self.showAlert = true
+                resetSignInButton()
+            }
         } else {
-            await networkHelper.login(baseUrl: cleanBaseUrl, username: username, password: password, apiExpiration: apiExpiration, completion: { login, loginMfaRequired, error in
-                if let login = login {
-                    // Login success
+            do {
+                let result = try await userRepo.login(baseUrl: cleanBaseUrl, username: username, password: password, apiExpiration: apiExpiration)
+                switch result {
+                case .success(let login):
                     self.addKey(login.api_key, cleanBaseUrl, certificateData, certificatePass)
-                } else if loginMfaRequired != nil {
-                    // Login MFA required
+                case .mfaRequired(let loginMfaRequired):
                     withAnimation {
                         self.otpMfaObject = loginMfaRequired
                     }
                     resetSignInButton()
-                } else {
-                    // Show error
-                    self.alertMessage = error!
-                    self.showAlert = true
-
-                    resetSignInButton()
                 }
-            })
+            } catch {
+                self.alertMessage = error.localizedDescription
+                self.showAlert = true
+                resetSignInButton()
+            }
         }
     }
 

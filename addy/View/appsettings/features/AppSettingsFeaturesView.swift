@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import BackgroundTasks
 import SwiftUI
 
 struct AppSettingsFeaturesView: View {
@@ -68,7 +67,7 @@ struct AppSettingsFeaturesView: View {
             } footer: {
                 Text(String(localized: "ios_background_limitations_note")).padding(.top).onLongPressGesture {
                     #if DEBUG
-                        BackgroundWorkerHelper().listPendingTasks()
+                        BackgroundWorkerHelper.shared.listPendingTasks()
                     #endif
                 }
 

@@ -9,13 +9,12 @@ import addy_shared
 import SwiftUI
 
 struct LabelsView: View {
-    @EnvironmentObject var mainViewState: MainViewState
-
-    @StateObject var labelsViewModel = LabelsViewModel()
+    @StateObject private var labelsViewModel = LabelsViewModel()
 
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
     @State private var labelToDelete: Labels? = nil
+    @State private var labelToEdit: Labels? = nil
     @State private var isPresentingAddLabelBottomSheet = false
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
@@ -52,9 +51,6 @@ struct LabelsView: View {
                 }
             }
         })
-        .task {
-            //await getUserResource()
-        }
     }
 
     @ViewBuilder
@@ -64,7 +60,12 @@ struct LabelsView: View {
                 if !labels.data.isEmpty {
                     Section {
                         ForEach(labels.data) { label in
-                            LabelRowView(label: label)
+                            Button {
+                                labelToEdit = label
+                            } label: {
+                                LabelRowView(label: label)
+                            }
+                            .tint(.primary)
                         }.onDelete(perform: deleteLabel)
                     } header: {
                         VStack(alignment: .leading, spacing: 24) {
@@ -89,7 +90,7 @@ struct LabelsView: View {
                         }
                         
                     } footer: {
-                        Text("You've created \(labelsViewModel.labels?.data.count ?? 0) out of 100 labels.")
+                        Text(String(format: String(localized: "you_ve_used_d_out_of_d_labels"), String(labelsViewModel.labels?.data.count ?? 0), String(label_limit)))
                             .padding(.top)
                     }.textCase(nil)
                 }
@@ -101,7 +102,16 @@ struct LabelsView: View {
                 self.onRefreshGeneralData?()
             }
             await self.labelsViewModel.getLabels()
-            // await self.getUserResource()
+        }
+        .sheet(item: $labelToEdit) { label in
+            NavigationStack {
+                AddLabelBottomSheet(labelToEdit: label) { _ in
+                    Task {
+                        await labelsViewModel.getLabels()
+                    }
+                }
+            }
+            .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $isPresentingAddLabelBottomSheet) {
             NavigationStack {
@@ -204,9 +214,8 @@ struct LabelsView: View {
     }
 
     private func deleteLabel(label: Labels) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteLabel(labelId: label.id)
+            let result = try await LabelRepository.shared.deleteLabel(labelId: label.id)
             if result == "204" {
                 await labelsViewModel.getLabels()
             } else {
@@ -234,26 +243,4 @@ struct LabelsView: View {
             }
         }
     }
-
-//    private func getUserResource() async {
-//        let networkHelper = NetworkHelper()
-//        do {
-//            let userResource = try await networkHelper.getUserResource()
-//            if let userResource = userResource {
-//                // Don't update mainView, this will refresh the entire view hierarchy
-//                label_limit = 100
-//                label_count = labelsViewModel.labels?.data.count ?? 0
-//            } else {
-//                activeAlert = .error
-//                showAlert = true
-//                errorAlertTitle = ""
-//                errorAlertMessage = String(localized: "something_went_wrong_retrieving_labels")
-//            }
-//        } catch {
-//            activeAlert = .error
-//            showAlert = true
-//            errorAlertTitle = String(localized: "something_went_wrong_retrieving_labels")
-//            errorAlertMessage = error.localizedDescription
-//        }
-//    }
 }

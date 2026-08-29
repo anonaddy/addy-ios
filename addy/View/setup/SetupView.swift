@@ -11,7 +11,6 @@ import SwiftUI
 struct SetupView: View {
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var setupViewState: SetupViewState
-    @EnvironmentObject var connectivity: iOSConnectivityManager // TODO: Do something with this
 
     @State private var text = String(localized: "setup_api_key")
     @State var isLoadingGetStarted: Bool = false
@@ -29,7 +28,7 @@ struct SetupView: View {
         #endif
         NavigationStack {
             ZStack {
-                Color(.setupViewBackground)
+                Color(red: 0.176, green: 0.478, blue: 0.682)
                     .edgesIgnoringSafeArea(.all)
                 Rectangle().fill(.ultraThinMaterial)
                     .fill(LinearGradient(gradient: Gradient(colors: [.secondary, .accentColor]),
@@ -60,7 +59,7 @@ struct SetupView: View {
                 .onReceive(timer) { _ in
                     text = getDummyAPIKey()
                 }
-                .allowsHitTesting(/*@START_MENU_TOKEN@*/false/*@END_MENU_TOKEN@*/)
+                .allowsHitTesting(false)
 
                 VStack {
                     Spacer(minLength: 80)
@@ -74,11 +73,10 @@ struct SetupView: View {
                         .font(.system(.body, design: .rounded))
                         .foregroundColor(Color.white)
                         .frame(width: 260)
-                        .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                        .opacity(0.8)
                         .multilineTextAlignment(.center)
 
-                    VStack {}
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    Spacer()
 
                     VStack {
                         AddyLoadingButton(action: {
@@ -145,9 +143,9 @@ struct SetupView: View {
     }
 
     private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL, p12: Data? = nil, p12Password: String? = nil) async {
-        let networkHelper = NetworkHelper(p12: p12, p12Password: p12Password)
+        let userRepo = UserRepository(apiClient: APIClient(p12: p12, p12Password: p12Password))
         do {
-            let result = try await networkHelper.verifyApiKey(baseUrl: baseUrl, apiKey: apiKey)
+            let result = try await userRepo.verifyApiKey(baseUrl: baseUrl, apiKey: apiKey)
             if result != nil {
                 addKey(apiKey: apiKey, baseUrl: baseUrl, p12: p12, p12Password: p12Password)
             } else {
@@ -161,19 +159,14 @@ struct SetupView: View {
     }
 
     private func finishRegistrationVerification(query: String) async {
-        let networkHelper = NetworkHelper()
-        await networkHelper.verifyRegistration(query: query, completion: { apiKey, error in
-            if let apiKey = apiKey {
-                // Login success
-                self.addKey(apiKey: apiKey, baseUrl: AddyIo.API_BASE_URL, p12: nil, p12Password: nil)
-            } else {
-                // Show error
-                self.alertMessage = error!
-                self.showAlert = true
-
-                isLoadingGetStarted = false
-            }
-        })
+        do {
+            let apiKey = try await UserRepository.shared.verifyRegistration(query: query)
+            self.addKey(apiKey: apiKey, baseUrl: AddyIo.API_BASE_URL, p12: nil, p12Password: nil)
+        } catch {
+            self.alertMessage = error.localizedDescription
+            self.showAlert = true
+            isLoadingGetStarted = false
+        }
     }
 
     private func addKey(apiKey: String, baseUrl: String, p12: Data?, p12Password: String?) {

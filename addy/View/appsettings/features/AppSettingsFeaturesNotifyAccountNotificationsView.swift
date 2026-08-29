@@ -28,7 +28,7 @@ struct AppSettingsFeaturesNotifyAccountNotificationsView: View {
                         // Only fire when the value is NOT the same as the value already in the model
                         if notifyAccountNotifications != MainViewState.shared.settingsManager.getSettingsBool(key: .notifyAccountNotifications) {
                             MainViewState.shared.settingsManager.putSettingsBool(key: .notifyAccountNotifications, boolean: notifyAccountNotifications)
-                            BackgroundWorkerHelper().scheduleAppRefresh()
+                            BackgroundWorkerHelper.shared.scheduleAppRefresh()
                         }
                     }
 
@@ -52,7 +52,6 @@ struct AppSettingsFeaturesNotifyAccountNotificationsView: View {
 
 struct AppSettingsFeaturesNotifyAccountNotificationsView_Previews: PreviewProvider {
     static var previews: some View {
-        @State var userInterfaceSizeClass = UserInterfaceSizeClass.regular
         AppSettingsFeaturesNotifyAccountNotificationsView()
     }
 }

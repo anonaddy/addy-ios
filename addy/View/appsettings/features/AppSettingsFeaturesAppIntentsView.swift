@@ -5,7 +5,7 @@
 //  Created by Stijn van de Water on 13/07/2024.
 //
 
-import _AppIntents_UIKit
+import AppIntents
 import SwiftUI
 
 struct AppSettingsFeaturesAppIntentsView: View {
@@ -26,7 +26,7 @@ struct AppSettingsFeaturesAppIntentsView: View {
 
             }.listRowInsets(EdgeInsets()).listRowBackground(Color.clear)
         }
-        .navigationTitle(String(localized: "watch_alias"))
+        .navigationTitle(String(localized: "integration_app_intents"))
         .navigationBarTitleDisplayMode(.inline)
     }
 }

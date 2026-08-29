@@ -22,7 +22,7 @@ struct LabelRowView: View {
                     .fontWeight(.medium)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                Text("\(label.aliases_count ?? 0) aliases")
+                Text(String(format: String(localized: "labels_list_description"), String(label.aliases_count ?? 0)))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }

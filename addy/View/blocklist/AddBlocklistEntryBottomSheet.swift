@@ -16,10 +16,14 @@ struct AddBlocklistEntryBottomSheet: View {
     @State var blocklistEntryPlaceHolder: String = .init(localized: "blocklist_add_hint")
     @State private var blocklistEntryValidationError: String?
     @State private var blocklistEntryRequestError: String?
-    @State var IsLoadingAddButton: Bool = false
+    @State var isLoadingAddButton: Bool = false
 
     /// 1. Added state for type selection
     let onAdded: () -> Void
+
+    init(onAdded: @escaping () -> Void) {
+        self.onAdded = onAdded
+    }
 
     var body: some View {
         #if DEBUG
@@ -65,7 +69,7 @@ struct AddBlocklistEntryBottomSheet: View {
         }
         .navigationTitle(String(localized: "blocklist_add"))
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(content: {
+        .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 if #available(iOS 26.0, *) {
                     saveButton().buttonStyle(.glassProminent)
@@ -80,51 +84,44 @@ struct AddBlocklistEntryBottomSheet: View {
                     Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
             }
-        })
+        }
     }
 
     private func saveButton() -> some View {
         Group {
-            if IsLoadingAddButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
+            if isLoadingAddButton {
+                ProgressView().progressViewStyle(.circular)
             } else {
-                AnyView(
-                    Button {
-                        if blocklistEntryValidationError == nil && !blocklistEntry.isEmpty {
-                            IsLoadingAddButton = true
+                Button {
+                    if blocklistEntryValidationError == nil && !blocklistEntry.isEmpty {
+                        isLoadingAddButton = true
 
-                            // 3. Construct the NewBlocklistEntry object using current state
-                            let entry = NewBlocklistEntry(type: self.blocklistType, value: self.blocklistEntry)
+                        // 3. Construct the NewBlocklistEntry object using current state
+                        let entry = NewBlocklistEntry(type: self.blocklistType, value: self.blocklistEntry)
 
-                            Task {
-                                await self.addblocklistEntryToAccount(blocklistEntry: entry)
-                            }
-                        } else {
-                            // Trigger haptic if user tries to save while empty/invalid
-                            HapticHelper.playHapticFeedback(hapticType: .error)
-                            IsLoadingAddButton = false
+                        Task {
+                            await self.addblocklistEntryToAccount(blocklistEntry: entry)
                         }
-                    } label: {
-                        Text(String(localized: "add"))
+                    } else {
+                        // Trigger haptic if user tries to save while empty/invalid
+                        HapticHelper.playHapticFeedback(hapticType: .error)
+                        isLoadingAddButton = false
                     }
-                )
+                } label: {
+                    Text(String(localized: "add"))
+                }
             }
         }
     }
 
-    init(onAdded: @escaping () -> Void) {
-        self.onAdded = onAdded
-    }
-
     private func addblocklistEntryToAccount(blocklistEntry: NewBlocklistEntry) async {
         blocklistEntryRequestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.addBlocklistEntry(entry: blocklistEntry)
+            _ = try await BlocklistRepository.shared.addBlocklistEntry(entry: blocklistEntry)
             onAdded()
             dismiss() // Close the sheet on success
         } catch {
-            IsLoadingAddButton = false
+            isLoadingAddButton = false
             blocklistEntryRequestError = error.localizedDescription
         }
     }

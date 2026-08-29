@@ -1,6 +1,5 @@
 import addy_shared
 import LocalAuthentication
-import Lottie
 import SwiftUI
 
 struct MainView: View {
@@ -19,11 +18,6 @@ struct MainView: View {
     @State private var isShowingChangelogSheet = false
     @State private var showBiometricsAlert = false
     @State private var lastGeneralRefresh = Date.now
-
-    // State variables
-    // MARK: Share sheet AND MailTo tap action
-
-    // MARK: END Share sheet AND MailTo tap action
 
     private var shouldShowLockedView: Bool {
         mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled) && !mainViewState.isUnlocked
@@ -211,25 +205,18 @@ struct MainView: View {
 
     @ViewBuilder
     private func tabItem(for destination: Destination, sizeClass: UserInterfaceSizeClass?) -> some View {
-        if let sizeClass = sizeClass {
-            destination.view(horizontalSize: .constant(sizeClass), refreshGeneralData: refreshGeneralData)
-                .tag(destination)
-                .tabItem { Label(destination.title, systemImage: destination.systemImage) }
-                .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
-        } else {
-            // Fallback, e.g. .compact
-            destination.view(horizontalSize: .constant(.compact), refreshGeneralData: refreshGeneralData)
-                .tag(destination)
-                .tabItem { Label(destination.title, systemImage: destination.systemImage) }
-                .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
-        }
+        let effectiveSize = sizeClass ?? .compact
+        destination.view(horizontalSize: .constant(effectiveSize), refreshGeneralData: refreshGeneralData)
+            .tag(destination)
+            .tabItem { Label(destination.title, systemImage: destination.systemImage) }
+            .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
     }
 
     private func handleOnAppear() {
         // Also perform BGTask immediately when opening the app
         BackgroundWorkerHelper.backgroundWorker.performRequest { _ in
             // Schedule background tasks after it was executed
-            BackgroundWorkerHelper().scheduleAppRefresh()
+            BackgroundWorkerHelper.shared.scheduleAppRefresh()
         }
         checkForChangelog()
         openDefaultPage()
@@ -297,7 +284,7 @@ struct MainView: View {
     }
 
     private func checkForChangelog() {
-        let currentVersionCode = Int(Bundle.main.infoDictionary!["CFBundleVersion"] as! String) ?? 0
+        let currentVersionCode = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String).flatMap(Int.init) ?? 0
         if SettingsManager(encrypted: false).getSettingsInt(key: .versionCode) < currentVersionCode {
             isShowingChangelogSheet = true
             SettingsManager(encrypted: false).putSettingsInt(key: .versionCode, int: currentVersionCode)
@@ -319,7 +306,8 @@ struct MainView: View {
         // Only check on hosted instance
         guard AddyIo.isUsingHostedInstance() else { return }
         do {
-            if let user = try await NetworkHelper().getUserResource(), let subscriptionEndsAt = user.subscription_ends_at {
+            let user = try await UserRepository.shared.getUserResource()
+            if let subscriptionEndsAt = user.subscription_ends_at {
                 let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(subscriptionEndsAt)
                 let currentDate = Date()
                 if let deadlineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate), currentDate > deadlineDate {
@@ -352,7 +340,8 @@ struct MainView: View {
 
     private func checkTokenExpiry() async {
         do {
-            if let apiTokenDetails = try await NetworkHelper().getApiTokenDetails(), let expiresAt = apiTokenDetails.expires_at {
+            let apiTokenDetails = try await UserRepository.shared.getApiTokenDetails()
+            if let expiresAt = apiTokenDetails.expires_at {
                 let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(expiresAt)
                 let currentDate = Date()
                 if let deadlineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate), currentDate > deadlineDate {
@@ -369,26 +358,25 @@ struct MainView: View {
 
     private func checkForNewFailedDeliveries() async {
         do {
-            if let result = try await NetworkHelper().getFailedDeliveries() {
-                let previousFailedDeliveryId = mainViewState.encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
+            let result = try await FailedDeliveriesRepository.shared.getFailedDeliveries()
+            let previousFailedDeliveryId = mainViewState.encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
 
-                if let currentId = result.data.first?.id, !currentId.isEmpty {
-                    if previousFailedDeliveryId == nil || previousFailedDeliveryId == "" {
-                        let totalCount = result.meta?.total ?? result.data.count
-                        withAnimation { mainViewState.newFailedDeliveries = totalCount }
-                    } else if let previousId = previousFailedDeliveryId, currentId != previousId {
-                        var newDeliveriesCount = 0
-                        for delivery in result.data {
-                            if delivery.id == previousId { break }
-                            newDeliveriesCount += 1
-                        }
-
-                        if newDeliveriesCount <= 0 {
-                            newDeliveriesCount = 1
-                        }
-
-                        withAnimation { mainViewState.newFailedDeliveries = newDeliveriesCount }
+            if let currentId = result.data.first?.id, !currentId.isEmpty {
+                if previousFailedDeliveryId == nil || previousFailedDeliveryId == "" {
+                    let totalCount = result.meta?.total ?? result.data.count
+                    withAnimation { mainViewState.newFailedDeliveries = totalCount }
+                } else if let previousId = previousFailedDeliveryId, currentId != previousId {
+                    var newDeliveriesCount = 0
+                    for delivery in result.data {
+                        if delivery.id == previousId { break }
+                        newDeliveriesCount += 1
                     }
+
+                    if newDeliveriesCount <= 0 {
+                        newDeliveriesCount = 1
+                    }
+
+                    withAnimation { mainViewState.newFailedDeliveries = newDeliveriesCount }
                 }
             }
         } catch {
@@ -398,11 +386,10 @@ struct MainView: View {
 
     private func checkForNewAccountNotifications() async {
         do {
-            if let result = try await NetworkHelper().getAllAccountNotifications() {
-                let currentCount = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheAccountNotificationsCount)
-                if result.data.count > currentCount {
-                    withAnimation { mainViewState.newAccountNotifications = result.data.count - currentCount }
-                }
+            let result = try await AppMaintenanceRepository.shared.getAllAccountNotifications()
+            let currentCount = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheAccountNotificationsCount)
+            if result.data.count > currentCount {
+                withAnimation { mainViewState.newAccountNotifications = result.data.count - currentCount }
             }
         } catch {
             // Error will be logged when user has enabled this
@@ -447,9 +434,8 @@ struct MainView: View {
 
     private func getUserResource() async {
         do {
-            if let userResource = try await NetworkHelper().getUserResource() {
-                mainViewState.userResource = userResource
-            }
+            let userResource = try await UserRepository.shared.getUserResource()
+            mainViewState.userResource = userResource
         } catch {
             print("Failed to get user resource: \(error)")
         }
@@ -458,8 +444,8 @@ struct MainView: View {
     private func checkForUpdates() async {
         guard mainViewState.settingsManager.getSettingsBool(key: .notifyUpdates) else { return }
         do {
-            let (updateAvailable, _, _, _) = try await Updater().isUpdateAvailable()
-            withAnimation { mainViewState.updateAvailable = updateAvailable }
+            let result = try await Updater().isUpdateAvailable()
+            withAnimation { mainViewState.updateAvailable = result.isUpdateAvailable }
         } catch {}
     }
 
@@ -467,7 +453,7 @@ struct MainView: View {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             DispatchQueue.main.async { mainViewState.permissionsRequired = settings.authorizationStatus != .authorized }
         }
-        mainViewState.backgroundAppRefreshDenied = !BackgroundWorkerHelper().checkBackgroundRefreshStatus()
+        mainViewState.backgroundAppRefreshDenied = !BackgroundWorkerHelper.shared.checkBackgroundRefreshStatus()
     }
 }
 
@@ -514,7 +500,7 @@ enum Destination: Hashable, CaseIterable {
         switch self {
         case .home: "house"
         case .aliases: "at.circle.fill"
-        case .recipients: "person.2"
+        case .recipients: "person.2.fill"
         case .usernames: "person.crop.circle.fill"
         case .domains: "globe"
         case .rules: "checklist"
@@ -532,9 +518,9 @@ enum Destination: Hashable, CaseIterable {
         case .usernames: AnyView(UsernamesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .domains: AnyView(DomainsView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .rules: AnyView(RulesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
-        case .failedDeliveries: AnyView(FailedDeliveriesView(horizontalSize: horizontalSize.wrappedValue, onRefreshGeneralData: refreshGeneralData))
+        case .failedDeliveries: AnyView(FailedDeliveriesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .settings: AnyView(AppSettingsView(horizontalSize: horizontalSize))
-        case .subscription: AnyView(ManageSubscriptionView(horizontalSize: horizontalSize, shouldHideNavigationBarBackButtonSubscriptionView: .constant(false)))
+        case .subscription: AnyView(ManageSubscriptionView(shouldHideNavigationBarBackButtonSubscriptionView: .constant(false)))
         }
     }
 }

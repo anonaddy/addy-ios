@@ -6,11 +6,10 @@
 //
 
 import addy_shared
-import SwiftData
 import SwiftUI
 
 @main
-struct addyApp: App {
+struct AddyApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     @StateObject private var connectivity = iOSConnectivityManager()
@@ -18,7 +17,7 @@ struct addyApp: App {
     @StateObject private var mainViewState = MainViewState.shared // Needs to be shared so that notifications work
     @StateObject private var setupViewState = SetupViewState.shared // Needs to be shared so that notifications work
     var body: some Scene {
-        WindowGroup(for: UUID.self) { _ in
+        WindowGroup {
             Group {
                 if appState.apiKey != nil {
                     MainView()

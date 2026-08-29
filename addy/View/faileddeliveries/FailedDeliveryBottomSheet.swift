@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct FailedDeliveryBottomSheet: View {
@@ -67,7 +66,6 @@ struct FailedDeliveryBottomSheet: View {
                 DocumentPicker(fileURL: $fileURL, isPresented: $isShowingPicker, fileToSave: url)
             }
         }
-        .pickerStyle(.navigationLink)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem {
@@ -82,7 +80,7 @@ struct FailedDeliveryBottomSheet: View {
                 deleteFailedDeliveryButton()
             }
 
-            if let sender = self.failedDelivery.sender, !sender.isEmpty, !mainViewState.userResource!.hasUserFreeSubscription() {
+            if let sender = self.failedDelivery.sender, !sender.isEmpty, !(mainViewState.userResource?.hasUserFreeSubscription() ?? true) {
                 ToolbarItem(placement: .bottomBar) {
                     blocklistSenderButton()
                 }
@@ -144,20 +142,18 @@ struct FailedDeliveryBottomSheet: View {
     private func downloadFailedDeliveryButton() -> some View {
         Group {
             if isLoadingDownloadButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
+                ProgressView().progressViewStyle(.circular)
             } else {
-                AnyView(
-                    Button {
-                        isLoadingDownloadButton = true
+                Button {
+                    isLoadingDownloadButton = true
 
-                        Task {
-                            await self.downloadFailedDelivery()
-                        }
-
-                    } label: {
-                        Label(String(localized: "download_failed_delivery"), systemImage: "square.and.arrow.down")
+                    Task {
+                        await self.downloadFailedDelivery()
                     }
-                )
+
+                } label: {
+                    Label(String(localized: "download_failed_delivery"), systemImage: "square.and.arrow.down")
+                }
             }
         }
     }
@@ -165,16 +161,14 @@ struct FailedDeliveryBottomSheet: View {
     private func resendFailedDeliveryButton() -> some View {
         Group {
             if isLoadingResendButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
+                ProgressView().progressViewStyle(.circular)
             } else {
-                AnyView(
-                    Button {
-                        activeAlert = .resend
-                        showAlert = true
-                    } label: {
-                        Label(String(localized: "resend_failed_delivery"), systemImage: "arrowshape.turn.up.forward")
-                    }
-                )
+                Button {
+                    activeAlert = .resend
+                    showAlert = true
+                } label: {
+                    Label(String(localized: "resend_failed_delivery"), systemImage: "arrowshape.turn.up.forward")
+                }
             }
         }
     }
@@ -182,20 +176,18 @@ struct FailedDeliveryBottomSheet: View {
     private func deleteFailedDeliveryButton() -> some View {
         Group {
             if isLoadingDeleteButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
+                ProgressView().progressViewStyle(.circular)
             } else {
-                AnyView(
-                    Button {
-                        isLoadingDeleteButton = true
+                Button {
+                    isLoadingDeleteButton = true
 
-                        Task {
-                            await self.deleteFailedDelivery()
-                        }
-
-                    } label: {
-                        Label(String(localized: "delete_failed_delivery"), systemImage: "trash")
+                    Task {
+                        await self.deleteFailedDelivery()
                     }
-                )
+
+                } label: {
+                    Label(String(localized: "delete_failed_delivery"), systemImage: "trash")
+                }
             }
         }
     }
@@ -216,46 +208,42 @@ struct FailedDeliveryBottomSheet: View {
     private func blocklistSenderButton() -> some View {
         Group {
             if isLoadingBlocklistButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
+                ProgressView().progressViewStyle(.circular)
             } else if let sender = failedDelivery.sender, !sender.isEmpty {
                 if sender.contains("@") {
                     let email = extractEmail(from: sender)
                     let domain = extractDomain(from: sender)
 
-                    AnyView(
-                        Menu {
-                            Button {
-                                blocklistEntryToAdd = NewBlocklistEntry(type: "email", value: email)
-                                activeAlert = .blocklist
-                                showAlert = true
-                            } label: {
-                                Label(String(localized: "blocklist_add_sender"), systemImage: "envelope")
-                            }
-
-                            if let domain = domain {
-                                Button {
-                                    blocklistEntryToAdd = NewBlocklistEntry(type: "domain", value: domain)
-                                    activeAlert = .blocklist
-                                    showAlert = true
-                                } label: {
-                                    Label(String(localized: "blocklist_add_domain"), systemImage: "globe")
-                                }
-                            }
-                        } label: {
-                            Label(String(localized: "blocklist_add"), systemImage: "nosign")
-                        }
-                    )
-                } else {
-                    AnyView(
+                    Menu {
                         Button {
-                            let domain = extractEmail(from: sender)
-                            blocklistEntryToAdd = NewBlocklistEntry(type: "domain", value: domain)
+                            blocklistEntryToAdd = NewBlocklistEntry(type: "email", value: email)
                             activeAlert = .blocklist
                             showAlert = true
                         } label: {
-                            Label(String(localized: "blocklist_add"), systemImage: "nosign")
+                            Label(String(localized: "blocklist_add_sender"), systemImage: "envelope")
                         }
-                    )
+
+                        if let domain = domain {
+                            Button {
+                                blocklistEntryToAdd = NewBlocklistEntry(type: "domain", value: domain)
+                                activeAlert = .blocklist
+                                showAlert = true
+                            } label: {
+                                Label(String(localized: "blocklist_add_domain"), systemImage: "globe")
+                            }
+                        }
+                    } label: {
+                        Label(String(localized: "blocklist_add"), systemImage: "nosign")
+                    }
+                } else {
+                    Button {
+                        let domain = extractEmail(from: sender)
+                        blocklistEntryToAdd = NewBlocklistEntry(type: "domain", value: domain)
+                        activeAlert = .blocklist
+                        showAlert = true
+                    } label: {
+                        Label(String(localized: "blocklist_add"), systemImage: "nosign")
+                    }
                 }
             }
         }
@@ -267,9 +255,8 @@ struct FailedDeliveryBottomSheet: View {
     }
 
     private func blocklist(entry: NewBlocklistEntry) async {
-        let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.addBlocklistEntry(entry: entry)
+            _ = try await BlocklistRepository.shared.addBlocklistEntry(entry: entry)
             isLoadingBlocklistButton = false
             errorAlertTitle = String(localized: "blocklist_add")
             errorAlertMessage = String(localized: "blocklist_add_success")
@@ -285,9 +272,8 @@ struct FailedDeliveryBottomSheet: View {
     }
 
     private func deleteFailedDelivery() async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteFailedDelivery(failedDeliveryId: failedDelivery.id)
+            let result = try await FailedDeliveriesRepository.shared.deleteFailedDelivery(failedDeliveryId: failedDelivery.id)
             isLoadingDeleteButton = false
             if result == "204" {
                 onDeleted()
@@ -308,9 +294,8 @@ struct FailedDeliveryBottomSheet: View {
     }
 
     private func resendFailedDelivery() async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.resendFailedDelivery(failedDeliveryId: failedDelivery.id)
+            let result = try await FailedDeliveriesRepository.shared.resendFailedDelivery(failedDeliveryId: failedDelivery.id)
             isLoadingResendButton = false
             if result == "204" {
                 isLoadingResendButton = false
@@ -335,17 +320,11 @@ struct FailedDeliveryBottomSheet: View {
     }
 
     private func downloadFailedDelivery() async {
-        let networkHelper = NetworkHelper()
         do {
-            // Assuming 'downloadFailedDelivery' returns an optional URL
-            let fileURL: URL? = try await networkHelper.downloadFailedDelivery(failedDeliveryId: failedDelivery.id)
+            let fileURL: URL = try await FailedDeliveriesRepository.shared.downloadFailedDelivery(failedDeliveryId: failedDelivery.id)
             isLoadingDownloadButton = false
-
-            if let url = fileURL {
-                self.fileURL = url
-                isShowingPicker = true // Show the picker after download
-            }
-
+            self.fileURL = fileURL
+            isShowingPicker = true // Show the picker after download
         } catch {
             isLoadingDownloadButton = false
 

@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 import WrappingHStack
 
@@ -141,7 +140,7 @@ struct ActionBottomSheet: View {
                 }
             }.textCase(nil)
 
-        }.navigationTitle(String(localized: "add_action")).pickerStyle(.navigationLink)
+        }.navigationTitle(String(localized: "add_action"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .confirmationAction) {
@@ -220,63 +219,59 @@ struct ActionBottomSheet: View {
     }
 
     private func saveButton() -> some View {
-        AnyView(
-            Button {
-                var newAction = Action(type: selectedActionsType, value: "")
+        Button {
+            var newAction = Action(type: selectedActionsType, value: "")
 
-                // If the type is set to set banner information location get the value from the picker and use that
-                if selectedActionsType == "banner" {
-                    newAction.value = selectedBannerLocationOptions
-                }
-                // If the type is a boolean action, send "true"
-                else if RulesOption.isBooleanAction(type: selectedActionsType) {
-                    newAction.value = String(true)
-                }
-                // If the type is set to forward to send selected recipientID
-                else if selectedActionsType == "forwardTo" {
-                    if selectedRecipientChip.isEmpty {
-                        return
-                    } else {
-                        newAction.value = selectedRecipientChip.first!
-                    }
-                } else if RulesOption.isLabelAction(type: selectedActionsType) {
-                    if selectedLabel.isEmpty {
-                        return
-                    }
-                    newAction.value = selectedLabel
-                } else if RulesOption.isTextAction(type: selectedActionsType) {
-                    if self.value.trimmingCharacters(in: .whitespaces).isEmpty {
-                        valuePlaceHolderValidationError = String(localized: "this_field_cannot_be_empty")
-                        return
-                    }
-                    newAction.value = self.value.trimmingCharacters(in: .whitespaces)
-                } else {
-                    // Else just get the textfield value
-                    newAction.value = self.value
-                }
-
-                self.onAddedAction(actionEditObject, newAction)
-            } label: {
-                if actionEditObject != nil {
-                    Text(String(localized: "save"))
-                } else {
-                    Text(String(localized: "add"))
-                }
+            // If the type is set to set banner information location get the value from the picker and use that
+            if selectedActionsType == "banner" {
+                newAction.value = selectedBannerLocationOptions
             }
-        )
+            // If the type is a boolean action, send "true"
+            else if RulesOption.isBooleanAction(type: selectedActionsType) {
+                newAction.value = String(true)
+            }
+            // If the type is set to forward to send selected recipientID
+            else if selectedActionsType == "forwardTo" {
+                if selectedRecipientChip.isEmpty {
+                    return
+                } else {
+                    newAction.value = selectedRecipientChip.first!
+                }
+            } else if RulesOption.isLabelAction(type: selectedActionsType) {
+                if selectedLabel.isEmpty {
+                    return
+                }
+                newAction.value = selectedLabel
+            } else if RulesOption.isTextAction(type: selectedActionsType) {
+                if self.value.trimmingCharacters(in: .whitespaces).isEmpty {
+                    valuePlaceHolderValidationError = String(localized: "this_field_cannot_be_empty")
+                    return
+                }
+                newAction.value = self.value.trimmingCharacters(in: .whitespaces)
+            } else {
+                // Else just get the textfield value
+                newAction.value = self.value
+            }
+
+            self.onAddedAction(actionEditObject, newAction)
+        } label: {
+            if actionEditObject != nil {
+                Text(String(localized: "save"))
+            } else {
+                Text(String(localized: "add"))
+            }
+        }
     }
 
     private func getAllLabels(forceReload: Bool = false) async {
         if !labelsLoaded || forceReload {
-            let networkHelper = NetworkHelper()
             do {
-                if let labels = try await networkHelper.getAllLabels()?.data {
-                    self.allLabels = []
-                    for label in labels {
-                        self.allLabels.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
-                    }
-                    labelsLoaded = true
+                let labels = try await LabelRepository.shared.getLabels().data
+                self.allLabels = []
+                for label in labels {
+                    self.allLabels.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
                 }
+                labelsLoaded = true
             } catch {
                 // Ignore or handle
             }

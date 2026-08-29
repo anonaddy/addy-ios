@@ -10,10 +10,9 @@ import Lottie
 import SwiftUI
 
 struct CreateRulesView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) private var dismiss
 
     @State var ruleName: String
-    @State var ruleNamePlaceholder: String = .init(localized: "enter_name")
     @State private var actionToEdit: Action? = nil
     @State private var conditionToEdit: Condition? = nil
     @Binding var shouldReloadDataInParent: Bool
@@ -49,7 +48,7 @@ struct CreateRulesView: View {
         if let rule = rule {
             Form {
                 Section {
-                    ValidatingTextField(value: self.$ruleName, placeholder: self.$ruleNamePlaceholder, fieldType: .text, error: $ruleNameValidationError)
+                    ValidatingTextField(value: self.$ruleName, placeholder: String(localized: "enter_name"), fieldType: .text, error: $ruleNameValidationError)
                 } header: {
                     Text(String(localized: "enter_name"))
 
@@ -121,12 +120,14 @@ struct CreateRulesView: View {
                                 }.padding(EdgeInsets()).frame(maxWidth: .infinity)
                                 VStack {
                                     Button {
-                                        self.rule!.conditions.remove(at: self.rule!.conditions.firstIndex(where: { $0 == condition })!)
+                                        if let index = self.rule?.conditions.firstIndex(where: { $0 == condition }) {
+                                            self.rule?.conditions.remove(at: index)
+                                        }
                                     } label: {
                                         Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                     }.buttonBorderShape(.circle).apply { View in
                                         if #available(iOS 26.0, *) {
-                                            View.buttonStyle(.glass).glassEffect(in: Circle())
+                                             View.buttonStyle(.glass).glassEffect(in: Circle())
                                         } else {
                                             View.buttonStyle(.plain)
                                         }
@@ -220,7 +221,9 @@ struct CreateRulesView: View {
                                 }.padding(EdgeInsets()).frame(maxWidth: .infinity)
                                 VStack {
                                     Button {
-                                        self.rule!.actions.remove(at: self.rule!.actions.firstIndex(where: { $0 == action })!)
+                                        if let index = self.rule?.actions.firstIndex(where: { $0 == action }) {
+                                            self.rule?.actions.remove(at: index)
+                                        }
                                     } label: {
                                         Image(systemName: "xmark.circle.fill").resizable().frame(width: 25, height: 25).foregroundStyle(Color.accentColor)
                                     }.buttonBorderShape(.circle).apply { View in
@@ -288,7 +291,7 @@ struct CreateRulesView: View {
                 }.sheet(isPresented: $isPresentingAddNewActionBottomSheet) {
                     NavigationStack {
                         ActionBottomSheet(recipients: recipients, actionEditObject: nil) { _, modifiedAction in
-                            self.rule!.actions.append(modifiedAction)
+                            self.rule?.actions.append(modifiedAction)
                             isPresentingAddNewActionBottomSheet = false
                         }
                     }
@@ -307,7 +310,7 @@ struct CreateRulesView: View {
                 }.sheet(isPresented: $isPresentingAddNewConditionBottomSheet) {
                     NavigationStack {
                         ConditionBottomSheet(conditionEditObject: nil) { _, modifiedCondition in
-                            self.rule!.conditions.append(modifiedCondition)
+                            self.rule?.conditions.append(modifiedCondition)
                             isPresentingAddNewConditionBottomSheet = false
                         }
                     }
@@ -359,25 +362,23 @@ struct CreateRulesView: View {
     private func saveButton() -> some View {
         Group {
             if isSavingRule {
-                AnyView(ProgressView().progressViewStyle(.circular))
+                ProgressView().progressViewStyle(.circular)
             } else {
-                AnyView(
-                    Button {
-                        self.isSavingRule = true
-                        if self.ruleId.isEmpty {
-                            Task {
-                                await self.createRule()
-                            }
-                        } else {
-                            // ruleId is not empty, update rule instead
-                            Task {
-                                await self.updateRule()
-                            }
+                Button {
+                    self.isSavingRule = true
+                    if self.ruleId.isEmpty {
+                        Task {
+                            await self.createRule()
                         }
-                    } label: {
-                        Text(String(localized: "save"))
-                    }.disabled(self.ruleName.isEmpty)
-                )
+                    } else {
+                        // ruleId is not empty, update rule instead
+                        Task {
+                            await self.updateRule()
+                        }
+                    }
+                } label: {
+                    Text(String(localized: "save"))
+                }.disabled(self.ruleName.isEmpty)
             }
         }
     }
@@ -423,7 +424,7 @@ struct CreateRulesView: View {
     }
 
     private func updateUi(rule: Rules) {
-        conditionOperator = self.rule!.operator
+        conditionOperator = rule.operator
 
         if rule.forwards {
             selectedChips.append("forwards")
@@ -437,13 +438,11 @@ struct CreateRulesView: View {
     }
 
     private func getRule(ruleId: String) async {
-        let networkHelper = NetworkHelper()
         do {
-            if let rule = try await networkHelper.getSpecificRule(ruleId: ruleId) {
-                withAnimation {
-                    self.rule = rule
-                    updateUi(rule: rule)
-                }
+            let rule = try await RulesRepository.shared.getRule(ruleId: ruleId)
+            withAnimation {
+                self.rule = rule
+                updateUi(rule: rule)
             }
         } catch {
             withAnimation {
@@ -453,22 +452,23 @@ struct CreateRulesView: View {
     }
 
     func updateRuleObject() {
-        rule!.name = ruleName
-        rule!.operator = conditionOperator
-        rule!.forwards = selectedChips.contains("forwards")
-        rule!.replies = selectedChips.contains("replies")
-        rule!.sends = selectedChips.contains("sends")
+        guard rule != nil else { return }
+        rule?.name = ruleName
+        rule?.operator = conditionOperator
+        rule?.forwards = selectedChips.contains("forwards")
+        rule?.replies = selectedChips.contains("replies")
+        rule?.sends = selectedChips.contains("sends")
     }
 
     func updateRule() async {
         updateRuleObject()
+        guard let currentRule = rule else { return }
 
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.updateRule(ruleId: rule!.id, rule: rule!)
+            let result = try await RulesRepository.shared.updateRule(ruleId: currentRule.id, rule: currentRule)
             if result == "200" {
                 shouldReloadDataInParent = true
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             } else {
                 activeAlert = .error
                 showAlert = true
@@ -486,12 +486,12 @@ struct CreateRulesView: View {
 
     func createRule() async {
         updateRuleObject()
+        guard let currentRule = rule else { return }
 
-        let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.createRule(rule: rule!)
+            _ = try await RulesRepository.shared.createRule(rule: currentRule)
             shouldReloadDataInParent = true
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         } catch {
             activeAlert = .error
             showAlert = true

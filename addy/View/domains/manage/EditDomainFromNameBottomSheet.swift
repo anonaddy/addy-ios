@@ -6,21 +6,26 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct EditDomainFromNameBottomSheet: View {
     @Environment(\.dismiss) var dismiss
 
     @State var fromName: String
-    @State var fromNamePlaceholder: String = .init(localized: "from_name")
     @State private var fromNameValidationError: String?
     @State private var fromNameRequestError: String?
-    @State var IsLoadingSaveButton: Bool = false
+    @State var isLoadingSaveButton: Bool = false
 
     let domainId: String
     let domain: String
     let fromNameEdited: (Domains) -> Void
+
+    init(domainId: String, domain: String, fromName: String?, fromNameEdited: @escaping (Domains) -> Void) {
+        self.domainId = domainId
+        self.domain = domain
+        self._fromName = State(initialValue: fromName ?? "")
+        self.fromNameEdited = fromNameEdited
+    }
 
     var body: some View {
         #if DEBUG
@@ -29,7 +34,7 @@ struct EditDomainFromNameBottomSheet: View {
 
         Form {
             Section {
-                ValidatingTextField(value: self.$fromName, placeholder: self.$fromNamePlaceholder, fieldType: .text, error: $fromNameValidationError)
+                ValidatingTextField(value: self.$fromName, placeholder: String(localized: "from_name"), fieldType: .text, error: $fromNameValidationError)
 
             } header: {
                 VStack {
@@ -52,68 +57,58 @@ struct EditDomainFromNameBottomSheet: View {
 
             }.textCase(nil)
 
-        }.navigationTitle(String(localized: "edit_from_name")).pickerStyle(.navigationLink)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        saveButton().buttonStyle(.glassProminent)
-                    } else {
-                        saveButton()
-                    }
+        }
+        .navigationTitle(String(localized: "edit_from_name"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26.0, *) {
+                    saveButton().buttonStyle(.glassProminent)
+                } else {
+                    saveButton()
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                    }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
-            })
-    }
-
-    private func saveButton() -> some View {
-        Group {
-            if IsLoadingSaveButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
-            } else {
-                AnyView(
-                    Button {
-                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                        // We should not allow any saving until the validationErrors are nil
-                        if fromNameValidationError == nil {
-                            IsLoadingSaveButton = true
-
-                            Task {
-                                await self.editFromName(fromName: self.fromName)
-                            }
-                        } else {
-                            IsLoadingSaveButton = false
-                        }
-                    } label: {
-                        Text(String(localized: "save"))
-                    }
-                )
             }
         }
     }
 
-    init(domainId: String, domain: String, fromName: String?, fromNameEdited: @escaping (Domains) -> Void) {
-        self.domainId = domainId
-        self.domain = domain
-        self.fromName = fromName ?? ""
-        self.fromNameEdited = fromNameEdited
+    private func saveButton() -> some View {
+        Group {
+            if isLoadingSaveButton {
+                ProgressView().progressViewStyle(.circular)
+            } else {
+                Button {
+                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                    // We should not allow any saving until the validationErrors are nil
+                    if fromNameValidationError == nil {
+                        isLoadingSaveButton = true
+
+                        Task {
+                            await self.editFromName(fromName: self.fromName)
+                        }
+                    } else {
+                        isLoadingSaveButton = false
+                    }
+                } label: {
+                    Text(String(localized: "save"))
+                }
+            }
+        }
     }
 
     private func editFromName(fromName: String?) async {
         fromNameRequestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            if let domain = try await networkHelper.updateFromNameSpecificDomain(domainId: domainId, fromName: fromName) {
-                fromNameEdited(domain)
-            }
+            let domain = try await DomainRepository.shared.updateFromName(domainId: domainId, fromName: fromName)
+            fromNameEdited(domain)
         } catch {
-            IsLoadingSaveButton = false
+            isLoadingSaveButton = false
             fromNameRequestError = error.localizedDescription
         }
     }

@@ -10,7 +10,7 @@ import UIKit
 
 enum FieldType {
     case email
-    case commaSeperatedEmails
+    case commaSeparatedEmails
     case url
     case text
     case numeric
@@ -19,12 +19,15 @@ enum FieldType {
     case password
     case domain
 
+    // Backward compatibility alias for legacy spelling
+    public static var commaSeperatedEmails: FieldType { .commaSeparatedEmails }
+
     func validate(value: String) -> String? {
         switch self {
         case .email:
             return emailValidate(value: value)
-        case .commaSeperatedEmails:
-            return commaSeperatedEmails(value: value)
+        case .commaSeparatedEmails:
+            return commaSeparatedEmails(value: value)
         case .url:
             return urlValidate(value: value)
         case .text:
@@ -45,9 +48,9 @@ enum FieldType {
     func getKeyboardType() -> UIKeyboardType {
         switch self {
         case .email:
-            return UIKeyboardType.default // Not UIKeyboardType.emailAddress as it won't have the option to comma seperate
-        case .commaSeperatedEmails:
-            return UIKeyboardType.default // Not UIKeyboardType.emailAddress as it won't have the option to comma seperate
+            return UIKeyboardType.default // Not UIKeyboardType.emailAddress as it won't have the option to comma separate
+        case .commaSeparatedEmails:
+            return UIKeyboardType.default // Not UIKeyboardType.emailAddress as it won't have the option to comma separate
         case .url:
             return UIKeyboardType.URL
         case .text:
@@ -68,7 +71,7 @@ enum FieldType {
     private func emailValidate(value: String) -> String? {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: value) ? nil : String(localized: "not_a_valid_address")
+        return emailPred.evaluate(with: value.trimmingCharacters(in: .whitespaces)) ? nil : String(localized: "not_a_valid_address")
     }
 
     private func numberValidate(value: String, length: Int? = nil) -> String? {
@@ -84,27 +87,31 @@ enum FieldType {
     }
 
     private func domainValidate(value: String) -> String? {
-        let emailRegEx = "([a-zA-Z0-9]+\\.)+[a-zA-Z]+"
-        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: value) ? nil : String(localized: "not_a_valid_address")
+        let domainRegEx = "([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}"
+        let domainPred = NSPredicate(format: "SELF MATCHES %@", domainRegEx)
+        return domainPred.evaluate(with: value.trimmingCharacters(in: .whitespaces)) ? nil : String(localized: "not_a_valid_address")
     }
 
-    private func commaSeperatedEmails(value: String) -> String? {
-        let emails = value.components(separatedBy: ",")
+    private func commaSeparatedEmails(value: String) -> String? {
+        let emails = value.components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }.filter { !$0.isEmpty }
+
+        guard !emails.isEmpty else {
+            return String(localized: "not_a_valid_address")
+        }
 
         for email in emails {
             let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
             let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
 
-            if !emailPred.evaluate(with: String(email)) {
+            if !emailPred.evaluate(with: email) {
                 return String(localized: "not_a_valid_address")
             }
         }
 
-        return emails.isEmpty ? String(localized: "not_a_valid_address") : nil
+        return nil
     }
 
     private func urlValidate(value: String) -> String? {
-        return NSPredicate(format: "SELF MATCHES %@", "^(https|http)://.*$").evaluate(with: value) ? nil : String(localized: "not_a_valid_address")
+        return NSPredicate(format: "SELF MATCHES %@", "^(https|http)://.*$").evaluate(with: value.trimmingCharacters(in: .whitespaces)) ? nil : String(localized: "not_a_valid_address")
     }
 }

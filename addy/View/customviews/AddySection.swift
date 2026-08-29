@@ -37,7 +37,7 @@ struct AddySection: View {
                 }
                 VStack(alignment: .leading) {
                     Text(title)
-                        .foregroundColor(Color.revertedNightMode)
+                        .foregroundColor(Color.primary)
 
                     if let description = description {
                         Text(description)

@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct ConditionBottomSheet: View {
@@ -71,7 +70,7 @@ struct ConditionBottomSheet: View {
                 }.frame(maxWidth: .infinity, alignment: .center)
             }.textCase(nil)
 
-        }.navigationTitle(String(localized: "add_condition")).pickerStyle(.navigationLink)
+        }.navigationTitle(String(localized: "add_condition"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .confirmationAction) {
@@ -119,28 +118,26 @@ struct ConditionBottomSheet: View {
     }
 
     private func saveButton() -> some View {
-        AnyView(
-            Button {
-                if RulesOption.isBooleanCondition(type: self.selectedConditionType) {
-                    let condition = Condition(type: self.selectedConditionType, match: nil, values: nil)
-                    self.onAddedCondition(conditionEditObject, condition)
-                } else {
-                    if self.value.trimmingCharacters(in: .whitespaces).isEmpty {
-                        valuePlaceHolderValidationError = String(localized: "this_field_cannot_be_empty")
-                        return
-                    }
-                    let valuesList = self.value.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
-                    let condition = Condition(type: self.selectedConditionType, match: self.selectedConditionMatch, values: valuesList)
-                    self.onAddedCondition(conditionEditObject, condition)
+        Button {
+            if RulesOption.isBooleanCondition(type: self.selectedConditionType) {
+                let condition = Condition(type: self.selectedConditionType, match: nil, values: nil)
+                self.onAddedCondition(conditionEditObject, condition)
+            } else {
+                if self.value.trimmingCharacters(in: .whitespaces).isEmpty {
+                    valuePlaceHolderValidationError = String(localized: "this_field_cannot_be_empty")
+                    return
                 }
-            } label: {
-                if conditionEditObject != nil {
-                    Text(String(localized: "save"))
-                } else {
-                    Text(String(localized: "add"))
-                }
+                let valuesList = self.value.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
+                let condition = Condition(type: self.selectedConditionType, match: self.selectedConditionMatch, values: valuesList)
+                self.onAddedCondition(conditionEditObject, condition)
             }
-        )
+        } label: {
+            if conditionEditObject != nil {
+                Text(String(localized: "save"))
+            } else {
+                Text(String(localized: "add"))
+            }
+        }
     }
 
     init(conditionEditObject: Condition?, onAddedCondition: @escaping (Condition?, Condition) -> Void) {

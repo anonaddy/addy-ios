@@ -89,7 +89,7 @@ struct AddyMultiSelectChipView: View {
 
 struct AddyMultiSelectChipView_Preview: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 @State var selectedChips: [String] = ["test3", "test"]
                 @State var chips = [

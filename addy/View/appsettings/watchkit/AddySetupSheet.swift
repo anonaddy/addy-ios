@@ -36,7 +36,7 @@ struct AddyWatchKitSetupBottomSheet: View {
                     }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
                 } header: {
                     VStack(alignment: .leading) {
-                        Text(String(format: String(localized: "setup_wearable_app_desc"), connectivityManager.watchName, mainViewState.userResource!.username))
+                        Text(String(format: String(localized: "setup_wearable_app_desc"), connectivityManager.watchName, mainViewState.userResource?.username ?? ""))
                     }
                     .multilineTextAlignment(.center)
                     .padding(.bottom)

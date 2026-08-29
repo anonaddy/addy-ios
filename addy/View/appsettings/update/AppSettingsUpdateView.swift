@@ -44,7 +44,7 @@ struct AppSettingsUpdateView: View {
                 }
                 .onChange(of: notifyUpdates) {
                     MainViewState.shared.settingsManager.putSettingsBool(key: .notifyUpdates, boolean: notifyUpdates)
-                    BackgroundWorkerHelper().scheduleAppRefresh()
+                    BackgroundWorkerHelper.shared.scheduleAppRefresh()
                 }
 
             } header: {
@@ -110,18 +110,18 @@ struct AppSettingsUpdateView: View {
 
     private func checkForUpdates() async {
         do {
-            let (updateAvailable, latestVersion, isRunningFutureVersion, error) = try await Updater().isUpdateAvailable()
+            let result = try await Updater().isUpdateAvailable()
             isCheckingForUpdates = false
 
-            if error == nil {
+            if result.error == nil {
                 checkedForUpdates = true
 
                 let appVersion = "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
 
-                if updateAvailable {
+                if result.isUpdateAvailable {
                     updateStatusTitle = String(localized: "new_update_available")
-                    updateStatusDescription = String(format: String(localized: "new_update_available_version"), appVersion, latestVersion ?? "")
-                } else if isRunningFutureVersion {
+                    updateStatusDescription = String(format: String(localized: "new_update_available_version"), appVersion, result.latestVersion ?? "")
+                } else if result.isAppAhead {
                     updateStatusTitle = String(localized: "greetings_time_traveller")
                     updateStatusDescription = String(localized: "greetings_time_traveller_desc")
                 } else {
@@ -130,7 +130,7 @@ struct AppSettingsUpdateView: View {
                 }
 
             } else {
-                errorAlertMessage = error ?? ""
+                errorAlertMessage = result.error ?? ""
                 showAlert = true
             }
 

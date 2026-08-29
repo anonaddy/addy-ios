@@ -7,7 +7,6 @@
 
 import addy_shared
 import Lottie
-import SwiftData
 import SwiftUI
 
 struct SplashView: View {
@@ -17,7 +16,6 @@ struct SplashView: View {
 
     @State private var showError = false
     @State private var isPresentUnsupportedVersionBottomDialog = false
-    @State private var networkHelper: NetworkHelper? = nil
     @State private var isShowingDetailedErrorAlert = false
     @State private var detailedError: String? = ""
 
@@ -129,8 +127,6 @@ struct SplashView: View {
 
     private func loadDataAndStartApp() {
         showError = false
-        // This helper inits the BASE_URL var
-        networkHelper = NetworkHelper()
 
         #if DEBUG
             let defaultBaseUrl = String(localized: "dev_base_url")
@@ -154,18 +150,16 @@ struct SplashView: View {
 
     private func getAddyIoInstanceVersion() async {
         do {
-            let version = try await networkHelper!.getAddyIoInstanceVersion()
-            if let version = version {
-                AddyIo.VERSIONMAJOR = version.major
-                AddyIo.VERSIONMINOR = version.minor
-                AddyIo.VERSIONPATCH = version.patch
-                AddyIo.VERSIONSTRING = version.version ?? String(localized: "unknown")
+            let version = try await AppMaintenanceRepository.shared.getAddyIoInstanceVersion()
+            AddyIo.VERSIONMAJOR = version.major
+            AddyIo.VERSIONMINOR = version.minor
+            AddyIo.VERSIONPATCH = version.patch
+            AddyIo.VERSIONSTRING = version.version ?? String(localized: "unknown")
 
-                if instanceHasTheMinimumRequiredVersion() {
-                    await getUserResource()
-                } else {
-                    isPresentUnsupportedVersionBottomDialog = true
-                }
+            if instanceHasTheMinimumRequiredVersion() {
+                await getUserResource()
+            } else {
+                isPresentUnsupportedVersionBottomDialog = true
             }
         } catch {
             detailedError = error.localizedDescription
@@ -189,26 +183,16 @@ struct SplashView: View {
     }
 
     private func getUserResource() async {
-        let networkHelper = NetworkHelper()
         do {
-            let userResource = try await networkHelper.getUserResource()
-            if let userResource = userResource {
-                mainViewState.userResource = userResource
+            let userResource = try await UserRepository.shared.getUserResource()
+            mainViewState.userResource = userResource
 
-                // Fetch UserResourceExtended data
-                let recipient = try await networkHelper.getSpecificRecipient(recipientId: userResource.default_recipient_id)
-                if let recipient = recipient {
-                    DispatchQueue.main.async {
-                        withAnimation {
-                            // Since this is the last change before the view changes, make this withAnimation
-                            mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
-                        }
-                    }
-                } else {
-                    showError = true
+            // Fetch UserResourceExtended data
+            let recipient = try await RecipientRepository.shared.getRecipient(recipientId: userResource.default_recipient_id)
+            DispatchQueue.main.async {
+                withAnimation {
+                    mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
                 }
-            } else {
-                showError = true
             }
         } catch {
             detailedError = error.localizedDescription

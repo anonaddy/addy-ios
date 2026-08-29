@@ -30,7 +30,7 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
                         // Only fire when the value is NOT the same as the value already in the model
                         if notifyFailedDeliveries != MainViewState.shared.settingsManager.getSettingsBool(key: .notifyFailedDeliveries) {
                             MainViewState.shared.settingsManager.putSettingsBool(key: .notifyFailedDeliveries, boolean: notifyFailedDeliveries)
-                            BackgroundWorkerHelper().scheduleAppRefresh()
+                            BackgroundWorkerHelper.shared.scheduleAppRefresh()
                         }
                     }
 
@@ -44,7 +44,7 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
                     .pickerStyle(MenuPickerStyle())
                     .onChange(of: notifyFailedDeliveriesType) {
                         MainViewState.shared.settingsManager.putSettingsString(key: .notifyFailedDeliveriesType, string: notifyFailedDeliveriesType)
-                        BackgroundWorkerHelper().scheduleAppRefresh()
+                        BackgroundWorkerHelper.shared.scheduleAppRefresh()
                     }
                 }
 
@@ -55,9 +55,10 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
                 Text(String(localized: "notify_failed_deliveries_feature_desc")).padding(.top)
             }
         }.sheet(isPresented: $isShowingFailedDeliveriesView) {
-            // FailedDeliveriesView has its own navigationStack, always go compact to make the dismiss button appear in the underlying sheet
-            FailedDeliveriesView(horizontalSize: UserInterfaceSizeClass.compact)
-                .presentationDetents([.large])
+            NavigationStack {
+                FailedDeliveriesView(horizontalSize: UserInterfaceSizeClass.compact)
+            }
+            .presentationDetents([.large])
         }
         .navigationTitle(String(localized: "feature_notify_failed_deliveries"))
         .navigationBarTitleDisplayMode(.inline)
@@ -66,7 +67,6 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
 
 struct AppSettingsFeaturesNotifyFailedDeliveriesView_Previews: PreviewProvider {
     static var previews: some View {
-        @State var userInterfaceSizeClass = UserInterfaceSizeClass.regular
         AppSettingsFeaturesNotifyFailedDeliveriesView()
     }
 }

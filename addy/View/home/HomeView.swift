@@ -5,25 +5,15 @@
 //  Created by Stijn van de Water on 08/05/2024.
 //
 
-import _AppIntents_SwiftUI
 import addy_shared
-import Charts
 import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var mainViewState: MainViewState
     @EnvironmentObject var aliasesViewState: AliasesViewState
 
+    @StateObject private var viewModel = HomeViewModel()
     @Binding var horizontalSize: UserInterfaceSizeClass
-    @State private var activeAlert: ActiveAlert = .error
-    @State private var showAlert: Bool = false
-    @State private var errorAlertTitle = ""
-    @State private var errorAlertMessage = ""
-    @State private var progress: Float = 0.7
-
-    enum ActiveAlert {
-        case error
-    }
 
     var onRefreshGeneralData: (() -> Void)? = nil
 
@@ -35,7 +25,7 @@ struct HomeView: View {
         NavigationStack {
             ZStack {
                 Rectangle()
-                    .fill(.nightMode)
+                    .fill(Color(uiColor: .systemBackground))
                     .opacity(0.6)
                     .edgesIgnoringSafeArea(.all)
 
@@ -50,20 +40,20 @@ struct HomeView: View {
                                             .lineSpacing(24)
                                             .foregroundColor(.white)
                                         Spacer()
-                                        Text((userResource.bandwidth_limit ?? 0) == 0 ? String(format: String(localized: "home_bandwidth_text"), String(userResource.bandwidth / 1024 / 1024), "∞") : String(format: String(localized: "home_bandwidth_text"), String(userResource.bandwidth / 1024 / 1024), String((userResource.bandwidth_limit ?? 0) / 1024 / 1024)))
+                                        Text(viewModel.bandwidthText(userResource: userResource))
                                             .fontWeight(.medium)
                                             .lineSpacing(24)
                                             .foregroundColor(.white)
                                             .opacity(0.80)
                                     }
 
-                                    GradientProgressBar(value: $progress)
+                                    GradientProgressBar(value: $viewModel.progress)
                                         .frame(maxWidth: .infinity, minHeight: 28)
                                         .onAppear {
-                                            self.updateProgress()
+                                            viewModel.updateProgress(userResource: mainViewState.userResource)
                                         }
                                         .onReceive(mainViewState.userResourceChanged) { _ in
-                                            self.updateProgress()
+                                            viewModel.updateProgress(userResource: mainViewState.userResource)
                                         }
                                         .apply {
                                             // Apply the shimmering effect when no limit
@@ -137,7 +127,7 @@ struct HomeView: View {
                                     .fontWeight(.semibold)
                                     .opacity(0.60)
                                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                                HomeCardView(title: String(localized: "total_recipients"), value: userResource.recipient_count, backgroundColor: .homeColor3, systemImage: "person.2", systemImageOpacity: 0.5) {
+                                HomeCardView(title: String(localized: "total_recipients"), value: userResource.recipient_count, backgroundColor: .homeColor3, systemImage: "person.2.fill", systemImageOpacity: 0.5) {
                                     mainViewState.selectedTab = .recipients
                                 }
                             }
@@ -169,27 +159,6 @@ struct HomeView: View {
         }.refreshable {
             // When refreshing aliases also ask the mainView to update general data
             self.onRefreshGeneralData?()
-        }
-        .alert(isPresented: $showAlert) {
-            switch activeAlert {
-            case .error:
-                return Alert(
-                    title: Text(errorAlertTitle),
-                    message: Text(errorAlertMessage)
-                )
-            }
-        }
-    }
-
-    private func updateProgress() {
-        guard let userResource = mainViewState.userResource else {
-            // Handle case where userResource might be nil, if needed
-            return
-        }
-        if (userResource.bandwidth_limit ?? 0) == 0 {
-            progress = 1.0
-        } else {
-            progress = Float(Double(userResource.bandwidth) / Double(userResource.bandwidth_limit ?? 1))
         }
     }
 }

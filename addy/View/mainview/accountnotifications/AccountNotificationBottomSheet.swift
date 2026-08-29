@@ -7,7 +7,6 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct AccountNotificationBottomSheet: View {
@@ -45,7 +44,7 @@ struct AccountNotificationBottomSheet: View {
                 }
             }
 
-        }.navigationTitle(accountNotification.title).pickerStyle(.navigationLink)
+        }.navigationTitle(accountNotification.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .cancellationAction) {

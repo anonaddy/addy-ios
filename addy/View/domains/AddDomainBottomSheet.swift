@@ -6,9 +6,8 @@
 //
 
 import addy_shared
-import AVFoundation
-import Combine
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct AddDomainBottomSheet: View {
     @Environment(\.dismiss) var dismiss
@@ -19,11 +18,15 @@ struct AddDomainBottomSheet: View {
     @State private var domainRequestError: String?
     @State private var valueCopiedToClipboard: Bool = false
     @State var domainVerificationStatusText: String = ""
-    @State var IsLoadingAddButton: Bool = false
+    @State var isLoadingAddButton: Bool = false
     @State var isWaitingForDomainVerification: Bool = false
     @State private var timer: Timer? = nil
 
     let onAdded: () -> Void
+
+    init(onAdded: @escaping () -> Void) {
+        self.onAdded = onAdded
+    }
 
     var body: some View {
         #if DEBUG
@@ -39,17 +42,7 @@ struct AddDomainBottomSheet: View {
                     }
 
                     ProgressView()
-                }.navigationTitle(String(localized: "add_domain")).pickerStyle(.navigationLink)
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar(content: {
-                        ToolbarItem(placement: .cancellationAction) {
-                            Button {
-                                dismiss()
-                            } label: {
-                                Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                            }
-                        }
-                    })
+                }
             } else {
                 VStack {
                     Form {
@@ -75,76 +68,73 @@ struct AddDomainBottomSheet: View {
 
                         }.textCase(nil)
 
-                    }.navigationTitle(String(localized: "add_domain")).pickerStyle(.navigationLink)
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar(content: {
-                            ToolbarItem(placement: .confirmationAction) {
-                                if #available(iOS 26.0, *) {
-                                    saveButton().buttonStyle(.glassProminent)
-                                } else {
-                                    saveButton()
-                                }
-                            }
-                            ToolbarItem(placement: .cancellationAction) {
-                                Button {
-                                    dismiss()
-                                } label: {
-                                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                                }
-                            }
-                        })
+                    }
                 }
             }
-        }.onDisappear {
+        }
+        .navigationTitle(String(localized: "add_domain"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if !isWaitingForDomainVerification {
+                ToolbarItem(placement: .confirmationAction) {
+                    if #available(iOS 26.0, *) {
+                        saveButton().buttonStyle(.glassProminent)
+                    } else {
+                        saveButton()
+                    }
+                }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
+                }
+            }
+        }
+        .onDisappear {
             self.timer?.invalidate()
         }
     }
 
     private func saveButton() -> some View {
         Group {
-            if IsLoadingAddButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
+            if isLoadingAddButton {
+                ProgressView().progressViewStyle(.circular)
             } else {
-                AnyView(
-                    Button {
-                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                        // We should not allow any saving until the validationErrors are nil
-                        if domainValidationError == nil {
-                            IsLoadingAddButton = true
+                Button {
+                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                    // We should not allow any saving until the validationErrors are nil
+                    if domainValidationError == nil {
+                        isLoadingAddButton = true
 
-                            Task {
-                                await self.addDomainToAccount(domain: self.domain)
-                            }
-                        } else {
-                            IsLoadingAddButton = false
+                        Task {
+                            await self.addDomainToAccount(domain: self.domain)
                         }
-                    } label: {
-                        Text(String(localized: "add"))
+                    } else {
+                        isLoadingAddButton = false
                     }
-                )
+                } label: {
+                    Text(String(localized: "add"))
+                }
             }
         }
     }
 
-    init(onAdded: @escaping () -> Void) {
-        self.onAdded = onAdded
-    }
-
     private func addDomainToAccount(domain: String) async {
         domainRequestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            let (_, error, body) = try await networkHelper.addDomain(domain: domain)
+            let (_, error, body) = try await DomainRepository.shared.addDomain(domain: domain)
             switch error {
             case "404": openSetup(body: String(body ?? ""))
             case "201": onAdded()
             default:
-                IsLoadingAddButton = false
+                isLoadingAddButton = false
                 domainRequestError = error
             }
 
         } catch {
-            IsLoadingAddButton = false
+            isLoadingAddButton = false
             domainRequestError = error.localizedDescription
         }
     }

@@ -6,21 +6,26 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct EditDomainAutoCreateRegexBottomSheet: View {
     @Environment(\.dismiss) var dismiss
 
     @State var autoCreateRegex: String
-    @State var autoCreateRegexPlaceholder: String = .init(localized: "auto_create_regex_hint")
     @State private var autoCreateRegexValidationError: String?
     @State private var autoCreateRegexRequestError: String?
-    @State var IsLoadingSaveButton: Bool = false
+    @State var isLoadingSaveButton: Bool = false
 
     let domainId: String
     let domain: String
     let autoCreateRegexEdited: (Domains) -> Void
+
+    init(domainId: String, domain: String, autoCreateRegex: String?, autoCreateRegexEdited: @escaping (Domains) -> Void) {
+        self.domainId = domainId
+        self.domain = domain
+        self._autoCreateRegex = State(initialValue: autoCreateRegex ?? "")
+        self.autoCreateRegexEdited = autoCreateRegexEdited
+    }
 
     var body: some View {
         #if DEBUG
@@ -28,7 +33,7 @@ struct EditDomainAutoCreateRegexBottomSheet: View {
         #endif
         Form {
             Section {
-                ValidatingTextField(value: self.$autoCreateRegex, placeholder: self.$autoCreateRegexPlaceholder, fieldType: .text, error: $autoCreateRegexValidationError)
+                ValidatingTextField(value: self.$autoCreateRegex, placeholder: String(localized: "auto_create_regex_hint"), fieldType: .text, error: $autoCreateRegexValidationError)
 
             } header: {
                 VStack(alignment: .leading) {
@@ -49,68 +54,58 @@ struct EditDomainAutoCreateRegexBottomSheet: View {
                         }
                 }
             }
-        }.navigationTitle(String(localized: "edit_auto_create_regex")).pickerStyle(.navigationLink)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        saveButton().buttonStyle(.glassProminent)
-                    } else {
-                        saveButton()
-                    }
+        }
+        .navigationTitle(String(localized: "edit_auto_create_regex"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26.0, *) {
+                    saveButton().buttonStyle(.glassProminent)
+                } else {
+                    saveButton()
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                    }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
-            })
-    }
-
-    private func saveButton() -> some View {
-        Group {
-            if IsLoadingSaveButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
-            } else {
-                AnyView(
-                    Button {
-                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                        // We should not allow any saving until the validationErrors are nil
-                        if autoCreateRegexValidationError == nil {
-                            IsLoadingSaveButton = true
-
-                            Task {
-                                await self.editautoCreateRegex(autoCreateRegex: self.autoCreateRegex)
-                            }
-                        } else {
-                            IsLoadingSaveButton = false
-                        }
-                    } label: {
-                        Text(String(localized: "save"))
-                    }
-                )
             }
         }
     }
 
-    init(domainId: String, domain: String, autoCreateRegex: String?, autoCreateRegexEdited: @escaping (Domains) -> Void) {
-        self.domainId = domainId
-        self.domain = domain
-        self.autoCreateRegex = autoCreateRegex ?? ""
-        self.autoCreateRegexEdited = autoCreateRegexEdited
+    private func saveButton() -> some View {
+        Group {
+            if isLoadingSaveButton {
+                ProgressView().progressViewStyle(.circular)
+            } else {
+                Button {
+                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                    // We should not allow any saving until the validationErrors are nil
+                    if autoCreateRegexValidationError == nil {
+                        isLoadingSaveButton = true
+
+                        Task {
+                            await self.editautoCreateRegex(autoCreateRegex: self.autoCreateRegex)
+                        }
+                    } else {
+                        isLoadingSaveButton = false
+                    }
+                } label: {
+                    Text(String(localized: "save"))
+                }
+            }
+        }
     }
 
     private func editautoCreateRegex(autoCreateRegex: String?) async {
         autoCreateRegexRequestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            if let domain = try await networkHelper.updateAutoCreateRegexSpecificDomain(domainId: domainId, autoCreateRegex: autoCreateRegex) {
-                autoCreateRegexEdited(domain)
-            }
+            let domain = try await DomainRepository.shared.updateAutoCreateRegex(domainId: domainId, autoCreateRegex: autoCreateRegex)
+            autoCreateRegexEdited(domain)
         } catch {
-            IsLoadingSaveButton = false
+            isLoadingSaveButton = false
             autoCreateRegexRequestError = error.localizedDescription
         }
     }

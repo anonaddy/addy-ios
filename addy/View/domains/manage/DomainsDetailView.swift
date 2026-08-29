@@ -8,12 +8,11 @@
 import addy_shared
 import Lottie
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct DomainsDetailView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) var openURL
 
     @Binding var shouldReloadDataInParent: Bool
@@ -27,7 +26,7 @@ struct DomainsDetailView: View {
     @State private var isActive: Bool = false
     @State private var catchAllEnabled: Bool = false
     @State private var sharedWithFamilyEnabled: Bool = false
-    @State private var isSwitchingisActiveState: Bool = false
+    @State private var isSwitchingActiveState: Bool = false
     @State private var isSwitchingCatchAllEnabledState: Bool = false
     @State private var isSwitchingSharedWithFamilyState: Bool = false
     @State private var isPresentingEditDomainDescriptionBottomSheet: Bool = false
@@ -54,8 +53,9 @@ struct DomainsDetailView: View {
             let _ = Self._printChanges()
         #endif
 
-        if let domain = domain {
-            Form {
+        Group {
+            if let domain = domain {
+                Form {
                 Section {
                     Text(String(format: String(localized: "manage_domain_basic_info"),
                                 domain.domain,
@@ -72,24 +72,31 @@ struct DomainsDetailView: View {
 
                 Section {
                     VStack(alignment: .leading) {
-                        let aliasesToShow = showAllAliases ? aliasList : Array(aliasList.prefix(10))
+                        if aliasList.isEmpty {
+                            Text(String(localized: "no_aliases_directly_assigned"))
+                                .font(.system(size: 14))
+                                .foregroundColor(.secondary)
+                                .padding(.top, 5)
+                        } else {
+                            let aliasesToShow = showAllAliases ? aliasList : Array(aliasList.prefix(10))
 
-                        Text(aliasesToShow.joined(separator: "\n"))
-                            .font(.system(size: 14)) // Set initial font size
-                            .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
-                            .padding(.top, 5)
+                            Text(aliasesToShow.joined(separator: "\n"))
+                                .font(.system(size: 14)) // Set initial font size
+                                .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
+                                .padding(.top, 5)
 
-                        if aliasList.count > 10 {
-                            Button(action: {
-                                withAnimation {
-                                    showAllAliases.toggle()
+                            if aliasList.count > 10 {
+                                Button(action: {
+                                    withAnimation {
+                                        showAllAliases.toggle()
+                                    }
+                                }) {
+                                    Text(showAllAliases ? String(localized: "show_less") : String(localized: "show_all"))
+                                        .font(.system(size: 14, weight: .bold))
+                                        .padding(.top, 5)
                                 }
-                            }) {
-                                Text(showAllAliases ? String(localized: "show_less") : String(localized: "show_all"))
-                                    .font(.system(size: 14, weight: .bold))
-                                    .padding(.top, 5)
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
                     }
 
@@ -110,11 +117,11 @@ struct DomainsDetailView: View {
                 }.textCase(nil)
 
                 Section {
-                    AddyToggle(isOn: $isActive, isLoading: isSwitchingisActiveState, title: domain.active ? String(localized: "domain_activated") : String(localized: "domain_deactivated"), description: String(localized: "domain_status_desc"))
+                    AddyToggle(isOn: $isActive, isLoading: isSwitchingActiveState, title: domain.active ? String(localized: "domain_activated") : String(localized: "domain_deactivated"), description: String(localized: "domain_status_desc"))
                         .onChange(of: isActive) {
                             // Only fire when the value is NOT the same as the value already in the model
                             if isActive != domain.active {
-                                self.isSwitchingisActiveState = true
+                                self.isSwitchingActiveState = true
 
                                 if domain.active {
                                     Task {
@@ -177,7 +184,7 @@ struct DomainsDetailView: View {
                     }
 
                     AddySection(title: String(localized: "from_name"), description: getFromName(domain: domain), leadingSystemimage: nil, trailingSystemimage: "pencil") {
-                        if !mainViewState.userResource!.hasUserFreeSubscription() {
+                        if !(mainViewState.userResource?.hasUserFreeSubscription() ?? true) {
                             isPresentingEditDomainFromNameBottomSheet = true
                         } else {
                             HapticHelper.playHapticFeedback(hapticType: .error)
@@ -185,7 +192,7 @@ struct DomainsDetailView: View {
                     }
 
                     AddySection(title: String(localized: "auto_create_regex"), description: getAutoCreateRegex(domain: domain), leadingSystemimage: nil, trailingSystemimage: "pencil") {
-                        if !mainViewState.userResource!.hasUserFreeSubscription() {
+                        if !(mainViewState.userResource?.hasUserFreeSubscription() ?? true) {
                             isPresentingEditDomainAutoCreateRegexBottomSheet = true
                         } else {
                             HapticHelper.playHapticFeedback(hapticType: .error)
@@ -217,15 +224,13 @@ struct DomainsDetailView: View {
                 .refreshable {
                     await getDomain(domainId: self.domainId)
                 }
-                .navigationTitle(domainDomain)
-                .navigationBarTitleDisplayMode(.inline)
                 .sheet(isPresented: $isPresentingEditDomainDescriptionBottomSheet) {
                     NavigationStack {
                         EditDomainDescriptionBottomSheet(domainId: domain.id, description: domain.description ?? "") { domain in
                             self.domain = domain
                             isPresentingEditDomainDescriptionBottomSheet = false
 
-                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // This changes the last updated time of the domain which is being shown in the list in the domainsView.
                             // So we update the list when coming back
                             shouldReloadDataInParent = true
                         }
@@ -238,7 +243,7 @@ struct DomainsDetailView: View {
                             self.domain = domain
                             isPresentingEditDomainFromNameBottomSheet = false
 
-                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // This changes the last updated time of the domain which is being shown in the list in the domainsView.
                             // So we update the list when coming back
                             shouldReloadDataInParent = true
                         }
@@ -251,7 +256,7 @@ struct DomainsDetailView: View {
                             self.domain = domain
                             isPresentingEditDomainAutoCreateRegexBottomSheet = false
 
-                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // This changes the last updated time of the domain which is being shown in the list in the domainsView.
                             // So we update the list when coming back
                             shouldReloadDataInParent = true
                         }
@@ -264,7 +269,7 @@ struct DomainsDetailView: View {
                             self.domain = domain
                             isPresentingEditDomainRecipientsBottomSheet = false
 
-                            // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
+                            // This changes the last updated time of the domain which is being shown in the list in the domainsView.
                             // So we update the list when coming back
                             shouldReloadDataInParent = true
                         }
@@ -311,9 +316,10 @@ struct DomainsDetailView: View {
             }.task {
                 await getDomain(domainId: self.domainId)
             }
-            .navigationTitle(domainDomain)
-            .navigationBarTitleDisplayMode(.inline)
         }
+        }
+        .navigationTitle(domainDomain)
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     init(domainId: String, domainDomain: String, shouldReloadDataInParent: Binding<Bool>) {
@@ -323,22 +329,21 @@ struct DomainsDetailView: View {
     }
 
     private func getDefaultRecipient(domain: Domains) -> String {
-        if domain.default_recipient != nil {
-            return domain.default_recipient!.email
+        if let defaultRecipient = domain.default_recipient {
+            return defaultRecipient.email
         } else {
-            return String(format: String(localized: "default_recipient_s"), mainViewState.userResourceExtended!.default_recipient_email)
+            return String(format: String(localized: "default_recipient_s"), mainViewState.userResourceExtended?.default_recipient_email ?? "")
         }
     }
 
     private func activateDomain(domain: Domains) async {
-        let networkHelper = NetworkHelper()
         do {
-            let activatedDomain = try await networkHelper.activateSpecificDomain(domainId: domain.id)
-            isSwitchingisActiveState = false
+            let activatedDomain = try await DomainRepository.shared.activateDomain(domainId: domain.id)
+            isSwitchingActiveState = false
             self.domain = activatedDomain
             isActive = true
         } catch {
-            isSwitchingisActiveState = false
+            isSwitchingActiveState = false
             isActive = false
             activeAlert = .error
             showAlert = true
@@ -348,10 +353,9 @@ struct DomainsDetailView: View {
     }
 
     private func deactivateDomain(domain: Domains) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deactivateSpecificDomain(domainId: domain.id)
-            isSwitchingisActiveState = false
+            let result = try await DomainRepository.shared.deactivateDomain(domainId: domain.id)
+            isSwitchingActiveState = false
             if result == "204" {
                 self.domain?.active = false
                 isActive = false
@@ -363,7 +367,7 @@ struct DomainsDetailView: View {
                 errorAlertMessage = result
             }
         } catch {
-            isSwitchingisActiveState = false
+            isSwitchingActiveState = false
             isActive = true
             activeAlert = .error
             showAlert = true
@@ -373,9 +377,8 @@ struct DomainsDetailView: View {
     }
 
     private func enableCatchAll(domain: Domains) async {
-        let networkHelper = NetworkHelper()
         do {
-            let enabledDomain = try await networkHelper.enableCatchAllSpecificDomain(domainId: domain.id)
+            let enabledDomain = try await DomainRepository.shared.enableCatchAll(domainId: domain.id)
             isSwitchingCatchAllEnabledState = false
             self.domain = enabledDomain
             catchAllEnabled = true
@@ -390,9 +393,8 @@ struct DomainsDetailView: View {
     }
 
     private func disableCatchAll(domain: Domains) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.disableCatchAllSpecificDomain(domainId: domain.id)
+            let result = try await DomainRepository.shared.disableCatchAll(domainId: domain.id)
             isSwitchingCatchAllEnabledState = false
             if result == "204" {
                 self.domain?.catch_all = false
@@ -415,9 +417,8 @@ struct DomainsDetailView: View {
     }
 
     private func shareWithFamily(domain: Domains) async {
-        let networkHelper = NetworkHelper()
         do {
-            let updatedDomain = try await networkHelper.shareDomainWithFamily(domainId: domain.id)
+            let updatedDomain = try await DomainRepository.shared.shareWithFamily(domainId: domain.id)
             isSwitchingSharedWithFamilyState = false
             self.domain = updatedDomain
             sharedWithFamilyEnabled = true
@@ -432,9 +433,8 @@ struct DomainsDetailView: View {
     }
 
     private func stopSharingWithFamily(domain: Domains) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.stopSharingDomainWithFamily(domainId: domain.id)
+            let result = try await DomainRepository.shared.stopSharingWithFamily(domainId: domain.id)
             isSwitchingSharedWithFamilyState = false
             if result == "204" {
                 self.domain?.shared_with_family = false
@@ -471,7 +471,7 @@ struct DomainsDetailView: View {
     }
 
     private func getFromName(domain: Domains) -> String {
-        if mainViewState.userResource!.hasUserFreeSubscription() {
+        if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
             return String(localized: "feature_not_available_subscription")
         } else {
             // Set description based on alias.from_name and initialize the bottom dialog fragment
@@ -484,7 +484,7 @@ struct DomainsDetailView: View {
     }
 
     private func getAutoCreateRegex(domain: Domains) -> String {
-        if mainViewState.userResource!.hasUserFreeSubscription() {
+        if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
             return String(localized: "feature_not_available_subscription")
         } else {
             // Set description based on alias.auto_create_regex and initialize the bottom dialog fragment
@@ -505,13 +505,12 @@ struct DomainsDetailView: View {
     }
 
     private func deleteDomain(domain: Domains) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteDomain(domainId: domain.id)
+            let result = try await DomainRepository.shared.deleteDomain(domainId: domain.id)
             isDeletingDomain = false
             if result == "204" {
                 shouldReloadDataInParent = true
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             } else {
                 activeAlert = .error
                 showAlert = true
@@ -528,24 +527,22 @@ struct DomainsDetailView: View {
     }
 
     private func getDomain(domainId: String) async {
-        let networkHelper = NetworkHelper()
         do {
-            if let domain = try await networkHelper.getSpecificDomain(domainId: domainId) {
-                withAnimation {
-                    self.domain = domain
-                    self.isActive = domain.active
-                    self.catchAllEnabled = domain.catch_all
-                    self.sharedWithFamilyEnabled = domain.shared_with_family ?? false
-                }
-
-                // Reset total counts
-                totalForwarded = 0
-                totalBlocked = 0
-                totalReplies = 0
-                totalSent = 0
-
-                await getAliasesAndAddThemToList(domain: domain)
+            let domain = try await DomainRepository.shared.getDomain(domainId: domainId)
+            withAnimation {
+                self.domain = domain
+                self.isActive = domain.active
+                self.catchAllEnabled = domain.catch_all
+                self.sharedWithFamilyEnabled = domain.shared_with_family ?? false
             }
+
+            // Reset total counts
+            totalForwarded = 0
+            totalBlocked = 0
+            totalReplies = 0
+            totalSent = 0
+
+            await getAliasesAndAddThemToList(domain: domain)
         } catch {
             withAnimation {
                 self.errorText = error.localizedDescription
@@ -554,12 +551,10 @@ struct DomainsDetailView: View {
     }
 
     private func getAliasesAndAddThemToList(domain: Domains, workingAliasList: AliasesArray? = nil) async {
-        let networkHelper = NetworkHelper()
         let aliasSortFilterRequest = AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, onlyPinnedAliases: false, sort: nil, sortDesc: false, filter: nil, label: nil)
         do {
-            if let list = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (workingAliasList?.meta?.current_page ?? 0) + 1, size: 100, domain: domainId) {
-                addAliasesToList(domain: domain, aliasesArray: list, workingAliasListInbound: workingAliasList)
-            }
+            let list = try await AliasRepository.shared.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (workingAliasList?.meta?.current_page ?? 0) + 1, size: 100, domain: domainId)
+            addAliasesToList(domain: domain, aliasesArray: list, workingAliasListInbound: workingAliasList)
         } catch {
             withAnimation {
                 self.errorText = error.localizedDescription

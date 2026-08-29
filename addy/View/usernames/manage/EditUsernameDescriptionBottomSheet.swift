@@ -6,20 +6,24 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct EditUsernameDescriptionBottomSheet: View {
     @Environment(\.dismiss) var dismiss
 
     @State private var description: String
-    @State private var descriptionPlaceholder: String = .init(localized: "description")
     @State private var descriptionValidationError: String?
     @State private var descriptionRequestError: String?
-    @State var IsLoadingSaveButton: Bool = false
+    @State var isLoadingSaveButton: Bool = false
 
     let usernameId: String
     let descriptionEdited: (Usernames) -> Void
+
+    init(usernameId: String, description: String, descriptionEdited: @escaping (Usernames) -> Void) {
+        self.usernameId = usernameId
+        self._description = State(initialValue: description)
+        self.descriptionEdited = descriptionEdited
+    }
 
     var body: some View {
         #if DEBUG
@@ -27,7 +31,7 @@ struct EditUsernameDescriptionBottomSheet: View {
         #endif
         Form {
             Section {
-                ValidatingTextField(value: self.$description, placeholder: self.$descriptionPlaceholder, fieldType: .bigText, error: $descriptionValidationError)
+                ValidatingTextField(value: self.$description, placeholder: String(localized: "description"), fieldType: .bigText, error: $descriptionValidationError)
 
             } header: {
                 VStack(alignment: .leading) {
@@ -48,67 +52,58 @@ struct EditUsernameDescriptionBottomSheet: View {
                         }
                 }
             }.textCase(nil)
-        }.navigationTitle(String(localized: "edit_description")).pickerStyle(.navigationLink)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        saveButton().buttonStyle(.glassProminent)
-                    } else {
-                        saveButton()
-                    }
+        }
+        .navigationTitle(String(localized: "edit_description"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26.0, *) {
+                    saveButton().buttonStyle(.glassProminent)
+                } else {
+                    saveButton()
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                    }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
-            })
-    }
-
-    private func saveButton() -> some View {
-        Group {
-            if IsLoadingSaveButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
-            } else {
-                AnyView(
-                    Button {
-                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                        // We should not allow any saving until the validationErrors are nil
-                        if descriptionValidationError == nil {
-                            IsLoadingSaveButton = true
-
-                            Task {
-                                await self.editDescription(description: self.description)
-                            }
-                        } else {
-                            IsLoadingSaveButton = false
-                        }
-                    } label: {
-                        Text(String(localized: "save"))
-                    }
-                )
             }
         }
     }
 
-    init(usernameId: String, description: String, descriptionEdited: @escaping (Usernames) -> Void) {
-        self.usernameId = usernameId
-        self.description = description
-        self.descriptionEdited = descriptionEdited
+    private func saveButton() -> some View {
+        Group {
+            if isLoadingSaveButton {
+                ProgressView().progressViewStyle(.circular)
+            } else {
+                Button {
+                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                    // We should not allow any saving until the validationErrors are nil
+                    if descriptionValidationError == nil {
+                        isLoadingSaveButton = true
+
+                        Task {
+                            await self.editDescription(description: self.description)
+                        }
+                    } else {
+                        isLoadingSaveButton = false
+                    }
+                } label: {
+                    Text(String(localized: "save"))
+                }
+            }
+        }
     }
 
     private func editDescription(description: String?) async {
         descriptionRequestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            if let username = try await networkHelper.updateDescriptionSpecificUsername(usernameId: usernameId, description: description) {
-                descriptionEdited(username)
-            }
+            let username = try await UsernameRepository.shared.updateDescription(usernameId: usernameId, description: description)
+            descriptionEdited(username)
         } catch {
-            IsLoadingSaveButton = false
+            isLoadingSaveButton = false
             descriptionRequestError = error.localizedDescription
         }
     }

@@ -88,7 +88,7 @@ struct UIUXInterfaceBottomSheet: View {
             } header: {
                 Text(String(localized: "app_icon"))
             }.textCase(nil)
-        }.navigationTitle(String(localized: "interface")).pickerStyle(.navigationLink)
+        }.navigationTitle(String(localized: "interface"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .cancellationAction) {

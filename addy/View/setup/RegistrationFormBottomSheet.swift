@@ -12,22 +12,17 @@ struct RegistrationFormBottomSheet: View {
     @Environment(\.openURL) var openURL
     @Environment(\.dismiss) var dismiss
 
-    @State private var passwordPlaceholder: String = .init(localized: "registration_password")
     @State private var passwordValidationError: String?
     @State private var password: String = ""
-    @State private var passwordConfirmPlaceholder: String = .init(localized: "registration_password_confirm")
     @State private var passwordConfirmValidationError: String?
     @State private var passwordConfirm: String = ""
     @State private var showAlert = false
     @State private var isLoadingRegister = false
     @State private var alertMessage = ""
-    @State private var addressPlaceholder: String = .init(localized: "registration_email")
     @State private var addressValidationError: String?
     @State private var address: String = ""
-    @State private var addressConfirmPlaceholder: String = .init(localized: "registration_email_confirm")
     @State private var addressConfirmValidationError: String?
     @State private var addressConfirm: String = ""
-    @State private var usernamePlaceholder: String = .init(localized: "registration_username")
     @State private var usernameValidationError: String?
     @State private var username: String = ""
     @State private var activeAlert: ActiveAlert = .error
@@ -39,10 +34,10 @@ struct RegistrationFormBottomSheet: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 Section {
-                    ValidatingTextField(value: self.$username, placeholder: $usernamePlaceholder, fieldType: .text, error: $usernameValidationError)
+                    ValidatingTextField(value: self.$username, placeholder: String(localized: "registration_username"), fieldType: .text, error: $usernameValidationError)
                 } header: {
                     Text(String(localized: "registration_username_header"))
                 } footer: {
@@ -50,8 +45,8 @@ struct RegistrationFormBottomSheet: View {
                 }.textCase(nil)
 
                 Section {
-                    ValidatingTextField(value: self.$address, placeholder: $addressPlaceholder, fieldType: .email, error: $addressValidationError)
-                    ValidatingTextField(value: self.$addressConfirm, placeholder: $addressConfirmPlaceholder, fieldType: .email, error: $addressConfirmValidationError)
+                    ValidatingTextField(value: self.$address, placeholder: String(localized: "registration_email"), fieldType: .email, error: $addressValidationError)
+                    ValidatingTextField(value: self.$addressConfirm, placeholder: String(localized: "registration_email_confirm"), fieldType: .email, error: $addressConfirmValidationError)
                 } header: {
                     Text(String(localized: "registration_email_header"))
                 } footer: {
@@ -59,9 +54,9 @@ struct RegistrationFormBottomSheet: View {
                 }.textCase(nil)
 
                 Section {
-                    ValidatingTextField(value: self.$password, placeholder: $passwordPlaceholder, fieldType: .password, error: $passwordValidationError)
+                    ValidatingTextField(value: self.$password, placeholder: String(localized: "registration_password"), fieldType: .password, error: $passwordValidationError)
 
-                    ValidatingTextField(value: self.$passwordConfirm, placeholder: $passwordConfirmPlaceholder, fieldType: .password, error: $passwordConfirmValidationError)
+                    ValidatingTextField(value: self.$passwordConfirm, placeholder: String(localized: "registration_password_confirm"), fieldType: .password, error: $passwordConfirmValidationError)
 
                     Picker(selection: $apiExpiration, label: Text(String(localized: "login_expiration"))) {
                         Text(String(localized: "login_expiration_day")).tag("day")
@@ -137,28 +132,26 @@ struct RegistrationFormBottomSheet: View {
     private func registerButton() -> some View {
         Group {
             if isLoadingRegister {
-                AnyView(ProgressView().progressViewStyle(.circular))
+                ProgressView().progressViewStyle(.circular)
             } else {
-                AnyView(
-                    Button {
-                        // First check for existing validation errors
-                        if usernameValidationError == nil &&
-                            addressValidationError == nil &&
-                            addressConfirmValidationError == nil &&
-                            passwordValidationError == nil &&
-                            passwordConfirmValidationError == nil
-                        {
-                            Task {
-                                isLoadingRegister = true
-                                await registerUser()
-                            }
-                        } else {
-                            resetButton()
+                Button {
+                    // First check for existing validation errors
+                    if usernameValidationError == nil &&
+                        addressValidationError == nil &&
+                        addressConfirmValidationError == nil &&
+                        passwordValidationError == nil &&
+                        passwordConfirmValidationError == nil
+                    {
+                        Task {
+                            isLoadingRegister = true
+                            await registerUser()
                         }
-                    } label: {
-                        Text(String(localized: "registration_register"))
+                    } else {
+                        resetButton()
                     }
-                )
+                } label: {
+                    Text(String(localized: "registration_register"))
+                }
             }
         }
     }
@@ -212,22 +205,18 @@ struct RegistrationFormBottomSheet: View {
             return
         }
 
-        let networkHelper = NetworkHelper()
-        await networkHelper.registration(username: username, email: address, password: password, apiExpiration: apiExpiration, completion: { error in
-            if error == nil {
-                // Registration success
-                self.alertMessage = String(localized: "registration_success_verification_required")
-                self.activeAlert = .completionMessage
-                self.showAlert = true
-            } else {
-                // Show error
-                self.alertMessage = error!
-                self.activeAlert = .error
-                self.showAlert = true
-
-                resetButton()
-            }
-        })
+        do {
+            try await UserRepository.shared.registration(username: username, email: address, password: password, apiExpiration: apiExpiration)
+            // Registration success
+            self.alertMessage = String(localized: "registration_success_verification_required")
+            self.activeAlert = .completionMessage
+            self.showAlert = true
+        } catch {
+            self.alertMessage = error.localizedDescription
+            self.activeAlert = .error
+            self.showAlert = true
+            resetButton()
+        }
     }
 
     private func resetButton() {

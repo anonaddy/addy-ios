@@ -20,7 +20,6 @@ struct AppSettingsView: View {
     @State private var biometricEnabled: Bool = false
     @State private var preferredMailClient: String = ""
     @State private var isPresentingSelectMailClientBottomSheet: Bool = false
-    @State private var showPlayGround: Bool = false
     @Binding var horizontalSize: UserInterfaceSizeClass
     @State private var showAlert = false
     @State private var activeAlert: ActiveAlert = .resetApp
@@ -34,21 +33,14 @@ struct AppSettingsView: View {
             let _ = Self._printChanges()
         #endif
 
-        if showPlayGround {
-            if #available(iOS 18.0, *) {
-                PlayGround()
-            }
-
-        } else {
-            // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
-            Group {
-                if horizontalSize == .regular {
-                    NavigationStack {
-                        appSettingsViewBody
-                    }
-                } else {
+        // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
+        Group {
+            if horizontalSize == .regular {
+                NavigationStack {
                     appSettingsViewBody
                 }
+            } else {
+                appSettingsViewBody
             }
         }
     }
@@ -100,14 +92,6 @@ struct AppSettingsView: View {
                 NavigationLink(destination: AppSettingsWatchKitView()) {
                     AddySection(title: String(localized: "addyio_for_watchkit"), description: String(localized: "addyio_for_watchkit_desc"), leadingSystemimage: "applewatch", leadingSystemimageColor: .mint)
                 }
-
-                //                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor){
-                //
-                //                        }
-
-                //                    AddySection(title: String(localized: "addyio_backup"), leadingSystemimage: "square.and.arrow.up", leadingSystemimageColor: .accentColor){
-                //                        isPresentingAppearanceBottomSheet = true
-                //                        }
 
                 AddyToggle(isOn: $biometricEnabled, title: String(localized: "security"), description: !LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? String(localized: "biometric_error") : String(localized: "security_desc"), leadingSystemimage: "faceid", leadingSystemimageColor: .green).onAppear {
                     self.biometricEnabled = MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled)
@@ -213,11 +197,6 @@ struct AppSettingsView: View {
                         .multilineTextAlignment(.center)
                         .font(.system(size: 16))
                         .frame(maxWidth: .infinity)
-                        .onLongPressGesture {
-                            #if DEBUG
-                                self.showPlayGround = true
-                            #endif
-                        }
                 }
 
             }.textCase(nil)
@@ -271,9 +250,8 @@ struct AppSettingsView: View {
     }
 
     func logoutAndReset() async {
-        let networkHelper = NetworkHelper()
         do {
-            if let statusCode = try await networkHelper.logout() {
+            if let statusCode = try await UserRepository.shared.logout() {
                 if statusCode == 204 {
                     DispatchQueue.main.async {
                         mainViewState.isPresentingProfileBottomSheet = false
@@ -313,24 +291,13 @@ struct AppSettingsView: View {
 
     func requestNotificationPermission() {
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
             if granted {
                 // print("Permission granted for local notifications")
             } else {
-                if let error = error {
-                    // print("Error requesting permission: \(error.localizedDescription)")
-
-                    DispatchQueue.main.async {
-                        if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
-                            UIApplication.shared.open(appSettings)
-                        }
-                    }
-                } else {
-                    // print("Permission denied for local notifications")
-                    DispatchQueue.main.async {
-                        if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
-                            UIApplication.shared.open(appSettings)
-                        }
+                DispatchQueue.main.async {
+                    if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
+                        UIApplication.shared.open(appSettings)
                     }
                 }
             }

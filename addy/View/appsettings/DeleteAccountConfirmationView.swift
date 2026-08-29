@@ -8,6 +8,7 @@
 import addy_shared
 import SwiftUI
 
+@MainActor
 class TimerViewModel: ObservableObject {
     @Published var secondsRemaining = 10
     private var timer: Timer?
@@ -89,8 +90,8 @@ struct DeleteAccountConfirmationView: View {
     }
 
     private func deleteAccount() async {
-        let networkHelper = NetworkHelper()
-        await networkHelper.deleteAccount(password: password, completion: { result in
+        do {
+            let result = try await UserRepository.shared.deleteAccount(password: password)
             switch result {
             case "204":
                 SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -101,7 +102,10 @@ struct DeleteAccountConfirmationView: View {
                 alertMessage = result
                 showAlert = true
             }
-        })
+        } catch {
+            alertMessage = error.localizedDescription
+            showAlert = true
+        }
     }
 }
 

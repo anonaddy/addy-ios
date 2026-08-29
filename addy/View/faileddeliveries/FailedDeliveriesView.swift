@@ -11,7 +11,7 @@ import SwiftUI
 struct FailedDeliveriesView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
-    @StateObject var failedDeliveriesViewModel = FailedDeliveriesViewModel()
+    @StateObject private var failedDeliveriesViewModel = FailedDeliveriesViewModel()
 
     @Environment(\.dismiss) var dismiss
 
@@ -23,7 +23,7 @@ struct FailedDeliveriesView: View {
     @State private var errorAlertMessage = ""
     @State var selectedFilterChip: String = "all"
     @State var filterChips: [AddyChipModel] = []
-    @State var horizontalSize: UserInterfaceSizeClass
+    @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
         case error, deleteFailedDelivery
@@ -35,8 +35,32 @@ struct FailedDeliveriesView: View {
         #if DEBUG
             let _ = Self._printChanges()
         #endif
-        NavigationStack {
-            List {
+        Group {
+            if horizontalSize == .regular {
+                NavigationStack {
+                    failedDeliveriesViewBody
+                }
+            } else {
+                failedDeliveriesViewBody
+            }
+        }
+        .onAppear(perform: {
+            // Instantly clear the unread badge regardless of how the view was opened (navbar or sidebar)
+            mainViewState.newFailedDeliveries = 0
+
+            loadFilter()
+            if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
+                if failedDeliveries.data.isEmpty {
+                    Task {
+                        await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
+                    }
+                }
+            }
+        })
+    }
+
+    private var failedDeliveriesViewBody: some View {
+        List {
                 if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
                     Section {
                         if !failedDeliveries.data.isEmpty {
@@ -109,7 +133,7 @@ struct FailedDeliveriesView: View {
                                     selectedFilterChip = onTappedChip.chipId
                                 }
 
-                                ApplyFilter(chipId: onTappedChip.chipId)
+                                applyFilter(chipId: onTappedChip.chipId)
                             }.scrollClipDisabled()
 
                             HStack(spacing: 6) {
@@ -198,7 +222,7 @@ struct FailedDeliveriesView: View {
 
                     // No failedDeliveries, check if there is an error
                     if failedDeliveriesViewModel.networkError != "" {
-                        if mainViewState.userResource!.hasUserFreeSubscription() {
+                        if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
                             // Error screen
                             ContentUnavailableView {
                                 Label(String(localized: "no_failed_deliveries"), systemImage: "exclamationmark.triangle.fill")
@@ -263,27 +287,18 @@ struct FailedDeliveriesView: View {
                 }
             }
         }
-        .onAppear(perform: {
-            // Instantly clear the unread badge regardless of how the view was opened (navbar or sidebar)
-            mainViewState.newFailedDeliveries = 0
 
-            LoadFilter()
-            if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
-                if failedDeliveries.data.isEmpty {
-                    Task {
-                        await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
-                    }
-                }
-            }
-        })
-    }
-
-    init(horizontalSize: UserInterfaceSizeClass?, onRefreshGeneralData: (() -> Void)? = nil) {
-        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
+    init(horizontalSize: Binding<UserInterfaceSizeClass>, onRefreshGeneralData: (() -> Void)? = nil) {
+        self._horizontalSize = horizontalSize
         self.onRefreshGeneralData = onRefreshGeneralData
     }
 
-    func ApplyFilter(chipId: String) {
+    init(horizontalSize: UserInterfaceSizeClass?, onRefreshGeneralData: (() -> Void)? = nil) {
+        self._horizontalSize = .constant(horizontalSize ?? .compact)
+        self.onRefreshGeneralData = onRefreshGeneralData
+    }
+
+    func applyFilter(chipId: String) {
         switch chipId {
         case "inbound":
             failedDeliveriesViewModel.filter = "inbound"
@@ -302,11 +317,11 @@ struct FailedDeliveriesView: View {
         }
     }
 
-    func LoadFilter() {
-        filterChips = GetFilterChips()
+    func loadFilter() {
+        filterChips = getFilterChips()
     }
 
-    func GetFilterChips() -> [AddyChipModel] {
+    func getFilterChips() -> [AddyChipModel] {
         return [
             AddyChipModel(chipId: "all", label: String(localized: "filter_all")),
             AddyChipModel(chipId: "inbound", label: String(localized: "filter_inbound")),
@@ -329,9 +344,8 @@ struct FailedDeliveriesView: View {
     }
 
     private func deleteFailedDelivery(failedDelivery: FailedDeliveries) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteFailedDelivery(failedDeliveryId: failedDelivery.id)
+            let result = try await FailedDeliveriesRepository.shared.deleteFailedDelivery(failedDeliveryId: failedDelivery.id)
             if result == "204" {
                 await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
             } else {

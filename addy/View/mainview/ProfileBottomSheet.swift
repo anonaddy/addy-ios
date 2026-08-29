@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import AVFoundation
 import Shiny
 import SwiftUI
 
@@ -42,21 +41,21 @@ struct ProfileBottomSheet: View {
                             Circle()
                                 .fill(LinearGradient(gradient: Gradient(colors: [Color.secondary.opacity(0.6), Color.secondary]), startPoint: .top, endPoint: .bottom))
                                 .frame(width: 100, height: 100)
-                            Text(mainViewState.userResource!.username.prefix(2).uppercased())
+                            Text(mainViewState.userResource?.username.prefix(2).uppercased() ?? "")
                                 .font(.system(size: 40))
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                         }.frame(maxWidth: .infinity).padding(.bottom, 10)
 
-                        Text(mainViewState.userResource!.username)
+                        Text(mainViewState.userResource?.username ?? "")
                             .font(.headline)
 
-                        if mainViewState.userResource!.subscription != nil {
+                        if let subscription = mainViewState.userResource?.subscription {
                             HStack(spacing: 4) {
-                                Text(String(format: String(localized: "subscription_user"), mainViewState.userResource!.subscription!))
+                                Text(String(format: String(localized: "subscription_user"), subscription))
                                     .font(.headline)
 
-                                if mainViewState.userResource!.family_plan_role != nil {
+                                if mainViewState.userResource?.family_plan_role != nil {
                                     Image(systemName: "person.3.fill")
                                         .font(.footnote)
                                 }
@@ -64,14 +63,14 @@ struct ProfileBottomSheet: View {
                             .opacity(0.6)
                             .apply {
                                 // Apply a shiny effect when the user does not have a free subcription. (So Lite or Pro)
-                                if !(mainViewState.userResource!.hasUserFreeSubscription()) {
+                                if !(mainViewState.userResource?.hasUserFreeSubscription() ?? true) {
                                     $0.shiny()
                                 } else {
                                     $0
                                 }
                             }
 
-                            if mainViewState.userResource!.subscription_ends_at != nil {
+                            if mainViewState.userResource?.subscription_ends_at != nil {
                                 Text(getSubscriptionUntilText())
                                     .font(.subheadline)
                                     .fontWeight(.thin)
@@ -194,7 +193,7 @@ struct ProfileBottomSheet: View {
             .navigationDestination(isPresented: $isShowingSubscriptionView) {
                 // Double check that this destination is ONLY being loaded when user is using the hosted instance
                 if AddyIo.isUsingHostedInstance() {
-                    ManageSubscriptionView(horizontalSize: $horizontalSize, shouldHideNavigationBarBackButtonSubscriptionView: $shouldHideNavigationBarBackButtonSubscriptionView).environmentObject(mainViewState).navigationBarBackButtonHidden(shouldHideNavigationBarBackButtonSubscriptionView)
+                    ManageSubscriptionView(shouldHideNavigationBarBackButtonSubscriptionView: $shouldHideNavigationBarBackButtonSubscriptionView).environmentObject(mainViewState).navigationBarBackButtonHidden(shouldHideNavigationBarBackButtonSubscriptionView)
                 }
             }
             .listSectionSpacing(.compact)
@@ -257,7 +256,7 @@ struct ProfileBottomSheet: View {
 
     private func getSubscriptionUntilText() -> String {
         return String(format: String(localized: "subscription_user_until"), DateTimeUtils.convertStringToLocalTimeZoneString(
-            mainViewState.userResource!.subscription_ends_at,
+            mainViewState.userResource?.subscription_ends_at,
             dateTimeFormat: DateTimeUtils.DateTimeFormat.date
         ))
     }

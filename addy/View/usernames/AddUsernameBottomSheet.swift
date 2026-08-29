@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct AddUsernameBottomSheet: View {
@@ -14,12 +13,16 @@ struct AddUsernameBottomSheet: View {
 
     @State var username: String = ""
     @State var usernameLimit: Int
-    @State var usernamePlaceHolder: String = .init(localized: "username")
     @State private var usernameValidationError: String?
     @State private var usernameRequestError: String?
-    @State var IsLoadingAddButton: Bool = false
+    @State var isLoadingAddButton: Bool = false
 
     let onAdded: () -> Void
+
+    init(usernameLimit: Int, onAdded: @escaping () -> Void) {
+        self.usernameLimit = usernameLimit
+        self.onAdded = onAdded
+    }
 
     var body: some View {
         #if DEBUG
@@ -27,7 +30,7 @@ struct AddUsernameBottomSheet: View {
         #endif
         Form {
             Section {
-                ValidatingTextField(value: self.$username, placeholder: self.$usernamePlaceHolder, fieldType: .text, error: $usernameValidationError)
+                ValidatingTextField(value: self.$username, placeholder: String(localized: "username"), fieldType: .text, error: $usernameValidationError)
 
             } header: {
                 VStack(alignment: .leading) {
@@ -49,65 +52,58 @@ struct AddUsernameBottomSheet: View {
                 }
 
             }.textCase(nil)
-        }.navigationTitle(String(localized: "add_username")).pickerStyle(.navigationLink)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        saveButton().buttonStyle(.glassProminent)
-                    } else {
-                        saveButton()
-                    }
+        }
+        .navigationTitle(String(localized: "add_username"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26.0, *) {
+                    saveButton().buttonStyle(.glassProminent)
+                } else {
+                    saveButton()
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                    }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
-            })
-    }
-
-    private func saveButton() -> some View {
-        Group {
-            if IsLoadingAddButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
-            } else {
-                AnyView(
-                    Button {
-                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                        // We should not allow any saving until the validationErrors are nil
-                        if usernameValidationError == nil {
-                            IsLoadingAddButton = true
-
-                            Task {
-                                await self.addUsernameToAccount(username: self.username)
-                            }
-                        } else {
-                            IsLoadingAddButton = false
-                        }
-                    } label: {
-                        Text(String(localized: "add"))
-                    }
-                )
             }
         }
     }
 
-    init(usernameLimit: Int, onAdded: @escaping () -> Void) {
-        self.usernameLimit = usernameLimit
-        self.onAdded = onAdded
+    private func saveButton() -> some View {
+        Group {
+            if isLoadingAddButton {
+                ProgressView().progressViewStyle(.circular)
+            } else {
+                Button {
+                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                    // We should not allow any saving until the validationErrors are nil
+                    if usernameValidationError == nil {
+                        isLoadingAddButton = true
+
+                        Task {
+                            await self.addUsernameToAccount(username: self.username)
+                        }
+                    } else {
+                        isLoadingAddButton = false
+                    }
+                } label: {
+                    Text(String(localized: "add"))
+                }
+            }
+        }
     }
 
     private func addUsernameToAccount(username: String) async {
         usernameRequestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.addUsername(username: username)
+            _ = try await UsernameRepository.shared.addUsername(username: username)
             onAdded()
         } catch {
-            IsLoadingAddButton = false
+            isLoadingAddButton = false
             usernameRequestError = error.localizedDescription
         }
     }

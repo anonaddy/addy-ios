@@ -12,7 +12,7 @@ struct CertificatePasswordView: View {
     @State private var error: String?
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section(header: Text(String(localized: "enter_certificate_password")), footer:
                     Group {
@@ -69,8 +69,8 @@ struct CertificatePasswordView: View {
         self.error = nil
 
         DispatchQueue.global().async {
-            let networkHelper = NetworkHelper(p12: certificateData, p12Password: password)
-            let success = networkHelper.isCertificatePasswordCorrect()
+            let apiClient = APIClient(p12: certificateData, p12Password: password)
+            let success = apiClient.isCertificatePasswordCorrect()
 
             DispatchQueue.main.async {
                 self.isLoading = false

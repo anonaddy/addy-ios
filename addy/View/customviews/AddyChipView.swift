@@ -7,7 +7,9 @@
 
 import addy_shared
 import SwiftUI
+#if canImport(WrappingHStack)
 import WrappingHStack
+#endif
 
 struct AddyChipView: View {
     @Binding var chips: [AddyChipModel]
@@ -52,6 +54,7 @@ struct AddyChipView: View {
                 }.textCase(nil)
             }
         } else {
+            #if canImport(WrappingHStack)
             WrappingHStack(alignment: .leading) {
                 ForEach(chips) { chip in
                     Button(action: {
@@ -83,6 +86,26 @@ struct AddyChipView: View {
                     }
                 }
             }.textCase(nil)
+            #else
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(chips) { chip in
+                        Button(action: {
+                            HapticHelper.playHapticFeedback(hapticType: .tap)
+                            self.onTap(chip)
+                        }, label: {
+                            HStack {
+                                if self.selectedChip == chip.chipId {
+                                    Image(systemName: "checkmark")
+                                }
+                                Text(chip.label)
+                            }
+                            .fixedSize()
+                        })
+                    }
+                }.textCase(nil)
+            }
+            #endif
         }
     }
 
@@ -96,7 +119,7 @@ struct AddyChipView: View {
 
 struct AddyChip_Preview: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 @State var selectedChip = "test3"
                 @State var chips = [
