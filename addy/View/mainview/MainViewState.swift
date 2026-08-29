@@ -9,6 +9,7 @@ import addy_shared
 import Combine
 import SwiftUI
 
+@MainActor
 class MainViewState: ObservableObject {
     static let shared = MainViewState() // Shared instance
 
@@ -54,8 +55,16 @@ class MainViewState: ObservableObject {
 
     let userResourceChanged = PassthroughSubject<Void, Never>()
 
+    private var cachedUserResource: UserResource? = nil
+    private var cachedUserResourceExtended: UserResourceExtended? = nil
+
     @Published var userResourceData: String? {
         didSet {
+            if let jsonString = userResourceData, let jsonData = jsonString.data(using: .utf8) {
+                cachedUserResource = try? JSONDecoder().decode(UserResource.self, from: jsonData)
+            } else {
+                cachedUserResource = nil
+            }
             userResourceData.map { encryptedSettingsManager.putSettingsString(key: .userResource, string: $0) }
             userResourceChanged.send()
         }
@@ -63,15 +72,13 @@ class MainViewState: ObservableObject {
 
     var userResource: UserResource? {
         get {
-            if let jsonString = userResourceData,
-               let jsonData = jsonString.data(using: .utf8)
-            {
-                let decoder = JSONDecoder()
-                return try? decoder.decode(UserResource.self, from: jsonData)
+            if cachedUserResource == nil, let jsonString = userResourceData, let jsonData = jsonString.data(using: .utf8) {
+                cachedUserResource = try? JSONDecoder().decode(UserResource.self, from: jsonData)
             }
-            return nil
+            return cachedUserResource
         }
         set {
+            cachedUserResource = newValue
             if let newValue = newValue {
                 let encoder = JSONEncoder()
                 if let jsonData = try? encoder.encode(newValue),
@@ -79,28 +86,32 @@ class MainViewState: ObservableObject {
                 {
                     userResourceData = jsonString
                 }
-                userResourceChanged.send()
+            } else {
+                userResourceData = nil
             }
         }
     }
 
     @Published var userResourceExtendedData: String? {
         didSet {
+            if let jsonString = userResourceExtendedData, let jsonData = jsonString.data(using: .utf8) {
+                cachedUserResourceExtended = try? JSONDecoder().decode(UserResourceExtended.self, from: jsonData)
+            } else {
+                cachedUserResourceExtended = nil
+            }
             userResourceExtendedData.map { encryptedSettingsManager.putSettingsString(key: .userResourceExtended, string: $0) }
         }
     }
 
     var userResourceExtended: UserResourceExtended? {
         get {
-            if let jsonString = userResourceExtendedData,
-               let jsonData = jsonString.data(using: .utf8)
-            {
-                let decoder = JSONDecoder()
-                return try? decoder.decode(UserResourceExtended.self, from: jsonData)
+            if cachedUserResourceExtended == nil, let jsonString = userResourceExtendedData, let jsonData = jsonString.data(using: .utf8) {
+                cachedUserResourceExtended = try? JSONDecoder().decode(UserResourceExtended.self, from: jsonData)
             }
-            return nil
+            return cachedUserResourceExtended
         }
         set {
+            cachedUserResourceExtended = newValue
             if let newValue = newValue {
                 let encoder = JSONEncoder()
                 if let jsonData = try? encoder.encode(newValue),
@@ -108,6 +119,8 @@ class MainViewState: ObservableObject {
                 {
                     userResourceExtendedData = jsonString
                 }
+            } else {
+                userResourceExtendedData = nil
             }
         }
     }

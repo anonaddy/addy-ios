@@ -6,13 +6,11 @@
 //
 
 import addy_shared
-import BackgroundTasks
 import Foundation
 import os.log
-import UserNotifications
 import WidgetKit
 
-private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "BackgroundAppRefreshManager")
+private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "host.stjin.addy", category: "BackgroundAppRefreshManager")
 
 class BackgroundWorker {
     func performRequest(completion: @escaping (Error?) -> Void) {
@@ -28,13 +26,11 @@ class BackgroundWorker {
 
         let settingsManager = SettingsManager(encrypted: false)
         let encryptedSettingsManager = SettingsManager(encrypted: true)
-        let backgroundWorkerHelper = BackgroundWorkerHelper()
+        let backgroundWorkerHelper = BackgroundWorkerHelper.shared
 
         Task {
             // True if there are aliases to be watched, widgets to be updated or checked for updates
             if await backgroundWorkerHelper.isThereWorkTodo() {
-                let networkHelper = NetworkHelper()
-
                 // Background work here
 
                 #if DEBUG
@@ -46,7 +42,7 @@ class BackgroundWorker {
                         extra: nil
                     )
                 #endif
-                _ = await networkHelper.cacheUserResourceForWidget()
+                _ = await UserRepository.shared.cacheUserResourceForWidget()
 
                 #if DEBUG
                     logger.log("BackgroundWorker task 2")
@@ -57,7 +53,7 @@ class BackgroundWorker {
                         extra: nil
                     )
                 #endif
-                _ = await networkHelper.cacheMostPopularAliasesDataForWidget()
+                _ = await AliasRepository.shared.cacheMostPopularAliasesForWidget()
 
                 /*
                  ALIAS_WATCHER FUNCTIONALITY
@@ -72,7 +68,7 @@ class BackgroundWorker {
                     )
                 #endif
                 do {
-                    _ = try await self.aliasWatcherTask(networkHelper: networkHelper, settingsManager: encryptedSettingsManager)
+                    _ = try await self.aliasWatcherTask(settingsManager: encryptedSettingsManager)
                 } catch {
                     logger.log("\(error.localizedDescription)")
                 }
@@ -92,9 +88,9 @@ class BackgroundWorker {
                 #endif
                 if settingsManager.getSettingsBool(key: .notifyUpdates) {
                     do {
-                        let (updateAvailable, latestVersion, _, _) = try await Updater().isUpdateAvailable()
-                        if updateAvailable {
-                            if let version = latestVersion {
+                        let result = try await Updater().isUpdateAvailable()
+                        if result.isUpdateAvailable {
+                            if let version = result.latestVersion {
                                 NotificationHelper().createUpdateNotification(version: version)
                             }
                         }
@@ -118,8 +114,8 @@ class BackgroundWorker {
                 #endif
                 if settingsManager.getSettingsBool(key: .notifyApiTokenExpiry) {
                     do {
-                        let apiTokenDetails = try await networkHelper.getApiTokenDetails()
-                        if let expiresAt = apiTokenDetails?.expires_at {
+                        let apiTokenDetails = try await UserRepository.shared.getApiTokenDetails()
+                        if let expiresAt = apiTokenDetails.expires_at {
                             let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(expiresAt) // Get the expiry date
                             let currentDateTime = Date() // Get the current date
                             let deadLineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate) // Subtract 5 days from the expiry date
@@ -129,7 +125,7 @@ class BackgroundWorker {
 
                                 // Check if the notification has already been fired for this day
                                 let previousNotificationLeftDays = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheApiKeyExpiryLeftCount)
-                                let currentLeftDays = Calendar.current.dateComponents([.day], from: currentDateTime, to: deadLineDate).day!
+                                let currentLeftDays = Calendar.current.dateComponents([.day], from: currentDateTime, to: deadLineDate).day ?? 0
 
                                 if previousNotificationLeftDays != currentLeftDays {
                                     encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheApiKeyExpiryLeftCount, int: currentLeftDays)
@@ -166,8 +162,8 @@ class BackgroundWorker {
 
                 if settingsManager.getSettingsBool(key: .notifyDomainError) {
                     do {
-                        let domains = try await networkHelper.getDomains()
-                        if let domains = domains, !domains.data.isEmpty {
+                        let domains = try await DomainRepository.shared.getDomains()
+                        if !domains.data.isEmpty {
                             // Check the amount of domains with MX errors
                             let amountOfDomainsWithErrors = domains.data.filter { $0.domain_mx_validated_at == nil }.count
                             if amountOfDomainsWithErrors > 0 {
@@ -201,8 +197,8 @@ class BackgroundWorker {
                 #endif
                 if settingsManager.getSettingsBool(key: .notifySubscriptionExpiry) {
                     do {
-                        let user = try await networkHelper.getUserResource()
-                        if let subscriptionEndsAt = user?.subscription_ends_at {
+                        let user = try await UserRepository.shared.getUserResource()
+                        if let subscriptionEndsAt = user.subscription_ends_at {
                             let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(subscriptionEndsAt) // Get the expiry date
                             let currentDateTime = Date() // Get the current date
                             let deadLineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate) // Subtract 7 days from the expiry date
@@ -212,14 +208,12 @@ class BackgroundWorker {
 
                                 // Check if the notification has already been fired for this day
                                 let previousNotificationLeftDays = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheSubscriptionExpiryLeftCount)
-                                let currentLeftDays = Calendar.current.dateComponents([.day], from: currentDateTime, to: deadLineDate).day!
+                                let currentLeftDays = Calendar.current.dateComponents([.day], from: currentDateTime, to: deadLineDate).day ?? 0
 
                                 if previousNotificationLeftDays != currentLeftDays {
                                     encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheSubscriptionExpiryLeftCount, int: currentLeftDays)
                                     NotificationHelper().createSubscriptionExpiryNotification(daysLeft: expiryDate.futureDateDisplay())
                                 }
-                            } else {
-                                // The current date is not yet after the deadline date.
                             }
                         }
                         // If expires_at is null it will never expire
@@ -233,26 +227,6 @@ class BackgroundWorker {
                         )
                     }
                 }
-
-                /*
-                 BACKUPS
-                 */
-
-                //                if settingsManager.getSettingsBool(key: .periodicBackups) {
-                //                    let backupHelper = BackupHelper()
-                //                    let date = backupHelper.getLatestBackupDate()?.addingTimeInterval(TimeInterval(Zone.current.secondsFromGMT()))
-                //                    let today = Date()
-                //                    // If the previous backup is *older* than 1 day OR if there is no backup at-all. Create a new backup
-                //                    // Else don't make a new backup
-                //                    if date?.addingTimeInterval(60*60*24) ?? Date.distantPast < today {
-                //                        if backupHelper.createBackup() {
-                //                            // When the backup is successful delete backups older than 30 days
-                //                            backupHelper.deleteBackupsOlderThanXDays(30)
-                //                        } else {
-                //                            NotificationHelper.createFailedBackupNotification(in: appContext)
-                //                        }
-                //                    }
-                //                }
 
                 /*
                  FAILED DELIVERIES
@@ -272,7 +246,7 @@ class BackgroundWorker {
 
                     var newDeliveriesCount = 0
                     var currentFailedDeliveryId: String? = nil
-                    if let result = await networkHelper.cacheFailedDeliveryCountForWidgetAndBackgroundService(previousId: previousFailedDeliveryId) {
+                    if let result = await FailedDeliveriesRepository.shared.cacheFailedDeliveryCountForWidgetAndBackgroundService(previousId: previousFailedDeliveryId) {
                         newDeliveriesCount = result.0
                         currentFailedDeliveryId = result.1
                     }
@@ -303,7 +277,7 @@ class BackgroundWorker {
                     )
                 #endif
                 if settingsManager.getSettingsBool(key: .notifyAccountNotifications) {
-                    let _ = await networkHelper.cacheAccountNotificationsCountForWidgetAndBackgroundService()
+                    let _ = await AppMaintenanceRepository.shared.cacheAccountNotificationsCountForWidgetAndBackgroundService()
                     // Store the result if the data succeeded to update in a boolean
 
                     let currentAccountNotifications = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheAccountNotificationsCount)
@@ -328,7 +302,7 @@ class BackgroundWorker {
         }
     }
 
-    private func aliasWatcherTask(networkHelper: NetworkHelper, settingsManager: SettingsManager) async throws -> Bool {
+    private func aliasWatcherTask(settingsManager: SettingsManager) async throws -> Bool {
         /*
          This method loops through all the aliases that need to be watched and caches those aliases locally
          */
@@ -338,57 +312,45 @@ class BackgroundWorker {
 
         if !aliasesToWatch.isEmpty {
             // Get all aliases from the watchList
-            if let result = try await networkHelper.bulkGetAlias(aliases: aliasesToWatch) {
-                // Get a copy of the current list
-                let aliasesJson = settingsManager.getSettingsString(key: .backgroundServiceCacheWatchAliasData)
-                let aliasesList = aliasesJson.flatMap { GsonTools.jsonToAliasObject(json: $0) }
+            let result = try await AliasRepository.shared.bulkGetAliases(aliases: aliasesToWatch)
+            // Get a copy of the current list
+            let aliasesJson = settingsManager.getSettingsString(key: .backgroundServiceCacheWatchAliasData)
+            let aliasesList = aliasesJson.flatMap { GsonTools.jsonToAliasObject(json: $0) }
 
-                // region Save a copy of the list
+            // If the current CACHED list is not null, move the current list to the PREV position for AliasWatcher to compare
+            if let currentList = aliasesJson {
+                settingsManager.putSettingsString(
+                    key: .backgroundServiceCacheWatchAliasDataPrevious,
+                    string: currentList
+                )
+            }
 
-                // When the call is successful, save a copy of the current CACHED version to `currentList`
-                let currentList = settingsManager.getSettingsString(key: .backgroundServiceCacheWatchAliasData)
-
-                // If the current CACHED list is not null, move the current list to the PREV position for AliasWatcher to compare
-                // This CACHED list could be null if this would be the first time the service is running
-                if let currentList = currentList {
-                    settingsManager.putSettingsString(
-                        key: .backgroundServiceCacheWatchAliasDataPrevious,
-                        string: currentList
+            // CLEANUP DELETED ALIASES
+            // Let's say a user forgets this alias using the web-app, but this alias is watched. We need to make sure that the aliases we request
+            // Are actually returned. If aliases requested are not returned we can assume the alias has been deleted thus we can delete this alias from the watchlist
+            for id in aliasesToWatch {
+                if !result.data.contains(where: { $0.id == id }) {
+                    // This alias is being watched but not returned, delete it from the watcher
+                    LoggingHelper().addLog(
+                        importance: .warning,
+                        error: String(format: String(localized: "notification_alias_watches_alias_does_not_exist_anymore_desc"), aliasesList?.first { $0.id == id }?.email ?? id),
+                        method: "aliasWatcherTask",
+                        extra: nil
                     )
+
+                    NotificationHelper().createAliasWatcherAliasDoesNotExistAnymoreNotification(
+                        email: aliasesList?.first { $0.id == id }?.email ?? id
+                    )
+
+                    aliasWatcher.removeAliasToWatch(alias: id)
                 }
-                // endregion
+            }
 
-                // region CLEANUP DELETED ALIASES
-                // Let's say a user forgets this alias using the web-app, but this alias is watched. We need to make sure that the aliases we request
-                // Are actually returned. If aliases requested are not returned we can assume the alias has been deleted thus we can delete this alias from the watchlist
-
-                for id in aliasesToWatch {
-                    if !result.data.contains(where: { $0.id == id }) {
-                        // This alias is being watched but not returned, delete it from the watcher
-
-                        LoggingHelper().addLog(
-                            importance: .warning,
-                            error: String(format: String(localized: "notification_alias_watches_alias_does_not_exist_anymore_desc"), aliasesList?.first { $0.id == id }?.email ?? id),
-                            method: "aliasWatcherTask",
-                            extra: nil
-                        )
-
-                        NotificationHelper().createAliasWatcherAliasDoesNotExistAnymoreNotification(
-                            email: aliasesList?.first { $0.id == id }?.email ?? id
-                        )
-
-                        aliasWatcher.removeAliasToWatch(alias: id)
-                    }
-                }
-                // endregion
-
-                // Turn the list into a json object
-                let data = try? JSONEncoder().encode(result.data)
-
+            // Turn the list into a json object
+            if let data = try? JSONEncoder().encode(result.data),
+               let jsonString = String(data: data, encoding: .utf8) {
                 // Store a copy of the just received data locally
-                if let data = data {
-                    settingsManager.putSettingsString(key: .backgroundServiceCacheWatchAliasData, string: String(data: data, encoding: .utf8)!)
-                }
+                settingsManager.putSettingsString(key: .backgroundServiceCacheWatchAliasData, string: jsonString)
             }
         }
 

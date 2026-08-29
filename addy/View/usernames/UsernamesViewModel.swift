@@ -1,47 +1,48 @@
 //
-//  DomainsViewModel.swift
+//  UsernamesViewModel.swift
 //  addy
 //
 //  Created by Stijn van de Water on 01/06/2024.
 //
 
 import addy_shared
-import Combine
 import SwiftUI
 
 /// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
-/// and remove the need for manual DispatchQueue.main.async calls.
+/// and handle all @Published updates safely on the main thread.
 @MainActor
-class DomainsViewModel: ObservableObject {
-    @Published var domains: DomainsArray? = nil
-
+class UsernamesViewModel: ObservableObject {
+    @Published var usernames: UsernamesArray? = nil
     @Published var isLoading = false
     @Published var networkError: String = ""
 
-    init() {
+    private let usernameRepository: UsernameRepositoryProtocol
+
+    init(usernameRepository: UsernameRepositoryProtocol = UsernameRepository.shared) {
+        self.usernameRepository = usernameRepository
         Task {
-            await self.getDomains()
+            await self.getUsernames()
         }
     }
 
-    func getDomains() async {
+    func getUsernames() async {
         if !isLoading {
             isLoading = true
             networkError = ""
 
-            let networkHelper = NetworkHelper()
             do {
-                let domains = try await networkHelper.getDomains()
+                let usernames = try await usernameRepository.getUsernames()
                 isLoading = false
-                self.domains = domains
+                self.usernames = usernames
             } catch {
                 isLoading = false
+                guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
                 networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
 
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,
-                    method: "getDomains",
+                    method: "getUsernames",
                     extra: nil
                 )
             }

@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import Combine
 import SwiftUI
 
 /// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
@@ -15,11 +14,18 @@ import SwiftUI
 class RulesViewModel: ObservableObject {
     @Published var rules: RulesArray? = nil
     @Published var recipients: [Recipients] = []
-
     @Published var isLoading = false
     @Published var networkError: String = ""
 
-    init() {
+    private let rulesRepository: RulesRepositoryProtocol
+    private let recipientRepository: RecipientRepositoryProtocol
+
+    init(
+        rulesRepository: RulesRepositoryProtocol = RulesRepository.shared,
+        recipientRepository: RecipientRepositoryProtocol = RecipientRepository.shared
+    ) {
+        self.rulesRepository = rulesRepository
+        self.recipientRepository = recipientRepository
         Task {
             await self.getRules()
         }
@@ -30,18 +36,18 @@ class RulesViewModel: ObservableObject {
             isLoading = true
             networkError = ""
 
-            let networkHelper = NetworkHelper()
             do {
-                // Sequential async calls: Recipients must succeed before fetching rules
-                if let recipients = try await networkHelper.getRecipients(verifiedOnly: false) {
-                    let rules = try await networkHelper.getRules()
+                // Concurrent async calls
+                async let fetchedRecipients = recipientRepository.getRecipients(verifiedOnly: false)
+                async let fetchedRules = rulesRepository.getRules()
+                let (recipients, rules) = try await (fetchedRecipients, fetchedRules)
 
-                    isLoading = false
-                    self.rules = rules
-                    self.recipients = recipients
-                }
+                isLoading = false
+                self.rules = rules
+                self.recipients = recipients
             } catch {
                 isLoading = false
+                guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
                 networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
 
                 LoggingHelper().addLog(

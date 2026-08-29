@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import Combine
 import SwiftUI
 
 /// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
@@ -14,14 +13,15 @@ import SwiftUI
 @MainActor
 class FailedDeliveriesViewModel: ObservableObject {
     @Published var failedDeliveries: FailedDeliveriesArray? = nil
-
     @Published var isLoading = false
     @Published var hasArrivedAtTheLastPage = true
     @Published var networkError: String = ""
-
     @Published var filter: String? = nil
 
-    init() {
+    private let failedDeliveriesRepository: FailedDeliveriesRepositoryProtocol
+
+    init(failedDeliveriesRepository: FailedDeliveriesRepositoryProtocol = FailedDeliveriesRepository.shared) {
+        self.failedDeliveriesRepository = failedDeliveriesRepository
         Task {
             await self.getFailedDeliveries(forceReload: true)
         }
@@ -32,32 +32,28 @@ class FailedDeliveriesViewModel: ObservableObject {
             isLoading = true
             networkError = ""
 
-            let networkHelper = NetworkHelper()
             do {
                 let pageToLoad = forceReload ? 1 : ((failedDeliveries?.meta?.current_page ?? 0) + 1)
-                let failedDeliveriesArray = try await networkHelper.getFailedDeliveries(
+                let failedDeliveriesArray = try await failedDeliveriesRepository.getFailedDeliveries(
                     page: pageToLoad,
                     size: 25,
                     filter: filter
                 )
                 isLoading = false
 
-                if let failedDeliveriesArray = failedDeliveriesArray {
-                    if failedDeliveries == nil || forceReload {
-                        failedDeliveries = failedDeliveriesArray
-                    } else {
-                        failedDeliveries?.meta = failedDeliveriesArray.meta
-                        failedDeliveries?.links = failedDeliveriesArray.links
-                        failedDeliveries?.data.append(contentsOf: failedDeliveriesArray.data)
-                    }
-
-                    hasArrivedAtTheLastPage = failedDeliveriesArray.meta?.current_page == failedDeliveriesArray.meta?.last_page || failedDeliveries?.data.isEmpty == true
+                if failedDeliveries == nil || forceReload {
+                    failedDeliveries = failedDeliveriesArray
                 } else {
-                    hasArrivedAtTheLastPage = true
+                    failedDeliveries?.meta = failedDeliveriesArray.meta
+                    failedDeliveries?.links = failedDeliveriesArray.links
+                    failedDeliveries?.data.append(contentsOf: failedDeliveriesArray.data)
                 }
+
+                hasArrivedAtTheLastPage = failedDeliveriesArray.meta?.current_page == failedDeliveriesArray.meta?.last_page || failedDeliveries?.data.isEmpty == true
 
             } catch {
                 isLoading = false
+                guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
                 networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
 
                 LoggingHelper().addLog(

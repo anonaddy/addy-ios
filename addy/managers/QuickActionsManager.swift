@@ -5,11 +5,11 @@
 //  Created by Stijn van de Water on 24/06/2024.
 //
 
-import Foundation
 import UIKit
 
-class QuickActionsManager: ObservableObject {
-    static let instance = QuickActionsManager()
+@MainActor
+class QuickActionsManager {
+    static let shared = QuickActionsManager()
 
     func handleQaItem(_ shortcutItem: UIApplicationShortcutItem) {
         #if DEBUG

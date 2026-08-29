@@ -19,7 +19,7 @@ class BackgroundWorkerHelper {
     static let shared = BackgroundWorkerHelper()
     static let backgroundWorker = BackgroundWorker()
 
-    init() {}
+    private init() {}
 }
 
 extension BackgroundWorkerHelper {
@@ -172,7 +172,6 @@ extension BackgroundWorkerHelper {
             let shouldCheckForFailedDeliveries = settingsManager.getSettingsBool(key: .notifyFailedDeliveries)
             let shouldCheckForAccountNotifications = settingsManager.getSettingsBool(key: .notifyAccountNotifications)
             let shouldCheckApiTokenExpiry = settingsManager.getSettingsBool(key: .notifyApiTokenExpiry)
-            // let shouldMakePeriodicBackups = settingsManager.getSettingsBool(key:  .periodicBackups)
 
             // If there are
             // -aliases to be watched

@@ -8,7 +8,7 @@
 import addy_shared
 import UserNotifications
 
-enum notificationActions {
+enum NotificationActions {
     static let openApp = "openApp"
     static let openSettings = "openSettings"
     static let openAlias = "openAlias"
@@ -25,26 +25,25 @@ enum notificationActions {
     static let stopDomainErrorCheck = "stopDomainErrorCheck"
     static let openDomains = "openDomains"
     static let stopSubscriptionExpiryCheck = "stopSubscriptionExpiryCheck"
-
-    // static let STOP_PERIODIC_BACKUPS = "stop_periodic_backups"
 }
 
+@MainActor
 class NotificationActionHelper {
     func handleNotificationActions(response: UNNotificationResponse) {
         // Notification button actions
         switch response.actionIdentifier {
-        case notificationActions.stopUpdateCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyUpdates, boolean: false)
-        case notificationActions.stopDomainErrorCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyDomainError, boolean: false)
-        case notificationActions.stopFailedDeliveriesCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyFailedDeliveries, boolean: false)
-        case notificationActions.stopAccountNotificationsCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyAccountNotifications, boolean: false)
-        case notificationActions.stopSubscriptionExpiryCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifySubscriptionExpiry, boolean: false)
-        case notificationActions.stopApiExpiryCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyApiTokenExpiry, boolean: false)
-        case notificationActions.disableAlias:
+        case NotificationActions.stopUpdateCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyUpdates, boolean: false)
+        case NotificationActions.stopDomainErrorCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyDomainError, boolean: false)
+        case NotificationActions.stopFailedDeliveriesCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyFailedDeliveries, boolean: false)
+        case NotificationActions.stopAccountNotificationsCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyAccountNotifications, boolean: false)
+        case NotificationActions.stopSubscriptionExpiryCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifySubscriptionExpiry, boolean: false)
+        case NotificationActions.stopApiExpiryCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyApiTokenExpiry, boolean: false)
+        case NotificationActions.disableAlias:
             if let aliasId = response.notification.request.content.userInfo["aliasId"] as? String {
                 MainViewState.shared.aliasToDisable = aliasId
                 MainViewState.shared.selectedTab = .aliases
             }
-        case notificationActions.stopWatching:
+        case NotificationActions.stopWatching:
             if let aliasId = response.notification.request.content.userInfo["aliasId"] as? String {
                 AliasWatcher().removeAliasToWatch(alias: aliasId)
             }
@@ -54,17 +53,17 @@ class NotificationActionHelper {
             // It's hard to determine if we open this notification in regular or compact mode.
             // iPad does not mean it cannot run in compact mode (split screen)
             // Hence we always open in sheets.
-            case notificationActions.openSettings:
+            case NotificationActions.openSettings:
                 MainViewState.shared.isPresentingProfileBottomSheet = true
                 MainViewState.shared.profileBottomSheetAction = .settings
-            case notificationActions.openDomains:
+            case NotificationActions.openDomains:
                 MainViewState.shared.isPresentingProfileBottomSheet = true
                 MainViewState.shared.profileBottomSheetAction = .domains
-            case notificationActions.openFailedDeliveries: MainViewState.shared.isPresentingFailedDeliveriesSheet = true
-            case notificationActions.openAccountNotifications: MainViewState.shared.isPresentingAccountNotificationsSheet = true
-            case notificationActions.openApiExpirationWarning: MainViewState.shared.showApiExpirationWarning = true
-            case notificationActions.openSubscriptionExpirationWarning: MainViewState.shared.showSubscriptionExpirationWarning = true
-            case notificationActions.openAlias:
+            case NotificationActions.openFailedDeliveries: MainViewState.shared.isPresentingFailedDeliveriesSheet = true
+            case NotificationActions.openAccountNotifications: MainViewState.shared.isPresentingAccountNotificationsSheet = true
+            case NotificationActions.openApiExpirationWarning: MainViewState.shared.showApiExpirationWarning = true
+            case NotificationActions.openSubscriptionExpirationWarning: MainViewState.shared.showSubscriptionExpirationWarning = true
+            case NotificationActions.openAlias:
                 if let aliasId = response.notification.request.content.userInfo["aliasId"] as? String {
                     MainViewState.shared.showAliasWithId = aliasId
                     MainViewState.shared.selectedTab = .aliases

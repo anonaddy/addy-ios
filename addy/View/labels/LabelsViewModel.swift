@@ -17,8 +17,10 @@ class LabelsViewModel: ObservableObject {
     @Published var searchQuery: String = ""
 
     var searchCancellable: AnyCancellable?
+    private let labelRepository: LabelRepositoryProtocol
 
-    init() {
+    init(labelRepository: LabelRepositoryProtocol = LabelRepository.shared) {
+        self.labelRepository = labelRepository
         searchCancellable = $searchQuery
             .dropFirst()
             .removeDuplicates()
@@ -38,12 +40,20 @@ class LabelsViewModel: ObservableObject {
         isLoading = false
         let trimmedSearchQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        if trimmedSearchQuery == "" {
-            self.searchQuery = ""
-            await getLabels()
-        } else {
-            if trimmedSearchQuery.count >= 3 {
+        if trimmedSearchQuery.isEmpty {
+            if !self.searchQuery.isEmpty {
+                self.searchQuery = ""
+                await getLabels()
+            }
+        } else if trimmedSearchQuery.count >= 3 {
+            if self.searchQuery != trimmedSearchQuery {
                 self.searchQuery = trimmedSearchQuery
+                await getLabels()
+            }
+        } else {
+            // When query is reduced below 3 characters from a previous valid search, reset search
+            if !self.searchQuery.isEmpty {
+                self.searchQuery = ""
                 await getLabels()
             }
         }
@@ -54,13 +64,13 @@ class LabelsViewModel: ObservableObject {
             isLoading = true
             networkError = ""
 
-            let networkHelper = NetworkHelper()
             do {
-                let fetchedLabels = try await networkHelper.getAllLabels(filter: searchQuery)
+                let fetchedLabels = try await labelRepository.getLabels(filter: searchQuery)
                 isLoading = false
                 self.labels = fetchedLabels
             } catch {
                 isLoading = false
+                guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
                 networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
 
                 LoggingHelper().addLog(

@@ -5,8 +5,9 @@
 //  Created by Stijn van de Water on 26/09/2024.
 //
 
-import Foundation
+import Combine
 
+@MainActor
 class SetupViewState: ObservableObject {
     static let shared = SetupViewState() // Shared instance
 

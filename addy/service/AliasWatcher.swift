@@ -20,8 +20,8 @@ class AliasWatcher {
         let previousAliasesJson = encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheWatchAliasDataPrevious)
 
         // Turn the 2 alias en previousAlias jsons into objects.
-        let aliasesList = aliasesJson != nil ? GsonTools.jsonToAliasObject(json: aliasesJson!) : nil
-        let aliasesListPrevious = previousAliasesJson != nil ? GsonTools.jsonToAliasObject(json: previousAliasesJson!) : nil
+        let aliasesList = aliasesJson.flatMap { GsonTools.jsonToAliasObject(json: $0) }
+        let aliasesListPrevious = previousAliasesJson.flatMap { GsonTools.jsonToAliasObject(json: $0) }
 
         // Iterate through the new list, if an alias is on the watchlist, try to look up the emails_forwarded amount from the old list and compare it with
         // the new one
@@ -32,10 +32,7 @@ class AliasWatcher {
             if let aliasesList = aliasesList, !aliasesList.isEmpty {
                 for alias in aliasesList {
                     let currentEmailsForwarded = alias.emails_forwarded
-
-                    let index = aliasesListPrevious?.firstIndex { $0.id == alias.id }
-
-                    let previousEmailsForwarded = index == nil ? 0 : aliasesListPrevious![index!].emails_forwarded
+                    let previousEmailsForwarded = aliasesListPrevious?.first(where: { $0.id == alias.id })?.emails_forwarded ?? 0
 
                     if currentEmailsForwarded > previousEmailsForwarded {
                         NotificationHelper().createAliasWatcherNotification(
@@ -59,7 +56,7 @@ class AliasWatcher {
         if aliasList.contains(alias) {
             aliasList.remove(alias)
             encryptedSettingsManager.putStringSet(key: SettingsManager.Prefs.backgroundServiceWatchAliasList, mutableSet: aliasList)
-            BackgroundWorkerHelper().scheduleAppRefresh()
+            BackgroundWorkerHelper.shared.scheduleAppRefresh()
         }
     }
 
@@ -73,7 +70,7 @@ class AliasWatcher {
             if !aliasList.contains(alias) {
                 aliasList.insert(alias)
                 encryptedSettingsManager.putStringSet(key: SettingsManager.Prefs.backgroundServiceWatchAliasList, mutableSet: aliasList)
-                BackgroundWorkerHelper().scheduleAppRefresh()
+                BackgroundWorkerHelper.shared.scheduleAppRefresh()
             }
             return true
         }

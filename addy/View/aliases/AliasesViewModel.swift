@@ -36,6 +36,7 @@ class AliasesViewModel: ObservableObject {
     @Published var searchQuery = ""
 
     var searchCancellable: AnyCancellable?
+    private let aliasRepository: AliasRepositoryProtocol
 
     @Published var aliasList: AliasesArray? = nil
 
@@ -43,7 +44,8 @@ class AliasesViewModel: ObservableObject {
     @Published var hasArrivedAtTheLastPage = true
     @Published var networkError: String = ""
 
-    init() {
+    init(aliasRepository: AliasRepositoryProtocol = AliasRepository.shared) {
+        self.aliasRepository = aliasRepository
         // Since the class is @MainActor, this closure is also executed on the MainActor
         searchCancellable = $searchQuery
             .dropFirst()
@@ -84,8 +86,6 @@ class AliasesViewModel: ObservableObject {
                 print("page is \(aliasList?.meta?.current_page ?? 0)")
             #endif
 
-            let networkHelper = NetworkHelper()
-
             /* 
              * CHECK IF WATCHED ONLY IS TRUE
              * If true simply bulk-obtain all the watched aliases
@@ -96,22 +96,18 @@ class AliasesViewModel: ObservableObject {
 
                 if !aliasesToWatch.isEmpty {
                     do {
-                        let BulkAliasesArray = try await networkHelper.bulkGetAlias(aliases: aliasesToWatch)
+                        let BulkAliasesArray = try await aliasRepository.bulkGetAliases(aliases: aliasesToWatch)
 
                         isLoading = false
+                        let aliasArray = AliasesArray(data: BulkAliasesArray.data)
+                        aliasList = aliasArray
 
-                        if let BulkAliasesArray = BulkAliasesArray {
-                            let aliasArray = AliasesArray(data: BulkAliasesArray.data)
-                            aliasList = aliasArray
-
-                            // Since the bulkGetAlias func always returns everything we are always at the last page
-                            hasArrivedAtTheLastPage = true
-                        } else {
-                            networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self)))")
-                        }
+                        // Since the bulkGetAliases func always returns everything we are always at the last page
+                        hasArrivedAtTheLastPage = true
                     } catch {
                         isLoading = false
-                        networkError = error.localizedDescription
+                        guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
+                        networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
 
                         LoggingHelper().addLog(
                             importance: LogImportance.critical,
@@ -129,30 +125,25 @@ class AliasesViewModel: ObservableObject {
             } else {
                 do {
                     let pageToLoad = forceReload ? 1 : ((aliasList?.meta?.current_page ?? 0) + 1)
-                    let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: pageToLoad, size: 25)
+                    let aliasArray = try await aliasRepository.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: pageToLoad, size: 25)
 
                     isLoading = false
 
-                    if let aliasArray = aliasArray {
-                        if aliasList == nil || forceReload {
-                            // If aliasList is empty, assign it
-                            aliasList = aliasArray
-                        } else {
-                            // If aliasList is not empty, set the meta and links and append retrieved aliases
-                            aliasList?.meta = aliasArray.meta
-                            aliasList?.links = aliasArray.links
-                            aliasList?.data.append(contentsOf: aliasArray.data)
-                        }
-
-                        hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page || aliasList?.data.isEmpty == true
-
+                    if aliasList == nil || forceReload {
+                        // If aliasList is empty, assign it
+                        aliasList = aliasArray
                     } else {
-                        hasArrivedAtTheLastPage = true
-                        networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self)))")
+                        // If aliasList is not empty, set the meta and links and append retrieved aliases
+                        aliasList?.meta = aliasArray.meta
+                        aliasList?.links = aliasArray.links
+                        aliasList?.data.append(contentsOf: aliasArray.data)
                     }
+
+                    hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page || aliasList?.data.isEmpty == true
                 } catch {
                     isLoading = false
-                    networkError = error.localizedDescription
+                    guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
+                    networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
 
                     LoggingHelper().addLog(
                         importance: LogImportance.critical,

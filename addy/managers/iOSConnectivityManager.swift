@@ -75,15 +75,18 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
             }
 
             if message["show_alias"] as? Bool == true {
-                NotificationHelper().createOpenAliasFromWatchkitNotification(
-                    id: message["alias_id"] as! String,
-                    email: message["email"] as! String
-                )
+                if let aliasId = message["alias_id"] as? String,
+                   let email = message["email"] as? String {
+                    NotificationHelper().createOpenAliasFromWatchkitNotification(
+                        id: aliasId,
+                        email: email
+                    )
+                }
                 replyHandler(["show_alias_confirm": true])
             }
 
             if message["show_logs"] as? Bool == true {
-                var logs = message["logs"] as? String
+                let logs = message["logs"] as? String
                 LoggingHelper(logFile: .watchosLogs).setList(logs: stringToLogs(logs ?? ""))
                 LoggingHelper().addLog(
                     importance: LogImportance.info,

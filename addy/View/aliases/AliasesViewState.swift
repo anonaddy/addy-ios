@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class AliasesViewState: ObservableObject {
     static let shared = AliasesViewState() // Shared instance
 

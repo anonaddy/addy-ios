@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import Combine
 import SwiftUI
 
 /// Marked as @MainActor to resolve "Capture of 'self' with non-Sendable type" warnings
@@ -14,12 +13,14 @@ import SwiftUI
 @MainActor
 class RecipientsViewModel: ObservableObject {
     @Published var recipients: [Recipients]? = nil
-
     @Published var verifiedOnly = false
     @Published var isLoading = false
     @Published var networkError: String = ""
 
-    init() {
+    private let recipientRepository: RecipientRepositoryProtocol
+
+    init(recipientRepository: RecipientRepositoryProtocol = RecipientRepository.shared) {
+        self.recipientRepository = recipientRepository
         Task {
             await self.getRecipients()
         }
@@ -30,13 +31,13 @@ class RecipientsViewModel: ObservableObject {
             isLoading = true
             networkError = ""
 
-            let networkHelper = NetworkHelper()
             do {
-                let recipients = try await networkHelper.getRecipients(verifiedOnly: verifiedOnly)
+                let recipients = try await recipientRepository.getRecipients(verifiedOnly: verifiedOnly)
                 isLoading = false
                 self.recipients = recipients
             } catch {
                 isLoading = false
+                guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
                 networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
 
                 LoggingHelper().addLog(
