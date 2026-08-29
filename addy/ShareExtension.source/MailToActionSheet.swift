@@ -6,13 +6,10 @@
 //
 
 import addy_shared
-import AVFoundation
 import LocalAuthentication
 import SwiftUI
 
 struct MailToActionSheet: View {
-    @State private var showBiometricsNotAvailableScreen = false
-
     @State private var sendMailRecipientView: SendMailRecipientView? = nil
     @State private var mailToActionSheetData: MailToActionSheetData
     @State private var openedThroughShareSheet: Bool
@@ -21,7 +18,6 @@ struct MailToActionSheet: View {
     @State private var isUnlocked: Bool = false
     @State private var showSendMailRecipientView: Bool = false
     @State private var loadingStatusText = String(localized: "intent_checking_address")
-    private let networkHelper = NetworkHelper()
     private let returnToApp: (String) -> Void
     private let close: () -> Void
     private let openMailToShareSheet: (URL) -> Void
@@ -88,7 +84,7 @@ struct MailToActionSheet: View {
                         emailSubject = getParameter(mailToActionSheetData.value, parameter: "subject") ?? ""
                         let ccRecipients = getParameter(mailToActionSheetData.value, parameter: "cc")?.replacingOccurrences(of: ";", with: ",").split(separator: ",")
                         let bccRecipients = getParameter(mailToActionSheetData.value, parameter: "bcc")?.replacingOccurrences(of: ";", with: ",").split(separator: ",")
-                        emailBody = getParameter(mailToActionSheetData.value, parameter: "body") ?? mailToActionSheetData.value // Get body from mailto: else just take the raw value (as it will be the selected text for sharing
+                        emailBody = getParameter(mailToActionSheetData.value, parameter: "body") ?? mailToActionSheetData.value // Get body from mailto: else just take the raw value (as it will be the selected text for sharing 
 
                         // Filter out invalid email addresses
                         var validEmails: [String] = []
@@ -124,25 +120,13 @@ struct MailToActionSheet: View {
                     }
             } else {
                 Group {
-                    if showBiometricsNotAvailableScreen {
-                        ContentUnavailableView {
-                            Label(String(localized: "addyio_locked"), systemImage: "lock.fill")
-                        } description: {
-                            Text(String(localized: "addyio_locked_desc"))
-                        } actions: {
-                            Button(String(localized: "unlock")) {
-                                authenticate()
-                            }
-                        }
-                    } else {
-                        ContentUnavailableView {
-                            Label(String(localized: "addyio_locked"), systemImage: "lock.fill")
-                        } description: {
-                            Text(String(localized: "biometric_error"))
-                        } actions: {
-                            Button(String(localized: "unlock")) {
-                                authenticate()
-                            }
+                    ContentUnavailableView {
+                        Label(String(localized: "addyio_locked"), systemImage: "lock.fill")
+                    } description: {
+                        Text(String(localized: "biometric_error"))
+                    } actions: {
+                        Button(String(localized: "unlock")) {
+                            authenticate()
                         }
                     }
                 }
@@ -175,40 +159,39 @@ struct MailToActionSheet: View {
 
     private func figureOutNextAction(emails: [String], validCcRecipients: [String], validBccRecipients: [String], emailSubject: String, emailBody: String) async {
         do {
-            if let domainOptions = try await networkHelper.getDomainOptions() {
-                let domainOptions = domainOptions.data
+            let domainOptionsResponse = try await DomainRepository.shared.getDomainOptions()
+            let domainOptions = domainOptionsResponse.data
 
-                if !emails.isEmpty, emails.count == 1 {
-                    // Only 1 email address found.
+            if !emails.isEmpty, emails.count == 1 {
+                // Only 1 email address found.
 
-                    // splittedEmailAddress[0] = custom part
-                    // splittedEmailAddress[1] = domain name
-                    let splittedEmailAddress = emails[0].split(separator: "@")
+                // splittedEmailAddress[0] = custom part
+                // splittedEmailAddress[1] = domain name
+                let splittedEmailAddress = emails[0].split(separator: "@")
 
-                    if domainOptions.contains(where: { $0 == splittedEmailAddress[1] }) {
-                        DispatchQueue.main.async {
-                            loadingStatusText = String(format: String(localized: "intent_creating_alias"), emails[0])
-                        }
-                        await checkIfAliasExists(text: emails[0])
-                    } else {
-                        DispatchQueue.main.async {
-                            loadingStatusText =
-                                String(localized: "intent_opening_send_mail_dialog")
-                        }
-
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            sendMailRecipientView = SendMailRecipientView(openedThroughShareSheet: openedThroughShareSheet, recipients: emails, validCcRecipients: validCcRecipients, validBccRecipients: validBccRecipients, emailSubject: emailSubject, emailBody: emailBody, domainOptions: domainOptions, close: self.close, openMailToShareSheet: self.openMailToShareSheet)
-                            showSendMailRecipientView = true
-                        }
+                if domainOptions.contains(where: { $0 == splittedEmailAddress[1] }) {
+                    DispatchQueue.main.async {
+                        loadingStatusText = String(format: String(localized: "intent_creating_alias"), emails[0])
                     }
+                    await checkIfAliasExists(text: emails[0])
                 } else {
                     DispatchQueue.main.async {
-                        loadingStatusText = String(localized: "intent_opening_send_mail_dialog")
+                        loadingStatusText =
+                            String(localized: "intent_opening_send_mail_dialog")
                     }
+
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        sendMailRecipientView = SendMailRecipientView(openedThroughShareSheet: openedThroughShareSheet, recipients: emails, validCcRecipients: validCcRecipients, validBccRecipients: validBccRecipients, emailSubject: emailSubject, emailBody: emailBody, domainOptions: domainOptions, close: self.close, openMailToShareSheet: self.openMailToShareSheet)
+                        sendMailRecipientView = SendMailRecipientView(recipients: emails, validCcRecipients: validCcRecipients, validBccRecipients: validBccRecipients, emailSubject: emailSubject, emailBody: emailBody, domainOptions: domainOptions, close: self.close, openMailToShareSheet: self.openMailToShareSheet)
                         showSendMailRecipientView = true
                     }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    loadingStatusText = String(localized: "intent_opening_send_mail_dialog")
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    sendMailRecipientView = SendMailRecipientView(recipients: emails, validCcRecipients: validCcRecipients, validBccRecipients: validBccRecipients, emailSubject: emailSubject, emailBody: emailBody, domainOptions: domainOptions, close: self.close, openMailToShareSheet: self.openMailToShareSheet)
+                    showSendMailRecipientView = true
                 }
             }
         } catch {
@@ -230,25 +213,23 @@ struct MailToActionSheet: View {
                 filter: text, label: nil
             )
 
-            let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest)
-            if let aliasArray = aliasArray {
-                // Check if there is an alias with this email address and get its ID
-                if let aliasId = aliasArray.data.first(where: { $0.email.lowercased() == text.lowercased() })?.id {
-                    // ID is not empty, thus there was a match
-                    // Let the user know that an alias exists, wait 1s and open the alias
-                    DispatchQueue.main.async {
-                        loadingStatusText = String(localized: "intent_alias_already_exists")
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        // There is an alias with this exact email address. It already exists! Open the app
-                        self.returnToApp(aliasId)
-                    }
-
-                } else {
-                    // ID is empty, this alias is new! Let's create it
-                    let splittedEmailAddress = text.split(separator: "@")
-                    await addAliasToAccount(domain: String(splittedEmailAddress[1]), description: "", format: "custom", localPart: String(splittedEmailAddress[0]))
+            let aliasArray = try await AliasRepository.shared.getAliases(aliasSortFilterRequest: aliasSortFilterRequest)
+            // Check if there is an alias with this email address and get its ID
+            if let aliasId = aliasArray.data.first(where: { $0.email.lowercased() == text.lowercased() })?.id {
+                // ID is not empty, thus there was a match
+                // Let the user know that an alias exists, wait 1s and open the alias
+                DispatchQueue.main.async {
+                    loadingStatusText = String(localized: "intent_alias_already_exists")
                 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    // There is an alias with this exact email address. It already exists! Open the app
+                    self.returnToApp(aliasId)
+                }
+
+            } else {
+                // ID is empty, this alias is new! Let's create it
+                let splittedEmailAddress = text.split(separator: "@")
+                await addAliasToAccount(domain: String(splittedEmailAddress[1]), description: "", format: "custom", localPart: String(splittedEmailAddress[0]))
             }
 
         } catch {
@@ -259,11 +240,10 @@ struct MailToActionSheet: View {
 
     private func addAliasToAccount(domain: String, description: String, format: String, localPart: String) async {
         do {
-            if try (await networkHelper.addAlias(domain: domain, description: description, format: format, localPart: localPart, recipients: nil)) != nil {
-                // TODO: let user know it succeeded
-                DispatchQueue.main.async {
-                    self.close()
-                }
+            _ = try await AliasRepository.shared.addAlias(domain: domain, description: description, format: format, localPart: localPart, recipients: nil)
+            // TODO: let user know it succeeded
+            DispatchQueue.main.async {
+                self.close()
             }
         } catch {
             errorTitle = String(localized: "error_adding_alias")

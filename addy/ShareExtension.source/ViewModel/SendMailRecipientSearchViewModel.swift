@@ -5,10 +5,11 @@
 //  Created by Stijn van de Water on 06/07/2024.
 //
 
-@preconcurrency import addy_shared
+import addy_shared
 import Combine
 import Foundation
 
+@MainActor
 class SendMailRecipientSearchViewModel: ObservableObject {
     var sortFilterRequest = AliasSortFilterRequest(
         onlyActiveAliases: false,
@@ -24,6 +25,7 @@ class SendMailRecipientSearchViewModel: ObservableObject {
     @Published var searchQuery = ""
 
     var searchCancellable: AnyCancellable?
+    private let aliasRepository: AliasRepositoryProtocol
 
     @Published var suggestionChips: [AddyChipModel] = []
     @Published var aliases: [Aliases]? = []
@@ -32,15 +34,14 @@ class SendMailRecipientSearchViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var networkError: String = ""
 
-    init() {
-        // since SwiftUI uses @published so its a publisher.
-        // so we dont need to explicitly define publisher..
+    init(aliasRepository: AliasRepositoryProtocol = AliasRepository.shared) {
+        self.aliasRepository = aliasRepository
         searchCancellable = $searchQuery
             .dropFirst()
             .removeDuplicates()
             .debounce(for: 1.0, scheduler: RunLoop.main)
-            .sink(receiveValue: { str in
-                self.searchAliases(searchQuery: str)
+            .sink(receiveValue: { [weak self] str in
+                self?.searchAliases(searchQuery: str)
             })
     }
 
@@ -67,31 +68,19 @@ class SendMailRecipientSearchViewModel: ObservableObject {
 
     func getAliases() async {
         if !isLoading {
-            DispatchQueue.main.async {
-                self.isLoading = true
-                // Always reset on searching for new queries
-                self.suggestionChips = []
-
-                self.networkError = ""
-            }
-
-            let networkHelper = NetworkHelper()
+            self.isLoading = true
+            // Always reset on searching for new queries
+            self.suggestionChips = []
+            self.networkError = ""
 
             do {
-                let aliasArray = try await networkHelper.getAliases(aliasSortFilterRequest: sortFilterRequest, page: nil, size: 100)
-                DispatchQueue.main.async {
-                    self.isLoading = false
-
-                    if let aliasArray = aliasArray {
-                        self.aliases = aliasArray.data
-                        self.suggestionChips = self.createChipModel(aliasList: aliasArray)
-                    }
-                }
+                let aliasArray = try await aliasRepository.getAliases(aliasSortFilterRequest: sortFilterRequest, page: nil, size: 100)
+                self.isLoading = false
+                self.aliases = aliasArray.data
+                self.suggestionChips = self.createChipModel(aliasList: aliasArray)
             } catch {
-                DispatchQueue.main.async {
-                    self.isLoading = false
-                    self.networkError = String(localized: "something_went_wrong_retrieving_aliases", bundle: Bundle(for: SharedData.self))
-                }
+                self.isLoading = false
+                self.networkError = String(localized: "something_went_wrong_retrieving_aliases", bundle: Bundle(for: SharedData.self))
                 LoggingHelper().addLog(
                     importance: LogImportance.critical,
                     error: error.localizedDescription,

@@ -6,24 +6,20 @@
 //
 
 import addy_shared
-import Combine
 import Shimmer
 import SwiftUI
 import UniformTypeIdentifiers
 
 struct SendMailRecipientView: View {
-    @State private var openedThroughShareSheet: Bool
     @State private var domainOptions: [String]
     private let close: () -> Void
     private let openMailToShareSheet: (URL) -> Void
-    private let networkHelper = NetworkHelper()
     @State private var aliasPlaceholder: String = .init(localized: "start_typing_to_show_aliases")
     @State private var addressesPlaceholder: String = .init(localized: "addresses")
     @State private var addressesValidationError: String?
     @State private var aliasValidationError: String?
     @State private var addresses: String = ""
 
-    @State private var recipients: [String]
     @State private var validCcRecipients: [String]
     @State private var validBccRecipients: [String]
     @State private var emailSubject: String
@@ -38,13 +34,11 @@ struct SendMailRecipientView: View {
     @StateObject private var viewModel = SendMailRecipientSearchViewModel()
     @State private var copiedToClipboard = false
 
-    init(openedThroughShareSheet: Bool, recipients: [String], validCcRecipients: [String], validBccRecipients: [String], emailSubject: String, emailBody: String, domainOptions: [String], close: @escaping () -> Void, openMailToShareSheet: @escaping (URL) -> Void) {
-        self.openedThroughShareSheet = openedThroughShareSheet
+    init(recipients: [String], validCcRecipients: [String], validBccRecipients: [String], emailSubject: String, emailBody: String, domainOptions: [String], close: @escaping () -> Void, openMailToShareSheet: @escaping (URL) -> Void) {
         self.domainOptions = domainOptions
         self.close = close
         self.openMailToShareSheet = openMailToShareSheet
         addresses = recipients.joined(separator: ",")
-        self.recipients = recipients
         self.validCcRecipients = validCcRecipients
         self.validBccRecipients = validBccRecipients
         self.emailSubject = emailSubject
@@ -67,7 +61,7 @@ struct SendMailRecipientView: View {
                 } else if viewModel.networkError != "" {
                     Text(viewModel.networkError)
                 } else if viewModel.isLoading {
-                    Text(String(localized: "loading_suggestions")).shimmering().shimmering()
+                    Text(String(localized: "loading_suggestions")).shimmering()
                 } else if viewModel.suggestionChips.isEmpty {
                     Text(String(localized: "no_suggestions"))
                 } else {
@@ -106,7 +100,6 @@ struct SendMailRecipientView: View {
             )
         })
         .navigationTitle(String(localized: "send_mail"))
-        .pickerStyle(.navigationLink)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
@@ -204,9 +197,8 @@ struct SendMailRecipientView: View {
 
     private func addAliasToAccount(domain: String, description: String, format: String, localPart: String) async -> Aliases? {
         do {
-            if let alias = try await networkHelper.addAlias(domain: domain, description: description, format: format, localPart: localPart, recipients: nil) {
-                return alias
-            }
+            let alias = try await AliasRepository.shared.addAlias(domain: domain, description: description, format: format, localPart: localPart, recipients: nil)
+            return alias
         } catch {
             errorAlertTitle = String(localized: "error_adding_alias")
             errorAlertMessage = error.localizedDescription
@@ -228,7 +220,7 @@ struct SendMailRecipientView: View {
 }
 
 #Preview {
-    SendMailRecipientView(openedThroughShareSheet: false, recipients: ["test@justplayinghard.ga"], validCcRecipients: ["cc@example.com"], validBccRecipients: ["bcc@example.com"], emailSubject: "test", emailBody: "testbody", domainOptions: ["test.com", "example.com"], close: {
+    SendMailRecipientView(recipients: ["test@justplayinghard.ga"], validCcRecipients: ["cc@example.com"], validBccRecipients: ["bcc@example.com"], emailSubject: "test", emailBody: "testbody", domainOptions: ["test.com", "example.com"], close: {
         print("CLOSE")
     }, openMailToShareSheet: { _ in
         print("SEND MAIL")

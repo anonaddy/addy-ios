@@ -6,7 +6,6 @@
 //
 
 import AppIntents
-import Foundation
 
 struct AddyShortcuts: AppShortcutsProvider {
     static var shortcutTileColor: ShortcutTileColor = .purple

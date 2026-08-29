@@ -9,6 +9,7 @@ import addy_shared
 import Combine
 import SwiftUI
 
+@MainActor
 class MainViewState: ObservableObject {
     static let shared = MainViewState() // Shared instance
 
@@ -41,7 +42,8 @@ class MainViewState: ObservableObject {
                 {
                     userResourceData = jsonString
                 }
-                userResourceChanged.send()
+            } else {
+                userResourceData = nil
             }
         }
     }

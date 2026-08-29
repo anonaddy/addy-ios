@@ -11,6 +11,14 @@ import UIKit
 import UniformTypeIdentifiers
 
 class ShareViewController: UIViewController {
+    private var closeObserver: NSObjectProtocol?
+
+    deinit {
+        if let closeObserver = closeObserver {
+            NotificationCenter.default.removeObserver(closeObserver)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,69 +37,27 @@ class ShareViewController: UIViewController {
             let urlDataType = UTType.url.identifier
             if itemProvider.hasItemConformingToTypeIdentifier(textDataType) {
                 // Load the item from itemProvider
-                itemProvider.loadItem(forTypeIdentifier: textDataType, options: nil) { providedText, error in
-                    if error != nil {
-                        self.close()
+                itemProvider.loadItem(forTypeIdentifier: textDataType, options: nil) { [weak self] providedText, error in
+                    guard let self = self, error == nil, let text = providedText as? String else {
+                        self?.close()
                         return
                     }
 
-                    if let text = providedText as? String {
-                        DispatchQueue.main.async {
-                            // host the SwiftUI view
-                            let contentView = UIHostingController(rootView: MailToActionSheet(mailToActionSheetData: MailToActionSheetData(value: text), openedThroughShareSheet: true, returnToApp: { aliasId in
-                                self.openAliasInApp(url: URL(string: "addyio://alias/\(aliasId)")!)
-                            }, close: {
-                                self.close()
-                            }, openMailToShareSheet: { url in
-                                self.open(url: url)
-                            }))
-                            self.addChild(contentView)
-                            self.view.addSubview(contentView.view)
-
-                            // set up constraints
-                            contentView.view.translatesAutoresizingMaskIntoConstraints = false
-                            contentView.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-                            contentView.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-                            contentView.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-                            contentView.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-                        }
-                    } else {
-                        self.close()
-                        return
+                    DispatchQueue.main.async {
+                        self.presentMailToActionSheet(value: text)
                     }
                 }
 
             } else if itemProvider.hasItemConformingToTypeIdentifier(urlDataType) {
                 // Load the item from itemProvider
-                itemProvider.loadItem(forTypeIdentifier: urlDataType, options: nil) { providedText, error in
-                    if error != nil {
-                        self.close()
+                itemProvider.loadItem(forTypeIdentifier: urlDataType, options: nil) { [weak self] providedText, error in
+                    guard let self = self, error == nil, let url = providedText as? URL else {
+                        self?.close()
                         return
                     }
 
-                    if let text = providedText as? URL? {
-                        DispatchQueue.main.async {
-                            // host the SwiftUI view
-                            let contentView = UIHostingController(rootView: MailToActionSheet(mailToActionSheetData: MailToActionSheetData(value: text!.absoluteString), openedThroughShareSheet: true, returnToApp: { aliasId in
-                                self.openAliasInApp(url: URL(string: "addyio://alias/\(aliasId)")!)
-                            }, close: {
-                                self.close()
-                            }, openMailToShareSheet: { url in
-                                self.open(url: url)
-                            }))
-                            self.addChild(contentView)
-                            self.view.addSubview(contentView.view)
-
-                            // set up constraints
-                            contentView.view.translatesAutoresizingMaskIntoConstraints = false
-                            contentView.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-                            contentView.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-                            contentView.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-                            contentView.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-                        }
-                    } else {
-                        self.close()
-                        return
+                    DispatchQueue.main.async {
+                        self.presentMailToActionSheet(value: url.absoluteString)
                     }
                 }
 
@@ -100,30 +66,52 @@ class ShareViewController: UIViewController {
                 return
             }
 
-            NotificationCenter.default.addObserver(forName: NSNotification.Name("close"), object: nil, queue: nil) { _ in
-                DispatchQueue.main.async {
-                    self.close()
-                }
+            closeObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name("close"), object: nil, queue: .main) { [weak self] _ in
+                self?.close()
             }
         } else {
             DispatchQueue.main.async {
-                // host the SwiftUI view
-                let contentView = UIHostingController(rootView: ContentUnavailableView {
+                let unavailableView = ContentUnavailableView {
                     Label(String(localized: "app_not_setup"), systemImage: "questionmark.key.filled")
                 } description: {
-                    Text("app_not_setup_desc")
-                })
-                self.addChild(contentView)
-                self.view.addSubview(contentView.view)
-
-                // set up constraints
-                contentView.view.translatesAutoresizingMaskIntoConstraints = false
-                contentView.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-                contentView.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-                contentView.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-                contentView.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+                    Text(String(localized: "app_not_setup_desc"))
+                }
+                self.embedHostView(unavailableView)
             }
         }
+    }
+
+    private func presentMailToActionSheet(value: String) {
+        let sheet = MailToActionSheet(
+            mailToActionSheetData: MailToActionSheetData(value: value),
+            openedThroughShareSheet: true,
+            returnToApp: { [weak self] aliasId in
+                if let url = URL(string: "addyio://alias/\(aliasId)") {
+                    self?.openAliasInApp(url: url)
+                }
+            },
+            close: { [weak self] in
+                self?.close()
+            },
+            openMailToShareSheet: { [weak self] url in
+                self?.open(url: url)
+            }
+        )
+        embedHostView(sheet)
+    }
+
+    private func embedHostView<V: View>(_ rootView: V) {
+        let contentView = UIHostingController(rootView: rootView)
+        addChild(contentView)
+        view.addSubview(contentView.view)
+
+        contentView.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.view.topAnchor.constraint(equalTo: view.topAnchor),
+            contentView.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            contentView.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+            contentView.view.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
     }
 
     /// Close the Share Extension

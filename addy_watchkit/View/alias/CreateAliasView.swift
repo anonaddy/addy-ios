@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import Combine
 import SwiftUI
 import WatchKit
 
@@ -49,72 +48,25 @@ struct CreateAliasView: View {
                 mainViewState: mainViewState
             )
         }
-        .onAppear {
-            viewModel.setDismissAction { dismiss() }
-        }
-    }
-}
-
-@MainActor
-class CreateAliasViewModel: ObservableObject {
-    @Published var alias: Aliases?
-
-    private var onDismiss: (() -> Void)?
-
-    func checkUserAndCreate(
-        skipAliasCreateGuide: Bool,
-        appState: AppState,
-        mainViewState: MainViewState
-    ) async {
-        guard appState.apiKey != nil else { return }
-
-        if skipAliasCreateGuide {
-            createAlias(domain: mainViewState.userResource?.default_alias_domain)
-        }
-    }
-
-    func createAlias(domain: String? = nil) {
-        Task {
-            do {
-                guard let userResource = CacheHelper.getBackgroundServiceCacheUserResource() else { return }
-
-                let result = try await NetworkHelper().addAlias(
-                    domain: domain ?? userResource.default_alias_domain,
-                    description: String(localized: "created_on_apple_watch"),
-                    format: userResource.default_alias_format == "custom" ? "random_characters" : userResource.default_alias_format,
-                    localPart: "", recipients: nil
-                )
-
-                self.alias = result
-
-            } catch {
-                let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {
-                    self.onDismiss?()
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text(String(localized: "error", bundle: Bundle(for: SharedData.self))),
+                message: Text(viewModel.networkError),
+                dismissButton: .default(Text(String(localized: "close", bundle: Bundle(for: SharedData.self)))) {
+                    dismiss()
                 }
-                WKInterfaceDevice.current().play(.failure)
-                WKExtension.shared().visibleInterfaceController?.presentAlert(
-                    withTitle: String(localized: "error", bundle: Bundle(for: SharedData.self)),
-                    message: error.localizedDescription,
-                    preferredStyle: .alert,
-                    actions: [okAction]
-                )
-            }
+            )
         }
-    }
-
-    /// Call this from View after .task
-    func setDismissAction(_ dismiss: @escaping () -> Void) {
-        onDismiss = dismiss
     }
 }
 
-// MARK: - Supporting Views (stubs - implement based on your Kotlin components)
+// MARK: - Supporting Views
 
 struct CreatedAliasDetails: View {
     @StateObject private var connectivity = WatchConnectivityManager()
     @State private var isSendingAliasToDevice: Bool = false
     @State private var isAliasPinned: Bool = false
-    @State private var IsLoadingPinnedButton: Bool = false
+    @State private var isLoadingPinnedButton: Bool = false
 
     let alias: Aliases
 
@@ -134,7 +86,7 @@ struct CreatedAliasDetails: View {
                     .toggleStyle(.button)
                     .foregroundStyle(isAliasPinned ? .primary : .secondary)
                     .overlay {
-                        if IsLoadingPinnedButton {
+                        if isLoadingPinnedButton {
                             ProgressView()
                                 .controlSize(.small)
                         }
@@ -163,7 +115,7 @@ struct CreatedAliasDetails: View {
     }
 
     private func togglePinned() {
-        IsLoadingPinnedButton = true
+        isLoadingPinnedButton = true
 
         if isAliasPinned {
             Task {
@@ -177,13 +129,12 @@ struct CreatedAliasDetails: View {
     }
 
     private func pinAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            guard try (await networkHelper.pinSpecificAlias(aliasId: alias.id)) != nil else { return }
-            IsLoadingPinnedButton = false
+            _ = try await AliasRepository.shared.pinAlias(aliasId: alias.id)
+            isLoadingPinnedButton = false
             isAliasPinned = true
         } catch {
-            IsLoadingPinnedButton = false
+            isLoadingPinnedButton = false
             isAliasPinned = false
 
             let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}
@@ -198,10 +149,9 @@ struct CreatedAliasDetails: View {
     }
 
     private func unpinAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.unpinSpecificAlias(aliasId: alias.id)
-            IsLoadingPinnedButton = false
+            let result = try await AliasRepository.shared.unpinAlias(aliasId: alias.id)
+            isLoadingPinnedButton = false
             if result == "204" {
                 isAliasPinned = false
             } else {
@@ -217,7 +167,7 @@ struct CreatedAliasDetails: View {
                 )
             }
         } catch {
-            IsLoadingPinnedButton = false
+            isLoadingPinnedButton = false
             isAliasPinned = true
 
             let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}

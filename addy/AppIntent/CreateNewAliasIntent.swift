@@ -47,18 +47,25 @@ struct CreateNewAliasIntent: AppIntent {
     func perform() async throws -> some IntentResult & ReturnsValue<String> & ProvidesDialog {
         if let userResource = getUserResource() {
             do {
-                if let alias = try await NetworkHelper().addAlias(domain: domain ?? userResource.default_alias_domain, description: description ?? "", format: (format != nil) ?
-                    (format?.rawValue == "custom" ? " " : format?.rawValue)! :
-                    (userResource.default_alias_format == "custom" ? "random_characters" : userResource.default_alias_format), localPart: "", recipients: nil)
-                {
-                    UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
-
-                    let localizedString = LocalizedStringResource("app_intent_alias_added\(alias.email)")
-                    return .result(value: alias.email, dialog: IntentDialog(localizedString))
-
+                let selectedFormat: String
+                if let format = format {
+                    selectedFormat = format.rawValue == "custom" ? " " : format.rawValue
                 } else {
-                    return .result(value: "", dialog: "error_adding_alias")
+                    selectedFormat = userResource.default_alias_format == "custom" ? "random_characters" : userResource.default_alias_format
                 }
+
+                let alias = try await AliasRepository.shared.addAlias(
+                    domain: domain ?? userResource.default_alias_domain,
+                    description: description ?? "",
+                    format: selectedFormat,
+                    localPart: "",
+                    recipients: nil
+                )
+                
+                UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
+
+                let localizedString = LocalizedStringResource("app_intent_alias_added\(alias.email)")
+                return .result(value: alias.email, dialog: IntentDialog(localizedString))
             } catch {
                 return .result(value: "", dialog: "error_adding_alias")
             }
@@ -96,14 +103,6 @@ struct CreateNewAliasIntent: AppIntent {
     }
 
     func getUserResource() -> UserResource? {
-        let encryptedSettingsManager = SettingsManager(encrypted: true)
-
-        if let jsonString = encryptedSettingsManager.getSettingsString(key: .userResource),
-           let jsonData = jsonString.data(using: .utf8)
-        {
-            let decoder = JSONDecoder()
-            return try? decoder.decode(UserResource.self, from: jsonData)
-        }
-        return nil
+        return CacheHelper.getBackgroundServiceCacheUserResource()
     }
 }

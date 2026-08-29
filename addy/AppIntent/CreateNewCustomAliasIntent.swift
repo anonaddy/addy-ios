@@ -47,15 +47,11 @@ struct CreateNewCustomAliasIntent: AppIntent {
     func perform() async throws -> some IntentResult & ReturnsValue<String> & ProvidesDialog {
         if let userResource = getUserResource() {
             do {
-                if let alias = try await NetworkHelper().addAlias(domain: domain ?? userResource.default_alias_domain, description: description ?? "", format: "custom", localPart: localPart, recipients: nil) {
-                    UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
+                let alias = try await AliasRepository.shared.addAlias(domain: domain ?? userResource.default_alias_domain, description: description ?? "", format: "custom", localPart: localPart, recipients: nil)
+                UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
 
-                    let localizedString = LocalizedStringResource("app_intent_alias_added\(alias.email)")
-                    return .result(value: alias.email, dialog: IntentDialog(localizedString))
-
-                } else {
-                    return .result(value: "", dialog: "error_adding_alias")
-                }
+                let localizedString = LocalizedStringResource("app_intent_alias_added\(alias.email)")
+                return .result(value: alias.email, dialog: IntentDialog(localizedString))
             } catch {
                 return .result(value: "", dialog: "error_adding_alias")
             }
@@ -71,14 +67,6 @@ struct CreateNewCustomAliasIntent: AppIntent {
     }
 
     func getUserResource() -> UserResource? {
-        let encryptedSettingsManager = SettingsManager(encrypted: true)
-
-        if let jsonString = encryptedSettingsManager.getSettingsString(key: .userResource),
-           let jsonData = jsonString.data(using: .utf8)
-        {
-            let decoder = JSONDecoder()
-            return try? decoder.decode(UserResource.self, from: jsonData)
-        }
-        return nil
+        return CacheHelper.getBackgroundServiceCacheUserResource()
     }
 }

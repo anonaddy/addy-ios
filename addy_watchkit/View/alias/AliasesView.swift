@@ -9,7 +9,7 @@ import addy_shared
 import SwiftUI
 
 struct AliasesView: View {
-    @StateObject private var aliasesViewModel = AliasViewModel()
+    @StateObject private var aliasesViewModel = AliasesViewModel()
     @State private var showingSettings = false
     @State private var showingCreateAlias = false
     @EnvironmentObject var appState: AppState
@@ -88,7 +88,7 @@ struct AliasesView: View {
 
     private func loadData() async {
         // Cache userResource
-        _ = await NetworkHelper().cacheUserResourceForWidget()
+        _ = await UserRepository.shared.cacheUserResourceForWidget()
 
         // Load aliases
         await aliasesViewModel.getAliases()

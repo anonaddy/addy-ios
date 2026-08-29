@@ -6,10 +6,7 @@
 //
 
 import addy_shared
-import Combine
 import SwiftUI
-import WatchConnectivity
-import WatchKit
 
 struct SetupView: View {
     @EnvironmentObject var appState: AppState
