@@ -5,9 +5,7 @@
 //  Created by Stijn van de Water on 12/05/2024.
 //
 
-import SwiftUI
 import addy_shared
-import AVFoundation
 import SwiftUI
 import WrappingHStack
 
@@ -98,7 +96,7 @@ struct FilterOptionsAliasBottomSheet: View {
                     }
                 },
                 label: {
-                    Text("Labels")
+                    Text(String(localized: "labels"))
                 }
             )
             .task {
@@ -127,7 +125,7 @@ struct FilterOptionsAliasBottomSheet: View {
                 Text(String(localized: "sorting"))
             }.textCase(nil)
 
-        }.navigationTitle(String(localized: "filtering_and_sorting")).pickerStyle(.navigationLink)
+        }.navigationTitle(String(localized: "filtering_and_sorting"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .confirmationAction) {
@@ -264,12 +262,9 @@ struct FilterOptionsAliasBottomSheet: View {
     
     private func loadLabels() async {
         isLoadingLabels = true
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.getAllLabels()
-            if let labels = result?.data {
-                self.labels = labels
-            }
+            let result = try await LabelRepository.shared.getLabels()
+            self.labels = result.data
         } catch {
             // handle error
         }

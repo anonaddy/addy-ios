@@ -13,7 +13,7 @@ struct AliasesView: View {
     @EnvironmentObject var mainViewState: MainViewState
     @EnvironmentObject var aliasesViewState: AliasesViewState
 
-    @StateObject var aliasesViewModel = AliasesViewModel()
+    @StateObject private var aliasesViewModel = AliasesViewModel()
 
     @Environment(\.requestReview) private var requestReview
 
@@ -44,6 +44,10 @@ struct AliasesView: View {
     @State private var sendToRecipients: String? = nil
     @State private var isPresentingEmailSelectionDialog: Bool = false
 
+    @State private var selectedAliasIds: Set<String> = []
+    @State private var isSelectionMode: Bool = false
+    @State private var isPresentingBulkActionsSheet: Bool = false
+
     enum ActiveAlert {
         case reachedMaxAliases, deleteAlias, forgetAlias, forgetAliasConfirmation, restoreAlias, error
     }
@@ -58,32 +62,41 @@ struct AliasesView: View {
             List {
                 if let aliasList = aliasesViewModel.aliasList {
                     Section {
-                        ForEach(aliasList.data) { alias in
-                            createAliasRow(alias: alias)
-                                .swipeActions {
-                                    Button(role: .destructive) {
-                                        if let index = aliasList.data.firstIndex(of: alias) {
+                        if aliasList.data.isEmpty && aliasesViewModel.aliasSortFilterRequest != aliasesViewModel.defaultSortFilterRequest {
+                            ContentUnavailableView {
+                                Label(String(localized: "no_aliases", bundle: Bundle(for: SharedData.self)), systemImage: "line.3.horizontal.decrease.circle")
+                            } description: {
+                                Text(String(localized: "no_aliases_desc"))
+                            }
+                            .listRowBackground(Color.clear)
+                        } else {
+                            ForEach(aliasList.data) { alias in
+                                createAliasRow(alias: alias)
+                                    .swipeActions {
+                                        Button(role: .destructive) {
+                                            if let index = aliasList.data.firstIndex(of: alias) {
+                                                if alias.deleted_at != nil {
+                                                    forgetAlias(at: IndexSet(integer: index))
+                                                } else {
+                                                    deleteAlias(at: IndexSet(integer: index))
+                                                }
+                                            }
+                                        } label: {
                                             if alias.deleted_at != nil {
-                                                forgetAlias(at: IndexSet(integer: index))
+                                                Text(String(localized: "forget"))
                                             } else {
-                                                deleteAlias(at: IndexSet(integer: index))
+                                                Text(String(localized: "delete"))
                                             }
                                         }
-                                    } label: {
-                                        if alias.deleted_at != nil {
-                                            Text(String(localized: "forget"))
-                                        } else {
-                                            Text(String(localized: "delete"))
-                                        }
                                     }
-                                }
+                            }
                         }
 
                     } header: {
                         VStack(alignment: .leading, spacing: 24) {
                             if aliasesViewModel.networkError == "" {
                                 AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
-                                    ApplyFilter(chipId: onTappedChip.chipId)
+                                    applyFilter(chipId: onTappedChip.chipId)
                                 }.scrollClipDisabled()
                             }
                             HStack(spacing: 6) {
@@ -201,8 +214,8 @@ struct AliasesView: View {
                         // Show the search unavailable screen
                         ContentUnavailableView.search(text: aliasesViewModel.searchQuery)
 
-                        // If there is NO data inside the list AND the user has NOT tried searching for something
-                    } else if aliasList.data.isEmpty, aliasesViewModel.searchQuery.isEmpty {
+                        // If there is NO data inside the list AND the user has NOT tried searching for something AND no custom filter is applied
+                    } else if aliasList.data.isEmpty, aliasesViewModel.searchQuery.isEmpty, aliasesViewModel.aliasSortFilterRequest == aliasesViewModel.defaultSortFilterRequest {
                         ContentUnavailableView {
                             Label(String(localized: "no_aliases", bundle: Bundle(for: SharedData.self)), systemImage: "at.badge.plus")
                         } description: {
@@ -243,34 +256,83 @@ struct AliasesView: View {
                     }
                 }
             })
-            .navigationTitle(String(localized: "aliases", bundle: Bundle(for: SharedData.self)))
+            .navigationTitle(isSelectionMode ? String.localizedStringWithFormat(NSLocalizedString("multiple_alias_selected", comment: ""), selectedAliasIds.count) : String(localized: "aliases", bundle: Bundle(for: SharedData.self)))
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    ProfilePicture().environmentObject(mainViewState)
-                }
+                if isSelectionMode {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self))) {
+                            withAnimation {
+                                isSelectionMode = false
+                                selectedAliasIds.removeAll()
+                            }
+                        }
+                    }
 
-                if #available(iOS 26.0, *) {
-                    ToolbarSpacer(placement: .topBarLeading)
-                }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        HStack(spacing: 12) {
+                            Button {
+                                if let aliasList = aliasesViewModel.aliasList {
+                                    if selectedAliasIds.count == aliasList.data.count {
+                                        selectedAliasIds.removeAll()
+                                    } else {
+                                        let allIds = aliasList.data.prefix(25).map(\.id)
+                                        selectedAliasIds = Set(allIds)
+                                    }
+                                }
+                            } label: {
+                                Text(selectedAliasIds.count == (aliasesViewModel.aliasList?.data.count ?? 0) ? String(localized: "deselect_all") : String(localized: "select_all"))
+                                    .font(.subheadline)
+                            }
 
-                ToolbarItem(placement: .topBarLeading) {
-                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                }
+                            Button {
+                                isPresentingBulkActionsSheet = true
+                            } label: {
+                                Image(systemName: "ellipsis.circle.fill")
+                                    .frame(width: 24, height: 24)
+                            }
+                            .disabled(selectedAliasIds.isEmpty)
+                        }
+                    }
+                } else {
+                    ToolbarItem(placement: .topBarLeading) {
+                        ProfilePicture().environmentObject(mainViewState)
+                    }
 
-                ToolbarItem(placement: .topBarLeading) {
-                    AccountNotificationsIcon().environmentObject(mainViewState)
-                }
+                    if #available(iOS 26.0, *) {
+                        ToolbarSpacer(placement: .topBarLeading)
+                    }
 
-                if #available(iOS 26.0, *) {
-                    ToolbarSpacer(.flexible)
-                }
+                    ToolbarItem(placement: .topBarLeading) {
+                        FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    }
 
-                ToolbarItem {
-                    Button(action: {
-                        mainViewState.showAddAliasBottomSheet = true
-                    }) {
-                        Image(systemName: "plus")
-                            .frame(width: 24, height: 24)
+                    ToolbarItem(placement: .topBarLeading) {
+                        AccountNotificationsIcon().environmentObject(mainViewState)
+                    }
+
+                    if #available(iOS 26.0, *) {
+                        ToolbarSpacer(.flexible)
+                    }
+
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            withAnimation {
+                                isSelectionMode = true
+                            }
+                        } label: {
+                            Image(systemName: "checkmark.circle")
+                                .frame(width: 24, height: 24)
+                        }
+                        .disabled(aliasesViewModel.aliasList?.data.isEmpty ?? true)
+                    }
+
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: {
+                            mainViewState.showAddAliasBottomSheet = true
+                        }) {
+                            Image(systemName: "plus")
+                                .frame(width: 24, height: 24)
+                        }
                     }
                 }
             }
@@ -298,7 +360,7 @@ struct AliasesView: View {
                 NavigationStack {
                     FilterOptionsAliasBottomSheet(aliasSortFilterRequest: self.aliasesViewModel.aliasSortFilterRequest) { aliasSortFilterRequest in
                         // This will also reload new filter in memory
-                        SaveFilter(chipId: "filter_custom", aliasSortFilterRequest: aliasSortFilterRequest)
+                        saveFilter(chipId: "filter_custom", aliasSortFilterRequest: aliasSortFilterRequest)
 
                         // Hide dialog and refresh aliases
                         isPresentingFilterOptionsAliasBottomSheet = false
@@ -317,6 +379,28 @@ struct AliasesView: View {
                     }, onPressCopy: { addresses in
                         self.onPressCopy(sendToRecipients: addresses)
                     })
+                }
+                .presentationDetents([.large])
+            }
+            .sheet(isPresented: $isPresentingBulkActionsSheet) {
+                NavigationStack {
+                    AliasMultipleSelectionBottomSheet(
+                        selectedAliases: (aliasesViewModel.aliasList?.data ?? []).filter { selectedAliasIds.contains($0.id) },
+                        onDataChanged: {
+                            Task {
+                                await aliasesViewModel.getAliases(forceReload: true)
+                            }
+                        },
+                        onDismissAndClear: {
+                            withAnimation {
+                                isSelectionMode = false
+                                selectedAliasIds.removeAll()
+                            }
+                            Task {
+                                await aliasesViewModel.getAliases(forceReload: true)
+                            }
+                        }
+                    )
                 }
                 .presentationDetents([.large])
             }
@@ -343,12 +427,12 @@ struct AliasesView: View {
                 .presentationDetents([.large])
             }
         }.onAppear(perform: {
-            LoadFilter()
+            loadFilter()
 
             // Set new filter if set by viewState
             if let applyFilterChip = aliasesViewState.applyFilterChip {
                 self.selectedFilterChip = applyFilterChip
-                ApplyFilter(chipId: applyFilterChip) // This will also reload the aliases
+                applyFilter(chipId: applyFilterChip) // This will also reload the aliases
                 aliasesViewState.applyFilterChip = nil // Prevent the filter from being applied again
                 showFilterAppliedAnimation()
             }
@@ -368,90 +452,135 @@ struct AliasesView: View {
         })
     }
 
-    func createAliasRow(alias: Aliases) -> some View {
-        ZStack {
-            AliasRowView(alias: alias, isPreview: false)
-                .listRowBackground(Color.clear)
-                .contextMenu { // TODO: Add watch
-                    Button {
-                        UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
-                        showCopiedToClipboardAnimation()
-
-                    } label: {
-                        Label(String(localized: "copy_alias"), systemImage: "clipboard")
-                    }
-                    Button {
-                        self.aliasToSendMailFrom = alias
-                    } label: {
-                        Label(String(localized: "send_mail"), systemImage: "paperplane")
-                    }
-
-                    if alias.pinned {
-                        Button {
-                            Task {
-                                await unpinAlias(alias: alias)
-                            }
-                        } label: {
-                            Label(String(localized: "unpin_alias", bundle: Bundle(for: SharedData.self)), systemImage: "pin.slash.fill")
-                        }
-                    } else {
-                        Button {
-                            Task {
-                                await pinAlias(alias: alias)
-                            }
-                        } label: {
-                            Label(String(localized: "pin_alias", bundle: Bundle(for: SharedData.self)), systemImage: "pin.fill")
-                        }
-                    }
-                    if alias.deleted_at != nil {
-                        Button {
-                            self.activeAlert = .restoreAlias
-                            self.showAlert = true
-                        } label: {
-                            Label(String(localized: "restore_alias"), systemImage: "arrow.up.trash")
-                        }
-                    } else {
-                        if alias.active {
-                            Button {
-                                Task {
-                                    await self.deactivateAlias(alias: alias)
-                                }
-                            } label: {
-                                Label(String(localized: "deactivate_alias"), systemImage: "hand.raised")
-                            }
-                        } else {
-                            Button {
-                                Task {
-                                    await self.activateAlias(alias: alias)
-                                }
-                            } label: {
-                                Label(String(localized: "activate_alias"), systemImage: "checkmark.circle")
-                            }
-                        }
-
-                        Button(role: .destructive) {
-                            self.activeAlert = .deleteAlias
-                            self.showAlert = true
-                        } label: {
-                            Label(String(localized: "delete_alias"), systemImage: "trash")
-                        }
-                    }
-
-                } preview: {
-                    AliasRowView(alias: alias, isPreview: true).onAppear {
-                        self.aliasInContextMenu = alias
-                    }.frame(minWidth: 350, idealWidth: 350, maxWidth: 350, minHeight: 200, idealHeight: 200, maxHeight: 200, alignment: .center)
-                }
-
-            NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email, shouldReloadDataInParent: $shouldReloadDataInParent)
-                .environmentObject(mainViewState))
-            {
-                EmptyView().onTapGesture {
-                    // Dismiss the search controller when a result is selected
-                    aliasesViewModel.searchQuery = ""
+    private func toggleAliasSelection(id: String) {
+        HapticHelper.playHapticFeedback(hapticType: .tap)
+        withAnimation(.easeInOut(duration: 0.15)) {
+            if selectedAliasIds.contains(id) {
+                selectedAliasIds.remove(id)
+            } else {
+                if selectedAliasIds.count < 25 {
+                    selectedAliasIds.insert(id)
+                } else {
+                    HapticHelper.playHapticFeedback(hapticType: .error)
                 }
             }
-            .opacity(0)
+        }
+    }
+
+    @ViewBuilder
+    func createAliasRow(alias: Aliases) -> some View {
+        if isSelectionMode {
+            Button {
+                toggleAliasSelection(id: alias.id)
+            } label: {
+                HStack(spacing: 12) {
+                    Image(systemName: selectedAliasIds.contains(alias.id) ? "checkmark.circle.fill" : "circle")
+                        .foregroundColor(selectedAliasIds.contains(alias.id) ? .accentColor : .secondary)
+                        .font(.title3)
+
+                    AliasRowView(alias: alias, isPreview: false)
+                }
+            }
+            .tint(.primary)
+        } else {
+            ZStack(alignment: .leading) {
+                NavigationLink(destination: AliasDetailView(aliasId: alias.id, aliasEmail: alias.email, shouldReloadDataInParent: $shouldReloadDataInParent)
+                    .environmentObject(mainViewState))
+                {
+                    EmptyView()
+                }
+                .opacity(0)
+
+                AliasRowView(alias: alias, isPreview: false)
+            }
+            .contextMenu { // TODO: Add watch
+                Button {
+                    UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
+                    showCopiedToClipboardAnimation()
+
+                } label: {
+                    Label(String(localized: "copy_alias"), systemImage: "clipboard")
+                }
+                Button {
+                    self.aliasToSendMailFrom = alias
+                } label: {
+                    Label(String(localized: "send_mail"), systemImage: "paperplane")
+                }
+
+                if alias.pinned {
+                    Button {
+                        Task {
+                            await unpinAlias(alias: alias)
+                        }
+                    } label: {
+                        Label(String(localized: "unpin_alias", bundle: Bundle(for: SharedData.self)), systemImage: "pin.slash.fill")
+                    }
+                } else {
+                    Button {
+                        Task {
+                            await pinAlias(alias: alias)
+                        }
+                    } label: {
+                        Label(String(localized: "pin_alias", bundle: Bundle(for: SharedData.self)), systemImage: "pin.fill")
+                    }
+                }
+                if alias.deleted_at != nil {
+                    Button {
+                        self.aliasInContextMenu = alias
+                        self.activeAlert = .restoreAlias
+                        self.showAlert = true
+                    } label: {
+                        Label(String(localized: "restore_alias"), systemImage: "arrow.up.trash")
+                    }
+
+                    Button(role: .destructive) {
+                        self.aliasInContextMenu = alias
+                        self.activeAlert = .forgetAlias
+                        self.showAlert = true
+                    } label: {
+                        Label(String(localized: "forget_alias"), systemImage: "eraser")
+                    }
+                } else {
+                    if alias.active {
+                        Button {
+                            Task {
+                                await self.deactivateAlias(alias: alias)
+                            }
+                        } label: {
+                            Label(String(localized: "deactivate_alias"), systemImage: "hand.raised")
+                        }
+                    } else {
+                        Button {
+                            Task {
+                                await self.activateAlias(alias: alias)
+                            }
+                        } label: {
+                            Label(String(localized: "activate_alias"), systemImage: "checkmark.circle")
+                        }
+                    }
+
+                    Button(role: .destructive) {
+                        self.aliasInContextMenu = alias
+                        self.activeAlert = .deleteAlias
+                        self.showAlert = true
+                    } label: {
+                        Label(String(localized: "delete_alias"), systemImage: "trash")
+                    }
+
+                    Button(role: .destructive) {
+                        self.aliasInContextMenu = alias
+                        self.activeAlert = .forgetAlias
+                        self.showAlert = true
+                    } label: {
+                        Label(String(localized: "forget_alias"), systemImage: "eraser")
+                    }
+                }
+
+            } preview: {
+                AliasRowView(alias: alias, isPreview: true).onAppear {
+                    self.aliasInContextMenu = alias
+                }.frame(minWidth: 350, idealWidth: 350, maxWidth: 350, minHeight: 200, idealHeight: 200, maxHeight: 200, alignment: .center)
+            }
             .onChange(of: shouldReloadDataInParent) {
                 if shouldReloadDataInParent {
                     Task {
@@ -499,7 +628,7 @@ struct AliasesView: View {
         }
     }
 
-    func ApplyFilter(chipId: String) {
+    func applyFilter(chipId: String) {
         if chipId != "filter_custom" {
             var newFilter = aliasesViewModel.defaultSortFilterRequest
             newFilter.filter = aliasesViewModel.aliasSortFilterRequest.filter
@@ -527,14 +656,14 @@ struct AliasesView: View {
             return // Nothing to save yet so let's return
         }
 
-        SaveFilter(chipId: chipId, aliasSortFilterRequest: aliasesViewModel.aliasSortFilterRequest)
+        saveFilter(chipId: chipId, aliasSortFilterRequest: aliasesViewModel.aliasSortFilterRequest)
 
         Task {
             await aliasesViewModel.getAliases(forceReload: true)
         }
     }
 
-    func SaveFilter(chipId: String, aliasSortFilterRequest: AliasSortFilterRequest) {
+    func saveFilter(chipId: String, aliasSortFilterRequest: AliasSortFilterRequest) {
         var aliasSortFilterRequestTemp = aliasSortFilterRequest
         aliasSortFilterRequestTemp.filter = nil // Never store the current searchQuery in the app
 
@@ -548,10 +677,10 @@ struct AliasesView: View {
             SettingsManager(encrypted: false).putSettingsString(key: .aliasSortFilter, string: jsonString)
         }
 
-        LoadFilter()
+        loadFilter()
     }
 
-    func LoadFilter() {
+    func loadFilter() {
         let aliasSortFilterJson = MainViewState.shared.settingsManager.getSettingsString(key: .aliasSortFilter)
         var aliasSortFilterObject: AliasSortFilter? = nil
         if let json = aliasSortFilterJson {
@@ -562,7 +691,7 @@ struct AliasesView: View {
             aliasesViewModel.aliasSortFilterRequest = object.aliasSortFilterRequest
         }
 
-        filterChips = GetFilterChips()
+        filterChips = getFilterChips()
 
         var filterWithoutSearch = aliasesViewModel.aliasSortFilterRequest
         filterWithoutSearch.filter = nil
@@ -642,9 +771,8 @@ struct AliasesView: View {
     }
 
     private func activateAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.activateSpecificAlias(aliasId: alias.id)
+            _ = try await AliasRepository.shared.activateAlias(aliasId: alias.id)
             // Instead of reloading the entire list, mark this alias as active
             if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
                 aliasesViewModel.aliasList?.data[index].active = true
@@ -663,9 +791,8 @@ struct AliasesView: View {
     }
 
     private func deactivateAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deactivateSpecificAlias(aliasId: alias.id)
+            let result = try await AliasRepository.shared.deactivateAlias(aliasId: alias.id)
             if result == "204" {
                 // Instead of reloading the entire list, mark this alias as inactive
                 if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
@@ -691,9 +818,8 @@ struct AliasesView: View {
     }
 
     private func pinAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.pinSpecificAlias(aliasId: alias.id)
+            _ = try await AliasRepository.shared.pinAlias(aliasId: alias.id)
             // Instead of reloading the entire list, mark this alias as pinned
             if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
                 aliasesViewModel.aliasList?.data[index].pinned = true
@@ -707,9 +833,8 @@ struct AliasesView: View {
     }
 
     private func unpinAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.unpinSpecificAlias(aliasId: alias.id)
+            let result = try await AliasRepository.shared.unpinAlias(aliasId: alias.id)
             if result == "204" {
                 // Instead of reloading the entire list, mark this alias as unpinned
                 if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
@@ -735,9 +860,8 @@ struct AliasesView: View {
     }
 
     private func deleteAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteAlias(aliasId: alias.id)
+            let result = try await AliasRepository.shared.deleteAlias(aliasId: alias.id)
             if result == "204" {
                 // Instead of reloading the entire list, remove just this alias
                 if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
@@ -758,9 +882,8 @@ struct AliasesView: View {
     }
 
     private func forgetAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.forgetAlias(aliasId: alias.id)
+            let result = try await AliasRepository.shared.forgetAlias(aliasId: alias.id)
             if result == "204" {
                 // Instead of reloading the entire list, remove just this alias
                 if let aliasList = aliasesViewModel.aliasList,
@@ -813,24 +936,16 @@ struct AliasesView: View {
     }
 
     private func restoreAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let restoredAlias = try await networkHelper.restoreAlias(aliasId: alias.id)
-            if restoredAlias != nil {
-                // Instead of reloading the entire list, mark this alias as restored
-                if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
-                    // If we were only showing deleted aliases, remove it from the list
-                    if aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases {
-                        aliasesViewModel.aliasList?.data.remove(at: index)
-                    } else {
-                        aliasesViewModel.aliasList?.data[index].deleted_at = nil
-                    }
+            _ = try await AliasRepository.shared.restoreAlias(aliasId: alias.id)
+            // Instead of reloading the entire list, mark this alias as restored
+            if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
+                // If we were only showing deleted aliases, remove it from the list
+                if aliasesViewModel.aliasSortFilterRequest.onlyDeletedAliases {
+                    aliasesViewModel.aliasList?.data.remove(at: index)
+                } else {
+                    aliasesViewModel.aliasList?.data[index].deleted_at = nil
                 }
-            } else {
-                activeAlert = .error
-                showAlert = true
-                errorAlertTitle = String(localized: "error_restoring_alias")
-                errorAlertMessage = String(localized: "error_unknown_refer_to_logs", bundle: Bundle(for: SharedData.self))
             }
         } catch {
             activeAlert = .error
@@ -840,7 +955,7 @@ struct AliasesView: View {
         }
     }
 
-    func GetFilterChips() -> [AddyChipModel] {
+    func getFilterChips() -> [AddyChipModel] {
         return [
             AddyChipModel(chipId: "filter_all_aliases", label: String(localized: "filter_all_aliases")),
             AddyChipModel(chipId: "filter_pinned_aliases", label: String(localized: "filter_pinned_aliases")),

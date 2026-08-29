@@ -138,15 +138,13 @@ struct EditAliasLabelsBottomSheet: View {
 
     private func getAllLabels(forceReload: Bool = false) async {
         if !labelsLoaded || forceReload {
-            let networkHelper = NetworkHelper()
             do {
-                if let labels = try await networkHelper.getAllLabels()?.data {
-                    self.allLabels = []
-                    for label in labels {
-                        self.allLabels.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
-                    }
-                    labelsLoaded = true
+                let labels = try await LabelRepository.shared.getLabels().data
+                self.allLabels = []
+                for label in labels {
+                    self.allLabels.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
                 }
+                labelsLoaded = true
             } catch {
                 requestError = error.localizedDescription
             }
@@ -155,13 +153,11 @@ struct EditAliasLabelsBottomSheet: View {
 
     private func editLabels() async {
         requestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.bulkUpdateAliasLabels(aliasIds: [aliasId], labelIds: selectedLabelIds)
-            if let alias = try await networkHelper.getSpecificAlias(aliasId: aliasId) {
-                labelsEdited(alias)
-                dismiss()
-            }
+            _ = try await AliasRepository.shared.bulkUpdateLabels(aliasIds: [aliasId], labelIds: selectedLabelIds)
+            let alias = try await AliasRepository.shared.getAlias(aliasId: aliasId)
+            labelsEdited(alias)
+            dismiss()
         } catch {
             isLoadingSaveButton = false
             requestError = error.localizedDescription

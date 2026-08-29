@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct EditAliasSendMailRecipientBottomSheet: View {
@@ -15,10 +14,15 @@ struct EditAliasSendMailRecipientBottomSheet: View {
     @State private var aliasEmail: String
     @State private var addressesValidationError: String?
     @State private var addresses: String = ""
-    @State private var addressesPlaceholder: String = .init(localized: "addresses")
 
     let onPressSend: (String) -> Void
     let onPressCopy: (String) -> Void
+
+    init(aliasEmail: String, onPressSend: @escaping (String) -> Void, onPressCopy: @escaping (String) -> Void) {
+        self._aliasEmail = State(initialValue: aliasEmail)
+        self.onPressSend = onPressSend
+        self.onPressCopy = onPressCopy
+    }
 
     var body: some View {
         #if DEBUG
@@ -26,7 +30,7 @@ struct EditAliasSendMailRecipientBottomSheet: View {
         #endif
         Form {
             Section {
-                ValidatingTextField(value: self.$addresses, placeholder: $addressesPlaceholder, fieldType: .commaSeperatedEmails, error: $addressesValidationError)
+                ValidatingTextField(value: self.$addresses, placeholder: String(localized: "addresses"), fieldType: .commaSeperatedEmails, error: $addressesValidationError)
 
             } header: {
                 let formattedString = String.localizedStringWithFormat(NSLocalizedString("send_mail_from_alias_desc", comment: ""), aliasEmail)
@@ -35,36 +39,37 @@ struct EditAliasSendMailRecipientBottomSheet: View {
                     .multilineTextAlignment(.center).padding(.bottom)
             }.textCase(nil).frame(maxWidth: .infinity, alignment: .center)
 
-        }.navigationTitle(String(localized: "send_mail")).pickerStyle(.navigationLink)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem {
-                    Button {
-                        // Only perform the action whent the addresses are valid
-                        if addressesValidationError == nil {
-                            self.onPressCopy(self.addresses)
-                        }
-                    } label: {
-                        Image(systemName: "clipboard")
+        }
+        .navigationTitle(String(localized: "send_mail"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    // Only perform the action whent the addresses are valid
+                    if addressesValidationError == nil {
+                        self.onPressCopy(self.addresses)
                     }
+                } label: {
+                    Image(systemName: "clipboard")
                 }
+            }
 
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        sendButton().buttonStyle(.glassProminent)
-                    } else {
-                        sendButton()
-                    }
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26.0, *) {
+                    sendButton().buttonStyle(.glassProminent)
+                } else {
+                    sendButton()
                 }
+            }
 
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                    }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
-            })
+            }
+        }
     }
 
     private func sendButton() -> some View {
@@ -76,12 +81,6 @@ struct EditAliasSendMailRecipientBottomSheet: View {
         } label: {
             Text(String(localized: "send"))
         }
-    }
-
-    init(aliasEmail: String, onPressSend: @escaping (String) -> Void, onPressCopy: @escaping (String) -> Void) {
-        self.aliasEmail = aliasEmail
-        self.onPressSend = onPressSend
-        self.onPressCopy = onPressCopy
     }
 }
 

@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct EditAliasRecipientsBottomSheet: View {
@@ -16,10 +15,16 @@ struct EditAliasRecipientsBottomSheet: View {
     @State var selectedChips: [String] = []
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
     @State private var recipientsRequestError: String? = ""
-    @State var IsLoadingSaveButton: Bool = false
+    @State var isLoadingSaveButton: Bool = false
 
     let aliasId: String
     let recipientsEdited: (Aliases) -> Void
+
+    init(aliasId: String, selectedRecipientsIds: [String]?, recipientsEdited: @escaping (Aliases) -> Void) {
+        self.aliasId = aliasId
+        self._selectedChips = State(initialValue: selectedRecipientsIds ?? [])
+        self.recipientsEdited = recipientsEdited
+    }
 
     var body: some View {
         #if DEBUG
@@ -62,65 +67,56 @@ struct EditAliasRecipientsBottomSheet: View {
                 }
             }.textCase(nil).listRowInsets(EdgeInsets()).padding(.horizontal, 8).padding(.vertical, 8)
 
-        }.navigationTitle(String(localized: "edit_recipients")).pickerStyle(.navigationLink)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        saveButton().buttonStyle(.glassProminent)
-                    } else {
-                        saveButton()
-                    }
+        }
+        .navigationTitle(String(localized: "edit_recipients"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26.0, *) {
+                    saveButton().buttonStyle(.glassProminent)
+                } else {
+                    saveButton()
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                    }
-                }
-            })
-            .task {
-                await getAllRecipients()
             }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
+                }
+            }
+        }
+        .task {
+            await getAllRecipients()
+        }
     }
 
     private func saveButton() -> some View {
         Group {
-            if IsLoadingSaveButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
+            if isLoadingSaveButton {
+                ProgressView().progressViewStyle(.circular)
             } else {
-                AnyView(
-                    Button {
-                        IsLoadingSaveButton = true
+                Button {
+                    isLoadingSaveButton = true
 
-                        Task {
-                            await self.editRecipients()
-                        }
-                    } label: {
-                        Text(String(localized: "save"))
-                    }.disabled(!recipientsLoaded)
-                )
+                    Task {
+                        await self.editRecipients()
+                    }
+                } label: {
+                    Text(String(localized: "save"))
+                }.disabled(!recipientsLoaded)
             }
         }
     }
 
-    init(aliasId: String, selectedRecipientsIds: [String]?, recipientsEdited: @escaping (Aliases) -> Void) {
-        self.aliasId = aliasId
-        selectedChips = selectedRecipientsIds ?? []
-        self.recipientsEdited = recipientsEdited
-    }
-
     private func getAllRecipients() async {
-        let networkHelper = NetworkHelper()
         do {
-            if let recipients = try await networkHelper.getRecipients(verifiedOnly: true) {
-                recipientsChips = []
-                recipientsLoaded = true
-                withAnimation {
-                    for recipient in recipients {
-                        recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
-                    }
+            let recipients = try await RecipientRepository.shared.getRecipients(verifiedOnly: true)
+            recipientsChips = []
+            recipientsLoaded = true
+            withAnimation {
+                for recipient in recipients {
+                    recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
                 }
             }
         } catch {
@@ -130,13 +126,11 @@ struct EditAliasRecipientsBottomSheet: View {
 
     private func editRecipients() async {
         recipientsRequestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            if let alias = try await networkHelper.updateRecipientsSpecificAlias(aliasId: aliasId, recipients: selectedChips) {
-                recipientsEdited(alias)
-            }
+            let alias = try await AliasRepository.shared.updateRecipients(aliasId: aliasId, recipients: selectedChips)
+            recipientsEdited(alias)
         } catch {
-            IsLoadingSaveButton = false
+            isLoadingSaveButton = false
             recipientsRequestError = error.localizedDescription
         }
     }

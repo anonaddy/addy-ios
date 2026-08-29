@@ -5,14 +5,15 @@
 //  Created by Stijn van de Water on 07/05/2024.
 //
 
-import _AppIntents_SwiftUI
 import addy_shared
-import AVFoundation
+import AppIntents
 import SwiftUI
+import UniformTypeIdentifiers
 import WrappingHStack
 
 struct AddAliasBottomSheet: View {
     @EnvironmentObject var mainViewState: MainViewState
+    @Environment(\.dismiss) var dismiss
 
     #if DEBUG
         @State private var selectedFormat: String = "custom"
@@ -45,8 +46,6 @@ struct AddAliasBottomSheet: View {
 
     @State private var isLabelsExpanded: Bool = false
 
-    let onAdded: () -> Void
-
     @State private var localPartValidationError: String?
     @State private var descriptionValidationError: String?
     @State private var showAlert: Bool = false
@@ -64,11 +63,11 @@ struct AddAliasBottomSheet: View {
          [String(localized: "domains_format_random_female_name", comment: ""), "random_female_name"],
          [String(localized: "domains_format_random_noun", comment: ""), "random_noun"]]
 
+    let onAdded: () -> Void
+
     init(onAdded: @escaping () -> Void) {
         self.onAdded = onAdded
     }
-
-    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         #if DEBUG
@@ -103,7 +102,7 @@ struct AddAliasBottomSheet: View {
             } header: {
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
-                        Text(String(format: String(localized: "add_alias_desc"), self.mainViewState.userResource!.username)).multilineTextAlignment(.center)
+                        Text(String(format: String(localized: "add_alias_desc"), self.mainViewState.userResource?.username ?? "")).multilineTextAlignment(.center)
                         Spacer(minLength: 25)
                     }
 
@@ -177,7 +176,7 @@ struct AddAliasBottomSheet: View {
                 .siriTipViewStyle(.automatic)
             }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
         }
-        .navigationTitle(String(localized: "add_alias", bundle: Bundle(for: SharedData.self))).pickerStyle(.navigationLink)
+        .navigationTitle(String(localized: "add_alias", bundle: Bundle(for: SharedData.self)))
         .task {
             if domains.isEmpty {
                 await loadDomains()
@@ -240,7 +239,7 @@ struct AddAliasBottomSheet: View {
         formatValidationError = false
 
         if selectedFormat == "random_words" {
-            if mainViewState.userResource!.hasUserFreeSubscription() {
+            if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
                 aliasError = String(localized: "domains_format_not_available_for_this_subscription")
                 formatValidationError = true
                 isLoadingAddButton = false
@@ -248,21 +247,21 @@ struct AddAliasBottomSheet: View {
                 return
             }
         } else if selectedFormat == "random_male_name" {
-            if mainViewState.userResource!.hasUserFreeSubscription() {
+            if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
                 aliasError = String(localized: "domains_format_not_available_for_this_subscription")
                 formatValidationError = true
                 isLoadingAddButton = false
                 return
             }
         } else if selectedFormat == "random_female_name" {
-            if mainViewState.userResource!.hasUserFreeSubscription() {
+            if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
                 aliasError = String(localized: "domains_format_not_available_for_this_subscription")
                 formatValidationError = true
                 isLoadingAddButton = false
                 return
             }
         } else if selectedFormat == "random_noun" {
-            if mainViewState.userResource!.hasUserFreeSubscription() {
+            if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
                 aliasError = String(localized: "domains_format_not_available_for_this_subscription")
                 formatValidationError = true
                 isLoadingAddButton = false
@@ -273,7 +272,7 @@ struct AddAliasBottomSheet: View {
             if AddyIo.isUsingHostedInstance() {
                 // Custom format on shared domains is possible, but only if the user has a paid subscription.
                 // If the selected domain is a shared domain AND the user is a free user don't allow it.
-                if sharedDomains.contains(selectedDomain), mainViewState.userResource!.hasUserFreeSubscription() {
+                if sharedDomains.contains(selectedDomain), mainViewState.userResource?.hasUserFreeSubscription() ?? true {
                     aliasError = String(localized: "domains_format_custom_not_available_for_this_domain")
                     formatValidationError = true
                     isLoadingAddButton = false
@@ -297,12 +296,10 @@ struct AddAliasBottomSheet: View {
     }
 
     private func addAliasToAccount(selectedDomain: String, description: String, selectedFormat: String, localPart: String, selectedRecipients: [String], selectedLabels: [String]) async {
-        let networkHelper = NetworkHelper()
         do {
-            if let alias = try await networkHelper.addAlias(domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients, labelIds: selectedLabels) {
-                UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
-                onAdded()
-            }
+            let alias = try await AliasRepository.shared.addAlias(domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients, labelIds: selectedLabels)
+            UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
+            onAdded()
         } catch {
             isLoadingAddButton = false
             showAlert = true
@@ -312,14 +309,12 @@ struct AddAliasBottomSheet: View {
     }
 
     private func loadDomains() async {
-        let networkHelper = NetworkHelper()
         do {
-            if let domainOptions = try await networkHelper.getDomainOptions() {
-                domains = domainOptions.data
-                sharedDomains = domainOptions.sharedDomains
-                selectedDomain = domainOptions.defaultAliasDomain
-                selectedFormat = domainOptions.defaultAliasFormat
-            }
+            let domainOptions = try await DomainRepository.shared.getDomainOptions()
+            domains = domainOptions.data
+            sharedDomains = domainOptions.sharedDomains
+            selectedDomain = domainOptions.defaultAliasDomain
+            selectedFormat = domainOptions.defaultAliasFormat
         } catch {
             showAlert = true
             errorAlertTitle = String(localized: "something_went_wrong_retrieving_domains")
@@ -328,15 +323,13 @@ struct AddAliasBottomSheet: View {
     }
 
     private func getAllRecipients() async {
-        let networkHelper = NetworkHelper()
         do {
-            if let recipients = try await networkHelper.getRecipients(verifiedOnly: true) {
-                recipientsChips = []
-                recipientsLoaded = true
-                withAnimation {
-                    for recipient in recipients {
-                        recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
-                    }
+            let recipients = try await RecipientRepository.shared.getRecipients(verifiedOnly: true)
+            recipientsChips = []
+            recipientsLoaded = true
+            withAnimation {
+                for recipient in recipients {
+                    recipientsChips.append(AddyChipModel(chipId: recipient.id, label: recipient.email))
                 }
             }
         } catch {
@@ -345,15 +338,13 @@ struct AddAliasBottomSheet: View {
     }
 
     private func getAllLabels() async {
-        let networkHelper = NetworkHelper()
         do {
-            if let labels = try await networkHelper.getAllLabels() {
-                labelsChips = []
-                labelsLoaded = true
-                withAnimation {
-                    for label in labels.data {
-                        labelsChips.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
-                    }
+            let labels = try await LabelRepository.shared.getLabels()
+            labelsChips = []
+            labelsLoaded = true
+            withAnimation {
+                for label in labels.data {
+                    labelsChips.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
                 }
             }
         } catch {
