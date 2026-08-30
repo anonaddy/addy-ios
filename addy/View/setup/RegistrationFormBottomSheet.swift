@@ -34,88 +34,86 @@ struct RegistrationFormBottomSheet: View {
     }
 
     var body: some View {
-        NavigationStack {
-            List {
-                Section {
-                    ValidatingTextField(value: self.$username, placeholder: String(localized: "registration_username"), fieldType: .text, error: $usernameValidationError)
-                } header: {
-                    Text(String(localized: "registration_username_header"))
-                } footer: {
-                    Text(LocalizedStringKey(String(localized: "registration_username_footer")))
-                }.textCase(nil)
+        List {
+            Section {
+                ValidatingTextField(value: self.$username, placeholder: String(localized: "registration_username"), fieldType: .text, error: $usernameValidationError)
+            } header: {
+                Text(String(localized: "registration_username_header"))
+            } footer: {
+                Text(LocalizedStringKey(String(localized: "registration_username_footer")))
+            }.textCase(nil)
 
-                Section {
-                    ValidatingTextField(value: self.$address, placeholder: String(localized: "registration_email"), fieldType: .email, error: $addressValidationError)
-                    ValidatingTextField(value: self.$addressConfirm, placeholder: String(localized: "registration_email_confirm"), fieldType: .email, error: $addressConfirmValidationError)
-                } header: {
-                    Text(String(localized: "registration_email_header"))
-                } footer: {
-                    Text(String(localized: "registration_email_footer"))
-                }.textCase(nil)
+            Section {
+                ValidatingTextField(value: self.$address, placeholder: String(localized: "registration_email"), fieldType: .email, error: $addressValidationError)
+                ValidatingTextField(value: self.$addressConfirm, placeholder: String(localized: "registration_email_confirm"), fieldType: .email, error: $addressConfirmValidationError)
+            } header: {
+                Text(String(localized: "registration_email_header"))
+            } footer: {
+                Text(String(localized: "registration_email_footer"))
+            }.textCase(nil)
 
-                Section {
-                    ValidatingTextField(value: self.$password, placeholder: String(localized: "registration_password"), fieldType: .password, error: $passwordValidationError)
+            Section {
+                ValidatingTextField(value: self.$password, placeholder: String(localized: "registration_password"), fieldType: .password, error: $passwordValidationError)
 
-                    ValidatingTextField(value: self.$passwordConfirm, placeholder: String(localized: "registration_password_confirm"), fieldType: .password, error: $passwordConfirmValidationError)
+                ValidatingTextField(value: self.$passwordConfirm, placeholder: String(localized: "registration_password_confirm"), fieldType: .password, error: $passwordConfirmValidationError)
 
-                    Picker(selection: $apiExpiration, label: Text(String(localized: "login_expiration"))) {
-                        Text(String(localized: "login_expiration_day")).tag("day")
-                        Text(String(localized: "login_expiration_week")).tag("week")
-                        Text(String(localized: "login_expiration_month")).tag("month")
-                        Text(String(localized: "login_expiration_year")).tag("year")
-                        Text(String(localized: "login_expiration_never")).tag("never")
-                    }.pickerStyle(.navigationLink)
+                Picker(selection: $apiExpiration, label: Text(String(localized: "login_expiration"))) {
+                    Text(String(localized: "login_expiration_day")).tag("day")
+                    Text(String(localized: "login_expiration_week")).tag("week")
+                    Text(String(localized: "login_expiration_month")).tag("month")
+                    Text(String(localized: "login_expiration_year")).tag("year")
+                    Text(String(localized: "login_expiration_never")).tag("never")
+                }.pickerStyle(.navigationLink)
 
-                } header: {
-                    Text(String(localized: "registration_password_header"))
-                } footer: {
-                    Text(String(localized: "registration_password_footer"))
-                }.textCase(nil)
+            } header: {
+                Text(String(localized: "registration_password_header"))
+            } footer: {
+                Text(String(localized: "registration_password_footer"))
+            }.textCase(nil)
 
-                Section {} footer: {
-                    Text(String(localized: "registration_disclaimer")).frame(maxWidth: .infinity)
-                        .multilineTextAlignment(.center).padding(.top)
-                }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
+            Section {} footer: {
+                Text(String(localized: "registration_disclaimer")).frame(maxWidth: .infinity)
+                    .multilineTextAlignment(.center).padding(.top)
+            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
 
-                HStack {
-                    Spacer()
+            HStack {
+                Spacer()
 
-                    Button(action: {
-                        openURL(URL(string: "https://addy.io/privacy?ref=appstore")!)
-                    }) {
-                        Text(String(localized: "privacy_policy"))
-                    }
-
-                    Spacer()
-
-                    Button(action: {
-                        openURL(URL(string: "https://addy.io/terms?ref=appstore")!)
-                    }) {
-                        Text(String(localized: "terms_of_service"))
-                    }
-                    Spacer()
-
-                }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
-            }
-            .navigationTitle(String(localized: "registration_register"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        registerButton().buttonStyle(.glassProminent)
-                    } else {
-                        registerButton()
-                    }
+                Button(action: {
+                    openURL(URL(string: "https://addy.io/privacy?ref=appstore")!)
+                }) {
+                    Text(String(localized: "privacy_policy"))
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                    }
+
+                Spacer()
+
+                Button(action: {
+                    openURL(URL(string: "https://addy.io/terms?ref=appstore")!)
+                }) {
+                    Text(String(localized: "terms_of_service"))
                 }
-            })
+                Spacer()
+
+            }.listRowBackground(Color.clear).listRowInsets(EdgeInsets())
         }
+        .navigationTitle(String(localized: "registration_register"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26.0, *) {
+                    registerButton().buttonStyle(.glassProminent)
+                } else {
+                    registerButton()
+                }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
+                }
+            }
+        })
         .alert(isPresented: $showAlert) {
             switch activeAlert {
             case .error:

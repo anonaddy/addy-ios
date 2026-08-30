@@ -19,9 +19,6 @@ enum FieldType {
     case password
     case domain
 
-    // Backward compatibility alias for legacy spelling
-    public static var commaSeperatedEmails: FieldType { .commaSeparatedEmails }
-
     func validate(value: String) -> String? {
         switch self {
         case .email:

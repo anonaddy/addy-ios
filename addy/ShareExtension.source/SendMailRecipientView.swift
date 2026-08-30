@@ -76,7 +76,7 @@ struct SendMailRecipientView: View {
             }.textCase(nil).frame(maxWidth: .infinity, alignment: .leading)
 
             Section {
-                ValidatingTextField(value: self.$addresses, placeholder: $addressesPlaceholder, fieldType: .commaSeperatedEmails, error: $addressesValidationError)
+                ValidatingTextField(value: self.$addresses, placeholder: $addressesPlaceholder, fieldType: .commaSeparatedEmails, error: $addressesValidationError)
             }
         }
 
@@ -85,8 +85,10 @@ struct SendMailRecipientView: View {
         }
         .disabled(isCreatingAlias)
         .sheet(isPresented: $isPresentingEmailSelectionDialog) {
-            SelectMailClientBottomSheet { selectedClient in
-                self.sendMail(client: selectedClient)
+            NavigationStack {
+                SelectMailClientBottomSheet { selectedClient in
+                    self.sendMail(client: selectedClient)
+                }
             }
             .presentationDetents([.medium, .large])
         }

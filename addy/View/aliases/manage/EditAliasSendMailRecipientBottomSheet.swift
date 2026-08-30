@@ -30,7 +30,7 @@ struct EditAliasSendMailRecipientBottomSheet: View {
         #endif
         Form {
             Section {
-                ValidatingTextField(value: self.$addresses, placeholder: String(localized: "addresses"), fieldType: .commaSeperatedEmails, error: $addressesValidationError)
+                ValidatingTextField(value: self.$addresses, placeholder: String(localized: "addresses"), fieldType: .commaSeparatedEmails, error: $addressesValidationError)
 
             } header: {
                 let formattedString = String.localizedStringWithFormat(NSLocalizedString("send_mail_from_alias_desc", comment: ""), aliasEmail)

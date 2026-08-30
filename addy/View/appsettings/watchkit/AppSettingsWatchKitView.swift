@@ -9,8 +9,6 @@ import addy_shared
 import SwiftUI
 
 struct AppSettingsWatchKitView: View {
-    @State private var showAlert: Bool = false
-    @State private var errorAlertMessage = ""
     @State private var enableWatchKitQuickSetupDialog: Bool = false
 
     var body: some View {
@@ -43,12 +41,6 @@ struct AppSettingsWatchKitView: View {
             } header: {
                 Text(String(localized: "this_device"))
             }.textCase(nil)
-        }
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text(String(localized: "could_not_check_for_updates")),
-                message: Text(errorAlertMessage)
-            )
         }
         .navigationTitle(String(localized: "addyio_for_watchkit"))
         .navigationBarTitleDisplayMode(.inline)

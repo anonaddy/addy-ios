@@ -73,20 +73,38 @@ struct AliasRowView: View {
             }
 
             if isWatchingAlias {
-                Label(String(localized: "you_ll_be_notified_if_this_alias_has_activity"), systemImage: "eyes")
-                    .foregroundStyle(.gray.opacity(0.4))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(.vertical, 4)
+                Label {
+                    Text(String(localized: "you_ll_be_notified_if_this_alias_has_activity"))
+                } icon: {
+                    Image("ic_watch_alias")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                }
+                .foregroundStyle(.gray.opacity(0.4))
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .padding(.vertical, 4)
             }
         }.overlay(alignment: .topTrailing) {
-            if alias.pinned {
-                Image(systemName: "pin.fill")
-                    .font(.system(size: 10)) // "Tiny" as requested
-                    .foregroundColor(.secondary)
-                    .padding(.top, 8) // Adjust these to sit nicely
-                    .padding(.trailing, 4) // within your list row padding
+            HStack(spacing: 4) {
+                if isWatchingAlias {
+                    Image("ic_watch_alias")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 12, height: 12)
+                        .foregroundColor(.secondary)
+                }
+                if alias.pinned {
+                    Image(systemName: "pin.fill")
+                        .font(.system(size: 10)) // "Tiny" as requested
+                        .foregroundColor(.secondary)
+                }
             }
+            .padding(.top, 8) // Adjust these to sit nicely
+            .padding(.trailing, 4) // within your list row padding
         }
         .padding()
     }
@@ -127,13 +145,23 @@ struct AliasRowView: View {
         }
         .frame(height: 90)
         .overlay(alignment: .topTrailing) {
-            if alias.pinned {
-                Image(systemName: "pin.fill")
-                    .font(.system(size: 10)) // "Tiny" as requested
-                    .foregroundColor(.secondary)
-                    .padding(.top, 8) // Adjust these to sit nicely
-                    .padding(.trailing, 4) // within your list row padding
+            HStack(spacing: 4) {
+                if isWatchingAlias {
+                    Image("ic_watch_alias")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 12, height: 12)
+                        .foregroundColor(.secondary)
+                }
+                if alias.pinned {
+                    Image(systemName: "pin.fill")
+                        .font(.system(size: 10)) // "Tiny" as requested
+                        .foregroundColor(.secondary)
+                }
             }
+            .padding(.top, 8) // Adjust these to sit nicely
+            .padding(.trailing, 4) // within your list row padding
         }
     }
 

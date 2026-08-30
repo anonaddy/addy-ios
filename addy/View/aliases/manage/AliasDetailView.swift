@@ -300,8 +300,10 @@ struct AliasDetailView: View {
                     ToastOverlay(showToast: $aliasDeactivatedOverlayShown, text: String(localized: "alias_deactivated", bundle: Bundle(for: SharedData.self)))
                 }
                 .sheet(isPresented: $isPresentingEmailSelectionDialog) {
-                    SelectMailClientBottomSheet { selectedClient in
-                        self.onPressSend(client: selectedClient, sendToRecipients: self.sendToRecipients ?? "")
+                    NavigationStack {
+                        SelectMailClientBottomSheet { selectedClient in
+                            self.onPressSend(client: selectedClient, sendToRecipients: self.sendToRecipients ?? "")
+                        }
                     }
                     .presentationDetents([.medium, .large])
                 }

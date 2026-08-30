@@ -16,82 +16,82 @@ struct SetupOnboarding: View {
         #if DEBUG
             let _ = Self._printChanges()
         #endif
-        NavigationStack {
-            ZStack {
-                // Background gradient
-                LinearGradient(
-                    colors: [Color("AddySecondaryColor"), Color("AccentColor")],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
+        ZStack {
+            // Background gradient
+            LinearGradient(
+                colors: [Color("AddySecondaryColor"), Color("AccentColor")],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+
+            // Night mode overlay
+            Rectangle()
+                .fill(Color(uiColor: .systemBackground))
+                .opacity(0.6)
                 .ignoresSafeArea()
 
-                // Night mode overlay
-                Rectangle()
-                    .fill(Color(uiColor: .systemBackground))
-                    .opacity(0.6)
-                    .ignoresSafeArea()
-
-                // Main content
-                VStack {
-                    // Custom toolbar content
-                    HStack {
-                        Spacer()
-                        Text(String(localized: "getting_started"))
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
-                        Spacer()
-                    }
-
-                    TabView(selection: $selectedPage) {
-                        PageView(
-                            imageName: "register",
-                            title: "setup_how_1",
-                            subtitle: "setup_how_1_title",
-                            description: "setup_how_1_desc",
-                            buttonText: "next",
-                            action: { selectedPage += 1 },
-                            imageHeight: 200
-                        ).tag(0)
-
-                        PageView(
-                            imageName: "email_aliases",
-                            title: "setup_how_2",
-                            subtitle: "setup_how_2_title",
-                            description: "setup_how_2_desc",
-                            buttonText: "next",
-                            action: { selectedPage += 1 },
-                            imageHeight: 200
-                        ).tag(1)
-
-                        PageView(
-                            imageName: "dashboard",
-                            title: "setup_how_3",
-                            subtitle: "setup_how_3_title",
-                            description: "setup_how_3_desc",
-                            buttonText: "next",
-                            action: { selectedPage += 1 },
-                            imageHeight: 200
-                        ).tag(2)
-
-                        PageView(
-                            imageName: "logo-horizontal",
-                            title: "setup_how_4",
-                            subtitle: "setup_how_4_title",
-                            description: nil,
-                            buttonText: "get_started",
-                            action: { openRegistrationFormBottomSheet = true },
-                            imageHeight: 100
-                        ).tag(3)
-                    }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
+            // Main content
+            VStack {
+                // Custom toolbar content
+                HStack {
+                    Spacer()
+                    Text(String(localized: "getting_started"))
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                    Spacer()
                 }
-                .frame(maxWidth: .infinity)
+
+                TabView(selection: $selectedPage) {
+                    PageView(
+                        imageName: "register",
+                        title: "setup_how_1",
+                        subtitle: "setup_how_1_title",
+                        description: "setup_how_1_desc",
+                        buttonText: "next",
+                        action: { selectedPage += 1 },
+                        imageHeight: 200
+                    ).tag(0)
+
+                    PageView(
+                        imageName: "email_aliases",
+                        title: "setup_how_2",
+                        subtitle: "setup_how_2_title",
+                        description: "setup_how_2_desc",
+                        buttonText: "next",
+                        action: { selectedPage += 1 },
+                        imageHeight: 200
+                    ).tag(1)
+
+                    PageView(
+                        imageName: "dashboard",
+                        title: "setup_how_3",
+                        subtitle: "setup_how_3_title",
+                        description: "setup_how_3_desc",
+                        buttonText: "next",
+                        action: { selectedPage += 1 },
+                        imageHeight: 200
+                    ).tag(2)
+
+                    PageView(
+                        imageName: "logo-horizontal",
+                        title: "setup_how_4",
+                        subtitle: "setup_how_4_title",
+                        description: nil,
+                        buttonText: "get_started",
+                        action: { openRegistrationFormBottomSheet = true },
+                        imageHeight: 100
+                    ).tag(3)
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
             }
+            .frame(maxWidth: .infinity)
         }
         .sheet(isPresented: $openRegistrationFormBottomSheet) {
-            RegistrationFormBottomSheet(showOnboarding: $showOnboarding)
+            NavigationStack {
+                RegistrationFormBottomSheet(showOnboarding: $showOnboarding)
+            }
         }
     }
 }

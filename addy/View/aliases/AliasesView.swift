@@ -147,8 +147,10 @@ struct AliasesView: View {
                 await self.aliasesViewModel.getAliases(forceReload: true)
             }
             .sheet(isPresented: $isPresentingEmailSelectionDialog) {
-                SelectMailClientBottomSheet { selectedClient in
-                    self.onPressSend(client: selectedClient, sendToRecipients: self.sendToRecipients ?? "")
+                NavigationStack {
+                    SelectMailClientBottomSheet { selectedClient in
+                        self.onPressSend(client: selectedClient, sendToRecipients: self.sendToRecipients ?? "")
+                    }
                 }
                 .presentationDetents([.medium, .large])
             }

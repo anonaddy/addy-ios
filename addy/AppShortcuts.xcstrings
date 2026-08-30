@@ -12,8 +12,7 @@
               "Add an alias in ${applicationName}",
               "Create a new alias in ${applicationName}",
               "Create an alias in ${applicationName}",
-              "Generate a new alias in ${applicationName}",
-              "Create a new alias in ${applicationName}"
+              "Generate a new alias in ${applicationName}"
             ]
           }
         }

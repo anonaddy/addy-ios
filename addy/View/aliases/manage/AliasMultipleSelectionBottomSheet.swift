@@ -88,7 +88,12 @@ struct AliasMultipleSelectionBottomSheet: View {
 
                 // Watched toggle
                 Toggle(isOn: $isWatched) {
-                    Label(String(localized: "watch_alias"), systemImage: "bell.badge.fill")
+                    Label {
+                        Text(String(localized: "watch_alias"))
+                    } icon: {
+                        Image("ic_watch_alias")
+                            .renderingMode(.template)
+                    }
                 }
                 .disabled(isLoading)
                 .onChange(of: isWatched) { newValue in

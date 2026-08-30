@@ -242,8 +242,10 @@ struct AppSettingsView: View {
             .presentationDetents([.medium, .large])
         })
         .sheet(isPresented: $isPresentingSelectMailClientBottomSheet) {
-            SelectMailClientBottomSheet(isSettingsMode: true) { _ in
-                self.preferredMailClient = MainViewState.shared.settingsManager.getSettingsString(key: .preferredMailClient) ?? ""
+            NavigationStack {
+                SelectMailClientBottomSheet(isSettingsMode: true) { _ in
+                    self.preferredMailClient = MainViewState.shared.settingsManager.getSettingsString(key: .preferredMailClient) ?? ""
+                }
             }
             .presentationDetents([.medium, .large])
         }

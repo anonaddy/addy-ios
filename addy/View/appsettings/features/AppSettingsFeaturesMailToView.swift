@@ -60,8 +60,10 @@ struct AppSettingsFeaturesMailToView: View {
         .navigationTitle(String(localized: "integration_mailto_alias"))
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $isPresentingSelectMailClientBottomSheet) {
-            SelectMailClientBottomSheet(isSettingsMode: true) { _ in
-                self.preferredMailClient = MainViewState.shared.settingsManager.getSettingsString(key: .preferredMailClient) ?? ""
+            NavigationStack {
+                SelectMailClientBottomSheet(isSettingsMode: true) { _ in
+                    self.preferredMailClient = MainViewState.shared.settingsManager.getSettingsString(key: .preferredMailClient) ?? ""
+                }
             }
             .presentationDetents([.medium, .large])
         }

@@ -230,8 +230,10 @@ struct FilterOptionsAliasBottomSheet: View {
             filter1Selection = 1
         } else if aliasSortFilterRequest.onlyInactiveAliases {
             filter1Selection = 2
-        } else if aliasSortFilterRequest.onlyDeletedAliases {
+        } else if aliasSortFilterRequest.onlyPinnedAliases {
             filter1Selection = 3
+        } else if aliasSortFilterRequest.onlyDeletedAliases {
+            filter1Selection = 4
         } else {
             filter1Selection = 0
         }
