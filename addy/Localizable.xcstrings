@@ -912,7 +912,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 2.6.0**\n\n**Added**\n- Support for Family Plans: Share custom domains with family plan members\n- Added new rule conditions (from name, headers, catch-all status, attachments, spam status, DMARC validation, email size, forwarded count)\n- Added new rule actions (add label, remove label, set alias description, deactivate alias, delete alias)\n\n**Fixed & Improved**\n- Performance enhancements and other improvements for a smoother experience"
+            "value" : "**What’s new in addy.io for iOS 2.7.0**\n\n✨ **Bulk Actions for Aliases**\nManaging multiple aliases just got effortless! You can now select several aliases at once to activate, deactivate, pin, assign labels, change recipients, or delete them all in one go.\n\n🏷️ **Seamless Label Picker**\nOrganizing your aliases with labels is now cleaner, faster, and consistent everywhere in the app.\n\n👁️ **Watched Aliases at a Glance**\nThe watched alias icon is back in your list, making it easy to spot which aliases are actively monitored for new incoming emails.\n\n🚀 **Faster & Smoother Everyday**\nWe've rebuilt core parts of the app from the ground up for better speed, battery efficiency, rock-solid stability, and expanded support for self-hosted servers.\n\n**What’s new in addy.io for Apple Watch 1.1.8**\n\n⌚️ **Wrist Companion Upgrades**\nEnjoy a smoother experience on your wrist with faster alias creation, improved Siri Shortcuts, and reliable syncing with your iPhone."
           }
         }
       }

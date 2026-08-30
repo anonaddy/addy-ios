@@ -88,6 +88,17 @@
         }
       }
     },
+    "blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocked"
+          }
+        }
+      }
+    },
     "cancel" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -307,6 +318,17 @@
         }
       }
     },
+    "error_adding_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while adding the alias"
+          }
+        }
+      }
+    },
     "error_edit_active" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -342,6 +364,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Error unknown, please refer to the app logs for more information about this error."
+          }
+        }
+      }
+    },
+    "forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forwarded"
           }
         }
       }
@@ -455,6 +488,17 @@
         }
       }
     },
+    "replied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replied"
+          }
+        }
+      }
+    },
     "reset_app" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -462,6 +506,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset app"
+          }
+        }
+      }
+    },
+    "sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sent"
           }
         }
       }

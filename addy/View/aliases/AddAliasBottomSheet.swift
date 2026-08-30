@@ -342,7 +342,7 @@ struct AddAliasBottomSheet: View {
         } catch {
             isLoadingAddButton = false
             showAlert = true
-            errorAlertTitle = String(localized: "error_adding_alias")
+            errorAlertTitle = String(localized: "error_adding_alias", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
         }
     }

@@ -1,5 +1,31 @@
 # Changelog
  
+## [v2.7.0] - 2026-08-30
+
+**Highlights**
+- **Bulk Alias Management**: Multi-select aliases to activate, deactivate, pin, unpin, assign labels, update recipients, delete, restore, or forget aliases in bulk with real-time feedback.
+- **Watched Alias Badges**: Restored the dedicated watched alias indicator in alias rows and multi-selection sheets to easily identify actively monitored aliases.
+- **Unified Label Selection**: Streamlined and standardized label selection sheets across alias creation, editing, and bulk management.
+- **Direct "Forget" Action**: Added support for forgetting active and deleted aliases directly from detail screens, context menus, and multi-selection.
+- **Custom SSL Certificate Support**: Full support for self-hosted instances using custom SSL certificates and certificate password configuration (#52).
+
+**Fixed & Improved**
+- **Modernized Networking & Architecture**: Replaced legacy callback-based network layer with a high-performance async/await API client and 10 dedicated domain repositories.
+- **OpenAPI Alignment**: Aligned alias update, bulk operations, and paginated endpoints with the official addy.io OpenAPI specification.
+- **Smoother UI Performance**: Migrated ViewModels and background workers to `@MainActor` with structured concurrency, eliminating UI lag and improving memory efficiency.
+- **Enhanced Extensions**: Refactored Share Extension and Statistics Widget with localized strings, optimized caching, and memory safety improvements.
+- Performance enhancements and other improvements for a smoother experience.
+
+**What’s new in addy.io for Apple Watch 1.1.8**
+
+**Added**
+- Modernized alias creation flow with dedicated ViewModel and responsive state management.
+- Harmonized App Intents (`CreateNewAliasIntent`, `CreateNewCustomAliasIntent`) and App Shortcuts for both iOS and watchOS.
+
+**Fixed & Improved**
+- Improved Apple Watch connectivity syncing and reliable communication with the companion iOS app.
+- Performance enhancements and other improvements for a smoother experience.
+
 ## [v2.6.0] - 2026-08-16
 
 **Added**

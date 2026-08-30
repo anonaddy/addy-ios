@@ -246,7 +246,7 @@ struct MailToActionSheet: View {
                 self.close()
             }
         } catch {
-            errorTitle = String(localized: "error_adding_alias")
+            errorTitle = String(localized: "error_adding_alias", bundle: Bundle(for: SharedData.self))
             errorMessage = error.localizedDescription
         }
     }

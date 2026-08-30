@@ -23,25 +23,25 @@ struct ManageAliasView: View {
     var body: some View {
         List {
             StatRow(
-                label: String(localized: "forwarded"),
+                label: String(localized: "forwarded", bundle: Bundle(for: SharedData.self)),
                 count: alias.emails_forwarded,
                 systemImage: "tray",
                 color: .orange
             )
             StatRow(
-                label: String(localized: "replied"),
+                label: String(localized: "replied", bundle: Bundle(for: SharedData.self)),
                 count: alias.emails_replied,
                 systemImage: "arrow.triangle.2.circlepath",
                 color: .blue
             )
             StatRow(
-                label: String(localized: "sent"),
+                label: String(localized: "sent", bundle: Bundle(for: SharedData.self)),
                 count: alias.emails_sent,
                 systemImage: "arrow.right.to.line",
                 color: Color.blue.opacity(0.8)
             )
             StatRow(
-                label: String(localized: "blocked"),
+                label: String(localized: "blocked", bundle: Bundle(for: SharedData.self)),
                 count: alias.emails_blocked,
                 systemImage: "xmark.circle",
                 color: Color.red.opacity(0.8)

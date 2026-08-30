@@ -28,6 +28,14 @@
             ],
             "versions": [
                 {
+                    "version": "2.7.0",
+                    "date": "2026-08-30T00:00:00+02:00",
+                    "size": 34560000,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/refs/heads/2.7.0/builds/appstorelessRelease%202026-08-30%2000-00-00/addy.ipa",
+                    "localizedDescription": "- Bulk Alias Management: Multi-select aliases to activate, deactivate, pin, unpin, assign labels, update recipients, delete, or forget in bulk with live progress\n- Unified label selection across all alias creation and management flows\n- Restored watched alias indicator in alias rows\n- Apple Watch Companion 1.1.8 with modernized alias creation and unified App Intents\n- Custom SSL certificate support for self-hosted instances (#52)\n- Complete async/await architecture overhaul with major performance and stability improvements",
+                    "minOSVersion": "17.0"
+                },
+                {
                     "version": "2.6.0",
                     "date": "2026-08-15T00:00:00+02:00",
                     "size": 34557865,

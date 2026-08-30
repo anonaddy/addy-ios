@@ -202,7 +202,7 @@ struct SendMailRecipientView: View {
             let alias = try await AliasRepository.shared.addAlias(domain: domain, description: description, format: format, localPart: localPart, recipients: nil)
             return alias
         } catch {
-            errorAlertTitle = String(localized: "error_adding_alias")
+            errorAlertTitle = String(localized: "error_adding_alias", bundle: Bundle(for: SharedData.self))
             errorAlertMessage = error.localizedDescription
             showAlert = true
         }
