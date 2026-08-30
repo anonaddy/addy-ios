@@ -97,7 +97,9 @@ struct AliasMultipleSelectionBottomSheet: View {
                 }
                 .disabled(isLoading)
                 .onChange(of: isWatched) { newValue in
-                    toggleWatched(watched: newValue)
+                    Task {
+                        await toggleWatched(watched: newValue)
+                    }
                 }
 
                 // Pinned toggle
@@ -208,7 +210,7 @@ struct AliasMultipleSelectionBottomSheet: View {
         }
         .sheet(isPresented: $isPresentingLabelsSheet) {
             NavigationStack {
-                BulkEditLabelsSheet(aliasIds: aliasIds) {
+                EditAliasLabelsBottomSheet(aliasIds: aliasIds) {
                     onDataChanged()
                 }
             }
@@ -311,15 +313,27 @@ struct AliasMultipleSelectionBottomSheet: View {
         }
     }
 
-    private func toggleWatched(watched: Bool) {
+    private func toggleWatched(watched: Bool) async {
+        isLoading = true
+        requestError = nil
         let watcher = AliasWatcher()
+        var hitMaxLimit = false
         for alias in aliasesList {
             if watched {
-                _ = watcher.addAliasToWatch(alias: alias.id)
+                if !watcher.addAliasToWatch(alias: alias.id) {
+                    hitMaxLimit = true
+                }
             } else {
                 watcher.removeAliasToWatch(alias: alias.id)
             }
         }
+        if hitMaxLimit {
+            requestError = String(localized: "aliaswatcher_max_reached_desc")
+            HapticHelper.playHapticFeedback(hapticType: .error)
+            let currentWatched = watcher.getAliasesToWatch()
+            isWatched = !aliasesList.isEmpty && aliasesList.allSatisfy { currentWatched.contains($0.id) }
+        }
+        isLoading = false
         onDataChanged()
     }
 
@@ -367,89 +381,6 @@ struct AliasMultipleSelectionBottomSheet: View {
             isLoading = false
             requestError = error.localizedDescription
             HapticHelper.playHapticFeedback(hapticType: .error)
-        }
-    }
-}
-
-// MARK: - Bulk Edit Labels Sheet Helper
-private struct BulkEditLabelsSheet: View {
-    @Environment(\.dismiss) var dismiss
-    let aliasIds: [String]
-    let onSaved: () -> Void
-
-    @State private var labelsLoaded: Bool = false
-    @State private var selectedLabelIds: [String] = []
-    @State private var allLabels: [AddyChipModel] = []
-    @State private var requestError: String? = nil
-    @State private var isLoadingSaveButton: Bool = false
-
-    var body: some View {
-        Form {
-            Section {
-                if !labelsLoaded {
-                    ProgressView().frame(maxWidth: .infinity, alignment: .center)
-                } else {
-                    AddyMultiSelectChipView(chips: $allLabels, selectedChips: $selectedLabelIds, singleLine: false) { chip in
-                        withAnimation {
-                            if let idx = selectedLabelIds.firstIndex(of: chip.chipId) {
-                                selectedLabelIds.remove(at: idx)
-                            } else {
-                                selectedLabelIds.append(chip.chipId)
-                            }
-                        }
-                    }
-                }
-            } header: {
-                Text(String(localized: "add_label_description"))
-            } footer: {
-                if let error = requestError, !error.isEmpty {
-                    Text(error).foregroundColor(.red).font(.caption)
-                }
-            }
-        }
-        .navigationTitle(String(localized: "labels"))
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button(String(localized: "save")) {
-                    saveLabels()
-                }
-                .disabled(isLoadingSaveButton)
-            }
-            ToolbarItem(placement: .cancellationAction) {
-                Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self))) {
-                    dismiss()
-                }
-            }
-        }
-        .task {
-            await loadLabels()
-        }
-    }
-
-    private func loadLabels() async {
-        do {
-            let labelsArray = try await LabelRepository.shared.getLabels()
-            allLabels = labelsArray.data.map { AddyChipModel(chipId: $0.id, label: $0.name, color: $0.colour) }
-            labelsLoaded = true
-        } catch {
-            labelsLoaded = true
-            requestError = error.localizedDescription
-        }
-    }
-
-    private func saveLabels() {
-        isLoadingSaveButton = true
-        requestError = nil
-        Task {
-            do {
-                _ = try await AliasRepository.shared.bulkUpdateLabels(aliasIds: aliasIds, labelIds: selectedLabelIds)
-                onSaved()
-                dismiss()
-            } catch {
-                isLoadingSaveButton = false
-                requestError = error.localizedDescription
-            }
         }
     }
 }

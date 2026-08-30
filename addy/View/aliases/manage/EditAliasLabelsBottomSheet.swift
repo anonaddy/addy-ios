@@ -19,8 +19,9 @@ struct EditAliasLabelsBottomSheet: View {
     @State private var isLoadingSaveButton: Bool = false
     @State private var isPresentingAddLabelBottomSheet = false
 
-    let aliasId: String
-    let labelsEdited: (Aliases) -> Void
+    let aliasIds: [String]
+    var onSaved: (() -> Void)? = nil
+    var labelsEdited: ((Aliases) -> Void)? = nil
 
     var body: some View {
         Form {
@@ -28,6 +29,12 @@ struct EditAliasLabelsBottomSheet: View {
                 if !labelsLoaded {
                     ProgressView()
                         .frame(maxWidth: .infinity, alignment: .center)
+                } else if allLabels.isEmpty {
+                    Text(String(localized: "no_labels"))
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 8)
                 } else {
                     WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                         ForEach(allLabels) { label in
@@ -131,9 +138,17 @@ struct EditAliasLabelsBottomSheet: View {
     }
 
     init(aliasId: String, selectedLabelsIds: [String], labelsEdited: @escaping (Aliases) -> Void) {
-        self.aliasId = aliasId
-        _selectedLabelIds = State(initialValue: selectedLabelsIds)
+        self.aliasIds = [aliasId]
+        self._selectedLabelIds = State(initialValue: selectedLabelsIds)
         self.labelsEdited = labelsEdited
+        self.onSaved = nil
+    }
+
+    init(aliasIds: [String], selectedLabelsIds: [String] = [], onSaved: @escaping () -> Void) {
+        self.aliasIds = aliasIds
+        self._selectedLabelIds = State(initialValue: selectedLabelsIds)
+        self.onSaved = onSaved
+        self.labelsEdited = nil
     }
 
     private func getAllLabels(forceReload: Bool = false) async {
@@ -154,9 +169,12 @@ struct EditAliasLabelsBottomSheet: View {
     private func editLabels() async {
         requestError = nil
         do {
-            _ = try await AliasRepository.shared.bulkUpdateLabels(aliasIds: [aliasId], labelIds: selectedLabelIds)
-            let alias = try await AliasRepository.shared.getAlias(aliasId: aliasId)
-            labelsEdited(alias)
+            _ = try await AliasRepository.shared.bulkUpdateLabels(aliasIds: aliasIds, labelIds: selectedLabelIds)
+            if aliasIds.count == 1, let aliasId = aliasIds.first, let labelsEdited = labelsEdited {
+                let alias = try await AliasRepository.shared.getAlias(aliasId: aliasId)
+                labelsEdited(alias)
+            }
+            onSaved?()
             dismiss()
         } catch {
             isLoadingSaveButton = false

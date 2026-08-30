@@ -80,6 +80,14 @@ struct FilterOptionsAliasBottomSheet: View {
                 content: {
                     if isLoadingLabels {
                         ProgressView()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.vertical, 8)
+                    } else if labels.isEmpty {
+                        Text(String(localized: "no_labels"))
+                            .font(.system(size: 14))
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.vertical, 8)
                     } else {
                         WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                             ForEach(labels) { label in

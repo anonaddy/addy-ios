@@ -389,6 +389,7 @@ struct AliasesView: View {
                     AliasMultipleSelectionBottomSheet(
                         selectedAliases: (aliasesViewModel.aliasList?.data ?? []).filter { selectedAliasIds.contains($0.id) },
                         onDataChanged: {
+                            aliasesViewModel.refreshWatchedAliases()
                             Task {
                                 await aliasesViewModel.getAliases(forceReload: true)
                             }
@@ -398,6 +399,7 @@ struct AliasesView: View {
                                 isSelectionMode = false
                                 selectedAliasIds.removeAll()
                             }
+                            aliasesViewModel.refreshWatchedAliases()
                             Task {
                                 await aliasesViewModel.getAliases(forceReload: true)
                             }
@@ -480,7 +482,7 @@ struct AliasesView: View {
                         .foregroundColor(selectedAliasIds.contains(alias.id) ? .accentColor : .secondary)
                         .font(.title3)
 
-                    AliasRowView(alias: alias, isPreview: false)
+                    AliasRowView(alias: alias, isPreview: false, isWatched: aliasesViewModel.watchedAliasIds.contains(alias.id))
                 }
             }
             .tint(.primary)
@@ -493,9 +495,9 @@ struct AliasesView: View {
                 }
                 .opacity(0)
 
-                AliasRowView(alias: alias, isPreview: false)
+                AliasRowView(alias: alias, isPreview: false, isWatched: aliasesViewModel.watchedAliasIds.contains(alias.id))
             }
-            .contextMenu { // TODO: Add watch
+            .contextMenu {
                 Button {
                     UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
                     showCopiedToClipboardAnimation()
@@ -507,6 +509,30 @@ struct AliasesView: View {
                     self.aliasToSendMailFrom = alias
                 } label: {
                     Label(String(localized: "send_mail"), systemImage: "paperplane")
+                }
+
+                if aliasesViewModel.watchedAliasIds.contains(alias.id) {
+                    Button {
+                        AliasWatcher().removeAliasToWatch(alias: alias.id)
+                        aliasesViewModel.refreshWatchedAliases()
+                        if aliasesViewModel.aliasSortFilterRequest.onlyWatchedAliases {
+                            Task {
+                                await aliasesViewModel.getAliases(forceReload: true)
+                            }
+                        }
+                    } label: {
+                        Label(String(localized: "watch_alias"), image: "ic_watch_alias")
+                    }
+                } else {
+                    Button {
+                        if !AliasWatcher().addAliasToWatch(alias: alias.id) {
+                            activeAlert = .reachedMaxAliases
+                            showAlert = true
+                        }
+                        aliasesViewModel.refreshWatchedAliases()
+                    } label: {
+                        Label(String(localized: "watch_alias"), image: "ic_watch_alias")
+                    }
                 }
 
                 if alias.pinned {
@@ -579,12 +605,13 @@ struct AliasesView: View {
                 }
 
             } preview: {
-                AliasRowView(alias: alias, isPreview: true).onAppear {
+                AliasRowView(alias: alias, isPreview: true, isWatched: aliasesViewModel.watchedAliasIds.contains(alias.id)).onAppear {
                     self.aliasInContextMenu = alias
                 }.frame(minWidth: 350, idealWidth: 350, maxWidth: 350, minHeight: 200, idealHeight: 200, maxHeight: 200, alignment: .center)
             }
             .onChange(of: shouldReloadDataInParent) {
                 if shouldReloadDataInParent {
+                    aliasesViewModel.refreshWatchedAliases()
                     Task {
                         await aliasesViewModel.getAliases(forceReload: true)
                     }

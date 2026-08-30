@@ -43,9 +43,11 @@ class AliasesViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var hasArrivedAtTheLastPage = true
     @Published var networkError: String = ""
+    @Published var watchedAliasIds: Set<String> = []
 
     init(aliasRepository: AliasRepositoryProtocol = AliasRepository.shared) {
         self.aliasRepository = aliasRepository
+        self.watchedAliasIds = AliasWatcher().getAliasesToWatch()
         // Since the class is @MainActor, this closure is also executed on the MainActor
         searchCancellable = $searchQuery
             .dropFirst()
@@ -56,6 +58,10 @@ class AliasesViewModel: ObservableObject {
                     await self?.searchAliases(searchQuery: str)
                 }
             })
+    }
+
+    func refreshWatchedAliases() {
+        watchedAliasIds = AliasWatcher().getAliasesToWatch()
     }
 
     func searchAliases(searchQuery: String) async {
@@ -81,6 +87,7 @@ class AliasesViewModel: ObservableObject {
         if !isLoading {
             isLoading = true
             networkError = ""
+            refreshWatchedAliases()
 
             #if DEBUG
                 print("page is \(aliasList?.meta?.current_page ?? 0)")

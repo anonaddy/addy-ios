@@ -11,6 +11,8 @@ import SwiftUI
 struct AliasRowView: View {
     let alias: Aliases
     let isPreview: Bool
+    var isWatched: Bool? = nil
+
     private var chartData: [Double] {
         let total = Double(alias.emails_forwarded + alias.emails_replied + alias.emails_sent + alias.emails_blocked)
         let normalizedTotal = total != 0 ? total : 10.0
@@ -28,7 +30,7 @@ struct AliasRowView: View {
     }
 
     private var isWatchingAlias: Bool {
-        AliasWatcher().getAliasesToWatch().contains(alias.id)
+        isWatched ?? AliasWatcher().getAliasesToWatch().contains(alias.id)
     }
 
     private var chartColors: [ColorGradient] {

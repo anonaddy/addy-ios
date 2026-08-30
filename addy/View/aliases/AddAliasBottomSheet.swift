@@ -40,7 +40,8 @@ struct AddAliasBottomSheet: View {
     @State private var labelsRequestError: String? = ""
     @State var labelsLoaded: Bool = false
     @State var selectedLabelChips: [String] = []
-    @State var labelsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_labels", label: String(localized: "loading_labels"))]
+    @State var labelsChips: [AddyChipModel] = []
+    @State private var isPresentingAddLabelBottomSheet = false
 
     @State var isLoadingAddButton: Bool = false
 
@@ -150,23 +151,46 @@ struct AddAliasBottomSheet: View {
             }
 
             DisclosureGroup(isExpanded: $isLabelsExpanded) {
-                WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
-                    ForEach(labelsChips) { chip in
-                        ChipView(label: chip.label, isSelected: selectedLabelChips.contains(chip.chipId), color: Color(hex: chip.color ?? "FFFFFF"))
-                            .onTapGesture {
-                                withAnimation {
-                                    if selectedLabelChips.contains(chip.chipId) {
-                                        selectedLabelChips.removeAll { $0 == chip.chipId }
-                                    } else {
-                                        selectedLabelChips.append(chip.chipId)
+                if !labelsLoaded {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 8)
+                } else if labelsChips.isEmpty {
+                    Text(String(localized: "no_labels"))
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 8)
+                } else {
+                    WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
+                        ForEach(labelsChips) { chip in
+                            ChipView(label: chip.label, isSelected: selectedLabelChips.contains(chip.chipId), color: Color(hex: chip.color ?? "FFFFFF"))
+                                .onTapGesture {
+                                    withAnimation {
+                                        if selectedLabelChips.contains(chip.chipId) {
+                                            selectedLabelChips.removeAll { $0 == chip.chipId }
+                                        } else {
+                                            selectedLabelChips.append(chip.chipId)
+                                        }
                                     }
                                 }
-                            }
+                        }
+                    }
+                    .padding(.leading, -15)
+                }
+            } label: {
+                HStack {
+                    Text(String(localized: "labels"))
+                    Spacer()
+                    if isLabelsExpanded {
+                        Button {
+                            isPresentingAddLabelBottomSheet = true
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                        .buttonStyle(.borderless)
                     }
                 }
-                .disabled(!labelsLoaded).padding(.leading, -15)
-            } label: {
-                Text(String(localized: "labels"))
             }
 
             Section {
@@ -187,7 +211,7 @@ struct AddAliasBottomSheet: View {
                 await getAllRecipients()
             }
 
-            if labelsChips.contains(where: { $0.chipId == "loading_labels" }) {
+            if !labelsLoaded {
                 await getAllLabels()
             }
         }
@@ -209,6 +233,21 @@ struct AddAliasBottomSheet: View {
                 }
             }
         })
+        .sheet(isPresented: $isPresentingAddLabelBottomSheet) {
+            NavigationStack {
+                AddLabelBottomSheet { newLabel in
+                    if let newLabel = newLabel {
+                        let chip = AddyChipModel(chipId: newLabel.id, label: newLabel.name, color: newLabel.colour)
+                        labelsChips.append(chip)
+                        if !selectedLabelChips.contains(chip.chipId) {
+                            selectedLabelChips.append(chip.chipId)
+                        }
+                    }
+                    isPresentingAddLabelBottomSheet = false
+                }
+            }
+            .presentationDetents([.medium, .large])
+        }
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text(errorAlertTitle),
