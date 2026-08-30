@@ -56,7 +56,7 @@ struct AddLabelBottomSheet: View {
                 
             } header: {
                 VStack {
-                    Text(labelToEdit != nil ? String(localized: "edit_label_desc") : String(localized: "label_add_desc"))
+                    Text(labelToEdit != nil ? String(localized: "label_add_desc") : String(localized: "label_add_desc"))
                         .multilineTextAlignment(.center)
                         .padding(.bottom)
                 }.frame(maxWidth: .infinity, alignment: .center)
