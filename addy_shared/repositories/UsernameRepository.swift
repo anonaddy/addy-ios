@@ -184,7 +184,7 @@ public final class UsernameRepository: UsernameRepositoryProtocol, @unchecked Se
         let json: [String: Any?] = ["description": description]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)/description",
+            urlString: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)",
             method: .patch,
             body: jsonData
         )
@@ -196,7 +196,7 @@ public final class UsernameRepository: UsernameRepositoryProtocol, @unchecked Se
         let json: [String: Any?] = ["from_name": fromName]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)/from-name",
+            urlString: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)",
             method: .patch,
             body: jsonData
         )
@@ -208,7 +208,7 @@ public final class UsernameRepository: UsernameRepositoryProtocol, @unchecked Se
         let json: [String: Any?] = ["auto_create_regex": autoCreateRegex]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)/auto-create-regex",
+            urlString: "\(AddyIo.API_URL_USERNAMES)/\(usernameId)",
             method: .patch,
             body: jsonData
         )

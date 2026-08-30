@@ -209,13 +209,12 @@ public final class RecipientRepository: RecipientRepositoryProtocol, @unchecked 
 
     public func addEncryptionKey(recipientId: String, keyData: String) async throws -> Recipients {
         let json: [String: Any] = [
-            "id": recipientId,
             "key_data": keyData,
         ]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: AddyIo.API_URL_RECIPIENT_KEYS,
-            method: .post,
+            urlString: "\(AddyIo.API_URL_RECIPIENT_KEYS)/\(recipientId)",
+            method: .patch,
             body: jsonData
         )
         let single: SingleRecipient = try await apiClient.request(endpoint)
@@ -334,7 +333,7 @@ public final class RecipientRepository: RecipientRepositoryProtocol, @unchecked 
         let json: [String: Any?] = ["description": description]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: "\(AddyIo.API_URL_RECIPIENTS)/\(recipientId)/description",
+            urlString: "\(AddyIo.API_URL_RECIPIENTS)/\(recipientId)",
             method: .patch,
             body: jsonData
         )

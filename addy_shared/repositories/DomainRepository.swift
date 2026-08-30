@@ -204,7 +204,7 @@ public final class DomainRepository: DomainRepositoryProtocol, @unchecked Sendab
         let json: [String: Any?] = ["description": description]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: "\(AddyIo.API_URL_DOMAINS)/\(domainId)/description",
+            urlString: "\(AddyIo.API_URL_DOMAINS)/\(domainId)",
             method: .patch,
             body: jsonData
         )
@@ -216,7 +216,7 @@ public final class DomainRepository: DomainRepositoryProtocol, @unchecked Sendab
         let json: [String: Any?] = ["from_name": fromName]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: "\(AddyIo.API_URL_DOMAINS)/\(domainId)/from-name",
+            urlString: "\(AddyIo.API_URL_DOMAINS)/\(domainId)",
             method: .patch,
             body: jsonData
         )
@@ -228,7 +228,7 @@ public final class DomainRepository: DomainRepositoryProtocol, @unchecked Sendab
         let json: [String: Any?] = ["auto_create_regex": autoCreateRegex]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: "\(AddyIo.API_URL_DOMAINS)/\(domainId)/auto-create-regex",
+            urlString: "\(AddyIo.API_URL_DOMAINS)/\(domainId)",
             method: .patch,
             body: jsonData
         )

@@ -188,7 +188,7 @@ public final class AliasRepository: AliasRepositoryProtocol, @unchecked Sendable
         let json: [String: Any] = ["aliases": aliases]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: "\(AddyIo.API_URL_ALIAS)/bulk",
+            urlString: AddyIo.API_URL_ALIASES_GET_BULK,
             method: .post,
             body: jsonData
         )
@@ -344,7 +344,7 @@ public final class AliasRepository: AliasRepositoryProtocol, @unchecked Sendable
         let json: [String: Any?] = ["description": description]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: "\(AddyIo.API_URL_ALIAS)/\(aliasId)/description",
+            urlString: "\(AddyIo.API_URL_ALIAS)/\(aliasId)",
             method: .patch,
             body: jsonData
         )
@@ -356,7 +356,7 @@ public final class AliasRepository: AliasRepositoryProtocol, @unchecked Sendable
         let json: [String: Any?] = ["from_name": fromName]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: "\(AddyIo.API_URL_ALIAS)/\(aliasId)/from-name",
+            urlString: "\(AddyIo.API_URL_ALIAS)/\(aliasId)",
             method: .patch,
             body: jsonData
         )
@@ -365,11 +365,14 @@ public final class AliasRepository: AliasRepositoryProtocol, @unchecked Sendable
     }
 
     public func updateRecipients(aliasId: String, recipients: [String]) async throws -> Aliases {
-        let json: [String: Any] = ["recipient_ids": recipients]
+        let json: [String: Any] = [
+            "alias_id": aliasId,
+            "recipient_ids": recipients,
+        ]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
-            urlString: "\(AddyIo.API_URL_ALIAS)/\(aliasId)/recipients",
-            method: .put,
+            urlString: AddyIo.API_URL_ALIAS_RECIPIENTS,
+            method: .post,
             body: jsonData
         )
         let single: SingleAlias = try await apiClient.request(endpoint)
