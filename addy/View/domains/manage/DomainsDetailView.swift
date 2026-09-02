@@ -26,8 +26,10 @@ struct DomainsDetailView: View {
     @State private var errorText: String? = nil
     @State private var isActive: Bool = false
     @State private var catchAllEnabled: Bool = false
+    @State private var sharedWithFamilyEnabled: Bool = false
     @State private var isSwitchingisActiveState: Bool = false
     @State private var isSwitchingCatchAllEnabledState: Bool = false
+    @State private var isSwitchingSharedWithFamilyState: Bool = false
     @State private var isPresentingEditDomainDescriptionBottomSheet: Bool = false
     @State private var isPresentingEditDomainFromNameBottomSheet: Bool = false
     @State private var isPresentingEditDomainRecipientsBottomSheet: Bool = false
@@ -143,6 +145,32 @@ struct DomainsDetailView: View {
                                 }
                             }
                         }
+
+                    if AddyIo.isUsingHostedInstance() {
+                        AddyToggle(isOn: $sharedWithFamilyEnabled, isLoading: isSwitchingSharedWithFamilyState, title: String(localized: "share_domain_with_family"), description: String(localized: "share_domain_with_family_desc"))
+                            .disabled(mainViewState.userResource?.family_plan_role == nil)
+                            .onChange(of: sharedWithFamilyEnabled) {
+                                // Only fire when the value is NOT the same as the value already in the model
+                                if sharedWithFamilyEnabled != (domain.shared_with_family ?? false) {
+                                    if mainViewState.userResource?.family_plan_role == nil {
+                                        sharedWithFamilyEnabled = domain.shared_with_family ?? false
+                                        HapticHelper.playHapticFeedback(hapticType: .error)
+                                        return
+                                    }
+                                    self.isSwitchingSharedWithFamilyState = true
+
+                                    if domain.shared_with_family ?? false {
+                                        Task {
+                                            await self.stopSharingWithFamily(domain: domain)
+                                        }
+                                    } else {
+                                        Task {
+                                            await self.shareWithFamily(domain: domain)
+                                        }
+                                    }
+                                }
+                            }
+                    }
 
                     AddySection(title: String(localized: "description"), description: domain.description ?? String(localized: "domain_no_description"), leadingSystemimage: nil, trailingSystemimage: "pencil") {
                         isPresentingEditDomainDescriptionBottomSheet = true
@@ -386,6 +414,48 @@ struct DomainsDetailView: View {
         }
     }
 
+    private func shareWithFamily(domain: Domains) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let updatedDomain = try await networkHelper.shareDomainWithFamily(domainId: domain.id)
+            isSwitchingSharedWithFamilyState = false
+            self.domain = updatedDomain
+            sharedWithFamilyEnabled = true
+        } catch {
+            isSwitchingSharedWithFamilyState = false
+            sharedWithFamilyEnabled = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_share_domain_family")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    private func stopSharingWithFamily(domain: Domains) async {
+        let networkHelper = NetworkHelper()
+        do {
+            let result = try await networkHelper.stopSharingDomainWithFamily(domainId: domain.id)
+            isSwitchingSharedWithFamilyState = false
+            if result == "204" {
+                self.domain?.shared_with_family = false
+                sharedWithFamilyEnabled = false
+            } else {
+                sharedWithFamilyEnabled = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_share_domain_family")
+                errorAlertMessage = result
+            }
+        } catch {
+            isSwitchingSharedWithFamilyState = false
+            sharedWithFamilyEnabled = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_share_domain_family")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
     private func updateUi(aliasesArray: AliasesArray?) {
         if let aliasesArray = aliasesArray {
             let sortedAliasesData = aliasesArray.data.sorted(by: { $0.email < $1.email })
@@ -465,6 +535,7 @@ struct DomainsDetailView: View {
                     self.domain = domain
                     self.isActive = domain.active
                     self.catchAllEnabled = domain.catch_all
+                    self.sharedWithFamilyEnabled = domain.shared_with_family ?? false
                 }
 
                 // Reset total counts

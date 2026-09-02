@@ -13,10 +13,10 @@ public enum AddyIo {
     // The versioncode is a combination of MAJOR MINOR PATCH
     // TODO: Update on every release
 
-    // 1.7.1
+    // 1.7.2
     public static let MINIMUMVERSIONCODEMAJOR = 1
     public static let MINIMUMVERSIONCODEMINOR = 7
-    public static let MINIMUMVERSIONCODEPATCH = 1
+    public static let MINIMUMVERSIONCODEPATCH = 2
 
     public static var VERSIONMAJOR = 0
     public static var VERSIONMINOR = 0
@@ -98,6 +98,10 @@ public enum AddyIo {
 
     static var API_URL_CATCH_ALL_DOMAINS: String {
         "\(API_BASE_URL)/api/v1/catch-all-domains"
+    }
+
+    static var API_URL_SHARED_WITH_FAMILY_DOMAINS: String {
+        "\(API_BASE_URL)/api/v1/shared-with-family-domains"
     }
 
     static var API_URL_USERNAMES: String {

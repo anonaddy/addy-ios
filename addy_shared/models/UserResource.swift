@@ -29,26 +29,30 @@ public struct UserResource: Codable {
     public var id: String
     public var username: String
     public let disabled: Bool?
-    var from_name: String?
-    var email_subject: String?
-    var banner_location: String
+    public var from_name: String?
+    public var email_subject: String?
+    public var banner_location: String
+    public var spam_warning_behaviour: String?
+    public var wkd_auto_encrypt: Int?
     public var bandwidth: Int64
     public var username_count: Int
     public var username_limit: Int
-    var default_username_id: String
+    public var default_username_id: String
     public var default_recipient_id: String
     public var default_alias_domain: String
     public var default_alias_format: String
+    public var alias_separator: String?
     public var subscription: String? // Can be nil on selfhosted
     public var subscription_type: String? // Can be nil on selfhosted
     public var subscription_ends_at: String? // Can be nil on selfhosted
+    public var family_plan_role: String?
     public var bandwidth_limit: Int64?
     public var recipient_count: Int
     public var recipient_limit: Int? // Can be nil on selfhosted
     public var active_domain_count: Int
     public var active_domain_limit: Int? // Can be nil on selfhosted
-    var active_shared_domain_alias_count: Int
-    var active_shared_domain_alias_limit: Int? // Can be nil on selfhosted
+    public var active_shared_domain_alias_count: Int
+    public var active_shared_domain_alias_limit: Int? // Can be nil on selfhosted
     public var active_rule_count: Int
     public var active_rule_limit: Int? // Can be nil on selfhosted
     public var total_emails_forwarded: Int
@@ -58,9 +62,10 @@ public struct UserResource: Codable {
     public var total_aliases: Int
     public var total_active_aliases: Int
     public var total_inactive_aliases: Int
+    public var total_pinned_aliases: Int?
     public var total_deleted_aliases: Int
-    var created_at: String
-    var updated_at: String
+    public var created_at: String
+    public var updated_at: String
 
     public func hasUserFreeSubscription() -> Bool {
         // If user has a subscription
@@ -71,5 +76,9 @@ public struct UserResource: Codable {
             }
         }
         return false
+    }
+
+    public func hasFamilyPlanRole() -> Bool {
+        return family_plan_role != nil
     }
 }

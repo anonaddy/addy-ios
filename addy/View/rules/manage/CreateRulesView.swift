@@ -94,21 +94,28 @@ struct CreateRulesView: View {
                             HStack {
                                 Spacer().frame(width: 10)
                                 VStack {
-                                    let typeIndex = RulesOption.conditionsType.firstIndex(of: condition.type) ?? 0
-                                    let matchIndex = RulesOption.conditionsMatch.firstIndex(of: condition.match) ?? 0
+                                    let typeText = RulesOption.conditionTypeName(for: condition.type)
 
-                                    let typeText = RulesOption.conditionsTypeName[typeIndex]
-                                    let matchText = RulesOption.conditionsMatchName[matchIndex]
+                                    if RulesOption.isBooleanCondition(type: condition.type) {
+                                        Text(String(format: String(localized: "rule_if_"), "`\(typeText)`"))
+                                            .fontWeight(.medium)
+                                            .multilineTextAlignment(.center)
+                                            .padding(.bottom, 1)
+                                    } else {
+                                        let matchText = RulesOption.matchName(for: condition.match ?? "")
 
-                                    Text(String(format: String(localized: "rule_if_"), "`\(typeText)` \(matchText)..."))
-                                        .fontWeight(.medium)
-                                        .multilineTextAlignment(.center)
-                                        .padding(.bottom, 1)
-                                    Text(condition.values.joined(separator: ", "))
-                                        .font(.system(size: 14))
-                                        .multilineTextAlignment(.center)
-                                        .lineLimit(3)
-                                        .opacity(0.7)
+                                        Text(String(format: String(localized: "rule_if_"), "`\(typeText)` \(matchText)..."))
+                                            .fontWeight(.medium)
+                                            .multilineTextAlignment(.center)
+                                            .padding(.bottom, 1)
+                                        if let values = condition.values, !values.isEmpty {
+                                            Text(values.joined(separator: ", "))
+                                                .font(.system(size: 14))
+                                                .multilineTextAlignment(.center)
+                                                .lineLimit(3)
+                                                .opacity(0.7)
+                                        }
+                                    }
                                 }.onTapGesture {
                                     conditionToEdit = condition
                                 }.padding(EdgeInsets()).frame(maxWidth: .infinity)
@@ -187,24 +194,27 @@ struct CreateRulesView: View {
                             HStack {
                                 Spacer().frame(width: 10)
                                 VStack {
-                                    let typeIndex = RulesOption.actionsType.firstIndex(of: action.type) ?? 0
-                                    let typeText = RulesOption.actionsTypeName[typeIndex]
+                                    let typeText = RulesOption.actionTypeName(for: action.type)
 
-                                    // Text(typeText)
                                     Text(String(format: String(localized: "rule_then_"), "`\(typeText)`"))
                                         .fontWeight(.medium)
                                         .multilineTextAlignment(.center)
                                         .padding(.bottom, 1)
 
-                                    let value: String = action.type == "forwardTo"
-                                        ? (recipients.first(where: { $0.id == action.value })?.email ?? String(localized: "unknown"))
-                                        : action.value
-
-                                    Text(value)
-                                        .font(.system(size: 14))
-                                        .multilineTextAlignment(.center)
-                                        .lineLimit(3)
-                                        .opacity(0.7)
+                                    if action.type == "forwardTo" {
+                                        let value = recipients.first(where: { $0.id == action.value })?.email ?? String(localized: "unknown")
+                                        Text(value)
+                                            .font(.system(size: 14))
+                                            .multilineTextAlignment(.center)
+                                            .lineLimit(3)
+                                            .opacity(0.7)
+                                    } else if !RulesOption.isBooleanAction(type: action.type) {
+                                        Text(action.value)
+                                            .font(.system(size: 14))
+                                            .multilineTextAlignment(.center)
+                                            .lineLimit(3)
+                                            .opacity(0.7)
+                                    }
                                 }.onTapGesture {
                                     actionToEdit = action
                                 }.padding(EdgeInsets()).frame(maxWidth: .infinity)

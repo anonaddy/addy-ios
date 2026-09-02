@@ -24,7 +24,7 @@ public struct Action: Identifiable, Hashable, Codable {
 
     /// This initializer is used when creating a new Action.
     /// It generates a new UUID for the id.
-    public init(type: String, value: String) {
+    public init(type: String, value: String = "") {
         id = UUID()
         self.type = type
         self.value = value
@@ -40,8 +40,20 @@ public struct Action: Identifiable, Hashable, Codable {
 
         if let boolValue = try? container.decode(Bool.self, forKey: .value) {
             value = String(boolValue)
+        } else if let intValue = try? container.decode(Int.self, forKey: .value) {
+            value = String(intValue)
+        } else if let strValue = try? container.decode(String.self, forKey: .value) {
+            value = strValue
         } else {
-            value = try container.decode(String.self, forKey: .value)
+            value = (try? container.decodeIfPresent(String.self, forKey: .value)) ?? ""
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
+        if !value.isEmpty {
+            try container.encode(value, forKey: .value)
         }
     }
 }
@@ -51,8 +63,8 @@ public struct Condition: Identifiable, Hashable, Codable {
     // The id is a unique identifier for each condition. It's a UUID which is a universally unique identifier.
     public var id: UUID
     public let type: String
-    public let match: String
-    public let values: [String]
+    public let match: String?
+    public let values: [String]?
 
     /// CodingKeys enum is used to specify which keys we want to decode from the JSON.
     /// The id is not included because it's not present in the JSON.
@@ -62,7 +74,7 @@ public struct Condition: Identifiable, Hashable, Codable {
 
     /// This initializer is used when creating a new Condition.
     /// It generates a new UUID for the id.
-    public init(type: String, match: String, values: [String]) {
+    public init(type: String, match: String? = nil, values: [String]? = nil) {
         id = UUID()
         self.type = type
         self.match = match
@@ -76,8 +88,19 @@ public struct Condition: Identifiable, Hashable, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = UUID()
         type = try container.decode(String.self, forKey: .type)
-        match = try container.decode(String.self, forKey: .match)
-        values = try container.decode([String].self, forKey: .values)
+        match = try? container.decodeIfPresent(String.self, forKey: .match)
+        values = try? container.decodeIfPresent([String].self, forKey: .values)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
+        if let match = match, !match.isEmpty {
+            try container.encode(match, forKey: .match)
+        }
+        if let values = values, !values.isEmpty {
+            try container.encode(values, forKey: .values)
+        }
     }
 }
 

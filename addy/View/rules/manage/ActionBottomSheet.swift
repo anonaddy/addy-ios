@@ -8,6 +8,7 @@
 import addy_shared
 import AVFoundation
 import SwiftUI
+import WrappingHStack
 
 struct ActionBottomSheet: View {
     @Environment(\.dismiss) var dismiss
@@ -19,6 +20,10 @@ struct ActionBottomSheet: View {
     @State private var selectedBannerLocationOptions = "top"
     @State var selectedRecipientChip: [String]
     @State var recipientsChips: [AddyChipModel] = [AddyChipModel(chipId: "loading_recipients", label: String(localized: "loading_recipients"))]
+    @State private var selectedLabel = ""
+    @State private var allLabels: [AddyChipModel] = [AddyChipModel(chipId: "loading_labels", label: String(localized: "loading_labels"))]
+    @State private var labelsLoaded: Bool = false
+    @State private var isPresentingAddLabelBottomSheet = false
 
     private var actionEditObject: Action?
     private var recipients: [Recipients]
@@ -37,6 +42,10 @@ struct ActionBottomSheet: View {
                         Text($0).tag(tag)
                     }
                 }.pickerStyle(.menu)
+                .onChange(of: selectedActionsType) { _, newType in
+                    updatePlaceholder(for: newType)
+                    valuePlaceHolderValidationError = nil
+                }
 
                 if selectedActionsType == "banner" {
                     Picker(selection: $selectedBannerLocationOptions, label: Text(String(localized: "banner_location"))) {
@@ -48,9 +57,7 @@ struct ActionBottomSheet: View {
                     }.pickerStyle(.menu)
                 }
 
-                if selectedActionsType == "subject" ||
-                    selectedActionsType == "displayFrom"
-                {
+                if RulesOption.isTextAction(type: selectedActionsType) {
                     ValidatingTextField(value: self.$value, placeholder: self.$valuePlaceHolder, fieldType: .text, error: $valuePlaceHolderValidationError)
                 }
 
@@ -71,6 +78,45 @@ struct ActionBottomSheet: View {
 
                         if selectedRecipientChip.isEmpty {
                             Text(String(localized: "select_a_recipient"))
+                                .foregroundColor(.red)
+                                .font(.system(size: 15))
+                                .multilineTextAlignment(.leading)
+                                .padding([.horizontal], 0)
+                                .onAppear {
+                                    HapticHelper.playHapticFeedback(hapticType: .error)
+                                }
+                        }
+                    }
+                }
+
+                if RulesOption.isLabelAction(type: selectedActionsType) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        if !labelsLoaded {
+                            ProgressView()
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        } else if allLabels.isEmpty {
+                            Text(String(localized: "no_labels"))
+                                .font(.system(size: 14))
+                                .foregroundColor(.secondary)
+                        } else {
+                            WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
+                                ForEach(allLabels) { label in
+                                    ChipView(label: label.label, isSelected: selectedLabel == label.label, color: Color(hex: label.color ?? "FFFFFF"))
+                                        .onTapGesture {
+                                            withAnimation {
+                                                if selectedLabel == label.label {
+                                                    selectedLabel = ""
+                                                } else {
+                                                    selectedLabel = label.label
+                                                }
+                                            }
+                                        }
+                                }
+                            }
+                        }
+
+                        if labelsLoaded && selectedLabel.isEmpty {
+                            Text(String(localized: "select_a_label"))
                                 .foregroundColor(.red)
                                 .font(.system(size: 15))
                                 .multilineTextAlignment(.leading)
@@ -106,6 +152,16 @@ struct ActionBottomSheet: View {
                     }
                 }
 
+                if RulesOption.isLabelAction(type: selectedActionsType) {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            isPresentingAddLabelBottomSheet = true
+                        } label: {
+                            Label(String(localized: "add_label"), systemImage: "plus")
+                        }
+                    }
+                }
+
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()
@@ -114,15 +170,35 @@ struct ActionBottomSheet: View {
                     }
                 }
             })
+            .sheet(isPresented: $isPresentingAddLabelBottomSheet) {
+                NavigationStack {
+                    AddLabelBottomSheet { newLabel in
+                        if let newLabel = newLabel {
+                            let chip = AddyChipModel(chipId: newLabel.id, label: newLabel.name, color: newLabel.colour)
+                            allLabels.append(chip)
+                            selectedLabel = newLabel.name
+                        }
+                        isPresentingAddLabelBottomSheet = false
+                    }
+                }
+                .presentationDetents([.medium, .large])
+            }
+            .task {
+                await getAllLabels()
+            }
             .onAppear(perform: {
                 if let actionEditObject = actionEditObject {
                     self.selectedActionsType = actionEditObject.type
 
                     if actionEditObject.type == "banner" {
                         self.selectedBannerLocationOptions = actionEditObject.value
+                    } else if RulesOption.isLabelAction(type: actionEditObject.type) {
+                        self.selectedLabel = actionEditObject.value
                     }
                     self.value = actionEditObject.value
                 }
+
+                updatePlaceholder(for: selectedActionsType)
 
                 // Load recipients
 
@@ -135,6 +211,14 @@ struct ActionBottomSheet: View {
             })
     }
 
+    private func updatePlaceholder(for actionType: String) {
+        if actionType == "setAliasDescription" {
+            valuePlaceHolder = String(localized: "enter_description")
+        } else {
+            valuePlaceHolder = String(localized: "enter_value")
+        }
+    }
+
     private func saveButton() -> some View {
         AnyView(
             Button {
@@ -144,24 +228,8 @@ struct ActionBottomSheet: View {
                 if selectedActionsType == "banner" {
                     newAction.value = selectedBannerLocationOptions
                 }
-                // If the type is set to block email send a true
-                else if selectedActionsType == "block" {
-                    newAction.value = String(true)
-                }
-                // If the type is set to turn off PGP send a true
-                else if selectedActionsType == "encryption" {
-                    newAction.value = String(true)
-                }
-                // If the type is set to add sender to blocklist send a true
-                else if selectedActionsType == "blocklistSender" {
-                    newAction.value = String(true)
-                }
-                // If the type is set to add domain to blocklist send a true
-                else if selectedActionsType == "blocklistDomain" {
-                    newAction.value = String(true)
-                }
-                // If the type is set to remove attachments send a true
-                else if selectedActionsType == "removeAttachments" {
+                // If the type is a boolean action, send "true"
+                else if RulesOption.isBooleanAction(type: selectedActionsType) {
                     newAction.value = String(true)
                 }
                 // If the type is set to forward to send selected recipientID
@@ -171,6 +239,17 @@ struct ActionBottomSheet: View {
                     } else {
                         newAction.value = selectedRecipientChip.first!
                     }
+                } else if RulesOption.isLabelAction(type: selectedActionsType) {
+                    if selectedLabel.isEmpty {
+                        return
+                    }
+                    newAction.value = selectedLabel
+                } else if RulesOption.isTextAction(type: selectedActionsType) {
+                    if self.value.trimmingCharacters(in: .whitespaces).isEmpty {
+                        valuePlaceHolderValidationError = String(localized: "this_field_cannot_be_empty")
+                        return
+                    }
+                    newAction.value = self.value.trimmingCharacters(in: .whitespaces)
                 } else {
                     // Else just get the textfield value
                     newAction.value = self.value
@@ -187,15 +266,37 @@ struct ActionBottomSheet: View {
         )
     }
 
+    private func getAllLabels(forceReload: Bool = false) async {
+        if !labelsLoaded || forceReload {
+            let networkHelper = NetworkHelper()
+            do {
+                if let labels = try await networkHelper.getAllLabels()?.data {
+                    self.allLabels = []
+                    for label in labels {
+                        self.allLabels.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
+                    }
+                    labelsLoaded = true
+                }
+            } catch {
+                // Ignore or handle
+            }
+        }
+    }
+
     init(recipients: [Recipients], actionEditObject: Action?, onAddedAction: @escaping (Action?, Action) -> Void) {
         self.onAddedAction = onAddedAction
         self.actionEditObject = actionEditObject
         self.recipients = recipients
 
         if actionEditObject?.type == "forwardTo" {
-            selectedRecipientChip = [actionEditObject?.value ?? ""]
+            _selectedRecipientChip = State(initialValue: [actionEditObject?.value ?? ""])
+            _selectedLabel = State(initialValue: "")
+        } else if let action = actionEditObject, RulesOption.isLabelAction(type: action.type) {
+            _selectedRecipientChip = State(initialValue: [])
+            _selectedLabel = State(initialValue: action.value)
         } else {
-            selectedRecipientChip = []
+            _selectedRecipientChip = State(initialValue: [])
+            _selectedLabel = State(initialValue: "")
         }
     }
 }

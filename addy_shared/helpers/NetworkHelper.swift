@@ -1183,6 +1183,45 @@ public class NetworkHelper: NSObject, URLSessionDelegate {
         }
     }
 
+    public func shareDomainWithFamily(domainId: String) async throws -> Domains? {
+        logNetworkHelperCall()
+        let url = URL(string: "\(AddyIo.API_URL_SHARED_WITH_FAMILY_DOMAINS)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = getHeaders()
+        let json: [String: Any] = ["id": domainId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 200, 201:
+            let decoder = JSONDecoder()
+            let addyIoData = try decoder.decode(SingleDomain.self, from: data)
+            return addyIoData.data
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+
+    public func stopSharingDomainWithFamily(domainId: String) async throws -> String {
+        logNetworkHelperCall()
+        let url = URL(string: "\(AddyIo.API_URL_SHARED_WITH_FAMILY_DOMAINS)/\(domainId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = getHeaders()
+
+        let (data, httpResponse) = try await performRequest(request: request)
+
+        switch httpResponse.statusCode {
+        case 204:
+            return "204"
+        default:
+            throw handleNetworkResponseError(httpResponse: httpResponse, data: data, request: request)
+        }
+    }
+
     public func enableCanLoginSpecificUsername(usernameId: String) async throws -> Usernames? {
         logNetworkHelperCall()
         let url = URL(string: "\(AddyIo.API_URL_CAN_LOGIN_USERNAMES)")!
