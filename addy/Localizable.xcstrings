@@ -3486,6 +3486,17 @@
         }
       }
     },
+    "failed_delivery_details_text_with_alias_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Created**  \n%@\n\n**Destination**  \n%@\n\n**Alias**\n%@\n\n**Alias description**\n%@\n\n**Sender**\n%@\n\n**Mail Server**\n%@\n\n**First attempted**\n%@\n\n**Code**\n%@"
+          }
+        }
+      }
+    },
     "failed_delivery_resend_success" : {
       "localizations" : {
         "en" : {

@@ -14,6 +14,7 @@ public struct FailedDeliveries: Identifiable, Codable, Sendable {
     public let recipient_email: String?
     let alias_id: String?
     public let alias_email: String?
+    public let alias_description: String?
     public let bounce_type: String
     public let remote_mta: String
     public let sender: String?

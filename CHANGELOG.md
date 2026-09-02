@@ -7,6 +7,7 @@
 - **Watched Alias Badges**: Restored the dedicated watched alias indicator in alias rows and multi-selection sheets to easily identify actively monitored aliases.
 - **Unified Label Selection**: Streamlined and standardized label selection sheets across alias creation, editing, and bulk management.
 - **Direct "Forget" Action**: Added support for forgetting active and deleted aliases directly from detail screens, context menus, and multi-selection.
+- **Failed Delivery Alias Context**: Display alias descriptions directly within the failed delivery details sheet.
 - **Custom SSL Certificate Support**: Full support for self-hosted instances using custom SSL certificates and certificate password configuration (#52).
 
 **Fixed & Improved**
@@ -14,6 +15,7 @@
 - **OpenAPI Alignment**: Aligned alias update, bulk operations, and paginated endpoints with the official addy.io OpenAPI specification.
 - **Smoother UI Performance**: Migrated ViewModels and background workers to `@MainActor` with structured concurrency, eliminating UI lag and improving memory efficiency.
 - **Enhanced Extensions**: Refactored Share Extension and Statistics Widget with localized strings, optimized caching, and memory safety improvements.
+- Updated minimum supported addy.io instance version to 1.7.3
 - Performance enhancements and other improvements for a smoother experience.
 
 **What’s new in addy.io for Apple Watch 1.1.8**

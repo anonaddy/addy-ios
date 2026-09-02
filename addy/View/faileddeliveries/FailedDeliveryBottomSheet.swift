@@ -40,14 +40,32 @@ struct FailedDeliveryBottomSheet: View {
 
         Form {
             Section {
-                let formattedString = String.localizedStringWithFormat(NSLocalizedString("failed_delivery_details_text", comment: ""),
-                                                                       DateTimeUtils.convertStringToLocalTimeZoneString(failedDelivery.created_at),
-                                                                       failedDelivery.destination ?? "",
-                                                                       failedDelivery.alias_email ?? "",
-                                                                       failedDelivery.sender ?? "",
-                                                                       failedDelivery.remote_mta,
-                                                                       DateTimeUtils.convertStringToLocalTimeZoneString(failedDelivery.attempted_at),
-                                                                       failedDelivery.code)
+                let formattedString: String = {
+                    if let aliasDescription = failedDelivery.alias_description, !aliasDescription.isEmpty {
+                        return String.localizedStringWithFormat(
+                            NSLocalizedString("failed_delivery_details_text_with_alias_description", comment: ""),
+                            DateTimeUtils.convertStringToLocalTimeZoneString(failedDelivery.created_at),
+                            failedDelivery.destination ?? "",
+                            failedDelivery.alias_email ?? "",
+                            aliasDescription,
+                            failedDelivery.sender ?? "",
+                            failedDelivery.remote_mta,
+                            DateTimeUtils.convertStringToLocalTimeZoneString(failedDelivery.attempted_at),
+                            failedDelivery.code
+                        )
+                    } else {
+                        return String.localizedStringWithFormat(
+                            NSLocalizedString("failed_delivery_details_text", comment: ""),
+                            DateTimeUtils.convertStringToLocalTimeZoneString(failedDelivery.created_at),
+                            failedDelivery.destination ?? "",
+                            failedDelivery.alias_email ?? "",
+                            failedDelivery.sender ?? "",
+                            failedDelivery.remote_mta,
+                            DateTimeUtils.convertStringToLocalTimeZoneString(failedDelivery.attempted_at),
+                            failedDelivery.code
+                        )
+                    }
+                }()
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)
             } header: {
