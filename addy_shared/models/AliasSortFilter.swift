@@ -8,14 +8,10 @@
 public struct AliasSortFilter: Codable, Equatable, Sendable {
     public var aliasSortFilterRequest: AliasSortFilterRequest
 
-    public var filterId: String? // MARK: iOS only
-
     public init(
-        aliasSortFilterRequest: AliasSortFilterRequest,
-        filterId: String?
+        aliasSortFilterRequest: AliasSortFilterRequest
     ) {
         self.aliasSortFilterRequest = aliasSortFilterRequest
-        self.filterId = filterId
     }
 }
 

@@ -7,7 +7,6 @@
 
 import addy_shared
 import SwiftUI
-import WrappingHStack
 
 struct AliasMultipleSelectionBottomSheet: View {
     @Environment(\.dismiss) var dismiss

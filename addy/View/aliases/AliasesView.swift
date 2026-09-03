@@ -362,7 +362,7 @@ struct AliasesView: View {
                 NavigationStack {
                     FilterOptionsAliasBottomSheet(aliasSortFilterRequest: self.aliasesViewModel.aliasSortFilterRequest) { aliasSortFilterRequest in
                         // This will also reload new filter in memory
-                        saveFilter(chipId: "filter_custom", aliasSortFilterRequest: aliasSortFilterRequest)
+                        saveFilter(aliasSortFilterRequest: aliasSortFilterRequest)
 
                         // Hide dialog and refresh aliases
                         isPresentingFilterOptionsAliasBottomSheet = false
@@ -685,18 +685,18 @@ struct AliasesView: View {
             return // Nothing to save yet so let's return
         }
 
-        saveFilter(chipId: chipId, aliasSortFilterRequest: aliasesViewModel.aliasSortFilterRequest)
+        saveFilter(aliasSortFilterRequest: aliasesViewModel.aliasSortFilterRequest)
 
         Task {
             await aliasesViewModel.getAliases(forceReload: true)
         }
     }
 
-    func saveFilter(chipId: String, aliasSortFilterRequest: AliasSortFilterRequest) {
+    func saveFilter(aliasSortFilterRequest: AliasSortFilterRequest) {
         var aliasSortFilterRequestTemp = aliasSortFilterRequest
         aliasSortFilterRequestTemp.filter = nil // Never store the current searchQuery in the app
 
-        let aliasSortFilter = AliasSortFilter(aliasSortFilterRequest: aliasSortFilterRequestTemp, filterId: chipId)
+        let aliasSortFilter = AliasSortFilter(aliasSortFilterRequest: aliasSortFilterRequestTemp)
 
         // Store a copy of the just received data locally
         let encoder = JSONEncoder()
