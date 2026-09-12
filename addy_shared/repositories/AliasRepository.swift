@@ -167,13 +167,13 @@ public final class AliasRepository: AliasRepositoryProtocol, @unchecked Sendable
             queryItems.append(URLQueryItem(name: "filter[pinned]", value: "true"))
         }
         if let recipient = recipient, !recipient.isEmpty {
-            queryItems.append(URLQueryItem(name: "filter[recipient]", value: recipient))
+            queryItems.append(URLQueryItem(name: "recipient", value: recipient))
         }
         if let domain = domain, !domain.isEmpty {
-            queryItems.append(URLQueryItem(name: "filter[domain]", value: domain))
+            queryItems.append(URLQueryItem(name: "domain", value: domain))
         }
         if let username = username, !username.isEmpty {
-            queryItems.append(URLQueryItem(name: "filter[username]", value: username))
+            queryItems.append(URLQueryItem(name: "username", value: username))
         }
 
         let endpoint = Endpoint(
@@ -185,7 +185,7 @@ public final class AliasRepository: AliasRepositoryProtocol, @unchecked Sendable
     }
 
     public func bulkGetAliases(aliases: [String]) async throws -> BulkAliasesArray {
-        let json: [String: Any] = ["aliases": aliases]
+        let json: [String: Any] = ["ids": aliases]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
             urlString: AddyIo.API_URL_ALIASES_GET_BULK,
@@ -475,8 +475,6 @@ public final class AliasRepository: AliasRepositoryProtocol, @unchecked Sendable
         let json: [String: Any] = [
             "ids": aliasIds,
             "label_ids": labelIds,
-            "aliases": aliasIds,
-            "labels": labelIds,
         ]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(
