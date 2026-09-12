@@ -27,6 +27,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>addy.io connects to your self-hosted instance running on your local network.</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sparrow</string>
@@ -39,6 +41,11 @@
 		<string>fastmail</string>
 		<string>protonmail</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -33,9 +33,24 @@ struct SplashView: View {
             loadDataAndStartApp()
         }
         .alert(isPresented: $isShowingDetailedErrorAlert, content: {
-            Alert(
-                title: Text(String(localized: "error", bundle: Bundle(for: SharedData.self))), message: Text(detailedError ?? String(localized: "unknown"))
-            )
+            if NetworkUtils.isLocalAddress(AddyIo.API_BASE_URL) {
+                Alert(
+                    title: Text(String(localized: "error", bundle: Bundle(for: SharedData.self))),
+                    message: Text(detailedError ?? String(localized: "unknown")),
+                    primaryButton: .default(Text(String(localized: "open_settings"))) {
+                        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(settingsURL)
+                        }
+                    },
+                    secondaryButton: .cancel(Text(String(localized: "close", bundle: Bundle(for: SharedData.self))))
+                )
+            } else {
+                Alert(
+                    title: Text(String(localized: "error", bundle: Bundle(for: SharedData.self))),
+                    message: Text(detailedError ?? String(localized: "unknown")),
+                    dismissButton: .default(Text(String(localized: "close", bundle: Bundle(for: SharedData.self))))
+                )
+            }
         })
         .sheet(isPresented: $isPresentUnsupportedVersionBottomDialog, onDismiss: {
             isPresentUnsupportedVersionBottomDialog = false
@@ -113,6 +128,16 @@ struct SplashView: View {
                             Text(String(localized: "try_again", bundle: Bundle(for: SharedData.self))).foregroundColor(Color.white)
                         }
 
+                        if NetworkUtils.isLocalAddress(AddyIo.API_BASE_URL) {
+                            AddyButton(action: {
+                                if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                                    UIApplication.shared.open(settingsURL)
+                                }
+                            }, style: AddyButtonStyle()) {
+                                Text(String(localized: "open_settings")).foregroundColor(Color.white)
+                            }
+                        }
+
                         AddyButton(action: {
                             let settingsManager = SettingsManager(encrypted: true)
                             settingsManager.clearSettingsAndCloseApp()
@@ -162,7 +187,7 @@ struct SplashView: View {
                 isPresentUnsupportedVersionBottomDialog = true
             }
         } catch {
-            detailedError = error.localizedDescription
+            detailedError = formatErrorMessage(error: error)
             showError = true
         }
     }
@@ -195,9 +220,17 @@ struct SplashView: View {
                 }
             }
         } catch {
-            detailedError = error.localizedDescription
+            detailedError = formatErrorMessage(error: error)
             showError = true
         }
+    }
+
+    private func formatErrorMessage(error: Error) -> String {
+        var message = error.localizedDescription
+        if NetworkUtils.isLocalAddress(AddyIo.API_BASE_URL) {
+            message += "\n\n" + String(localized: "local_network_permission_rationale")
+        }
+        return message
     }
 }
 

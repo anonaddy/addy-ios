@@ -277,7 +277,8 @@
                 ],
                 "privacy": {
                     "NSFaceIDUsageDescription": "This permissions is required to protect the app using FaceID",
-                    "NSCameraUsageDescription": "This allows for scanning the QR code so that you can quickly set-up the app"
+                    "NSCameraUsageDescription": "This allows for scanning the QR code so that you can quickly set-up the app",
+                    "NSLocalNetworkUsageDescription": "addy.io connects to your self-hosted instance running on your local network."
                 }
             }
         }

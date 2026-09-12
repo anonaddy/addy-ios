@@ -8,7 +8,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "addy.io"
+            "value" : "addy.io (DEBUG)"
           }
         }
       }
@@ -57,6 +57,18 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "This permissions is required to protect the app using FaceID"
+          }
+        }
+      }
+    },
+    "NSLocalNetworkUsageDescription" : {
+      "comment" : "Privacy - Local Network Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "addy.io connects to your self-hosted instance running on your local network."
           }
         }
       }

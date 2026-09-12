@@ -113,6 +113,19 @@ struct AddApiBottomSheet: View {
 
                 if loginType == "api" {
                     ValidatingTextField(value: $apiKey, placeholder: String(localized: "APIKey_desc"), fieldType: .bigText, error: $apiKeyError)
+                    if apiKeyError != nil && NetworkUtils.isLocalAddress(instance) {
+                        Button(action: {
+                            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(settingsURL)
+                            }
+                        }) {
+                            HStack {
+                                Image(systemName: "gear")
+                                Text(String(localized: "open_settings"))
+                            }
+                            .font(.subheadline)
+                        }
+                    }
                 } else {
                     ValidatingTextField(value: self.$username, placeholder: String(localized: "registration_username"), fieldType: .text, error: $usernameValidationError).onAppear {
                         if apiBaseUrl != nil {
@@ -148,7 +161,24 @@ struct AddApiBottomSheet: View {
             }.textCase(nil)
         }
         .alert(isPresented: $showAlert) {
-            Alert(title: Text(String(localized: "login")), message: Text(alertMessage))
+            if NetworkUtils.isLocalAddress(instance) {
+                Alert(
+                    title: Text(String(localized: "login")),
+                    message: Text(alertMessage),
+                    primaryButton: .default(Text(String(localized: "open_settings"))) {
+                        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(settingsURL)
+                        }
+                    },
+                    secondaryButton: .cancel(Text(String(localized: "close", bundle: Bundle(for: SharedData.self))))
+                )
+            } else {
+                Alert(
+                    title: Text(String(localized: "login")),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text(String(localized: "close", bundle: Bundle(for: SharedData.self))))
+                )
+            }
         }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase == .active {
@@ -281,7 +311,11 @@ struct AddApiBottomSheet: View {
             }
         } catch {
             resetSignInButton()
-            apiKeyError = "\(error)"
+            var errorMessage = "\(error)"
+            if NetworkUtils.isLocalAddress(cleanBaseUrl) {
+                errorMessage += "\n\n" + String(localized: "local_network_permission_rationale")
+            }
+            apiKeyError = errorMessage
         }
     }
 
@@ -327,7 +361,11 @@ struct AddApiBottomSheet: View {
                     self.otpValidationError = nil
                 }
 
-                self.alertMessage = error.localizedDescription
+                var errorMessage = error.localizedDescription
+                if NetworkUtils.isLocalAddress(cleanBaseUrl) {
+                    errorMessage += "\n\n" + String(localized: "local_network_permission_rationale")
+                }
+                self.alertMessage = errorMessage
                 self.showAlert = true
                 resetSignInButton()
             }
@@ -344,7 +382,11 @@ struct AddApiBottomSheet: View {
                     resetSignInButton()
                 }
             } catch {
-                self.alertMessage = error.localizedDescription
+                var errorMessage = error.localizedDescription
+                if NetworkUtils.isLocalAddress(cleanBaseUrl) {
+                    errorMessage += "\n\n" + String(localized: "local_network_permission_rationale")
+                }
+                self.alertMessage = errorMessage
                 self.showAlert = true
                 resetSignInButton()
             }

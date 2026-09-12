@@ -60,10 +60,10 @@
 		048B08CD2F2FE7FD0032F025 /* AddySetupSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */; };
 		048B08EB2F33C7620032F025 /* addy_shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B08162F2E937C0032F025 /* addy_shared.framework */; };
 		04D670492F5ED8C000ADA60D /* BlocklistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D670482F5ED8C000ADA60D /* BlocklistViewModel.swift */; };
-		04D670602F5EFAB400ADA60D /* RulesOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D670612F5EFAB400ADA60D /* RulesOption.swift */; };
 		04D6704B2F5EDACC00ADA60D /* BlocklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6704A2F5EDACC00ADA60D /* BlocklistView.swift */; };
 		04D6704D2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6704C2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift */; };
 		04D6705A2F5EFAB400ADA60D /* SwiftHTMLtoMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = 04D670592F5EFAB400ADA60D /* SwiftHTMLtoMarkdown */; };
+		04D670602F5EFAB400ADA60D /* RulesOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D670612F5EFAB400ADA60D /* RulesOption.swift */; };
 		04F45D712F38A794009FEDB2 /* AppSettingsWatchKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */; };
 		8001D9D22BEA1E3600AAD10E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8001D9D12BEA1E3600AAD10E /* CodeScanner */; };
 		8003C36B2C1A27DE0005D742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003C36A2C1A27D90005D742 /* AppDelegate.swift */; };
@@ -323,7 +323,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				048B08EC2F33C7620032F025 /* addy_shared.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,9 +377,9 @@
 		048B08CC2F2FE7FD0032F025 /* AddySetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddySetupSheet.swift; sourceTree = "<group>"; };
 		04A1B2C32FEC000100217BBA /* AliasMultipleSelectionBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasMultipleSelectionBottomSheet.swift; sourceTree = "<group>"; };
 		04D670482F5ED8C000ADA60D /* BlocklistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistViewModel.swift; sourceTree = "<group>"; };
-		04D670612F5EFAB400ADA60D /* RulesOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesOption.swift; sourceTree = "<group>"; };
 		04D6704A2F5EDACC00ADA60D /* BlocklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistView.swift; sourceTree = "<group>"; };
 		04D6704C2F5EDB1D00ADA60D /* AddBlocklistEntryBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlocklistEntryBottomSheet.swift; sourceTree = "<group>"; };
+		04D670612F5EFAB400ADA60D /* RulesOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesOption.swift; sourceTree = "<group>"; };
 		04F45D702F38A794009FEDB2 /* AppSettingsWatchKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsWatchKitView.swift; sourceTree = "<group>"; };
 		8003C36A2C1A27D90005D742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		800E9AB02CBDB1880014164E /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -2693,6 +2692,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows for scanning the QR code so that you can quickly set-up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "addy.io connects to your self-hosted instance running on your local network.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -2870,10 +2870,11 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = addy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
+				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows for scanning the QR code so that you can quickly set-up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "addy.io connects to your self-hosted instance running on your local network.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -3253,6 +3254,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows for scanning the QR code so that you can quickly set-up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "addy.io connects to your self-hosted instance running on your local network.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -3290,10 +3292,11 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = addy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = addy.io;
+				INFOPLIST_KEY_CFBundleDisplayName = "addy.io (DEBUG)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows for scanning the QR code so that you can quickly set-up the app";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "This permissions is required to protect the app using FaceID";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "addy.io connects to your self-hosted instance running on your local network.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
