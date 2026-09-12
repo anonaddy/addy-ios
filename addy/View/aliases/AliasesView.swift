@@ -801,7 +801,7 @@ struct AliasesView: View {
 
     private func activateAlias(alias: Aliases) async {
         do {
-            _ = try await AliasRepository.shared.activateAlias(aliasId: alias.id)
+            _ = try await aliasesViewModel.activateAlias(aliasId: alias.id)
             // Instead of reloading the entire list, mark this alias as active
             if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
                 aliasesViewModel.aliasList?.data[index].active = true
@@ -821,7 +821,7 @@ struct AliasesView: View {
 
     private func deactivateAlias(alias: Aliases) async {
         do {
-            let result = try await AliasRepository.shared.deactivateAlias(aliasId: alias.id)
+            let result = try await aliasesViewModel.deactivateAlias(aliasId: alias.id)
             if result == "204" {
                 // Instead of reloading the entire list, mark this alias as inactive
                 if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
@@ -848,7 +848,7 @@ struct AliasesView: View {
 
     private func pinAlias(alias: Aliases) async {
         do {
-            _ = try await AliasRepository.shared.pinAlias(aliasId: alias.id)
+            _ = try await aliasesViewModel.pinAlias(aliasId: alias.id)
             // Instead of reloading the entire list, mark this alias as pinned
             if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
                 aliasesViewModel.aliasList?.data[index].pinned = true
@@ -863,7 +863,7 @@ struct AliasesView: View {
 
     private func unpinAlias(alias: Aliases) async {
         do {
-            let result = try await AliasRepository.shared.unpinAlias(aliasId: alias.id)
+            let result = try await aliasesViewModel.unpinAlias(aliasId: alias.id)
             if result == "204" {
                 // Instead of reloading the entire list, mark this alias as unpinned
                 if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
@@ -890,7 +890,7 @@ struct AliasesView: View {
 
     private func deleteAlias(alias: Aliases) async {
         do {
-            let result = try await AliasRepository.shared.deleteAlias(aliasId: alias.id)
+            let result = try await aliasesViewModel.deleteAlias(aliasId: alias.id)
             if result == "204" {
                 // Instead of reloading the entire list, remove just this alias
                 if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
@@ -912,7 +912,7 @@ struct AliasesView: View {
 
     private func forgetAlias(alias: Aliases) async {
         do {
-            let result = try await AliasRepository.shared.forgetAlias(aliasId: alias.id)
+            let result = try await aliasesViewModel.forgetAlias(aliasId: alias.id)
             if result == "204" {
                 // Instead of reloading the entire list, remove just this alias
                 if let aliasList = aliasesViewModel.aliasList,
@@ -966,7 +966,7 @@ struct AliasesView: View {
 
     private func restoreAlias(alias: Aliases) async {
         do {
-            _ = try await AliasRepository.shared.restoreAlias(aliasId: alias.id)
+            _ = try await aliasesViewModel.restoreAlias(aliasId: alias.id)
             // Instead of reloading the entire list, mark this alias as restored
             if let index = aliasesViewModel.aliasList?.data.firstIndex(where: { $0.id == alias.id }) {
                 // If we were only showing deleted aliases, remove it from the list
@@ -996,8 +996,3 @@ struct AliasesView: View {
         ]
     }
 }
-
-//
-// #Preview {
-//    AliasesView()
-// }

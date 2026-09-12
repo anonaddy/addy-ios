@@ -18,9 +18,14 @@ class RecipientsViewModel: ObservableObject {
     @Published var networkError: String = ""
 
     private let recipientRepository: RecipientRepositoryProtocol
+    private let userRepository: UserRepositoryProtocol
 
-    init(recipientRepository: RecipientRepositoryProtocol = RecipientRepository.shared) {
+    init(
+        recipientRepository: RecipientRepositoryProtocol = RecipientRepository.shared,
+        userRepository: UserRepositoryProtocol = UserRepository.shared
+    ) {
         self.recipientRepository = recipientRepository
+        self.userRepository = userRepository
         Task {
             await self.getRecipients()
         }
@@ -48,5 +53,17 @@ class RecipientsViewModel: ObservableObject {
                 )
             }
         }
+    }
+
+    func resendVerificationEmail(recipientId: String) async throws -> String {
+        return try await recipientRepository.resendVerificationEmail(recipientId: recipientId)
+    }
+
+    func deleteRecipient(recipientId: String) async throws -> String {
+        return try await recipientRepository.deleteRecipient(recipientId: recipientId)
+    }
+
+    func getUserResource() async throws -> UserResource {
+        return try await userRepository.getUserResource()
     }
 }

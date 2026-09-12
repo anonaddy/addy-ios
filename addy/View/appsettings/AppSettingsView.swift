@@ -93,7 +93,9 @@ struct AppSettingsView: View {
                     AddySection(title: String(localized: "addyio_for_watchkit"), description: String(localized: "addyio_for_watchkit_desc"), leadingSystemimage: "applewatch", leadingSystemimageColor: .mint)
                 }
 
-                AddyToggle(isOn: $biometricEnabled, title: String(localized: "security"), description: !LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? String(localized: "biometric_error") : String(localized: "security_desc"), leadingSystemimage: "faceid", leadingSystemimageColor: .green).onAppear {
+                // NOTE: In-app biometric locking should be phased out once the minimum deployment target is bumped to iOS 18+.
+                // On iOS 18+, users can natively lock the app via Home Screen long-press ("Require Face ID").
+                AddyToggle(isOn: $biometricEnabled, lineLimit: nil, title: String(localized: "security"), description: !LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? String(localized: "biometric_error") : String(localized: "security_desc"), leadingSystemimage: "faceid", leadingSystemimageColor: .green).onAppear {
                     self.biometricEnabled = MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled)
                 }
                 .onChange(of: biometricEnabled) {
@@ -277,15 +279,14 @@ struct AppSettingsView: View {
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             let reason = String(localized: "authentication_reason")
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, _ in
-                if success {
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    if success {
                         // Also unlock the app to prevent the app from immediately locking
                         MainViewState.shared.isUnlocked = true
+                        MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .biometricEnabled, boolean: shouldEnableBiometrics)
+                    } else {
+                        biometricEnabled = !shouldEnableBiometrics
                     }
-
-                    MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .biometricEnabled, boolean: shouldEnableBiometrics)
-                } else {
-                    biometricEnabled = !shouldEnableBiometrics
                 }
             }
         }
@@ -327,10 +328,7 @@ struct AppSettingsView: View {
     }
 }
 
-struct AppSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var userInterfaceSizeClass = UserInterfaceSizeClass.regular
-        AppSettingsView(horizontalSize: $userInterfaceSizeClass)
-            .environmentObject(MainViewState.shared)
-    }
+#Preview {
+    AppSettingsView(horizontalSize: .constant(.regular))
+        .environmentObject(MainViewState.shared)
 }

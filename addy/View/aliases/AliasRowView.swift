@@ -247,7 +247,3 @@ private func localizedDateText(for alias: Aliases) -> String {
         return String(format: String(localized: "s_s"), createdText(alias.created_at), updatedText(alias.updated_at))
     }
 }
-
-// #Preview {
-//     AliasRowCardView()
-// }

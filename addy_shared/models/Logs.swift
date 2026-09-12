@@ -45,6 +45,7 @@ public func stringToLogs(_ jsonString: String) -> [Logs] {
     return logs
 }
 
+@frozen
 public enum LogImportance: Int, Encodable, Decodable, Sendable {
     case critical = 0
     case warning = 1

@@ -222,8 +222,6 @@ struct RegistrationFormBottomSheet: View {
     }
 }
 
-struct RegistrationFormBottomSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        RegistrationFormBottomSheet(showOnboarding: .constant(false))
-    }
+#Preview {
+    RegistrationFormBottomSheet(showOnboarding: .constant(false))
 }

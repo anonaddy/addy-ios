@@ -117,37 +117,24 @@ struct AddyChipView: View {
     }
 }
 
-struct AddyChip_Preview: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            VStack {
-                @State var selectedChip = "test3"
-                @State var chips = [
-                    AddyChipModel(chipId: "test", label: "test"),
-                    AddyChipModel(chipId: "test2", label: "test2"),
-                    AddyChipModel(chipId: "test3", label: "test3"),
-                    AddyChipModel(chipId: "test4", label: "test4"),
-                    AddyChipModel(chipId: "test5", label: "test5"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                ]
+#Preview {
+    @Previewable @State var selectedChip = "test3"
+    @Previewable @State var chips = [
+        AddyChipModel(chipId: "test", label: "test"),
+        AddyChipModel(chipId: "test2", label: "test2"),
+        AddyChipModel(chipId: "test3", label: "test3"),
+        AddyChipModel(chipId: "test4", label: "test4"),
+        AddyChipModel(chipId: "test5", label: "test5"),
+    ]
 
-                VStack(spacing: 0) {
-                    AddyChipView(chips: $chips, selectedChip: $selectedChip, singleLine: true) { onTappedChip in
-                        // print("\(onTappedChip.label) is selected")
-                        selectedChip = onTappedChip.label
-                    }
-
-                    Text("TEST")
-                    Spacer()
-                }
+    NavigationStack {
+        VStack(spacing: 0) {
+            AddyChipView(chips: $chips, selectedChip: $selectedChip, singleLine: true) { onTappedChip in
+                selectedChip = onTappedChip.label
             }
+
+            Text("TEST")
+            Spacer()
         }
     }
 }

@@ -17,9 +17,14 @@ class DomainsViewModel: ObservableObject {
     @Published var networkError: String = ""
 
     private let domainRepository: DomainRepositoryProtocol
+    private let userRepository: UserRepositoryProtocol
 
-    init(domainRepository: DomainRepositoryProtocol = DomainRepository.shared) {
+    init(
+        domainRepository: DomainRepositoryProtocol = DomainRepository.shared,
+        userRepository: UserRepositoryProtocol = UserRepository.shared
+    ) {
         self.domainRepository = domainRepository
+        self.userRepository = userRepository
         Task {
             await self.getDomains()
         }
@@ -47,5 +52,13 @@ class DomainsViewModel: ObservableObject {
                 )
             }
         }
+    }
+
+    func deleteDomain(domainId: String) async throws -> String {
+        return try await domainRepository.deleteDomain(domainId: domainId)
+    }
+
+    func getUserResource() async throws -> UserResource {
+        return try await userRepository.getUserResource()
     }
 }

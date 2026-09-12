@@ -141,8 +141,6 @@ struct AppSettingsUpdateView: View {
     }
 }
 
-struct AppSettingsUpdateView_Previews: PreviewProvider {
-    static var previews: some View {
-        AppSettingsUpdateView()
-    }
+#Preview {
+    AppSettingsUpdateView()
 }

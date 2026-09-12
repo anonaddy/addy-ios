@@ -282,22 +282,19 @@ struct FilterOptionsAliasBottomSheet: View {
     }
 }
 
-struct FilterOptionsAliasBottomSheet_Previews: PreviewProvider {
-    static var defaultSortFilterRequest = AliasSortFilterRequest(
-        onlyActiveAliases: false,
-        onlyDeletedAliases: true,
-        onlyInactiveAliases: false,
-        onlyWatchedAliases: false,
-        onlyPinnedAliases: false,
-        sort: nil,
-        sortDesc: false,
-        filter: nil,
-        label: nil
+#Preview {
+    FilterOptionsAliasBottomSheet(
+        aliasSortFilterRequest: AliasSortFilterRequest(
+            onlyActiveAliases: false,
+            onlyDeletedAliases: true,
+            onlyInactiveAliases: false,
+            onlyWatchedAliases: false,
+            onlyPinnedAliases: false,
+            sort: nil,
+            sortDesc: false,
+            filter: nil,
+            label: nil
+        ),
+        setFilterAndSortingSettings: { _ in }
     )
-
-    static var previews: some View {
-        FilterOptionsAliasBottomSheet(aliasSortFilterRequest: defaultSortFilterRequest, setFilterAndSortingSettings: { _ in
-            // Dummy function for preview
-        })
-    }
 }

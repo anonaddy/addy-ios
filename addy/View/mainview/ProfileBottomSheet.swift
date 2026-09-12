@@ -261,9 +261,3 @@ struct ProfileBottomSheet: View {
         ))
     }
 }
-
-// #Preview {
-//    ProfileBottomSheet() {
-//        // Dummy function for preview
-//    }
-// }

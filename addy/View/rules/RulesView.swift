@@ -324,7 +324,7 @@ struct RulesView: View {
 
     private func deleteRule(rule: Rules) async {
         do {
-            let result = try await RulesRepository.shared.deleteRule(ruleId: rule.id)
+            let result = try await rulesViewModel.deleteRule(ruleId: rule.id)
             if result == "204" {
                 await getUserResource()
                 await rulesViewModel.getRules()
@@ -368,7 +368,7 @@ struct RulesView: View {
 
     private func reorderRules(rules: [Rules]) async {
         do {
-            let result = try await RulesRepository.shared.reorderRules(rules: rules)
+            let result = try await rulesViewModel.reorderRules(rules: rules)
             if result != "200" {
                 activeAlert = .error
                 showAlert = true
@@ -387,7 +387,7 @@ struct RulesView: View {
 
     private func activateRule(rule: Rules) async {
         do {
-            _ = try await RulesRepository.shared.activateRule(ruleId: rule.id)
+            _ = try await rulesViewModel.activateRule(ruleId: rule.id)
             await rulesViewModel.getRules()
         } catch {
             activeAlert = .error
@@ -399,7 +399,7 @@ struct RulesView: View {
 
     private func deactivateRule(rule: Rules) async {
         do {
-            let result = try await RulesRepository.shared.deactivateRule(ruleId: rule.id)
+            let result = try await rulesViewModel.deactivateRule(ruleId: rule.id)
             if result == "204" {
                 await rulesViewModel.getRules()
             } else {
@@ -418,7 +418,7 @@ struct RulesView: View {
 
     private func getUserResource() async {
         do {
-            let userResource = try await UserRepository.shared.getUserResource()
+            let userResource = try await rulesViewModel.getUserResource()
             // Don't update mainView, this will refresh the entire view hierarchy
             rule_limit = userResource.active_rule_limit
             rule_count = userResource.active_rule_count
@@ -431,8 +431,3 @@ struct RulesView: View {
         }
     }
 }
-
-//
-// #Preview {
-//    RulesView()
-// }

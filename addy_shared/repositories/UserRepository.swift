@@ -8,6 +8,7 @@
 import Foundation
 
 /// Result of a login attempt.
+@frozen
 public enum LoginResult {
     /// Login succeeded, returning login credentials and token.
     case success(Login)

@@ -73,4 +73,8 @@ class FailedDeliveriesViewModel: ObservableObject {
             }
         }
     }
+
+    func deleteFailedDelivery(failedDeliveryId: String) async throws -> String {
+        return try await failedDeliveriesRepository.deleteFailedDelivery(failedDeliveryId: failedDeliveryId)
+    }
 }

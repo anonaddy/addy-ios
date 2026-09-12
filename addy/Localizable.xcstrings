@@ -478,6 +478,17 @@
         }
       }
     },
+    "biometric_lock_deprecation_notice" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notice: In-app biometric lock will be removed in a future version in favor of iOS native app lock (available via Home Screen icon long-press)."
+          }
+        }
+      }
+    },
     "addyio_settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6967,7 +6978,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Use your biometric to open the addy.io app"
+            "value" : "Use your biometric to open the addy.io app. Notice: This option will be removed in a future version in favor of iOS native app lock."
           }
         }
       }

@@ -215,7 +215,7 @@ struct LabelsView: View {
 
     private func deleteLabel(label: Labels) async {
         do {
-            let result = try await LabelRepository.shared.deleteLabel(labelId: label.id)
+            let result = try await labelsViewModel.deleteLabel(labelId: label.id)
             if result == "204" {
                 await labelsViewModel.getLabels()
             } else {

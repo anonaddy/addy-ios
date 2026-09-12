@@ -559,6 +559,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		048B07F82F2E8D0D0032F025 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Addy-Watchkit-Info.plist",
+			);
+			target = 048B07F52F2E8D0D0032F025 /* addy_watchkit */;
+		};
 		8036F15A2C499149008627C3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -569,7 +576,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		048B07F72F2E8D0D0032F025 /* addy_watchkit */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = addy_watchkit; sourceTree = "<group>"; };
+		048B07F72F2E8D0D0032F025 /* addy_watchkit */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (048B07F82F2E8D0D0032F025 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = addy_watchkit; sourceTree = "<group>"; };
 		048B08172F2E937C0032F025 /* addy_shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = addy_shared; sourceTree = "<group>"; };
 		048B08D92F32750A0032F025 /* managers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = managers; sourceTree = "<group>"; };
 		8036F1472C499148008627C3 /* AddyStatisticWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8036F15A2C499149008627C3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AddyStatisticWidget; sourceTree = "<group>"; };

@@ -169,4 +169,32 @@ class AliasesViewModel: ObservableObject {
             }
         }
     }
+
+    func activateAlias(aliasId: String) async throws -> Aliases {
+        return try await aliasRepository.activateAlias(aliasId: aliasId)
+    }
+
+    func deactivateAlias(aliasId: String) async throws -> String {
+        return try await aliasRepository.deactivateAlias(aliasId: aliasId)
+    }
+
+    func pinAlias(aliasId: String) async throws -> Aliases {
+        return try await aliasRepository.pinAlias(aliasId: aliasId)
+    }
+
+    func unpinAlias(aliasId: String) async throws -> String {
+        return try await aliasRepository.unpinAlias(aliasId: aliasId)
+    }
+
+    func deleteAlias(aliasId: String) async throws -> String {
+        return try await aliasRepository.deleteAlias(aliasId: aliasId)
+    }
+
+    func forgetAlias(aliasId: String) async throws -> String {
+        return try await aliasRepository.forgetAlias(aliasId: aliasId)
+    }
+
+    func restoreAlias(aliasId: String) async throws -> Aliases {
+        return try await aliasRepository.restoreAlias(aliasId: aliasId)
+    }
 }

@@ -102,10 +102,7 @@ struct UIUXInterfaceBottomSheet: View {
     }
 }
 
-struct UIUXInterfaceBottomSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var userInterfaceSizeClass = UserInterfaceSizeClass.regular
-        UIUXInterfaceBottomSheet(horizontalSize: $userInterfaceSizeClass)
-            .environmentObject(MainViewState.shared)
-    }
+#Preview {
+    UIUXInterfaceBottomSheet(horizontalSize: .constant(.regular))
+        .environmentObject(MainViewState.shared)
 }

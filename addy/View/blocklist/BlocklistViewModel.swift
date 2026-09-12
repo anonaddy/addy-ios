@@ -109,4 +109,8 @@ class BlocklistViewModel: ObservableObject {
             }
         }
     }
+
+    func deleteBlocklistEntry(blocklistId: String) async throws -> String {
+        return try await blocklistRepository.deleteBlocklistEntry(blocklistId: blocklistId)
+    }
 }

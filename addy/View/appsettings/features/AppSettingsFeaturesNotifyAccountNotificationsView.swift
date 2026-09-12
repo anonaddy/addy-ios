@@ -50,8 +50,6 @@ struct AppSettingsFeaturesNotifyAccountNotificationsView: View {
     }
 }
 
-struct AppSettingsFeaturesNotifyAccountNotificationsView_Previews: PreviewProvider {
-    static var previews: some View {
-        AppSettingsFeaturesNotifyAccountNotificationsView()
-    }
+#Preview {
+    AppSettingsFeaturesNotifyAccountNotificationsView()
 }

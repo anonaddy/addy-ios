@@ -18,7 +18,11 @@ struct MainView: View {
     @State private var isShowingChangelogSheet = false
     @State private var showBiometricsAlert = false
     @State private var lastGeneralRefresh = Date.now
+    @State private var isAuthenticating = false
 
+    // NOTE: In-app biometric locking should be phased out once the project's minimum deployment target is bumped to iOS 18+.
+    // iOS 18+ provides system-level "Require Face ID" via long-press on the app icon on the Home Screen, which natively
+    // manages authentication, app switcher obscuring, and notification privacy without in-app lifecycle edge cases.
     private var shouldShowLockedView: Bool {
         mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled) && !mainViewState.isUnlocked
     }
@@ -76,7 +80,14 @@ struct MainView: View {
             ContentUnavailableView {
                 Label(String(localized: "addyio_locked"), systemImage: "lock.fill")
             } description: {
-                Text(String(localized: "addyio_locked_desc"))
+                VStack(spacing: 8) {
+                    Text(String(localized: "addyio_locked_desc"))
+                    Text(String(localized: "biometric_lock_deprecation_notice"))
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 4)
+                }
             } actions: {
                 Button(String(localized: "unlock")) { authenticate() }
             }
@@ -248,7 +259,11 @@ struct MainView: View {
                 mainViewState.isUnlocked = false
             }
         case .active:
-            // User opens the app and the app is not unlocked
+            // User opens the app and the app is not unlocked: trigger biometric prompt automatically
+            if shouldShowLockedView {
+                authenticate()
+            }
+
             if mainViewState.aliasToDisable != nil {
                 mainViewState.selectedTab = .aliases
             }
@@ -397,10 +412,13 @@ struct MainView: View {
     }
 
     private func authenticate() {
+        guard !isAuthenticating else { return }
         let context = LAContext()
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+            isAuthenticating = true
             context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: String(localized: "addyio_locked")) { success, _ in
                 DispatchQueue.main.async {
+                    self.isAuthenticating = false
                     withAnimation { mainViewState.isUnlocked = success }
                 }
             }

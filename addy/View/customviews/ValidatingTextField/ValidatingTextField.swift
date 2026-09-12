@@ -96,11 +96,9 @@ struct ValidatingTextField: View {
     }
 }
 
-struct ValidatingTextField_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var addressesValidationError: String?
-        @State var addresses = ""
+#Preview {
+    @Previewable @State var addressesValidationError: String?
+    @Previewable @State var addresses = ""
 
-        ValidatingTextField(value: $addresses, placeholder: String(localized: "addresses"), fieldType: .bigText, error: $addressesValidationError)
-    }
+    ValidatingTextField(value: $addresses, placeholder: String(localized: "addresses"), fieldType: .bigText, error: $addressesValidationError)
 }

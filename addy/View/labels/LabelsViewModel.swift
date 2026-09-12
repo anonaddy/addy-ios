@@ -82,4 +82,8 @@ class LabelsViewModel: ObservableObject {
             }
         }
     }
+
+    func deleteLabel(labelId: String) async throws -> String {
+        return try await labelRepository.deleteLabel(labelId: labelId)
+    }
 }

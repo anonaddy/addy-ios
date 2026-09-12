@@ -134,7 +134,7 @@ struct RecipientsDetailView: View {
                 }.textCase(nil)
                 
                 Section {
-                    AddyToggle(isOn: $isRecipientActive, isLoading: isSwitchingRecipientActiveState, title: recipient.active ?? false ? String(localized: "recipient_activated") : String(localized: "recipient_deactivated"), description: String(localized: "recipient_status_desc"))
+                    AddyToggle(isOn: $isRecipientActive, isLoading: isSwitchingRecipientActiveState, title: recipient.active ? String(localized: "recipient_activated") : String(localized: "recipient_deactivated"), description: String(localized: "recipient_status_desc"))
                         .onChange(of: isRecipientActive) {
                             if isRecipientActive != recipient.active {
                                 self.isSwitchingRecipientActiveState = true
@@ -810,8 +810,3 @@ struct RecipientsDetailView: View {
         }
     }
 }
-
-//
-// #Preview {
-//    RecipientsDetailView(recipientId: "6a866f49-5a0b-4c7e-bc45-f46bf019c4ed", recipientEmail: "PLACEHOLDER")
-// }

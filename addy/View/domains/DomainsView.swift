@@ -269,7 +269,7 @@ struct DomainsView: View {
 
     private func deleteDomain(domain: Domains) async {
         do {
-            let result = try await DomainRepository.shared.deleteDomain(domainId: domain.id)
+            let result = try await domainsViewModel.deleteDomain(domainId: domain.id)
             if result == "204" {
                 await getUserResource()
                 await domainsViewModel.getDomains()
@@ -303,7 +303,7 @@ struct DomainsView: View {
 
     private func getUserResource() async {
         do {
-            let userResource = try await UserRepository.shared.getUserResource()
+            let userResource = try await domainsViewModel.getUserResource()
             // Don't update mainView, this will refresh the entire view hierarchy
             domain_limit = userResource.active_domain_limit
             domain_count = userResource.active_domain_count

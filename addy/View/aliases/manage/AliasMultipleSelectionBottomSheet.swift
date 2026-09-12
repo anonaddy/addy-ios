@@ -79,7 +79,7 @@ struct AliasMultipleSelectionBottomSheet: View {
                     Label(String(localized: "alias_status_active"), systemImage: "power")
                 }
                 .disabled(allDeleted || isLoading)
-                .onChange(of: isActive) { newValue in
+                .onChange(of: isActive) { _, newValue in
                     Task {
                         await toggleActive(active: newValue)
                     }
@@ -95,7 +95,7 @@ struct AliasMultipleSelectionBottomSheet: View {
                     }
                 }
                 .disabled(isLoading)
-                .onChange(of: isWatched) { newValue in
+                .onChange(of: isWatched) { _, newValue in
                     Task {
                         await toggleWatched(watched: newValue)
                     }
@@ -106,7 +106,7 @@ struct AliasMultipleSelectionBottomSheet: View {
                     Label(String(localized: "pin_alias", bundle: Bundle(for: SharedData.self)), systemImage: "pin.fill")
                 }
                 .disabled(isLoading)
-                .onChange(of: isPinned) { newValue in
+                .onChange(of: isPinned) { _, newValue in
                     Task {
                         await togglePinned(pinned: newValue)
                     }

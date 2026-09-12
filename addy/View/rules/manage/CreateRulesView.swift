@@ -501,7 +501,3 @@ struct CreateRulesView: View {
         }
     }
 }
-
-// #Preview {
-//    CreateRulesView()
-// }

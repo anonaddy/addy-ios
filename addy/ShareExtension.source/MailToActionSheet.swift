@@ -16,6 +16,7 @@ struct MailToActionSheet: View {
     @State private var errorTitle: String = ""
     @State private var errorMessage: String = ""
     @State private var isUnlocked: Bool = false
+    @State private var isAuthenticating: Bool = false
     @State private var showSendMailRecipientView: Bool = false
     @State private var loadingStatusText = String(localized: "intent_checking_address")
     private let returnToApp: (String) -> Void
@@ -119,11 +120,20 @@ struct MailToActionSheet: View {
                         }
                     }
             } else {
+                // NOTE: In-app biometric locking should be phased out once the minimum deployment target is bumped to iOS 18+.
+                // On iOS 18+, users can natively lock the app via Home Screen long-press ("Require Face ID").
                 Group {
                     ContentUnavailableView {
                         Label(String(localized: "addyio_locked"), systemImage: "lock.fill")
                     } description: {
-                        Text(String(localized: "biometric_error"))
+                        VStack(spacing: 8) {
+                            Text(String(localized: "addyio_locked_desc"))
+                            Text(String(localized: "biometric_lock_deprecation_notice"))
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.center)
+                                .padding(.top, 4)
+                        }
                     } actions: {
                         Button(String(localized: "unlock")) {
                             authenticate()
@@ -252,18 +262,20 @@ struct MailToActionSheet: View {
     }
 
     func authenticate() {
+        guard !isAuthenticating else { return }
         let context = LAContext()
         var error: NSError?
 
         // check whether biometric authentication is possible
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            isAuthenticating = true
             // it's possible, so go ahead and use it
             let reason = String(localized: "addyio_locked")
 
             context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, _ in
-                // authentication has now completed
-                if success {
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    self.isAuthenticating = false
+                    if success {
                         self.isUnlocked = true
                     }
                 }

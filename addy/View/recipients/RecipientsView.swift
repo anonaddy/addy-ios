@@ -216,16 +216,7 @@ struct RecipientsView: View {
             .overlay(Group {
                 // If there is an recipients (aka, if the list is visible)
                 if recipientsViewModel.recipients != nil {
-                    // There is always 1 recipient.
-
-                    //                    if recipients.isEmpty {
-                    //                        ContentUnavailableView {
-                    //                            Label(String(localized: "no_recipients"), systemImage: "person.2")
-                    //                        } description: {
-                    //                            Text(String(localized: "no_recipients_desc"))
-                    //                        }
-                    //                    }
-
+                    // There is always at least 1 recipient.
                 } else {
                     // If there is NO recipients (aka, if the list is not visible)
 
@@ -318,7 +309,7 @@ struct RecipientsView: View {
 
     func resendConfirmationMailRecipient(recipient: Recipients) async {
         do {
-            let result = try await RecipientRepository.shared.resendVerificationEmail(recipientId: recipient.id)
+            let result = try await recipientsViewModel.resendVerificationEmail(recipientId: recipient.id)
             if result == "200" {
                 activeAlert = .resendConfirmationMailRecipientSuccess
                 showAlert = true
@@ -338,7 +329,7 @@ struct RecipientsView: View {
 
     private func deleteRecipient(recipient: Recipients) async {
         do {
-            let result = try await RecipientRepository.shared.deleteRecipient(recipientId: recipient.id)
+            let result = try await recipientsViewModel.deleteRecipient(recipientId: recipient.id)
             if result == "204" {
                 await getUserResource()
                 await recipientsViewModel.getRecipients()
@@ -379,7 +370,7 @@ struct RecipientsView: View {
 
     private func getUserResource() async {
         do {
-            let userResource = try await UserRepository.shared.getUserResource()
+            let userResource = try await recipientsViewModel.getUserResource()
             // Don't update mainView, this will refresh the entire view hierarchy
             recipient_limit = userResource.recipient_limit
             recipient_count = userResource.recipient_count
@@ -392,7 +383,3 @@ struct RecipientsView: View {
         }
     }
 }
-
-// #Preview {
-//    RecipientsView()
-// }

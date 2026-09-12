@@ -47,8 +47,6 @@ struct AppSettingsWatchKitView: View {
     }
 }
 
-struct AppSettingsWatchKitView_Previews: PreviewProvider {
-    static var previews: some View {
-        AppSettingsWatchKitView()
-    }
+#Preview {
+    AppSettingsWatchKitView()
 }

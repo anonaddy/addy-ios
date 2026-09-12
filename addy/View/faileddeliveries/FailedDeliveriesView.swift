@@ -345,7 +345,7 @@ struct FailedDeliveriesView: View {
 
     private func deleteFailedDelivery(failedDelivery: FailedDeliveries) async {
         do {
-            let result = try await FailedDeliveriesRepository.shared.deleteFailedDelivery(failedDeliveryId: failedDelivery.id)
+            let result = try await failedDeliveriesViewModel.deleteFailedDelivery(failedDeliveryId: failedDelivery.id)
             if result == "204" {
                 await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
             } else {

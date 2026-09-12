@@ -19,13 +19,16 @@ class RulesViewModel: ObservableObject {
 
     private let rulesRepository: RulesRepositoryProtocol
     private let recipientRepository: RecipientRepositoryProtocol
+    private let userRepository: UserRepositoryProtocol
 
     init(
         rulesRepository: RulesRepositoryProtocol = RulesRepository.shared,
-        recipientRepository: RecipientRepositoryProtocol = RecipientRepository.shared
+        recipientRepository: RecipientRepositoryProtocol = RecipientRepository.shared,
+        userRepository: UserRepositoryProtocol = UserRepository.shared
     ) {
         self.rulesRepository = rulesRepository
         self.recipientRepository = recipientRepository
+        self.userRepository = userRepository
         Task {
             await self.getRules()
         }
@@ -58,5 +61,25 @@ class RulesViewModel: ObservableObject {
                 )
             }
         }
+    }
+
+    func deleteRule(ruleId: String) async throws -> String {
+        return try await rulesRepository.deleteRule(ruleId: ruleId)
+    }
+
+    func reorderRules(rules: [Rules]) async throws -> String {
+        return try await rulesRepository.reorderRules(rules: rules)
+    }
+
+    func activateRule(ruleId: String) async throws -> Rules {
+        return try await rulesRepository.activateRule(ruleId: ruleId)
+    }
+
+    func deactivateRule(ruleId: String) async throws -> String {
+        return try await rulesRepository.deactivateRule(ruleId: ruleId)
+    }
+
+    func getUserResource() async throws -> UserResource {
+        return try await userRepository.getUserResource()
     }
 }

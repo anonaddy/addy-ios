@@ -306,7 +306,7 @@ struct BlocklistView: View {
 
     private func deleteBlocklistEntry(blocklistEntry: BlocklistEntries) async {
         do {
-            let result = try await BlocklistRepository.shared.deleteBlocklistEntry(blocklistId: blocklistEntry.id)
+            let result = try await blocklistEntriesViewModel.deleteBlocklistEntry(blocklistId: blocklistEntry.id)
             if result == "204" {
                 await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
             } else {

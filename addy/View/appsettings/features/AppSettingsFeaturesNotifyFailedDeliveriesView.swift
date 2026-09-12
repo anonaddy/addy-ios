@@ -65,8 +65,6 @@ struct AppSettingsFeaturesNotifyFailedDeliveriesView: View {
     }
 }
 
-struct AppSettingsFeaturesNotifyFailedDeliveriesView_Previews: PreviewProvider {
-    static var previews: some View {
-        AppSettingsFeaturesNotifyFailedDeliveriesView()
-    }
+#Preview {
+    AppSettingsFeaturesNotifyFailedDeliveriesView()
 }

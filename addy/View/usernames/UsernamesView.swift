@@ -167,16 +167,7 @@ struct UsernamesView: View {
         .overlay(Group {
             // If there is an usernames (aka, if the list is visible)
             if usernamesViewModel.usernames != nil {
-                // There is always 1 username.
-
-                //                    if usernames.isEmpty {
-                //                        ContentUnavailableView {
-                //                            Label(String(localized: "no_usernames"), systemImage: "person.2")
-                //                        } description: {
-                //                            Text(String(localized: "no_usernames_desc"))
-                //                        }
-                //                    }
-
+                // There is always at least 1 username.
             } else {
                 // If there is NO usernames (aka, if the list is not visible)
 
@@ -268,7 +259,7 @@ struct UsernamesView: View {
 
     private func deleteUsername(username: Usernames) async {
         do {
-            let result = try await UsernameRepository.shared.deleteUsername(usernameId: username.id)
+            let result = try await usernamesViewModel.deleteUsername(usernameId: username.id)
             if result == "204" {
                 await getUserResource()
                 await usernamesViewModel.getUsernames()
@@ -302,7 +293,7 @@ struct UsernamesView: View {
 
     private func getUserResource() async {
         do {
-            let userResource = try await UserRepository.shared.getUserResource()
+            let userResource = try await usernamesViewModel.getUserResource()
             // Don't update mainView, this will refresh the entire view hierarchy
             username_limit = userResource.username_limit
             username_count = userResource.username_count
@@ -315,8 +306,3 @@ struct UsernamesView: View {
         }
     }
 }
-
-//
-// #Preview {
-//    UsernamesView()
-// }

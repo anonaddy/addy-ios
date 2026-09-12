@@ -17,9 +17,14 @@ class UsernamesViewModel: ObservableObject {
     @Published var networkError: String = ""
 
     private let usernameRepository: UsernameRepositoryProtocol
+    private let userRepository: UserRepositoryProtocol
 
-    init(usernameRepository: UsernameRepositoryProtocol = UsernameRepository.shared) {
+    init(
+        usernameRepository: UsernameRepositoryProtocol = UsernameRepository.shared,
+        userRepository: UserRepositoryProtocol = UserRepository.shared
+    ) {
         self.usernameRepository = usernameRepository
+        self.userRepository = userRepository
         Task {
             await self.getUsernames()
         }
@@ -47,5 +52,13 @@ class UsernamesViewModel: ObservableObject {
                 )
             }
         }
+    }
+
+    func deleteUsername(usernameId: String) async throws -> String {
+        return try await usernameRepository.deleteUsername(usernameId: usernameId)
+    }
+
+    func getUserResource() async throws -> UserResource {
+        return try await userRepository.getUserResource()
     }
 }

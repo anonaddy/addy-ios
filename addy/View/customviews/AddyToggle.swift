@@ -82,11 +82,11 @@ struct AddyToggle: View {
     }
 }
 
-struct AddyToggle_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var biometricEnabled = false
+#Preview {
+    @Previewable @State var biometricEnabled = false
 
-        AddyToggle(isOn: $biometricEnabled, title: String(localized: "security"), description: String("TESTTESTTESTTEST\nTESTTESTTETTESTTETTESTTETTESTTETTESTTESTTEST\nTEST\nTESTTESTTESTTESTTEST\nTEST"), leadingSystemimage: "faceid", leadingSystemimageColor: .green) {
+    VStack {
+        AddyToggle(isOn: $biometricEnabled, title: String(localized: "security"), description: "Preview description", leadingSystemimage: "faceid", leadingSystemimageColor: .green) {
             print("on tap section")
         }
 
