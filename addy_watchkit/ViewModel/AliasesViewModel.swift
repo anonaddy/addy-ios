@@ -51,7 +51,11 @@ class AliasesViewModel: ObservableObject {
             self.aliasList = aliases // Fixed: assign modified aliases, not original
         } catch {
             self.isLoading = false
-            self.networkError = error.localizedDescription
+            var errorMessage = error.localizedDescription
+            if NetworkUtils.isLocalAddress(AddyIo.API_BASE_URL) {
+                errorMessage += "\n\n" + String(localized: "local_network_permission_rationale", bundle: Bundle(for: SharedData.self))
+            }
+            self.networkError = errorMessage
             LoggingHelper().addLog(
                 importance: LogImportance.critical,
                 error: error.localizedDescription,

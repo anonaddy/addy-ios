@@ -59,7 +59,11 @@ class CreateAliasViewModel: ObservableObject {
             } catch {
                 isLoading = false
                 guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
-                self.networkError = error.localizedDescription
+                var errorMessage = error.localizedDescription
+                if NetworkUtils.isLocalAddress(AddyIo.API_BASE_URL) {
+                    errorMessage += "\n\n" + String(localized: "local_network_permission_rationale", bundle: Bundle(for: SharedData.self))
+                }
+                self.networkError = errorMessage
                 self.showAlert = true
                 HapticHelper.playHapticFeedback(hapticType: .error)
 
