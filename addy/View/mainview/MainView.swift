@@ -174,14 +174,12 @@ struct MainView: View {
             .presentationDetents([.fraction(0.3)])
         }
         .sheet(isPresented: $mainViewState.isPresentingProfileBottomSheet) {
-            NavigationStack {
-                ProfileBottomSheet(
-                    onNavigate: { mainViewState.isPresentingProfileBottomSheet = false; mainViewState.selectedTab = $0 },
-                    isPresentingProfileBottomSheet: $mainViewState.isPresentingProfileBottomSheet,
-                    horizontalSize: horizontalSizeClass
-                )
-                .environmentObject(mainViewState)
-            }
+            ProfileBottomSheet(
+                onNavigate: { mainViewState.isPresentingProfileBottomSheet = false; mainViewState.selectedTab = $0 },
+                isPresentingProfileBottomSheet: $mainViewState.isPresentingProfileBottomSheet,
+                horizontalSize: horizontalSizeClass
+            )
+            .environmentObject(mainViewState)
             .interactiveDismissDisabled()
             .presentationDetents([.large])
         }

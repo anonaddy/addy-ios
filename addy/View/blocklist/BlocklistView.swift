@@ -35,25 +35,17 @@ struct BlocklistView: View {
             let _ = Self._printChanges()
         #endif
 
-        // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
-        Group {
-            if horizontalSize == .regular {
-                NavigationStack {
-                    blocklistEntriesViewBody
-                }
-            } else {
-                blocklistEntriesViewBody
-            }
-        }.onAppear(perform: {
-            loadFilter()
-            if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
-                if blocklistEntries.data.isEmpty {
-                    Task {
-                        await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
+        blocklistEntriesViewBody
+            .onAppear(perform: {
+                loadFilter()
+                if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
+                    if blocklistEntries.data.isEmpty {
+                        Task {
+                            await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
     private var blocklistEntriesViewBody: some View {

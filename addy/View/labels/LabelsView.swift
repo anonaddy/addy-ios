@@ -34,28 +34,20 @@ struct LabelsView: View {
             let _ = Self._printChanges()
         #endif
 
-        Group {
-            if horizontalSize == .regular {
-                NavigationStack {
-                    labelsViewBody
-                }
-            } else {
-                labelsViewBody
-            }
-        }.onAppear(perform: {
-            if let labels = labelsViewModel.labels {
-                if labels.data.isEmpty {
-                    Task {
-                        await labelsViewModel.getLabels()
+        labelsViewBody
+            .onAppear(perform: {
+                if let labels = labelsViewModel.labels {
+                    if labels.data.isEmpty {
+                        Task {
+                            await labelsViewModel.getLabels()
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
-    @ViewBuilder
     private var labelsViewBody: some View {
-        let list = List {
+        List {
             if let labels = labelsViewModel.labels {
                 if !labels.data.isEmpty {
                     Section {
@@ -198,19 +190,14 @@ struct LabelsView: View {
             }
         }
 
-        if let labels = labelsViewModel.labels, !(labels.data.isEmpty && labelsViewModel.searchQuery.isEmpty) {
-            list
-                .searchable(text: $labelsViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "search"))
-                .onSubmit(of: .search) {
-                    Task {
-                        await labelsViewModel.searchLabels(searchQuery: labelsViewModel.searchQuery)
-                    }
-                }
-                .autocorrectionDisabled(true)
-                .textInputAutocapitalization(.never)
-        } else {
-            list
+        .searchable(text: $labelsViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "search"))
+        .onSubmit(of: .search) {
+            Task {
+                await labelsViewModel.searchLabels(searchQuery: labelsViewModel.searchQuery)
+            }
         }
+        .autocorrectionDisabled(true)
+        .textInputAutocapitalization(.never)
     }
 
     private func deleteLabel(label: Labels) async {

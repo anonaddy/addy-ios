@@ -338,7 +338,7 @@ struct AliasesView: View {
                     }
                 }
             }
-            .searchable(text: $aliasesViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "aliases_search")) // TODO: Move to tabbar
+            .searchable(text: $aliasesViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "aliases_search"))
             .onSubmit(of: .search) {
                 Task {
                     await aliasesViewModel.searchAliases(searchQuery: aliasesViewModel.searchQuery)
