@@ -58,9 +58,21 @@ struct AccountNotificationsView: View {
                             ForEach(accountNotifications.data) { accountNotification in
                                 VStack(alignment: .leading) {
                                     VStack(alignment: .leading) {
-                                        Text(accountNotification.title)
-                                            .font(.system(size: 16, weight: .medium))
-                                            .lineLimit(2)
+                                        HStack {
+                                            Text(accountNotification.title)
+                                                .font(.system(size: 16, weight: .medium))
+                                                .lineLimit(2)
+
+                                            if !accountNotification.category.isEmpty {
+                                                Text(accountNotification.category.uppercased())
+                                                    .font(.system(size: 10, weight: .bold))
+                                                    .padding(.horizontal, 6)
+                                                    .padding(.vertical, 2)
+                                                    .background(Color.accentColor.opacity(0.1))
+                                                    .foregroundColor(.accentColor)
+                                                    .cornerRadius(4)
+                                            }
+                                        }
                                         Text(DateTimeUtils.convertStringToLocalTimeZoneString(accountNotification.created_at))
                                             .font(.system(size: 12))
                                             .foregroundColor(.gray)

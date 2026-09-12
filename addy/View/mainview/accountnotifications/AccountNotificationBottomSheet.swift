@@ -21,6 +21,16 @@ struct AccountNotificationBottomSheet: View {
         #endif
         Form {
             Section {
+                if !accountNotification.category.isEmpty {
+                    Text(accountNotification.category.uppercased())
+                        .font(.system(size: 10, weight: .bold))
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.accentColor.opacity(0.1))
+                        .foregroundColor(.accentColor)
+                        .cornerRadius(4)
+                }
+
                 let formattedString = String.localizedStringWithFormat(accountNotification.textAsMarkdown())
                 Text(LocalizedStringKey(formattedString))
                     .multilineTextAlignment(.leading)

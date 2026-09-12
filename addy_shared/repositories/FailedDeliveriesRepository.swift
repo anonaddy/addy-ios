@@ -22,7 +22,7 @@ public protocol FailedDeliveriesRepositoryProtocol: AnyObject, Sendable {
 }
 
 public extension FailedDeliveriesRepositoryProtocol {
-    func getFailedDeliveries(page: Int? = nil, size: Int? = 25, filter: String? = nil) async throws -> FailedDeliveriesArray {
+    func getFailedDeliveries(page: Int? = nil, size: Int? = 100, filter: String? = nil) async throws -> FailedDeliveriesArray {
         return try await getFailedDeliveries(page: page, size: size, filter: filter)
     }
 
@@ -47,7 +47,7 @@ public final class FailedDeliveriesRepository: FailedDeliveriesRepositoryProtoco
         self.settingsManager = SettingsManager(encrypted: false)
     }
 
-    public func getFailedDeliveries(page: Int? = nil, size: Int? = 25, filter: String? = nil) async throws -> FailedDeliveriesArray {
+    public func getFailedDeliveries(page: Int? = nil, size: Int? = 100, filter: String? = nil) async throws -> FailedDeliveriesArray {
         var queryItems: [URLQueryItem] = []
 
         if let size = size {
