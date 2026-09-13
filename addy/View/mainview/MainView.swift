@@ -305,6 +305,15 @@ struct MainView: View {
     }
 
     private func openDefaultPage() {
+        // Do not override if an incoming shortcut, spotlight activity, or deep link is pending
+        guard !mainViewState.showAddAliasBottomSheet,
+              mainViewState.showAliasWithId == nil,
+              mainViewState.aliasToDisable == nil,
+              mainViewState.mailToActionSheetData == nil,
+              mainViewState.selectedTab == .home else {
+            return
+        }
+
         // Check if the value exists in the array, default (but dont reset) to home if not (this could occur if eg. a tablet backup (which has more options) gets restored on mobile)
         // Don't reset the value as this app could be opened in splitscreen, we don't want to reset the value then.
 

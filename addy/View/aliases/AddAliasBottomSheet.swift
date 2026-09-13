@@ -336,6 +336,7 @@ struct AddAliasBottomSheet: View {
     private func addAliasToAccount(selectedDomain: String, description: String, selectedFormat: String, localPart: String, selectedRecipients: [String], selectedLabels: [String]) async {
         do {
             let alias = try await AliasRepository.shared.addAlias(domain: selectedDomain, description: description, format: selectedFormat, localPart: localPart, recipients: selectedRecipients, labelIds: selectedLabels)
+            await SpotlightManager.shared.indexAlias(alias: alias)
             UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
             onAdded()
         } catch {

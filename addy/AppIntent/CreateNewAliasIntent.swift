@@ -61,6 +61,8 @@ struct CreateNewAliasIntent: AppIntent {
                     localPart: "",
                     recipients: nil
                 )
+
+                await SpotlightManager.shared.indexAlias(alias: alias)
                 
                 UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
 

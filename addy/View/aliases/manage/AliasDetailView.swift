@@ -325,6 +325,9 @@ struct AliasDetailView: View {
                     NavigationStack {
                         EditAliasDescriptionBottomSheet(aliasId: alias.id, description: alias.description ?? "") { alias in
                             self.alias = alias
+                            Task {
+                                await SpotlightManager.shared.indexAlias(alias: alias)
+                            }
                             isPresentingEditAliasDescriptionBottomSheet = false
 
                             // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
@@ -338,6 +341,9 @@ struct AliasDetailView: View {
                     NavigationStack {
                         EditAliasRecipientsBottomSheet(aliasId: alias.id, selectedRecipientsIds: getRecipientsIds(recipients: alias.recipients)) { alias in
                             self.alias = alias
+                            Task {
+                                await SpotlightManager.shared.indexAlias(alias: alias)
+                            }
                             isPresentingEditAliasRecipientsBottomSheet = false
 
                             // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
@@ -351,6 +357,9 @@ struct AliasDetailView: View {
                     NavigationStack {
                         EditAliasLabelsBottomSheet(aliasId: alias.id, selectedLabelsIds: getLabelsIds(labels: alias.labels)) { alias in
                             self.alias = alias
+                            Task {
+                                await SpotlightManager.shared.indexAlias(alias: alias)
+                            }
                             isPresentingEditAliasLabelsBottomSheet = false
                             shouldReloadDataInParent = true
                         }
@@ -361,6 +370,9 @@ struct AliasDetailView: View {
                     NavigationStack {
                         EditAliasFromNameBottomSheet(aliasId: alias.id, aliasEmail: alias.email, fromName: alias.from_name) { alias in
                             self.alias = alias
+                            Task {
+                                await SpotlightManager.shared.indexAlias(alias: alias)
+                            }
                             isPresentingEditAliasFromNameBottomSheet = false
 
                             // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
@@ -656,6 +668,7 @@ struct AliasDetailView: View {
     private func activateAlias(alias: Aliases) async {
         do {
             let activatedAlias = try await AliasRepository.shared.activateAlias(aliasId: alias.id)
+            await SpotlightManager.shared.indexAlias(alias: activatedAlias)
             isSwitchingAliasActiveState = false
             self.alias = activatedAlias
             isAliasActive = true
@@ -673,6 +686,7 @@ struct AliasDetailView: View {
     private func enableAttachedRecipientsOnly(alias: Aliases) async {
         do {
             let activatedAlias = try await AliasRepository.shared.activateAttachedRecipientsOnly(aliasId: alias.id)
+            await SpotlightManager.shared.indexAlias(alias: activatedAlias)
             isSwitchingAttachedRecipientsOnlyEnabledState = false
             self.alias = activatedAlias
             isAttachedRecipientsOnlyEnabled = true
@@ -695,6 +709,9 @@ struct AliasDetailView: View {
                 self.alias?.attached_recipients_only = false
                 isAttachedRecipientsOnlyEnabled = false
                 shouldReloadDataInParent = true
+                if let currentAlias = self.alias {
+                    await SpotlightManager.shared.indexAlias(alias: currentAlias)
+                }
             } else {
                 isAttachedRecipientsOnlyEnabled = true
                 activeAlert = .error
@@ -715,6 +732,7 @@ struct AliasDetailView: View {
     private func restoreAlias(alias: Aliases) async {
         do {
             let restoredAlias = try await AliasRepository.shared.restoreAlias(aliasId: alias.id)
+            await SpotlightManager.shared.indexAlias(alias: restoredAlias)
             isRestoringAlias = false
             self.alias = restoredAlias
             isAliasActive = restoredAlias.active
@@ -733,6 +751,7 @@ struct AliasDetailView: View {
             let result = try await AliasRepository.shared.forgetAlias(aliasId: alias.id)
             isForgettingAlias = false
             if result == "204" {
+                await SpotlightManager.shared.deindexAlias(aliasId: alias.id)
                 shouldReloadDataInParent = true
                 dismiss()
             } else {
@@ -758,6 +777,9 @@ struct AliasDetailView: View {
                 self.alias?.active = false
                 isAliasActive = false
                 shouldReloadDataInParent = true
+                if let currentAlias = self.alias {
+                    await SpotlightManager.shared.indexAlias(alias: currentAlias)
+                }
                 if shouldShowToastOnFinished {
                     showAliasDeactivatedToast()
                 }
@@ -781,6 +803,7 @@ struct AliasDetailView: View {
     private func pinAlias(alias: Aliases) async {
         do {
             let pinnedAlias = try await AliasRepository.shared.pinAlias(aliasId: alias.id)
+            await SpotlightManager.shared.indexAlias(alias: pinnedAlias)
             isLoadingPinnedButton = false
             self.alias = pinnedAlias
             isAliasPinned = true
@@ -803,6 +826,9 @@ struct AliasDetailView: View {
                 self.alias?.pinned = false
                 isAliasPinned = false
                 shouldReloadDataInParent = true
+                if let currentAlias = self.alias {
+                    await SpotlightManager.shared.indexAlias(alias: currentAlias)
+                }
             } else {
                 isAliasPinned = true
                 activeAlert = .error
@@ -825,6 +851,7 @@ struct AliasDetailView: View {
             let result = try await AliasRepository.shared.deleteAlias(aliasId: alias.id)
             isDeletingAlias = false
             if result == "204" {
+                await SpotlightManager.shared.deindexAlias(aliasId: alias.id)
                 shouldReloadDataInParent = true
                 dismiss()
             } else {
@@ -845,6 +872,7 @@ struct AliasDetailView: View {
     private func getAlias(aliasId: String) async {
         do {
             let alias = try await AliasRepository.shared.getAlias(aliasId: aliasId)
+            await SpotlightManager.shared.indexAlias(alias: alias)
             withAnimation {
                 self.isAliasActive = alias.active
                 self.isAttachedRecipientsOnlyEnabled = alias.attached_recipients_only

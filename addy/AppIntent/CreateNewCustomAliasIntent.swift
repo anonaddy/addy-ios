@@ -48,6 +48,7 @@ struct CreateNewCustomAliasIntent: AppIntent {
         if let userResource = getUserResource() {
             do {
                 let alias = try await AliasRepository.shared.addAlias(domain: domain ?? userResource.default_alias_domain, description: description ?? "", format: "custom", localPart: localPart, recipients: nil)
+                await SpotlightManager.shared.indexAlias(alias: alias)
                 UIPasteboard.general.setValue(alias.email, forPasteboardType: UTType.plainText.identifier)
 
                 let localizedString = LocalizedStringResource("app_intent_alias_added\(alias.email)")

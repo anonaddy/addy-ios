@@ -9,6 +9,7 @@ import addy_shared
 import SwiftUI
 
 struct AddyToggle: View {
+    @Environment(\.isEnabled) private var isEnabled
     @Binding var isOn: Bool
     @State var lineLimit: Int? = 3
 
@@ -56,7 +57,11 @@ struct AddyToggle: View {
             }
 
             Toggle(isOn: $isOn) {}.frame(width: 60) // This will give the Toggle an explicit width
-        }.onTapGesture {
+        }
+        .opacity(isEnabled ? 1.0 : 0.5)
+        .allowsHitTesting(isEnabled)
+        .onTapGesture {
+            guard isEnabled else { return }
             if self.onTap != nil {
                 self.onTap?()
             } else {
@@ -65,6 +70,7 @@ struct AddyToggle: View {
             }
         }
         .onLongPressGesture(perform: {
+            guard isEnabled else { return }
             HapticHelper.playHapticFeedback(hapticType: .tap)
 
             withAnimation {

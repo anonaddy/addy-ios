@@ -342,6 +342,7 @@ struct AliasMultipleSelectionBottomSheet: View {
         do {
             let activeIds = aliasesList.filter { $0.deleted_at == nil }.map(\.id)
             _ = try await AliasRepository.shared.bulkDeleteAliases(aliasIds: activeIds)
+            await SpotlightManager.shared.deindexAliases(ids: activeIds)
             isLoading = false
             onDismissAndClear()
             dismiss()
@@ -373,6 +374,7 @@ struct AliasMultipleSelectionBottomSheet: View {
         requestError = nil
         do {
             _ = try await AliasRepository.shared.bulkForgetAliases(aliasIds: aliasIds)
+            await SpotlightManager.shared.deindexAliases(ids: aliasIds)
             isLoading = false
             onDismissAndClear()
             dismiss()

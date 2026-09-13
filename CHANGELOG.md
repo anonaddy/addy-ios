@@ -3,6 +3,7 @@
 ## [v2.7.0] - 2026-08-30
 
 **Highlights**
+- **Siri & Spotlight Search**: Search for aliases directly from iOS Spotlight on your Home Screen or Lock Screen by email, description, domain, recipients, or labels, and tap any result to jump directly to its detail view.
 - **Bulk Alias Management**: Multi-select aliases to activate, deactivate, pin, unpin, assign labels, update recipients, delete, restore, or forget aliases in bulk with real-time feedback.
 - **Watched Alias Badges**: Restored the dedicated watched alias indicator in alias rows and multi-selection sheets to easily identify actively monitored aliases.
 - **Unified Label Selection**: Streamlined and standardized label selection sheets across alias creation, editing, and bulk management.

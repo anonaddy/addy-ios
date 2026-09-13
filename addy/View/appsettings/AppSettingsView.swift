@@ -17,6 +17,7 @@ struct AppSettingsView: View {
     @State private var isPresentingUIUXInterfaceBottomSheet: Bool = false
     @State private var storeLogs: Bool = false
     @State private var privacyMode: Bool = false
+    @State private var spotlightSearch: Bool = true
     @State private var biometricEnabled: Bool = false
     @State private var preferredMailClient: String = ""
     @State private var isPresentingSelectMailClientBottomSheet: Bool = false
@@ -115,8 +116,44 @@ struct AppSettingsView: View {
                     if privacyMode {
                         // Clear shortcuts
                         UIApplication.shared.shortcutItems = []
+                        // Disable spotlight search and turn off toggle
+                        withAnimation {
+                            self.spotlightSearch = false
+                        }
+                        MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .spotlightSearch, boolean: false)
+                        Task {
+                            await SpotlightManager.shared.deleteAllIndexedAliases()
+                        }
+                    } else {
+                        if MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .spotlightSearch, default: true) {
+                            Task {
+                                await SpotlightManager.shared.syncAllAliases()
+                            }
+                        }
                     }
                 }
+
+                AddyToggle(isOn: $spotlightSearch, title: String(localized: "spotlight_search"), description: String(localized: "spotlight_search_desc"), leadingSystemimage: "magnifyingglass").onAppear {
+                    if MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .privacyMode) {
+                        self.spotlightSearch = false
+                        MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .spotlightSearch, boolean: false)
+                    } else {
+                        self.spotlightSearch = MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .spotlightSearch, default: true)
+                    }
+                }
+                .onChange(of: spotlightSearch) {
+                    MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .spotlightSearch, boolean: spotlightSearch)
+                    if !spotlightSearch {
+                        Task {
+                            await SpotlightManager.shared.deleteAllIndexedAliases()
+                        }
+                    } else {
+                        Task {
+                            await SpotlightManager.shared.syncAllAliases()
+                        }
+                    }
+                }
+                .disabled(privacyMode)
 
                 
             } header: {

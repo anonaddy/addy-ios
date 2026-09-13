@@ -1,39 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "local_network_permission_rationale" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This instance appears to be on your local network. If connecting fails, ensure 'Local Network' permission is enabled for addy.io in iOS Settings."
-          }
-        }
-      }
-    },
-    "local_network_permission_required" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Local network access is required for this instance"
-          }
-        }
-      }
-    },
-    "open_settings" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Open Settings"
-          }
-        }
-      }
-    },
     "_more" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -511,17 +478,6 @@
         }
       }
     },
-    "biometric_lock_deprecation_notice" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notice: In-app biometric lock will be removed in a future version in favor of iOS native app lock (available via Home Screen icon long-press)."
-          }
-        }
-      }
-    },
     "addyio_settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -956,7 +912,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 2.7.0**\n\n✨ **Bulk Actions for Aliases**\nManaging multiple aliases just got effortless! You can now select several aliases at once to activate, deactivate, pin, assign labels, change recipients, or delete them all in one go.\n\n🏷️ **Seamless Label Picker**\nOrganizing your aliases with labels is now cleaner, faster, and consistent everywhere in the app.\n\n👁️ **Watched Aliases at a Glance**\nThe watched alias icon is back in your list, making it easy to spot which aliases are actively monitored for new incoming emails.\n\n🚀 **Faster & Smoother Everyday**\nWe've rebuilt core parts of the app from the ground up for better speed, battery efficiency, rock-solid stability, and expanded support for self-hosted servers.\n\n**What’s new in addy.io for Apple Watch 1.1.8**\n\n⌚️ **Wrist Companion Upgrades**\nEnjoy a smoother experience on your wrist with faster alias creation, improved Siri Shortcuts, and reliable syncing with your iPhone."
+            "value" : "**What’s new in addy.io for iOS 2.7.0**\n\n🔍 **Siri & Spotlight Search**\nFind your aliases instantly right from your Home Screen or Lock Screen using Spotlight search! Search by email, description, domain, recipients, or labels, and jump directly into alias details with a single tap.\n\n✨ **Bulk Actions for Aliases**\nManaging multiple aliases just got effortless! You can now select several aliases at once to activate, deactivate, pin, assign labels, change recipients, or delete them all in one go.\n\n🏷️ **Seamless Label Picker**\nOrganizing your aliases with labels is now cleaner, faster, and consistent everywhere in the app.\n\n👁️ **Watched Aliases at a Glance**\nThe watched alias icon is back in your list, making it easy to spot which aliases are actively monitored for new incoming emails.\n\n🚀 **Faster & Smoother Everyday**\nWe've rebuilt core parts of the app from the ground up for better speed, battery efficiency, rock-solid stability, and expanded support for self-hosted servers.\n\n**What’s new in addy.io for Apple Watch 1.1.8**\n\n⌚️ **Wrist Companion Upgrades**\nEnjoy a smoother experience on your wrist with faster alias creation, improved Siri Shortcuts, and reliable syncing with your iPhone."
           }
         }
       }
@@ -978,7 +934,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add a new alias"
+            "value" : "Add alias"
           }
         }
       }
@@ -1104,6 +1060,28 @@
         }
       }
     },
+    "app_intent_alias_found%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found your alias: %@. It has been copied to your clipboard."
+          }
+        }
+      }
+    },
+    "app_intent_alias_not_found%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No aliases found matching '%@'."
+          }
+        }
+      }
+    },
     "app_intent_alias_output" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1121,6 +1099,72 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Manage your aliases"
+          }
+        }
+      }
+    },
+    "app_intent_find_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find an alias"
+          }
+        }
+      }
+    },
+    "app_intent_find_alias_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for an existing email alias in addy.io by name, email, or description"
+          }
+        }
+      }
+    },
+    "app_intent_find_alias_empty_query" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please specify which alias you are looking for."
+          }
+        }
+      }
+    },
+    "app_intent_find_alias_parameter_query" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search term"
+          }
+        }
+      }
+    },
+    "app_intent_find_alias_parameter_query_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The email, description, or keyword of the alias to find"
+          }
+        }
+      }
+    },
+    "app_intent_find_alias_parameter_query_prompt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What alias are you looking for?"
           }
         }
       }
@@ -1143,6 +1187,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create an alias for ${domain} with${format} format and description ${description}"
+          }
+        }
+      }
+    },
+    "app_intent_parameter_summary_searchQuery${searchQuery}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find alias ${searchQuery}"
           }
         }
       }
@@ -1319,6 +1374,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Biometrics is not available right now"
+          }
+        }
+      }
+    },
+    "biometric_lock_deprecation_notice" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notice: In-app biometric lock will be removed in a future version in favor of iOS native app lock (available via Home Screen icon long-press)."
           }
         }
       }
@@ -3475,6 +3541,10 @@
         }
       }
     },
+    "error_retrieving_aliases" : {
+      "comment" : "Error message when an error occurs while retrieving aliases.",
+      "isCommentAutoGenerated" : true
+    },
     "error_rules_active" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3917,6 +3987,10 @@
           }
         }
       }
+    },
+    "find" : {
+      "comment" : "The keyword to search for when searching for an alias.",
+      "isCommentAutoGenerated" : true
     },
     "fingerprint_s" : {
       "extractionState" : "manual",
@@ -4588,6 +4662,28 @@
         }
       }
     },
+    "local_network_permission_rationale" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This instance appears to be on your local network. If connecting fails, ensure 'Local Network' permission is enabled for addy.io in iOS Settings."
+          }
+        }
+      }
+    },
+    "local_network_permission_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local network access is required for this instance"
+          }
+        }
+      }
+    },
     "login" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4722,6 +4818,10 @@
           }
         }
       }
+    },
+    "lookup" : {
+      "comment" : "The keyword to search for when searching for an alias.",
+      "isCommentAutoGenerated" : true
     },
     "manage" : {
       "extractionState" : "manual",
@@ -5769,6 +5869,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open link"
+          }
+        }
+      }
+    },
+    "open_settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
           }
         }
       }
@@ -7872,6 +7983,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sorting"
+          }
+        }
+      }
+    },
+    "spotlight_search" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spotlight search"
+          }
+        }
+      }
+    },
+    "spotlight_search_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for aliases directly from Spotlight and Siri suggestions"
           }
         }
       }

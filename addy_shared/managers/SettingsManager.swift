@@ -9,6 +9,7 @@ import Foundation
 #if os(iOS)
 import UIKit
 import UserNotifications
+import CoreSpotlight
 #endif
 
 public class SettingsManager {
@@ -28,6 +29,7 @@ public class SettingsManager {
         case pendingURLFromShareViewController
         case biometricEnabled
         case privacyMode
+        case spotlightSearch
         case apiKey
         case baseUrl
         case userResource
@@ -270,6 +272,17 @@ public class SettingsManager {
                         method: "MainView.newPhase",
                         extra: error.debugDescription
                     )
+                }
+
+                CSSearchableIndex.default().deleteAllSearchableItems { error in
+                    if let error = error {
+                        LoggingHelper().addLog(
+                            importance: LogImportance.critical,
+                            error: "Cannot delete searchable items: \(error.localizedDescription)",
+                            method: "SettingsManager.clearSettingsAndCloseApp",
+                            extra: nil
+                        )
+                    }
                 }
             }
         #endif

@@ -108,6 +108,9 @@ class AliasesViewModel: ObservableObject {
                         isLoading = false
                         let aliasArray = AliasesArray(data: BulkAliasesArray.data)
                         aliasList = aliasArray
+                        Task {
+                            await SpotlightManager.shared.indexAliases(aliases: BulkAliasesArray.data)
+                        }
 
                         // Since the bulkGetAliases func always returns everything we are always at the last page
                         hasArrivedAtTheLastPage = true
@@ -146,6 +149,10 @@ class AliasesViewModel: ObservableObject {
                         aliasList?.data.append(contentsOf: aliasArray.data)
                     }
 
+                    Task {
+                        await SpotlightManager.shared.indexAliases(aliases: aliasArray.data)
+                    }
+
                     hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page || aliasList?.data.isEmpty == true
                 } catch {
                     isLoading = false
@@ -171,7 +178,11 @@ class AliasesViewModel: ObservableObject {
     }
 
     func activateAlias(aliasId: String) async throws -> Aliases {
-        return try await aliasRepository.activateAlias(aliasId: aliasId)
+        let alias = try await aliasRepository.activateAlias(aliasId: aliasId)
+        Task {
+            await SpotlightManager.shared.indexAlias(alias: alias)
+        }
+        return alias
     }
 
     func deactivateAlias(aliasId: String) async throws -> String {
@@ -179,7 +190,11 @@ class AliasesViewModel: ObservableObject {
     }
 
     func pinAlias(aliasId: String) async throws -> Aliases {
-        return try await aliasRepository.pinAlias(aliasId: aliasId)
+        let alias = try await aliasRepository.pinAlias(aliasId: aliasId)
+        Task {
+            await SpotlightManager.shared.indexAlias(alias: alias)
+        }
+        return alias
     }
 
     func unpinAlias(aliasId: String) async throws -> String {
@@ -187,14 +202,26 @@ class AliasesViewModel: ObservableObject {
     }
 
     func deleteAlias(aliasId: String) async throws -> String {
-        return try await aliasRepository.deleteAlias(aliasId: aliasId)
+        let result = try await aliasRepository.deleteAlias(aliasId: aliasId)
+        Task {
+            await SpotlightManager.shared.deindexAlias(aliasId: aliasId)
+        }
+        return result
     }
 
     func forgetAlias(aliasId: String) async throws -> String {
-        return try await aliasRepository.forgetAlias(aliasId: aliasId)
+        let result = try await aliasRepository.forgetAlias(aliasId: aliasId)
+        Task {
+            await SpotlightManager.shared.deindexAlias(aliasId: aliasId)
+        }
+        return result
     }
 
     func restoreAlias(aliasId: String) async throws -> Aliases {
-        return try await aliasRepository.restoreAlias(aliasId: aliasId)
+        let alias = try await aliasRepository.restoreAlias(aliasId: aliasId)
+        Task {
+            await SpotlightManager.shared.indexAlias(alias: alias)
+        }
+        return alias
     }
 }

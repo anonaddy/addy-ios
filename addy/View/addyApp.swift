@@ -6,6 +6,7 @@
 //
 
 import addy_shared
+import CoreSpotlight
 import SwiftUI
 
 @main
@@ -32,6 +33,12 @@ struct AddyApp: App {
                                 mainViewState.aliasToDisable = id
                                 mainViewState.selectedTab = .aliases
                             }
+                        }
+                        .onContinueUserActivity(CSSearchableItemActionType) { userActivity in
+                            SpotlightManager.shared.handleSpotlightActivity(userActivity)
+                        }
+                        .task {
+                            await SpotlightManager.shared.syncAllAliasesIfNeeded()
                         }
                 } else {
                     SetupView()

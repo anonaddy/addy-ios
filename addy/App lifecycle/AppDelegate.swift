@@ -12,6 +12,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
 
     func application(_: UIApplication, continue userActivity: NSUserActivity, restorationHandler _: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        if SpotlightManager.shared.handleSpotlightActivity(userActivity) {
+            return true
+        }
+
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
               let url = userActivity.webpageURL,
               let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
@@ -105,9 +109,19 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
 
+    func scene(_: UIScene, continue userActivity: NSUserActivity) {
+        SpotlightManager.shared.handleSpotlightActivity(userActivity)
+    }
+
     /// This function is called when your app launches.
     /// Check to see if our app was launched with a universal link.
     func scene(_: UIScene, willConnectTo _: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        for userActivity in connectionOptions.userActivities {
+            if SpotlightManager.shared.handleSpotlightActivity(userActivity) {
+                break
+            }
+        }
+
         if let urlContext = connectionOptions.urlContexts.first {
             let url = urlContext.url
             if url.scheme?.lowercased() == "mailto" {

@@ -54,6 +54,7 @@ class BackgroundWorker {
                     )
                 #endif
                 _ = await AliasRepository.shared.cacheMostPopularAliasesForWidget()
+                await SpotlightManager.shared.syncAllAliasesIfNeeded()
 
                 /*
                  ALIAS_WATCHER FUNCTIONALITY
