@@ -100,16 +100,15 @@ struct ActionBottomSheet: View {
                         } else {
                             WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                                 ForEach(allLabels) { label in
-                                    ChipView(label: label.label, isSelected: selectedLabel == label.label, color: Color(hex: label.color ?? "FFFFFF"))
-                                        .onTapGesture {
-                                            withAnimation {
-                                                if selectedLabel == label.label {
-                                                    selectedLabel = ""
-                                                } else {
-                                                    selectedLabel = label.label
-                                                }
+                                    ChipView(label: label.label, isSelected: selectedLabel == label.label, color: Color(hex: label.color ?? "FFFFFF")) {
+                                        withAnimation {
+                                            if selectedLabel == label.label {
+                                                selectedLabel = ""
+                                            } else {
+                                                selectedLabel = label.label
                                             }
                                         }
+                                    }
                                 }
                             }
                         }

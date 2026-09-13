@@ -164,16 +164,15 @@ struct AddAliasBottomSheet: View {
                 } else {
                     WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                         ForEach(labelsChips) { chip in
-                            ChipView(label: chip.label, isSelected: selectedLabelChips.contains(chip.chipId), color: Color(hex: chip.color ?? "FFFFFF"))
-                                .onTapGesture {
-                                    withAnimation {
-                                        if selectedLabelChips.contains(chip.chipId) {
-                                            selectedLabelChips.removeAll { $0 == chip.chipId }
-                                        } else {
-                                            selectedLabelChips.append(chip.chipId)
-                                        }
+                            ChipView(label: chip.label, isSelected: selectedLabelChips.contains(chip.chipId), color: Color(hex: chip.color ?? "FFFFFF")) {
+                                withAnimation {
+                                    if selectedLabelChips.contains(chip.chipId) {
+                                        selectedLabelChips.removeAll { $0 == chip.chipId }
+                                    } else {
+                                        selectedLabelChips.append(chip.chipId)
                                     }
                                 }
+                            }
                         }
                     }
                     .padding(.leading, -15)

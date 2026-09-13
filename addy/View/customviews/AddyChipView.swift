@@ -38,13 +38,21 @@ struct AddyChipView: View {
                         .apply { View in
                             if #available(iOS 26.0, *) {
                                 if self.selectedChip == chip.chipId {
-                                    View.buttonStyle(.glassProminent)
+                                    if let color = chip.color {
+                                        View.buttonStyle(.glassProminent).tint(Color(hex: color))
+                                    } else {
+                                        View.buttonStyle(.glassProminent)
+                                    }
                                 } else {
                                     View.buttonStyle(.glass)
                                 }
                             } else {
                                 if self.selectedChip == chip.chipId {
-                                    View.buttonStyle(.borderedProminent)
+                                    if let color = chip.color {
+                                        View.buttonStyle(.borderedProminent).tint(Color(hex: color))
+                                    } else {
+                                        View.buttonStyle(.borderedProminent)
+                                    }
                                 } else {
                                     View.buttonStyle(.bordered)
                                 }
@@ -72,13 +80,21 @@ struct AddyChipView: View {
                     .apply { View in
                         if #available(iOS 26.0, *) {
                             if self.selectedChip == chip.chipId {
-                                View.buttonStyle(.glassProminent)
+                                if let color = chip.color {
+                                    View.buttonStyle(.glassProminent).tint(Color(hex: color))
+                                } else {
+                                    View.buttonStyle(.glassProminent)
+                                }
                             } else {
                                 View.buttonStyle(.glass)
                             }
                         } else {
                             if self.selectedChip == chip.chipId {
-                                View.buttonStyle(.borderedProminent)
+                                if let color = chip.color {
+                                    View.buttonStyle(.borderedProminent).tint(Color(hex: color))
+                                } else {
+                                    View.buttonStyle(.borderedProminent)
+                                }
                             } else {
                                 View.buttonStyle(.bordered)
                             }
@@ -102,6 +118,29 @@ struct AddyChipView: View {
                             }
                             .fixedSize()
                         })
+                        .apply { View in
+                            if #available(iOS 26.0, *) {
+                                if self.selectedChip == chip.chipId {
+                                    if let color = chip.color {
+                                        View.buttonStyle(.glassProminent).tint(Color(hex: color))
+                                    } else {
+                                        View.buttonStyle(.glassProminent)
+                                    }
+                                } else {
+                                    View.buttonStyle(.glass)
+                                }
+                            } else {
+                                if self.selectedChip == chip.chipId {
+                                    if let color = chip.color {
+                                        View.buttonStyle(.borderedProminent).tint(Color(hex: color))
+                                    } else {
+                                        View.buttonStyle(.borderedProminent)
+                                    }
+                                } else {
+                                    View.buttonStyle(.bordered)
+                                }
+                            }
+                        }
                     }
                 }.textCase(nil)
             }

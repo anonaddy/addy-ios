@@ -38,16 +38,15 @@ struct EditAliasLabelsBottomSheet: View {
                 } else {
                     WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                         ForEach(allLabels) { label in
-                            ChipView(label: label.label, isSelected: selectedLabelIds.contains(label.chipId), color: Color(hex: label.color ?? "FFFFFF"))
-                                .onTapGesture {
-                                    withAnimation {
-                                        if selectedLabelIds.contains(label.chipId) {
-                                            selectedLabelIds.removeAll { $0 == label.chipId }
-                                        } else {
-                                            selectedLabelIds.append(label.chipId)
-                                        }
+                            ChipView(label: label.label, isSelected: selectedLabelIds.contains(label.chipId), color: Color(hex: label.color ?? "FFFFFF")) {
+                                withAnimation {
+                                    if selectedLabelIds.contains(label.chipId) {
+                                        selectedLabelIds.removeAll { $0 == label.chipId }
+                                    } else {
+                                        selectedLabelIds.append(label.chipId)
                                     }
                                 }
+                            }
                         }
                     }
                 }

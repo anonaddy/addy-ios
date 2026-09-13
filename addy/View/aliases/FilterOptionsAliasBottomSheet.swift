@@ -91,14 +91,15 @@ struct FilterOptionsAliasBottomSheet: View {
                     } else {
                         WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                             ForEach(labels) { label in
-                                ChipView(label: label.name, isSelected: selectedLabel == label.id, color: Color(hex: label.colour))
-                                    .onTapGesture {
+                                ChipView(label: label.name, isSelected: selectedLabel == label.id, color: Color(hex: label.colour)) {
+                                    withAnimation {
                                         if selectedLabel == label.id {
                                             selectedLabel = nil
                                         } else {
                                             selectedLabel = label.id
                                         }
                                     }
+                                }
                             }
                         }.padding(.leading, -15)
                     }
@@ -120,12 +121,11 @@ struct FilterOptionsAliasBottomSheet: View {
                 .disabled(filter2Selection == 1) // means if alias is set to Watch Only
                 WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                     ForEach(orderChips) { chip in
-                        ChipView(label: chip.label, isSelected: selectedOrderChip == chip.chipId, color: .accentColor)
-                            .onTapGesture {
-                                withAnimation {
-                                    selectedOrderChip = chip.chipId
-                                }
+                        ChipView(label: chip.label, isSelected: selectedOrderChip == chip.chipId, color: .accentColor) {
+                            withAnimation {
+                                selectedOrderChip = chip.chipId
                             }
+                        }
                     }
                 }.disabled(filter2Selection == 1) // means if alias is set to Watch Only
 
