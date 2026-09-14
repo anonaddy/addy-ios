@@ -38,7 +38,7 @@ struct SendMailRecipientView: View {
         self.domainOptions = domainOptions
         self.close = close
         self.openMailToShareSheet = openMailToShareSheet
-        addresses = recipients.joined(separator: ",")
+        self._addresses = State(initialValue: recipients.joined(separator: ","))
         self.validCcRecipients = validCcRecipients
         self.validBccRecipients = validBccRecipients
         self.emailSubject = emailSubject

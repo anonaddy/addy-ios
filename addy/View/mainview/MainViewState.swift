@@ -36,6 +36,7 @@ class MainViewState: ObservableObject {
     @Published var profileBottomSheetAction: Destination? = nil
     @Published var isPresentingFailedDeliveriesSheet = false
     @Published var isPresentingAccountNotificationsSheet = false
+    @Published var isPresentingWatchKitLogsSheet = false
 
     @Published var selectedTab: Destination = .home
 

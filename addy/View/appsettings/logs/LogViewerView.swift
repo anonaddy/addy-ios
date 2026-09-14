@@ -9,9 +9,12 @@ import addy_shared
 import SwiftUI
 
 struct LogViewerView: View {
+    @Environment(\.dismiss) var dismiss
+
     @StateObject var logsViewModel: LogsViewModel
 
     @State var showWatchOsLogs: Bool
+    var isPresentedInSheet: Bool
 
     var body: some View {
         #if DEBUG
@@ -80,6 +83,16 @@ struct LogViewerView: View {
         .navigationTitle(showWatchOsLogs ? String(localized: "logs_watchkit") : String(localized: "logs", bundle: Bundle(for: SharedData.self)))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
+            if isPresentedInSheet {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label(String(localized: "dismiss"), systemImage: "xmark")
+                    }
+                }
+            }
+
             ToolbarItem(placement: .destructiveAction) {
                 Menu(content: {
                     Button(String(localized: "clear_logs")) {
@@ -92,17 +105,14 @@ struct LogViewerView: View {
             }
 
         }).onAppear(perform: {
-            if let logs = logsViewModel.logs {
-                if logs.isEmpty {
-                    logsViewModel.getLogs()
-                }
-            }
+            logsViewModel.getLogs()
         })
     }
 
-    init(showWatchOsLogs: Bool = false) {
+    init(showWatchOsLogs: Bool = false, isPresentedInSheet: Bool = false) {
         _logsViewModel = StateObject(wrappedValue: LogsViewModel(watchosLogs: showWatchOsLogs))
         self.showWatchOsLogs = showWatchOsLogs
+        self.isPresentedInSheet = isPresentedInSheet
     }
 
     private func getImportanceColor(importance: LogImportance) -> Color {

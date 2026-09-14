@@ -27,8 +27,17 @@
 			</array>
 		</dict>
 	</array>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>addy.io connects to your self-hosted instance running on your local network.</string>
+	<key>CoreSpotlightActions</key>
+	<array>
+		<dict>
+			<key>CoreSpotlightActionIdentifier</key>
+			<string>host.stjin.addy.spotlight_add_alias</string>
+			<key>CoreSpotlightActionSymbolImage</key>
+			<string>plus</string>
+			<key>CoreSpotlightActionTitle</key>
+			<string>Add alias</string>
+		</dict>
+	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sparrow</string>
@@ -62,17 +71,6 @@
 			<string>shortcut_add_alias</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>host.stjin.addy.shortcut_add_alias</string>
-		</dict>
-	</array>
-	<key>CoreSpotlightActions</key>
-	<array>
-		<dict>
-			<key>CoreSpotlightActionIdentifier</key>
-			<string>host.stjin.addy.spotlight_add_alias</string>
-			<key>CoreSpotlightActionTitle</key>
-			<string>Add alias</string>
-			<key>CoreSpotlightActionSymbolImage</key>
-			<string>plus</string>
 		</dict>
 	</array>
 	<key>UIBackgroundModes</key>

@@ -195,6 +195,12 @@ struct MainView: View {
             }
             .presentationDetents([.large])
         }
+        .sheet(isPresented: $mainViewState.isPresentingWatchKitLogsSheet) {
+            NavigationStack {
+                LogViewerView(showWatchOsLogs: true, isPresentedInSheet: true)
+            }
+            .presentationDetents([.large])
+        }
         .sheet(item: $mainViewState.mailToActionSheetData) { data in
             MailToActionSheet(
                 mailToActionSheetData: data,

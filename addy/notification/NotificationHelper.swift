@@ -104,13 +104,13 @@ class NotificationHelper {
         content.title = String(localized: "notification_open_logs_from_watchkit")
         content.subtitle = String(localized: "notification_open_logs_from_watchkit_desc")
         content.sound = .default
-        content.categoryIdentifier = NotificationActions.openSettings
+        content.categoryIdentifier = NotificationActions.openWatchKitLogs
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: NotificationActions.openSettings, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openWatchKitLogs, content: content, trigger: trigger)
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)

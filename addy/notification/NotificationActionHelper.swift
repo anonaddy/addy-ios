@@ -25,6 +25,7 @@ enum NotificationActions {
     static let stopDomainErrorCheck = "stopDomainErrorCheck"
     static let openDomains = "openDomains"
     static let stopSubscriptionExpiryCheck = "stopSubscriptionExpiryCheck"
+    static let openWatchKitLogs = "openWatchKitLogs"
 }
 
 @MainActor
@@ -63,6 +64,9 @@ class NotificationActionHelper {
             case NotificationActions.openAccountNotifications: MainViewState.shared.isPresentingAccountNotificationsSheet = true
             case NotificationActions.openApiExpirationWarning: MainViewState.shared.showApiExpirationWarning = true
             case NotificationActions.openSubscriptionExpirationWarning: MainViewState.shared.showSubscriptionExpirationWarning = true
+            case NotificationActions.openWatchKitLogs:
+                MainViewState.shared.isPresentingProfileBottomSheet = false
+                MainViewState.shared.isPresentingWatchKitLogsSheet = true
             case NotificationActions.openAlias:
                 if let aliasId = response.notification.request.content.userInfo["aliasId"] as? String {
                     MainViewState.shared.showAliasWithId = aliasId

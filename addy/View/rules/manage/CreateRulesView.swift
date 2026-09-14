@@ -388,7 +388,7 @@ struct CreateRulesView: View {
 
         if let ruleId = ruleId {
             self.ruleId = ruleId
-            self.ruleName = ruleName
+            self._ruleName = State(initialValue: ruleName)
         } else {
             // RuleId is nil, load in the template rule
             let rule = Rules(
@@ -415,9 +415,9 @@ struct CreateRulesView: View {
                 updated_at: ""
             )
 
-            self.rule = rule
             self.ruleId = rule.id
-            self.ruleName = rule.name
+            self._rule = State(initialValue: rule)
+            self._ruleName = State(initialValue: rule.name)
         }
 
         _shouldReloadDataInParent = shouldReloadDataInParent
