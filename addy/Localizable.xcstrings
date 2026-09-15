@@ -154,7 +154,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Leave empty to clear the alias description."
+            "value" : "Leave empty to clear the alias description"
           }
         }
       }
