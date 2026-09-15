@@ -17,27 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
 
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-              let url = userActivity.webpageURL,
-              let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
-              let path = components.path,
-              let pathComponents = components.path?.components(separatedBy: "/")
+              let url = userActivity.webpageURL
         else {
             return false
         }
 
-        // Also checked in .openUrl in addyApp
-
-        // Check if the URL is in the expected format
-        if pathComponents.count > 2 && pathComponents[1] == "deactivate" {
-            let id = pathComponents[2]
-            MainViewState.shared.aliasToDisable = id
-            MainViewState.shared.selectedTab = .aliases
-
-        } else if path.contains("/api/auth/verify") {
-            SetupViewState.shared.verifyQuery = url.query()
-        }
-
-        return true
+        return MainViewState.shared.handleIncomingURL(url)
     }
 
     func application(_: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -101,16 +86,17 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
      */
     func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let url = URLContexts.first?.url {
-            if url.scheme == "mailto" {
-                // Handle the email URL
-                MainViewState.shared.mailToActionSheetData = MailToActionSheetData(value: url.absoluteString)
-                return
-            }
+            _ = MainViewState.shared.handleIncomingURL(url)
         }
     }
 
     func scene(_: UIScene, continue userActivity: NSUserActivity) {
-        SpotlightManager.shared.handleSpotlightActivity(userActivity)
+        if SpotlightManager.shared.handleSpotlightActivity(userActivity) {
+            return
+        }
+        if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
+            _ = MainViewState.shared.handleIncomingURL(url)
+        }
     }
 
     /// This function is called when your app launches.
@@ -120,14 +106,14 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
             if SpotlightManager.shared.handleSpotlightActivity(userActivity) {
                 break
             }
+            if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
+                _ = MainViewState.shared.handleIncomingURL(url)
+                break
+            }
         }
 
         if let urlContext = connectionOptions.urlContexts.first {
-            let url = urlContext.url
-            if url.scheme?.lowercased() == "mailto" {
-                // Handle mailto URL
-                MainViewState.shared.mailToActionSheetData = MailToActionSheetData(value: url.absoluteString)
-            }
+            _ = MainViewState.shared.handleIncomingURL(urlContext.url)
         }
     }
 }

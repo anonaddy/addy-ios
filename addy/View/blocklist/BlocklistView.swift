@@ -19,13 +19,14 @@ struct BlocklistView: View {
     @State private var isPresentingAddBlocklistEntryBottomSheet = false
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
+    @State private var blocklistAddedOverlayShown: Bool = false
 
     @State var selectedFilterChip: String = "all"
     @State var filterChips: [AddyChipModel] = []
     @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
-        case error, deleteBlocklistEntry
+        case error, deleteBlocklistEntry, blockAction
     }
 
     var onRefreshGeneralData: (() -> Void)? = nil
@@ -35,17 +36,30 @@ struct BlocklistView: View {
             let _ = Self._printChanges()
         #endif
 
-        blocklistEntriesViewBody
-            .onAppear(perform: {
-                loadFilter()
-                if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
-                    if blocklistEntries.data.isEmpty {
-                        Task {
-                            await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
-                        }
+        ZStack {
+            blocklistEntriesViewBody
+            ToastOverlay(showToast: $blocklistAddedOverlayShown, text: String(localized: "blocklist_add_success"))
+        }
+        .onAppear(perform: {
+            loadFilter()
+            if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
+                if blocklistEntries.data.isEmpty {
+                    Task {
+                        await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
                     }
                 }
-            })
+            }
+            if mainViewState.blockActionRequest != nil {
+                activeAlert = .blockAction
+                showAlert = true
+            }
+        })
+        .onChange(of: mainViewState.blockActionRequest) {
+            if mainViewState.blockActionRequest != nil {
+                activeAlert = .blockAction
+                showAlert = true
+            }
+        }
     }
 
     private var blocklistEntriesViewBody: some View {
@@ -182,6 +196,24 @@ struct BlocklistView: View {
                     title: Text(errorAlertTitle),
                     message: Text(errorAlertMessage)
                 )
+            case .blockAction:
+                if let req = mainViewState.blockActionRequest {
+                    let title = req.type == "domain" ? String(localized: "blocklist_add_domain") : String(localized: "blocklist_add_sender")
+                    return Alert(
+                        title: Text(title),
+                        message: Text(String(format: String(localized: "blocklist_add_confirmation"), req.value)),
+                        primaryButton: .destructive(Text(String(localized: "blocklist_add"))) {
+                            Task {
+                                await self.addBlockActionEntry(request: req)
+                            }
+                        },
+                        secondaryButton: .cancel {
+                            mainViewState.blockActionRequest = nil
+                        }
+                    )
+                } else {
+                    return Alert(title: Text(""))
+                }
             }
         }
 
@@ -325,6 +357,33 @@ struct BlocklistView: View {
 
                 // Remove from the collection for the smooth animation
                 blocklistEntriesViewModel.blocklistEntries?.data.remove(atOffsets: offsets)
+            }
+        }
+    }
+
+    private func addBlockActionEntry(request: MainViewState.BlockActionRequest) async {
+        do {
+            _ = try await BlocklistRepository.shared.addBlocklistEntry(entry: NewBlocklistEntry(type: request.type, value: request.value))
+            mainViewState.blockActionRequest = nil
+            showBlocklistAddedToast()
+            await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
+            onRefreshGeneralData?()
+        } catch {
+            mainViewState.blockActionRequest = nil
+            activeAlert = .error
+            errorAlertTitle = String(localized: "error", bundle: Bundle(for: SharedData.self))
+            errorAlertMessage = error.localizedDescription
+            showAlert = true
+        }
+    }
+
+    private func showBlocklistAddedToast() {
+        withAnimation(.snappy) {
+            blocklistAddedOverlayShown = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            withAnimation(.snappy) {
+                blocklistAddedOverlayShown = false
             }
         }
     }

@@ -210,6 +210,9 @@ struct ProfileBottomSheet: View {
         }.onAppear {
             checkForAnyInteractiveActions()
         }
+        .onChange(of: mainViewState.profileBottomSheetAction) {
+            checkForAnyInteractiveActions()
+        }
     }
 
     init(onNavigate: @escaping (Destination) -> Void, isPresentingProfileBottomSheet: Binding<Bool>, horizontalSize: UserInterfaceSizeClass?) {
@@ -238,6 +241,8 @@ struct ProfileBottomSheet: View {
             isShowingDomainsView = true
         case .subscription:
             isShowingSubscriptionView = true
+        case .blocklist:
+            isShowingBlocklistView = true
         default:
             break
         }

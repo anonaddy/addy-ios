@@ -295,11 +295,7 @@ struct MainView: View {
     }
 
     private func handleURL(url: URL) {
-        // handle the in coming url or call a function
-        if url.host == "alias" {
-            mainViewState.showAliasWithId = url.lastPathComponent
-            mainViewState.selectedTab = .aliases
-        }
+        mainViewState.handleIncomingURL(url)
     }
 
     private func checkForChangelog() {
@@ -316,6 +312,7 @@ struct MainView: View {
               mainViewState.showAliasWithId == nil,
               mainViewState.aliasToDisable == nil,
               mainViewState.mailToActionSheetData == nil,
+              mainViewState.blockActionRequest == nil,
               mainViewState.selectedTab == .home else {
             return
         }
@@ -489,7 +486,7 @@ struct MainView: View {
 }
 
 enum Destination: Hashable, CaseIterable {
-    case home, aliases, recipients, usernames, domains, rules, failedDeliveries, settings, subscription
+    case home, aliases, recipients, usernames, domains, rules, failedDeliveries, settings, subscription, blocklist
 
     static var iPhoneCases: [Destination] {
         [.home, .aliases, .recipients]
@@ -510,6 +507,7 @@ enum Destination: Hashable, CaseIterable {
         case .failedDeliveries: "failed_deliveries"
         case .settings: "settings"
         case .subscription: "subscription"
+        case .blocklist: "manage_blocklist"
         }
     }
 
@@ -524,6 +522,7 @@ enum Destination: Hashable, CaseIterable {
         case .failedDeliveries: return "failed_deliveries"
         case .settings: return "settings"
         case .subscription: return "subscription"
+        case .blocklist: return "blocklist"
         }
     }
 
@@ -538,6 +537,7 @@ enum Destination: Hashable, CaseIterable {
         case .failedDeliveries: "exclamationmark.triangle.fill"
         case .settings: "gear"
         case .subscription: "creditcard.fill"
+        case .blocklist: "nosign"
         }
     }
 
@@ -552,6 +552,7 @@ enum Destination: Hashable, CaseIterable {
         case .failedDeliveries: AnyView(FailedDeliveriesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .settings: AnyView(AppSettingsView(horizontalSize: horizontalSize))
         case .subscription: AnyView(ManageSubscriptionView(shouldHideNavigationBarBackButtonSubscriptionView: .constant(false)))
+        case .blocklist: AnyView(BlocklistView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         }
     }
 }

@@ -28,11 +28,7 @@ struct AddyApp: App {
                         .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
                         .onOpenURL { url in
                             // See appdelegate for handling this when app is closed
-                            if url.pathComponents.count > 2 && url.pathComponents[1] == "deactivate" {
-                                let id = url.pathComponents[2]
-                                mainViewState.aliasToDisable = id
-                                mainViewState.selectedTab = .aliases
-                            }
+                            mainViewState.handleIncomingURL(url)
                         }
                         .onContinueUserActivity(CSSearchableItemActionType) { userActivity in
                             SpotlightManager.shared.handleSpotlightActivity(userActivity)
