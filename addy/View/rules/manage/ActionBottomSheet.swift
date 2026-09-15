@@ -136,6 +136,8 @@ struct ActionBottomSheet: View {
             } footer: {
                 if selectedActionsType == "subject" {
                     Text(String(localized: "add_action_subject_info"))
+                } else if selectedActionsType == "setAliasDescription" {
+                    Text(String(localized: "add_action_alias_description_info"))
                 }
             }.textCase(nil)
 
@@ -242,7 +244,7 @@ struct ActionBottomSheet: View {
                 }
                 newAction.value = selectedLabel
             } else if RulesOption.isTextAction(type: selectedActionsType) {
-                if self.value.trimmingCharacters(in: .whitespaces).isEmpty {
+                if selectedActionsType != "setAliasDescription" && self.value.trimmingCharacters(in: .whitespaces).isEmpty {
                     valuePlaceHolderValidationError = String(localized: "this_field_cannot_be_empty")
                     return
                 }

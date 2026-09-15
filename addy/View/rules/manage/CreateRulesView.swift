@@ -210,11 +210,13 @@ struct CreateRulesView: View {
                                             .lineLimit(3)
                                             .opacity(0.7)
                                     } else if !RulesOption.isBooleanAction(type: action.type) {
-                                        Text(action.value)
-                                            .font(.system(size: 14))
-                                            .multilineTextAlignment(.center)
-                                            .lineLimit(3)
-                                            .opacity(0.7)
+                                        if !action.value.isEmpty {
+                                            Text(action.value)
+                                                .font(.system(size: 14))
+                                                .multilineTextAlignment(.center)
+                                                .lineLimit(3)
+                                                .opacity(0.7)
+                                        }
                                     }
                                 }.onTapGesture {
                                     actionToEdit = action

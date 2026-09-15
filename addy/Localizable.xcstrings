@@ -148,6 +148,17 @@
         }
       }
     },
+    "add_action_alias_description_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave empty to clear the alias description."
+          }
+        }
+      }
+    },
     "add_action_desc" : {
       "extractionState" : "manual",
       "localizations" : {

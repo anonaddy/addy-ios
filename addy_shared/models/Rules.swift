@@ -52,7 +52,7 @@ public struct Action: Identifiable, Hashable, Codable, Sendable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type, forKey: .type)
-        if !value.isEmpty {
+        if !value.isEmpty || type == "setAliasDescription" {
             try container.encode(value, forKey: .value)
         }
     }
