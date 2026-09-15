@@ -13,7 +13,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "iOS - Default - Opaque.png",
+      "filename" : "iOS - Dark.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -25,7 +25,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "iOS - Default - Grayscale.png",
+      "filename" : "iOS - GS.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

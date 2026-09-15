@@ -10,7 +10,14 @@
           "fill" : "automatic",
           "glass" : true,
           "image-name" : "icon.svg",
-          "name" : "icon"
+          "name" : "icon",
+          "position" : {
+            "scale" : 1.3,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
         }
       ],
       "shadow" : {
