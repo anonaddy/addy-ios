@@ -76,9 +76,14 @@ public final class RecipientRepository: RecipientRepositoryProtocol, @unchecked 
     }
 
     public func getRecipients(verifiedOnly: Bool = false) async throws -> [Recipients] {
+        var queryItems: [URLQueryItem]? = nil
+        if verifiedOnly {
+            queryItems = [URLQueryItem(name: "filter[verified]", value: "true")]
+        }
         let endpoint = Endpoint(
             urlString: AddyIo.API_URL_RECIPIENTS,
-            method: .get
+            method: .get,
+            queryItems: queryItems
         )
         let recipientsArray: RecipientsArray = try await apiClient.request(endpoint)
         if verifiedOnly {

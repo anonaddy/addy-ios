@@ -39,6 +39,8 @@ public protocol DomainRepositoryProtocol: AnyObject, Sendable {
     func updateAutoCreateRegex(domainId: String, autoCreateRegex: String?) async throws -> Domains
     /// Updates custom domain default recipient.
     func updateDefaultRecipient(domainId: String, recipientId: String?) async throws -> Domains
+    /// Checks and verifies DNS records for domain sending.
+    func checkDomainSending(domainId: String) async throws -> CheckDomainSendingResponse
 }
 
 public extension DomainRepositoryProtocol {
@@ -246,5 +248,13 @@ public final class DomainRepository: DomainRepositoryProtocol, @unchecked Sendab
         )
         let single: SingleDomain = try await apiClient.request(endpoint)
         return single.data
+    }
+
+    public func checkDomainSending(domainId: String) async throws -> CheckDomainSendingResponse {
+        let endpoint = Endpoint(
+            urlString: "\(AddyIo.API_URL_DOMAINS)/\(domainId)/check-sending",
+            method: .post
+        )
+        return try await apiClient.request(endpoint)
     }
 }

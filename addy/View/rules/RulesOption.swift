@@ -140,6 +140,7 @@ enum RulesOption {
         "encryption",
         "banner",
         "block",
+        "quarantine",
         "blocklistSender",
         "blocklistDomain",
         "removeAttachments",
@@ -156,6 +157,7 @@ enum RulesOption {
         NSLocalizedString("turn_PGP_encryption_off", comment: ""),
         NSLocalizedString("set_the_banner_information_location_to", comment: ""),
         NSLocalizedString("block_the_email", comment: ""),
+        NSLocalizedString("quarantine_the_email", comment: ""),
         NSLocalizedString("add_sender_to_blocklist", comment: ""),
         NSLocalizedString("add_domain_to_blocklist", comment: ""),
         NSLocalizedString("remove_attachments", comment: ""),
@@ -192,6 +194,7 @@ enum RulesOption {
         return [
             "encryption",
             "block",
+            "quarantine",
             "blocklistSender",
             "blocklistDomain",
             "removeAttachments",

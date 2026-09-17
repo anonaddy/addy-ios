@@ -40,8 +40,12 @@ struct DomainsDetailView: View {
     @State private var totalSent: Int = 0
     @State private var showAllAliases = false
 
+    @State private var isCheckingDomainSending: Bool = false
+    @State private var infoAlertTitle = ""
+    @State private var infoAlertMessage = ""
+
     enum ActiveAlert {
-        case deleteDomain, error
+        case deleteDomain, error, info
     }
 
     let domainId: String
@@ -203,7 +207,14 @@ struct DomainsDetailView: View {
                         isPresentingEditDomainRecipientsBottomSheet = true
                     }
 
-                    AddySection(title: String(localized: "check_dns"), description: getCheckDns(domain: domain), leadingSystemimage: nil, trailingSystemimage: nil) {
+                    AddySectionButton(title: String(localized: "check_domain_sending"), description: getCheckDns(domain: domain), colorAccent: .accentColor, isLoading: isCheckingDomainSending) {
+                        isCheckingDomainSending = true
+                        Task {
+                            await checkDomainSending(domain: domain)
+                        }
+                    }
+
+                    AddySection(title: String(localized: "check_dns"), description: String(localized: "check_dns_desc"), leadingSystemimage: nil, trailingSystemimage: nil) {
                         openURL(URL(string: "\(AddyIo.API_BASE_URL)/domains")!)
                     }
 
@@ -290,6 +301,11 @@ struct DomainsDetailView: View {
                         return Alert(
                             title: Text(errorAlertTitle),
                             message: Text(errorAlertMessage)
+                        )
+                    case .info:
+                        return Alert(
+                            title: Text(infoAlertTitle),
+                            message: Text(infoAlertMessage)
                         )
                     }
                 }
@@ -501,6 +517,29 @@ struct DomainsDetailView: View {
             return String(localized: "check_dns_desc_incorrect")
         } else {
             return String(localized: "check_dns_desc")
+        }
+    }
+
+    private func checkDomainSending(domain: Domains) async {
+        do {
+            let response = try await DomainRepository.shared.checkDomainSending(domainId: domain.id)
+            isCheckingDomainSending = false
+            withAnimation {
+                self.domain = response.data
+            }
+            shouldReloadDataInParent = true
+            HapticHelper.playHapticFeedback(hapticType: .tap)
+            activeAlert = .info
+            infoAlertTitle = String(localized: "check_domain_sending")
+            infoAlertMessage = response.message ?? String(localized: "domain_sending_verified")
+            showAlert = true
+        } catch {
+            isCheckingDomainSending = false
+            HapticHelper.playHapticFeedback(hapticType: .error)
+            activeAlert = .error
+            errorAlertTitle = String(localized: "error_checking_domain_sending")
+            errorAlertMessage = error.localizedDescription
+            showAlert = true
         }
     }
 

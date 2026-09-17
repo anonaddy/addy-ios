@@ -1751,6 +1751,17 @@
         }
       }
     },
+    "check_domain_sending" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check domain sending"
+          }
+        }
+      }
+    },
     "check_for_updates" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2732,6 +2743,17 @@
         }
       }
     },
+    "domain_sending_verified" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain sending records verified"
+          }
+        }
+      }
+    },
     "domains" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3283,6 +3305,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "An error occurred while changing the enabled state"
+          }
+        }
+      }
+    },
+    "error_checking_domain_sending" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong checking domain sending records"
           }
         }
       }
@@ -6157,6 +6190,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Begins with \\'-----BEGIN PGP PUBLIC KEY BLOCK-----\\'"
+          }
+        }
+      }
+    },
+    "quarantine_the_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "quarantine the email"
           }
         }
       }

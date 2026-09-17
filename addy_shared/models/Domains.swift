@@ -32,3 +32,15 @@ public struct DomainOptions: Codable, Sendable {
     public let data, sharedDomains: [String]
     public let defaultAliasDomain, defaultAliasFormat: String
 }
+
+public struct CheckDomainSendingResponse: Codable, Sendable {
+    public let success: Bool?
+    public let message: String?
+    public let data: Domains
+
+    public init(success: Bool? = nil, message: String? = nil, data: Domains) {
+        self.success = success
+        self.message = message
+        self.data = data
+    }
+}
