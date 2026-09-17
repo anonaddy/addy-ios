@@ -27,7 +27,7 @@ public protocol UserRepositoryProtocol: AnyObject, Sendable {
     /// Completes MFA login with OTP.
     func loginMfa(baseUrl: String, mfaKey: String, otp: String, apiExpiration: String) async throws -> Login
     /// Registers a new account.
-    func registration(username: String, email: String, password: String, apiExpiration: String) async throws -> Void
+    func registration(username: String, email: String, password: String, apiExpiration: String, newsletter: Bool) async throws -> Void
     /// Verifies registration email using verification query.
     func verifyRegistration(query: String) async throws -> String
     /// Logs out by revoking the active API key on the server.
@@ -40,6 +40,12 @@ public protocol UserRepositoryProtocol: AnyObject, Sendable {
     func notifyServerForSubscriptionChange(receipt: String) async throws -> UserResource
     /// Caches user resource for widget display.
     func cacheUserResourceForWidget() async -> Bool
+}
+
+public extension UserRepositoryProtocol {
+    func registration(username: String, email: String, password: String, apiExpiration: String) async throws -> Void {
+        try await registration(username: username, email: email, password: password, apiExpiration: apiExpiration, newsletter: false)
+    }
 }
 
 /// Repository for managing user authentication, registration, profiles, and subscriptions.
@@ -150,7 +156,7 @@ public final class UserRepository: UserRepositoryProtocol, @unchecked Sendable {
         }
     }
 
-    public func registration(username: String, email: String, password: String, apiExpiration: String) async throws -> Void {
+    public func registration(username: String, email: String, password: String, apiExpiration: String, newsletter: Bool = false) async throws -> Void {
         #if DEBUG
             let defaultBaseUrl = String(localized: "dev_base_url")
         #else
@@ -165,6 +171,7 @@ public final class UserRepository: UserRepositoryProtocol, @unchecked Sendable {
             "password": password,
             "device_name": "addy.io for iOS",
             "expiration": apiExpiration == "never" ? nil : apiExpiration,
+            "newsletter": newsletter,
         ]
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let endpoint = Endpoint(

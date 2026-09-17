@@ -6442,6 +6442,28 @@
         }
       }
     },
+    "registration_newsletter_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A few times a year. No tracking pixels."
+          }
+        }
+      }
+    },
+    "registration_newsletter_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email me when we add new features"
+          }
+        }
+      }
+    },
     "registration_otp" : {
       "extractionState" : "manual",
       "localizations" : {

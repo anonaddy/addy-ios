@@ -27,6 +27,7 @@ struct RegistrationFormBottomSheet: View {
     @State private var username: String = ""
     @State private var activeAlert: ActiveAlert = .error
     @State private var apiExpiration: String = "never" // day, week, month, year or nil (never)
+    @State private var newsletter: Bool = false
     @Binding var showOnboarding: Bool
 
     enum ActiveAlert {
@@ -70,6 +71,33 @@ struct RegistrationFormBottomSheet: View {
             } footer: {
                 Text(String(localized: "registration_password_footer"))
             }.textCase(nil)
+
+            Section {
+                Button {
+                    HapticHelper.playHapticFeedback(hapticType: .tap)
+                    newsletter.toggle()
+                } label: {
+                    HStack(alignment: .top, spacing: 12) {
+                        Image(systemName: newsletter ? "checkmark.square.fill" : "square")
+                            .font(.system(size: 20))
+                            .foregroundColor(newsletter ? .accentColor : .secondary)
+                            .padding(.top, 1)
+
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text(String(localized: "registration_newsletter_title"))
+                                .font(.body)
+                                .foregroundColor(.primary)
+
+                            Text(String(localized: "registration_newsletter_subtitle"))
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+            }
 
             Section {} footer: {
                 Text(String(localized: "registration_disclaimer")).frame(maxWidth: .infinity)
@@ -204,7 +232,7 @@ struct RegistrationFormBottomSheet: View {
         }
 
         do {
-            try await UserRepository.shared.registration(username: username, email: address, password: password, apiExpiration: apiExpiration)
+            try await UserRepository.shared.registration(username: username, email: address, password: password, apiExpiration: apiExpiration, newsletter: newsletter)
             // Registration success
             self.alertMessage = String(localized: "registration_success_verification_required")
             self.activeAlert = .completionMessage
