@@ -15,6 +15,9 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @Binding var horizontalSize: UserInterfaceSizeClass
 
+    @State private var isShowingApplyFilterAlert: Bool = false
+    @State private var filterChipToApply: String = ""
+
     var onRefreshGeneralData: (() -> Void)? = nil
 
     var body: some View {
@@ -99,25 +102,25 @@ struct HomeView: View {
                                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                                 HStack(alignment: .top, spacing: 4) {
                                     HomeCardView(title: String(localized: "total_aliases"), value: userResource.total_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5) {
-                                        mainViewState.selectedTab = .aliases
-                                        aliasesViewState.applyFilterChip = "filter_all_aliases"
+                                        filterChipToApply = "filter_all_aliases"
+                                        isShowingApplyFilterAlert = true
                                     }
 
                                     HomeCardView(title: String(localized: "active"), value: userResource.total_active_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5) {
-                                        mainViewState.selectedTab = .aliases
-                                        aliasesViewState.applyFilterChip = "filter_active_aliases"
+                                        filterChipToApply = "filter_active_aliases"
+                                        isShowingApplyFilterAlert = true
                                     }
                                 }
 
                                 HStack(alignment: .top, spacing: 4) {
                                     HomeCardView(title: String(localized: "inactive"), value: userResource.total_inactive_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5) {
-                                        mainViewState.selectedTab = .aliases
-                                        aliasesViewState.applyFilterChip = "filter_inactive_aliases"
+                                        filterChipToApply = "filter_inactive_aliases"
+                                        isShowingApplyFilterAlert = true
                                     }
 
                                     HomeCardView(title: String(localized: "deleted"), value: userResource.total_deleted_aliases, backgroundColor: .homeColor2, systemImage: "at", systemImageOpacity: 0.5) {
-                                        mainViewState.selectedTab = .aliases
-                                        aliasesViewState.applyFilterChip = "filter_deleted_aliases"
+                                        filterChipToApply = "filter_deleted_aliases"
+                                        isShowingApplyFilterAlert = true
                                     }
                                 }
                             }
@@ -159,6 +162,15 @@ struct HomeView: View {
         }.refreshable {
             // When refreshing aliases also ask the mainView to update general data
             self.onRefreshGeneralData?()
+        }
+        .alert(String(localized: "apply_filter"), isPresented: $isShowingApplyFilterAlert) {
+            Button(String(localized: "apply_filter")) {
+                mainViewState.selectedTab = .aliases
+                aliasesViewState.applyFilterChip = filterChipToApply
+            }
+            Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), role: .cancel) {}
+        } message: {
+            Text(String(localized: "apply_filter_desc"))
         }
     }
 }

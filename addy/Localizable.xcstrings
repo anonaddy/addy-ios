@@ -920,6 +920,28 @@
         }
       }
     },
+    "apply_filter" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apply filter"
+          }
+        }
+      }
+    },
+    "apply_filter_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to apply this filter to the aliases list? This would clear your current filter"
+          }
+        }
+      }
+    },
     "app_changelog" : {
       "extractionState" : "manual",
       "localizations" : {
