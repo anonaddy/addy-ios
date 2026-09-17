@@ -23,7 +23,7 @@ struct SetupView: View {
                         connectivity.nagForSetup()
                     }
 
-                VStack(spacing: 6) {
+                VStack(spacing: 4) {
                     Text("setup_watchos_open_addyio")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
                     Text("setup_watchos_check_paired_device")
@@ -37,10 +37,12 @@ struct SetupView: View {
             }
             .padding(.top, 35)
             .frame(minHeight: 300)
-        }.onAppear {
-            connectivity.startPeriodicNagging()
-            connectivity.onSetupComplete = { apiKey in
-                self.appState.apiKey = apiKey
+            .onAppear {
+                connectivity.startPeriodicNagging()
+                connectivity.onSetupComplete = { apiKey in
+                    self.appState.apiKey = apiKey
+                }
+                connectivity.nagForSetup()
             }
         }
     }

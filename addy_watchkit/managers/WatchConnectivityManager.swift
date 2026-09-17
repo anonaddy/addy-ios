@@ -79,19 +79,34 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith _: WCSessionActivationState, error _: Error?) {
         DispatchQueue.main.async {
             self.isReachable = session.isReachable
+            if session.isReachable && self.shouldNagiPhone {
+                self.nagForSetup()
+            }
+        }
+    }
+
+    func sessionReachabilityDidChange(_ session: WCSession) {
+        DispatchQueue.main.async {
+            self.isReachable = session.isReachable
+            if session.isReachable && self.shouldNagiPhone {
+                self.nagForSetup()
+            }
         }
     }
 
     func startPeriodicNagging() {
         retryTimer?.invalidate()
+        if WCSession.default.isReachable && shouldNagiPhone {
+            nagForSetup()
+        }
         retryTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
-            if self.isReachable {
-                if self.shouldNagiPhone {
+            if self.shouldNagiPhone {
+                if WCSession.default.isReachable {
                     self.nagForSetup()
-                } else {
-                    self.stopPeriodicNagging()
                 }
+            } else {
+                self.stopPeriodicNagging()
             }
         }
     }
@@ -154,7 +169,9 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
             print("🐛 Nagging iPhone for setup...")
         #endif
         let watchName = WKInterfaceDevice.current().name
-        statusText = String(localized: "setup_watchos_check_paired_device_status_1")
+        DispatchQueue.main.async {
+            self.statusText = String(localized: "setup_watchos_check_paired_device_status_1")
+        }
         // Send requestSetup to iPhone, including watchName and a unique ID for later confirmation (to make sure the incoming configuration is really meant for this Watch
         WCSession.default.sendMessage(["request_setup": true, "watch_name": watchName, "request_id": UUID().uuidString], replyHandler: { reply in
             DispatchQueue.main.async {
