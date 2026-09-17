@@ -207,7 +207,7 @@ struct DomainsDetailView: View {
                         isPresentingEditDomainRecipientsBottomSheet = true
                     }
 
-                    AddySectionButton(title: String(localized: "check_domain_sending"), description: getCheckDns(domain: domain), colorAccent: .accentColor, isLoading: isCheckingDomainSending) {
+                    AddySectionButton(title: String(localized: "check_domain_sending"), description: getCheckDns(domain: domain), isLoading: isCheckingDomainSending) {
                         isCheckingDomainSending = true
                         Task {
                             await checkDomainSending(domain: domain)
