@@ -16,6 +16,7 @@ class LabelsViewModel: ObservableObject {
     @Published var networkError: String = ""
     @Published var searchQuery: String = ""
 
+    private var appliedSearchQuery: String = ""
     var searchCancellable: AnyCancellable?
     private let labelRepository: LabelRepositoryProtocol
 
@@ -41,19 +42,19 @@ class LabelsViewModel: ObservableObject {
         let trimmedSearchQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if trimmedSearchQuery.isEmpty {
-            if !self.searchQuery.isEmpty {
-                self.searchQuery = ""
+            if !appliedSearchQuery.isEmpty {
+                appliedSearchQuery = ""
                 await getLabels()
             }
         } else if trimmedSearchQuery.count >= 3 {
-            if self.searchQuery != trimmedSearchQuery {
-                self.searchQuery = trimmedSearchQuery
+            if appliedSearchQuery != trimmedSearchQuery {
+                appliedSearchQuery = trimmedSearchQuery
                 await getLabels()
             }
         } else {
             // When query is reduced below 3 characters from a previous valid search, reset search
-            if !self.searchQuery.isEmpty {
-                self.searchQuery = ""
+            if !appliedSearchQuery.isEmpty {
+                appliedSearchQuery = ""
                 await getLabels()
             }
         }
@@ -65,7 +66,7 @@ class LabelsViewModel: ObservableObject {
             networkError = ""
 
             do {
-                let fetchedLabels = try await labelRepository.getLabels(filter: searchQuery)
+                let fetchedLabels = try await labelRepository.getLabels(filter: appliedSearchQuery)
                 isLoading = false
                 self.labels = fetchedLabels
             } catch {

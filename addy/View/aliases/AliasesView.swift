@@ -62,7 +62,7 @@ struct AliasesView: View {
             List {
                 if let aliasList = aliasesViewModel.aliasList {
                     Section {
-                        if aliasList.data.isEmpty && aliasesViewModel.aliasSortFilterRequest != aliasesViewModel.defaultSortFilterRequest {
+                        if aliasList.data.isEmpty && aliasesViewModel.searchQuery.isEmpty && aliasesViewModel.aliasSortFilterRequest != aliasesViewModel.defaultSortFilterRequest {
                             ContentUnavailableView {
                                 Label(String(localized: "no_aliases", bundle: Bundle(for: SharedData.self)), systemImage: "line.3.horizontal.decrease.circle")
                             } description: {

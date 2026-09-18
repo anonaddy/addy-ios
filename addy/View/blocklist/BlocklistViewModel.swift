@@ -19,6 +19,7 @@ class BlocklistViewModel: ObservableObject {
     @Published var searchQuery: String = ""
     @Published var filter: String? = nil
 
+    private var appliedSearchQuery: String = ""
     var searchCancellable: AnyCancellable?
     private let blocklistRepository: BlocklistRepositoryProtocol
 
@@ -44,19 +45,19 @@ class BlocklistViewModel: ObservableObject {
         let trimmedSearchQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if trimmedSearchQuery.isEmpty {
-            if !self.searchQuery.isEmpty {
-                self.searchQuery = ""
+            if !appliedSearchQuery.isEmpty {
+                appliedSearchQuery = ""
                 await getBlocklistEntries(forceReload: true)
             }
         } else if trimmedSearchQuery.count >= 3 {
-            if self.searchQuery != trimmedSearchQuery {
-                self.searchQuery = trimmedSearchQuery
+            if appliedSearchQuery != trimmedSearchQuery {
+                appliedSearchQuery = trimmedSearchQuery
                 await getBlocklistEntries(forceReload: true)
             }
         } else {
             // When query is reduced below 3 characters from a previous valid search, reset search
-            if !self.searchQuery.isEmpty {
-                self.searchQuery = ""
+            if !appliedSearchQuery.isEmpty {
+                appliedSearchQuery = ""
                 await getBlocklistEntries(forceReload: true)
             }
         }
@@ -73,7 +74,7 @@ class BlocklistViewModel: ObservableObject {
                     page: pageToLoad,
                     size: 100,
                     filter: filter,
-                    search: searchQuery
+                    search: appliedSearchQuery
                 )
                 isLoading = false
 
