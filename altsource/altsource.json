@@ -29,10 +29,10 @@
             "versions": [
                 {
                     "version": "2.7.0",
-                    "date": "2026-08-30T00:00:00+02:00",
+                    "date": "2026-09-20T00:00:00+02:00",
                     "size": 34560000,
                     "downloadURL": "https://github.com/anonaddy/addy-ios/raw/refs/heads/2.7.0/builds/appstorelessRelease%202026-08-30%2000-00-00/addy.ipa",
-                    "localizedDescription": "- Full support and compatibility for iOS 27\n- Siri & Spotlight Search: Search for aliases directly from iOS Spotlight by email, description, domain, recipients, or labels, and jump straight to the alias with a tap\n- Bulk Alias Management: Multi-select aliases to activate, deactivate, pin, unpin, assign labels, update recipients, delete, or forget in bulk with live progress\n- Unified label selection across all alias creation and management flows\n- Restored watched alias indicator in alias rows\n- Apple Watch Companion 1.1.8 with modernized alias creation and unified App Intents\n- Custom SSL certificate support for self-hosted instances (#52)\n- Complete async/await architecture overhaul with major performance and stability improvements",
+                    "localizedDescription": "- Full support and optimizations for iOS 27 with modern Liquid Glass styling\n- Certificate Expiry Warnings: Proactive alerts before self-hosted client certificates expire\n- Siri & Spotlight Search: Find aliases instantly from your Home Screen or Lock Screen\n- Bulk Alias Management: Multi-select aliases to activate, deactivate, pin, label, or delete in bulk\n- Domain Sending Check: Verify outbound mail configuration directly in-app\n- Deep link support to block senders or domains in a single tap\n- Apple Watch Companion 1.1.8 with modernized alias creation and unified App Intents\n- Custom SSL certificate support (#52) and full async/await architecture overhaul",
                     "minOSVersion": "17.0"
                 },
                 {

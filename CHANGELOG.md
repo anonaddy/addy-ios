@@ -1,23 +1,29 @@
 # Changelog
  
-## [v2.7.0] - 2026-08-30
+## [v2.7.0] - 2026-09-20
 
 **Highlights**
-- **iOS 27 Support**: Full support and optimizations for iOS 27.
+- **iOS 27 Support**: Full compatibility, refinements, and optimizations for iOS 27.
+- **Client Certificate Expiry Warnings**: Proactive background checks and notifications alert you before your self-hosted client mTLS certificates expire.
 - **Siri & Spotlight Search**: Search for aliases directly from iOS Spotlight on your Home Screen or Lock Screen by email, description, domain, recipients, or labels, and tap any result to jump directly to its detail view.
 - **Bulk Alias Management**: Multi-select aliases to activate, deactivate, pin, unpin, assign labels, update recipients, delete, restore, or forget aliases in bulk with real-time feedback.
-- **Watched Alias Badges**: Restored the dedicated watched alias indicator in alias rows and multi-selection sheets to easily identify actively monitored aliases.
-- **Unified Label Selection**: Streamlined and standardized label selection sheets across alias creation, editing, and bulk management.
-- **Direct "Forget" Action**: Added support for forgetting active and deleted aliases directly from detail screens, context menus, and multi-selection.
-- **Failed Delivery Alias Context**: Display alias descriptions directly within the failed delivery details sheet.
+- **Domain Sending Verification**: Check your custom domain DNS and mail delivery configuration directly within domain settings.
+- **Instant Blocklist Deep Links**: Deep link support to block senders or domains directly (`addy://blocklist?sender=...` or `?domain=...`), plus one-tap blocking from failed deliveries.
+- **iOS 26+ Liquid Glass Styling**: Modern glass aesthetic applied across ChipViews and label/sorting chips.
+- **Watched Alias Badges**: Restored the dedicated watched alias indicator in alias rows and multi-selection sheets.
 - **Custom SSL Certificate Support**: Full support for self-hosted instances using custom SSL certificates and certificate password configuration (#52).
 
 **Fixed & Improved**
 - **Modernized Networking & Architecture**: Replaced legacy callback-based network layer with a high-performance async/await API client and 10 dedicated domain repositories.
 - **OpenAPI Alignment**: Aligned alias update, bulk operations, and paginated endpoints with the official addy.io OpenAPI specification.
 - **Smoother UI Performance**: Migrated ViewModels and background workers to `@MainActor` with structured concurrency, eliminating UI lag and improving memory efficiency.
+- **Unified Label Selection**: Streamlined and standardized label selection sheets across alias creation, editing, and bulk management.
 - **Enhanced Extensions**: Refactored Share Extension and Statistics Widget with localized strings, optimized caching, and memory safety improvements.
-- Updated minimum supported addy.io instance version to 1.7.3
+- Added quarantine action for custom rules.
+- Added newsletter signup checkbox on registration form.
+- Added confirmation dialog when tapping filter tiles on Home page.
+- Added local network permissions for self-hosted instances.
+- Updated minimum supported addy.io instance version to 1.7.3.
 - Performance enhancements and other improvements for a smoother experience.
 
 **What’s new in addy.io for Apple Watch 1.1.8**
@@ -25,6 +31,7 @@
 **Added**
 - Modernized alias creation flow with dedicated ViewModel and responsive state management.
 - Harmonized App Intents (`CreateNewAliasIntent`, `CreateNewCustomAliasIntent`) and App Shortcuts for both iOS and watchOS.
+- Direct notification action to view Apple Watch logs.
 
 **Fixed & Improved**
 - Improved Apple Watch connectivity syncing and reliable communication with the companion iOS app.
