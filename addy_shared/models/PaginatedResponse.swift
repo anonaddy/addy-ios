@@ -7,6 +7,30 @@
 
 import Foundation
 
+public struct Meta: Codable, Sendable {
+    public let current_page: Int
+    let from: Int?
+    public let last_page: Int
+    let links: [Link]
+    let path: String
+    let per_page: Int
+    let to: Int?
+    public let total: Int
+}
+
+struct Link: Codable, Sendable {
+    let url: String?
+    let label: String
+    let active: Bool
+}
+
+public struct Links: Codable, Sendable {
+    let first: String?
+    let last: String?
+    let prev: String?
+    let next: String?
+}
+
 public struct PaginatedResponse<T: Codable & Sendable>: Codable, Sendable {
     public var data: [T]
     public var links: Links?

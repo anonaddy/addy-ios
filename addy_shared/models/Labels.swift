@@ -31,3 +31,5 @@ public struct NewLabel: Codable, Sendable {
 }
 
 public typealias UpdateLabel = NewLabel
+
+public typealias NewLabelEntry = NewLabel

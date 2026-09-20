@@ -14,7 +14,7 @@ public protocol LabelRepositoryProtocol: AnyObject, Sendable {
     /// Creates a new label.
     func createLabel(label: NewLabel) async throws -> Labels
     /// Updates an existing label's name and color.
-    func updateLabel(labelId: String, name: String, colour: String) async throws -> String
+    func updateLabel(labelId: String, name: String, colour: String) async throws -> Labels
     /// Deletes a label by ID.
     func deleteLabel(labelId: String) async throws -> String
 }
@@ -60,18 +60,15 @@ public final class LabelRepository: LabelRepositoryProtocol, @unchecked Sendable
         return single.data
     }
 
-    public func updateLabel(labelId: String, name: String, colour: String) async throws -> String {
+    public func updateLabel(labelId: String, name: String, colour: String) async throws -> Labels {
         let labelData = try JSONEncoder().encode(UpdateLabel(name: name, colour: colour))
         let endpoint = Endpoint(
             urlString: "\(AddyIo.API_URL_LABELS)/\(labelId)",
             method: .patch,
             body: labelData
         )
-        let (data, response) = try await apiClient.requestRaw(endpoint)
-        if response.statusCode == 200 {
-            return String(response.statusCode)
-        }
-        throw apiClient.mapResponseError(response: response, data: data, requestURL: endpoint.urlString)
+        let single: SingleLabel = try await apiClient.request(endpoint)
+        return single.data
     }
 
     public func deleteLabel(labelId: String) async throws -> String {

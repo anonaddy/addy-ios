@@ -19,7 +19,7 @@ public enum LoginResult {
 /// Protocol defining user account, authentication, and subscription operations.
 public protocol UserRepositoryProtocol: AnyObject, Sendable {
     /// Retrieves user resource containing account details and quotas.
-    func getUserResource() async throws -> UserResource
+    func getUserResource(forceRefresh: Bool) async throws -> UserResource
     /// Validates an API key against a target base URL without changing saved state.
     func verifyApiKey(baseUrl: String, apiKey: String) async throws -> UserResource?
     /// Logs in using username and password.
@@ -35,7 +35,7 @@ public protocol UserRepositoryProtocol: AnyObject, Sendable {
     /// Permanently deletes user account.
     func deleteAccount(password: String) async throws -> String
     /// Retrieves API token expiration and scopes.
-    func getApiTokenDetails() async throws -> ApiTokenDetails
+    func getApiTokenDetails(forceRefresh: Bool) async throws -> ApiTokenDetails
     /// Syncs App Store subscription receipt with server.
     func notifyServerForSubscriptionChange(receipt: String) async throws -> UserResource
     /// Caches user resource for widget display.
@@ -43,6 +43,14 @@ public protocol UserRepositoryProtocol: AnyObject, Sendable {
 }
 
 public extension UserRepositoryProtocol {
+    func getUserResource() async throws -> UserResource {
+        try await getUserResource(forceRefresh: false)
+    }
+
+    func getApiTokenDetails() async throws -> ApiTokenDetails {
+        try await getApiTokenDetails(forceRefresh: false)
+    }
+
     func registration(username: String, email: String, password: String, apiExpiration: String) async throws -> Void {
         try await registration(username: username, email: email, password: password, apiExpiration: apiExpiration, newsletter: false)
     }
@@ -56,19 +64,64 @@ public final class UserRepository: UserRepositoryProtocol, @unchecked Sendable {
     private let encryptedSettingsManager: SettingsManager
     private let loggingHelper: LoggingHelper
 
+    private let userResourceLock = NSLock()
+    private var cachedUserResource: UserResource? = nil
+    private var lastUserResourceFetchTime: Date? = nil
+    private var inFlightUserResourceTask: Task<UserResource, Swift.Error>? = nil
+
+    private let apiTokenDetailsLock = NSLock()
+    private var cachedApiTokenDetails: ApiTokenDetails? = nil
+    private var lastApiTokenDetailsFetchTime: Date? = nil
+    private var inFlightApiTokenDetailsTask: Task<ApiTokenDetails, Swift.Error>? = nil
+
+    private let cacheTtlSeconds: TimeInterval = 60.0
+
     public init(apiClient: APIClientProtocol = APIClient.shared) {
         self.apiClient = apiClient
         self.encryptedSettingsManager = SettingsManager(encrypted: true)
         self.loggingHelper = LoggingHelper()
     }
 
-    public func getUserResource() async throws -> UserResource {
-        let endpoint = Endpoint(
-            urlString: AddyIo.API_URL_ACCOUNT_DETAILS,
-            method: .get
-        )
-        let single: SingleUserResource = try await apiClient.request(endpoint)
-        return single.data
+    public func getUserResource(forceRefresh: Bool = false) async throws -> UserResource {
+        userResourceLock.lock()
+        if !forceRefresh,
+           let cached = cachedUserResource,
+           let lastFetch = lastUserResourceFetchTime,
+           Date().timeIntervalSince(lastFetch) < cacheTtlSeconds {
+            userResourceLock.unlock()
+            return cached
+        }
+
+        if let inFlight = inFlightUserResourceTask {
+            userResourceLock.unlock()
+            return try await inFlight.value
+        }
+
+        let task = Task<UserResource, Swift.Error> {
+            let endpoint = Endpoint(
+                urlString: AddyIo.API_URL_ACCOUNT_DETAILS,
+                method: .get
+            )
+            let single: SingleUserResource = try await apiClient.request(endpoint)
+            return single.data
+        }
+        inFlightUserResourceTask = task
+        userResourceLock.unlock()
+
+        do {
+            let result = try await task.value
+            userResourceLock.lock()
+            cachedUserResource = result
+            lastUserResourceFetchTime = Date()
+            inFlightUserResourceTask = nil
+            userResourceLock.unlock()
+            return result
+        } catch {
+            userResourceLock.lock()
+            inFlightUserResourceTask = nil
+            userResourceLock.unlock()
+            throw error
+        }
     }
 
     public func verifyApiKey(baseUrl: String, apiKey: String) async throws -> UserResource? {
@@ -248,12 +301,45 @@ public final class UserRepository: UserRepositoryProtocol, @unchecked Sendable {
         throw apiClient.mapResponseError(response: response, data: data, requestURL: endpoint.urlString)
     }
 
-    public func getApiTokenDetails() async throws -> ApiTokenDetails {
-        let endpoint = Endpoint(
-            urlString: AddyIo.API_URL_API_TOKEN_DETAILS,
-            method: .get
-        )
-        return try await apiClient.request(endpoint)
+    public func getApiTokenDetails(forceRefresh: Bool = false) async throws -> ApiTokenDetails {
+        apiTokenDetailsLock.lock()
+        if !forceRefresh,
+           let cached = cachedApiTokenDetails,
+           let lastFetch = lastApiTokenDetailsFetchTime,
+           Date().timeIntervalSince(lastFetch) < cacheTtlSeconds {
+            apiTokenDetailsLock.unlock()
+            return cached
+        }
+
+        if let inFlight = inFlightApiTokenDetailsTask {
+            apiTokenDetailsLock.unlock()
+            return try await inFlight.value
+        }
+
+        let task = Task<ApiTokenDetails, Swift.Error> {
+            let endpoint = Endpoint(
+                urlString: AddyIo.API_URL_API_TOKEN_DETAILS,
+                method: .get
+            )
+            return try await apiClient.request(endpoint)
+        }
+        inFlightApiTokenDetailsTask = task
+        apiTokenDetailsLock.unlock()
+
+        do {
+            let result = try await task.value
+            apiTokenDetailsLock.lock()
+            cachedApiTokenDetails = result
+            lastApiTokenDetailsFetchTime = Date()
+            inFlightApiTokenDetailsTask = nil
+            apiTokenDetailsLock.unlock()
+            return result
+        } catch {
+            apiTokenDetailsLock.lock()
+            inFlightApiTokenDetailsTask = nil
+            apiTokenDetailsLock.unlock()
+            throw error
+        }
     }
 
     public func notifyServerForSubscriptionChange(receipt: String) async throws -> UserResource {

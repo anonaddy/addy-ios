@@ -19,13 +19,21 @@ xcuserdata/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode
-# Ignore specific plist files in builds/ and all subdirectories
+
+# Specific build metadata to ignore inside builds/ (keep IPAs tracked)
 builds/**/ExportOptions.plist
 builds/**/DistributionSummary.plist
 builds/**/Packaging.log
+/build
+DerivedData/
+
+# StoreKit configuration & OS files
 StoreKitConfiguration.storekit
 .DS_Store
+*.swp
+*~
+
+# Temporary scripts and logs
 duplicate_keys.txt
 refactor.py
-refactor.py
-/build
+compare_strings_ios_watchos.sh

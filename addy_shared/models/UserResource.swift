@@ -62,7 +62,7 @@ public struct UserResource: Codable, Sendable {
     public var total_aliases: Int
     public var total_active_aliases: Int
     public var total_inactive_aliases: Int
-    public var total_pinned_aliases: Int?
+    public var total_pinned_aliases: Int
     public var total_deleted_aliases: Int
     public var created_at: String
     public var updated_at: String

@@ -130,14 +130,9 @@ struct AddLabelBottomSheet: View {
     private func updateLabelInAccount(labelId: String) async {
         requestError = nil
         do {
-            let result = try await LabelRepository.shared.updateLabel(labelId: labelId, name: name, colour: colour)
-            if result == "200" {
-                onSaved?(nil)
-                dismiss()
-            } else {
-                isLoadingSaveButton = false
-                requestError = result
-            }
+            let updatedLabel = try await LabelRepository.shared.updateLabel(labelId: labelId, name: name, colour: colour)
+            onSaved?(updatedLabel)
+            dismiss()
         } catch {
             isLoadingSaveButton = false
             requestError = error.localizedDescription

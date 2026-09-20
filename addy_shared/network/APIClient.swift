@@ -208,13 +208,11 @@ public final class APIClient: NSObject, URLSessionDelegate, APIClientProtocol, @
     private func handleUnauthorized(data: Data, request: URLRequest) -> NetworkError {
         loggingHelper.addLog(
             importance: .critical,
-            error: "401, app will reset",
+            error: "401 Unauthorized",
             method: #function,
             extra: "data: \(data.base64EncodedString()), shouldBeHeaders: \(getHeaders().description), actualRequestHeaders: \(request.allHTTPHeaderFields?.map { "\($0.key): \($0.value)" }.joined(separator: ", ") ?? "None"), postUrl: \(request.url?.absoluteString ?? "none")"
         )
 
-        createAppResetDueToInvalidAPIKeyNotification()
-        SettingsManager(encrypted: true).clearSettingsAndCloseApp()
         let errorMessage = ErrorHelper.getErrorMessage(data: data)
         return NetworkError.unauthorized(message: errorMessage)
     }

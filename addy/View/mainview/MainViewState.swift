@@ -93,7 +93,7 @@ class MainViewState: ObservableObject {
 
             let cleanCharacters = CharacterSet(charactersIn: "<> \t\n\r")
 
-            if action == "block_email" || action == "block_sender" {
+            if action == "block_email" {
                 let rawEmail = (emailParam ?? domainParam ?? "").trimmingCharacters(in: cleanCharacters)
                 if !rawEmail.isEmpty {
                     self.blockActionRequest = BlockActionRequest(type: "email", value: rawEmail, aliasId: aliasId)
