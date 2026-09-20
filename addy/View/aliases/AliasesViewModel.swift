@@ -103,13 +103,13 @@ class AliasesViewModel: ObservableObject {
 
                 if !aliasesToWatch.isEmpty {
                     do {
-                        let BulkAliasesArray = try await aliasRepository.bulkGetAliases(aliases: aliasesToWatch)
+                        let bulkAliasesArray = try await aliasRepository.bulkGetAliases(aliases: aliasesToWatch)
 
                         isLoading = false
-                        let aliasArray = AliasesArray(data: BulkAliasesArray.data)
+                        let aliasArray = AliasesArray(data: bulkAliasesArray.data)
                         aliasList = aliasArray
                         Task {
-                            await SpotlightManager.shared.indexAliases(aliases: BulkAliasesArray.data)
+                            await SpotlightManager.shared.indexAliases(aliases: bulkAliasesArray.data)
                         }
 
                         // Since the bulkGetAliases func always returns everything we are always at the last page
@@ -117,7 +117,7 @@ class AliasesViewModel: ObservableObject {
                     } catch {
                         isLoading = false
                         guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
-                        networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
+                        networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), error.localizedDescription)
 
                         LoggingHelper().addLog(
                             importance: LogImportance.critical,
@@ -157,7 +157,7 @@ class AliasesViewModel: ObservableObject {
                 } catch {
                     isLoading = false
                     guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
-                    networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), "\(error.localizedDescription)")
+                    networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), error.localizedDescription)
 
                     LoggingHelper().addLog(
                         importance: LogImportance.critical,

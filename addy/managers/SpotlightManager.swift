@@ -230,7 +230,7 @@ public final class SpotlightManager: Sendable {
     // MARK: - Synchronization
 
     /// Fetches all non-deleted aliases from the API and indexes them into CoreSpotlight.
-    public func syncAllAliases(force: Bool = false) async {
+    public func syncAllAliases() async {
         guard isEnabled else {
             await deleteAllIndexedAliases()
             return
@@ -291,7 +291,7 @@ public final class SpotlightManager: Sendable {
         let dayInSeconds: Double = 86400
 
         if lastSync == 0 || (now - lastSync) > dayInSeconds {
-            await syncAllAliases(force: false)
+            await syncAllAliases()
         }
     }
 

@@ -12,7 +12,7 @@ import os.log
 import UIKit
 import WidgetKit
 
-private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "BackgroundAppRefreshManager")
+private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "host.stjin.addy", category: "BackgroundAppRefreshManager")
 private let backgroundTaskIdentifier = "host.stjin.addy.backgroundworker"
 
 class BackgroundWorkerHelper {

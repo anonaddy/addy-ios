@@ -6,6 +6,7 @@
 //
 
 import addy_shared
+import Combine
 import SwiftUI
 
 struct SetupView: View {
@@ -125,7 +126,7 @@ struct SetupView: View {
             Alert(title: Text(String(localized: "registration_register")), message: Text(alertMessage))
         }.onChange(of: setupViewState.verifyQuery) {
             #if DEBUG
-                print("verifyPath changed to \(setupViewState.verifyQuery)!")
+                print("verifyPath changed to \(setupViewState.verifyQuery ?? "nil")!")
             #endif
             if let verifyQuery = setupViewState.verifyQuery {
                 isLoadingGetStarted = true

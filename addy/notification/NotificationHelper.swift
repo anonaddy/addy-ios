@@ -11,6 +11,21 @@ import UIKit
 import UserNotifications
 
 class NotificationHelper {
+    private func postNotification(request: UNNotificationRequest, incrementBadge: Bool = false) {
+        UNUserNotificationCenter.current().add(request)
+        if incrementBadge {
+            Task { @MainActor in
+                let currentBadge: Int
+                if #available(iOS 17.0, *) {
+                    currentBadge = await UNUserNotificationCenter.current().deliveredNotifications().count
+                } else {
+                    currentBadge = UIApplication.shared.applicationIconBadgeNumber
+                }
+                try? await UNUserNotificationCenter.current().setBadgeCount(currentBadge + 1)
+            }
+        }
+    }
+
     func createAliasWatcherNotification(emailDifference: Int, id: String, email: String) {
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_new_emails")
@@ -37,8 +52,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openAlias, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createOpenAliasFromWatchkitNotification(id: String, email: String) {
@@ -63,7 +77,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openAlias, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
+        postNotification(request: request)
     }
 
     func createSetupWatchkitNotification(watchName: String) {
@@ -80,7 +94,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openApp, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
+        postNotification(request: request)
     }
 
     func createSetupAppFirstWatchkitNotification() {
@@ -96,7 +110,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openApp, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
+        postNotification(request: request)
     }
 
     func createOpenLogsFromWatchkitNotification() {
@@ -113,7 +127,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openWatchKitLogs, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
+        postNotification(request: request)
     }
 
     func createAliasWatcherAliasDoesNotExistAnymoreNotification(email: String) {
@@ -135,8 +149,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createUpdateNotification(version: String) {
@@ -157,8 +170,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openSettings, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createCertificateExpiryNotification(daysLeft: String) {
@@ -179,8 +191,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openCertificateExpirationWarning, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createApiTokenExpiryNotification(daysLeft: String) {
@@ -201,8 +212,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openApiExpirationWarning, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createSubscriptionExpiryNotification(daysLeft: String) {
@@ -223,8 +233,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openSubscriptionExpirationWarning, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createDomainErrorNotification(count: Int) {
@@ -245,8 +254,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openDomains, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createFailedDeliveryNotification(difference: Int) {
@@ -267,8 +275,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openFailedDeliveries, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createAccountNotification(difference: Int) {
@@ -289,7 +296,6 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: NotificationActions.openAccountNotifications, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 }

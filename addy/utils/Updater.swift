@@ -8,13 +8,13 @@
 import addy_shared
 import Foundation
 
-public struct UpdateCheckResult {
-    public let isUpdateAvailable: Bool
-    public let latestVersion: String?
-    public let isAppAhead: Bool
-    public let error: String?
+struct UpdateCheckResult {
+    let isUpdateAvailable: Bool
+    let latestVersion: String?
+    let isAppAhead: Bool
+    let error: String?
 
-    public init(isUpdateAvailable: Bool, latestVersion: String?, isAppAhead: Bool, error: String?) {
+    init(isUpdateAvailable: Bool, latestVersion: String?, isAppAhead: Bool, error: String?) {
         self.isUpdateAvailable = isUpdateAvailable
         self.latestVersion = latestVersion
         self.isAppAhead = isAppAhead

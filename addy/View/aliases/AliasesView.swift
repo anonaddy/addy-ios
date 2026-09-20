@@ -6,6 +6,7 @@
 //
 
 import addy_shared
+import StoreKit
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -161,8 +162,10 @@ struct AliasesView: View {
                     return Alert(title: Text(String(localized: "aliaswatcher_max_reached")), message: Text(String(localized: "aliaswatcher_max_reached_desc")), dismissButton: .default(Text(String(localized: "understood", bundle: Bundle(for: SharedData.self)))))
                 case .deleteAlias:
                     return Alert(title: Text(String(localized: "delete_alias")), message: Text(String(localized: "delete_alias_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "delete"))) {
-                        Task {
-                            await self.deleteAlias(alias: aliasInContextMenu!)
+                        if let alias = aliasInContextMenu {
+                            Task {
+                                await self.deleteAlias(alias: alias)
+                            }
                         }
                     }, secondaryButton: .cancel {
                         Task {
@@ -183,8 +186,10 @@ struct AliasesView: View {
                     })
                 case .forgetAliasConfirmation:
                     return Alert(title: Text(String(localized: "forget_alias")), message: Text(String(localized: "forget_alias_are_you_sure_confirmation_desc")), primaryButton: .destructive(Text(String(localized: "forget"))) {
-                        Task {
-                            await self.forgetAlias(alias: aliasInContextMenu!)
+                        if let alias = aliasInContextMenu {
+                            Task {
+                                await self.forgetAlias(alias: alias)
+                            }
                         }
                     }, secondaryButton: .cancel {
                         Task {
@@ -193,8 +198,10 @@ struct AliasesView: View {
                     })
                 case .restoreAlias:
                     return Alert(title: Text(String(localized: "restore_alias")), message: Text(String(localized: "restore_alias_confirmation_desc")), primaryButton: .default(Text(String(localized: "restore"))) {
-                        Task {
-                            await self.restoreAlias(alias: aliasInContextMenu!)
+                        if let alias = aliasInContextMenu {
+                            Task {
+                                await self.restoreAlias(alias: alias)
+                            }
                         }
                     }, secondaryButton: .cancel {
                         Task {

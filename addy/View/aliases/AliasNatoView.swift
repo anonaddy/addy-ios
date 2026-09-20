@@ -16,7 +16,7 @@ struct AliasNatoView: View {
             ZStack(alignment: .topTrailing) {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 200))], spacing: 20) {
-                        ForEach(0..<natoList.count) { index in
+                        ForEach(0..<natoList.count, id: \.self) { index in
                             let item = natoList[index]
                             VStack {
                                 Text(String(item.character))
