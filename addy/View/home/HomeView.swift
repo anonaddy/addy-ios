@@ -6,6 +6,7 @@
 //
 
 import addy_shared
+import Shimmer
 import SwiftUI
 
 struct HomeView: View {

@@ -13,7 +13,8 @@ import WidgetKit
 private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "host.stjin.addy", category: "BackgroundAppRefreshManager")
 
 class BackgroundWorker {
-    func performRequest(completion: @escaping (Error?) -> Void) {
+    @discardableResult
+    func performRequest(completion: @escaping (Error?) -> Void) -> Task<Void, Never> {
         #if DEBUG
             logger.log("BackgroundWorker() called")
             LoggingHelper().addLog(
@@ -28,7 +29,7 @@ class BackgroundWorker {
         let encryptedSettingsManager = SettingsManager(encrypted: true)
         let backgroundWorkerHelper = BackgroundWorkerHelper.shared
 
-        Task {
+        return Task {
             // True if there are aliases to be watched, widgets to be updated or checked for updates
             if await backgroundWorkerHelper.isThereWorkTodo() {
                 // Background work here

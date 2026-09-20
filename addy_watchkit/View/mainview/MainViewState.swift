@@ -17,8 +17,15 @@ class MainViewState: ObservableObject {
 
     let userResourceChanged = PassthroughSubject<Void, Never>()
 
+    private var cachedUserResource: UserResource? = nil
+
     @Published var userResourceData: String? {
         didSet {
+            if userResourceData == nil {
+                cachedUserResource = nil
+            } else if cachedUserResource == nil, let jsonString = userResourceData, let jsonData = jsonString.data(using: .utf8) {
+                cachedUserResource = try? JSONDecoder().decode(UserResource.self, from: jsonData)
+            }
             userResourceData.map { encryptedSettingsManager.putSettingsString(key: .userResource, string: $0) }
             userResourceChanged.send()
         }
@@ -26,15 +33,16 @@ class MainViewState: ObservableObject {
 
     var userResource: UserResource? {
         get {
-            if let jsonString = userResourceData,
+            if cachedUserResource == nil,
+               let jsonString = userResourceData,
                let jsonData = jsonString.data(using: .utf8)
             {
-                let decoder = JSONDecoder()
-                return try? decoder.decode(UserResource.self, from: jsonData)
+                cachedUserResource = try? JSONDecoder().decode(UserResource.self, from: jsonData)
             }
-            return nil
+            return cachedUserResource
         }
         set {
+            cachedUserResource = newValue
             if let newValue = newValue {
                 let encoder = JSONEncoder()
                 if let jsonData = try? encoder.encode(newValue),

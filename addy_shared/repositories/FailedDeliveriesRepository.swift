@@ -69,7 +69,7 @@ public final class FailedDeliveriesRepository: FailedDeliveriesRepositoryProtoco
     }
 
     public func downloadFailedDelivery(failedDeliveryId: String) async throws -> URL {
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first ?? FileManager.default.temporaryDirectory
         let destinationURL = documentsURL.appendingPathComponent("\(failedDeliveryId).eml")
 
         let endpoint = Endpoint(

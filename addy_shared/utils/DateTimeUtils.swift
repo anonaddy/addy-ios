@@ -15,6 +15,20 @@ public enum DateTimeUtils {
         case shortDate
     }
 
+    private static let gmtDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+
+    private static let shortDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E d MMM"
+        return formatter
+    }()
+
     public static func convertStringToLocalTimeZoneString(_ string: String?, dateTimeFormat: DateTimeFormat = .dateTime) -> String {
         guard let string = string else {
             return ""
@@ -31,9 +45,7 @@ public enum DateTimeUtils {
             case .dateTime:
                 return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
             case .shortDate:
-                let formatter = DateFormatter()
-                formatter.dateFormat = "E d MMM"
-                return formatter.string(from: date)
+                return shortDateFormatter.string(from: date)
             }
         } catch {
             return "\(string) (GMT)"
@@ -48,11 +60,7 @@ public enum DateTimeUtils {
         guard let string = string else {
             throw NSError(domain: "Nil date string", code: 0, userInfo: nil)
         }
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        guard let date = formatter.date(from: string) else {
+        guard let date = gmtDateFormatter.date(from: string) else {
             throw NSError(domain: "Invalid date string", code: 0, userInfo: nil)
         }
         return date

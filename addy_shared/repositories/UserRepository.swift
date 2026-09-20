@@ -56,6 +56,46 @@ public extension UserRepositoryProtocol {
     }
 }
 
+private actor ResourceCache<T: Sendable> {
+    private var cached: T? = nil
+    private var lastFetchTime: Date? = nil
+    private var inFlightTask: Task<T, Swift.Error>? = nil
+    private let ttl: TimeInterval
+
+    init(ttl: TimeInterval = 60.0) {
+        self.ttl = ttl
+    }
+
+    func value(forceRefresh: Bool, fetch: @Sendable @escaping () async throws -> T) async throws -> T {
+        if !forceRefresh,
+           let cached = cached,
+           let lastFetch = lastFetchTime,
+           Date().timeIntervalSince(lastFetch) < ttl {
+            return cached
+        }
+
+        if let inFlight = inFlightTask {
+            return try await inFlight.value
+        }
+
+        let task = Task<T, Swift.Error> {
+            try await fetch()
+        }
+        inFlightTask = task
+
+        do {
+            let result = try await task.value
+            self.cached = result
+            self.lastFetchTime = Date()
+            self.inFlightTask = nil
+            return result
+        } catch {
+            self.inFlightTask = nil
+            throw error
+        }
+    }
+}
+
 /// Repository for managing user authentication, registration, profiles, and subscriptions.
 public final class UserRepository: UserRepositoryProtocol, @unchecked Sendable {
     public static let shared = UserRepository()
@@ -64,17 +104,8 @@ public final class UserRepository: UserRepositoryProtocol, @unchecked Sendable {
     private let encryptedSettingsManager: SettingsManager
     private let loggingHelper: LoggingHelper
 
-    private let userResourceLock = NSLock()
-    private var cachedUserResource: UserResource? = nil
-    private var lastUserResourceFetchTime: Date? = nil
-    private var inFlightUserResourceTask: Task<UserResource, Swift.Error>? = nil
-
-    private let apiTokenDetailsLock = NSLock()
-    private var cachedApiTokenDetails: ApiTokenDetails? = nil
-    private var lastApiTokenDetailsFetchTime: Date? = nil
-    private var inFlightApiTokenDetailsTask: Task<ApiTokenDetails, Swift.Error>? = nil
-
-    private let cacheTtlSeconds: TimeInterval = 60.0
+    private let userResourceCache = ResourceCache<UserResource>()
+    private let apiTokenDetailsCache = ResourceCache<ApiTokenDetails>()
 
     public init(apiClient: APIClientProtocol = APIClient.shared) {
         self.apiClient = apiClient
@@ -83,44 +114,13 @@ public final class UserRepository: UserRepositoryProtocol, @unchecked Sendable {
     }
 
     public func getUserResource(forceRefresh: Bool = false) async throws -> UserResource {
-        userResourceLock.lock()
-        if !forceRefresh,
-           let cached = cachedUserResource,
-           let lastFetch = lastUserResourceFetchTime,
-           Date().timeIntervalSince(lastFetch) < cacheTtlSeconds {
-            userResourceLock.unlock()
-            return cached
-        }
-
-        if let inFlight = inFlightUserResourceTask {
-            userResourceLock.unlock()
-            return try await inFlight.value
-        }
-
-        let task = Task<UserResource, Swift.Error> {
+        try await userResourceCache.value(forceRefresh: forceRefresh) { [apiClient] in
             let endpoint = Endpoint(
                 urlString: AddyIo.API_URL_ACCOUNT_DETAILS,
                 method: .get
             )
             let single: SingleUserResource = try await apiClient.request(endpoint)
             return single.data
-        }
-        inFlightUserResourceTask = task
-        userResourceLock.unlock()
-
-        do {
-            let result = try await task.value
-            userResourceLock.lock()
-            cachedUserResource = result
-            lastUserResourceFetchTime = Date()
-            inFlightUserResourceTask = nil
-            userResourceLock.unlock()
-            return result
-        } catch {
-            userResourceLock.lock()
-            inFlightUserResourceTask = nil
-            userResourceLock.unlock()
-            throw error
         }
     }
 
@@ -302,43 +302,12 @@ public final class UserRepository: UserRepositoryProtocol, @unchecked Sendable {
     }
 
     public func getApiTokenDetails(forceRefresh: Bool = false) async throws -> ApiTokenDetails {
-        apiTokenDetailsLock.lock()
-        if !forceRefresh,
-           let cached = cachedApiTokenDetails,
-           let lastFetch = lastApiTokenDetailsFetchTime,
-           Date().timeIntervalSince(lastFetch) < cacheTtlSeconds {
-            apiTokenDetailsLock.unlock()
-            return cached
-        }
-
-        if let inFlight = inFlightApiTokenDetailsTask {
-            apiTokenDetailsLock.unlock()
-            return try await inFlight.value
-        }
-
-        let task = Task<ApiTokenDetails, Swift.Error> {
+        try await apiTokenDetailsCache.value(forceRefresh: forceRefresh) { [apiClient] in
             let endpoint = Endpoint(
                 urlString: AddyIo.API_URL_API_TOKEN_DETAILS,
                 method: .get
             )
             return try await apiClient.request(endpoint)
-        }
-        inFlightApiTokenDetailsTask = task
-        apiTokenDetailsLock.unlock()
-
-        do {
-            let result = try await task.value
-            apiTokenDetailsLock.lock()
-            cachedApiTokenDetails = result
-            lastApiTokenDetailsFetchTime = Date()
-            inFlightApiTokenDetailsTask = nil
-            apiTokenDetailsLock.unlock()
-            return result
-        } catch {
-            apiTokenDetailsLock.lock()
-            inFlightApiTokenDetailsTask = nil
-            apiTokenDetailsLock.unlock()
-            throw error
         }
     }
 

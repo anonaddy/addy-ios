@@ -167,10 +167,10 @@ class MainViewState: ObservableObject {
 
     @Published var userResourceData: String? {
         didSet {
-            if let jsonString = userResourceData, let jsonData = jsonString.data(using: .utf8) {
-                cachedUserResource = try? JSONDecoder().decode(UserResource.self, from: jsonData)
-            } else {
+            if userResourceData == nil {
                 cachedUserResource = nil
+            } else if cachedUserResource == nil, let jsonString = userResourceData, let jsonData = jsonString.data(using: .utf8) {
+                cachedUserResource = try? JSONDecoder().decode(UserResource.self, from: jsonData)
             }
             userResourceData.map { encryptedSettingsManager.putSettingsString(key: .userResource, string: $0) }
             userResourceChanged.send()
@@ -201,10 +201,10 @@ class MainViewState: ObservableObject {
 
     @Published var userResourceExtendedData: String? {
         didSet {
-            if let jsonString = userResourceExtendedData, let jsonData = jsonString.data(using: .utf8) {
-                cachedUserResourceExtended = try? JSONDecoder().decode(UserResourceExtended.self, from: jsonData)
-            } else {
+            if userResourceExtendedData == nil {
                 cachedUserResourceExtended = nil
+            } else if cachedUserResourceExtended == nil, let jsonString = userResourceExtendedData, let jsonData = jsonString.data(using: .utf8) {
+                cachedUserResourceExtended = try? JSONDecoder().decode(UserResourceExtended.self, from: jsonData)
             }
             userResourceExtendedData.map { encryptedSettingsManager.putSettingsString(key: .userResourceExtended, string: $0) }
         }

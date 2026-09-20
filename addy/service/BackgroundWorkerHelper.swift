@@ -19,6 +19,8 @@ class BackgroundWorkerHelper {
     static let shared = BackgroundWorkerHelper()
     static let backgroundWorker = BackgroundWorker()
 
+    private var activeTask: Task<Void, Never>? = nil
+
     private init() {}
 }
 
@@ -45,18 +47,21 @@ extension BackgroundWorkerHelper {
     func handleTask(_ task: BGTask) {
         show(message: task.identifier)
 
-        BackgroundWorkerHelper.backgroundWorker.performRequest { error in
+        activeTask = BackgroundWorkerHelper.backgroundWorker.performRequest { [weak self] error in
             task.setTaskCompleted(success: error == nil)
 
             // Schedule for next time
-            self.scheduleAppRefresh()
+            self?.scheduleAppRefresh()
+            self?.activeTask = nil
         }
 
-        task.expirationHandler = {
+        task.expirationHandler = { [weak self] in
+            self?.activeTask?.cancel()
+            self?.activeTask = nil
             task.setTaskCompleted(success: false)
 
             // Schedule for next time
-            self.scheduleAppRefresh()
+            self?.scheduleAppRefresh()
         }
     }
 

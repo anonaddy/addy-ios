@@ -53,10 +53,14 @@ struct AddyStatisticWidgetEntryView: View {
 
     var body: some View {
         if let userResource = getUserResource() {
+            let bandwidthLimit = Double(userResource.bandwidth_limit ?? 0)
+            let bandwidthCurrent = Double(userResource.bandwidth)
+            let gaugeUpperBound = bandwidthLimit > 0 ? max(bandwidthLimit, bandwidthCurrent) : max(bandwidthCurrent, 1.0)
+
             switch family {
             case .accessoryCircular:
                 Gauge(
-                    value: Double(userResource.bandwidth), in: 0 ... Double(userResource.bandwidth_limit ?? 0),
+                    value: bandwidthCurrent, in: 0 ... gaugeUpperBound,
                     label: { Text(String(localized: "widget_1_bandwidth_gauge")) },
                     currentValueLabel: { Text(String(userResource.bandwidth / 1024 / 1024)) },
                     minimumValueLabel: { Text("0") },
@@ -84,7 +88,7 @@ struct AddyStatisticWidgetEntryView: View {
                     }
                     Text(String(localized: "monthly_bandwidth")).frame(maxHeight: .infinity)
                     Gauge(
-                        value: Double(userResource.bandwidth), in: 0 ... Double(userResource.bandwidth_limit ?? 0),
+                        value: bandwidthCurrent, in: 0 ... gaugeUpperBound,
                         label: { Text(String(localized: "widget_1_bandwidth_gauge")) },
                         currentValueLabel: { Text(String(userResource.bandwidth / 1024 / 1024)) },
                         minimumValueLabel: { Text("0") },
@@ -238,8 +242,12 @@ struct AliasWidgetRowView: View {
         }
     }
 
+    private var destinationURL: URL {
+        URL(string: "addyio://alias/\(alias.id)") ?? URL(string: "addyio://") ?? URL(fileURLWithPath: "/")
+    }
+
     var body: some View {
-        Link(destination: URL(string: "addyio://alias/\(alias.id)") ?? URL(string: "addyio://")!) {
+        Link(destination: destinationURL) {
             HStack {
                 VStack(alignment: .leading) {
                     Text(SettingsManager(encrypted: true).getSettingsBool(key: .privacyMode) ? String(localized: "alias_hidden") : alias.email)

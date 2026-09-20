@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class GsonTools {
+public class JsonTools {
     public static func decode<T: Decodable>(_ type: T.Type = T.self, from json: String) -> T? {
         let loggingHelper = LoggingHelper()
         do {
@@ -27,3 +27,5 @@ public class GsonTools {
         return decode(UserResource.self, from: json)
     }
 }
+
+public typealias GsonTools = JsonTools

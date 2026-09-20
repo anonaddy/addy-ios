@@ -119,33 +119,30 @@ class ShareViewController: UIViewController {
         extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
     }
 
-    private func open(url: URL) {
+    private func schedulePendingActionAlert(title: String, message: String, url: URL) {
         SettingsManager(encrypted: true).putSettingsString(key: .pendingURLFromShareViewController, string: url.absoluteString)
 
-        // Create an alert
-        let alert = UIAlertController(title: String(localized: "shareviewcontroller_pending_url_scheduled"), message: String(localized: "shareviewcontroller_pending_url_scheduled_desc"), preferredStyle: .alert)
-
-        // Add an action to the alert
-        alert.addAction(UIAlertAction(title: String(localized: "understood", bundle: Bundle(for: SharedData.self)), style: .default, handler: { _ in
-            self.close()
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: String(localized: "understood", bundle: Bundle(for: SharedData.self)), style: .default, handler: { [weak self] _ in
+            self?.close()
         }))
 
-        // Present the alert
         present(alert, animated: true, completion: nil)
     }
 
+    private func open(url: URL) {
+        schedulePendingActionAlert(
+            title: String(localized: "shareviewcontroller_pending_url_scheduled"),
+            message: String(localized: "shareviewcontroller_pending_url_scheduled_desc"),
+            url: url
+        )
+    }
+
     private func openAliasInApp(url: URL) {
-        SettingsManager(encrypted: true).putSettingsString(key: .pendingURLFromShareViewController, string: url.absoluteString)
-
-        // Create an alert
-        let alert = UIAlertController(title: String(localized: "shareviewcontroller_pending_alias_scheduled"), message: String(localized: "shareviewcontroller_pending_alias_scheduled_desc"), preferredStyle: .alert)
-
-        // Add an action to the alert
-        alert.addAction(UIAlertAction(title: String(localized: "understood", bundle: Bundle(for: SharedData.self)), style: .default, handler: { _ in
-            self.close()
-        }))
-
-        // Present the alert
-        present(alert, animated: true, completion: nil)
+        schedulePendingActionAlert(
+            title: String(localized: "shareviewcontroller_pending_alias_scheduled"),
+            message: String(localized: "shareviewcontroller_pending_alias_scheduled_desc"),
+            url: url
+        )
     }
 }
