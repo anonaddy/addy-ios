@@ -36,6 +36,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		80C300022C9F49010085CCED /* AppSettingsFeaturesNotifyCertificateExpiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C300012C9F49010085CCED /* AppSettingsFeaturesNotifyCertificateExpiryView.swift */; };
 		045E6F622FEC63FE00217BBA /* EditAliasLabelsBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E6F612FEC63FE00217BBA /* EditAliasLabelsBottomSheet.swift */; };
 		045E6F642FEC641E00217BBA /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E6F632FEC641E00217BBA /* ChipView.swift */; };
 		045E6F682FEC642A00217BBA /* LabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E6F662FEC642A00217BBA /* LabelsView.swift */; };
@@ -366,6 +367,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		80C300012C9F49010085CCED /* AppSettingsFeaturesNotifyCertificateExpiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyCertificateExpiryView.swift; sourceTree = "<group>"; };
 		045E6F612FEC63FE00217BBA /* EditAliasLabelsBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasLabelsBottomSheet.swift; sourceTree = "<group>"; };
 		045E6F632FEC641E00217BBA /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
 		045E6F652FEC642A00217BBA /* AddLabelBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelBottomSheet.swift; sourceTree = "<group>"; };
@@ -883,6 +885,7 @@
 				806AE69E2C1A1A2A00F3CA92 /* AppSettingsFeaturesView.swift */,
 				806AE6A02C1A217000F3CA92 /* AppSettingsFeaturesWatchAliasView.swift */,
 				805D669F2C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift */,
+				80C300012C9F49010085CCED /* AppSettingsFeaturesNotifyCertificateExpiryView.swift */,
 				8054592D2C39A3850087A170 /* AppSettingsFeaturesMailToView.swift */,
 				80195D192C3DACAB00A82949 /* AppSettingsFeaturesWebintentResolutionView.swift */,
 				80ED9BB02C42EBDC0062FCB7 /* AppSettingsFeaturesAppIntentsView.swift */,
@@ -1652,6 +1655,7 @@
 				80813B6C2C0DE288009C4E6A /* AddDomainBottomSheet.swift in Sources */,
 				80E9B22C2C0B238900C7EF99 /* UsernamesDetailView.swift in Sources */,
 				805D66A02C1F49010085CCED /* AppSettingsFeaturesNotifyApiTokenExpiryView.swift in Sources */,
+				80C300022C9F49010085CCED /* AppSettingsFeaturesNotifyCertificateExpiryView.swift in Sources */,
 				80F3C6642BFB6E6D0028A486 /* AddAliasBottomSheet.swift in Sources */,
 				80DCF3AA2BF12DF00022690F /* NotificationHelper.swift in Sources */,
 				8073C9472C78727E00DE3640 /* AccountNotificationsViewModel.swift in Sources */,

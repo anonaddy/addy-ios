@@ -21,6 +21,7 @@ public class SettingsManager {
         case notifyFailedDeliveriesType
         case notifyAccountNotifications
         case notifyApiTokenExpiry
+        case notifyCertificateExpiry
         case notifyDomainError
         case notifySubscriptionExpiry
         case mailtoActivityShowSuggestions
@@ -48,6 +49,7 @@ public class SettingsManager {
         case backgroundServiceNotifiedFailedDeliveriesLatestId
         case backgroundServiceCacheAccountNotificationsCount
         case backgroundServiceCacheApiKeyExpiryLeftCount
+        case backgroundServiceCacheCertificateExpiryLeftCount
         case backgroundServiceCacheSubscriptionExpiryLeftCount
         case backgroundServiceCacheDomainErrorCount
         case backgroundServiceCacheAccountNotificationsCountPrevious

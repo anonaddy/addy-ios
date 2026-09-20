@@ -172,6 +172,7 @@ extension BackgroundWorkerHelper {
             let shouldCheckForFailedDeliveries = settingsManager.getSettingsBool(key: .notifyFailedDeliveries)
             let shouldCheckForAccountNotifications = settingsManager.getSettingsBool(key: .notifyAccountNotifications)
             let shouldCheckApiTokenExpiry = settingsManager.getSettingsBool(key: .notifyApiTokenExpiry)
+            let shouldCheckCertificateExpiry = settingsManager.getSettingsBool(key: .notifyCertificateExpiry)
 
             // If there are
             // -aliases to be watched
@@ -184,7 +185,7 @@ extension BackgroundWorkerHelper {
                 print("isThereWorkTodo: aliasToWatch=\(aliasToWatch);amountOfWidgets=\(amountOfWidgets);NOTIFY_UPDATES=\(shouldCheckForUpdates);NOTIFY_FAILED_DELIVERIES=\(shouldCheckForFailedDeliveries);NOTIFY_ACCOUNT_NOTIFICATIONS=\(shouldCheckForAccountNotifications)")
             #endif
 
-            return !aliasToWatch.isEmpty || amountOfWidgets > 0 || shouldCheckForUpdates || shouldCheckForFailedDeliveries || shouldCheckForAccountNotifications || shouldCheckApiTokenExpiry
+            return !aliasToWatch.isEmpty || amountOfWidgets > 0 || shouldCheckForUpdates || shouldCheckForFailedDeliveries || shouldCheckForAccountNotifications || shouldCheckApiTokenExpiry || shouldCheckCertificateExpiry
         } else {
             return false
         }

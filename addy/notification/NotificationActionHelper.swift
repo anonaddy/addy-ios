@@ -20,6 +20,8 @@ enum NotificationActions {
     static let stopFailedDeliveriesCheck = "stopFailedDeliveryCheck"
     static let stopAccountNotificationsCheck = "stopAccountNotificationsCheck"
     static let stopApiExpiryCheck = "stopApiExpiryCheck"
+    static let stopCertificateExpiryCheck = "stopCertificateExpiryCheck"
+    static let openCertificateExpirationWarning = "openCertificateExpirationWarning"
     static let openApiExpirationWarning = "openApiExpirationWarning"
     static let openSubscriptionExpirationWarning = "openSubscriptionExpirationWarning"
     static let stopDomainErrorCheck = "stopDomainErrorCheck"
@@ -39,6 +41,7 @@ class NotificationActionHelper {
         case NotificationActions.stopAccountNotificationsCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyAccountNotifications, boolean: false)
         case NotificationActions.stopSubscriptionExpiryCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifySubscriptionExpiry, boolean: false)
         case NotificationActions.stopApiExpiryCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyApiTokenExpiry, boolean: false)
+        case NotificationActions.stopCertificateExpiryCheck: SettingsManager(encrypted: false).putSettingsBool(key: .notifyCertificateExpiry, boolean: false)
         case NotificationActions.disableAlias:
             if let aliasId = response.notification.request.content.userInfo["aliasId"] as? String {
                 MainViewState.shared.aliasToDisable = aliasId
@@ -64,6 +67,7 @@ class NotificationActionHelper {
             case NotificationActions.openAccountNotifications: MainViewState.shared.isPresentingAccountNotificationsSheet = true
             case NotificationActions.openApiExpirationWarning: MainViewState.shared.showApiExpirationWarning = true
             case NotificationActions.openSubscriptionExpirationWarning: MainViewState.shared.showSubscriptionExpirationWarning = true
+            case NotificationActions.openCertificateExpirationWarning: MainViewState.shared.showCertificateExpirationWarning = true
             case NotificationActions.openWatchKitLogs:
                 MainViewState.shared.isPresentingProfileBottomSheet = false
                 MainViewState.shared.isPresentingWatchKitLogsSheet = true

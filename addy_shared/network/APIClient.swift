@@ -13,6 +13,7 @@ public protocol APIClientProtocol: AnyObject, Sendable {
     func requestRaw(_ endpoint: Endpoint) async throws -> (Data, HTTPURLResponse)
     func download(_ endpoint: Endpoint, destination: URL) async throws -> URL
     func isCertificatePasswordCorrect() -> Bool
+    func getCertificateExpirationDate() -> Date?
     func createAppResetDueToInvalidAPIKeyNotification()
     func mapResponseError(response: HTTPURLResponse, data: Data, requestURL: String) -> NetworkError
 }
@@ -63,6 +64,58 @@ public final class APIClient: NSObject, URLSessionDelegate, APIClientProtocol, @
         }
         let password = p12Password ?? ""
         return createSecIdentity(from: p12, with: password) != nil
+    }
+
+    public func getCertificateExpirationDate() -> Date? {
+        guard let p12 = p12 else {
+            return nil
+        }
+        let password = p12Password ?? ""
+        guard let identity = createSecIdentity(from: p12, with: password),
+              let certificate = copyCertificate(from: identity) else {
+            return nil
+        }
+        let derData = SecCertificateCopyData(certificate) as Data
+        return extractNotAfterFromDER(der: derData)
+    }
+
+    private func extractNotAfterFromDER(der: Data) -> Date? {
+        var timeTagsFound = [Date]()
+        var i = 0
+        let count = der.count
+        let bytes = [UInt8](der)
+
+        let utcFormatter = DateFormatter()
+        utcFormatter.dateFormat = "yyMMddHHmmss'Z'"
+        utcFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        let genFormatter = DateFormatter()
+        genFormatter.dateFormat = "yyyyMMddHHmmss'Z'"
+        genFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        while i < count - 15 {
+            let tag = bytes[i]
+            if tag == 0x17 || tag == 0x18 {
+                let length = Int(bytes[i + 1])
+                if (tag == 0x17 && (length == 13 || length == 15)) || (tag == 0x18 && (length == 15 || length == 17)) {
+                    if i + 2 + length <= count {
+                        let dateData = der.subdata(in: (i + 2)..<(i + 2 + length))
+                        if let dateStr = String(data: dateData, encoding: .ascii) {
+                            if tag == 0x17, let d = utcFormatter.date(from: dateStr) {
+                                timeTagsFound.append(d)
+                            } else if tag == 0x18, let d = genFormatter.date(from: dateStr) {
+                                timeTagsFound.append(d)
+                            }
+                        }
+                    }
+                }
+            }
+            i += 1
+        }
+        if timeTagsFound.count >= 2 {
+            return timeTagsFound[1]
+        }
+        return timeTagsFound.last
     }
 
     private func createSecIdentity(from p12Data: Data, with password: String) -> SecIdentity? {

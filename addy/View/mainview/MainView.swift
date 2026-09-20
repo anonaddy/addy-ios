@@ -14,6 +14,7 @@ struct MainView: View {
     @State private var pendingURLFromShareViewController: IdentifiableURL?
     @State private var apiTokenExpiryText = ""
     @State private var subscriptionExpiryText = ""
+    @State private var certificateExpiryText = ""
     @State private var isShowingAddApiSheet = false
     @State private var isShowingChangelogSheet = false
     @State private var showBiometricsAlert = false
@@ -32,7 +33,7 @@ struct MainView: View {
     }
 
     private enum AlertType: Identifiable {
-        case apiExpiration, subscriptionExpiration
+        case apiExpiration, subscriptionExpiration, certificateExpiration
         var id: Self {
             self
         }
@@ -43,12 +44,14 @@ struct MainView: View {
             get: {
                 if mainViewState.showApiExpirationWarning { return .apiExpiration }
                 if mainViewState.showSubscriptionExpirationWarning { return .subscriptionExpiration }
+                if mainViewState.showCertificateExpirationWarning { return .certificateExpiration }
                 return nil
             },
             set: { newValue in
                 if newValue == nil {
                     mainViewState.showApiExpirationWarning = false
                     mainViewState.showSubscriptionExpirationWarning = false
+                    mainViewState.showCertificateExpirationWarning = false
                 }
             }
         )
@@ -151,6 +154,18 @@ struct MainView: View {
                         mainViewState.showSubscriptionExpirationWarning = false
                     }
                 )
+            case .certificateExpiration:
+                return Alert(
+                    title: Text(String(localized: "certificate_about_to_expire")),
+                    message: Text(certificateExpiryText.isEmpty ? String(localized: "certificate_expiry_date_unknown") : String(format: String(localized: "certificate_about_to_expire_desc"), certificateExpiryText)),
+                    primaryButton: .default(Text(String(localized: "certificate_about_to_expire_option_1"))) {
+                        isShowingAddApiSheet = true
+                        mainViewState.showCertificateExpirationWarning = false
+                    },
+                    secondaryButton: .cancel(Text(String(localized: "dismiss"))) {
+                        mainViewState.showCertificateExpirationWarning = false
+                    }
+                )
             }
         }
         .sheet(isPresented: $connectivity.showSetupSheet) {
@@ -249,6 +264,7 @@ struct MainView: View {
         await withTaskGroup(of: Void.self) { group in
             group.addTask { await checkForUpdates() }
             group.addTask { await checkTokenExpiry() }
+            group.addTask { await checkForCertificateExpiration() }
             group.addTask { await checkForSubscriptionExpiration() }
             group.addTask { await checkForNewFailedDeliveries() }
             group.addTask { await checkForNewAccountNotifications() }
@@ -363,6 +379,17 @@ struct MainView: View {
         }
     }
 
+    private func checkForCertificateExpiration() async {
+        guard let p12 = mainViewState.encryptedSettingsManager.getSettingsData(key: .p12) else { return }
+        let p12Password = mainViewState.encryptedSettingsManager.getSettingsString(key: .p12Password)
+        guard let expiryDate = APIClient(p12: p12, p12Password: p12Password).getCertificateExpirationDate() else { return }
+        let currentDate = Date()
+        if let deadlineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate), currentDate > deadlineDate {
+            certificateExpiryText = expiryDate.futureDateDisplay()
+            mainViewState.showCertificateExpirationWarning = true
+        }
+    }
+
     private func checkTokenExpiry() async {
         do {
             let apiTokenDetails = try await UserRepository.shared.getApiTokenDetails()
@@ -450,6 +477,7 @@ struct MainView: View {
         Task {
             await withTaskGroup(of: Void.self) { group in
                 group.addTask { await checkForUpdates() }
+                group.addTask { await checkForCertificateExpiration() }
                 group.addTask { await checkForSubscriptionExpiration() }
                 group.addTask { await checkForNewFailedDeliveries() }
                 group.addTask { await checkForNewAccountNotifications() }

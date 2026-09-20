@@ -161,6 +161,28 @@ class NotificationHelper {
         UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
     }
 
+    func createCertificateExpiryNotification(daysLeft: String) {
+        let content = UNMutableNotificationContent()
+        content.title = String(localized: "notification_certificate_about_to_expire")
+        content.subtitle = String(format: String(localized: "notification_certificate_about_to_expire_desc"), daysLeft)
+        content.sound = .default
+
+        let action1 = UNNotificationAction(identifier: NotificationActions.stopCertificateExpiryCheck, title: String(localized: "disable_notifications"), options: [])
+        let category = UNNotificationCategory(identifier: NotificationActions.openCertificateExpirationWarning, actions: [action1], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        content.categoryIdentifier = NotificationActions.openCertificateExpirationWarning
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: NotificationActions.openCertificateExpirationWarning, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+    }
+
     func createApiTokenExpiryNotification(daysLeft: String) {
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_api_token_about_to_expire")

@@ -35,6 +35,10 @@ struct AppSettingsFeaturesView: View {
                     AddySection(title: String(localized: "feature_api_token_expiry_notification"), description: String(localized: "notify_api_token_expiry_feature_section_desc"), leadingSystemimage: "textformat", leadingSystemimageColor: .cyan)
                 }
 
+                NavigationLink(destination: AppSettingsFeaturesNotifyCertificateExpiryView()) {
+                    AddySection(title: String(localized: "feature_certificate_expiry_notification"), description: String(localized: "notify_certificate_expiry_feature_section_desc"), leadingSystemimage: "lock.shield.fill", leadingSystemimageColor: .indigo)
+                }
+
                 NavigationLink(destination: AppSettingsFeaturesNotifyDomainErrorView()) {
                     AddySection(title: String(localized: "feature_domain_error_notification"), description: String(localized: "notify_domain_error_feature_section_desc"), leadingSystemimage: "exclamationmark.icloud.fill", leadingSystemimageColor: .yellow)
                 }

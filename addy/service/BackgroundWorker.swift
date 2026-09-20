@@ -148,6 +148,37 @@ class BackgroundWorker {
                 }
 
                 /*
+                 CLIENT CERTIFICATE
+                 */
+
+                #if DEBUG
+                    logger.log("BackgroundWorker task 5.5")
+                    LoggingHelper().addLog(
+                        importance: LogImportance.info,
+                        error: "Running task 5.5",
+                        method: "BackgroundWorker task 5.5",
+                        extra: nil
+                    )
+                #endif
+
+                if settingsManager.getSettingsBool(key: .notifyCertificateExpiry) {
+                    if let expiryDate = APIClient.shared.getCertificateExpirationDate() {
+                        let currentDateTime = Date()
+                        let deadLineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate)
+                        if let deadLineDate = deadLineDate, currentDateTime > deadLineDate {
+                            let previousNotificationLeftDays = encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheCertificateExpiryLeftCount)
+                            let currentLeftDays = Calendar.current.dateComponents([.day], from: currentDateTime, to: deadLineDate).day ?? 0
+
+                            if previousNotificationLeftDays != currentLeftDays {
+                                encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheCertificateExpiryLeftCount, int: currentLeftDays)
+
+                                NotificationHelper().createCertificateExpiryNotification(daysLeft: expiryDate.futureDateDisplay())
+                            }
+                        }
+                    }
+                }
+
+                /*
                  DOMAIN ERRORS
                  */
 
