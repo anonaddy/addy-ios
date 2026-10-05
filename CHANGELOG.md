@@ -1,6 +1,6 @@
 # Changelog
  
-## [v2.7.0] - 2026-09-20
+## [v2.7.0] - 2026-10-03
 
 **Highlights**
 - **iOS 27 Support**: Full compatibility, refinements, and optimizations for iOS 27.

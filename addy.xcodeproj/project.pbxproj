@@ -36,7 +36,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		80C300022C9F49010085CCED /* AppSettingsFeaturesNotifyCertificateExpiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C300012C9F49010085CCED /* AppSettingsFeaturesNotifyCertificateExpiryView.swift */; };
 		045E6F622FEC63FE00217BBA /* EditAliasLabelsBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E6F612FEC63FE00217BBA /* EditAliasLabelsBottomSheet.swift */; };
 		045E6F642FEC641E00217BBA /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E6F632FEC641E00217BBA /* ChipView.swift */; };
 		045E6F682FEC642A00217BBA /* LabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E6F662FEC642A00217BBA /* LabelsView.swift */; };
@@ -208,6 +207,7 @@
 		80B2FBC92C3C4E96009977B6 /* AnonAddyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FBC72C3C4E6D009977B6 /* AnonAddyUtils.swift */; };
 		80B2FBCA2C3C4EB4009977B6 /* AddyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B2FB792C3C4388009977B6 /* AddyChipModel.swift */; };
 		80BB84182BF00ABF005999C3 /* MyAliasLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */; };
+		80C300022C9F49010085CCED /* AppSettingsFeaturesNotifyCertificateExpiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C300012C9F49010085CCED /* AppSettingsFeaturesNotifyCertificateExpiryView.swift */; };
 		80CE87DD2C209CAD001ECF5C /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CE87DC2C209CA9001ECF5C /* ProfilePicture.swift */; };
 		80CEC33E2C012E7600EC651F /* RecipientsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */; };
 		80CEC3452C01354300EC651F /* RecipientsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEC3442C01354300EC651F /* RecipientsDetailView.swift */; };
@@ -365,7 +365,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		80C300012C9F49010085CCED /* AppSettingsFeaturesNotifyCertificateExpiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyCertificateExpiryView.swift; sourceTree = "<group>"; };
 		045E6F612FEC63FE00217BBA /* EditAliasLabelsBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAliasLabelsBottomSheet.swift; sourceTree = "<group>"; };
 		045E6F632FEC641E00217BBA /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
 		045E6F652FEC642A00217BBA /* AddLabelBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelBottomSheet.swift; sourceTree = "<group>"; };
@@ -513,6 +512,7 @@
 		80B2FBB82C3C4C0A009977B6 /* Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apply.swift; sourceTree = "<group>"; };
 		80B2FBC72C3C4E6D009977B6 /* AnonAddyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonAddyUtils.swift; sourceTree = "<group>"; };
 		80BB84172BF00ABF005999C3 /* MyAliasLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAliasLabelStyle.swift; sourceTree = "<group>"; };
+		80C300012C9F49010085CCED /* AppSettingsFeaturesNotifyCertificateExpiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsFeaturesNotifyCertificateExpiryView.swift; sourceTree = "<group>"; };
 		80CE87DC2C209CA9001ECF5C /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
 		80CEC33D2C012E7600EC651F /* RecipientsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsViewModel.swift; sourceTree = "<group>"; };
 		80CEC3442C01354300EC651F /* RecipientsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientsDetailView.swift; sourceTree = "<group>"; };
@@ -1882,7 +1882,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMPANION_APP_BUNDLE_ID = host.stjin.addy.debug;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -1977,7 +1977,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMPANION_APP_BUNDLE_ID = host.stjin.addy.debug;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2065,7 +2065,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMPANION_APP_BUNDLE_ID = host.stjin.addy;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2153,7 +2153,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMPANION_APP_BUNDLE_ID = host.stjin.addy;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2687,7 +2687,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -2728,7 +2728,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2759,7 +2759,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2869,7 +2869,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -2910,7 +2910,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2942,7 +2942,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2992,7 +2992,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3025,7 +3025,7 @@
 				CODE_SIGN_ENTITLEMENTS = AddyStatisticWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3057,7 +3057,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3089,7 +3089,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3249,7 +3249,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.debug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
@@ -3291,7 +3291,7 @@
 				CODE_SIGN_ENTITLEMENTS = addy/addy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_ASSET_PATHS = "\"addy/Preview Content\"";
 				DEVELOPMENT_TEAM = 83RFSJ6CUP;
 				ENABLE_PREVIEWS = YES;
