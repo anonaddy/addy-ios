@@ -27,6 +27,17 @@
 			</array>
 		</dict>
 	</array>
+	<key>CoreSpotlightActions</key>
+	<array>
+		<dict>
+			<key>CoreSpotlightActionIdentifier</key>
+			<string>host.stjin.addy.spotlight_add_alias</string>
+			<key>CoreSpotlightActionSymbolImage</key>
+			<string>plus</string>
+			<key>CoreSpotlightActionTitle</key>
+			<string>Add alias</string>
+		</dict>
+	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sparrow</string>
@@ -39,6 +50,11 @@
 		<string>fastmail</string>
 		<string>protonmail</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

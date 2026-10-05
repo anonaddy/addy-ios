@@ -29,7 +29,7 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
                         // Only fire when the value is NOT the same as the value already in the model
                         if notifyApiTokenExpiry != MainViewState.shared.settingsManager.getSettingsBool(key: .notifyApiTokenExpiry) {
                             MainViewState.shared.settingsManager.putSettingsBool(key: .notifyApiTokenExpiry, boolean: notifyApiTokenExpiry)
-                            BackgroundWorkerHelper().scheduleAppRefresh()
+                            BackgroundWorkerHelper.shared.scheduleAppRefresh()
                         }
                     }
 
@@ -73,17 +73,13 @@ struct AppSettingsFeaturesNotifyApiTokenExpiryView: View {
 
     private func checkTokenExpiry() async {
         do {
-            let apiTokenDetails = try await NetworkHelper().getApiTokenDetails()
-            if let apiTokenDetails = apiTokenDetails {
-                if let expiresAt = apiTokenDetails.expires_at {
-                    let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(expiresAt) // Get the expiry date
-                    let text = expiryDate.futureDateDisplay() // Use the new method here
-                    apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date", comment: ""), apiTokenDetails.name, text)
-                } else {
-                    apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date_never", comment: ""), apiTokenDetails.name, AddyIo.API_BASE_URL)
-                }
+            let apiTokenDetails = try await UserRepository.shared.getApiTokenDetails()
+            if let expiresAt = apiTokenDetails.expires_at {
+                let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(expiresAt) // Get the expiry date
+                let text = expiryDate.futureDateDisplay() // Use the new method here
+                apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date", comment: ""), apiTokenDetails.name, text)
             } else {
-                apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date_unknown", comment: ""), AddyIo.API_BASE_URL)
+                apiExpiryText = String(format: NSLocalizedString("current_api_token_expiry_date_never", comment: ""), apiTokenDetails.name, AddyIo.API_BASE_URL)
             }
         } catch {
             // Panic

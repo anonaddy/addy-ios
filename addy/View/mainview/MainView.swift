@@ -1,6 +1,5 @@
 import addy_shared
 import LocalAuthentication
-import Lottie
 import SwiftUI
 
 struct MainView: View {
@@ -15,16 +14,16 @@ struct MainView: View {
     @State private var pendingURLFromShareViewController: IdentifiableURL?
     @State private var apiTokenExpiryText = ""
     @State private var subscriptionExpiryText = ""
+    @State private var certificateExpiryText = ""
     @State private var isShowingAddApiSheet = false
     @State private var isShowingChangelogSheet = false
     @State private var showBiometricsAlert = false
     @State private var lastGeneralRefresh = Date.now
+    @State private var isAuthenticating = false
 
-    // State variables
-    // MARK: Share sheet AND MailTo tap action
-
-    // MARK: END Share sheet AND MailTo tap action
-
+    // NOTE: In-app biometric locking should be phased out once the project's minimum deployment target is bumped to iOS 18+.
+    // iOS 18+ provides system-level "Require Face ID" via long-press on the app icon on the Home Screen, which natively
+    // manages authentication, app switcher obscuring, and notification privacy without in-app lifecycle edge cases.
     private var shouldShowLockedView: Bool {
         mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled) && !mainViewState.isUnlocked
     }
@@ -34,7 +33,7 @@ struct MainView: View {
     }
 
     private enum AlertType: Identifiable {
-        case apiExpiration, subscriptionExpiration
+        case apiExpiration, subscriptionExpiration, certificateExpiration
         var id: Self {
             self
         }
@@ -45,12 +44,14 @@ struct MainView: View {
             get: {
                 if mainViewState.showApiExpirationWarning { return .apiExpiration }
                 if mainViewState.showSubscriptionExpirationWarning { return .subscriptionExpiration }
+                if mainViewState.showCertificateExpirationWarning { return .certificateExpiration }
                 return nil
             },
             set: { newValue in
                 if newValue == nil {
                     mainViewState.showApiExpirationWarning = false
                     mainViewState.showSubscriptionExpirationWarning = false
+                    mainViewState.showCertificateExpirationWarning = false
                 }
             }
         )
@@ -82,7 +83,14 @@ struct MainView: View {
             ContentUnavailableView {
                 Label(String(localized: "addyio_locked"), systemImage: "lock.fill")
             } description: {
-                Text(String(localized: "addyio_locked_desc"))
+                VStack(spacing: 8) {
+                    Text(String(localized: "addyio_locked_desc"))
+                    Text(String(localized: "biometric_lock_deprecation_notice"))
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 4)
+                }
             } actions: {
                 Button(String(localized: "unlock")) { authenticate() }
             }
@@ -146,6 +154,18 @@ struct MainView: View {
                         mainViewState.showSubscriptionExpirationWarning = false
                     }
                 )
+            case .certificateExpiration:
+                return Alert(
+                    title: Text(String(localized: "certificate_about_to_expire")),
+                    message: Text(certificateExpiryText.isEmpty ? String(localized: "certificate_expiry_date_unknown") : String(format: String(localized: "certificate_about_to_expire_desc"), certificateExpiryText)),
+                    primaryButton: .default(Text(String(localized: "certificate_about_to_expire_option_1"))) {
+                        isShowingAddApiSheet = true
+                        mainViewState.showCertificateExpirationWarning = false
+                    },
+                    secondaryButton: .cancel(Text(String(localized: "dismiss"))) {
+                        mainViewState.showCertificateExpirationWarning = false
+                    }
+                )
             }
         }
         .sheet(isPresented: $connectivity.showSetupSheet) {
@@ -169,14 +189,12 @@ struct MainView: View {
             .presentationDetents([.fraction(0.3)])
         }
         .sheet(isPresented: $mainViewState.isPresentingProfileBottomSheet) {
-            NavigationStack {
-                ProfileBottomSheet(
-                    onNavigate: { mainViewState.isPresentingProfileBottomSheet = false; mainViewState.selectedTab = $0 },
-                    isPresentingProfileBottomSheet: $mainViewState.isPresentingProfileBottomSheet,
-                    horizontalSize: horizontalSizeClass
-                )
-                .environmentObject(mainViewState)
-            }
+            ProfileBottomSheet(
+                onNavigate: { mainViewState.isPresentingProfileBottomSheet = false; mainViewState.selectedTab = $0 },
+                isPresentingProfileBottomSheet: $mainViewState.isPresentingProfileBottomSheet,
+                horizontalSize: horizontalSizeClass
+            )
+            .environmentObject(mainViewState)
             .interactiveDismissDisabled()
             .presentationDetents([.large])
         }
@@ -189,6 +207,12 @@ struct MainView: View {
         .sheet(isPresented: $mainViewState.isPresentingAccountNotificationsSheet) {
             NavigationStack {
                 AccountNotificationsView(horizontalSize: horizontalSizeClass)
+            }
+            .presentationDetents([.large])
+        }
+        .sheet(isPresented: $mainViewState.isPresentingWatchKitLogsSheet) {
+            NavigationStack {
+                LogViewerView(showWatchOsLogs: true, isPresentedInSheet: true)
             }
             .presentationDetents([.large])
         }
@@ -211,25 +235,18 @@ struct MainView: View {
 
     @ViewBuilder
     private func tabItem(for destination: Destination, sizeClass: UserInterfaceSizeClass?) -> some View {
-        if let sizeClass = sizeClass {
-            destination.view(horizontalSize: .constant(sizeClass), refreshGeneralData: refreshGeneralData)
-                .tag(destination)
-                .tabItem { Label(destination.title, systemImage: destination.systemImage) }
-                .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
-        } else {
-            // Fallback, e.g. .compact
-            destination.view(horizontalSize: .constant(.compact), refreshGeneralData: refreshGeneralData)
-                .tag(destination)
-                .tabItem { Label(destination.title, systemImage: destination.systemImage) }
-                .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
-        }
+        let effectiveSize = sizeClass ?? .compact
+        destination.view(horizontalSize: .constant(effectiveSize), refreshGeneralData: refreshGeneralData)
+            .tag(destination)
+            .tabItem { Label(destination.title, systemImage: destination.systemImage) }
+            .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
     }
 
     private func handleOnAppear() {
         // Also perform BGTask immediately when opening the app
         BackgroundWorkerHelper.backgroundWorker.performRequest { _ in
             // Schedule background tasks after it was executed
-            BackgroundWorkerHelper().scheduleAppRefresh()
+            BackgroundWorkerHelper.shared.scheduleAppRefresh()
         }
         checkForChangelog()
         openDefaultPage()
@@ -247,6 +264,7 @@ struct MainView: View {
         await withTaskGroup(of: Void.self) { group in
             group.addTask { await checkForUpdates() }
             group.addTask { await checkTokenExpiry() }
+            group.addTask { await checkForCertificateExpiration() }
             group.addTask { await checkForSubscriptionExpiration() }
             group.addTask { await checkForNewFailedDeliveries() }
             group.addTask { await checkForNewAccountNotifications() }
@@ -261,7 +279,11 @@ struct MainView: View {
                 mainViewState.isUnlocked = false
             }
         case .active:
-            // User opens the app and the app is not unlocked
+            // User opens the app and the app is not unlocked: trigger biometric prompt automatically
+            if shouldShowLockedView {
+                authenticate()
+            }
+
             if mainViewState.aliasToDisable != nil {
                 mainViewState.selectedTab = .aliases
             }
@@ -289,15 +311,11 @@ struct MainView: View {
     }
 
     private func handleURL(url: URL) {
-        // handle the in coming url or call a function
-        if url.host == "alias" {
-            mainViewState.showAliasWithId = url.lastPathComponent
-            mainViewState.selectedTab = .aliases
-        }
+        mainViewState.handleIncomingURL(url)
     }
 
     private func checkForChangelog() {
-        let currentVersionCode = Int(Bundle.main.infoDictionary!["CFBundleVersion"] as! String) ?? 0
+        let currentVersionCode = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String).flatMap(Int.init) ?? 0
         if SettingsManager(encrypted: false).getSettingsInt(key: .versionCode) < currentVersionCode {
             isShowingChangelogSheet = true
             SettingsManager(encrypted: false).putSettingsInt(key: .versionCode, int: currentVersionCode)
@@ -305,6 +323,16 @@ struct MainView: View {
     }
 
     private func openDefaultPage() {
+        // Do not override if an incoming shortcut, spotlight activity, or deep link is pending
+        guard !mainViewState.showAddAliasBottomSheet,
+              mainViewState.showAliasWithId == nil,
+              mainViewState.aliasToDisable == nil,
+              mainViewState.mailToActionSheetData == nil,
+              mainViewState.blockActionRequest == nil,
+              mainViewState.selectedTab == .home else {
+            return
+        }
+
         // Check if the value exists in the array, default (but dont reset) to home if not (this could occur if eg. a tablet backup (which has more options) gets restored on mobile)
         // Don't reset the value as this app could be opened in splitscreen, we don't want to reset the value then.
 
@@ -319,7 +347,8 @@ struct MainView: View {
         // Only check on hosted instance
         guard AddyIo.isUsingHostedInstance() else { return }
         do {
-            if let user = try await NetworkHelper().getUserResource(), let subscriptionEndsAt = user.subscription_ends_at {
+            let user = try await UserRepository.shared.getUserResource()
+            if let subscriptionEndsAt = user.subscription_ends_at {
                 let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(subscriptionEndsAt)
                 let currentDate = Date()
                 if let deadlineDate = Calendar.current.date(byAdding: .day, value: -7, to: expiryDate), currentDate > deadlineDate {
@@ -350,9 +379,21 @@ struct MainView: View {
         }
     }
 
+    private func checkForCertificateExpiration() async {
+        guard let p12 = mainViewState.encryptedSettingsManager.getSettingsData(key: .p12) else { return }
+        let p12Password = mainViewState.encryptedSettingsManager.getSettingsString(key: .p12Password)
+        guard let expiryDate = APIClient(p12: p12, p12Password: p12Password).getCertificateExpirationDate() else { return }
+        let currentDate = Date()
+        if let deadlineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate), currentDate > deadlineDate {
+            certificateExpiryText = expiryDate.futureDateDisplay()
+            mainViewState.showCertificateExpirationWarning = true
+        }
+    }
+
     private func checkTokenExpiry() async {
         do {
-            if let apiTokenDetails = try await NetworkHelper().getApiTokenDetails(), let expiresAt = apiTokenDetails.expires_at {
+            let apiTokenDetails = try await UserRepository.shared.getApiTokenDetails()
+            if let expiresAt = apiTokenDetails.expires_at {
                 let expiryDate = try DateTimeUtils.convertStringToLocalTimeZoneDate(expiresAt)
                 let currentDate = Date()
                 if let deadlineDate = Calendar.current.date(byAdding: .day, value: -5, to: expiryDate), currentDate > deadlineDate {
@@ -369,26 +410,25 @@ struct MainView: View {
 
     private func checkForNewFailedDeliveries() async {
         do {
-            if let result = try await NetworkHelper().getFailedDeliveries() {
-                let previousFailedDeliveryId = mainViewState.encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
+            let result = try await FailedDeliveriesRepository.shared.getFailedDeliveries()
+            let previousFailedDeliveryId = mainViewState.encryptedSettingsManager.getSettingsString(key: .backgroundServiceCacheFailedDeliveriesLatestId)
 
-                if let currentId = result.data.first?.id, !currentId.isEmpty {
-                    if previousFailedDeliveryId == nil || previousFailedDeliveryId == "" {
-                        let totalCount = result.meta?.total ?? result.data.count
-                        withAnimation { mainViewState.newFailedDeliveries = totalCount }
-                    } else if let previousId = previousFailedDeliveryId, currentId != previousId {
-                        var newDeliveriesCount = 0
-                        for delivery in result.data {
-                            if delivery.id == previousId { break }
-                            newDeliveriesCount += 1
-                        }
-
-                        if newDeliveriesCount <= 0 {
-                            newDeliveriesCount = 1
-                        }
-
-                        withAnimation { mainViewState.newFailedDeliveries = newDeliveriesCount }
+            if let currentId = result.data.first?.id, !currentId.isEmpty {
+                if previousFailedDeliveryId == nil || previousFailedDeliveryId == "" {
+                    let totalCount = result.meta?.total ?? result.data.count
+                    withAnimation { mainViewState.newFailedDeliveries = totalCount }
+                } else if let previousId = previousFailedDeliveryId, currentId != previousId {
+                    var newDeliveriesCount = 0
+                    for delivery in result.data {
+                        if delivery.id == previousId { break }
+                        newDeliveriesCount += 1
                     }
+
+                    if newDeliveriesCount <= 0 {
+                        newDeliveriesCount = 1
+                    }
+
+                    withAnimation { mainViewState.newFailedDeliveries = newDeliveriesCount }
                 }
             }
         } catch {
@@ -398,11 +438,10 @@ struct MainView: View {
 
     private func checkForNewAccountNotifications() async {
         do {
-            if let result = try await NetworkHelper().getAllAccountNotifications() {
-                let currentCount = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheAccountNotificationsCount)
-                if result.data.count > currentCount {
-                    withAnimation { mainViewState.newAccountNotifications = result.data.count - currentCount }
-                }
+            let result = try await AppMaintenanceRepository.shared.getAllAccountNotifications()
+            let currentCount = mainViewState.encryptedSettingsManager.getSettingsInt(key: .backgroundServiceCacheAccountNotificationsCount)
+            if result.data.count > currentCount {
+                withAnimation { mainViewState.newAccountNotifications = result.data.count - currentCount }
             }
         } catch {
             // Error will be logged when user has enabled this
@@ -410,10 +449,13 @@ struct MainView: View {
     }
 
     private func authenticate() {
+        guard !isAuthenticating else { return }
         let context = LAContext()
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+            isAuthenticating = true
             context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: String(localized: "addyio_locked")) { success, _ in
                 DispatchQueue.main.async {
+                    self.isAuthenticating = false
                     withAnimation { mainViewState.isUnlocked = success }
                 }
             }
@@ -435,6 +477,7 @@ struct MainView: View {
         Task {
             await withTaskGroup(of: Void.self) { group in
                 group.addTask { await checkForUpdates() }
+                group.addTask { await checkForCertificateExpiration() }
                 group.addTask { await checkForSubscriptionExpiration() }
                 group.addTask { await checkForNewFailedDeliveries() }
                 group.addTask { await checkForNewAccountNotifications() }
@@ -447,9 +490,8 @@ struct MainView: View {
 
     private func getUserResource() async {
         do {
-            if let userResource = try await NetworkHelper().getUserResource() {
-                mainViewState.userResource = userResource
-            }
+            let userResource = try await UserRepository.shared.getUserResource()
+            mainViewState.userResource = userResource
         } catch {
             print("Failed to get user resource: \(error)")
         }
@@ -458,8 +500,8 @@ struct MainView: View {
     private func checkForUpdates() async {
         guard mainViewState.settingsManager.getSettingsBool(key: .notifyUpdates) else { return }
         do {
-            let (updateAvailable, _, _, _) = try await Updater().isUpdateAvailable()
-            withAnimation { mainViewState.updateAvailable = updateAvailable }
+            let result = try await Updater().isUpdateAvailable()
+            withAnimation { mainViewState.updateAvailable = result.isUpdateAvailable }
         } catch {}
     }
 
@@ -467,12 +509,12 @@ struct MainView: View {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             DispatchQueue.main.async { mainViewState.permissionsRequired = settings.authorizationStatus != .authorized }
         }
-        mainViewState.backgroundAppRefreshDenied = !BackgroundWorkerHelper().checkBackgroundRefreshStatus()
+        mainViewState.backgroundAppRefreshDenied = !BackgroundWorkerHelper.shared.checkBackgroundRefreshStatus()
     }
 }
 
 enum Destination: Hashable, CaseIterable {
-    case home, aliases, recipients, usernames, domains, rules, failedDeliveries, settings, subscription
+    case home, aliases, recipients, usernames, domains, rules, failedDeliveries, settings, subscription, blocklist
 
     static var iPhoneCases: [Destination] {
         [.home, .aliases, .recipients]
@@ -493,6 +535,7 @@ enum Destination: Hashable, CaseIterable {
         case .failedDeliveries: "failed_deliveries"
         case .settings: "settings"
         case .subscription: "subscription"
+        case .blocklist: "manage_blocklist"
         }
     }
 
@@ -507,6 +550,7 @@ enum Destination: Hashable, CaseIterable {
         case .failedDeliveries: return "failed_deliveries"
         case .settings: return "settings"
         case .subscription: return "subscription"
+        case .blocklist: return "blocklist"
         }
     }
 
@@ -514,13 +558,14 @@ enum Destination: Hashable, CaseIterable {
         switch self {
         case .home: "house"
         case .aliases: "at.circle.fill"
-        case .recipients: "person.2"
+        case .recipients: "person.2.fill"
         case .usernames: "person.crop.circle.fill"
         case .domains: "globe"
         case .rules: "checklist"
         case .failedDeliveries: "exclamationmark.triangle.fill"
         case .settings: "gear"
         case .subscription: "creditcard.fill"
+        case .blocklist: "nosign"
         }
     }
 
@@ -532,9 +577,10 @@ enum Destination: Hashable, CaseIterable {
         case .usernames: AnyView(UsernamesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .domains: AnyView(DomainsView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .rules: AnyView(RulesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
-        case .failedDeliveries: AnyView(FailedDeliveriesView(horizontalSize: horizontalSize.wrappedValue, onRefreshGeneralData: refreshGeneralData))
+        case .failedDeliveries: AnyView(FailedDeliveriesView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         case .settings: AnyView(AppSettingsView(horizontalSize: horizontalSize))
-        case .subscription: AnyView(ManageSubscriptionView(horizontalSize: horizontalSize, shouldHideNavigationBarBackButtonSubscriptionView: .constant(false)))
+        case .subscription: AnyView(ManageSubscriptionView(shouldHideNavigationBarBackButtonSubscriptionView: .constant(false)))
+        case .blocklist: AnyView(BlocklistView(horizontalSize: horizontalSize, onRefreshGeneralData: refreshGeneralData))
         }
     }
 }

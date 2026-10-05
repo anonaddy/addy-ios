@@ -362,9 +362,6 @@ class KeychainSwift {
 //
 // ----------------------------
 
-import Foundation
-import Security
-
 /// Constants used by the library
 public enum KeychainSwiftConstants {
     /// Specifies a Keychain access group. Used for sharing Keychain items between apps.
@@ -436,8 +433,6 @@ public enum KeychainSwiftConstants {
 // KeychainSwiftAccessOptions.swift
 //
 // ----------------------------
-
-import Security
 
 /**
 

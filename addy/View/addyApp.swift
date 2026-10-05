@@ -6,11 +6,11 @@
 //
 
 import addy_shared
-import SwiftData
+import CoreSpotlight
 import SwiftUI
 
 @main
-struct addyApp: App {
+struct AddyApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     @StateObject private var connectivity = iOSConnectivityManager()
@@ -18,7 +18,7 @@ struct addyApp: App {
     @StateObject private var mainViewState = MainViewState.shared // Needs to be shared so that notifications work
     @StateObject private var setupViewState = SetupViewState.shared // Needs to be shared so that notifications work
     var body: some Scene {
-        WindowGroup(for: UUID.self) { _ in
+        WindowGroup {
             Group {
                 if appState.apiKey != nil {
                     MainView()
@@ -28,11 +28,13 @@ struct addyApp: App {
                         .animation(.easeInOut(duration: 0.5), value: appState.apiKey)
                         .onOpenURL { url in
                             // See appdelegate for handling this when app is closed
-                            if url.pathComponents.count > 2 && url.pathComponents[1] == "deactivate" {
-                                let id = url.pathComponents[2]
-                                mainViewState.aliasToDisable = id
-                                mainViewState.selectedTab = .aliases
-                            }
+                            mainViewState.handleIncomingURL(url)
+                        }
+                        .onContinueUserActivity(CSSearchableItemActionType) { userActivity in
+                            SpotlightManager.shared.handleSpotlightActivity(userActivity)
+                        }
+                        .task {
+                            await SpotlightManager.shared.syncAllAliasesIfNeeded()
                         }
                 } else {
                     SetupView()

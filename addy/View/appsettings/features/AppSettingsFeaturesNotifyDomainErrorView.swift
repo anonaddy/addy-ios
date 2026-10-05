@@ -26,7 +26,7 @@ struct AppSettingsFeaturesNotifyDomainErrorView: View {
                         // Only fire when the value is NOT the same as the value already in the model
                         if notifyDomainError != MainViewState.shared.settingsManager.getSettingsBool(key: .notifyDomainError) {
                             MainViewState.shared.settingsManager.putSettingsBool(key: .notifyDomainError, boolean: notifyDomainError)
-                            BackgroundWorkerHelper().scheduleAppRefresh()
+                            BackgroundWorkerHelper.shared.scheduleAppRefresh()
                         }
                     }
             } footer: {

@@ -1,6 +1,39 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "local_network_permission_rationale" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This instance appears to be on your local network. If connecting fails, ensure 'Local Network' permission is enabled for Addy in iOS Settings."
+          }
+        }
+      }
+    },
+    "local_network_permission_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local network access is required for this instance"
+          }
+        }
+      }
+    },
+    "open_settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
     "1_day_ago" : {
       "localizations" : {
         "en" : {
@@ -84,6 +117,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aliases"
+          }
+        }
+      }
+    },
+    "blocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocked"
           }
         }
       }
@@ -307,6 +351,17 @@
         }
       }
     },
+    "error_adding_alias" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong while adding the alias"
+          }
+        }
+      }
+    },
     "error_edit_active" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -329,6 +384,12 @@
         }
       }
     },
+    "error_invalid_url" : {
+      "comment" : "Invalid URL"
+    },
+    "error_unauthorized" : {
+      "comment" : "Unauthorized"
+    },
     "error_unknown_refer_to_logs" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -336,6 +397,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Error unknown, please refer to the app logs for more information about this error."
+          }
+        }
+      }
+    },
+    "forwarded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forwarded"
           }
         }
       }
@@ -449,6 +521,17 @@
         }
       }
     },
+    "replied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replied"
+          }
+        }
+      }
+    },
     "reset_app" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -456,6 +539,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset app"
+          }
+        }
+      }
+    },
+    "sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sent"
           }
         }
       }

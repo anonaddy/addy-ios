@@ -13,7 +13,7 @@ import UniformTypeIdentifiers
 struct AliasDetailView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) private var dismiss
 
     @State var aliasEmail: String
     @State var shouldDisableAlias: Bool = false
@@ -23,7 +23,8 @@ struct AliasDetailView: View {
     @State private var isDeletingAlias: Bool = false
     @State private var isRestoringAlias: Bool = false
     @State private var isForgettingAlias: Bool = false
-    @State private var IsLoadingPinnedButton: Bool = true
+    @State private var isLoadingPinnedButton: Bool = true
+    @State private var isPresentingNatoView = false
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     @State private var alias: Aliases? = nil
@@ -43,7 +44,6 @@ struct AliasDetailView: View {
     @State private var copiedToClipboard: Bool = false
     @State private var aliasDeactivatedOverlayShown: Bool = false
     @State private var chartData: [Double] = [0, 0, 0, 0]
-    @State private var clients: [ThirdPartyMailClient] = []
     @State private var isPresentingEmailSelectionDialog: Bool = false
 
     enum ActiveAlert {
@@ -233,7 +233,7 @@ struct AliasDetailView: View {
                         }
 
                         AddySection(title: String(localized: "from_name"), description: getFromName(alias: alias), leadingSystemimage: nil, trailingSystemimage: "pencil") {
-                            if !mainViewState.userResource!.hasUserFreeSubscription() {
+                            if !(mainViewState.userResource?.hasUserFreeSubscription() ?? true) {
                                 isPresentingEditAliasFromNameBottomSheet = true
                             } else {
                                 HapticHelper.playHapticFeedback(hapticType: .error)
@@ -299,21 +299,15 @@ struct AliasDetailView: View {
                     ToastOverlay(showToast: $copiedToClipboard, text: String(localized: "copied_to_clipboard"))
                     ToastOverlay(showToast: $aliasDeactivatedOverlayShown, text: String(localized: "alias_deactivated", bundle: Bundle(for: SharedData.self)))
                 }
-                .confirmationDialog(String(localized: "send_mail"), isPresented: $isPresentingEmailSelectionDialog) {
-                    ForEach(clients, id: \.self) { item in
-                        Button(item.name) {
-                            self.onPressSend(client: item, sendToRecipients: self.sendToRecipients ?? "")
+                .sheet(isPresented: $isPresentingEmailSelectionDialog) {
+                    NavigationStack {
+                        SelectMailClientBottomSheet { selectedClient in
+                            self.onPressSend(client: selectedClient, sendToRecipients: self.sendToRecipients ?? "")
                         }
                     }
-
-                    Button(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), role: .cancel) {}
-                } message: {
-                    Text(String(localized: "select_mail_client"))
+                    .presentationDetents([.medium, .large])
                 }
                 .onAppear(perform: {
-                    // Get the available mail clients
-                    self.clients = ThirdPartyMailClient.clients.filter { ThirdPartyMailer.isMailClientAvailable($0) }
-                    self.clients.append(ThirdPartyMailClient.systemDefault)
 
                     if shouldDisableAlias {
                         if alias.active {
@@ -331,6 +325,9 @@ struct AliasDetailView: View {
                     NavigationStack {
                         EditAliasDescriptionBottomSheet(aliasId: alias.id, description: alias.description ?? "") { alias in
                             self.alias = alias
+                            Task {
+                                await SpotlightManager.shared.indexAlias(alias: alias)
+                            }
                             isPresentingEditAliasDescriptionBottomSheet = false
 
                             // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
@@ -344,6 +341,9 @@ struct AliasDetailView: View {
                     NavigationStack {
                         EditAliasRecipientsBottomSheet(aliasId: alias.id, selectedRecipientsIds: getRecipientsIds(recipients: alias.recipients)) { alias in
                             self.alias = alias
+                            Task {
+                                await SpotlightManager.shared.indexAlias(alias: alias)
+                            }
                             isPresentingEditAliasRecipientsBottomSheet = false
 
                             // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
@@ -357,6 +357,9 @@ struct AliasDetailView: View {
                     NavigationStack {
                         EditAliasLabelsBottomSheet(aliasId: alias.id, selectedLabelsIds: getLabelsIds(labels: alias.labels)) { alias in
                             self.alias = alias
+                            Task {
+                                await SpotlightManager.shared.indexAlias(alias: alias)
+                            }
                             isPresentingEditAliasLabelsBottomSheet = false
                             shouldReloadDataInParent = true
                         }
@@ -367,6 +370,9 @@ struct AliasDetailView: View {
                     NavigationStack {
                         EditAliasFromNameBottomSheet(aliasId: alias.id, aliasEmail: alias.email, fromName: alias.from_name) { alias in
                             self.alias = alias
+                            Task {
+                                await SpotlightManager.shared.indexAlias(alias: alias)
+                            }
                             isPresentingEditAliasFromNameBottomSheet = false
 
                             // This changes the last updated time of the alias which is being shown in the list in the aliasesView.
@@ -470,24 +476,22 @@ struct AliasDetailView: View {
         }
     }
 
-    @State private var isPresentingNatoView = false
-
     private func pinButton() -> some View {
         Group {
-            if IsLoadingPinnedButton {
+            if isLoadingPinnedButton {
                 ProgressView()
                     .controlSize(.small)
             } else {
                 Button {
                     if let alias = alias {
                         Task {
-                            IsLoadingPinnedButton = true
+                            isLoadingPinnedButton = true
                             if isAliasPinned {
                                 await self.unpinAlias(alias: alias)
                             } else {
                                 await self.pinAlias(alias: alias)
                             }
-                            IsLoadingPinnedButton = false
+                            isLoadingPinnedButton = false
                         }
                     }
                 } label: {
@@ -545,7 +549,7 @@ struct AliasDetailView: View {
     }
 
     private func getFromName(alias: Aliases) -> String {
-        if mainViewState.userResource!.hasUserFreeSubscription() {
+        if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
             return String(localized: "feature_not_available_subscription")
         } else {
             // Set description based on alias.from_name and initialize the bottom dialog fragment
@@ -574,20 +578,20 @@ struct AliasDetailView: View {
     private func onPressSend(client: ThirdPartyMailClient? = nil, sendToRecipients: String) {
         guard let alias = alias else { return }
 
-        if client == nil {
-            isPresentingEmailSelectionDialog = true
-            self.sendToRecipients = sendToRecipients
-        } else {
+        if let preferredClient = client ?? ThirdPartyMailClient.getPreferredClient(settingsManager: mainViewState.settingsManager) {
             // Get recipients
             let recipients = AnonAddyUtils.getSendAddress(recipientEmails: sendToRecipients.split(separator: ",").map { String($0) }, alias: alias)
 
             onPressCopy(sendToRecipients: sendToRecipients)
 
             // Prepare mailto URL
-            let mailtoURL = client!.composeURL(to: recipients)
+            let mailtoURL = preferredClient.composeURL(to: recipients)
 
             // Open mailto URL
             UIApplication.shared.open(mailtoURL)
+        } else {
+            isPresentingEmailSelectionDialog = true
+            self.sendToRecipients = sendToRecipients
         }
     }
 
@@ -662,9 +666,9 @@ struct AliasDetailView: View {
     }
 
     private func activateAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let activatedAlias = try await networkHelper.activateSpecificAlias(aliasId: alias.id)
+            let activatedAlias = try await AliasRepository.shared.activateAlias(aliasId: alias.id)
+            await SpotlightManager.shared.indexAlias(alias: activatedAlias)
             isSwitchingAliasActiveState = false
             self.alias = activatedAlias
             isAliasActive = true
@@ -680,9 +684,9 @@ struct AliasDetailView: View {
     }
 
     private func enableAttachedRecipientsOnly(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let activatedAlias = try await networkHelper.activateAttachedRecipientsOnly(aliasId: alias.id)
+            let activatedAlias = try await AliasRepository.shared.activateAttachedRecipientsOnly(aliasId: alias.id)
+            await SpotlightManager.shared.indexAlias(alias: activatedAlias)
             isSwitchingAttachedRecipientsOnlyEnabledState = false
             self.alias = activatedAlias
             isAttachedRecipientsOnlyEnabled = true
@@ -698,14 +702,16 @@ struct AliasDetailView: View {
     }
 
     private func disableAttachedRecipientsOnly(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deactivateAttachedRecipientsOnly(aliasId: alias.id)
+            let result = try await AliasRepository.shared.deactivateAttachedRecipientsOnly(aliasId: alias.id)
             isSwitchingAttachedRecipientsOnlyEnabledState = false
             if result == "204" {
                 self.alias?.attached_recipients_only = false
                 isAttachedRecipientsOnlyEnabled = false
                 shouldReloadDataInParent = true
+                if let currentAlias = self.alias {
+                    await SpotlightManager.shared.indexAlias(alias: currentAlias)
+                }
             } else {
                 isAttachedRecipientsOnlyEnabled = true
                 activeAlert = .error
@@ -724,14 +730,13 @@ struct AliasDetailView: View {
     }
 
     private func restoreAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            if let restoredAlias = try await networkHelper.restoreAlias(aliasId: alias.id) {
-                isRestoringAlias = false
-                self.alias = restoredAlias
-                isAliasActive = restoredAlias.active
-                shouldReloadDataInParent = true
-            }
+            let restoredAlias = try await AliasRepository.shared.restoreAlias(aliasId: alias.id)
+            await SpotlightManager.shared.indexAlias(alias: restoredAlias)
+            isRestoringAlias = false
+            self.alias = restoredAlias
+            isAliasActive = restoredAlias.active
+            shouldReloadDataInParent = true
         } catch {
             isRestoringAlias = false
             activeAlert = .error
@@ -742,13 +747,13 @@ struct AliasDetailView: View {
     }
 
     private func forgetAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.forgetAlias(aliasId: alias.id)
+            let result = try await AliasRepository.shared.forgetAlias(aliasId: alias.id)
             isForgettingAlias = false
             if result == "204" {
+                await SpotlightManager.shared.deindexAlias(aliasId: alias.id)
                 shouldReloadDataInParent = true
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             } else {
                 activeAlert = .error
                 showAlert = true
@@ -765,14 +770,16 @@ struct AliasDetailView: View {
     }
 
     private func deactivateAlias(alias: Aliases, shouldShowToastOnFinished: Bool = false) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deactivateSpecificAlias(aliasId: alias.id)
+            let result = try await AliasRepository.shared.deactivateAlias(aliasId: alias.id)
             isSwitchingAliasActiveState = false
             if result == "204" {
                 self.alias?.active = false
                 isAliasActive = false
                 shouldReloadDataInParent = true
+                if let currentAlias = self.alias {
+                    await SpotlightManager.shared.indexAlias(alias: currentAlias)
+                }
                 if shouldShowToastOnFinished {
                     showAliasDeactivatedToast()
                 }
@@ -794,15 +801,15 @@ struct AliasDetailView: View {
     }
 
     private func pinAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let pinnedAlias = try await networkHelper.pinSpecificAlias(aliasId: alias.id)
-            IsLoadingPinnedButton = false
+            let pinnedAlias = try await AliasRepository.shared.pinAlias(aliasId: alias.id)
+            await SpotlightManager.shared.indexAlias(alias: pinnedAlias)
+            isLoadingPinnedButton = false
             self.alias = pinnedAlias
             isAliasPinned = true
             shouldReloadDataInParent = true
         } catch {
-            IsLoadingPinnedButton = false
+            isLoadingPinnedButton = false
             isAliasPinned = false
             activeAlert = .error
             showAlert = true
@@ -812,14 +819,16 @@ struct AliasDetailView: View {
     }
 
     private func unpinAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.unpinSpecificAlias(aliasId: alias.id)
-            IsLoadingPinnedButton = false
+            let result = try await AliasRepository.shared.unpinAlias(aliasId: alias.id)
+            isLoadingPinnedButton = false
             if result == "204" {
                 self.alias?.pinned = false
                 isAliasPinned = false
                 shouldReloadDataInParent = true
+                if let currentAlias = self.alias {
+                    await SpotlightManager.shared.indexAlias(alias: currentAlias)
+                }
             } else {
                 isAliasPinned = true
                 activeAlert = .error
@@ -828,7 +837,7 @@ struct AliasDetailView: View {
                 errorAlertMessage = result
             }
         } catch {
-            IsLoadingPinnedButton = false
+            isLoadingPinnedButton = false
             isAliasPinned = true
             activeAlert = .error
             showAlert = true
@@ -838,13 +847,13 @@ struct AliasDetailView: View {
     }
 
     private func deleteAlias(alias: Aliases) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteAlias(aliasId: alias.id)
+            let result = try await AliasRepository.shared.deleteAlias(aliasId: alias.id)
             isDeletingAlias = false
             if result == "204" {
+                await SpotlightManager.shared.deindexAlias(aliasId: alias.id)
                 shouldReloadDataInParent = true
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             } else {
                 activeAlert = .error
                 showAlert = true
@@ -861,22 +870,20 @@ struct AliasDetailView: View {
     }
 
     private func getAlias(aliasId: String) async {
-        let networkHelper = NetworkHelper()
         do {
-            if let alias = try await networkHelper.getSpecificAlias(aliasId: aliasId) {
-                withAnimation {
-                    self.isAliasActive = alias.active
-                    self.isAttachedRecipientsOnlyEnabled = alias.attached_recipients_only
-                    self.isAliasPinned = alias.pinned
-                    self.IsLoadingPinnedButton = false
+            let alias = try await AliasRepository.shared.getAlias(aliasId: aliasId)
+            await SpotlightManager.shared.indexAlias(alias: alias)
+            withAnimation {
+                self.isAliasActive = alias.active
+                self.isAttachedRecipientsOnlyEnabled = alias.attached_recipients_only
+                self.isAliasPinned = alias.pinned
+                self.isLoadingPinnedButton = false
 
-                    self.isAliasBeingWatched = AliasWatcher().getAliasesToWatch().contains(aliasId)
+                self.isAliasBeingWatched = AliasWatcher().getAliasesToWatch().contains(aliasId)
 
-                    self.alias = alias
-                    self.aliasEmail = alias.email
-                    self.updateUi(alias: alias)
-                    
-                }
+                self.alias = alias
+                self.aliasEmail = alias.email
+                self.updateUi(alias: alias)
             }
         } catch {
             // Reset this value to prevent re-opening the AliasDetailView when coming back to the app later if the alias failed to load

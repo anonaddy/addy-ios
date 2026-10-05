@@ -9,7 +9,7 @@ import addy_shared
 import SwiftUI
 
 struct AccountNotificationsView: View {
-    @StateObject var accountNotificationsViewModel = AccountNotificationsViewModel()
+    @StateObject private var accountNotificationsViewModel = AccountNotificationsViewModel()
 
     @Environment(\.dismiss) var dismiss
 
@@ -18,7 +18,7 @@ struct AccountNotificationsView: View {
     @State private var accountNotificationToShow: AccountNotifications? = nil
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
-    @State var horizontalSize: UserInterfaceSizeClass
+    @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
         case error
@@ -30,17 +30,49 @@ struct AccountNotificationsView: View {
         #if DEBUG
             let _ = Self._printChanges()
         #endif
-        NavigationStack {
-            List {
+        Group {
+            if horizontalSize == .regular {
+                NavigationStack {
+                    accountNotificationsViewBody
+                }
+            } else {
+                accountNotificationsViewBody
+            }
+        }
+        .onAppear(perform: {
+            if let accountNotifications = accountNotificationsViewModel.accountNotifications {
+                if accountNotifications.data.isEmpty {
+                    Task {
+                        await accountNotificationsViewModel.getAccountNotifications()
+                    }
+                }
+            }
+        })
+    }
+
+    private var accountNotificationsViewBody: some View {
+        List {
                 if let accountNotifications = accountNotificationsViewModel.accountNotifications {
                     if !accountNotifications.data.isEmpty {
                         Section {
                             ForEach(accountNotifications.data) { accountNotification in
                                 VStack(alignment: .leading) {
                                     VStack(alignment: .leading) {
-                                        Text(accountNotification.title)
-                                            .font(.system(size: 16, weight: .medium))
-                                            .lineLimit(2)
+                                        HStack {
+                                            Text(accountNotification.title)
+                                                .font(.system(size: 16, weight: .medium))
+                                                .lineLimit(2)
+
+                                            if !accountNotification.category.isEmpty {
+                                                Text(accountNotification.category.uppercased())
+                                                    .font(.system(size: 10, weight: .bold))
+                                                    .padding(.horizontal, 6)
+                                                    .padding(.vertical, 2)
+                                                    .background(Color.accentColor.opacity(0.1))
+                                                    .foregroundColor(.accentColor)
+                                                    .cornerRadius(4)
+                                            }
+                                        }
                                         Text(DateTimeUtils.convertStringToLocalTimeZoneString(accountNotification.created_at))
                                             .font(.system(size: 12))
                                             .foregroundColor(.gray)
@@ -164,19 +196,9 @@ struct AccountNotificationsView: View {
                 }
             }
         }
-        .onAppear(perform: {
-            if let accountNotifications = accountNotificationsViewModel.accountNotifications {
-                if accountNotifications.data.isEmpty {
-                    Task {
-                        await accountNotificationsViewModel.getAccountNotifications()
-                    }
-                }
-            }
-        })
-    }
 
     init(horizontalSize: UserInterfaceSizeClass?, onRefreshGeneralData: (() -> Void)? = nil) {
-        self.horizontalSize = horizontalSize ?? UserInterfaceSizeClass.compact
+        self._horizontalSize = .constant(horizontalSize ?? .compact)
         self.onRefreshGeneralData = onRefreshGeneralData
     }
 

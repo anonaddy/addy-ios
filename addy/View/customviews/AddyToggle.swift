@@ -9,6 +9,7 @@ import addy_shared
 import SwiftUI
 
 struct AddyToggle: View {
+    @Environment(\.isEnabled) private var isEnabled
     @Binding var isOn: Bool
     @State var lineLimit: Int? = 3
 
@@ -37,7 +38,7 @@ struct AddyToggle: View {
 
             VStack(alignment: .leading) {
                 Text(title)
-                    .foregroundColor(Color.revertedNightMode)
+                    .foregroundColor(Color.primary)
 
                 if let description = description {
                     Text(description)
@@ -56,7 +57,11 @@ struct AddyToggle: View {
             }
 
             Toggle(isOn: $isOn) {}.frame(width: 60) // This will give the Toggle an explicit width
-        }.onTapGesture {
+        }
+        .opacity(isEnabled ? 1.0 : 0.5)
+        .allowsHitTesting(isEnabled)
+        .onTapGesture {
+            guard isEnabled else { return }
             if self.onTap != nil {
                 self.onTap?()
             } else {
@@ -65,6 +70,7 @@ struct AddyToggle: View {
             }
         }
         .onLongPressGesture(perform: {
+            guard isEnabled else { return }
             HapticHelper.playHapticFeedback(hapticType: .tap)
 
             withAnimation {
@@ -82,11 +88,11 @@ struct AddyToggle: View {
     }
 }
 
-struct AddyToggle_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var biometricEnabled = false
+#Preview {
+    @Previewable @State var biometricEnabled = false
 
-        AddyToggle(isOn: $biometricEnabled, title: String(localized: "security"), description: String("TESTTESTTESTTEST\nTESTTESTTETTESTTETTESTTETTESTTETTESTTESTTEST\nTEST\nTESTTESTTESTTESTTEST\nTEST"), leadingSystemimage: "faceid", leadingSystemimageColor: .green) {
+    VStack {
+        AddyToggle(isOn: $biometricEnabled, title: String(localized: "security"), description: "Preview description", leadingSystemimage: "faceid", leadingSystemimageColor: .green) {
             print("on tap section")
         }
 

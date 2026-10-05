@@ -13,10 +13,10 @@ public enum AddyIo {
     // The versioncode is a combination of MAJOR MINOR PATCH
     // TODO: Update on every release
 
-    // 1.7.2
+    // 1.7.3
     public static let MINIMUMVERSIONCODEMAJOR = 1
     public static let MINIMUMVERSIONCODEMINOR = 7
-    public static let MINIMUMVERSIONCODEPATCH = 2
+    public static let MINIMUMVERSIONCODEPATCH = 3
 
     public static var VERSIONMAJOR = 0
     public static var VERSIONMINOR = 0
@@ -46,10 +46,6 @@ public enum AddyIo {
 
     static var API_URL_PINNED_ALIASES: String {
         "\(API_BASE_URL)/api/v1/pinned-aliases"
-    }
-
-    static var API_URL_ALIAS_RECIPIENTS: String {
-        "\(API_BASE_URL)/api/v1/alias-recipients"
     }
 
     static var API_URL_DOMAIN_OPTIONS: String {
@@ -148,10 +144,6 @@ public enum AddyIo {
         "\(API_BASE_URL)/api/v1/app-version"
     }
 
-    static var API_URL_CHART_DATA: String {
-        "\(API_BASE_URL)/api/v1/chart-data"
-    }
-
     static var API_URL_BLOCKLIST: String {
         "\(API_BASE_URL)/api/v1/blocklist"
     }
@@ -160,8 +152,48 @@ public enum AddyIo {
         "\(API_BASE_URL)/api/v1/labels"
     }
     
+    static var API_URL_ALIASES_GET_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/get/bulk"
+    }
+
+    static var API_URL_ALIAS_RECIPIENTS: String {
+        "\(API_BASE_URL)/api/v1/alias-recipients"
+    }
+
     static var API_URL_ALIASES_LABELS_BULK: String {
         "\(API_BASE_URL)/api/v1/aliases/labels/bulk"
+    }
+
+    static var API_URL_ALIASES_DELETE_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/delete/bulk"
+    }
+
+    static var API_URL_ALIASES_RESTORE_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/restore/bulk"
+    }
+
+    static var API_URL_ALIASES_FORGET_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/forget/bulk"
+    }
+
+    static var API_URL_ALIASES_ACTIVATE_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/activate/bulk"
+    }
+
+    static var API_URL_ALIASES_DEACTIVATE_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/deactivate/bulk"
+    }
+
+    static var API_URL_ALIASES_PIN_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/pin/bulk"
+    }
+
+    static var API_URL_ALIASES_UNPIN_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/unpin/bulk"
+    }
+
+    static var API_URL_ALIASES_RECIPIENTS_BULK: String {
+        "\(API_BASE_URL)/api/v1/aliases/recipients/bulk"
     }
 
     static var API_URL_LOGIN: String {

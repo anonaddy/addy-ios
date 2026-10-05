@@ -8,12 +8,11 @@
 import addy_shared
 import Lottie
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct RecipientsDetailView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) private var dismiss
 
     @Binding var shouldReloadDataInParent: Bool
     @State private var activeAlert: ActiveAlert = .deleteRecipient
@@ -60,8 +59,9 @@ struct RecipientsDetailView: View {
             let _ = Self._printChanges()
         #endif
 
-        if let recipient = recipient {
-            Form {
+        Group {
+            if let recipient = recipient {
+                Form {
                 Section {
                     Text(String(format: String(localized: "manage_recipient_basic_info"),
                                 recipient.email,
@@ -75,24 +75,31 @@ struct RecipientsDetailView: View {
 
                 Section {
                     VStack(alignment: .leading) {
-                        let aliasesToShow = showAllAliases ? aliasList : Array(aliasList.prefix(10))
+                        if aliasList.isEmpty {
+                            Text(String(localized: "no_aliases_directly_assigned"))
+                                .font(.system(size: 14))
+                                .foregroundColor(.secondary)
+                                .padding(.top, 5)
+                        } else {
+                            let aliasesToShow = showAllAliases ? aliasList : Array(aliasList.prefix(10))
 
-                        Text(aliasesToShow.joined(separator: "\n"))
-                            .font(.system(size: 14)) // Set initial font size
-                            .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
-                            .padding(.top, 5)
+                            Text(aliasesToShow.joined(separator: "\n"))
+                                .font(.system(size: 14)) // Set initial font size
+                                .minimumScaleFactor(0.5) // Set minimum scale factor to resize text
+                                .padding(.top, 5)
 
-                        if aliasList.count > 10 {
-                            Button(action: {
-                                withAnimation {
-                                    showAllAliases.toggle()
+                            if aliasList.count > 10 {
+                                Button(action: {
+                                    withAnimation {
+                                        showAllAliases.toggle()
+                                    }
+                                }) {
+                                    Text(showAllAliases ? String(localized: "show_less") : String(localized: "show_all"))
+                                        .font(.system(size: 14, weight: .bold))
+                                        .padding(.top, 5)
                                 }
-                            }) {
-                                Text(showAllAliases ? String(localized: "show_less") : String(localized: "show_all"))
-                                    .font(.system(size: 14, weight: .bold))
-                                    .padding(.top, 5)
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
                     }
 
@@ -110,6 +117,8 @@ struct RecipientsDetailView: View {
                                 .clipShape(Capsule())
                         }
                     }
+                } footer: {
+                    Text(String(localized: "recipient_aliases_desc"))
                 }.textCase(nil)
                 
                 Section {
@@ -125,7 +134,7 @@ struct RecipientsDetailView: View {
                 }.textCase(nil)
                 
                 Section {
-                    AddyToggle(isOn: $isRecipientActive, isLoading: isSwitchingRecipientActiveState, title: recipient.active ?? false ? String(localized: "recipient_activated") : String(localized: "recipient_deactivated"), description: String(localized: "recipient_status_desc"))
+                    AddyToggle(isOn: $isRecipientActive, isLoading: isSwitchingRecipientActiveState, title: recipient.active ? String(localized: "recipient_activated") : String(localized: "recipient_deactivated"), description: String(localized: "recipient_status_desc"))
                         .onChange(of: isRecipientActive) {
                             if isRecipientActive != recipient.active {
                                 self.isSwitchingRecipientActiveState = true
@@ -177,7 +186,7 @@ struct RecipientsDetailView: View {
                                 }
                             }
                         }
-                        .disabled(recipient.fingerprint == nil || mainViewState.userResource!.hasUserFreeSubscription() || recipient.inline_encryption)
+                        .disabled(recipient.fingerprint == nil || (mainViewState.userResource?.hasUserFreeSubscription() ?? true) || recipient.inline_encryption)
 
                     AddyToggle(isOn: $shouldEncrypt, isLoading: isSwitchingRecipientShouldEncryptState, title: recipient.should_encrypt ? String(localized: "encryption_enabled") : String(localized: "encryption_disabled"), description: String(localized: "encrypt_emails_to_this_recipient"))
                         .onChange(of: shouldEncrypt) {
@@ -291,8 +300,6 @@ struct RecipientsDetailView: View {
             .refreshable {
                 await getRecipient(recipientId: self.recipientId)
             }
-            .navigationTitle(recipientEmail)
-            .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isPresentingEditRecipientDescriptionBottomSheet) {
                 NavigationStack {
                     EditRecipientDescriptionBottomSheet(recipientId: recipient.id, description: recipient.description ?? "") { recipient in
@@ -362,10 +369,10 @@ struct RecipientsDetailView: View {
             }.task {
                 await getRecipient(recipientId: self.recipientId)
             }
-
-            .navigationTitle(recipientEmail)
-            .navigationBarTitleDisplayMode(.inline)
         }
+        }
+        .navigationTitle(recipientEmail)
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     init(recipientId: String, recipientEmail: String, shouldReloadDataInParent: Binding<Bool>) {
@@ -375,9 +382,8 @@ struct RecipientsDetailView: View {
     }
 
     private func allowRecipientToReplySend(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let allowedRecipient = try await networkHelper.allowRecipientToReplySend(recipientId: recipient.id)
+            let allowedRecipient = try await RecipientRepository.shared.allowReplySend(recipientId: recipient.id)
             isSwitchingRecipientCanReplySendState = false
             self.recipient = allowedRecipient
             replySendAllowed = true
@@ -392,9 +398,8 @@ struct RecipientsDetailView: View {
     }
 
     private func disallowRecipientToReplySend(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.disallowRecipientToReplySend(recipientId: recipient.id)
+            let result = try await RecipientRepository.shared.disallowReplySend(recipientId: recipient.id)
             isSwitchingRecipientCanReplySendState = false
             if result == "204" {
                 self.recipient?.can_reply_send = false
@@ -417,9 +422,8 @@ struct RecipientsDetailView: View {
     }
 
     private func enableEncryption(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let enabledRecipient = try await networkHelper.enableEncryptionRecipient(recipientId: recipient.id)
+            let enabledRecipient = try await RecipientRepository.shared.enableEncryption(recipientId: recipient.id)
             isSwitchingRecipientShouldEncryptState = false
             self.recipient = enabledRecipient
             shouldEncrypt = true
@@ -434,9 +438,8 @@ struct RecipientsDetailView: View {
     }
 
     private func disableEncryption(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.disableEncryptionRecipient(recipientId: recipient.id)
+            let result = try await RecipientRepository.shared.disableEncryption(recipientId: recipient.id)
             isSwitchingRecipientShouldEncryptState = false
             if result == "204" {
                 self.recipient?.should_encrypt = false
@@ -459,9 +462,8 @@ struct RecipientsDetailView: View {
     }
 
     private func enableProtectedHeaders(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let enabledRecipient = try await networkHelper.enableProtectedHeadersRecipient(recipientId: recipient.id)
+            let enabledRecipient = try await RecipientRepository.shared.enableProtectedHeaders(recipientId: recipient.id)
             isSwitchingProtectedHeadersState = false
             self.recipient = enabledRecipient
             protectedHeaders = true
@@ -476,9 +478,8 @@ struct RecipientsDetailView: View {
     }
 
     private func disableProtectedHeaders(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.disableProtectedHeadersRecipient(recipientId: recipient.id)
+            let result = try await RecipientRepository.shared.disableProtectedHeaders(recipientId: recipient.id)
             isSwitchingProtectedHeadersState = false
             if result == "204" {
                 self.recipient?.protected_headers = false
@@ -501,9 +502,8 @@ struct RecipientsDetailView: View {
     }
 
     private func enablePGPInline(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let enabledRecipient = try await networkHelper.enablePgpInlineRecipient(recipientId: recipient.id)
+            let enabledRecipient = try await RecipientRepository.shared.enablePgpInline(recipientId: recipient.id)
             isSwitchingInlineEncryptionState = false
             self.recipient = enabledRecipient
             inlineEncryption = true
@@ -518,9 +518,8 @@ struct RecipientsDetailView: View {
     }
 
     private func disablePGPInline(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.disablePgpInlineRecipient(recipientId: recipient.id)
+            let result = try await RecipientRepository.shared.disablePgpInline(recipientId: recipient.id)
             isSwitchingInlineEncryptionState = false
             if result == "204" {
                 self.recipient?.inline_encryption = false
@@ -543,9 +542,8 @@ struct RecipientsDetailView: View {
     }
 
     private func enableRemovePGPKeysForASpecificRecipient(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let recipient = try await networkHelper.enableRemovePgpKeysRecipients(recipientId: recipient.id)
+            let recipient = try await RecipientRepository.shared.enableRemovePgpKeys(recipientId: recipient.id)
             isSwitchingRemovePgpKeysRecipients = false
             self.recipient = recipient
             removePgpKeys = true
@@ -560,9 +558,8 @@ struct RecipientsDetailView: View {
     }
 
     private func disableRemovePGPKeysForASpecificRecipient(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.disableRemovePgpKeysRecipients(recipientId: recipient.id)
+            let result = try await RecipientRepository.shared.disableRemovePgpKeys(recipientId: recipient.id)
             isSwitchingRemovePgpKeysRecipients = false
             if result == "204" {
                 self.recipient?.remove_pgp_keys = false
@@ -585,9 +582,8 @@ struct RecipientsDetailView: View {
     }
 
     private func enableRemovePGPSignaturesForASpecificRecipient(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let recipient = try await networkHelper.enableRemovePgpSignaturesRecipients(recipientId: recipient.id)
+            let recipient = try await RecipientRepository.shared.enableRemovePgpSignatures(recipientId: recipient.id)
             isSwitchingRemovePgpSignaturesRecipients = false
             self.recipient = recipient
             removePgpSignatures = true
@@ -602,9 +598,8 @@ struct RecipientsDetailView: View {
     }
 
     private func disableRemovePGPSignaturesForASpecificRecipient(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.disableRemovePgpSignaturesRecipients(recipientId: recipient.id)
+            let result = try await RecipientRepository.shared.disableRemovePgpSignatures(recipientId: recipient.id)
             isSwitchingRemovePgpSignaturesRecipients = false
             if result == "204" {
                 self.recipient?.remove_pgp_signatures = false
@@ -627,9 +622,8 @@ struct RecipientsDetailView: View {
     }
 
     private func removeGpgKeyHttpRequest(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.removeEncryptionKeyRecipient(recipientId: recipient.id)
+            let result = try await RecipientRepository.shared.removeEncryptionKey(recipientId: recipient.id)
             isRemovingPgpKey = false
             if result == "204" {
                 self.recipient?.should_encrypt = false
@@ -675,7 +669,7 @@ struct RecipientsDetailView: View {
     }
 
     private func getProtectedHeadersDescription(recipient: Recipients) -> String {
-        if mainViewState.userResource!.hasUserFreeSubscription() {
+        if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
             return String(localized: "feature_not_available_subscription")
         } else if recipient.inline_encryption {
             return String(localized: "prerequisite_disable_pgp_inline")
@@ -687,13 +681,12 @@ struct RecipientsDetailView: View {
     }
 
     private func deleteRecipient(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteRecipient(recipientId: recipient.id)
+            let result = try await RecipientRepository.shared.deleteRecipient(recipientId: recipient.id)
             isDeletingRecipient = false
             if result == "204" {
                 shouldReloadDataInParent = true
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             } else {
                 activeAlert = .error
                 showAlert = true
@@ -710,28 +703,26 @@ struct RecipientsDetailView: View {
     }
 
     private func getRecipient(recipientId: String) async {
-        let networkHelper = NetworkHelper()
         do {
-            if let recipient = try await networkHelper.getSpecificRecipient(recipientId: recipientId) {
-                withAnimation {
-                    self.recipient = recipient
-                    self.replySendAllowed = recipient.can_reply_send
-                    self.shouldEncrypt = recipient.should_encrypt
-                    self.inlineEncryption = recipient.inline_encryption
-                    self.protectedHeaders = recipient.protected_headers
-                    self.removePgpKeys = recipient.remove_pgp_keys
-                    self.removePgpSignatures = recipient.remove_pgp_signatures
-                    self.isRecipientActive = recipient.active
-                }
-
-                // Reset total counts
-                totalForwarded = 0
-                totalBlocked = 0
-                totalReplies = 0
-                totalSent = 0
-
-                await getAliasesAndAddThemToList(recipient: recipient)
+            let recipient = try await RecipientRepository.shared.getRecipient(recipientId: recipientId)
+            withAnimation {
+                self.recipient = recipient
+                self.replySendAllowed = recipient.can_reply_send
+                self.shouldEncrypt = recipient.should_encrypt
+                self.inlineEncryption = recipient.inline_encryption
+                self.protectedHeaders = recipient.protected_headers
+                self.removePgpKeys = recipient.remove_pgp_keys
+                self.removePgpSignatures = recipient.remove_pgp_signatures
+                self.isRecipientActive = recipient.active
             }
+
+            // Reset total counts
+            totalForwarded = 0
+            totalBlocked = 0
+            totalReplies = 0
+            totalSent = 0
+
+            await getAliasesAndAddThemToList(recipient: recipient)
         } catch {
             withAnimation {
                 self.errorText = error.localizedDescription
@@ -740,9 +731,8 @@ struct RecipientsDetailView: View {
     }
 
     private func activateRecipient(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let activatedRecipient = try await networkHelper.activateSpecificRecipient(recipientId: recipient.id)
+            let activatedRecipient = try await RecipientRepository.shared.activateRecipient(recipientId: recipient.id)
             isSwitchingRecipientActiveState = false
             self.recipient = activatedRecipient
             isRecipientActive = true
@@ -757,9 +747,8 @@ struct RecipientsDetailView: View {
     }
 
     private func deactivateRecipient(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deactivateSpecificRecipient(recipientId: recipient.id)
+            let result = try await RecipientRepository.shared.deactivateRecipient(recipientId: recipient.id)
             isSwitchingRecipientActiveState = false
             if result == "204" {
                 self.recipient?.active = false
@@ -782,12 +771,10 @@ struct RecipientsDetailView: View {
     }
 
     private func getAliasesAndAddThemToList(recipient: Recipients, workingAliasList: AliasesArray? = nil) async {
-        let networkHelper = NetworkHelper()
         let aliasSortFilterRequest = AliasSortFilterRequest(onlyActiveAliases: false, onlyDeletedAliases: false, onlyInactiveAliases: false, onlyWatchedAliases: false, onlyPinnedAliases: false, sort: nil, sortDesc: false, filter: nil, label: nil)
         do {
-            if let list = try await networkHelper.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (workingAliasList?.meta?.current_page ?? 0) + 1, size: 100, recipient: recipientId) {
-                addAliasesToList(recipient: recipient, aliasesArray: list, workingAliasListInbound: workingAliasList)
-            }
+            let list = try await AliasRepository.shared.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: (workingAliasList?.meta?.current_page ?? 0) + 1, size: 100, recipient: recipientId)
+            addAliasesToList(recipient: recipient, aliasesArray: list, workingAliasListInbound: workingAliasList)
         } catch {
             withAnimation {
                 self.errorText = error.localizedDescription
@@ -823,8 +810,3 @@ struct RecipientsDetailView: View {
         }
     }
 }
-
-//
-// #Preview {
-//    RecipientsDetailView(recipientId: "6a866f49-5a0b-4c7e-bc45-f46bf019c4ed", recipientEmail: "PLACEHOLDER")
-// }

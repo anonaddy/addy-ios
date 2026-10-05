@@ -7,11 +7,12 @@
 
 import addy_shared
 import SwiftUI
-import WrappingHStack
 
 struct AliasRowView: View {
     let alias: Aliases
     let isPreview: Bool
+    var isWatched: Bool? = nil
+
     private var chartData: [Double] {
         let total = Double(alias.emails_forwarded + alias.emails_replied + alias.emails_sent + alias.emails_blocked)
         let normalizedTotal = total != 0 ? total : 10.0
@@ -29,7 +30,7 @@ struct AliasRowView: View {
     }
 
     private var isWatchingAlias: Bool {
-        AliasWatcher().getAliasesToWatch().contains(alias.id)
+        isWatched ?? AliasWatcher().getAliasesToWatch().contains(alias.id)
     }
 
     private var chartColors: [ColorGradient] {
@@ -74,20 +75,38 @@ struct AliasRowView: View {
             }
 
             if isWatchingAlias {
-                Label(String(localized: "you_ll_be_notified_if_this_alias_has_activity"), systemImage: "eyes")
-                    .foregroundStyle(.gray.opacity(0.4))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(.vertical, 4)
+                Label {
+                    Text(String(localized: "you_ll_be_notified_if_this_alias_has_activity"))
+                } icon: {
+                    Image("ic_watch_alias")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                }
+                .foregroundStyle(.gray.opacity(0.4))
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .padding(.vertical, 4)
             }
         }.overlay(alignment: .topTrailing) {
-            if alias.pinned {
-                Image(systemName: "pin.fill")
-                    .font(.system(size: 10)) // "Tiny" as requested
-                    .foregroundColor(.secondary)
-                    .padding(.top, 8) // Adjust these to sit nicely
-                    .padding(.trailing, 4) // within your list row padding
+            HStack(spacing: 4) {
+                if isWatchingAlias {
+                    Image("ic_watch_alias")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 12, height: 12)
+                        .foregroundColor(.secondary)
+                }
+                if alias.pinned {
+                    Image(systemName: "pin.fill")
+                        .font(.system(size: 10)) // "Tiny" as requested
+                        .foregroundColor(.secondary)
+                }
             }
+            .padding(.top, 8) // Adjust these to sit nicely
+            .padding(.trailing, 4) // within your list row padding
         }
         .padding()
     }
@@ -128,13 +147,23 @@ struct AliasRowView: View {
         }
         .frame(height: 90)
         .overlay(alignment: .topTrailing) {
-            if alias.pinned {
-                Image(systemName: "pin.fill")
-                    .font(.system(size: 10)) // "Tiny" as requested
-                    .foregroundColor(.secondary)
-                    .padding(.top, 8) // Adjust these to sit nicely
-                    .padding(.trailing, 4) // within your list row padding
+            HStack(spacing: 4) {
+                if isWatchingAlias {
+                    Image("ic_watch_alias")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 12, height: 12)
+                        .foregroundColor(.secondary)
+                }
+                if alias.pinned {
+                    Image(systemName: "pin.fill")
+                        .font(.system(size: 10)) // "Tiny" as requested
+                        .foregroundColor(.secondary)
+                }
             }
+            .padding(.top, 8) // Adjust these to sit nicely
+            .padding(.trailing, 4) // within your list row padding
         }
     }
 
@@ -218,7 +247,3 @@ private func localizedDateText(for alias: Aliases) -> String {
         return String(format: String(localized: "s_s"), createdText(alias.created_at), updatedText(alias.updated_at))
     }
 }
-
-// #Preview {
-//     AliasRowCardView()
-// }

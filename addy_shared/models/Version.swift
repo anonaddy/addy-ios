@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Version: Decodable {
+public struct Version: Decodable, Sendable {
     public let major: Int
     public let minor: Int
     public let patch: Int

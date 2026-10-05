@@ -11,7 +11,7 @@ import SwiftUI
 struct RecipientsView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
-    @StateObject var recipientsViewModel = RecipientsViewModel()
+    @StateObject private var recipientsViewModel = RecipientsViewModel()
 
     @State private var activeAlert: ActiveAlert = .resendConfirmationMailRecipientConfirmation
     @State private var showAlert: Bool = false
@@ -39,7 +39,30 @@ struct RecipientsView: View {
             let _ = Self._printChanges()
         #endif
         NavigationStack {
-            List {
+            recipientsViewBody
+        }
+        .onAppear(perform: {
+            // Set stats, update later
+            recipient_count = mainViewState.userResource?.recipient_count ?? 0
+            recipient_limit = mainViewState.userResource?.recipient_limit
+
+            loadFilter()
+
+            if let recipients = recipientsViewModel.recipients {
+                if recipients.isEmpty {
+                    Task {
+                        await recipientsViewModel.getRecipients()
+                    }
+                }
+            }
+        })
+        .task {
+            await getUserResource()
+        }
+    }
+
+    private var recipientsViewBody: some View {
+        List {
                 if let recipients = recipientsViewModel.recipients {
                     Section {
                         ForEach(recipients) { recipient in
@@ -49,6 +72,7 @@ struct RecipientsView: View {
                                 VStack(alignment: .leading) {
                                     Text(recipient.email)
                                         .font(.headline)
+                                        .lineLimit(1)
                                         .truncationMode(.tail)
                                         .frame(minWidth: 20)
 
@@ -56,6 +80,7 @@ struct RecipientsView: View {
                                         Text(String(localized: "not_verified"))
                                             .font(.caption)
                                             .opacity(0.625)
+                                            .lineLimit(1)
                                             .truncationMode(.middle)
                                             .foregroundStyle(.red)
                                     } else {
@@ -64,11 +89,13 @@ struct RecipientsView: View {
                                             Text(description)
                                                 .font(.caption)
                                                 .opacity(0.625)
+                                                .lineLimit(1)
                                                 .truncationMode(.middle)
                                         } else {
-                                            Text(String(format: String(format: String(localized: "recipients_list_description"), String(recipient.aliases_count ?? 0))))
+                                            Text(String(format: String(localized: "recipients_list_description"), String(recipient.aliases_count ?? 0)))
                                                 .font(.caption)
                                                 .opacity(0.625)
+                                                .lineLimit(1)
                                                 .truncationMode(.middle)
                                         }
                                         
@@ -107,7 +134,7 @@ struct RecipientsView: View {
                                     selectedFilterChip = onTappedChip.chipId
                                 }
 
-                                ApplyFilter(chipId: onTappedChip.chipId)
+                                applyFilter(chipId: onTappedChip.chipId)
                             }.scrollClipDisabled()
 
                             HStack(spacing: 6) {
@@ -135,7 +162,7 @@ struct RecipientsView: View {
                         }
 
                     } footer: {
-                        Text(String(format: String(localized: "you_ve_used_d_out_of_d_recipients"), String(recipient_count), (mainViewState.userResource!.subscription != nil ? String(recipient_limit! /* Cannot be nil since subscription is not nil */ ) : String(localized: "unlimited")))).padding(.top)
+                        Text(String(format: String(localized: "you_ve_used_d_out_of_d_recipients"), String(recipient_count), ((mainViewState.userResource?.subscription != nil && recipient_limit != nil) ? String(recipient_limit!) : String(localized: "unlimited")))).padding(.top)
 
                     }.textCase(nil)
                 }
@@ -189,16 +216,7 @@ struct RecipientsView: View {
             .overlay(Group {
                 // If there is an recipients (aka, if the list is visible)
                 if recipientsViewModel.recipients != nil {
-                    // There is always 1 recipient.
-
-                    //                    if recipients.isEmpty {
-                    //                        ContentUnavailableView {
-                    //                            Label(String(localized: "no_recipients"), systemImage: "person.2")
-                    //                        } description: {
-                    //                            Text(String(localized: "no_recipients_desc"))
-                    //                        }
-                    //                    }
-
+                    // There is always at least 1 recipient.
                 } else {
                     // If there is NO recipients (aka, if the list is not visible)
 
@@ -264,31 +282,13 @@ struct RecipientsView: View {
                             .frame(width: 24, height: 24)
                     }
                     // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
-                    .disabled(mainViewState.userResource!.subscription != nil &&
-                        recipient_count >= recipient_limit! /* Cannot be nil since subscription is not nil */ )
+                    .disabled(mainViewState.userResource?.subscription != nil &&
+                        recipient_limit != nil && recipient_count >= recipient_limit!)
                 }
             }
-        }.onAppear(perform: {
-            // Set stats, update later
-            recipient_count = mainViewState.userResource!.recipient_count
-            recipient_limit = mainViewState.userResource!.recipient_limit
-
-            LoadFilter()
-
-            if let recipients = recipientsViewModel.recipients {
-                if recipients.isEmpty {
-                    Task {
-                        await recipientsViewModel.getRecipients()
-                    }
-                }
-            }
-        })
-        .task {
-            await getUserResource()
         }
-    }
 
-    func ApplyFilter(chipId: String) {
+    func applyFilter(chipId: String) {
         switch chipId {
         case "verified_only":
             recipientsViewModel.verifiedOnly = true
@@ -303,14 +303,13 @@ struct RecipientsView: View {
         }
     }
 
-    func LoadFilter() {
-        filterChips = GetFilterChips()
+    func loadFilter() {
+        filterChips = getFilterChips()
     }
 
     func resendConfirmationMailRecipient(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.resendVerificationEmail(recipientId: recipient.id)
+            let result = try await recipientsViewModel.resendVerificationEmail(recipientId: recipient.id)
             if result == "200" {
                 activeAlert = .resendConfirmationMailRecipientSuccess
                 showAlert = true
@@ -329,9 +328,8 @@ struct RecipientsView: View {
     }
 
     private func deleteRecipient(recipient: Recipients) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteRecipient(recipientId: recipient.id)
+            let result = try await recipientsViewModel.deleteRecipient(recipientId: recipient.id)
             if result == "204" {
                 await getUserResource()
                 await recipientsViewModel.getRecipients()
@@ -363,7 +361,7 @@ struct RecipientsView: View {
         }
     }
 
-    func GetFilterChips() -> [AddyChipModel] {
+    func getFilterChips() -> [AddyChipModel] {
         return [
             AddyChipModel(chipId: "all", label: String(localized: "filter_all_recipients")),
             AddyChipModel(chipId: "verified_only", label: String(localized: "filter_verified_recipients")),
@@ -371,20 +369,13 @@ struct RecipientsView: View {
     }
 
     private func getUserResource() async {
-        let networkHelper = NetworkHelper()
         do {
-            let userResource = try await networkHelper.getUserResource()
-            if let userResource = userResource {
-                // Don't update mainView, this will refresh the entire view hierarchy
-                recipient_limit = userResource.recipient_limit
-                recipient_count = userResource.recipient_count
-            } else {
-                activeAlert = .error
-                showAlert = true
-                errorAlertTitle = ""
-                errorAlertMessage = String(localized: "something_went_wrong_retrieving_recipients")
-            }
+            let userResource = try await recipientsViewModel.getUserResource()
+            // Don't update mainView, this will refresh the entire view hierarchy
+            recipient_limit = userResource.recipient_limit
+            recipient_count = userResource.recipient_count
         } catch {
+            guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
             activeAlert = .error
             showAlert = true
             errorAlertTitle = String(localized: "something_went_wrong_retrieving_recipients")
@@ -392,7 +383,3 @@ struct RecipientsView: View {
         }
     }
 }
-
-// #Preview {
-//    RecipientsView()
-// }

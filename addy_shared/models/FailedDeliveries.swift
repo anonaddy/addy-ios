@@ -7,23 +7,14 @@
 
 import Foundation
 
-public struct FailedDeliveriesArray: Codable {
-    public var data: [FailedDeliveries]
-    public var links: Links?
-    public var meta: Meta?
-}
-
-struct SingleFailedDelivery: Codable {
-    let data: FailedDeliveries
-}
-
-public struct FailedDeliveries: Identifiable, Codable {
+public struct FailedDeliveries: Identifiable, Codable, Sendable {
     public let id: String
     let user_id: String
     let recipient_id: String?
     public let recipient_email: String?
     let alias_id: String?
     public let alias_email: String?
+    public let alias_description: String?
     public let bounce_type: String
     public let remote_mta: String
     public let sender: String?

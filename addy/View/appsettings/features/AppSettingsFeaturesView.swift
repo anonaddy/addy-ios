@@ -6,7 +6,6 @@
 //
 
 import addy_shared
-import BackgroundTasks
 import SwiftUI
 
 struct AppSettingsFeaturesView: View {
@@ -34,6 +33,10 @@ struct AppSettingsFeaturesView: View {
 
                 NavigationLink(destination: AppSettingsFeaturesNotifyApiTokenExpiryView()) {
                     AddySection(title: String(localized: "feature_api_token_expiry_notification"), description: String(localized: "notify_api_token_expiry_feature_section_desc"), leadingSystemimage: "textformat", leadingSystemimageColor: .cyan)
+                }
+
+                NavigationLink(destination: AppSettingsFeaturesNotifyCertificateExpiryView()) {
+                    AddySection(title: String(localized: "feature_certificate_expiry_notification"), description: String(localized: "notify_certificate_expiry_feature_section_desc"), leadingSystemimage: "lock.shield.fill", leadingSystemimageColor: .indigo)
                 }
 
                 NavigationLink(destination: AppSettingsFeaturesNotifyDomainErrorView()) {
@@ -68,7 +71,7 @@ struct AppSettingsFeaturesView: View {
             } footer: {
                 Text(String(localized: "ios_background_limitations_note")).padding(.top).onLongPressGesture {
                     #if DEBUG
-                        BackgroundWorkerHelper().listPendingTasks()
+                        BackgroundWorkerHelper.shared.listPendingTasks()
                     #endif
                 }
 

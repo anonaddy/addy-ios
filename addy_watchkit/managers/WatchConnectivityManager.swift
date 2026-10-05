@@ -7,7 +7,6 @@
 
 import addy_shared
 import Combine
-import SwiftUI
 import WatchConnectivity
 import WatchKit
 
@@ -69,7 +68,10 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
                     #if DEBUG
                         print("Received message for wrong request_id")
                     #endif
+                    replyHandler(["error": "Wrong request ID"])
                 }
+            } else {
+                replyHandler(["error": "Unhandled message"])
             }
         }
     }
@@ -77,17 +79,41 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith _: WCSessionActivationState, error _: Error?) {
         DispatchQueue.main.async {
             self.isReachable = session.isReachable
+            if session.isReachable && self.shouldNagiPhone {
+                self.nagForSetup()
+            }
+        }
+    }
+
+    func sessionReachabilityDidChange(_ session: WCSession) {
+        DispatchQueue.main.async {
+            self.isReachable = session.isReachable
+            if session.isReachable && self.shouldNagiPhone {
+                self.nagForSetup()
+            }
         }
     }
 
     func startPeriodicNagging() {
-        retryTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
-            if self.isReachable {
-                if self.shouldNagiPhone {
+        retryTimer?.invalidate()
+        if WCSession.default.isReachable && shouldNagiPhone {
+            nagForSetup()
+        }
+        retryTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            if self.shouldNagiPhone {
+                if WCSession.default.isReachable {
                     self.nagForSetup()
                 }
+            } else {
+                self.stopPeriodicNagging()
             }
         }
+    }
+
+    func stopPeriodicNagging() {
+        retryTimer?.invalidate()
+        retryTimer = nil
     }
 
     func sendLogsToDevice(logs: [Logs]?,
@@ -104,7 +130,7 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         }, errorHandler: { error in
             LoggingHelper().addLog(
                 importance: LogImportance.warning,
-                error: "Error sending logs to watch: \(error.localizedDescription)",
+                error: "Error sending logs to iPhone: \(error.localizedDescription)",
                 method: "sendLogsToDevice",
                 extra: nil
             )
@@ -127,7 +153,7 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         }, errorHandler: { error in
             LoggingHelper().addLog(
                 importance: LogImportance.warning,
-                error: "Error opening alias on watch: \(error.localizedDescription)",
+                error: "Error opening alias on iPhone: \(error.localizedDescription)",
                 method: "showAliasOnWatch",
                 extra: nil
             )
@@ -143,7 +169,9 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
             print("🐛 Nagging iPhone for setup...")
         #endif
         let watchName = WKInterfaceDevice.current().name
-        statusText = String(localized: "setup_watchos_check_paired_device_status_1")
+        DispatchQueue.main.async {
+            self.statusText = String(localized: "setup_watchos_check_paired_device_status_1")
+        }
         // Send requestSetup to iPhone, including watchName and a unique ID for later confirmation (to make sure the incoming configuration is really meant for this Watch
         WCSession.default.sendMessage(["request_setup": true, "watch_name": watchName, "request_id": UUID().uuidString], replyHandler: { reply in
             DispatchQueue.main.async {
@@ -156,6 +184,7 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
                         self.statusText = String(localized: "setup_watchos_check_paired_device_status_2")
                         self.shouldNagiPhone = false
                         self.requestId = requestId
+                        self.stopPeriodicNagging()
                     }
                 }
             }

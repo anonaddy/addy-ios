@@ -8,9 +8,10 @@
 import addy_shared
 import SwiftUI
 
+@MainActor
 class TimerViewModel: ObservableObject {
     @Published var secondsRemaining = 10
-    private var timer: Timer?
+    private var countdownTask: Task<Void, Never>?
 
     init() {
         resetTimer()
@@ -18,15 +19,18 @@ class TimerViewModel: ObservableObject {
 
     func resetTimer() {
         secondsRemaining = 10
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            if self?.secondsRemaining ?? 0 > 0 {
-                self?.secondsRemaining -= 1
-            } else {
-                self?.timer?.invalidate()
+        countdownTask?.cancel()
+        countdownTask = Task { @MainActor in
+            while secondsRemaining > 0 {
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                if Task.isCancelled { break }
+                secondsRemaining -= 1
             }
         }
-        RunLoop.current.add(timer!, forMode: .common)
+    }
+
+    deinit {
+        countdownTask?.cancel()
     }
 }
 
@@ -89,8 +93,8 @@ struct DeleteAccountConfirmationView: View {
     }
 
     private func deleteAccount() async {
-        let networkHelper = NetworkHelper()
-        await networkHelper.deleteAccount(password: password, completion: { result in
+        do {
+            let result = try await UserRepository.shared.deleteAccount(password: password)
             switch result {
             case "204":
                 SettingsManager(encrypted: true).clearSettingsAndCloseApp()
@@ -101,7 +105,10 @@ struct DeleteAccountConfirmationView: View {
                 alertMessage = result
                 showAlert = true
             }
-        })
+        } catch {
+            alertMessage = error.localizedDescription
+            showAlert = true
+        }
     }
 }
 

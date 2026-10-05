@@ -54,7 +54,7 @@ struct SettingsView: View {
                         resetApp()
                     }
 
-                    WKExtension.shared().visibleInterfaceController?.presentAlert(
+                    WKApplication.shared().visibleInterfaceController?.presentAlert(
                         withTitle: String(localized: "reset_app", bundle: Bundle(for: SharedData.self)),
                         message: String(localized: "reset_app_desc"),
                         preferredStyle: .alert,
@@ -103,7 +103,7 @@ struct SettingsView: View {
 
             let successAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}
             WKInterfaceDevice.current().play(.success)
-            WKExtension.shared().visibleInterfaceController?.presentAlert(
+            WKApplication.shared().visibleInterfaceController?.presentAlert(
                 withTitle: String(localized: "success"),
                 message: String(localized: "logs_sent"),
                 preferredStyle: .alert,
@@ -112,7 +112,7 @@ struct SettingsView: View {
 
             // Dismiss after 2s
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                WKExtension.shared().visibleInterfaceController?.dismiss()
+                WKApplication.shared().visibleInterfaceController?.dismiss()
             }
 
         }, errorHandler: { error in
@@ -120,7 +120,7 @@ struct SettingsView: View {
 
             let okAction = WKAlertAction(title: String(localized: "close", bundle: Bundle(for: SharedData.self)), style: .default) {}
             WKInterfaceDevice.current().play(.failure)
-            WKExtension.shared().visibleInterfaceController?.presentAlert(
+            WKApplication.shared().visibleInterfaceController?.presentAlert(
                 withTitle: String(localized: "error", bundle: Bundle(for: SharedData.self)),
                 message: error.localizedDescription,
                 preferredStyle: .alert,

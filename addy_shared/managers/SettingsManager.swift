@@ -6,7 +6,11 @@
 //
 
 import Foundation
+#if os(iOS)
 import UIKit
+import UserNotifications
+import CoreSpotlight
+#endif
 
 public class SettingsManager {
     public enum Prefs {
@@ -17,13 +21,16 @@ public class SettingsManager {
         case notifyFailedDeliveriesType
         case notifyAccountNotifications
         case notifyApiTokenExpiry
+        case notifyCertificateExpiry
         case notifyDomainError
         case notifySubscriptionExpiry
         case mailtoActivityShowSuggestions
+        case preferredMailClient
         case aliasSortFilter
         case pendingURLFromShareViewController
         case biometricEnabled
         case privacyMode
+        case spotlightSearch
         case apiKey
         case baseUrl
         case userResource
@@ -42,6 +49,7 @@ public class SettingsManager {
         case backgroundServiceNotifiedFailedDeliveriesLatestId
         case backgroundServiceCacheAccountNotificationsCount
         case backgroundServiceCacheApiKeyExpiryLeftCount
+        case backgroundServiceCacheCertificateExpiryLeftCount
         case backgroundServiceCacheSubscriptionExpiryLeftCount
         case backgroundServiceCacheDomainErrorCount
         case backgroundServiceCacheAccountNotificationsCountPrevious
@@ -178,24 +186,6 @@ public class SettingsManager {
         }
     }
 
-    func putSettingsFloat(key: Prefs, float: Float) {
-        let userKey = "\(user)_\(key)"
-        if useKeychain {
-            keychain.set("\(float)", forKey: userKey, withAccess: .accessibleAfterFirstUnlock)
-        } else {
-            prefs?.set(float, forKey: userKey)
-        }
-    }
-
-    func getSettingsFloat(key: Prefs) -> Float {
-        let userKey = "\(user)_\(key)"
-        if useKeychain {
-            return Float(keychain.get(userKey)!) ?? 0.0
-        } else {
-            return prefs?.float(forKey: userKey) ?? 0.0
-        }
-    }
-
     public func putStringSet(key: Prefs, mutableSet: Set<String>) {
         let userKey = "\(user)_\(key)"
         if useKeychain {
@@ -238,16 +228,24 @@ public class SettingsManager {
         if useKeychain {
             keychain.clear()
         } else {
-            #if DEBUG
-                let suiteName = "group.host.stjin.addy.debug"
-
+            #if os(watchOS)
+                #if DEBUG
+                    let suiteName = "group.host.stjin.addy.debug.watchkitapp"
+                #else
+                    let suiteName = "group.host.stjin.addy.watchkitapp"
+                #endif
             #else
-                let suiteName = "group.host.stjin.addy"
+                #if DEBUG
+                    let suiteName = "group.host.stjin.addy.debug"
+                #else
+                    let suiteName = "group.host.stjin.addy"
+                #endif
             #endif
 
-            let keys = UserDefaults(suiteName: suiteName)?.dictionaryRepresentation().keys
-            for key in keys! {
-                prefs?.removeObject(forKey: key)
+            if let keys = UserDefaults(suiteName: suiteName)?.dictionaryRepresentation().keys {
+                for key in keys {
+                    prefs?.removeObject(forKey: key)
+                }
             }
         }
 
@@ -276,6 +274,17 @@ public class SettingsManager {
                         method: "MainView.newPhase",
                         extra: error.debugDescription
                     )
+                }
+
+                CSSearchableIndex.default().deleteAllSearchableItems { error in
+                    if let error = error {
+                        LoggingHelper().addLog(
+                            importance: LogImportance.critical,
+                            error: "Cannot delete searchable items: \(error.localizedDescription)",
+                            method: "SettingsManager.clearSettingsAndCloseApp",
+                            extra: nil
+                        )
+                    }
                 }
             }
         #endif

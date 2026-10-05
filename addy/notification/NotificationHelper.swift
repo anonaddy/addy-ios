@@ -11,6 +11,21 @@ import UIKit
 import UserNotifications
 
 class NotificationHelper {
+    private func postNotification(request: UNNotificationRequest, incrementBadge: Bool = false) {
+        UNUserNotificationCenter.current().add(request)
+        if incrementBadge {
+            Task { @MainActor in
+                let currentBadge: Int
+                if #available(iOS 17.0, *) {
+                    currentBadge = await UNUserNotificationCenter.current().deliveredNotifications().count
+                } else {
+                    currentBadge = UIApplication.shared.applicationIconBadgeNumber
+                }
+                try? await UNUserNotificationCenter.current().setBadgeCount(currentBadge + 1)
+            }
+        }
+    }
+
     func createAliasWatcherNotification(emailDifference: Int, id: String, email: String) {
         let content = UNMutableNotificationContent()
         content.title = String(localized: "notification_new_emails")
@@ -24,21 +39,20 @@ class NotificationHelper {
         content.sound = .default
         content.userInfo = ["aliasId": id]
 
-        let action1 = UNNotificationAction(identifier: notificationActions.disableAlias, title: String(localized: "deactivate_alias"), options: [.foreground])
-        let action2 = UNNotificationAction(identifier: notificationActions.stopWatching, title: String(localized: "stop_watching"), options: [])
-        let category = UNNotificationCategory(identifier: notificationActions.openAlias, actions: [action1, action2], intentIdentifiers: [], options: [])
+        let action1 = UNNotificationAction(identifier: NotificationActions.disableAlias, title: String(localized: "deactivate_alias"), options: [.foreground])
+        let action2 = UNNotificationAction(identifier: NotificationActions.stopWatching, title: String(localized: "stop_watching"), options: [])
+        let category = UNNotificationCategory(identifier: NotificationActions.openAlias, actions: [action1, action2], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
-        content.categoryIdentifier = notificationActions.openAlias
+        content.categoryIdentifier = NotificationActions.openAlias
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openAlias, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openAlias, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createOpenAliasFromWatchkitNotification(id: String, email: String) {
@@ -54,16 +68,16 @@ class NotificationHelper {
         content.sound = .default
         content.userInfo = ["aliasId": id]
 
-        content.categoryIdentifier = notificationActions.openAlias
+        content.categoryIdentifier = NotificationActions.openAlias
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openAlias, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openAlias, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
+        postNotification(request: request)
     }
 
     func createSetupWatchkitNotification(watchName: String) {
@@ -71,16 +85,16 @@ class NotificationHelper {
         content.title = String(localized: "setup_wearable_app")
         content.subtitle = String(format: String(localized: "notification_setup_wearable_app_desc"), watchName)
         content.sound = .default
-        content.categoryIdentifier = notificationActions.openApp
+        content.categoryIdentifier = NotificationActions.openApp
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openApp, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openApp, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
+        postNotification(request: request)
     }
 
     func createSetupAppFirstWatchkitNotification() {
@@ -93,10 +107,10 @@ class NotificationHelper {
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openApp, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openApp, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
+        postNotification(request: request)
     }
 
     func createOpenLogsFromWatchkitNotification() {
@@ -104,16 +118,16 @@ class NotificationHelper {
         content.title = String(localized: "notification_open_logs_from_watchkit")
         content.subtitle = String(localized: "notification_open_logs_from_watchkit_desc")
         content.sound = .default
-        content.categoryIdentifier = notificationActions.openSettings
+        content.categoryIdentifier = NotificationActions.openWatchKitLogs
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openSettings, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openWatchKitLogs, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
+        postNotification(request: request)
     }
 
     func createAliasWatcherAliasDoesNotExistAnymoreNotification(email: String) {
@@ -135,8 +149,7 @@ class NotificationHelper {
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createUpdateNotification(version: String) {
@@ -145,20 +158,40 @@ class NotificationHelper {
         content.subtitle = String(format: String(localized: "notification_new_update_available_desc"), version)
         content.sound = nil
 
-        let action1 = UNNotificationAction(identifier: notificationActions.stopUpdateCheck, title: String(localized: "stop_checking"), options: [])
-        let category = UNNotificationCategory(identifier: notificationActions.openSettings, actions: [action1], intentIdentifiers: [], options: [])
+        let action1 = UNNotificationAction(identifier: NotificationActions.stopUpdateCheck, title: String(localized: "stop_checking"), options: [])
+        let category = UNNotificationCategory(identifier: NotificationActions.openSettings, actions: [action1], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
-        content.categoryIdentifier = notificationActions.openSettings
+        content.categoryIdentifier = NotificationActions.openSettings
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openSettings, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openSettings, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
+    }
+
+    func createCertificateExpiryNotification(daysLeft: String) {
+        let content = UNMutableNotificationContent()
+        content.title = String(localized: "notification_certificate_about_to_expire")
+        content.subtitle = String(format: String(localized: "notification_certificate_about_to_expire_desc"), daysLeft)
+        content.sound = .default
+
+        let action1 = UNNotificationAction(identifier: NotificationActions.stopCertificateExpiryCheck, title: String(localized: "disable_notifications"), options: [])
+        let category = UNNotificationCategory(identifier: NotificationActions.openCertificateExpirationWarning, actions: [action1], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        content.categoryIdentifier = NotificationActions.openCertificateExpirationWarning
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: NotificationActions.openCertificateExpirationWarning, content: content, trigger: trigger)
+
+        // add our notification request
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createApiTokenExpiryNotification(daysLeft: String) {
@@ -167,20 +200,19 @@ class NotificationHelper {
         content.subtitle = String(format: String(localized: "notification_api_token_about_to_expire_desc"), daysLeft)
         content.sound = .default
 
-        let action1 = UNNotificationAction(identifier: notificationActions.stopApiExpiryCheck, title: String(localized: "disable_notifications"), options: [])
-        let category = UNNotificationCategory(identifier: notificationActions.openApiExpirationWarning, actions: [action1], intentIdentifiers: [], options: [])
+        let action1 = UNNotificationAction(identifier: NotificationActions.stopApiExpiryCheck, title: String(localized: "disable_notifications"), options: [])
+        let category = UNNotificationCategory(identifier: NotificationActions.openApiExpirationWarning, actions: [action1], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
-        content.categoryIdentifier = notificationActions.openApiExpirationWarning
+        content.categoryIdentifier = NotificationActions.openApiExpirationWarning
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openApiExpirationWarning, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openApiExpirationWarning, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createSubscriptionExpiryNotification(daysLeft: String) {
@@ -189,20 +221,19 @@ class NotificationHelper {
         content.subtitle = String(format: String(localized: "notification_subscription_about_to_expire_desc"), daysLeft)
         content.sound = .default
 
-        let action1 = UNNotificationAction(identifier: notificationActions.stopSubscriptionExpiryCheck, title: String(localized: "disable_notifications"), options: [])
-        let category = UNNotificationCategory(identifier: notificationActions.openSubscriptionExpirationWarning, actions: [action1], intentIdentifiers: [], options: [])
+        let action1 = UNNotificationAction(identifier: NotificationActions.stopSubscriptionExpiryCheck, title: String(localized: "disable_notifications"), options: [])
+        let category = UNNotificationCategory(identifier: NotificationActions.openSubscriptionExpirationWarning, actions: [action1], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
-        content.categoryIdentifier = notificationActions.openSubscriptionExpirationWarning
+        content.categoryIdentifier = NotificationActions.openSubscriptionExpirationWarning
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openSubscriptionExpirationWarning, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openSubscriptionExpirationWarning, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createDomainErrorNotification(count: Int) {
@@ -211,20 +242,19 @@ class NotificationHelper {
         content.subtitle = String(format: String(localized: "notification_domain_error_desc"), count)
         content.sound = .default
 
-        let action1 = UNNotificationAction(identifier: notificationActions.stopDomainErrorCheck, title: String(localized: "disable_notifications"), options: [])
-        let category = UNNotificationCategory(identifier: notificationActions.openDomains, actions: [action1], intentIdentifiers: [], options: [])
+        let action1 = UNNotificationAction(identifier: NotificationActions.stopDomainErrorCheck, title: String(localized: "disable_notifications"), options: [])
+        let category = UNNotificationCategory(identifier: NotificationActions.openDomains, actions: [action1], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
-        content.categoryIdentifier = notificationActions.openDomains
+        content.categoryIdentifier = NotificationActions.openDomains
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openDomains, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openDomains, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createFailedDeliveryNotification(difference: Int) {
@@ -233,20 +263,19 @@ class NotificationHelper {
         content.subtitle = String(format: String(localized: "notification_new_failed_delivery_desc"), String(difference))
         content.sound = .default
 
-        let action1 = UNNotificationAction(identifier: notificationActions.stopFailedDeliveriesCheck, title: String(localized: "stop_checking"), options: [])
-        let category = UNNotificationCategory(identifier: notificationActions.openFailedDeliveries, actions: [action1], intentIdentifiers: [], options: [])
+        let action1 = UNNotificationAction(identifier: NotificationActions.stopFailedDeliveriesCheck, title: String(localized: "stop_checking"), options: [])
+        let category = UNNotificationCategory(identifier: NotificationActions.openFailedDeliveries, actions: [action1], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
-        content.categoryIdentifier = notificationActions.openFailedDeliveries
+        content.categoryIdentifier = NotificationActions.openFailedDeliveries
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openFailedDeliveries, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openFailedDeliveries, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 
     func createAccountNotification(difference: Int) {
@@ -255,19 +284,18 @@ class NotificationHelper {
         content.subtitle = String(format: String(localized: "notification_new_account_notifications_desc"), String(difference))
         content.sound = .default
 
-        let action1 = UNNotificationAction(identifier: notificationActions.stopAccountNotificationsCheck, title: String(localized: "stop_checking"), options: [])
-        let category = UNNotificationCategory(identifier: notificationActions.openAccountNotifications, actions: [action1], intentIdentifiers: [], options: [])
+        let action1 = UNNotificationAction(identifier: NotificationActions.stopAccountNotificationsCheck, title: String(localized: "stop_checking"), options: [])
+        let category = UNNotificationCategory(identifier: NotificationActions.openAccountNotifications, actions: [action1], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
-        content.categoryIdentifier = notificationActions.openAccountNotifications
+        content.categoryIdentifier = NotificationActions.openAccountNotifications
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: notificationActions.openAccountNotifications, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: NotificationActions.openAccountNotifications, content: content, trigger: trigger)
 
         // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        UNUserNotificationCenter.current().setBadgeCount(UIApplication.shared.applicationIconBadgeNumber + 1)
+        postNotification(request: request, incrementBadge: true)
     }
 }

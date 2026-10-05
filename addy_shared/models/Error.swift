@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Error: Codable {
+struct Error: Codable, Sendable {
     let message: String
 }
 

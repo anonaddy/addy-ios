@@ -5,7 +5,6 @@
 //  Created by Stijn van de Water on 22/05/2024.
 //
 
-import SwiftUI
 #if os(iOS)
     import UIKit
 #elseif os(watchOS)

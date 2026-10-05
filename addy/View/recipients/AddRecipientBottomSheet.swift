@@ -6,19 +6,21 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct AddRecipientBottomSheet: View {
     @Environment(\.dismiss) var dismiss
 
     @State var address: String = ""
-    @State var addressPlaceHolder: String = .init(localized: "address")
     @State private var recipientValidationError: String?
     @State private var recipientRequestError: String?
-    @State var IsLoadingAddButton: Bool = false
+    @State var isLoadingAddButton: Bool = false
 
     let onAdded: () -> Void
+
+    init(onAdded: @escaping () -> Void) {
+        self.onAdded = onAdded
+    }
 
     var body: some View {
         #if DEBUG
@@ -27,7 +29,7 @@ struct AddRecipientBottomSheet: View {
 
         Form {
             Section {
-                ValidatingTextField(value: self.$address, placeholder: self.$addressPlaceHolder, fieldType: .email, error: $recipientValidationError)
+                ValidatingTextField(value: self.$address, placeholder: String(localized: "address"), fieldType: .email, error: $recipientValidationError)
 
             } header: {
                 VStack(alignment: .leading) {
@@ -50,64 +52,58 @@ struct AddRecipientBottomSheet: View {
 
             }.textCase(nil)
 
-        }.navigationTitle(String(localized: "add_recipient")).pickerStyle(.navigationLink)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        saveButton().buttonStyle(.glassProminent)
-                    } else {
-                        saveButton()
-                    }
+        }
+        .navigationTitle(String(localized: "add_recipient"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26.0, *) {
+                    saveButton().buttonStyle(.glassProminent)
+                } else {
+                    saveButton()
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                    }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
-            })
-    }
-
-    private func saveButton() -> some View {
-        Group {
-            if IsLoadingAddButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
-            } else {
-                AnyView(
-                    Button {
-                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                        // We should not allow any saving until the validationErrors are nil
-                        if recipientValidationError == nil {
-                            IsLoadingAddButton = true
-
-                            Task {
-                                await self.addRecipientToAccount(address: self.address)
-                            }
-                        } else {
-                            IsLoadingAddButton = false
-                        }
-                    } label: {
-                        Text(String(localized: "add"))
-                    }
-                )
             }
         }
     }
 
-    init(onAdded: @escaping () -> Void) {
-        self.onAdded = onAdded
+    private func saveButton() -> some View {
+        Group {
+            if isLoadingAddButton {
+                ProgressView().progressViewStyle(.circular)
+            } else {
+                Button {
+                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                    // We should not allow any saving until the validationErrors are nil
+                    if recipientValidationError == nil {
+                        isLoadingAddButton = true
+
+                        Task {
+                            await self.addRecipientToAccount(address: self.address)
+                        }
+                    } else {
+                        isLoadingAddButton = false
+                    }
+                } label: {
+                    Text(String(localized: "add"))
+                }
+            }
+        }
     }
 
     private func addRecipientToAccount(address: String) async {
         recipientRequestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.addRecipient(address: address)
+            _ = try await RecipientRepository.shared.addRecipient(address: address)
             onAdded()
         } catch {
-            IsLoadingAddButton = false
+            isLoadingAddButton = false
             recipientRequestError = error.localizedDescription
         }
     }

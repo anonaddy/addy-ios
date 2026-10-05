@@ -57,7 +57,7 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
                 guard let watchName = message["watch_name"] as? String,
                       let requestId = message["request_id"] as? String
                 else {
-                    replyHandler(["error": "Invalid message"]) // TODO: to localizable
+                    replyHandler(["error": "Invalid message"])
                     return
                 }
                 self.watchName = watchName
@@ -72,18 +72,17 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
                     NotificationHelper().createSetupAppFirstWatchkitNotification()
                 }
                 replyHandler(["request_setup_confirm": true, "request_id": requestId])
-            }
-
-            if message["show_alias"] as? Bool == true {
-                NotificationHelper().createOpenAliasFromWatchkitNotification(
-                    id: message["alias_id"] as! String,
-                    email: message["email"] as! String
-                )
+            } else if message["show_alias"] as? Bool == true {
+                if let aliasId = message["alias_id"] as? String,
+                   let email = message["email"] as? String {
+                    NotificationHelper().createOpenAliasFromWatchkitNotification(
+                        id: aliasId,
+                        email: email
+                    )
+                }
                 replyHandler(["show_alias_confirm": true])
-            }
-
-            if message["show_logs"] as? Bool == true {
-                var logs = message["logs"] as? String
+            } else if message["show_logs"] as? Bool == true {
+                let logs = message["logs"] as? String
                 LoggingHelper(logFile: .watchosLogs).setList(logs: stringToLogs(logs ?? ""))
                 LoggingHelper().addLog(
                     importance: LogImportance.info,
@@ -92,8 +91,9 @@ final class iOSConnectivityManager: NSObject, ObservableObject, WCSessionDelegat
                     extra: "\(String(describing: logs))"
                 )
                 NotificationHelper().createOpenLogsFromWatchkitNotification()
-                // Trigger your reset logic here
                 replyHandler(["show_logs_confirm": true])
+            } else {
+                replyHandler(["error": "Unhandled message"])
             }
         }
     }

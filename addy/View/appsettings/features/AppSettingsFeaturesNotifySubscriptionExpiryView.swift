@@ -30,7 +30,7 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
                         // Only fire when the value is NOT the same as the value already in the model
                         if notifySubscriptionExpiry != MainViewState.shared.settingsManager.getSettingsBool(key: .notifySubscriptionExpiry) {
                             MainViewState.shared.settingsManager.putSettingsBool(key: .notifySubscriptionExpiry, boolean: notifySubscriptionExpiry)
-                            BackgroundWorkerHelper().scheduleAppRefresh()
+                            BackgroundWorkerHelper.shared.scheduleAppRefresh()
                         }
                     }
             } footer: {
@@ -81,7 +81,7 @@ struct AppSettingsFeaturesNotifySubscriptionExpiryView: View {
 
     private func checkSubscriptionExpiry() async {
         do {
-            let userResource = try await NetworkHelper().getUserResource()
+            let userResource = try await UserRepository.shared.getUserResource()
             setSubscriptionInfoText(user: userResource)
         } catch {
             subscriptionExpiryText = String(localized: "subscription_expiry_date_unknown")

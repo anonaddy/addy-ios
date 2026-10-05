@@ -11,7 +11,7 @@ import SwiftUI
 struct UsernamesView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
-    @StateObject var usernamesViewModel = UsernamesViewModel()
+    @StateObject private var usernamesViewModel = UsernamesViewModel()
 
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
@@ -47,8 +47,8 @@ struct UsernamesView: View {
             }
         }.onAppear(perform: {
             // Set stats, update later
-            username_count = mainViewState.userResource!.username_count
-            username_limit = mainViewState.userResource!.username_limit
+            username_count = mainViewState.userResource?.username_count ?? 0
+            username_limit = mainViewState.userResource?.username_limit ?? 0
 
             if let usernames = usernamesViewModel.usernames {
                 if usernames.data.isEmpty {
@@ -74,6 +74,7 @@ struct UsernamesView: View {
                             VStack(alignment: .leading) {
                                 Text(username.username)
                                     .font(.headline)
+                                    .lineLimit(1)
                                     .truncationMode(.tail)
                                     .frame(minWidth: 20)
 
@@ -133,7 +134,7 @@ struct UsernamesView: View {
         }
         .sheet(isPresented: $isPresentingAddUsernameBottomSheet) {
             NavigationStack {
-                AddUsernameBottomSheet(usernameLimit: mainViewState.userResource!.username_limit) {
+                AddUsernameBottomSheet(usernameLimit: mainViewState.userResource?.username_limit ?? 0) {
                     Task {
                         await getUserResource()
                         await usernamesViewModel.getUsernames()
@@ -166,16 +167,7 @@ struct UsernamesView: View {
         .overlay(Group {
             // If there is an usernames (aka, if the list is visible)
             if usernamesViewModel.usernames != nil {
-                // There is always 1 username.
-
-                //                    if usernames.isEmpty {
-                //                        ContentUnavailableView {
-                //                            Label(String(localized: "no_usernames"), systemImage: "person.2")
-                //                        } description: {
-                //                            Text(String(localized: "no_usernames_desc"))
-                //                        }
-                //                    }
-
+                // There is always at least 1 username.
             } else {
                 // If there is NO usernames (aka, if the list is not visible)
 
@@ -242,8 +234,8 @@ struct UsernamesView: View {
                     Image(systemName: "plus")
                         .frame(width: 24, height: 24)
                 } // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
-                .disabled(mainViewState.userResource!.subscription != nil &&
-                    username_count >= username_limit /* Cannot be nil since subscription is not nil */ )
+                .disabled(mainViewState.userResource?.subscription != nil &&
+                    username_count >= username_limit)
             }
         }
     }
@@ -252,23 +244,22 @@ struct UsernamesView: View {
         if let description = username.description {
             return String(format: String(localized: "s_s_s"),
                           description,
-                          String(format: NSLocalizedString("created_at_s", bundle: Bundle(for: SharedData.self), comment: ""),
+                          String(format: String(localized: "created_at_s", bundle: Bundle(for: SharedData.self)),
                                  DateTimeUtils.convertStringToLocalTimeZoneString(username.created_at)),
                           String(format: String(localized: "updated_at_s"),
                                  DateTimeUtils.convertStringToLocalTimeZoneString(username.updated_at)))
         } else {
             return String(format: String(localized: "s_s"),
-                          String(format: NSLocalizedString("created_at_s", bundle: Bundle(for: SharedData.self), comment: ""),
+                          String(format: String(localized: "created_at_s", bundle: Bundle(for: SharedData.self)),
                                  DateTimeUtils.convertStringToLocalTimeZoneString(username.created_at)),
-                          String(format: String(localized: "created_at_s"),
+                          String(format: String(localized: "updated_at_s"),
                                  DateTimeUtils.convertStringToLocalTimeZoneString(username.updated_at)))
         }
     }
 
     private func deleteUsername(username: Usernames) async {
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.deleteUsername(usernameId: username.id)
+            let result = try await usernamesViewModel.deleteUsername(usernameId: username.id)
             if result == "204" {
                 await getUserResource()
                 await usernamesViewModel.getUsernames()
@@ -301,20 +292,13 @@ struct UsernamesView: View {
     }
 
     private func getUserResource() async {
-        let networkHelper = NetworkHelper()
         do {
-            let userResource = try await networkHelper.getUserResource()
-            if let userResource = userResource {
-                // Don't update mainView, this will refresh the entire view hierarchy
-                username_limit = userResource.username_limit
-                username_count = userResource.username_count
-            } else {
-                activeAlert = .error
-                showAlert = true
-                errorAlertTitle = ""
-                errorAlertMessage = String(localized: "something_went_wrong_retrieving_usernames")
-            }
+            let userResource = try await usernamesViewModel.getUserResource()
+            // Don't update mainView, this will refresh the entire view hierarchy
+            username_limit = userResource.username_limit
+            username_count = userResource.username_count
         } catch {
+            guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
             activeAlert = .error
             showAlert = true
             errorAlertTitle = String(localized: "something_went_wrong_retrieving_usernames")
@@ -322,8 +306,3 @@ struct UsernamesView: View {
         }
     }
 }
-
-//
-// #Preview {
-//    UsernamesView()
-// }

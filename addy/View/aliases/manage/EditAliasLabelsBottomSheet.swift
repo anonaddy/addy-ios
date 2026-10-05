@@ -19,8 +19,9 @@ struct EditAliasLabelsBottomSheet: View {
     @State private var isLoadingSaveButton: Bool = false
     @State private var isPresentingAddLabelBottomSheet = false
 
-    let aliasId: String
-    let labelsEdited: (Aliases) -> Void
+    let aliasIds: [String]
+    var onSaved: (() -> Void)? = nil
+    var labelsEdited: ((Aliases) -> Void)? = nil
 
     var body: some View {
         Form {
@@ -28,19 +29,24 @@ struct EditAliasLabelsBottomSheet: View {
                 if !labelsLoaded {
                     ProgressView()
                         .frame(maxWidth: .infinity, alignment: .center)
+                } else if allLabels.isEmpty {
+                    Text(String(localized: "no_labels"))
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 8)
                 } else {
                     WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                         ForEach(allLabels) { label in
-                            ChipView(label: label.label, isSelected: selectedLabelIds.contains(label.chipId), color: Color(hex: label.color ?? "FFFFFF"))
-                                .onTapGesture {
-                                    withAnimation {
-                                        if selectedLabelIds.contains(label.chipId) {
-                                            selectedLabelIds.removeAll { $0 == label.chipId }
-                                        } else {
-                                            selectedLabelIds.append(label.chipId)
-                                        }
+                            ChipView(label: label.label, isSelected: selectedLabelIds.contains(label.chipId), color: Color(hex: label.color ?? "FFFFFF")) {
+                                withAnimation {
+                                    if selectedLabelIds.contains(label.chipId) {
+                                        selectedLabelIds.removeAll { $0 == label.chipId }
+                                    } else {
+                                        selectedLabelIds.append(label.chipId)
                                     }
                                 }
+                            }
                         }
                     }
                 }
@@ -131,22 +137,28 @@ struct EditAliasLabelsBottomSheet: View {
     }
 
     init(aliasId: String, selectedLabelsIds: [String], labelsEdited: @escaping (Aliases) -> Void) {
-        self.aliasId = aliasId
-        _selectedLabelIds = State(initialValue: selectedLabelsIds)
+        self.aliasIds = [aliasId]
+        self._selectedLabelIds = State(initialValue: selectedLabelsIds)
         self.labelsEdited = labelsEdited
+        self.onSaved = nil
+    }
+
+    init(aliasIds: [String], selectedLabelsIds: [String] = [], onSaved: @escaping () -> Void) {
+        self.aliasIds = aliasIds
+        self._selectedLabelIds = State(initialValue: selectedLabelsIds)
+        self.onSaved = onSaved
+        self.labelsEdited = nil
     }
 
     private func getAllLabels(forceReload: Bool = false) async {
         if !labelsLoaded || forceReload {
-            let networkHelper = NetworkHelper()
             do {
-                if let labels = try await networkHelper.getAllLabels()?.data {
-                    self.allLabels = []
-                    for label in labels {
-                        self.allLabels.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
-                    }
-                    labelsLoaded = true
+                let labels = try await LabelRepository.shared.getLabels().data
+                self.allLabels = []
+                for label in labels {
+                    self.allLabels.append(AddyChipModel(chipId: label.id, label: label.name, color: label.colour))
                 }
+                labelsLoaded = true
             } catch {
                 requestError = error.localizedDescription
             }
@@ -155,13 +167,14 @@ struct EditAliasLabelsBottomSheet: View {
 
     private func editLabels() async {
         requestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            _ = try await networkHelper.bulkUpdateAliasLabels(aliasIds: [aliasId], labelIds: selectedLabelIds)
-            if let alias = try await networkHelper.getSpecificAlias(aliasId: aliasId) {
+            _ = try await AliasRepository.shared.bulkUpdateLabels(aliasIds: aliasIds, labelIds: selectedLabelIds)
+            if aliasIds.count == 1, let aliasId = aliasIds.first, let labelsEdited = labelsEdited {
+                let alias = try await AliasRepository.shared.getAlias(aliasId: aliasId)
                 labelsEdited(alias)
-                dismiss()
             }
+            onSaved?()
+            dismiss()
         } catch {
             isLoadingSaveButton = false
             requestError = error.localizedDescription

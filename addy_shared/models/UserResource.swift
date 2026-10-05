@@ -7,17 +7,17 @@
 
 import Foundation
 
-enum SUBSCRIPTIONS: String {
-    case FREE = "free"
-    case LITE = "lite"
-    case PRO = "pro"
+public enum Subscriptions: String, Sendable {
+    case free = "free"
+    case lite = "lite"
+    case pro = "pro"
 }
 
-struct SingleUserResource: Codable {
+struct SingleUserResource: Codable, Sendable {
     var data: UserResource
 }
 
-public struct UserResourceExtended: Codable {
+public struct UserResourceExtended: Codable, Sendable {
     public var default_recipient_email: String
 
     public init(default_recipient_email: String) {
@@ -25,7 +25,7 @@ public struct UserResourceExtended: Codable {
     }
 }
 
-public struct UserResource: Codable {
+public struct UserResource: Codable, Sendable {
     public var id: String
     public var username: String
     public let disabled: Bool?
@@ -62,7 +62,7 @@ public struct UserResource: Codable {
     public var total_aliases: Int
     public var total_active_aliases: Int
     public var total_inactive_aliases: Int
-    public var total_pinned_aliases: Int?
+    public var total_pinned_aliases: Int
     public var total_deleted_aliases: Int
     public var created_at: String
     public var updated_at: String
@@ -71,14 +71,10 @@ public struct UserResource: Codable {
         // If user has a subscription
         if let userSubscription = subscription {
             // If free
-            if userSubscription == SUBSCRIPTIONS.FREE.rawValue {
+            if userSubscription == Subscriptions.free.rawValue {
                 return true
             }
         }
         return false
-    }
-
-    public func hasFamilyPlanRole() -> Bool {
-        return family_plan_role != nil
     }
 }

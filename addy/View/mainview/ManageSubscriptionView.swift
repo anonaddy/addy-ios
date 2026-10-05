@@ -64,7 +64,6 @@ struct ManageSubscriptionView: View {
     @State private var showPaymentStatusAlert = false
     @State private var paymentStatusMessage = ""
     @State private var paymentStatusTitle = ""
-    @Binding var horizontalSize: UserInterfaceSizeClass
     @Binding var shouldHideNavigationBarBackButtonSubscriptionView: Bool
     @State private var isPresentedManageSubscription = false
     @State private var isNotifyingServer = false
@@ -104,7 +103,7 @@ struct ManageSubscriptionView: View {
         } else {
             VStack {
                 // If account is disabled, prevent purchasing subscriptions
-                if mainViewState.userResource!.disabled ?? false {
+                if mainViewState.userResource?.disabled ?? false {
                     ContentUnavailableView {
                         Label(String(localized: "subscription_account_disabled"), systemImage: "person.crop.circle.badge.exclamationmark")
                     } description: {
@@ -140,7 +139,7 @@ struct ManageSubscriptionView: View {
                         .padding(.bottom)
                     }
                 } else {
-                    if mainViewState.userResource!.subscription_type == "apple" || mainViewState.userResource!.subscription_type == nil {
+                    if mainViewState.userResource?.subscription_type == "apple" || mainViewState.userResource?.subscription_type == nil {
                         ScrollView {
                             // Only show the subscription options if the user does not have a subscription yet or if the current subscription is managed by apple
                             VStack {
@@ -454,24 +453,15 @@ struct ManageSubscriptionView: View {
 
         do {
             if let receiptData = await fetchReceipt() {
-                let userResource = try await NetworkHelper().notifyServerForSubscriptionChange(receipt: receiptData)
-                if let userResource = userResource {
-                    mainViewState.userResource = userResource
-                    mainViewState.isPresentingProfileBottomSheet = false
-                    shouldHideNavigationBarBackButtonSubscriptionView = false
-                    isNotifyingServer = false
-                    completion(true)
-                } else {
-                    paymentStatusTitle = String(localized: "subscription_processing_failed")
-                    paymentStatusMessage = String(format: String(localized: "subscription_processing_failed_desc"), mainViewState.userResource!.id, String(transaction.id), transaction.productID)
-                    showPaymentStatusAlert = true
-                    shouldHideNavigationBarBackButtonSubscriptionView = false
-                    isNotifyingServer = false
-                    completion(false)
-                }
+                let userResource = try await UserRepository.shared.notifyServerForSubscriptionChange(receipt: receiptData)
+                mainViewState.userResource = userResource
+                mainViewState.isPresentingProfileBottomSheet = false
+                shouldHideNavigationBarBackButtonSubscriptionView = false
+                isNotifyingServer = false
+                completion(true)
             } else {
                 paymentStatusTitle = String(localized: "could_not_obtain_receipt")
-                paymentStatusMessage = String(format: String(localized: "could_not_obtain_receipt_desc"), mainViewState.userResource!.id, String(transaction.id), transaction.productID)
+                paymentStatusMessage = String(format: String(localized: "could_not_obtain_receipt_desc"), mainViewState.userResource?.id ?? "", String(transaction.id), transaction.productID)
                 showPaymentStatusAlert = true
                 shouldHideNavigationBarBackButtonSubscriptionView = false
                 isNotifyingServer = false
@@ -485,7 +475,7 @@ struct ManageSubscriptionView: View {
                 extra: error.localizedDescription
             )
             paymentStatusTitle = String(localized: "subscription_processing_failed")
-            paymentStatusMessage = String(format: String(localized: "subscription_processing_failed_desc"), mainViewState.userResource!.id, String(transaction.id), transaction.productID)
+            paymentStatusMessage = String(format: String(localized: "subscription_processing_failed_desc"), mainViewState.userResource?.id ?? "", String(transaction.id), transaction.productID)
             showPaymentStatusAlert = true
             shouldHideNavigationBarBackButtonSubscriptionView = false
             isNotifyingServer = false
@@ -497,23 +487,21 @@ struct ManageSubscriptionView: View {
         switch result {
         case let .verified(safe):
             return safe
-        case let .unverified(unverified, verificationError):
+        case let .unverified(_, verificationError):
             throw verificationError
         }
     }
 }
 
+@MainActor
 class StoreManager: ObservableObject {
     @Published var products: [Product] = []
 
     func fetchProducts(productIdentifiers: [String]) async {
         do {
             let fetchedProducts = try await Product.products(for: productIdentifiers)
-            DispatchQueue.main.async {
-                self.products = fetchedProducts.sorted { $0.price > $1.price }
-            }
+            self.products = fetchedProducts.sorted { $0.price > $1.price }
         } catch {
-            // TODO: Let user know?
             LoggingHelper().addLog(
                 importance: LogImportance.critical,
                 error: "Error fetching products",

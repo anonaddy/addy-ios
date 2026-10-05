@@ -16,7 +16,7 @@ struct AliasNatoView: View {
             ZStack(alignment: .topTrailing) {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 200))], spacing: 20) {
-                        ForEach(0..<natoList.count) { index in
+                        ForEach(0..<natoList.count, id: \.self) { index in
                             let item = natoList[index]
                             VStack {
                                 Text(String(item.character))
@@ -43,9 +43,9 @@ struct AliasNatoView: View {
                 }
             }
         } else {
-            NavigationView {
+            NavigationStack {
                 List {
-                    ForEach(0..<natoList.count) { index in
+                    ForEach(0..<natoList.count, id: \.self) { index in
                         let item = natoList[index]
                         HStack {
                             Text(String(item.character))
@@ -56,12 +56,17 @@ struct AliasNatoView: View {
                         }
                     }
                 }
-                .navigationBarTitle(Text("Phonetic Alphabet"), displayMode: .inline)
-                .navigationBarItems(trailing: Button(action: {
-                    isPresented = false
-                }) {
-                    Image(systemName: "xmark")
-                })
+                .navigationTitle(String(localized: "phonetic_alphabet"))
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
+                            isPresented = false
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                    }
+                }
             }
         }
     }

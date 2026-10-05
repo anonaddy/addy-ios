@@ -17,8 +17,10 @@ struct AppSettingsView: View {
     @State private var isPresentingUIUXInterfaceBottomSheet: Bool = false
     @State private var storeLogs: Bool = false
     @State private var privacyMode: Bool = false
+    @State private var spotlightSearch: Bool = true
     @State private var biometricEnabled: Bool = false
-    @State private var showPlayGround: Bool = false
+    @State private var preferredMailClient: String = ""
+    @State private var isPresentingSelectMailClientBottomSheet: Bool = false
     @Binding var horizontalSize: UserInterfaceSizeClass
     @State private var showAlert = false
     @State private var activeAlert: ActiveAlert = .resetApp
@@ -32,21 +34,14 @@ struct AppSettingsView: View {
             let _ = Self._printChanges()
         #endif
 
-        if showPlayGround {
-            if #available(iOS 18.0, *) {
-                PlayGround()
-            }
-
-        } else {
-            // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
-            Group {
-                if horizontalSize == .regular {
-                    NavigationStack {
-                        appSettingsViewBody
-                    }
-                } else {
+        // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
+        Group {
+            if horizontalSize == .regular {
+                NavigationStack {
                     appSettingsViewBody
                 }
+            } else {
+                appSettingsViewBody
             }
         }
     }
@@ -75,6 +70,20 @@ struct AppSettingsView: View {
                 AddySection(title: String(localized: "interface"), description: String(localized: "interface_desc"), leadingSystemimage: "app.dashed", leadingSystemimageColor: .orange) {
                     isPresentingUIUXInterfaceBottomSheet = true
                 }
+
+                AddySection(
+                    title: String(localized: "preferred_email_client"),
+                    description: getPreferredClientName(),
+                    leadingSystemimage: "envelope.fill",
+                    leadingSystemimageColor: .blue,
+                    trailingSystemimage: "chevron.right"
+                ) {
+                    isPresentingSelectMailClientBottomSheet = true
+                }
+                .onAppear {
+                    self.preferredMailClient = MainViewState.shared.settingsManager.getSettingsString(key: .preferredMailClient) ?? ""
+                }
+                
                 NavigationLink(destination: AppSettingsUpdateView()) {
                     AddySection(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_desc"), leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue)
                 }
@@ -85,15 +94,9 @@ struct AppSettingsView: View {
                     AddySection(title: String(localized: "addyio_for_watchkit"), description: String(localized: "addyio_for_watchkit_desc"), leadingSystemimage: "applewatch", leadingSystemimageColor: .mint)
                 }
 
-                //                    AddySection(title: String(localized: "addyio_for_wearables"), leadingSystemimage: "applewatch", leadingSystemimageColor: .accentColor){
-                //
-                //                        }
-
-                //                    AddySection(title: String(localized: "addyio_backup"), leadingSystemimage: "square.and.arrow.up", leadingSystemimageColor: .accentColor){
-                //                        isPresentingAppearanceBottomSheet = true
-                //                        }
-
-                AddyToggle(isOn: $biometricEnabled, title: String(localized: "security"), description: !LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? String(localized: "biometric_error") : String(localized: "security_desc"), leadingSystemimage: "faceid", leadingSystemimageColor: .green).onAppear {
+                // NOTE: In-app biometric locking should be phased out once the minimum deployment target is bumped to iOS 18+.
+                // On iOS 18+, users can natively lock the app via Home Screen long-press ("Require Face ID").
+                AddyToggle(isOn: $biometricEnabled, lineLimit: nil, title: String(localized: "security"), description: !LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? String(localized: "biometric_error") : String(localized: "security_desc"), leadingSystemimage: "faceid", leadingSystemimageColor: .green).onAppear {
                     self.biometricEnabled = MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled)
                 }
                 .onChange(of: biometricEnabled) {
@@ -113,8 +116,46 @@ struct AppSettingsView: View {
                     if privacyMode {
                         // Clear shortcuts
                         UIApplication.shared.shortcutItems = []
+                        // Disable spotlight search and turn off toggle
+                        withAnimation {
+                            self.spotlightSearch = false
+                        }
+                        MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .spotlightSearch, boolean: false)
+                        Task {
+                            await SpotlightManager.shared.deleteAllIndexedAliases()
+                        }
+                    } else {
+                        if MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .spotlightSearch, default: true) {
+                            Task {
+                                await SpotlightManager.shared.syncAllAliases()
+                            }
+                        }
                     }
                 }
+
+                AddyToggle(isOn: $spotlightSearch, title: String(localized: "spotlight_search"), description: String(localized: "spotlight_search_desc"), leadingSystemimage: "magnifyingglass").onAppear {
+                    if MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .privacyMode) {
+                        self.spotlightSearch = false
+                        MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .spotlightSearch, boolean: false)
+                    } else {
+                        self.spotlightSearch = MainViewState.shared.encryptedSettingsManager.getSettingsBool(key: .spotlightSearch, default: true)
+                    }
+                }
+                .onChange(of: spotlightSearch) {
+                    MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .spotlightSearch, boolean: spotlightSearch)
+                    if !spotlightSearch {
+                        Task {
+                            await SpotlightManager.shared.deleteAllIndexedAliases()
+                        }
+                    } else {
+                        Task {
+                            await SpotlightManager.shared.syncAllAliases()
+                        }
+                    }
+                }
+                .disabled(privacyMode)
+
+                
             } header: {
                 Text(String(localized: "general"))
             }.textCase(nil)
@@ -195,11 +236,6 @@ struct AppSettingsView: View {
                         .multilineTextAlignment(.center)
                         .font(.system(size: 16))
                         .frame(maxWidth: .infinity)
-                        .onLongPressGesture {
-                            #if DEBUG
-                                self.showPlayGround = true
-                            #endif
-                        }
                 }
 
             }.textCase(nil)
@@ -244,12 +280,19 @@ struct AppSettingsView: View {
             }
             .presentationDetents([.medium, .large])
         })
+        .sheet(isPresented: $isPresentingSelectMailClientBottomSheet) {
+            NavigationStack {
+                SelectMailClientBottomSheet(isSettingsMode: true) { _ in
+                    self.preferredMailClient = MainViewState.shared.settingsManager.getSettingsString(key: .preferredMailClient) ?? ""
+                }
+            }
+            .presentationDetents([.medium, .large])
+        }
     }
 
     func logoutAndReset() async {
-        let networkHelper = NetworkHelper()
         do {
-            if let statusCode = try await networkHelper.logout() {
+            if let statusCode = try await UserRepository.shared.logout() {
                 if statusCode == 204 {
                     DispatchQueue.main.async {
                         mainViewState.isPresentingProfileBottomSheet = false
@@ -273,15 +316,14 @@ struct AppSettingsView: View {
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             let reason = String(localized: "authentication_reason")
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, _ in
-                if success {
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    if success {
                         // Also unlock the app to prevent the app from immediately locking
                         MainViewState.shared.isUnlocked = true
+                        MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .biometricEnabled, boolean: shouldEnableBiometrics)
+                    } else {
+                        biometricEnabled = !shouldEnableBiometrics
                     }
-
-                    MainViewState.shared.encryptedSettingsManager.putSettingsBool(key: .biometricEnabled, boolean: shouldEnableBiometrics)
-                } else {
-                    biometricEnabled = !shouldEnableBiometrics
                 }
             }
         }
@@ -289,28 +331,31 @@ struct AppSettingsView: View {
 
     func requestNotificationPermission() {
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
             if granted {
                 // print("Permission granted for local notifications")
             } else {
-                if let error = error {
-                    // print("Error requesting permission: \(error.localizedDescription)")
-
-                    DispatchQueue.main.async {
-                        if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
-                            UIApplication.shared.open(appSettings)
-                        }
-                    }
-                } else {
-                    // print("Permission denied for local notifications")
-                    DispatchQueue.main.async {
-                        if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
-                            UIApplication.shared.open(appSettings)
-                        }
+                DispatchQueue.main.async {
+                    if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
+                        UIApplication.shared.open(appSettings)
                     }
                 }
             }
         }
+    }
+
+    private func getPreferredClientName() -> String {
+        let scheme = preferredMailClient
+        if scheme.isEmpty {
+            return String(localized: "always_ask")
+        }
+        if scheme == ThirdPartyMailClient.systemDefault.URLScheme {
+            return ThirdPartyMailClient.systemDefault.name
+        }
+        if let client = ThirdPartyMailClient.clients.first(where: { $0.URLScheme == scheme }) {
+            return client.name
+        }
+        return String(localized: "always_ask")
     }
 
     func requestBackgroundAppRefresh() {
@@ -320,10 +365,7 @@ struct AppSettingsView: View {
     }
 }
 
-struct AppSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var userInterfaceSizeClass = UserInterfaceSizeClass.regular
-        AppSettingsView(horizontalSize: $userInterfaceSizeClass)
-            .environmentObject(MainViewState.shared)
-    }
+#Preview {
+    AppSettingsView(horizontalSize: .constant(.regular))
+        .environmentObject(MainViewState.shared)
 }

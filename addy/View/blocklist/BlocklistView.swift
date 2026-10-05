@@ -11,21 +11,22 @@ import SwiftUI
 struct BlocklistView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
-    @StateObject var blocklistEntriesViewModel = BlocklistEntriesViewModel()
+    @StateObject private var blocklistEntriesViewModel = BlocklistViewModel()
 
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
     @State private var blocklistEntryToDelete: BlocklistEntries? = nil
-    @State private var isPresentingAddblocklistEntryBottomSheet = false
+    @State private var isPresentingAddBlocklistEntryBottomSheet = false
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
+    @State private var blocklistAddedOverlayShown: Bool = false
 
     @State var selectedFilterChip: String = "all"
     @State var filterChips: [AddyChipModel] = []
     @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
-        case error, deleteblocklistEntry
+        case error, deleteBlocklistEntry, blockAction
     }
 
     var onRefreshGeneralData: (() -> Void)? = nil
@@ -35,25 +36,30 @@ struct BlocklistView: View {
             let _ = Self._printChanges()
         #endif
 
-        // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
-        Group {
-            if horizontalSize == .regular {
-                NavigationStack {
-                    blocklistEntriesViewBody
-                }
-            } else {
-                blocklistEntriesViewBody
-            }
-        }.onAppear(perform: {
-            LoadFilter()
+        ZStack {
+            blocklistEntriesViewBody
+            ToastOverlay(showToast: $blocklistAddedOverlayShown, text: String(localized: "blocklist_add_success"))
+        }
+        .onAppear(perform: {
+            loadFilter()
             if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries {
                 if blocklistEntries.data.isEmpty {
                     Task {
-                        await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
+                        await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
                     }
                 }
             }
+            if mainViewState.blockActionRequest != nil {
+                activeAlert = .blockAction
+                showAlert = true
+            }
         })
+        .onChange(of: mainViewState.blockActionRequest) {
+            if mainViewState.blockActionRequest != nil {
+                activeAlert = .blockAction
+                showAlert = true
+            }
+        }
     }
 
     private var blocklistEntriesViewBody: some View {
@@ -101,7 +107,7 @@ struct BlocklistView: View {
                                 }
                             }
                         }
-                    }.onDelete(perform: deleteblocklistEntry)
+                    }.onDelete(perform: deleteBlocklistEntry)
 
                     if !blocklistEntriesViewModel.hasArrivedAtTheLastPage {
                         ProgressView()
@@ -118,7 +124,7 @@ struct BlocklistView: View {
                                     selectedFilterChip = onTappedChip.chipId
                                 }
 
-                                ApplyFilter(chipId: onTappedChip.chipId)
+                                applyFilter(chipId: onTappedChip.chipId)
                             }.scrollClipDisabled()
                         }
 
@@ -159,30 +165,30 @@ struct BlocklistView: View {
                 // When in regular size (tablet) mode, refreshing aliases also ask the mainView to update general data
                 self.onRefreshGeneralData?()
             }
-            await self.blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
+            await self.blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
         }
-        .sheet(isPresented: $isPresentingAddblocklistEntryBottomSheet) {
+        .sheet(isPresented: $isPresentingAddBlocklistEntryBottomSheet) {
             NavigationStack {
                 AddBlocklistEntryBottomSheet {
                     Task {
-                        await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
+                        await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
                     }
 
-                    isPresentingAddblocklistEntryBottomSheet = false
+                    isPresentingAddBlocklistEntryBottomSheet = false
                 }
             }
             .presentationDetents([.medium, .large])
         }
         .alert(isPresented: $showAlert) {
             switch activeAlert {
-            case .deleteblocklistEntry:
+            case .deleteBlocklistEntry:
                 return Alert(title: Text(String(localized: "remove_from_blocklist")), message: Text(String(localized: "remove_from_blocklist_desc")), primaryButton: .destructive(Text(String(localized: "delete"))) {
                     Task {
-                        await self.deleteblocklistEntry(blocklistEntry: self.blocklistEntryToDelete!)
+                        await self.deleteBlocklistEntry(blocklistEntry: self.blocklistEntryToDelete!)
                     }
                 }, secondaryButton: .cancel {
                     Task {
-                        await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
+                        await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
                     }
                 })
             case .error:
@@ -190,6 +196,24 @@ struct BlocklistView: View {
                     title: Text(errorAlertTitle),
                     message: Text(errorAlertMessage)
                 )
+            case .blockAction:
+                if let req = mainViewState.blockActionRequest {
+                    let title = req.type == "domain" ? String(localized: "blocklist_add_domain") : String(localized: "blocklist_add_sender")
+                    return Alert(
+                        title: Text(title),
+                        message: Text(String(format: String(localized: "blocklist_add_confirmation"), req.value)),
+                        primaryButton: .destructive(Text(String(localized: "blocklist_add"))) {
+                            Task {
+                                await self.addBlockActionEntry(request: req)
+                            }
+                        },
+                        secondaryButton: .cancel {
+                            mainViewState.blockActionRequest = nil
+                        }
+                    )
+                } else {
+                    return Alert(title: Text(""))
+                }
             }
         }
 
@@ -213,7 +237,7 @@ struct BlocklistView: View {
                 // If there is NO blocklistEntries (aka, if the list is not visible)
                 // No blocklistEntries, check if there is an error
                 if blocklistEntriesViewModel.networkError != "" {
-                    if mainViewState.userResource!.hasUserFreeSubscription() {
+                    if mainViewState.userResource?.hasUserFreeSubscription() ?? true {
                         // Error screen
                         ContentUnavailableView {
                             Label(String(localized: "no_blocklist_entries"), systemImage: "exclamationmark.triangle.fill")
@@ -229,7 +253,7 @@ struct BlocklistView: View {
                         } actions: {
                             Button(String(localized: "try_again", bundle: Bundle(for: SharedData.self))) {
                                 Task {
-                                    await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
+                                    await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
                                 }
                             }
                         }
@@ -254,10 +278,10 @@ struct BlocklistView: View {
         .navigationTitle(String(localized: "blocklist"))
         .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
         .toolbar {
-            if !mainViewState.userResource!.hasUserFreeSubscription() {
+            if !(mainViewState.userResource?.hasUserFreeSubscription() ?? true) {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        self.isPresentingAddblocklistEntryBottomSheet = true
+                        self.isPresentingAddBlocklistEntryBottomSheet = true
                     }) {
                         Image(systemName: "plus")
                             .frame(width: 24, height: 24)
@@ -268,14 +292,14 @@ struct BlocklistView: View {
         .searchable(text: $blocklistEntriesViewModel.searchQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: String(localized: "search"))
         .onSubmit(of: .search) {
             Task {
-                await blocklistEntriesViewModel.searchblocklistEntries(searchQuery: blocklistEntriesViewModel.searchQuery)
+                await blocklistEntriesViewModel.searchBlocklistEntries(searchQuery: blocklistEntriesViewModel.searchQuery)
             }
         }
         .autocorrectionDisabled(true)
         .textInputAutocapitalization(.never)
     }
 
-    func ApplyFilter(chipId: String) {
+    func applyFilter(chipId: String) {
         switch chipId {
         case "email":
             blocklistEntriesViewModel.filter = "email"
@@ -288,15 +312,15 @@ struct BlocklistView: View {
         }
 
         Task {
-            await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
+            await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
         }
     }
 
-    func LoadFilter() {
-        filterChips = GetFilterChips()
+    func loadFilter() {
+        filterChips = getFilterChips()
     }
 
-    func GetFilterChips() -> [AddyChipModel] {
+    func getFilterChips() -> [AddyChipModel] {
         return [
             AddyChipModel(chipId: "all", label: String(localized: "filter_all")),
             AddyChipModel(chipId: "email", label: String(localized: "email")),
@@ -304,12 +328,11 @@ struct BlocklistView: View {
         ]
     }
 
-    private func deleteblocklistEntry(blocklistEntry: BlocklistEntries) async {
-        let networkHelper = NetworkHelper()
+    private func deleteBlocklistEntry(blocklistEntry: BlocklistEntries) async {
         do {
-            let result = try await networkHelper.deleteBlocklistEntry(blocklistId: blocklistEntry.id)
+            let result = try await blocklistEntriesViewModel.deleteBlocklistEntry(blocklistId: blocklistEntry.id)
             if result == "204" {
-                await blocklistEntriesViewModel.getblocklistEntries(forceReload: true)
+                await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
             } else {
                 activeAlert = .error
                 showAlert = true
@@ -324,16 +347,43 @@ struct BlocklistView: View {
         }
     }
 
-    func deleteblocklistEntry(at offsets: IndexSet) {
+    func deleteBlocklistEntry(at offsets: IndexSet) {
         for index in offsets.sorted(by: >) {
             if let blocklistEntries = blocklistEntriesViewModel.blocklistEntries?.data {
                 let item = blocklistEntries[index]
                 blocklistEntryToDelete = item
-                activeAlert = .deleteblocklistEntry
+                activeAlert = .deleteBlocklistEntry
                 showAlert = true
 
                 // Remove from the collection for the smooth animation
                 blocklistEntriesViewModel.blocklistEntries?.data.remove(atOffsets: offsets)
+            }
+        }
+    }
+
+    private func addBlockActionEntry(request: MainViewState.BlockActionRequest) async {
+        do {
+            _ = try await BlocklistRepository.shared.addBlocklistEntry(entry: NewBlocklistEntry(type: request.type, value: request.value))
+            mainViewState.blockActionRequest = nil
+            showBlocklistAddedToast()
+            await blocklistEntriesViewModel.getBlocklistEntries(forceReload: true)
+            onRefreshGeneralData?()
+        } catch {
+            mainViewState.blockActionRequest = nil
+            activeAlert = .error
+            errorAlertTitle = String(localized: "error", bundle: Bundle(for: SharedData.self))
+            errorAlertMessage = error.localizedDescription
+            showAlert = true
+        }
+    }
+
+    private func showBlocklistAddedToast() {
+        withAnimation(.snappy) {
+            blocklistAddedOverlayShown = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            withAnimation(.snappy) {
+                blocklistAddedOverlayShown = false
             }
         }
     }

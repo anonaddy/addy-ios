@@ -31,7 +31,15 @@ struct ChangelogBottomSheet: View {
         .ignoresSafeArea(.container, edges: .bottom) // Extend to bottom if needed
         .navigationTitle(String(localized: "changelog"))
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar { /* unchanged */ }
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "dismiss"), systemImage: "xmark")
+                }
+            }
+        }
     }
 }
 

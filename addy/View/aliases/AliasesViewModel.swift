@@ -1,0 +1,227 @@
+//
+//  AliasesViewModel.swift
+//  addy
+//
+//  Created by Stijn van de Water on 09/05/2024.
+//
+
+import addy_shared
+import Combine
+import SwiftUI
+
+@MainActor
+class AliasesViewModel: ObservableObject {
+    @Published var aliasSortFilterRequest = AliasSortFilterRequest(
+        onlyActiveAliases: false,
+        onlyDeletedAliases: false,
+        onlyInactiveAliases: false,
+        onlyWatchedAliases: false,
+        onlyPinnedAliases: false,
+        sort: "created_at",
+        sortDesc: false,
+        filter: "", label: nil
+    )
+
+    var defaultSortFilterRequest = AliasSortFilterRequest(
+        onlyActiveAliases: false,
+        onlyDeletedAliases: false,
+        onlyInactiveAliases: false,
+        onlyWatchedAliases: false,
+        onlyPinnedAliases: false,
+        sort: "created_at",
+        sortDesc: false,
+        filter: "", label: nil
+    )
+
+    @Published var searchQuery = ""
+
+    var searchCancellable: AnyCancellable?
+    private let aliasRepository: AliasRepositoryProtocol
+
+    @Published var aliasList: AliasesArray? = nil
+
+    @Published var isLoading = false
+    @Published var hasArrivedAtTheLastPage = true
+    @Published var networkError: String = ""
+    @Published var watchedAliasIds: Set<String> = []
+
+    init(aliasRepository: AliasRepositoryProtocol = AliasRepository.shared) {
+        self.aliasRepository = aliasRepository
+        self.watchedAliasIds = AliasWatcher().getAliasesToWatch()
+        // Since the class is @MainActor, this closure is also executed on the MainActor
+        searchCancellable = $searchQuery
+            .dropFirst()
+            .removeDuplicates()
+            .debounce(for: 1.0, scheduler: RunLoop.main)
+            .sink(receiveValue: { [weak self] str in
+                Task {
+                    await self?.searchAliases(searchQuery: str)
+                }
+            })
+    }
+
+    func refreshWatchedAliases() {
+        watchedAliasIds = AliasWatcher().getAliasesToWatch()
+    }
+
+    func searchAliases(searchQuery: String) async {
+        // When something is being searched cancel the loading to make sure that the networkCall will succeed
+        isLoading = false
+        let trimmedSearchQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        if trimmedSearchQuery == "" {
+            // Reset Data....
+            aliasSortFilterRequest.filter = ""
+            await getAliases(forceReload: true)
+        } else {
+            if trimmedSearchQuery.count >= 3 {
+                // search Data
+                aliasSortFilterRequest.filter = trimmedSearchQuery
+                await getAliases(forceReload: true)
+            }
+            // Don't search for searchTerms for < 3 chars
+        }
+    }
+
+    func getAliases(forceReload: Bool) async {
+        if !isLoading {
+            isLoading = true
+            networkError = ""
+            refreshWatchedAliases()
+
+            #if DEBUG
+                print("page is \(aliasList?.meta?.current_page ?? 0)")
+            #endif
+
+            /* 
+             * CHECK IF WATCHED ONLY IS TRUE
+             * If true simply bulk-obtain all the watched aliases
+             */
+            if aliasSortFilterRequest.onlyWatchedAliases {
+                let aliasWatcher = AliasWatcher()
+                let aliasesToWatch: [String] = Array(aliasWatcher.getAliasesToWatch())
+
+                if !aliasesToWatch.isEmpty {
+                    do {
+                        let bulkAliasesArray = try await aliasRepository.bulkGetAliases(aliases: aliasesToWatch)
+
+                        isLoading = false
+                        let aliasArray = AliasesArray(data: bulkAliasesArray.data)
+                        aliasList = aliasArray
+                        Task {
+                            await SpotlightManager.shared.indexAliases(aliases: bulkAliasesArray.data)
+                        }
+
+                        // Since the bulkGetAliases func always returns everything we are always at the last page
+                        hasArrivedAtTheLastPage = true
+                    } catch {
+                        isLoading = false
+                        guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
+                        networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), error.localizedDescription)
+
+                        LoggingHelper().addLog(
+                            importance: LogImportance.critical,
+                            error: error.localizedDescription,
+                            method: "getAliases", extra: nil
+                        )
+                    }
+                } else {
+                    hasArrivedAtTheLastPage = true
+                    isLoading = false
+                    // This could be triggered if you remove the last watched alias and then refresh
+                    aliasList = AliasesArray(data: [])
+                }
+
+            } else {
+                do {
+                    let pageToLoad = forceReload ? 1 : ((aliasList?.meta?.current_page ?? 0) + 1)
+                    let aliasArray = try await aliasRepository.getAliases(aliasSortFilterRequest: aliasSortFilterRequest, page: pageToLoad, size: 25)
+
+                    isLoading = false
+
+                    if aliasList == nil || forceReload {
+                        // If aliasList is empty, assign it
+                        aliasList = aliasArray
+                    } else {
+                        // If aliasList is not empty, set the meta and links and append retrieved aliases
+                        aliasList?.meta = aliasArray.meta
+                        aliasList?.links = aliasArray.links
+                        aliasList?.data.append(contentsOf: aliasArray.data)
+                    }
+
+                    Task {
+                        await SpotlightManager.shared.indexAliases(aliases: aliasArray.data)
+                    }
+
+                    hasArrivedAtTheLastPage = aliasArray.meta?.current_page == aliasArray.meta?.last_page || aliasList?.data.isEmpty == true
+                } catch {
+                    isLoading = false
+                    guard !Task.isCancelled, !(error is CancellationError), (error as? URLError)?.code != .cancelled else { return }
+                    networkError = String(format: String(localized: "details_about_error_s", bundle: Bundle(for: SharedData.self)), error.localizedDescription)
+
+                    LoggingHelper().addLog(
+                        importance: LogImportance.critical,
+                        error: error.localizedDescription,
+                        method: "getAliases", extra: nil
+                    )
+                }
+            }
+        }
+    }
+
+    func loadMoreContent() {
+        if !hasArrivedAtTheLastPage {
+            Task {
+                await getAliases(forceReload: false)
+            }
+        }
+    }
+
+    func activateAlias(aliasId: String) async throws -> Aliases {
+        let alias = try await aliasRepository.activateAlias(aliasId: aliasId)
+        Task {
+            await SpotlightManager.shared.indexAlias(alias: alias)
+        }
+        return alias
+    }
+
+    func deactivateAlias(aliasId: String) async throws -> String {
+        return try await aliasRepository.deactivateAlias(aliasId: aliasId)
+    }
+
+    func pinAlias(aliasId: String) async throws -> Aliases {
+        let alias = try await aliasRepository.pinAlias(aliasId: aliasId)
+        Task {
+            await SpotlightManager.shared.indexAlias(alias: alias)
+        }
+        return alias
+    }
+
+    func unpinAlias(aliasId: String) async throws -> String {
+        return try await aliasRepository.unpinAlias(aliasId: aliasId)
+    }
+
+    func deleteAlias(aliasId: String) async throws -> String {
+        let result = try await aliasRepository.deleteAlias(aliasId: aliasId)
+        Task {
+            await SpotlightManager.shared.deindexAlias(aliasId: aliasId)
+        }
+        return result
+    }
+
+    func forgetAlias(aliasId: String) async throws -> String {
+        let result = try await aliasRepository.forgetAlias(aliasId: aliasId)
+        Task {
+            await SpotlightManager.shared.deindexAlias(aliasId: aliasId)
+        }
+        return result
+    }
+
+    func restoreAlias(aliasId: String) async throws -> Aliases {
+        let alias = try await aliasRepository.restoreAlias(aliasId: aliasId)
+        Task {
+            await SpotlightManager.shared.indexAlias(alias: alias)
+        }
+        return alias
+    }
+}

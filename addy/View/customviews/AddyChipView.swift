@@ -7,7 +7,9 @@
 
 import addy_shared
 import SwiftUI
+#if canImport(WrappingHStack)
 import WrappingHStack
+#endif
 
 struct AddyChipView: View {
     @Binding var chips: [AddyChipModel]
@@ -36,13 +38,21 @@ struct AddyChipView: View {
                         .apply { View in
                             if #available(iOS 26.0, *) {
                                 if self.selectedChip == chip.chipId {
-                                    View.buttonStyle(.glassProminent)
+                                    if let color = chip.color {
+                                        View.buttonStyle(.glassProminent).tint(Color(hex: color))
+                                    } else {
+                                        View.buttonStyle(.glassProminent)
+                                    }
                                 } else {
                                     View.buttonStyle(.glass)
                                 }
                             } else {
                                 if self.selectedChip == chip.chipId {
-                                    View.buttonStyle(.borderedProminent)
+                                    if let color = chip.color {
+                                        View.buttonStyle(.borderedProminent).tint(Color(hex: color))
+                                    } else {
+                                        View.buttonStyle(.borderedProminent)
+                                    }
                                 } else {
                                     View.buttonStyle(.bordered)
                                 }
@@ -52,6 +62,7 @@ struct AddyChipView: View {
                 }.textCase(nil)
             }
         } else {
+            #if canImport(WrappingHStack)
             WrappingHStack(alignment: .leading) {
                 ForEach(chips) { chip in
                     Button(action: {
@@ -69,13 +80,21 @@ struct AddyChipView: View {
                     .apply { View in
                         if #available(iOS 26.0, *) {
                             if self.selectedChip == chip.chipId {
-                                View.buttonStyle(.glassProminent)
+                                if let color = chip.color {
+                                    View.buttonStyle(.glassProminent).tint(Color(hex: color))
+                                } else {
+                                    View.buttonStyle(.glassProminent)
+                                }
                             } else {
                                 View.buttonStyle(.glass)
                             }
                         } else {
                             if self.selectedChip == chip.chipId {
-                                View.buttonStyle(.borderedProminent)
+                                if let color = chip.color {
+                                    View.buttonStyle(.borderedProminent).tint(Color(hex: color))
+                                } else {
+                                    View.buttonStyle(.borderedProminent)
+                                }
                             } else {
                                 View.buttonStyle(.bordered)
                             }
@@ -83,6 +102,49 @@ struct AddyChipView: View {
                     }
                 }
             }.textCase(nil)
+            #else
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(chips) { chip in
+                        Button(action: {
+                            HapticHelper.playHapticFeedback(hapticType: .tap)
+                            self.onTap(chip)
+                        }, label: {
+                            HStack {
+                                if self.selectedChip == chip.chipId {
+                                    Image(systemName: "checkmark")
+                                }
+                                Text(chip.label)
+                            }
+                            .fixedSize()
+                        })
+                        .apply { View in
+                            if #available(iOS 26.0, *) {
+                                if self.selectedChip == chip.chipId {
+                                    if let color = chip.color {
+                                        View.buttonStyle(.glassProminent).tint(Color(hex: color))
+                                    } else {
+                                        View.buttonStyle(.glassProminent)
+                                    }
+                                } else {
+                                    View.buttonStyle(.glass)
+                                }
+                            } else {
+                                if self.selectedChip == chip.chipId {
+                                    if let color = chip.color {
+                                        View.buttonStyle(.borderedProminent).tint(Color(hex: color))
+                                    } else {
+                                        View.buttonStyle(.borderedProminent)
+                                    }
+                                } else {
+                                    View.buttonStyle(.bordered)
+                                }
+                            }
+                        }
+                    }
+                }.textCase(nil)
+            }
+            #endif
         }
     }
 
@@ -94,37 +156,24 @@ struct AddyChipView: View {
     }
 }
 
-struct AddyChip_Preview: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            VStack {
-                @State var selectedChip = "test3"
-                @State var chips = [
-                    AddyChipModel(chipId: "test", label: "test"),
-                    AddyChipModel(chipId: "test2", label: "test2"),
-                    AddyChipModel(chipId: "test3", label: "test3"),
-                    AddyChipModel(chipId: "test4", label: "test4"),
-                    AddyChipModel(chipId: "test5", label: "test5"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                    AddyChipModel(chipId: "test6", label: "test6"),
-                ]
+#Preview {
+    @Previewable @State var selectedChip = "test3"
+    @Previewable @State var chips = [
+        AddyChipModel(chipId: "test", label: "test"),
+        AddyChipModel(chipId: "test2", label: "test2"),
+        AddyChipModel(chipId: "test3", label: "test3"),
+        AddyChipModel(chipId: "test4", label: "test4"),
+        AddyChipModel(chipId: "test5", label: "test5"),
+    ]
 
-                VStack(spacing: 0) {
-                    AddyChipView(chips: $chips, selectedChip: $selectedChip, singleLine: true) { onTappedChip in
-                        // print("\(onTappedChip.label) is selected")
-                        selectedChip = onTappedChip.label
-                    }
-
-                    Text("TEST")
-                    Spacer()
-                }
+    NavigationStack {
+        VStack(spacing: 0) {
+            AddyChipView(chips: $chips, selectedChip: $selectedChip, singleLine: true) { onTappedChip in
+                selectedChip = onTappedChip.label
             }
+
+            Text("TEST")
+            Spacer()
         }
     }
 }

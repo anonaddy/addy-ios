@@ -69,25 +69,22 @@ public struct ThirdPartyMailClient: Hashable {
     ///   - bcc: The blind carbon copy recipient for the email message (optional).
     /// - Returns: A `URL` opening the mail client for the given parameters.
     public func composeURL(to recipient: [String]? = nil, subject: String? = nil, body: String? = nil, cc: [String]? = nil, bcc: [String]? = nil) -> URL {
-        var components = URLComponents(string: "\(URLScheme):\(URLRoot ?? "")")
-        components?.scheme = URLScheme
+        // Proton Mail on iOS does not support custom composer URL schemes; it handles drafts via system mailto:
+        let scheme = URLScheme == "protonmail" ? "mailto" : URLScheme
+        let root = URLScheme == "protonmail" ? "" : (URLRoot ?? "")
+        var components = URLComponents(string: "\(scheme):\(root)")
+        components?.scheme = scheme
 
-        if URLRecipientKey == nil {
+        if URLRecipientKey == nil || URLScheme == "protonmail" {
             if let recipient = recipient {
-                components = URLComponents(string: "\(URLScheme):\(URLRoot ?? "")\(recipient.joined(separator: ","))")
+                components = URLComponents(string: "\(scheme):\(root)\(recipient.joined(separator: ","))")
             }
         }
 
         var queryItems: [URLQueryItem] = []
 
-        if let recipient = recipient, let URLRecipientKey = URLRecipientKey {
-            if URLRecipientKey == ":" {
-                // Special format for ProtonMail
-                // https://github.com/vtourraine/ThirdPartyMailer/issues/32
-                components = URLComponents(string: "\(URLScheme):\(URLRoot ?? ""):\(recipient.joined(separator: ","))")
-            } else {
-                queryItems.append(URLQueryItem(name: URLRecipientKey, value: recipient.joined(separator: ",")))
-            }
+        if let recipient = recipient, let URLRecipientKey = URLRecipientKey, URLScheme != "protonmail" {
+            queryItems.append(URLQueryItem(name: URLRecipientKey, value: recipient.joined(separator: ",")))
         }
 
         if let subject = subject, let URLSubjectKey = URLSubjectKey {
@@ -147,8 +144,38 @@ public extension ThirdPartyMailClient {
             // fastmail://mail/compose?subject=[subject]&body=[body]&to=[to]
             ThirdPartyMailClient(name: "Fastmail", URLScheme: "fastmail", URLRoot: "//mail/compose", URLRecipientKey: "to"),
 
-            // protonmail://mailto:foobar@foobar.org?subject=SubjectTitleOfEMail&body=MessageBodyFooBar
-            ThirdPartyMailClient(name: "ProtonMail", URLScheme: "protonmail", URLRoot: "//mailto", URLRecipientKey: ":"),
+            // protonmail://
+            ThirdPartyMailClient(name: "ProtonMail", URLScheme: "protonmail"),
         ]
     }
+
+    #if os(iOS)
+    /// Returns the list of all available mail clients (installed third-party clients + system default).
+    static func availableClients() -> [ThirdPartyMailClient] {
+        var available = clients.filter { ThirdPartyMailer.isMailClientAvailable($0) }
+        available.append(.systemDefault)
+        return available
+    }
+
+    /// Finds a mail client matching the given URL scheme, or systemDefault if "mailto".
+    static func client(forScheme scheme: String) -> ThirdPartyMailClient? {
+        if scheme == ThirdPartyMailClient.systemDefault.URLScheme {
+            return .systemDefault
+        }
+        return clients.first { $0.URLScheme == scheme }
+    }
+
+    /// Returns the user's preferred mail client if configured and available.
+    static func getPreferredClient(settingsManager: SettingsManager) -> ThirdPartyMailClient? {
+        guard let savedScheme = settingsManager.getSettingsString(key: .preferredMailClient),
+              !savedScheme.isEmpty,
+              let client = client(forScheme: savedScheme) else {
+            return nil
+        }
+        if client.URLScheme == ThirdPartyMailClient.systemDefault.URLScheme || ThirdPartyMailer.isMailClientAvailable(client) {
+            return client
+        }
+        return nil
+    }
+    #endif
 }

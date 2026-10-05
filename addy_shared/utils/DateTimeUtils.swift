@@ -15,58 +15,55 @@ public enum DateTimeUtils {
         case shortDate
     }
 
+    private static let gmtDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+
+    private static let shortDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E d MMM"
+        return formatter
+    }()
+
     public static func convertStringToLocalTimeZoneString(_ string: String?, dateTimeFormat: DateTimeFormat = .dateTime) -> String {
         guard let string = string else {
             return ""
         }
 
         do {
-            let ldt = try turnStringIntoLocalDateTime(string)
-            let serverZoneId = TimeZone(identifier: "GMT")
-            let zonedDateTime = ldt.toDate(timeZone: serverZoneId!)
-            let defaultZoneId = TimeZone.current
-
-            let localTimeZoneDate = zonedDateTime.toDate(timeZone: defaultZoneId)
+            let date = try turnStringIntoDate(string)
 
             switch dateTimeFormat {
             case .date:
-                return DateFormatter.localizedString(from: localTimeZoneDate, dateStyle: .short, timeStyle: .none)
+                return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
             case .time:
-                return DateFormatter.localizedString(from: localTimeZoneDate, dateStyle: .none, timeStyle: .short)
+                return DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
             case .dateTime:
-                return DateFormatter.localizedString(from: localTimeZoneDate, dateStyle: .short, timeStyle: .short)
+                return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
             case .shortDate:
-                let formatter = DateFormatter()
-                formatter.dateFormat = "E d MMM"
-                return formatter.string(from: localTimeZoneDate)
+                return shortDateFormatter.string(from: date)
             }
         } catch {
             return "\(string) (GMT)"
         }
     }
 
-    public static func convertStringToLocalTimeZoneDate(_ string: String?, dateTimeFormat _: DateTimeFormat = .dateTime) throws -> Date {
-        let ldt = try turnStringIntoLocalDateTime(string)
-        let serverZoneId = TimeZone(identifier: "GMT")
-        let zonedDateTime = ldt.toDate(timeZone: serverZoneId!)
-        let defaultZoneId = TimeZone.current
-
-        return zonedDateTime.toDate(timeZone: defaultZoneId)
+    public static func convertStringToLocalTimeZoneDate(_ string: String?) throws -> Date {
+        return try turnStringIntoDate(string)
     }
 
-    private static func turnStringIntoLocalDateTime(_ string: String?) throws -> Date {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyy-MM-dd HH:mm:ss"
-        guard let date = formatter.date(from: string!) else {
+    private static func turnStringIntoDate(_ string: String?) throws -> Date {
+        guard let string = string else {
+            throw NSError(domain: "Nil date string", code: 0, userInfo: nil)
+        }
+        guard let date = gmtDateFormatter.date(from: string) else {
             throw NSError(domain: "Invalid date string", code: 0, userInfo: nil)
         }
         return date
     }
 }
 
-extension Date {
-    func toDate(timeZone: TimeZone) -> Date {
-        let seconds = TimeInterval(timeZone.secondsFromGMT(for: self))
-        return Date(timeInterval: seconds, since: self)
-    }
-}

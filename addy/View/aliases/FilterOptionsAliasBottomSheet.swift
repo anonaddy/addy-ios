@@ -5,9 +5,7 @@
 //  Created by Stijn van de Water on 12/05/2024.
 //
 
-import SwiftUI
 import addy_shared
-import AVFoundation
 import SwiftUI
 import WrappingHStack
 
@@ -82,23 +80,32 @@ struct FilterOptionsAliasBottomSheet: View {
                 content: {
                     if isLoadingLabels {
                         ProgressView()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.vertical, 8)
+                    } else if labels.isEmpty {
+                        Text(String(localized: "no_labels"))
+                            .font(.system(size: 14))
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.vertical, 8)
                     } else {
                         WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                             ForEach(labels) { label in
-                                ChipView(label: label.name, isSelected: selectedLabel == label.id, color: Color(hex: label.colour))
-                                    .onTapGesture {
+                                ChipView(label: label.name, isSelected: selectedLabel == label.id, color: Color(hex: label.colour)) {
+                                    withAnimation {
                                         if selectedLabel == label.id {
                                             selectedLabel = nil
                                         } else {
                                             selectedLabel = label.id
                                         }
                                     }
+                                }
                             }
                         }.padding(.leading, -15)
                     }
                 },
                 label: {
-                    Text("Labels")
+                    Text(String(localized: "labels"))
                 }
             )
             .task {
@@ -114,12 +121,11 @@ struct FilterOptionsAliasBottomSheet: View {
                 .disabled(filter2Selection == 1) // means if alias is set to Watch Only
                 WrappingHStack(alignment: .leading, horizontalSpacing: 4, verticalSpacing: 4) {
                     ForEach(orderChips) { chip in
-                        ChipView(label: chip.label, isSelected: selectedOrderChip == chip.chipId, color: .accentColor)
-                            .onTapGesture {
-                                withAnimation {
-                                    selectedOrderChip = chip.chipId
-                                }
+                        ChipView(label: chip.label, isSelected: selectedOrderChip == chip.chipId, color: .accentColor) {
+                            withAnimation {
+                                selectedOrderChip = chip.chipId
                             }
+                        }
                     }
                 }.disabled(filter2Selection == 1) // means if alias is set to Watch Only
 
@@ -127,7 +133,7 @@ struct FilterOptionsAliasBottomSheet: View {
                 Text(String(localized: "sorting"))
             }.textCase(nil)
 
-        }.navigationTitle(String(localized: "filtering_and_sorting")).pickerStyle(.navigationLink)
+        }.navigationTitle(String(localized: "filtering_and_sorting"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 ToolbarItem(placement: .confirmationAction) {
@@ -232,8 +238,10 @@ struct FilterOptionsAliasBottomSheet: View {
             filter1Selection = 1
         } else if aliasSortFilterRequest.onlyInactiveAliases {
             filter1Selection = 2
-        } else if aliasSortFilterRequest.onlyDeletedAliases {
+        } else if aliasSortFilterRequest.onlyPinnedAliases {
             filter1Selection = 3
+        } else if aliasSortFilterRequest.onlyDeletedAliases {
+            filter1Selection = 4
         } else {
             filter1Selection = 0
         }
@@ -264,12 +272,9 @@ struct FilterOptionsAliasBottomSheet: View {
     
     private func loadLabels() async {
         isLoadingLabels = true
-        let networkHelper = NetworkHelper()
         do {
-            let result = try await networkHelper.getAllLabels()
-            if let labels = result?.data {
-                self.labels = labels
-            }
+            let result = try await LabelRepository.shared.getLabels()
+            self.labels = result.data
         } catch {
             // handle error
         }
@@ -277,22 +282,19 @@ struct FilterOptionsAliasBottomSheet: View {
     }
 }
 
-struct FilterOptionsAliasBottomSheet_Previews: PreviewProvider {
-    static var defaultSortFilterRequest = AliasSortFilterRequest(
-        onlyActiveAliases: false,
-        onlyDeletedAliases: true,
-        onlyInactiveAliases: false,
-        onlyWatchedAliases: false,
-        onlyPinnedAliases: false,
-        sort: nil,
-        sortDesc: false,
-        filter: nil,
-        label: nil
+#Preview {
+    FilterOptionsAliasBottomSheet(
+        aliasSortFilterRequest: AliasSortFilterRequest(
+            onlyActiveAliases: false,
+            onlyDeletedAliases: true,
+            onlyInactiveAliases: false,
+            onlyWatchedAliases: false,
+            onlyPinnedAliases: false,
+            sort: nil,
+            sortDesc: false,
+            filter: nil,
+            label: nil
+        ),
+        setFilterAndSortingSettings: { _ in }
     )
-
-    static var previews: some View {
-        FilterOptionsAliasBottomSheet(aliasSortFilterRequest: defaultSortFilterRequest, setFilterAndSortingSettings: { _ in
-            // Dummy function for preview
-        })
-    }
 }

@@ -6,18 +6,11 @@
 //
 
 import Foundation
-
-public struct BlocklistEntriesArray: Codable {
-    public var data: [BlocklistEntries]
-    public var links: Links?
-    public var meta: Meta?
-}
-
-struct SingleBlocklistEntry: Codable {
+struct SingleBlocklistEntry: Codable, Sendable {
     let data: BlocklistEntries
 }
 
-public struct BlocklistEntries: Identifiable, Codable {
+public struct BlocklistEntries: Identifiable, Codable, Sendable {
     public let id: String
     let user_id: String
     public let value: String
@@ -28,9 +21,9 @@ public struct BlocklistEntries: Identifiable, Codable {
     let updated_at: String
 }
 
-public struct NewBlocklistEntry: Codable {
-    let type: String
-    let value: String
+public struct NewBlocklistEntry: Codable, Sendable {
+    public let type: String
+    public let value: String
 
     public init(type: String, value: String) {
         self.type = type

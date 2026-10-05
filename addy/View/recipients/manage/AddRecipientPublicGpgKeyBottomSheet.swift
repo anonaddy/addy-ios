@@ -6,20 +6,23 @@
 //
 
 import addy_shared
-import AVFoundation
 import SwiftUI
 
 struct AddRecipientPublicGpgKeyBottomSheet: View {
     @Environment(\.dismiss) var dismiss
 
     @State private var publicGpgKey: String = ""
-    @State private var publicGpgKeyPlaceholder: String = .init(localized: "public_key_placeholder")
     @State private var publicGpgKeyValidationError: String?
     @State private var publicGpgKeyRequestError: String?
-    @State var IsLoadingSaveButton: Bool = false
+    @State var isLoadingSaveButton: Bool = false
 
     let recipientId: String
     let onKeyAdded: (Recipients) -> Void
+
+    init(recipientId: String, onKeyAdded: @escaping (Recipients) -> Void) {
+        self.recipientId = recipientId
+        self.onKeyAdded = onKeyAdded
+    }
 
     var body: some View {
         #if DEBUG
@@ -27,7 +30,7 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
         #endif
         Form {
             Section {
-                ValidatingTextField(value: self.$publicGpgKey, placeholder: self.$publicGpgKeyPlaceholder, fieldType: .bigText, error: $publicGpgKeyValidationError)
+                ValidatingTextField(value: self.$publicGpgKey, placeholder: String(localized: "public_key_placeholder"), fieldType: .bigText, error: $publicGpgKeyValidationError)
 
             } header: {
                 VStack(alignment: .leading) {
@@ -48,73 +51,65 @@ struct AddRecipientPublicGpgKeyBottomSheet: View {
                         }
                 }
             }.textCase(nil)
-        }.navigationTitle(String(localized: "add_public_gpg_key")).pickerStyle(.navigationLink)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        saveButton().buttonStyle(.glassProminent)
-                    } else {
-                        saveButton()
-                    }
+        }
+        .navigationTitle(String(localized: "add_public_gpg_key"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                if #available(iOS 26.0, *) {
+                    saveButton().buttonStyle(.glassProminent)
+                } else {
+                    saveButton()
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
-                    }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Label(String(localized: "cancel", bundle: Bundle(for: SharedData.self)), systemImage: "xmark")
                 }
-            })
-    }
-
-    private func saveButton() -> some View {
-        Group {
-            if IsLoadingSaveButton {
-                AnyView(ProgressView().progressViewStyle(.circular))
-            } else {
-                AnyView(
-                    Button {
-                        // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
-                        // We should not allow any saving until the validationErrors are nil
-                        if publicGpgKeyValidationError == nil {
-                            IsLoadingSaveButton = true
-
-                            Task {
-                                await self.addGpgKeyHttp(publicGpgKey: self.publicGpgKey)
-                            }
-                        } else {
-                            IsLoadingSaveButton = false
-                        }
-                    } label: {
-                        Text(String(localized: "add"))
-                    }
-                )
             }
         }
     }
 
-    init(recipientId: String, onKeyAdded: @escaping (Recipients) -> Void) {
-        self.recipientId = recipientId
-        self.onKeyAdded = onKeyAdded
+    private func saveButton() -> some View {
+        Group {
+            if isLoadingSaveButton {
+                ProgressView().progressViewStyle(.circular)
+            } else {
+                Button {
+                    // Since the ValidatingTextField is also handling validationErrors (and resetting these errors on every change)
+                    // We should not allow any saving until the validationErrors are nil
+                    if publicGpgKeyValidationError == nil {
+                        isLoadingSaveButton = true
+
+                        Task {
+                            await self.addGpgKeyHttp(publicGpgKey: self.publicGpgKey)
+                        }
+                    } else {
+                        isLoadingSaveButton = false
+                    }
+                } label: {
+                    Text(String(localized: "add"))
+                }
+            }
+        }
     }
 
     private func addGpgKeyHttp(publicGpgKey: String) async {
         publicGpgKeyRequestError = nil
-        let networkHelper = NetworkHelper()
         do {
-            if let recipient = try await networkHelper.addEncryptionKeyRecipient(recipientId: recipientId, keyData: publicGpgKey) {
-                onKeyAdded(recipient)
-            }
+            let recipient = try await RecipientRepository.shared.addEncryptionKey(recipientId: recipientId, keyData: publicGpgKey)
+            onKeyAdded(recipient)
         } catch {
-            IsLoadingSaveButton = false
+            isLoadingSaveButton = false
             publicGpgKeyRequestError = error.localizedDescription
         }
     }
 }
 
 #Preview {
-    EditAliasDescriptionBottomSheet(aliasId: "000", description: "TEST", descriptionEdited: { _ in
+    AddRecipientPublicGpgKeyBottomSheet(recipientId: "000", onKeyAdded: { _ in
         // Dummy function for preview
     })
 }

@@ -7,7 +7,6 @@
 
 import addy_shared
 import Lottie
-import SwiftData
 import SwiftUI
 
 struct SplashView: View {
@@ -17,7 +16,6 @@ struct SplashView: View {
 
     @State private var showError = false
     @State private var isPresentUnsupportedVersionBottomDialog = false
-    @State private var networkHelper: NetworkHelper? = nil
     @State private var isShowingDetailedErrorAlert = false
     @State private var detailedError: String? = ""
 
@@ -35,9 +33,24 @@ struct SplashView: View {
             loadDataAndStartApp()
         }
         .alert(isPresented: $isShowingDetailedErrorAlert, content: {
-            Alert(
-                title: Text(String(localized: "error", bundle: Bundle(for: SharedData.self))), message: Text(detailedError ?? String(localized: "unknown"))
-            )
+            if NetworkUtils.isLocalAddress(AddyIo.API_BASE_URL) {
+                Alert(
+                    title: Text(String(localized: "error", bundle: Bundle(for: SharedData.self))),
+                    message: Text(detailedError ?? String(localized: "unknown")),
+                    primaryButton: .default(Text(String(localized: "open_settings"))) {
+                        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(settingsURL)
+                        }
+                    },
+                    secondaryButton: .cancel(Text(String(localized: "close", bundle: Bundle(for: SharedData.self))))
+                )
+            } else {
+                Alert(
+                    title: Text(String(localized: "error", bundle: Bundle(for: SharedData.self))),
+                    message: Text(detailedError ?? String(localized: "unknown")),
+                    dismissButton: .default(Text(String(localized: "close", bundle: Bundle(for: SharedData.self))))
+                )
+            }
         })
         .sheet(isPresented: $isPresentUnsupportedVersionBottomDialog, onDismiss: {
             isPresentUnsupportedVersionBottomDialog = false
@@ -115,6 +128,16 @@ struct SplashView: View {
                             Text(String(localized: "try_again", bundle: Bundle(for: SharedData.self))).foregroundColor(Color.white)
                         }
 
+                        if NetworkUtils.isLocalAddress(AddyIo.API_BASE_URL) {
+                            AddyButton(action: {
+                                if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                                    UIApplication.shared.open(settingsURL)
+                                }
+                            }, style: AddyButtonStyle()) {
+                                Text(String(localized: "open_settings")).foregroundColor(Color.white)
+                            }
+                        }
+
                         AddyButton(action: {
                             let settingsManager = SettingsManager(encrypted: true)
                             settingsManager.clearSettingsAndCloseApp()
@@ -129,8 +152,6 @@ struct SplashView: View {
 
     private func loadDataAndStartApp() {
         showError = false
-        // This helper inits the BASE_URL var
-        networkHelper = NetworkHelper()
 
         #if DEBUG
             let defaultBaseUrl = String(localized: "dev_base_url")
@@ -154,21 +175,19 @@ struct SplashView: View {
 
     private func getAddyIoInstanceVersion() async {
         do {
-            let version = try await networkHelper!.getAddyIoInstanceVersion()
-            if let version = version {
-                AddyIo.VERSIONMAJOR = version.major
-                AddyIo.VERSIONMINOR = version.minor
-                AddyIo.VERSIONPATCH = version.patch
-                AddyIo.VERSIONSTRING = version.version ?? String(localized: "unknown")
+            let version = try await AppMaintenanceRepository.shared.getAddyIoInstanceVersion()
+            AddyIo.VERSIONMAJOR = version.major
+            AddyIo.VERSIONMINOR = version.minor
+            AddyIo.VERSIONPATCH = version.patch
+            AddyIo.VERSIONSTRING = version.version ?? String(localized: "unknown")
 
-                if instanceHasTheMinimumRequiredVersion() {
-                    await getUserResource()
-                } else {
-                    isPresentUnsupportedVersionBottomDialog = true
-                }
+            if instanceHasTheMinimumRequiredVersion() {
+                await getUserResource()
+            } else {
+                isPresentUnsupportedVersionBottomDialog = true
             }
         } catch {
-            detailedError = error.localizedDescription
+            detailedError = formatErrorMessage(error: error)
             showError = true
         }
     }
@@ -189,31 +208,29 @@ struct SplashView: View {
     }
 
     private func getUserResource() async {
-        let networkHelper = NetworkHelper()
         do {
-            let userResource = try await networkHelper.getUserResource()
-            if let userResource = userResource {
-                mainViewState.userResource = userResource
+            let userResource = try await UserRepository.shared.getUserResource()
+            mainViewState.userResource = userResource
 
-                // Fetch UserResourceExtended data
-                let recipient = try await networkHelper.getSpecificRecipient(recipientId: userResource.default_recipient_id)
-                if let recipient = recipient {
-                    DispatchQueue.main.async {
-                        withAnimation {
-                            // Since this is the last change before the view changes, make this withAnimation
-                            mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
-                        }
-                    }
-                } else {
-                    showError = true
+            // Fetch UserResourceExtended data
+            let recipient = try await RecipientRepository.shared.getRecipient(recipientId: userResource.default_recipient_id)
+            DispatchQueue.main.async {
+                withAnimation {
+                    mainViewState.userResourceExtended = UserResourceExtended(default_recipient_email: recipient.email)
                 }
-            } else {
-                showError = true
             }
         } catch {
-            detailedError = error.localizedDescription
+            detailedError = formatErrorMessage(error: error)
             showError = true
         }
+    }
+
+    private func formatErrorMessage(error: Error) -> String {
+        var message = error.localizedDescription
+        if NetworkUtils.isLocalAddress(AddyIo.API_BASE_URL) {
+            message += "\n\n" + String(localized: "local_network_permission_rationale")
+        }
+        return message
     }
 }
 

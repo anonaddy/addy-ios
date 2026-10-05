@@ -21,5 +21,10 @@
 		<key>NSExtensionPrincipalClass</key>
 		<string>ShareExtension.ShareViewController</string>
 	</dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 </dict>
 </plist>
