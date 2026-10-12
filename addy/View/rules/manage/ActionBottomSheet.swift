@@ -23,6 +23,10 @@ struct ActionBottomSheet: View {
     @State private var allLabels: [AddyChipModel] = [AddyChipModel(chipId: "loading_labels", label: String(localized: "loading_labels"))]
     @State private var labelsLoaded: Bool = false
     @State private var isPresentingAddLabelBottomSheet = false
+    @State private var webhookUrl = ""
+    @State private var webhookUrlValidationError: String?
+    @State private var webhookIncludeBody = false
+    @State private var webhookIncludeHeaders = false
 
     private var actionEditObject: Action?
     private var recipients: [Recipients]
@@ -44,6 +48,7 @@ struct ActionBottomSheet: View {
                 .onChange(of: selectedActionsType) { _, newType in
                     updatePlaceholder(for: newType)
                     valuePlaceHolderValidationError = nil
+                    webhookUrlValidationError = nil
                 }
 
                 if selectedActionsType == "banner" {
@@ -58,6 +63,23 @@ struct ActionBottomSheet: View {
 
                 if RulesOption.isTextAction(type: selectedActionsType) {
                     ValidatingTextField(value: self.$value, placeholder: self.$valuePlaceHolder, fieldType: .text, error: $valuePlaceHolderValidationError)
+                }
+
+                if RulesOption.isWebhookAction(type: selectedActionsType) {
+                    ValidatingTextField(
+                        value: self.$webhookUrl,
+                        placeholder: String(localized: "webhook_url_placeholder"),
+                        fieldType: .url,
+                        error: $webhookUrlValidationError
+                    )
+
+                    Toggle(isOn: $webhookIncludeBody) {
+                        Text(String(localized: "webhook_include_body"))
+                    }
+
+                    Toggle(isOn: $webhookIncludeHeaders) {
+                        Text(String(localized: "webhook_include_headers"))
+                    }
                 }
 
                 if selectedActionsType == "forwardTo" {
@@ -138,6 +160,8 @@ struct ActionBottomSheet: View {
                     Text(String(localized: "add_action_subject_info"))
                 } else if selectedActionsType == "setAliasDescription" {
                     Text(String(localized: "add_action_alias_description_info"))
+                } else if RulesOption.isWebhookAction(type: selectedActionsType) {
+                    Text(String(localized: "add_action_webhook_info"))
                 }
             }.textCase(nil)
 
@@ -194,6 +218,10 @@ struct ActionBottomSheet: View {
                         self.selectedBannerLocationOptions = actionEditObject.value
                     } else if RulesOption.isLabelAction(type: actionEditObject.type) {
                         self.selectedLabel = actionEditObject.value
+                    } else if RulesOption.isWebhookAction(type: actionEditObject.type) {
+                        self.webhookUrl = actionEditObject.webhookValue?.url ?? actionEditObject.value
+                        self.webhookIncludeBody = actionEditObject.webhookValue?.include_body ?? false
+                        self.webhookIncludeHeaders = actionEditObject.webhookValue?.include_headers ?? false
                     }
                     self.value = actionEditObject.value
                 }
@@ -243,6 +271,26 @@ struct ActionBottomSheet: View {
                     return
                 }
                 newAction.value = selectedLabel
+            } else if RulesOption.isWebhookAction(type: selectedActionsType) {
+                let trimmedUrl = self.webhookUrl.trimmingCharacters(in: .whitespaces)
+                if trimmedUrl.isEmpty {
+                    webhookUrlValidationError = String(localized: "this_field_cannot_be_empty")
+                    return
+                }
+                guard trimmedUrl.lowercased().hasPrefix("https://") else {
+                    webhookUrlValidationError = String(localized: "webhook_url_must_be_https")
+                    return
+                }
+                guard let parsedUrl = URL(string: trimmedUrl), parsedUrl.scheme?.lowercased() == "https", let host = parsedUrl.host, !host.isEmpty else {
+                    webhookUrlValidationError = String(localized: "not_a_valid_address")
+                    return
+                }
+                newAction.value = trimmedUrl
+                newAction.webhookValue = WebhookActionValue(
+                    url: trimmedUrl,
+                    include_body: webhookIncludeBody,
+                    include_headers: webhookIncludeHeaders
+                )
             } else if RulesOption.isTextAction(type: selectedActionsType) {
                 if selectedActionsType != "setAliasDescription" && self.value.trimmingCharacters(in: .whitespaces).isEmpty {
                     valuePlaceHolderValidationError = String(localized: "this_field_cannot_be_empty")
@@ -252,6 +300,10 @@ struct ActionBottomSheet: View {
             } else {
                 // Else just get the textfield value
                 newAction.value = self.value
+            }
+
+            if let actionEditObject = actionEditObject {
+                newAction.id = actionEditObject.id
             }
 
             self.onAddedAction(actionEditObject, newAction)
@@ -287,12 +339,27 @@ struct ActionBottomSheet: View {
         if actionEditObject?.type == "forwardTo" {
             _selectedRecipientChip = State(initialValue: [actionEditObject?.value ?? ""])
             _selectedLabel = State(initialValue: "")
+            _webhookUrl = State(initialValue: "")
+            _webhookIncludeBody = State(initialValue: false)
+            _webhookIncludeHeaders = State(initialValue: false)
         } else if let action = actionEditObject, RulesOption.isLabelAction(type: action.type) {
             _selectedRecipientChip = State(initialValue: [])
             _selectedLabel = State(initialValue: action.value)
+            _webhookUrl = State(initialValue: "")
+            _webhookIncludeBody = State(initialValue: false)
+            _webhookIncludeHeaders = State(initialValue: false)
+        } else if let action = actionEditObject, RulesOption.isWebhookAction(type: action.type) {
+            _selectedRecipientChip = State(initialValue: [])
+            _selectedLabel = State(initialValue: "")
+            _webhookUrl = State(initialValue: action.webhookValue?.url ?? action.value)
+            _webhookIncludeBody = State(initialValue: action.webhookValue?.include_body ?? false)
+            _webhookIncludeHeaders = State(initialValue: action.webhookValue?.include_headers ?? false)
         } else {
             _selectedRecipientChip = State(initialValue: [])
             _selectedLabel = State(initialValue: "")
+            _webhookUrl = State(initialValue: "")
+            _webhookIncludeBody = State(initialValue: false)
+            _webhookIncludeHeaders = State(initialValue: false)
         }
     }
 }

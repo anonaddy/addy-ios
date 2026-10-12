@@ -7,6 +7,39 @@
 
 import Foundation
 
+/// Represents the value for a webhook action containing a url, and whether to include the message body and headers.
+public struct WebhookActionValue: Hashable, Codable, Sendable {
+    public var url: String
+    public var include_body: Bool
+    public var include_headers: Bool
+
+    public init(url: String, include_body: Bool = false, include_headers: Bool = false) {
+        self.url = url
+        self.include_body = include_body
+        self.include_headers = include_headers
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case url
+        case include_body
+        case include_headers
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        url = try container.decode(String.self, forKey: .url)
+        include_body = (try? container.decodeIfPresent(Bool.self, forKey: .include_body)) ?? false
+        include_headers = (try? container.decodeIfPresent(Bool.self, forKey: .include_headers)) ?? false
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(url, forKey: .url)
+        try container.encode(include_body, forKey: .include_body)
+        try container.encode(include_headers, forKey: .include_headers)
+    }
+}
+
 /// The Action struct represents an action with a unique identifier (UUID), type, and value.
 public struct Action: Identifiable, Hashable, Codable, Sendable {
     /// The id is a unique identifier for each action. It's a UUID which is a universally unique identifier.
@@ -15,6 +48,8 @@ public struct Action: Identifiable, Hashable, Codable, Sendable {
     public var type: String
     /// The value of the action.
     public var value: String
+    /// For webhook actions, holds the URL and include_body/include_headers configuration.
+    public var webhookValue: WebhookActionValue?
 
     /// CodingKeys enum is used to specify which keys we want to decode from the JSON.
     /// The id is not included because it's not present in the JSON.
@@ -24,10 +59,24 @@ public struct Action: Identifiable, Hashable, Codable, Sendable {
 
     /// This initializer is used when creating a new Action.
     /// It generates a new UUID for the id.
-    public init(type: String, value: String = "") {
+    public init(type: String, value: String = "", webhookValue: WebhookActionValue? = nil) {
         id = UUID()
         self.type = type
         self.value = value
+        if type == "webhook" {
+            if let webhookValue = webhookValue {
+                self.webhookValue = webhookValue
+                if self.value.isEmpty {
+                    self.value = webhookValue.url
+                }
+            } else if !value.isEmpty {
+                self.webhookValue = WebhookActionValue(url: value, include_body: false, include_headers: false)
+            } else {
+                self.webhookValue = nil
+            }
+        } else {
+            self.webhookValue = webhookValue
+        }
     }
 
     /// This initializer is used when decoding an Action from JSON.
@@ -38,25 +87,53 @@ public struct Action: Identifiable, Hashable, Codable, Sendable {
         id = UUID()
         type = try container.decode(String.self, forKey: .type)
 
-        if let boolValue = try? container.decode(Bool.self, forKey: .value) {
-            value = String(boolValue)
-        } else if let intValue = try? container.decode(Int.self, forKey: .value) {
-            value = String(intValue)
-        } else if let strValue = try? container.decode(String.self, forKey: .value) {
-            value = strValue
+        if type == "webhook" {
+            if let webhook = try? container.decode(WebhookActionValue.self, forKey: .value) {
+                self.webhookValue = webhook
+                self.value = webhook.url
+            } else if let strValue = try? container.decode(String.self, forKey: .value) {
+                self.value = strValue
+                if let data = strValue.data(using: .utf8),
+                   let webhook = try? JSONDecoder().decode(WebhookActionValue.self, from: data) {
+                    self.webhookValue = webhook
+                } else {
+                    self.webhookValue = WebhookActionValue(url: strValue, include_body: false, include_headers: false)
+                }
+            } else {
+                self.value = ""
+                self.webhookValue = nil
+            }
         } else {
-            value = (try? container.decodeIfPresent(String.self, forKey: .value)) ?? ""
+            self.webhookValue = nil
+            if let boolValue = try? container.decode(Bool.self, forKey: .value) {
+                value = String(boolValue)
+            } else if let intValue = try? container.decode(Int.self, forKey: .value) {
+                value = String(intValue)
+            } else if let strValue = try? container.decode(String.self, forKey: .value) {
+                value = strValue
+            } else {
+                value = (try? container.decodeIfPresent(String.self, forKey: .value)) ?? ""
+            }
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type, forKey: .type)
-        if !value.isEmpty || type == "setAliasDescription" {
-            try container.encode(value, forKey: .value)
+        if type == "webhook" {
+            if let webhookValue = webhookValue {
+                try container.encode(webhookValue, forKey: .value)
+            } else if !value.isEmpty {
+                try container.encode(WebhookActionValue(url: value, include_body: false, include_headers: false), forKey: .value)
+            }
+        } else {
+            if !value.isEmpty || type == "setAliasDescription" {
+                try container.encode(value, forKey: .value)
+            }
         }
     }
 }
+
 
 /// The Condition struct represents a condition with a unique identifier (UUID), type, match, and values.
 public struct Condition: Identifiable, Hashable, Codable, Sendable {

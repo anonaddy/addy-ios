@@ -209,6 +209,36 @@ struct CreateRulesView: View {
                                             .multilineTextAlignment(.center)
                                             .lineLimit(3)
                                             .opacity(0.7)
+                                    } else if RulesOption.isWebhookAction(type: action.type) {
+                                        let url = action.webhookValue?.url ?? action.value
+                                        let includeBody = action.webhookValue?.include_body ?? false
+                                        let includeHeaders = action.webhookValue?.include_headers ?? false
+                                        VStack(spacing: 2) {
+                                            Text(url)
+                                                .font(.system(size: 14))
+                                                .multilineTextAlignment(.center)
+                                                .lineLimit(3)
+                                                .opacity(0.7)
+                                            if includeBody || includeHeaders {
+                                                HStack(spacing: 4) {
+                                                    if includeBody {
+                                                        Text(String(localized: "webhook_includes_body"))
+                                                            .font(.system(size: 12))
+                                                            .foregroundColor(.secondary)
+                                                    }
+                                                    if includeBody && includeHeaders {
+                                                        Text("•")
+                                                            .font(.system(size: 10))
+                                                            .foregroundColor(.secondary)
+                                                    }
+                                                    if includeHeaders {
+                                                        Text(String(localized: "webhook_includes_headers"))
+                                                            .font(.system(size: 12))
+                                                            .foregroundColor(.secondary)
+                                                    }
+                                                }
+                                            }
+                                        }
                                     } else if !RulesOption.isBooleanAction(type: action.type) {
                                         if !action.value.isEmpty {
                                             Text(action.value)

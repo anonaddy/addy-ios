@@ -313,6 +313,9 @@ struct RulesView: View {
         let descActions: String
         if firstAction.type == "forwardTo" && !recipients.isEmpty {
             descActions = "\(actionTypeText) \(recipients.first(where: { $0.id == firstAction.value })?.email ?? String(localized: "unknown"))"
+        } else if RulesOption.isWebhookAction(type: firstAction.type) {
+            let url = firstAction.webhookValue?.url ?? firstAction.value
+            descActions = "\(actionTypeText) \(url)"
         } else if RulesOption.isBooleanAction(type: firstAction.type) || firstAction.value.isEmpty {
             descActions = actionTypeText
         } else {
