@@ -3152,6 +3152,127 @@
         }
       }
     },
+    "email_verification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email Verification"
+          }
+        }
+      }
+    },
+    "email_verification_account_deletion_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must verify your email **within 30 days** or your account will be automatically deleted."
+          }
+        }
+      }
+    },
+    "email_verification_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accept and verify account"
+          }
+        }
+      }
+    },
+    "email_verification_no_marking_emails_as_spam_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do not mark emails forwarded to you by addy.io as spam"
+          }
+        }
+      }
+    },
+    "email_verification_no_marking_emails_as_spam_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Marking Emails as Spam"
+          }
+        }
+      }
+    },
+    "email_verification_no_mass_signups_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do not use addy.io to create large numbers of accounts on other websites or services"
+          }
+        }
+      }
+    },
+    "email_verification_no_mass_signups_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Mass Signups"
+          }
+        }
+      }
+    },
+    "email_verification_no_multiple_free_accounts_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do not create multiple free accounts as this is not considered an acceptable use of the service"
+          }
+        }
+      }
+    },
+    "email_verification_no_multiple_free_accounts_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Multiple Free Accounts"
+          }
+        }
+      }
+    },
+    "email_verification_prohibited_actions_intro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Before proceeding, please read the following **prohibited actions** and then click the button below to complete verification."
+          }
+        }
+      }
+    },
+    "email_verification_prohibited_actions_intro_with_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Before proceeding, please read the following **prohibited actions** and then click the button below to verify **%@**."
+          }
+        }
+      }
+    },
     "emails_blocked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6371,7 +6492,6 @@
       }
     },
     "rate_this_app" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -6382,7 +6502,6 @@
       }
     },
     "rate_this_app_desc" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
