@@ -32,6 +32,14 @@ struct ActionBottomSheet: View {
     private var recipients: [Recipients]
     let onAddedAction: (Action?, Action) -> Void
 
+    private var webRulesUrl: String {
+        if AddyIo.API_BASE_URL.contains("app.addy.io") {
+            return "https://app.addy.io/rules?ref=appstore"
+        } else {
+            return "\(AddyIo.API_BASE_URL)/rules"
+        }
+    }
+
     var body: some View {
         #if DEBUG
             let _ = Self._printChanges()
@@ -161,7 +169,7 @@ struct ActionBottomSheet: View {
                 } else if selectedActionsType == "setAliasDescription" {
                     Text(String(localized: "add_action_alias_description_info"))
                 } else if RulesOption.isWebhookAction(type: selectedActionsType) {
-                    Text(String(localized: "add_action_webhook_info"))
+                    Text(LocalizedStringKey(String(format: String(localized: "add_action_webhook_info"), webRulesUrl)))
                 }
             }.textCase(nil)
 

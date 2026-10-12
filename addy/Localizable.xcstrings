@@ -187,7 +187,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "addy sends a signed JSON POST when this rule matches an accepted email. Attachments are left out. The message body and the headers are included only when you select them, and each is limited to 1 MB. The signing secret is under More info on this page. If deliveries to this URL keep failing, addy pauses it for one hour and emails you. Other actions on the rule still run."
+            "value" : "addy sends a signed JSON POST when this rule matches an accepted email. Attachments are left out. The message body and the headers are included only when you select them, and each is limited to 1 MB. The signing secret is under More info on the rule page of the [web-app](%@) instead. If deliveries to this URL keep failing, addy pauses it for one hour and emails you. Other actions on the rule still run."
           }
         }
       }
