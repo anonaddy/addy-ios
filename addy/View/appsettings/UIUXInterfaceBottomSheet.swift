@@ -21,7 +21,7 @@ struct UIUXInterfaceBottomSheet: View {
         #endif
         List {
             Section {
-                let destinations = horizontalSize == .regular ? Destination.otherCases : Destination.iPhoneCases
+                let destinations = (UIDevice.current.userInterfaceIdiom == .pad) ? Destination.otherCases : Destination.iPhoneCases
 
                 Picker(selection: $startupPage, label: Text(String(localized: "select_startup_page"))) {
                     ForEach(destinations, id: \.self) { destination in
