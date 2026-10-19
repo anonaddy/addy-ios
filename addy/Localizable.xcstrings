@@ -937,7 +937,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 2.7.0**\n\n📱 **iOS 27 Support & Glass Design**\nFull compatibility and optimizations for iOS 27, featuring modern Liquid Glass styling.\n\n🔐 **Certificate Expiry Warnings**\nNever get locked out of your self-hosted server again! Receive proactive alerts before your client certificates expire.\n\n🔍 **Siri & Spotlight Search**\nFind your aliases instantly right from your Home Screen or Lock Screen using Spotlight search! Search by email, description, domain, recipients, or labels, and jump directly into alias details with a single tap.\n\n✨ **Bulk Actions for Aliases**\nManaging multiple aliases just got effortless! Multi-select aliases to activate, deactivate, pin, assign labels, change recipients, or delete them all in one go.\n\n🌐 **Domain Sending Verification**\nCheck whether your custom domain is properly configured to send email directly from domain settings.\n\n⚡ **Instant Blocklist Deep Links**\nBlock senders or domains instantly via deep links or directly from failed delivery details.\n\n🚀 **Faster & Smoother Everyday**\nRebuilt core architecture with async/await for top-tier speed, battery efficiency, and rock-solid stability.\n\n**What’s new in addy.io for Apple Watch 1.1.8**\n\n⌚ **Wrist Companion Upgrades**\nEnjoy a smoother experience on your wrist with faster alias creation, improved Siri Shortcuts, and reliable syncing with your iPhone."
+            "value" : "**What’s new in addy.io for iOS 2.7.1**\n\n🪝 **Webhook Rule Actions**\nSupercharge your mail routing! You can now configure rules to trigger external webhooks whenever incoming emails match your rule criteria.\n\n✉️ **Email Verification Sheet**\nClearer account onboarding with a dedicated verification screen displaying account status and restrictions prior to confirming your email.\n\n🛠️ **Crash & Stability Fixes**\nResolved a crash on launch and tab navigation on iPad and iPhone (#57).\n\n🚀 **Performance & Backend Compatibility**\nUpdated minimum supported backend instance version to 1.7.4 along with general performance improvements and refinements."
           }
         }
       }
@@ -6503,6 +6503,7 @@
       }
     },
     "rate_this_app" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -6513,6 +6514,7 @@
       }
     },
     "rate_this_app_desc" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

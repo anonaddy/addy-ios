@@ -28,6 +28,14 @@
             ],
             "versions": [
                 {
+                    "version": "2.7.1",
+                    "date": "2026-10-19T00:00:00+02:00",
+                    "size": 38678661,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/refs/heads/2.7.1/builds/appstorelessRelease%202026-10-19%2000-00-00/addy.ipa",
+                    "localizedDescription": "- Added webhook rule action support to trigger external webhooks on matching emails\n- Added email verification screen with prohibited actions before completing registration\n- Updated minimum supported addy.io instance version to 1.7.4\n- Fixed an issue causing a crash when navigating tabs (#57)\n- Performance enhancements and other improvements for a smoother experience",
+                    "minOSVersion": "17.0"
+                },
+                {
                     "version": "2.7.0",
                     "date": "2026-09-20T00:00:00+02:00",
                     "size": 34560000,

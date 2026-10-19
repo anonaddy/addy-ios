@@ -1,5 +1,16 @@
 # Changelog
  
+## [v2.7.1] - 2026-10-19
+
+**Added**
+- **Webhook Action Support**: Added webhook rule action support to trigger external webhooks when rule conditions match, with direct access to web-app documentation.
+- **Registration Email Verification**: Added an email verification sheet outlining account restrictions and prohibited actions prior to completing registration.
+
+**Fixed & Improved**
+- **Tab Navigation Crash**: Fixed an issue where switching tabs or navigating on iPad/iPhone could result in a nil object crash (#57).
+- **Minimum Instance Version**: Updated minimum supported addy.io instance version to 1.7.4.
+- Performance enhancements and other improvements for a smoother experience.
+
 ## [v2.7.0] - 2026-10-03
 
 **Highlights**
