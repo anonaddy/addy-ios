@@ -31,6 +31,10 @@ public protocol DomainRepositoryProtocol: AnyObject, Sendable {
     func shareWithFamily(domainId: String) async throws -> Domains
     /// Stops sharing domain with family members.
     func stopSharingWithFamily(domainId: String) async throws -> String
+    /// Enables default attached recipients only on a domain.
+    func defaultAttachedRecipientsOnly(domainId: String) async throws -> Domains
+    /// Stops default attached recipients only on a domain.
+    func stopDefaultAttachedRecipientsOnly(domainId: String) async throws -> String
     /// Updates custom domain description.
     func updateDescription(domainId: String, description: String?) async throws -> Domains
     /// Updates custom domain default from name.
@@ -193,6 +197,30 @@ public final class DomainRepository: DomainRepositoryProtocol, @unchecked Sendab
     public func stopSharingWithFamily(domainId: String) async throws -> String {
         let endpoint = Endpoint(
             urlString: "\(AddyIo.API_URL_SHARED_WITH_FAMILY_DOMAINS)/\(domainId)",
+            method: .delete
+        )
+        let (data, response) = try await apiClient.requestRaw(endpoint)
+        if response.statusCode == 204 {
+            return String(response.statusCode)
+        }
+        throw apiClient.mapResponseError(response: response, data: data, requestURL: endpoint.urlString)
+    }
+
+    public func defaultAttachedRecipientsOnly(domainId: String) async throws -> Domains {
+        let json: [String: Any] = ["id": domainId]
+        let jsonData = try JSONSerialization.data(withJSONObject: json)
+        let endpoint = Endpoint(
+            urlString: AddyIo.API_URL_DEFAULT_ATTACHED_RECIPIENTS_ONLY_DOMAINS,
+            method: .post,
+            body: jsonData
+        )
+        let single: SingleDomain = try await apiClient.request(endpoint)
+        return single.data
+    }
+
+    public func stopDefaultAttachedRecipientsOnly(domainId: String) async throws -> String {
+        let endpoint = Endpoint(
+            urlString: "\(AddyIo.API_URL_DEFAULT_ATTACHED_RECIPIENTS_ONLY_DOMAINS)/\(domainId)",
             method: .delete
         )
         let (data, response) = try await apiClient.requestRaw(endpoint)

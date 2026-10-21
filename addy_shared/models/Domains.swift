@@ -20,6 +20,7 @@ public struct Domains: Identifiable, Codable, Sendable {
     public var active: Bool
     public var catch_all: Bool
     public var shared_with_family: Bool?
+    public var default_attached_recipients_only: Bool?
     public var auto_create_regex: String?
     public let domain_verified_at: String?
     public let domain_mx_validated_at: String?

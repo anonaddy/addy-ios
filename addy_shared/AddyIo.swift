@@ -110,6 +110,10 @@ public enum AddyIo {
         "\(API_BASE_URL)/api/v1/shared-with-family-domains"
     }
 
+    static var API_URL_DEFAULT_ATTACHED_RECIPIENTS_ONLY_DOMAINS: String {
+        "\(API_BASE_URL)/api/v1/default-attached-recipients-only-domains"
+    }
+
     static var API_URL_USERNAMES: String {
         "\(API_BASE_URL)/api/v1/usernames"
     }

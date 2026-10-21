@@ -3685,6 +3685,17 @@
         }
       }
     },
+    "error_edit_default_attached_recipients_only" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the domain attached recipients only state"
+          }
+        }
+      }
+    },
     "error_edit_pinned" : {
       "comment" : "MOVED TO SHARED"
     },
@@ -4892,6 +4903,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Only allow verified recipients that are directly attached to this alias to reply or send from it. If this option is enabled and no recipients are directly attached then it will not be possible to reply/send from this alias"
+          }
+        }
+      }
+    },
+    "limit_replies_sends_new_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit replies and sends on new aliases"
+          }
+        }
+      }
+    },
+    "limit_replies_sends_new_aliases_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn this on and every new alias on this domain only allows recipients that are directly attached to it to reply or send. Aliases you already have stay unchanged.\n\nForwards still go to this domain's default recipient. That recipient is not attached, so they cannot reply or send until you attach them. With this on and no recipients attached, reply and send are blocked."
           }
         }
       }

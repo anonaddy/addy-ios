@@ -26,9 +26,11 @@ struct DomainsDetailView: View {
     @State private var isActive: Bool = false
     @State private var catchAllEnabled: Bool = false
     @State private var sharedWithFamilyEnabled: Bool = false
+    @State private var defaultAttachedRecipientsOnlyEnabled: Bool = false
     @State private var isSwitchingActiveState: Bool = false
     @State private var isSwitchingCatchAllEnabledState: Bool = false
     @State private var isSwitchingSharedWithFamilyState: Bool = false
+    @State private var isSwitchingDefaultAttachedRecipientsOnlyState: Bool = false
     @State private var isPresentingEditDomainDescriptionBottomSheet: Bool = false
     @State private var isPresentingEditDomainFromNameBottomSheet: Bool = false
     @State private var isPresentingEditDomainRecipientsBottomSheet: Bool = false
@@ -182,6 +184,24 @@ struct DomainsDetailView: View {
                                 }
                             }
                     }
+
+                    AddyToggle(isOn: $defaultAttachedRecipientsOnlyEnabled, isLoading: isSwitchingDefaultAttachedRecipientsOnlyState, title: String(localized: "limit_replies_sends_new_aliases"), description: String(localized: "limit_replies_sends_new_aliases_desc"))
+                        .onChange(of: defaultAttachedRecipientsOnlyEnabled) {
+                            // Only fire when the value is NOT the same as the value already in the model
+                            if defaultAttachedRecipientsOnlyEnabled != (domain.default_attached_recipients_only ?? false) {
+                                self.isSwitchingDefaultAttachedRecipientsOnlyState = true
+
+                                if domain.default_attached_recipients_only ?? false {
+                                    Task {
+                                        await self.disableDefaultAttachedRecipientsOnly(domain: domain)
+                                    }
+                                } else {
+                                    Task {
+                                        await self.enableDefaultAttachedRecipientsOnly(domain: domain)
+                                    }
+                                }
+                            }
+                        }
 
                     AddySection(title: String(localized: "description"), description: domain.description ?? String(localized: "domain_no_description"), leadingSystemimage: nil, trailingSystemimage: "pencil") {
                         isPresentingEditDomainDescriptionBottomSheet = true
@@ -472,6 +492,46 @@ struct DomainsDetailView: View {
         }
     }
 
+    private func enableDefaultAttachedRecipientsOnly(domain: Domains) async {
+        do {
+            let enabledDomain = try await DomainRepository.shared.defaultAttachedRecipientsOnly(domainId: domain.id)
+            isSwitchingDefaultAttachedRecipientsOnlyState = false
+            self.domain = enabledDomain
+            defaultAttachedRecipientsOnlyEnabled = true
+        } catch {
+            isSwitchingDefaultAttachedRecipientsOnlyState = false
+            defaultAttachedRecipientsOnlyEnabled = false
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_default_attached_recipients_only")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
+    private func disableDefaultAttachedRecipientsOnly(domain: Domains) async {
+        do {
+            let result = try await DomainRepository.shared.stopDefaultAttachedRecipientsOnly(domainId: domain.id)
+            isSwitchingDefaultAttachedRecipientsOnlyState = false
+            if result == "204" {
+                self.domain?.default_attached_recipients_only = false
+                defaultAttachedRecipientsOnlyEnabled = false
+            } else {
+                defaultAttachedRecipientsOnlyEnabled = true
+                activeAlert = .error
+                showAlert = true
+                errorAlertTitle = String(localized: "error_edit_default_attached_recipients_only")
+                errorAlertMessage = result
+            }
+        } catch {
+            isSwitchingDefaultAttachedRecipientsOnlyState = false
+            defaultAttachedRecipientsOnlyEnabled = true
+            activeAlert = .error
+            showAlert = true
+            errorAlertTitle = String(localized: "error_edit_default_attached_recipients_only")
+            errorAlertMessage = error.localizedDescription
+        }
+    }
+
     private func updateUi(aliasesArray: AliasesArray?) {
         if let aliasesArray = aliasesArray {
             let sortedAliasesData = aliasesArray.data.sorted(by: { $0.email < $1.email })
@@ -573,6 +633,7 @@ struct DomainsDetailView: View {
                 self.isActive = domain.active
                 self.catchAllEnabled = domain.catch_all
                 self.sharedWithFamilyEnabled = domain.shared_with_family ?? false
+                self.defaultAttachedRecipientsOnlyEnabled = domain.default_attached_recipients_only ?? false
             }
 
             // Reset total counts
