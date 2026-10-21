@@ -18,6 +18,8 @@ struct SplashView: View {
     @State private var isPresentUnsupportedVersionBottomDialog = false
     @State private var isShowingDetailedErrorAlert = false
     @State private var detailedError: String? = ""
+    @State private var serviceStatus: ServiceStatus? = nil
+    @State private var isLoadingStatus = false
 
     var body: some View {
         #if DEBUG
@@ -30,6 +32,12 @@ struct SplashView: View {
                 loadingView
             }
         }.task {
+            #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("-test_down") {
+                await simulateDownStatus()
+                return
+            }
+            #endif
             loadDataAndStartApp()
         }
         .alert(isPresented: $isShowingDetailedErrorAlert, content: {
@@ -111,13 +119,45 @@ struct SplashView: View {
                             .onTapGesture {
                                 isShowingDetailedErrorAlert = true
                             }
-                    }.padding()
+
+                        if AddyIo.isDefaultInstance() {
+                            if let status = serviceStatus {
+                                statusCard(status: status)
+                                    .padding(.top, 8)
+                            } else if isLoadingStatus {
+                                HStack(spacing: 8) {
+                                    ProgressView()
+                                        .tint(.white)
+                                        .scaleEffect(0.8)
+                                    Text(String(localized: "status_checking"))
+                                        .font(.caption)
+                                        .foregroundColor(.white.opacity(0.8))
+                                }
+                                .padding(.top, 8)
+                            }
+                        }
+                    }
+                    .padding()
+                    #if DEBUG
+                    .onLongPressGesture {
+                        Task {
+                            await simulateDownStatus()
+                        }
+                    }
+                    #endif
                     Spacer()
                     LottieView(animation: .named("ic_loading_logo_error.shapeshifter"))
                         .playbackMode(.playing(.toProgress(1, loopMode: .playOnce)))
                         .animationSpeed(Double(2))
                         .frame(maxHeight: 128)
                         .opacity(0.5)
+                        #if DEBUG
+                        .onLongPressGesture {
+                            Task {
+                                await simulateDownStatus()
+                            }
+                        }
+                        #endif
                     Spacer()
                     Spacer()
                     HStack {
@@ -152,6 +192,8 @@ struct SplashView: View {
 
     private func loadDataAndStartApp() {
         showError = false
+        serviceStatus = nil
+        isLoadingStatus = false
 
         #if DEBUG
             let defaultBaseUrl = String(localized: "dev_base_url")
@@ -189,6 +231,7 @@ struct SplashView: View {
         } catch {
             detailedError = formatErrorMessage(error: error)
             showError = true
+            await checkServiceStatusIfNeeded()
         }
     }
 
@@ -222,6 +265,7 @@ struct SplashView: View {
         } catch {
             detailedError = formatErrorMessage(error: error)
             showError = true
+            await checkServiceStatusIfNeeded()
         }
     }
 
@@ -232,8 +276,126 @@ struct SplashView: View {
         }
         return message
     }
+
+    private func checkServiceStatusIfNeeded() async {
+        guard AddyIo.isDefaultInstance() else { return }
+        await MainActor.run {
+            isLoadingStatus = true
+        }
+        do {
+            let status = try await AppMaintenanceRepository.shared.getServiceStatus()
+            await MainActor.run {
+                withAnimation {
+                    self.serviceStatus = status
+                    self.isLoadingStatus = false
+                }
+            }
+        } catch {
+            await MainActor.run {
+                withAnimation {
+                    self.isLoadingStatus = false
+                }
+            }
+        }
+    }
+
+    /// Test method to simulate or trigger status update checks
+    public func testStatusUpdateChecks(mockStatus: ServiceStatus? = nil) async {
+        await MainActor.run {
+            showError = true
+            detailedError = "Test error: Failed to connect to addy.io"
+        }
+        if let mock = mockStatus {
+            await MainActor.run {
+                withAnimation {
+                    self.serviceStatus = mock
+                    self.isLoadingStatus = false
+                }
+            }
+        } else {
+            await checkServiceStatusIfNeeded()
+        }
+    }
+
+    public func simulateDownStatus(
+        title: String = "Unplanned downtime due to vulnerability",
+        text: String = "We are temporarily offline.\n\naddy.io is currently unavailable. Due to maintenance, we have temporarily shut down our web systems.\n\nEmail delivery will continue as expected."
+    ) async {
+        let mock = ServiceStatus(
+            pinnedUpdate: StatusUpdate(
+                title: title,
+                text: text,
+                pinned: true,
+                severity: "warning",
+                time: Int(Date().timeIntervalSince1970)
+            ),
+            summarizedStatus: "down"
+        )
+        await testStatusUpdateChecks(mockStatus: mock)
+    }
+
+    @ViewBuilder
+    private func statusCard(status: ServiceStatus) -> some View {
+        Button(action: {
+            if let url = URL(string: AddyIo.STATUS_URL) {
+                openURL(url)
+            }
+        }) {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(spacing: 8) {
+                    Circle()
+                        .fill(status.isOperational ? Color.green : Color.orange)
+                        .frame(width: 10, height: 10)
+
+                    Text(status.isOperational ? String(localized: "status_all_systems_operational") : (status.latestUpdate?.title ?? String(localized: "status_service_disruption")))
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.leading)
+
+                    Spacer()
+
+                    Image(systemName: "arrow.up.right")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.8))
+                }
+
+                if !status.isOperational, let text = status.latestUpdate?.text, !text.isEmpty {
+                    Text(text.trimmingCharacters(in: .whitespacesAndNewlines))
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.85))
+                        .lineLimit(3)
+                        .multilineTextAlignment(.leading)
+                }
+
+                Text(String(localized: "status_addy_io"))
+                    .font(.caption2)
+                    .italic()
+                    .foregroundColor(.white.opacity(0.7))
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.black.opacity(0.25))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    )
+            )
+        }
+        .buttonStyle(.plain)
+    }
 }
 
-#Preview {
+#Preview("Normal") {
     SplashView()
+}
+
+#Preview("Simulated Outage") {
+    let view = SplashView()
+    view.task {
+        await view.simulateDownStatus()
+    }
 }
