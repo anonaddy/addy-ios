@@ -13,6 +13,7 @@ struct UsernamesDetailView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @Binding var shouldReloadDataInParent: Bool
     @State private var activeAlert: ActiveAlert = .deleteUsername
@@ -299,7 +300,7 @@ struct UsernamesDetailView: View {
         }
         }
         .navigationTitle(usernameUsername)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(horizontalSizeClass == .regular ? .automatic : .inline)
     }
 
     init(usernameId: String, usernameUsername: String, shouldReloadDataInParent: Binding<Bool>) {

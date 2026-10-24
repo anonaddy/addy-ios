@@ -8,7 +8,7 @@ struct SingleUsername: Codable, Sendable {
     let data: Usernames
 }
 
-public struct Usernames: Identifiable, Codable, Sendable {
+public struct Usernames: Identifiable, Codable, Hashable, Sendable {
     public let id: String
     let user_id: String
     public let username: String

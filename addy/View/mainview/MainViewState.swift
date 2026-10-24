@@ -32,6 +32,24 @@ class MainViewState: ObservableObject {
     @Published var showAliasWithId: String? = nil
     @Published var blockActionRequest: BlockActionRequest? = nil
 
+    // MARK: MULTI-COLUMN AND FOLD/UNFOLD SELECTION PERSISTENCE
+    @Published var selectedRecipient: Recipients? = nil
+    @Published var recipientNavigationPath: [Recipients] = []
+
+    @Published var selectedUsername: Usernames? = nil
+    @Published var usernameNavigationPath: [Usernames] = []
+
+    @Published var selectedDomain: Domains? = nil
+    @Published var domainNavigationPath: [Domains] = []
+
+    @Published var selectedRule: Rules? = nil
+    @Published var ruleNavigationPath: [Rules] = []
+    @Published var isCreatingRule: Bool = false
+
+    @Published var selectedFailedDelivery: FailedDeliveries? = nil
+    @Published var failedDeliveryToShow: FailedDeliveries? = nil
+    // MARK: END MULTI-COLUMN SELECTION PERSISTENCE
+
     // MARK: END NOTIFICATION AND SHORTCUT ACTIONS
 
     @discardableResult

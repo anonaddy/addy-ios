@@ -20,8 +20,24 @@ struct DomainsView: View {
     @State private var domain_limit: Int? = 0
     @State private var isPresentingAddDomainBottomSheet = false
     @State private var shouldReloadDataInParent = false
+    private var selectedDomain: Domains? {
+        get { mainViewState.selectedDomain }
+        nonmutating set {
+            mainViewState.selectedDomain = newValue
+            if let val = newValue {
+                if mainViewState.domainNavigationPath.last != val {
+                    mainViewState.domainNavigationPath = [val]
+                }
+            } else {
+                if !mainViewState.domainNavigationPath.isEmpty {
+                    mainViewState.domainNavigationPath.removeAll()
+                }
+            }
+        }
+    }
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
     @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
@@ -39,13 +55,60 @@ struct DomainsView: View {
         // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
         Group {
             if horizontalSize == .regular {
-                NavigationStack {
-                    domainsViewBody
+                NavigationSplitView(columnVisibility: UIDevice.current.userInterfaceIdiom == .pad ? .constant(.all) : $columnVisibility) {
+                    domainsViewBody(isSplitView: true)
+                        .navigationSplitViewColumnWidth(min: 320, ideal: 380, max: 480)
+                        .apply {
+                            if UIDevice.current.userInterfaceIdiom == .pad {
+                                $0.toolbar(removing: .sidebarToggle)
+                            } else {
+                                $0
+                            }
+                        }
+                } detail: {
+                    NavigationStack {
+                        if let domain = selectedDomain {
+                            DomainsDetailView(domainId: domain.id, domainDomain: domain.domain, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState)
+                                .id(domain.id)
+                        } else {
+                            ContentUnavailableView {
+                                Label(String(localized: "no_domain_selected"), systemImage: "globe")
+                            } description: {
+                                Text(String(localized: "select_domain_to_view_details"))
+                            }
+                        }
+                    }
                 }
+                .navigationSplitViewStyle(.balanced)
             } else {
-                domainsViewBody
+                NavigationStack(path: $mainViewState.domainNavigationPath) {
+                    domainsViewBody(isSplitView: false)
+                        .navigationDestination(for: Domains.self) { domain in
+                            DomainsDetailView(domainId: domain.id, domainDomain: domain.domain, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState)
+                                .id(domain.id)
+                        }
+                }
             }
-        }.onAppear(perform: {
+        }
+        .onChange(of: mainViewState.domainNavigationPath) {
+            if mainViewState.domainNavigationPath.isEmpty {
+                mainViewState.selectedDomain = nil
+            } else {
+                mainViewState.selectedDomain = mainViewState.domainNavigationPath.last
+            }
+        }
+        .onChange(of: horizontalSize) {
+            if let domain = mainViewState.selectedDomain, mainViewState.domainNavigationPath.isEmpty {
+                mainViewState.domainNavigationPath = [domain]
+            }
+        }
+        .onAppear(perform: {
+            if let domain = mainViewState.selectedDomain, mainViewState.domainNavigationPath.isEmpty {
+                mainViewState.domainNavigationPath = [domain]
+            }
+
             // Set stats, update later
             domain_count = mainViewState.userResource?.active_domain_count ?? 0
             domain_limit = mainViewState.userResource?.active_domain_limit
@@ -63,60 +126,65 @@ struct DomainsView: View {
         }
     }
 
-    private var domainsViewBody: some View {
+    @ViewBuilder
+    private func domainRow(domain: Domains) -> some View {
+        VStack(alignment: .leading) {
+            Text(domain.domain)
+                .font(.headline)
+                .lineLimit(1)
+                .truncationMode(.tail)
+                .frame(minWidth: 20)
+
+            if domain.domain_sending_verified_at == nil {
+                Text(String(localized: "configuration_error"))
+                    .font(.caption)
+                    .opacity(0.625)
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+                    .foregroundStyle(.red)
+
+            } else {
+                if let description = domain.description {
+                    Text(description)
+                        .font(.caption)
+                        .opacity(0.625)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                } else {
+                    Text(String(format: String(localized: "domains_list_description"), String(domain.aliases_count ?? 0)))
+                        .font(.caption)
+                        .opacity(0.625)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                }
+            }
+        }
+        .padding(.vertical, 4)
+    }
+
+    private func domainsViewBody(isSplitView: Bool = false) -> some View {
         List {
             if let domains = domainsViewModel.domains {
                 if !domains.data.isEmpty {
                     Section {
                         ForEach(domains.data) { domain in
-                            NavigationLink(destination: DomainsDetailView(domainId: domain.id, domainDomain: domain.domain, shouldReloadDataInParent: $shouldReloadDataInParent)
-                                .environmentObject(mainViewState))
-                            {
-                                VStack(alignment: .leading) {
-                                    Text(domain.domain)
-                                        .font(.headline)
-                                        .lineLimit(1)
-                                        .truncationMode(.tail)
-                                        .frame(minWidth: 20)
-
-                                    if domain.domain_sending_verified_at == nil {
-                                        Text(String(localized: "configuration_error"))
-                                            .font(.caption)
-                                            .opacity(0.625)
-                                            .lineLimit(1)
-                                            .truncationMode(.middle)
-                                            .foregroundStyle(.red)
-
-                                    } else {
-                                        if let description = domain.description {
-                                            Text(description)
-                                                .font(.caption)
-                                                .opacity(0.625)
-                                                .lineLimit(1)
-                                                .truncationMode(.middle)
-                                        } else {
-                                            Text(String(format: String(localized: "domains_list_description"), String(domain.aliases_count ?? 0)))
-                                                .font(.caption)
-                                                .opacity(0.625)
-                                                .lineLimit(1)
-                                                .truncationMode(.middle)
-                                        }
-                                    }
-                                }
-                                .padding(.vertical, 4)
-                            }
-                            .onChange(of: shouldReloadDataInParent) {
-                                if shouldReloadDataInParent {
-                                    Task {
-                                        await getUserResource()
-                                        await domainsViewModel.getDomains()
-                                    }
-
-                                    self.shouldReloadDataInParent = false
+                        Button {
+                            selectedDomain = domain
+                        } label: {
+                            HStack {
+                                domainRow(domain: domain)
+                                if !isSplitView {
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .font(.footnote.weight(.semibold))
+                                        .foregroundStyle(.tertiary)
                                 }
                             }
-
-                        }.onDelete(perform: deleteDomain)
+                        }
+                        .buttonStyle(.plain)
+                        .listRowBackground((isSplitView && selectedDomain?.id == domain.id) ? Color.accentColor.opacity(0.15) : nil)
+                    }
+                        .onDelete(perform: deleteDomain)
                     } header: {
                         HStack(spacing: 6) {
                             Text(String(localized: "domains"))
@@ -152,6 +220,20 @@ struct DomainsView: View {
 
             await self.domainsViewModel.getDomains()
             await getUserResource()
+        }
+        .onChange(of: shouldReloadDataInParent) {
+            if shouldReloadDataInParent {
+                Task {
+                    await getUserResource()
+                    await domainsViewModel.getDomains()
+                    if let current = selectedDomain,
+                       !(domainsViewModel.domains?.data.contains(where: { $0.id == current.id }) ?? false) {
+                        selectedDomain = nil
+                    }
+                }
+
+                self.shouldReloadDataInParent = false
+            }
         }
         .sheet(isPresented: $isPresentingAddDomainBottomSheet) {
             NavigationStack {
@@ -230,7 +312,7 @@ struct DomainsView: View {
             }
         })
         .navigationTitle(String(localized: "domains"))
-        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
+        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .inline : .automatic)
         .toolbar {
             if horizontalSize == .regular {
                 ToolbarItem(placement: .topBarLeading) {
@@ -239,10 +321,6 @@ struct DomainsView: View {
 
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
-                }
-
-                ToolbarItem(placement: .topBarLeading) {
-                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
 
                 ToolbarItem(placement: .topBarLeading) {
@@ -271,6 +349,9 @@ struct DomainsView: View {
         do {
             let result = try await domainsViewModel.deleteDomain(domainId: domain.id)
             if result == "204" {
+                if selectedDomain?.id == domain.id {
+                    selectedDomain = nil
+                }
                 await getUserResource()
                 await domainsViewModel.getDomains()
             } else {
@@ -291,6 +372,9 @@ struct DomainsView: View {
         for index in offsets.sorted(by: >) {
             if let domains = domainsViewModel.domains?.data {
                 let item = domains[index]
+                if selectedDomain?.id == item.id {
+                    selectedDomain = nil
+                }
                 domainToDelete = item
                 activeAlert = .deleteDomain
                 showAlert = true

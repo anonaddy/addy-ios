@@ -10,6 +10,7 @@ struct MainView: View {
 
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     @State private var pendingURLFromShareViewController: IdentifiableURL?
     @State private var apiTokenExpiryText = ""
@@ -29,7 +30,7 @@ struct MainView: View {
     }
 
     private var isPad: Bool {
-        UIDevice.current.userInterfaceIdiom == .pad
+        UIDevice.current.userInterfaceIdiom == .pad || (horizontalSizeClass == .regular && verticalSizeClass == .regular)
     }
 
     private var tabDestinations: [Destination] {
@@ -126,9 +127,12 @@ struct MainView: View {
             .apply {
                 if isPad {
                     if #available(iOS 26.0, *) {
-                        $0.tabViewStyle(.sidebarAdaptable).tabBarMinimizeBehavior(.onScrollDown)
+                        $0.tabViewStyle(.sidebarAdaptable)
+                            .defaultAdaptableTabBarPlacement(.sidebar)
+                            .tabBarMinimizeBehavior(.onScrollDown)
                     } else if #available(iOS 18.0, *) {
                         $0.tabViewStyle(.sidebarAdaptable)
+                            .defaultAdaptableTabBarPlacement(.sidebar)
                     } else {
                         $0.tabViewStyle(.automatic)
                     }
@@ -140,7 +144,6 @@ struct MainView: View {
                     }
                 }
             }
-            .navigationTitle(mainViewState.selectedTab.title)
         }
         .onOpenURL(perform: handleURL)
         .onAppear(perform: handleOnAppear)

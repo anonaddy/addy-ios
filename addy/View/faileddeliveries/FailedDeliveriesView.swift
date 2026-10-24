@@ -18,11 +18,19 @@ struct FailedDeliveriesView: View {
     @State private var activeAlert: ActiveAlert = .error
     @State private var showAlert: Bool = false
     @State private var failedDeliveryToDelete: FailedDeliveries? = nil
-    @State private var failedDeliveryToShow: FailedDeliveries? = nil
+    private var failedDeliveryToShow: FailedDeliveries? {
+        get { mainViewState.failedDeliveryToShow }
+        nonmutating set { mainViewState.failedDeliveryToShow = newValue }
+    }
+    private var selectedFailedDelivery: FailedDeliveries? {
+        get { mainViewState.selectedFailedDelivery }
+        nonmutating set { mainViewState.selectedFailedDelivery = newValue }
+    }
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     @State var selectedFilterChip: String = "all"
     @State var filterChips: [AddyChipModel] = []
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
     @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
@@ -37,11 +45,38 @@ struct FailedDeliveriesView: View {
         #endif
         Group {
             if horizontalSize == .regular {
-                NavigationStack {
-                    failedDeliveriesViewBody
+                NavigationSplitView(columnVisibility: UIDevice.current.userInterfaceIdiom == .pad ? .constant(.all) : $columnVisibility) {
+                    failedDeliveriesViewBody(isSplitView: true)
+                        .navigationSplitViewColumnWidth(min: 320, ideal: 380, max: 480)
+                        .apply {
+                            if UIDevice.current.userInterfaceIdiom == .pad {
+                                $0.toolbar(removing: .sidebarToggle)
+                            } else {
+                                $0
+                            }
+                        }
+                } detail: {
+                    NavigationStack {
+                        if let failedDelivery = selectedFailedDelivery {
+                            FailedDeliveryBottomSheet(failedDelivery: failedDelivery, isPresentedInSheet: false) {
+                                selectedFailedDelivery = nil
+                                Task {
+                                    await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
+                                }
+                            }
+                            .id(failedDelivery.id)
+                        } else {
+                            ContentUnavailableView {
+                                Label(String(localized: "no_failed_delivery_selected"), systemImage: "exclamationmark.triangle")
+                            } description: {
+                                Text(String(localized: "select_failed_delivery_to_view_details"))
+                            }
+                        }
+                    }
                 }
+                .navigationSplitViewStyle(.balanced)
             } else {
-                failedDeliveriesViewBody
+                failedDeliveriesViewBody(isSplitView: false)
             }
         }
         .onAppear(perform: {
@@ -57,64 +92,96 @@ struct FailedDeliveriesView: View {
                 }
             }
         })
+        .onChange(of: horizontalSize) {
+            if horizontalSize == .regular {
+                if let shown = failedDeliveryToShow {
+                    selectedFailedDelivery = shown
+                    failedDeliveryToShow = nil
+                }
+            } else {
+                if let selected = selectedFailedDelivery {
+                    failedDeliveryToShow = selected
+                    selectedFailedDelivery = nil
+                }
+            }
+        }
     }
 
-    private var failedDeliveriesViewBody: some View {
+    @ViewBuilder
+    private func failedDeliveryRow(failedDelivery: FailedDeliveries, isSplitView: Bool) -> some View {
+        VStack(alignment: .leading) {
+            HStack {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(String(localized: "alias"))
+                            .font(.system(size: 16, weight: .medium))
+
+                        Text(failedDelivery.email_type_text.uppercased())
+                            .font(.system(size: 10, weight: .bold))
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color.accentColor.opacity(0.1))
+                            .foregroundColor(.accentColor)
+                            .cornerRadius(4)
+                    }
+                    Text(failedDelivery.alias_email ?? "")
+                        .font(.system(size: 14))
+                        .foregroundColor(.gray)
+                }
+                Spacer()
+                VStack(alignment: .trailing) {
+                    Text(String(localized: "created"))
+                        .font(.system(size: 16, weight: .medium))
+                    Text(DateTimeUtils.convertStringToLocalTimeZoneString(failedDelivery.created_at))
+                        .font(.system(size: 14))
+                        .foregroundColor(.gray)
+                }
+            }
+            HStack {
+                Text(String(localized: "code"))
+                    .font(.system(size: 16, weight: .medium))
+                Text(failedDelivery.code)
+                    .font(.system(size: 14))
+                    .foregroundColor(.gray)
+                    .lineLimit(1)
+            }.padding(.top, 5)
+
+            if !isSplitView {
+                Button(action: {
+                    self.failedDeliveryToShow = failedDelivery
+                }) {
+                    HStack {
+                        Text(String(localized: "view_details"))
+                            .font(.system(size: 16, weight: .medium))
+                        Spacer()
+                        Image(systemName: "text.justify.leading")
+                    }
+                    .padding(.horizontal).padding(.vertical, 10)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.secondary.opacity(0.2))
+                    .cornerRadius(8)
+                }
+            }
+        }
+        .padding(.vertical, 4)
+    }
+
+    private func failedDeliveriesViewBody(isSplitView: Bool = false) -> some View {
         List {
                 if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries {
                     Section {
                         if !failedDeliveries.data.isEmpty {
                             ForEach(failedDeliveries.data) { failedDelivery in
-                                VStack(alignment: .leading) {
-                                    HStack {
-                                        VStack(alignment: .leading) {
-                                            HStack {
-                                                Text(String(localized: "alias"))
-                                                    .font(.system(size: 16, weight: .medium))
-
-                                                Text(failedDelivery.email_type_text.uppercased())
-                                                    .font(.system(size: 10, weight: .bold))
-                                                    .padding(.horizontal, 6)
-                                                    .padding(.vertical, 2)
-                                                    .background(Color.accentColor.opacity(0.1))
-                                                    .foregroundColor(.accentColor)
-                                                    .cornerRadius(4)
-                                            }
-                                            Text(failedDelivery.alias_email ?? "")
-                                                .font(.system(size: 14))
-                                                .foregroundColor(.gray)
-                                        }
-                                        Spacer()
-                                        VStack(alignment: .trailing) {
-                                            Text(String(localized: "created"))
-                                                .font(.system(size: 16, weight: .medium))
-                                            Text(DateTimeUtils.convertStringToLocalTimeZoneString(failedDelivery.created_at))
-                                                .font(.system(size: 14))
-                                                .foregroundColor(.gray)
-                                        }
+                                if isSplitView {
+                                    Button {
+                                        selectedFailedDelivery = failedDelivery
+                                    } label: {
+                                        failedDeliveryRow(failedDelivery: failedDelivery, isSplitView: true)
                                     }
-                                    HStack {
-                                        Text(String(localized: "code"))
-                                            .font(.system(size: 16, weight: .medium))
-                                        Text(failedDelivery.code)
-                                            .font(.system(size: 14))
-                                            .foregroundColor(.gray)
-                                            .lineLimit(1)
-                                    }.padding(.top, 5)
-                                    Button(action: {
-                                        self.failedDeliveryToShow = failedDelivery
-                                    }) {
-                                        HStack {
-                                            Text(String(localized: "view_details"))
-                                                .font(.system(size: 16, weight: .medium))
-                                            Spacer()
-                                            Image(systemName: "text.justify.leading")
-                                        }
-                                        .padding(.horizontal).padding(.vertical, 10)
-                                        .frame(maxWidth: .infinity)
-                                        .background(Color.secondary.opacity(0.2))
-                                        .cornerRadius(8)
-                                    }
+                                    .buttonStyle(.plain)
+                                    .listRowBackground(selectedFailedDelivery?.id == failedDelivery.id ? Color.accentColor.opacity(0.15) : nil)
+                                } else {
+                                    failedDeliveryRow(failedDelivery: failedDelivery, isSplitView: false)
                                 }
                             }.onDelete(perform: deleteFailedDelivery)
 
@@ -175,8 +242,12 @@ struct FailedDeliveriesView: View {
                 }
 
                 await self.failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
+                if let selected = selectedFailedDelivery,
+                   !(failedDeliveriesViewModel.failedDeliveries?.data.contains(where: { $0.id == selected.id }) ?? false) {
+                    selectedFailedDelivery = nil
+                }
             }
-            .sheet(item: $failedDeliveryToShow) { failedDelivery in
+            .sheet(item: $mainViewState.failedDeliveryToShow) { failedDelivery in
                 NavigationStack {
                     FailedDeliveryBottomSheet(failedDelivery: failedDelivery) {
                         self.failedDeliveryToShow = nil
@@ -261,7 +332,7 @@ struct FailedDeliveriesView: View {
                     }
                 }
             })
-            .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
+            .navigationBarTitleDisplayMode(horizontalSize == .regular ? .inline : .automatic)
             .navigationTitle(String(localized: "failed_deliveries"))
             .toolbar {
                 if horizontalSize == .regular {
@@ -347,6 +418,9 @@ struct FailedDeliveriesView: View {
         do {
             let result = try await failedDeliveriesViewModel.deleteFailedDelivery(failedDeliveryId: failedDelivery.id)
             if result == "204" {
+                if selectedFailedDelivery?.id == failedDelivery.id {
+                    selectedFailedDelivery = nil
+                }
                 await failedDeliveriesViewModel.getFailedDeliveries(forceReload: true)
             } else {
                 activeAlert = .error
@@ -366,6 +440,9 @@ struct FailedDeliveriesView: View {
         for index in offsets.sorted(by: >) {
             if let failedDeliveries = failedDeliveriesViewModel.failedDeliveries?.data {
                 let item = failedDeliveries[index]
+                if selectedFailedDelivery?.id == item.id {
+                    selectedFailedDelivery = nil
+                }
                 failedDeliveryToDelete = item
                 activeAlert = .deleteFailedDelivery
                 showAlert = true

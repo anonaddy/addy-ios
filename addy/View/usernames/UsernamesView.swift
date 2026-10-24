@@ -20,8 +20,24 @@ struct UsernamesView: View {
     @State private var username_limit: Int = 0
     @State private var isPresentingAddUsernameBottomSheet = false
     @State private var shouldReloadDataInParent = false
+    private var selectedUsername: Usernames? {
+        get { mainViewState.selectedUsername }
+        nonmutating set {
+            mainViewState.selectedUsername = newValue
+            if let val = newValue {
+                if mainViewState.usernameNavigationPath.last != val {
+                    mainViewState.usernameNavigationPath = [val]
+                }
+            } else {
+                if !mainViewState.usernameNavigationPath.isEmpty {
+                    mainViewState.usernameNavigationPath.removeAll()
+                }
+            }
+        }
+    }
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
     @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
@@ -39,13 +55,59 @@ struct UsernamesView: View {
         // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
         Group {
             if horizontalSize == .regular {
-                NavigationStack {
-                    usernamesViewBody
+                NavigationSplitView(columnVisibility: UIDevice.current.userInterfaceIdiom == .pad ? .constant(.all) : $columnVisibility) {
+                    usernamesViewBody(isSplitView: true)
+                        .navigationSplitViewColumnWidth(min: 320, ideal: 380, max: 480)
+                        .apply {
+                            if UIDevice.current.userInterfaceIdiom == .pad {
+                                $0.toolbar(removing: .sidebarToggle)
+                            } else {
+                                $0
+                            }
+                        }
+                } detail: {
+                    NavigationStack {
+                        if let username = selectedUsername {
+                            UsernamesDetailView(usernameId: username.id, usernameUsername: username.username, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState)
+                                .id(username.id)
+                        } else {
+                            ContentUnavailableView {
+                                Label(String(localized: "no_username_selected"), systemImage: "person.crop.circle")
+                            } description: {
+                                Text(String(localized: "select_username_to_view_details"))
+                            }
+                        }
+                    }
                 }
+                .navigationSplitViewStyle(.balanced)
             } else {
-                usernamesViewBody
+                NavigationStack(path: $mainViewState.usernameNavigationPath) {
+                    usernamesViewBody(isSplitView: false)
+                        .navigationDestination(for: Usernames.self) { username in
+                            UsernamesDetailView(usernameId: username.id, usernameUsername: username.username, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState)
+                                .id(username.id)
+                        }
+                }
+            }
+        }
+        .onChange(of: mainViewState.usernameNavigationPath) {
+            if mainViewState.usernameNavigationPath.isEmpty {
+                mainViewState.selectedUsername = nil
+            } else {
+                mainViewState.selectedUsername = mainViewState.usernameNavigationPath.last
+            }
+        }
+        .onChange(of: horizontalSize) {
+            if let username = mainViewState.selectedUsername, mainViewState.usernameNavigationPath.isEmpty {
+                mainViewState.usernameNavigationPath = [username]
             }
         }.onAppear(perform: {
+            if let username = mainViewState.selectedUsername, mainViewState.usernameNavigationPath.isEmpty {
+                mainViewState.usernameNavigationPath = [username]
+            }
+
             // Set stats, update later
             username_count = mainViewState.userResource?.username_count ?? 0
             username_limit = mainViewState.userResource?.username_limit ?? 0
@@ -63,40 +125,46 @@ struct UsernamesView: View {
         }
     }
 
-    private var usernamesViewBody: some View {
+    @ViewBuilder
+    private func usernameRow(username: Usernames) -> some View {
+        VStack(alignment: .leading) {
+            Text(username.username)
+                .font(.headline)
+                .lineLimit(1)
+                .truncationMode(.tail)
+                .frame(minWidth: 20)
+
+            Text(getUsernameDescription(username: username))
+                .font(.caption)
+                .opacity(0.625)
+                .lineLimit(1)
+                .truncationMode(.middle)
+        }
+        .padding(.vertical, 4)
+    }
+
+    private func usernamesViewBody(isSplitView: Bool = false) -> some View {
         List {
             if let usernames = usernamesViewModel.usernames {
                 Section {
                     ForEach(usernames.data) { username in
-                        NavigationLink(destination: UsernamesDetailView(usernameId: username.id, usernameUsername: username.username, shouldReloadDataInParent: $shouldReloadDataInParent)
-                            .environmentObject(mainViewState))
-                        {
-                            VStack(alignment: .leading) {
-                                Text(username.username)
-                                    .font(.headline)
-                                    .lineLimit(1)
-                                    .truncationMode(.tail)
-                                    .frame(minWidth: 20)
-
-                                Text(getUsernameDescription(username: username))
-                                    .font(.caption)
-                                    .opacity(0.625)
-                                    .lineLimit(1)
-                                    .truncationMode(.middle)
-                            }
-                            .padding(.vertical, 4)
-                        }
-                        .onChange(of: shouldReloadDataInParent) {
-                            if shouldReloadDataInParent {
-                                Task {
-                                    await getUserResource()
-                                    await usernamesViewModel.getUsernames()
+                        Button {
+                            selectedUsername = username
+                        } label: {
+                            HStack {
+                                usernameRow(username: username)
+                                if !isSplitView {
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .font(.footnote.weight(.semibold))
+                                        .foregroundStyle(.tertiary)
                                 }
-                                self.shouldReloadDataInParent = false
                             }
                         }
-
-                    }.onDelete(perform: deleteUsername)
+                        .buttonStyle(.plain)
+                        .listRowBackground((isSplitView && selectedUsername?.id == username.id) ? Color.accentColor.opacity(0.15) : nil)
+                    }
+                    .onDelete(perform: deleteUsername)
                 } header: {
                     HStack(spacing: 6) {
                         Text(String(localized: "usernames"))
@@ -131,6 +199,19 @@ struct UsernamesView: View {
 
             await self.usernamesViewModel.getUsernames()
             await getUserResource()
+        }
+        .onChange(of: shouldReloadDataInParent) {
+            if shouldReloadDataInParent {
+                Task {
+                    await getUserResource()
+                    await usernamesViewModel.getUsernames()
+                    if let current = selectedUsername,
+                       !(usernamesViewModel.usernames?.data.contains(where: { $0.id == current.id }) ?? false) {
+                        selectedUsername = nil
+                    }
+                }
+                self.shouldReloadDataInParent = false
+            }
         }
         .sheet(isPresented: $isPresentingAddUsernameBottomSheet) {
             NavigationStack {
@@ -204,7 +285,7 @@ struct UsernamesView: View {
             }
         })
         .navigationTitle(String(localized: "usernames"))
-        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
+        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .inline : .automatic)
         .toolbar {
             if horizontalSize == .regular {
                 ToolbarItem(placement: .topBarLeading) {
@@ -213,10 +294,6 @@ struct UsernamesView: View {
 
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
-                }
-
-                ToolbarItem(placement: .topBarLeading) {
-                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
 
                 ToolbarItem(placement: .topBarLeading) {
@@ -261,6 +338,9 @@ struct UsernamesView: View {
         do {
             let result = try await usernamesViewModel.deleteUsername(usernameId: username.id)
             if result == "204" {
+                if selectedUsername?.id == username.id {
+                    selectedUsername = nil
+                }
                 await getUserResource()
                 await usernamesViewModel.getUsernames()
             } else {
@@ -281,6 +361,9 @@ struct UsernamesView: View {
         for index in offsets.sorted(by: >) {
             if let usernames = usernamesViewModel.usernames?.data {
                 let item = usernames[index]
+                if selectedUsername?.id == item.id {
+                    selectedUsername = nil
+                }
                 usernameToDelete = item
                 activeAlert = .deleteUsername
                 showAlert = true

@@ -185,7 +185,7 @@ struct SingleRule: Codable, Sendable {
     var data: Rules
 }
 
-public struct Rules: Identifiable, Codable, Sendable {
+public struct Rules: Identifiable, Codable, Sendable, Equatable, Hashable {
     public let id: String
     let user_id: String
     public var name: String

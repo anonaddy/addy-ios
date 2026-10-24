@@ -8,7 +8,7 @@ struct SingleDomain: Codable, Sendable {
     let data: Domains
 }
 
-public struct Domains: Identifiable, Codable, Sendable {
+public struct Domains: Identifiable, Codable, Hashable, Sendable {
     public let id: String
     let user_id: String
     public let domain: String

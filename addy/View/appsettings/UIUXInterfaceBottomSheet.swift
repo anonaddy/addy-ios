@@ -11,9 +11,11 @@ import WrappingHStack
 
 struct UIUXInterfaceBottomSheet: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     @State private var startupPage: String = "home"
     @Binding var horizontalSize: UserInterfaceSizeClass
+    var isPresentedInSheet: Bool = true
 
     var body: some View {
         #if DEBUG
@@ -21,7 +23,8 @@ struct UIUXInterfaceBottomSheet: View {
         #endif
         List {
             Section {
-                let destinations = (UIDevice.current.userInterfaceIdiom == .pad) ? Destination.otherCases : Destination.iPhoneCases
+                let isPadOrDuo = UIDevice.current.userInterfaceIdiom == .pad || (horizontalSize == .regular && verticalSizeClass == .regular)
+                let destinations = isPadOrDuo ? Destination.otherCases : Destination.iPhoneCases
 
                 Picker(selection: $startupPage, label: Text(String(localized: "select_startup_page"))) {
                     ForEach(destinations, id: \.self) { destination in
@@ -89,13 +92,15 @@ struct UIUXInterfaceBottomSheet: View {
                 Text(String(localized: "app_icon"))
             }.textCase(nil)
         }.navigationTitle(String(localized: "interface"))
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(isPresentedInSheet ? .inline : (horizontalSize == .regular ? .automatic : .inline))
             .toolbar(content: {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label(String(localized: "dismiss"), systemImage: "xmark")
+                if isPresentedInSheet {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Label(String(localized: "dismiss"), systemImage: "xmark")
+                        }
                     }
                 }
             })

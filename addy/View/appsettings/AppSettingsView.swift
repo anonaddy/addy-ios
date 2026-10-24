@@ -24,6 +24,17 @@ struct AppSettingsView: View {
     @Binding var horizontalSize: UserInterfaceSizeClass
     @State private var showAlert = false
     @State private var activeAlert: ActiveAlert = .resetApp
+    @State private var selectedDestination: SettingsDestination? = nil
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
+
+    enum SettingsDestination: Hashable {
+        case interface
+        case updater
+        case features
+        case watchkit
+        case logs
+        case deleteAccount
+    }
 
     enum ActiveAlert {
         case resetAppError, resetApp
@@ -37,16 +48,50 @@ struct AppSettingsView: View {
         // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
         Group {
             if horizontalSize == .regular {
-                NavigationStack {
-                    appSettingsViewBody
+                NavigationSplitView(columnVisibility: UIDevice.current.userInterfaceIdiom == .pad ? .constant(.all) : $columnVisibility) {
+                    appSettingsViewBody(isSplitView: true)
+                        .navigationSplitViewColumnWidth(min: 320, ideal: 380, max: 480)
+                        .apply {
+                            if UIDevice.current.userInterfaceIdiom == .pad {
+                                $0.toolbar(removing: .sidebarToggle)
+                            } else {
+                                $0
+                            }
+                        }
+                } detail: {
+                    NavigationStack {
+                        Group {
+                            switch selectedDestination {
+                            case .interface:
+                                UIUXInterfaceBottomSheet(horizontalSize: $horizontalSize, isPresentedInSheet: false)
+                            case .updater:
+                                AppSettingsUpdateView()
+                            case .features:
+                                AppSettingsFeaturesView()
+                            case .watchkit:
+                                AppSettingsWatchKitView()
+                            case .logs:
+                                LogViewerView(isPresentedInSheet: false)
+                            case .deleteAccount:
+                                DeleteAccountConfirmationView()
+                            case nil:
+                                ContentUnavailableView {
+                                    Label(String(localized: "no_setting_selected"), systemImage: "gear")
+                                } description: {
+                                    Text(String(localized: "select_setting_to_view_details"))
+                                }
+                            }
+                        }
+                    }
                 }
+                .navigationSplitViewStyle(.balanced)
             } else {
-                appSettingsViewBody
+                appSettingsViewBody(isSplitView: false)
             }
         }
     }
 
-    private var appSettingsViewBody: some View {
+    private func appSettingsViewBody(isSplitView: Bool = false) -> some View {
         List {
             if mainViewState.permissionsRequired || mainViewState.backgroundAppRefreshDenied {
                 Section {
@@ -67,8 +112,18 @@ struct AppSettingsView: View {
             }
 
             Section {
-                AddySection(title: String(localized: "interface"), description: String(localized: "interface_desc"), leadingSystemimage: "app.dashed", leadingSystemimageColor: .orange) {
-                    isPresentingUIUXInterfaceBottomSheet = true
+                if isSplitView {
+                    Button {
+                        selectedDestination = .interface
+                    } label: {
+                        AddySection(title: String(localized: "interface"), description: String(localized: "interface_desc"), leadingSystemimage: "app.dashed", leadingSystemimageColor: .orange)
+                    }
+                    .buttonStyle(.plain)
+                    .listRowBackground(selectedDestination == .interface ? Color.accentColor.opacity(0.15) : nil)
+                } else {
+                    AddySection(title: String(localized: "interface"), description: String(localized: "interface_desc"), leadingSystemimage: "app.dashed", leadingSystemimageColor: .orange) {
+                        isPresentingUIUXInterfaceBottomSheet = true
+                    }
                 }
 
                 AddySection(
@@ -84,14 +139,40 @@ struct AppSettingsView: View {
                     self.preferredMailClient = MainViewState.shared.settingsManager.getSettingsString(key: .preferredMailClient) ?? ""
                 }
                 
-                NavigationLink(destination: AppSettingsUpdateView()) {
-                    AddySection(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_desc"), leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue)
-                }
-                NavigationLink(destination: AppSettingsFeaturesView()) {
-                    AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor)
-                }
-                NavigationLink(destination: AppSettingsWatchKitView()) {
-                    AddySection(title: String(localized: "addyio_for_watchkit"), description: String(localized: "addyio_for_watchkit_desc"), leadingSystemimage: "applewatch", leadingSystemimageColor: .mint)
+                if isSplitView {
+                    Button {
+                        selectedDestination = .updater
+                    } label: {
+                        AddySection(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_desc"), leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue)
+                    }
+                    .buttonStyle(.plain)
+                    .listRowBackground(selectedDestination == .updater ? Color.accentColor.opacity(0.15) : nil)
+
+                    Button {
+                        selectedDestination = .features
+                    } label: {
+                        AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor)
+                    }
+                    .buttonStyle(.plain)
+                    .listRowBackground(selectedDestination == .features ? Color.accentColor.opacity(0.15) : nil)
+
+                    Button {
+                        selectedDestination = .watchkit
+                    } label: {
+                        AddySection(title: String(localized: "addyio_for_watchkit"), description: String(localized: "addyio_for_watchkit_desc"), leadingSystemimage: "applewatch", leadingSystemimageColor: .mint)
+                    }
+                    .buttonStyle(.plain)
+                    .listRowBackground(selectedDestination == .watchkit ? Color.accentColor.opacity(0.15) : nil)
+                } else {
+                    NavigationLink(destination: AppSettingsUpdateView()) {
+                        AddySection(title: String(localized: "addyio_updater"), description: String(localized: "addyio_updater_desc"), leadingSystemimage: "arrow.down.circle.dotted", leadingSystemimageColor: .blue)
+                    }
+                    NavigationLink(destination: AppSettingsFeaturesView()) {
+                        AddySection(title: String(localized: "features_and_integrations"), description: String(localized: "features_and_integrations_desc"), leadingSystemimage: "star.fill", leadingSystemimageColor: .accentColor)
+                    }
+                    NavigationLink(destination: AppSettingsWatchKitView()) {
+                        AddySection(title: String(localized: "addyio_for_watchkit"), description: String(localized: "addyio_for_watchkit_desc"), leadingSystemimage: "applewatch", leadingSystemimageColor: .mint)
+                    }
                 }
 
                 // NOTE: In-app biometric locking should be phased out once the minimum deployment target is bumped to iOS 18+.
@@ -169,8 +250,18 @@ struct AppSettingsView: View {
                         MainViewState.shared.settingsManager.putSettingsBool(key: .storeLogs, boolean: storeLogs)
                     }
 
-                NavigationLink(destination: LogViewerView()) {
-                    AddySection(title: String(localized: "view_store_logs"))
+                if isSplitView {
+                    Button {
+                        selectedDestination = .logs
+                    } label: {
+                        AddySection(title: String(localized: "view_store_logs"))
+                    }
+                    .buttonStyle(.plain)
+                    .listRowBackground(selectedDestination == .logs ? Color.accentColor.opacity(0.15) : nil)
+                } else {
+                    NavigationLink(destination: LogViewerView()) {
+                        AddySection(title: String(localized: "view_store_logs"))
+                    }
                 }
 
             } header: {
@@ -183,8 +274,18 @@ struct AppSettingsView: View {
                     showAlert = true
                 }
 
-                NavigationLink(destination: DeleteAccountConfirmationView()) {
-                    AddySection(title: String(localized: "delete_account"), description: String(localized: "delete_account_desc"), leadingSystemimage: "person.fill.badge.minus", leadingSystemimageColor: .red)
+                if isSplitView {
+                    Button {
+                        selectedDestination = .deleteAccount
+                    } label: {
+                        AddySection(title: String(localized: "delete_account"), description: String(localized: "delete_account_desc"), leadingSystemimage: "person.fill.badge.minus", leadingSystemimageColor: .red)
+                    }
+                    .buttonStyle(.plain)
+                    .listRowBackground(selectedDestination == .deleteAccount ? Color.accentColor.opacity(0.15) : nil)
+                } else {
+                    NavigationLink(destination: DeleteAccountConfirmationView()) {
+                        AddySection(title: String(localized: "delete_account"), description: String(localized: "delete_account_desc"), leadingSystemimage: "person.fill.badge.minus", leadingSystemimageColor: .red)
+                    }
                 }
 
             } header: {
@@ -241,7 +342,7 @@ struct AppSettingsView: View {
             }.textCase(nil)
         }
         .navigationTitle(String(localized: "settings", bundle: Bundle(for: SharedData.self)))
-        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
+        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .inline : .automatic)
         .toolbar {
             if horizontalSize == .regular {
                 ToolbarItem(placement: .topBarLeading) {
@@ -250,10 +351,6 @@ struct AppSettingsView: View {
 
                 if #available(iOS 26.0, *) {
                     ToolbarSpacer(placement: .topBarLeading)
-                }
-
-                ToolbarItem(placement: .topBarLeading) {
-                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
                 }
 
                 ToolbarItem(placement: .topBarLeading) {

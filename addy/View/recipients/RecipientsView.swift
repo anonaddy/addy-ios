@@ -21,11 +21,27 @@ struct RecipientsView: View {
     @State private var isPresentingAddRecipientBottomSheet = false
     @State private var recipientsToResendConfirmationEmailTo: Recipients? = nil
     @State private var shouldReloadDataInParent = false
+    private var selectedRecipient: Recipients? {
+        get { mainViewState.selectedRecipient }
+        nonmutating set {
+            mainViewState.selectedRecipient = newValue
+            if let val = newValue {
+                if mainViewState.recipientNavigationPath.last != val {
+                    mainViewState.recipientNavigationPath = [val]
+                }
+            } else {
+                if !mainViewState.recipientNavigationPath.isEmpty {
+                    mainViewState.recipientNavigationPath.removeAll()
+                }
+            }
+        }
+    }
     @Binding var horizontalSize: UserInterfaceSizeClass
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
     @State var selectedFilterChip: String = "all"
     @State var filterChips: [AddyChipModel] = []
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
 
     enum ActiveAlert {
         case resendConfirmationMailRecipientConfirmation, resendConfirmationMailRecipientSuccess, error, deleteRecipient
@@ -38,10 +54,62 @@ struct RecipientsView: View {
         #if DEBUG
             let _ = Self._printChanges()
         #endif
-        NavigationStack {
-            recipientsViewBody
+        Group {
+            if horizontalSize == .regular {
+                NavigationSplitView(columnVisibility: UIDevice.current.userInterfaceIdiom == .pad ? .constant(.all) : $columnVisibility) {
+                    recipientsViewBody(isSplitView: true)
+                        .navigationSplitViewColumnWidth(min: 320, ideal: 380, max: 480)
+                        .apply {
+                            if UIDevice.current.userInterfaceIdiom == .pad {
+                                $0.toolbar(removing: .sidebarToggle)
+                            } else {
+                                $0
+                            }
+                        }
+                } detail: {
+                    NavigationStack {
+                        if let recipient = selectedRecipient {
+                            RecipientsDetailView(recipientId: recipient.id, recipientEmail: recipient.email, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState)
+                                .id(recipient.id)
+                        } else {
+                            ContentUnavailableView {
+                                Label(String(localized: "no_recipient_selected"), systemImage: "person.crop.circle")
+                            } description: {
+                                Text(String(localized: "select_recipient_to_view_details"))
+                            }
+                        }
+                    }
+                }
+                .navigationSplitViewStyle(.balanced)
+            } else {
+                NavigationStack(path: $mainViewState.recipientNavigationPath) {
+                    recipientsViewBody(isSplitView: false)
+                        .navigationDestination(for: Recipients.self) { recipient in
+                            RecipientsDetailView(recipientId: recipient.id, recipientEmail: recipient.email, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState)
+                                .id(recipient.id)
+                        }
+                }
+            }
+        }
+        .onChange(of: mainViewState.recipientNavigationPath) {
+            if mainViewState.recipientNavigationPath.isEmpty {
+                mainViewState.selectedRecipient = nil
+            } else {
+                mainViewState.selectedRecipient = mainViewState.recipientNavigationPath.last
+            }
+        }
+        .onChange(of: horizontalSize) {
+            if let recipient = mainViewState.selectedRecipient, mainViewState.recipientNavigationPath.isEmpty {
+                mainViewState.recipientNavigationPath = [recipient]
+            }
         }
         .onAppear(perform: {
+            if let recipient = mainViewState.selectedRecipient, mainViewState.recipientNavigationPath.isEmpty {
+                mainViewState.recipientNavigationPath = [recipient]
+            }
+
             // Set stats, update later
             recipient_count = mainViewState.userResource?.recipient_count ?? 0
             recipient_limit = mainViewState.userResource?.recipient_limit
@@ -61,73 +129,78 @@ struct RecipientsView: View {
         }
     }
 
-    private var recipientsViewBody: some View {
+    @ViewBuilder
+    private func recipientRow(recipient: Recipients) -> some View {
+        VStack(alignment: .leading) {
+            Text(recipient.email)
+                .font(.headline)
+                .lineLimit(1)
+                .truncationMode(.tail)
+                .frame(minWidth: 20)
+
+            if recipient.email_verified_at == nil {
+                Text(String(localized: "not_verified"))
+                    .font(.caption)
+                    .opacity(0.625)
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+                    .foregroundStyle(.red)
+            } else {
+                if let description = recipient.description {
+                    Text(description)
+                        .font(.caption)
+                        .opacity(0.625)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                } else {
+                    Text(String(format: String(localized: "recipients_list_description"), String(recipient.aliases_count ?? 0)))
+                        .font(.caption)
+                        .opacity(0.625)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                }
+            }
+        }
+        .padding(.vertical, 4)
+    }
+
+    private func recipientsViewBody(isSplitView: Bool = false) -> some View {
         List {
-                if let recipients = recipientsViewModel.recipients {
-                    Section {
-                        ForEach(recipients) { recipient in
-                            NavigationLink(destination: RecipientsDetailView(recipientId: recipient.id, recipientEmail: recipient.email, shouldReloadDataInParent: $shouldReloadDataInParent)
-                                .environmentObject(mainViewState))
-                            {
-                                VStack(alignment: .leading) {
-                                    Text(recipient.email)
-                                        .font(.headline)
-                                        .lineLimit(1)
-                                        .truncationMode(.tail)
-                                        .frame(minWidth: 20)
-
-                                    if recipient.email_verified_at == nil {
-                                        Text(String(localized: "not_verified"))
-                                            .font(.caption)
-                                            .opacity(0.625)
-                                            .lineLimit(1)
-                                            .truncationMode(.middle)
-                                            .foregroundStyle(.red)
-                                    } else {
-                                        
-                                        if let description = recipient.description {
-                                            Text(description)
-                                                .font(.caption)
-                                                .opacity(0.625)
-                                                .lineLimit(1)
-                                                .truncationMode(.middle)
-                                        } else {
-                                            Text(String(format: String(localized: "recipients_list_description"), String(recipient.aliases_count ?? 0)))
-                                                .font(.caption)
-                                                .opacity(0.625)
-                                                .lineLimit(1)
-                                                .truncationMode(.middle)
+            if let recipients = recipientsViewModel.recipients {
+                Section {
+                    ForEach(recipients) { recipient in
+                        Button {
+                            selectedRecipient = recipient
+                        } label: {
+                            HStack {
+                                recipientRow(recipient: recipient)
+                                if !isSplitView && recipient.email_verified_at != nil {
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .font(.footnote.weight(.semibold))
+                                        .foregroundStyle(.tertiary)
+                                }
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        .disabled(recipient.email_verified_at == nil)
+                        .listRowBackground((isSplitView && selectedRecipient?.id == recipient.id) ? Color.accentColor.opacity(0.15) : nil)
+                        .overlay(
+                            Group {
+                                if recipient.email_verified_at == nil {
+                                    Color.clear
+                                        .contentShape(Rectangle())
+                                        .onTapGesture {
+                                            recipientsToResendConfirmationEmailTo = recipient
+                                            activeAlert = .resendConfirmationMailRecipientConfirmation
+                                            showAlert = true
                                         }
-                                        
-                                    }
-                                }
-                                .padding(.vertical, 4)
-                            }
-                            .disabled(recipient.email_verified_at == nil).overlay(
-                                Group {
-                                    if recipient.email_verified_at == nil {
-                                        Color.clear
-                                            .contentShape(Rectangle())
-                                            .onTapGesture {
-                                                recipientsToResendConfirmationEmailTo = recipient
-                                                activeAlert = .resendConfirmationMailRecipientConfirmation
-                                                showAlert = true
-                                            }
-                                    }
-                                }
-                            )
-                            .onChange(of: shouldReloadDataInParent) {
-                                if shouldReloadDataInParent {
-                                    Task {
-                                        await getUserResource()
-                                        await recipientsViewModel.getRecipients()
-                                    }
-                                    self.shouldReloadDataInParent = false
                                 }
                             }
-
-                        }.onDelete(perform: deleteRecipient)
-                    } header: {
+                        )
+                    }
+                    .onDelete(perform: deleteRecipient)
+                } header: {
                         VStack(alignment: .leading, spacing: 24) {
                             AddyChipView(chips: $filterChips, selectedChip: $selectedFilterChip, singleLine: true) { onTappedChip in
                                 withAnimation {
@@ -172,6 +245,20 @@ struct RecipientsView: View {
                 self.onRefreshGeneralData?()
                 await self.recipientsViewModel.getRecipients()
                 await getUserResource()
+                if let selected = selectedRecipient,
+                   !(recipientsViewModel.recipients?.contains(where: { $0.id == selected.id }) ?? false) {
+                    selectedRecipient = nil
+                }
+            }
+            .onChange(of: shouldReloadDataInParent) {
+                Task {
+                    await recipientsViewModel.getRecipients()
+                    await getUserResource()
+                    if let selected = selectedRecipient,
+                       !(recipientsViewModel.recipients?.contains(where: { $0.id == selected.id }) ?? false) {
+                        selectedRecipient = nil
+                    }
+                }
             }
             .sheet(isPresented: $isPresentingAddRecipientBottomSheet) {
                 NavigationStack {
@@ -253,6 +340,7 @@ struct RecipientsView: View {
                 }
             })
             .navigationTitle(String(localized: "recipients"))
+            .navigationBarTitleDisplayMode(horizontalSize == .regular ? .inline : .automatic)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     ProfilePicture().environmentObject(mainViewState)
@@ -262,8 +350,10 @@ struct RecipientsView: View {
                     ToolbarSpacer(placement: .topBarLeading)
                 }
 
-                ToolbarItem(placement: .topBarLeading) {
-                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                if horizontalSize == .compact {
+                    ToolbarItem(placement: .topBarLeading) {
+                        FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    }
                 }
 
                 ToolbarItem(placement: .topBarLeading) {
@@ -331,6 +421,9 @@ struct RecipientsView: View {
         do {
             let result = try await recipientsViewModel.deleteRecipient(recipientId: recipient.id)
             if result == "204" {
+                if selectedRecipient?.id == recipient.id {
+                    selectedRecipient = nil
+                }
                 await getUserResource()
                 await recipientsViewModel.getRecipients()
             } else {
@@ -351,6 +444,9 @@ struct RecipientsView: View {
         for index in offsets.sorted(by: >) {
             if let recipients = recipientsViewModel.recipients {
                 let item = recipients[index]
+                if selectedRecipient?.id == item.id {
+                    selectedRecipient = nil
+                }
                 recipientToDelete = item
                 activeAlert = .deleteRecipient
                 showAlert = true

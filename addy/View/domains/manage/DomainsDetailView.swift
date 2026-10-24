@@ -14,6 +14,7 @@ struct DomainsDetailView: View {
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) var openURL
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @Binding var shouldReloadDataInParent: Bool
     @State private var activeAlert: ActiveAlert = .deleteDomain
@@ -355,7 +356,7 @@ struct DomainsDetailView: View {
         }
         }
         .navigationTitle(domainDomain)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(horizontalSizeClass == .regular ? .automatic : .inline)
     }
 
     init(domainId: String, domainDomain: String, shouldReloadDataInParent: Binding<Bool>) {

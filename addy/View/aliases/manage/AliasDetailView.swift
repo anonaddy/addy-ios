@@ -14,6 +14,7 @@ struct AliasDetailView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @State var aliasEmail: String
     @State var shouldDisableAlias: Bool = false
@@ -455,7 +456,7 @@ struct AliasDetailView: View {
             }
         }
         .navigationTitle(aliasEmail)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(horizontalSizeClass == .regular ? .automatic : .inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 pinButton()

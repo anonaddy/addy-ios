@@ -2083,6 +2083,9 @@
         }
       }
     },
+    "create_rule" : {
+
+    },
     "created" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5494,6 +5497,17 @@
         }
       }
     },
+    "no_alias_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Alias Selected"
+          }
+        }
+      }
+    },
     "no_aliases" : {
       "comment" : "MOVED TO SHARED"
     },
@@ -5550,6 +5564,17 @@
         }
       }
     },
+    "no_domain_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Domain Selected"
+          }
+        }
+      }
+    },
     "no_domains" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5590,6 +5615,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "That's a good thing!"
+          }
+        }
+      }
+    },
+    "no_failed_delivery_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Failed Delivery Selected"
           }
         }
       }
@@ -5662,6 +5698,28 @@
         }
       }
     },
+    "no_recipient_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Recipient Selected"
+          }
+        }
+      }
+    },
+    "no_rule_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Rule Selected"
+          }
+        }
+      }
+    },
     "no_rules" : {
       "localizations" : {
         "en" : {
@@ -5682,6 +5740,17 @@
         }
       }
     },
+    "no_setting_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Setting Selected"
+          }
+        }
+      }
+    },
     "no_suggestions" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5689,6 +5758,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No suggestions"
+          }
+        }
+      }
+    },
+    "no_username_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Username Selected"
           }
         }
       }
@@ -7570,6 +7650,17 @@
         }
       }
     },
+    "select_alias_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select an alias from the list to view its details."
+          }
+        }
+      }
+    },
     "select_all" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7587,6 +7678,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select certificate"
+          }
+        }
+      }
+    },
+    "select_domain_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a domain from the list to view its details."
+          }
+        }
+      }
+    },
+    "select_failed_delivery_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a failed delivery from the list to view its details."
           }
         }
       }
@@ -7613,6 +7726,17 @@
         }
       }
     },
+    "select_recipient_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a recipient from the list to view its details."
+          }
+        }
+      }
+    },
     "select_recipients_for_this_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7624,6 +7748,28 @@
         }
       }
     },
+    "select_rule_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a rule from the list to view its details."
+          }
+        }
+      }
+    },
+    "select_setting_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a setting from the list to view its details."
+          }
+        }
+      }
+    },
     "select_startup_page" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7631,6 +7777,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select startup page"
+          }
+        }
+      }
+    },
+    "select_username_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a username from the list to view its details."
           }
         }
       }

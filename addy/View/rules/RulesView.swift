@@ -19,8 +19,28 @@ struct RulesView: View {
     @State private var rule_count: Int = 0
     @State private var rule_limit: Int? = 0
     @State private var shouldReloadDataInParent = false
+    private var selectedRule: Rules? {
+        get { mainViewState.selectedRule }
+        nonmutating set {
+            mainViewState.selectedRule = newValue
+            if let val = newValue {
+                if mainViewState.ruleNavigationPath.last != val {
+                    mainViewState.ruleNavigationPath = [val]
+                }
+            } else {
+                if !mainViewState.ruleNavigationPath.isEmpty {
+                    mainViewState.ruleNavigationPath.removeAll()
+                }
+            }
+        }
+    }
+    private var isCreatingRule: Bool {
+        get { mainViewState.isCreatingRule }
+        nonmutating set { mainViewState.isCreatingRule = newValue }
+    }
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
     @Binding var horizontalSize: UserInterfaceSizeClass
 
     enum ActiveAlert {
@@ -35,18 +55,71 @@ struct RulesView: View {
         #if DEBUG
             let _ = Self._printChanges()
         #endif
-        // Prevent having a navstack inside a navstack when the view is openen on a compact level (inside the profilesheet)
         Group {
             if horizontalSize == .regular {
-                NavigationStack {
-                    rulesViewBody
+                NavigationSplitView(columnVisibility: UIDevice.current.userInterfaceIdiom == .pad ? .constant(.all) : $columnVisibility) {
+                    rulesViewBody(isSplitView: true)
+                        .navigationSplitViewColumnWidth(min: 320, ideal: 380, max: 480)
+                        .apply {
+                            if UIDevice.current.userInterfaceIdiom == .pad {
+                                $0.toolbar(removing: .sidebarToggle)
+                            } else {
+                                $0
+                            }
+                        }
+                } detail: {
+                    NavigationStack {
+                        if isCreatingRule {
+                            CreateRulesView(recipients: rulesViewModel.recipients, ruleId: nil, ruleName: "", shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState)
+                                .id("new_rule")
+                        } else if let rule = selectedRule {
+                            CreateRulesView(recipients: rulesViewModel.recipients, ruleId: rule.id, ruleName: rule.name, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState)
+                                .id(rule.id)
+                        } else {
+                            ContentUnavailableView {
+                                Label(String(localized: "no_rule_selected"), systemImage: "checklist")
+                            } description: {
+                                Text(String(localized: "select_rule_to_view_details"))
+                            }
+                        }
+                    }
                 }
+                .navigationSplitViewStyle(.balanced)
             } else {
-                rulesViewBody
+                NavigationStack(path: $mainViewState.ruleNavigationPath) {
+                    rulesViewBody(isSplitView: false)
+                        .navigationDestination(for: Rules.self) { rule in
+                            CreateRulesView(recipients: rulesViewModel.recipients, ruleId: rule.id, ruleName: rule.name, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState)
+                                .id(rule.id)
+                        }
+                        .navigationDestination(isPresented: $mainViewState.isCreatingRule) {
+                            CreateRulesView(recipients: rulesViewModel.recipients, ruleId: nil, ruleName: "", shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState)
+                                .id("new_rule")
+                        }
+                }
             }
         }
-
+        .onChange(of: mainViewState.ruleNavigationPath) {
+            if mainViewState.ruleNavigationPath.isEmpty {
+                mainViewState.selectedRule = nil
+            } else {
+                mainViewState.selectedRule = mainViewState.ruleNavigationPath.last
+            }
+        }
+        .onChange(of: horizontalSize) {
+            if let rule = mainViewState.selectedRule, mainViewState.ruleNavigationPath.isEmpty {
+                mainViewState.ruleNavigationPath = [rule]
+            }
+        }
         .onAppear(perform: {
+            if let rule = mainViewState.selectedRule, mainViewState.ruleNavigationPath.isEmpty {
+                mainViewState.ruleNavigationPath = [rule]
+            }
+
             // Set stats, update later
             rule_count = mainViewState.userResource?.active_rule_count ?? 0
             rule_limit = mainViewState.userResource?.active_rule_limit
@@ -64,85 +137,96 @@ struct RulesView: View {
         }
     }
 
-    private var rulesViewBody: some View {
+    @ViewBuilder
+    private func ruleRow(rule: Rules) -> some View {
+        HStack {
+            Image(systemName: "line.horizontal.3").opacity(0.8).padding(.trailing)
+
+            VStack(alignment: .leading) {
+                if rule.active {
+                    Text(rule.name)
+                        .font(.headline)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .frame(minWidth: 20)
+                } else {
+                    Text(rule.name)
+                        .font(.headline)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .frame(minWidth: 20)
+                        .opacity(0.5)
+                }
+
+                if rule.active {
+                    Text(getRuleDescription(rule: rule, recipients: self.rulesViewModel.recipients))
+                        .font(.caption)
+                        .opacity(0.625)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                } else {
+                    Text(String(localized: "rule_disabled"))
+                        .font(.caption)
+                        .opacity(0.312)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                }
+            }
+        }
+        .padding(.vertical, 4)
+    }
+
+    @ViewBuilder
+    private func ruleSwipeActions(rule: Rules) -> some View {
+        if rule.active {
+            Button {
+                Task {
+                    await self.deactivateRule(rule: rule)
+                }
+            } label: {
+                Label(String(localized: "deactivate"), systemImage: "hand.raised.fill")
+            }
+            .tint(.indigo)
+        } else {
+            Button {
+                Task {
+                    await self.activateRule(rule: rule)
+                }
+            } label: {
+                Label(String(localized: "activate"), systemImage: "checkmark.circle")
+            }
+            .tint(.indigo)
+        }
+    }
+
+    private func rulesViewBody(isSplitView: Bool = false) -> some View {
         List {
             if let rules = rulesViewModel.rules {
                 if !rules.data.isEmpty {
                     Section {
                         ForEach(rules.data) { rule in
-                            NavigationLink(destination: CreateRulesView(recipients: self.rulesViewModel.recipients, ruleId: rule.id, ruleName: rule.name, shouldReloadDataInParent: $shouldReloadDataInParent)
-                                .environmentObject(mainViewState))
-                            {
+                            Button {
+                                isCreatingRule = false
+                                selectedRule = rule
+                            } label: {
                                 HStack {
-                                    Image(systemName: "line.horizontal.3").opacity(0.8).padding(.trailing)
-
-                                    VStack(alignment: .leading) {
-                                        if rule.active {
-                                            Text(rule.name)
-                                                .font(.headline)
-                                                .lineLimit(1)
-                                                .truncationMode(.tail)
-                                                .frame(minWidth: 20)
-                                        } else {
-                                            Text(rule.name)
-                                                .font(.headline)
-                                                .lineLimit(1)
-                                                .truncationMode(.tail)
-                                                .frame(minWidth: 20)
-                                                .opacity(0.5)
-                                        }
-
-                                        if rule.active {
-                                            Text(getRuleDescription(rule: rule, recipients: self.rulesViewModel.recipients))
-                                                .font(.caption)
-                                                .opacity(0.625)
-                                                .lineLimit(1)
-                                                .truncationMode(.middle)
-                                        } else {
-                                            Text(String(localized: "rule_disabled"))
-                                                .font(.caption)
-                                                .opacity(0.312)
-                                                .lineLimit(1)
-                                                .truncationMode(.middle)
-                                        }
+                                    ruleRow(rule: rule)
+                                    if !isSplitView {
+                                        Spacer()
+                                        Image(systemName: "chevron.right")
+                                            .font(.footnote.weight(.semibold))
+                                            .foregroundStyle(.tertiary)
                                     }
-
-                                }.padding(.vertical, 4)
-                            }
-                            .onChange(of: shouldReloadDataInParent) {
-                                if shouldReloadDataInParent {
-                                    Task {
-                                        await getUserResource()
-                                        await rulesViewModel.getRules()
-                                    }
-
-                                    self.shouldReloadDataInParent = false
                                 }
                             }
+                            .buttonStyle(.plain)
+                            .listRowBackground((isSplitView && !isCreatingRule && selectedRule?.id == rule.id) ? Color.accentColor.opacity(0.15) : nil)
                             .swipeActions(edge: .leading) {
-                                if rule.active {
-                                    Button {
-                                        Task {
-                                            await self.deactivateRule(rule: rule)
-                                        }
-                                    } label: {
-                                        Label(String(localized: "deactivate"), systemImage: "hand.raised.fill")
-                                    }
-                                    .tint(.indigo)
-                                } else {
-                                    Button {
-                                        Task {
-                                            await self.activateRule(rule: rule)
-                                        }
-                                    } label: {
-                                        Label(String(localized: "activate"), systemImage: "checkmark.circle")
-                                    }
-                                    .tint(.indigo)
-                                }
+                                ruleSwipeActions(rule: rule)
                             }
-
-                        }.onMove(perform: moveRule)
-                            .onDelete(perform: deleteRule)
+                        }
+                        .onMove(perform: moveRule)
+                        .onDelete(perform: deleteRule)
 
                     } header: {
                         HStack(spacing: 6) {
@@ -182,6 +266,27 @@ struct RulesView: View {
 
             await self.rulesViewModel.getRules()
             await getUserResource()
+            if let selected = selectedRule,
+               !(rulesViewModel.rules?.data.contains(where: { $0.id == selected.id }) ?? false) {
+                selectedRule = nil
+            }
+        }
+        .onChange(of: shouldReloadDataInParent) {
+            if shouldReloadDataInParent {
+                Task {
+                    await getUserResource()
+                    await rulesViewModel.getRules()
+                    if isCreatingRule {
+                        isCreatingRule = false
+                    }
+                    if let selected = selectedRule,
+                       !(rulesViewModel.rules?.data.contains(where: { $0.id == selected.id }) ?? false) {
+                        selectedRule = nil
+                    }
+                }
+
+                self.shouldReloadDataInParent = false
+            }
         }
         .alert(isPresented: $showAlert) {
             switch activeAlert {
@@ -258,7 +363,7 @@ struct RulesView: View {
             }
         })
         .navigationTitle(String(localized: "rules"))
-        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
+        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .inline : .automatic)
         .toolbar {
             if horizontalSize == .regular {
                 ToolbarItem(placement: .topBarLeading) {
@@ -270,16 +375,15 @@ struct RulesView: View {
                 }
 
                 ToolbarItem(placement: .topBarLeading) {
-                    FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
-                }
-
-                ToolbarItem(placement: .topBarLeading) {
                     AccountNotificationsIcon().environmentObject(mainViewState)
                 }
             }
 
             ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink(destination: CreateRulesView(recipients: rulesViewModel.recipients, ruleId: nil, ruleName: "", shouldReloadDataInParent: $shouldReloadDataInParent)) {
+                Button(action: {
+                    selectedRule = nil
+                    isCreatingRule = true
+                }) {
                     Image(systemName: "plus")
                         .frame(width: 24, height: 24)
                 }
@@ -329,6 +433,9 @@ struct RulesView: View {
         do {
             let result = try await rulesViewModel.deleteRule(ruleId: rule.id)
             if result == "204" {
+                if selectedRule?.id == rule.id {
+                    selectedRule = nil
+                }
                 await getUserResource()
                 await rulesViewModel.getRules()
             } else {
@@ -349,6 +456,9 @@ struct RulesView: View {
         for index in offsets.sorted(by: >) {
             if let rules = rulesViewModel.rules?.data {
                 let item = rules[index]
+                if selectedRule?.id == item.id {
+                    selectedRule = nil
+                }
                 ruleToDelete = item
                 activeAlert = .deleteRule
                 showAlert = true
