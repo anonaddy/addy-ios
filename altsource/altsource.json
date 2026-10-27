@@ -31,7 +31,7 @@
                     "version": "2.7.1",
                     "date": "2026-10-27T00:00:00+01:00",
                     "size": 38857377,
-                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/4adcaef4bb246a434272b38ae581ccef553d8051/builds/appstorelessRelease%202026-10-19%2013-23-51/addy.ipa",
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/de81d81feea8be88f54ec7b1e15b03ee1c7efdd7/builds/appstorelessRelease%202026-10-27%2019-04-02/addy.ipa",
                     "localizedDescription": "- Master-detail split-view layouts on iPad and foldable devices (iPhone Duo)\n- Seamless fold/unfold state persistence on iPhone Duo\n- Option to limit sends and replies on new aliases for custom domains\n- Connection failure diagnostics via status.addy.io on splash screen\n- Added webhook rule action support to trigger external webhooks on matching emails\n- Added email verification screen with prohibited actions before completing registration\n- Updated minimum supported addy.io instance version to 1.7.4\n- Fixed an issue causing a crash when navigating tabs (#57)\n- Performance enhancements and other improvements for a smoother experience",
                     "minOSVersion": "17.0"
                 },
