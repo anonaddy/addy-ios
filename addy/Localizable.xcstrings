@@ -937,7 +937,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 2.7.1**\n\n🪝 **Webhook Rule Actions**\nSupercharge your mail routing! You can now configure rules to trigger external webhooks whenever incoming emails match your rule criteria.\n\n✉️ **Email Verification Sheet**\nClearer account onboarding with a dedicated verification screen displaying account status and restrictions prior to confirming your email.\n\n🛠️ **Crash & Stability Fixes**\nResolved a crash on launch and tab navigation on iPad and iPhone (#57).\n\n🚀 **Performance & Backend Compatibility**\nUpdated minimum supported backend instance version to 1.7.4 along with general performance improvements and refinements."
+            "value" : "**What’s new in addy.io for iOS 2.7.1**\n\n📱 **iPad & Foldable Split Views**\nMaster-detail navigation layouts across iPad and foldable devices (iPhone Duo) for aliases, recipients, domains, rules, failed deliveries, and settings, complete with smooth fold/unfold state persistence.\n\n🔒 **Custom Domain Alias Limits**\nGain finer control over your custom domains with new options to automatically restrict sends and replies on newly generated aliases.\n\n🌐 **System Status Diagnostics**\nNever wonder why a connection fails—the app now checks status.addy.io on splash screen during connection issues to notify you of active incidents or maintenance.\n\n🪝 **Webhook Rule Actions**\nSupercharge your mail routing! You can now configure rules to trigger external webhooks whenever incoming emails match your rule criteria.\n\n✉️ **Email Verification Sheet**\nClearer account onboarding with a dedicated verification screen displaying account status and restrictions prior to confirming your email.\n\n🛠️ **Crash & Stability Fixes**\nResolved a crash on launch and tab navigation on iPad and iPhone (#57).\n\n🚀 **Performance & Backend Compatibility**\nUpdated minimum supported backend instance version to 1.7.4 along with general performance improvements and refinements."
           }
         }
       }
@@ -6616,6 +6616,7 @@
       }
     },
     "rate_this_app" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -6626,6 +6627,7 @@
       }
     },
     "rate_this_app_desc" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

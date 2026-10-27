@@ -1,12 +1,18 @@
 # Changelog
  
-## [v2.7.1] - 2026-10-19
+## [v2.7.1] - 2026-10-27
 
 **Added**
+- **iPad & Foldable Split Views**: Master-detail layouts on iPad and foldable devices (iPhone Duo) for aliases, recipients, usernames, domains, rules, failed deliveries, and settings.
+- **Custom Domain Alias Limits**: Added options to automatically restrict sends and replies on newly created aliases under custom domains.
+- **System Status Health Check**: Connection failure diagnostics on splash screen via status.addy.io to notify users of active incidents or maintenance.
 - **Webhook Action Support**: Added webhook rule action support to trigger external webhooks when rule conditions match, with direct access to web-app documentation.
 - **Registration Email Verification**: Added an email verification sheet outlining account restrictions and prohibited actions prior to completing registration.
 
 **Fixed & Improved**
+- **Fold/Unfold State Persistence**: Preserved active selections and navigation stack when folding or unfolding on foldable devices (iPhone Duo).
+- **Optimized Toolbars**: Removed redundant failed delivery toolbar indicators on regular-width layouts where sidebar navigation already displays direct badges.
+- **Smart Rule Saving**: Rule editing save button now activates only when modifications are made.
 - **Tab Navigation Crash**: Fixed an issue where switching tabs or navigating on iPad/iPhone could result in a nil object crash (#57).
 - **Minimum Instance Version**: Updated minimum supported addy.io instance version to 1.7.4.
 - Performance enhancements and other improvements for a smoother experience.
