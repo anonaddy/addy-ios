@@ -5503,7 +5503,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No Alias Selected"
+            "value" : "No alias selected"
           }
         }
       }
@@ -5570,7 +5570,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No Domain Selected"
+            "value" : "No domain selected"
           }
         }
       }
@@ -5625,7 +5625,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No Failed Delivery Selected"
+            "value" : "No failed delivery selected"
           }
         }
       }
@@ -5704,7 +5704,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No Recipient Selected"
+            "value" : "No recipient selected"
           }
         }
       }
@@ -5715,7 +5715,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No Rule Selected"
+            "value" : "No rule selected"
           }
         }
       }
@@ -5746,7 +5746,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No Setting Selected"
+            "value" : "No setting selected"
           }
         }
       }
@@ -5768,7 +5768,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No Username Selected"
+            "value" : "No username selected"
           }
         }
       }
