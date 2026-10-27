@@ -21,18 +21,7 @@ struct RulesView: View {
     @State private var shouldReloadDataInParent = false
     private var selectedRule: Rules? {
         get { mainViewState.selectedRule }
-        nonmutating set {
-            mainViewState.selectedRule = newValue
-            if let val = newValue {
-                if mainViewState.ruleNavigationPath.last != val {
-                    mainViewState.ruleNavigationPath = [val]
-                }
-            } else {
-                if !mainViewState.ruleNavigationPath.isEmpty {
-                    mainViewState.ruleNavigationPath.removeAll()
-                }
-            }
-        }
+        nonmutating set { mainViewState.selectedRule = newValue }
     }
     private var isCreatingRule: Bool {
         get { mainViewState.isCreatingRule }
@@ -88,37 +77,10 @@ struct RulesView: View {
                 }
                 .navigationSplitViewStyle(.balanced)
             } else {
-                NavigationStack(path: $mainViewState.ruleNavigationPath) {
-                    rulesViewBody(isSplitView: false)
-                        .navigationDestination(for: Rules.self) { rule in
-                            CreateRulesView(recipients: rulesViewModel.recipients, ruleId: rule.id, ruleName: rule.name, shouldReloadDataInParent: $shouldReloadDataInParent)
-                                .environmentObject(mainViewState)
-                                .id(rule.id)
-                        }
-                        .navigationDestination(isPresented: $mainViewState.isCreatingRule) {
-                            CreateRulesView(recipients: rulesViewModel.recipients, ruleId: nil, ruleName: "", shouldReloadDataInParent: $shouldReloadDataInParent)
-                                .environmentObject(mainViewState)
-                                .id("new_rule")
-                        }
-                }
-            }
-        }
-        .onChange(of: mainViewState.ruleNavigationPath) {
-            if mainViewState.ruleNavigationPath.isEmpty {
-                mainViewState.selectedRule = nil
-            } else {
-                mainViewState.selectedRule = mainViewState.ruleNavigationPath.last
-            }
-        }
-        .onChange(of: horizontalSize) {
-            if let rule = mainViewState.selectedRule, mainViewState.ruleNavigationPath.isEmpty {
-                mainViewState.ruleNavigationPath = [rule]
+                rulesViewBody(isSplitView: false)
             }
         }
         .onAppear(perform: {
-            if let rule = mainViewState.selectedRule, mainViewState.ruleNavigationPath.isEmpty {
-                mainViewState.ruleNavigationPath = [rule]
-            }
 
             // Set stats, update later
             rule_count = mainViewState.userResource?.active_rule_count ?? 0
@@ -205,24 +167,27 @@ struct RulesView: View {
                 if !rules.data.isEmpty {
                     Section {
                         ForEach(rules.data) { rule in
-                            Button {
-                                isCreatingRule = false
-                                selectedRule = rule
-                            } label: {
-                                HStack {
+                            if isSplitView {
+                                Button {
+                                    isCreatingRule = false
+                                    selectedRule = rule
+                                } label: {
                                     ruleRow(rule: rule)
-                                    if !isSplitView {
-                                        Spacer()
-                                        Image(systemName: "chevron.right")
-                                            .font(.footnote.weight(.semibold))
-                                            .foregroundStyle(.tertiary)
-                                    }
                                 }
-                            }
-                            .buttonStyle(.plain)
-                            .listRowBackground((isSplitView && !isCreatingRule && selectedRule?.id == rule.id) ? Color.accentColor.opacity(0.15) : nil)
-                            .swipeActions(edge: .leading) {
-                                ruleSwipeActions(rule: rule)
+                                .buttonStyle(.plain)
+                                .listRowBackground((!isCreatingRule && selectedRule?.id == rule.id) ? Color.accentColor.opacity(0.15) : nil)
+                                .swipeActions(edge: .leading) {
+                                    ruleSwipeActions(rule: rule)
+                                }
+                            } else {
+                                NavigationLink(destination: CreateRulesView(recipients: rulesViewModel.recipients, ruleId: rule.id, ruleName: rule.name, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                    .environmentObject(mainViewState))
+                                {
+                                    ruleRow(rule: rule)
+                                }
+                                .swipeActions(edge: .leading) {
+                                    ruleSwipeActions(rule: rule)
+                                }
                             }
                         }
                         .onMove(perform: moveRule)
@@ -380,16 +345,24 @@ struct RulesView: View {
             }
 
             ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {
-                    selectedRule = nil
-                    isCreatingRule = true
-                }) {
-                    Image(systemName: "plus")
-                        .frame(width: 24, height: 24)
+                if horizontalSize == .regular {
+                    Button(action: {
+                        selectedRule = nil
+                        isCreatingRule = true
+                    }) {
+                        Image(systemName: "plus")
+                            .frame(width: 24, height: 24)
+                    }
+                    .disabled(mainViewState.userResource?.subscription != nil &&
+                        rule_limit != nil && rule_count >= rule_limit!)
+                } else {
+                    NavigationLink(destination: CreateRulesView(recipients: rulesViewModel.recipients, ruleId: nil, ruleName: "", shouldReloadDataInParent: $shouldReloadDataInParent)) {
+                        Image(systemName: "plus")
+                            .frame(width: 24, height: 24)
+                    }
+                    .disabled(mainViewState.userResource?.subscription != nil &&
+                        rule_limit != nil && rule_count >= rule_limit!)
                 }
-                // Disable this image/button when the user has a subscription AND the count is ABOVE or ON limit
-                .disabled(mainViewState.userResource?.subscription != nil &&
-                    rule_limit != nil && rule_count >= rule_limit!)
             }
         }
     }

@@ -22,18 +22,7 @@ struct UsernamesView: View {
     @State private var shouldReloadDataInParent = false
     private var selectedUsername: Usernames? {
         get { mainViewState.selectedUsername }
-        nonmutating set {
-            mainViewState.selectedUsername = newValue
-            if let val = newValue {
-                if mainViewState.usernameNavigationPath.last != val {
-                    mainViewState.usernameNavigationPath = [val]
-                }
-            } else {
-                if !mainViewState.usernameNavigationPath.isEmpty {
-                    mainViewState.usernameNavigationPath.removeAll()
-                }
-            }
-        }
+        nonmutating set { mainViewState.selectedUsername = newValue }
     }
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
@@ -82,31 +71,10 @@ struct UsernamesView: View {
                 }
                 .navigationSplitViewStyle(.balanced)
             } else {
-                NavigationStack(path: $mainViewState.usernameNavigationPath) {
-                    usernamesViewBody(isSplitView: false)
-                        .navigationDestination(for: Usernames.self) { username in
-                            UsernamesDetailView(usernameId: username.id, usernameUsername: username.username, shouldReloadDataInParent: $shouldReloadDataInParent)
-                                .environmentObject(mainViewState)
-                                .id(username.id)
-                        }
-                }
+                usernamesViewBody(isSplitView: false)
             }
         }
-        .onChange(of: mainViewState.usernameNavigationPath) {
-            if mainViewState.usernameNavigationPath.isEmpty {
-                mainViewState.selectedUsername = nil
-            } else {
-                mainViewState.selectedUsername = mainViewState.usernameNavigationPath.last
-            }
-        }
-        .onChange(of: horizontalSize) {
-            if let username = mainViewState.selectedUsername, mainViewState.usernameNavigationPath.isEmpty {
-                mainViewState.usernameNavigationPath = [username]
-            }
-        }.onAppear(perform: {
-            if let username = mainViewState.selectedUsername, mainViewState.usernameNavigationPath.isEmpty {
-                mainViewState.usernameNavigationPath = [username]
-            }
+        .onAppear(perform: {
 
             // Set stats, update later
             username_count = mainViewState.userResource?.username_count ?? 0
@@ -148,21 +116,21 @@ struct UsernamesView: View {
             if let usernames = usernamesViewModel.usernames {
                 Section {
                     ForEach(usernames.data) { username in
-                        Button {
-                            selectedUsername = username
-                        } label: {
-                            HStack {
+                        if isSplitView {
+                            Button {
+                                selectedUsername = username
+                            } label: {
                                 usernameRow(username: username)
-                                if !isSplitView {
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .font(.footnote.weight(.semibold))
-                                        .foregroundStyle(.tertiary)
-                                }
+                            }
+                            .buttonStyle(.plain)
+                            .listRowBackground(selectedUsername?.id == username.id ? Color.accentColor.opacity(0.15) : nil)
+                        } else {
+                            NavigationLink(destination: UsernamesDetailView(usernameId: username.id, usernameUsername: username.username, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                .environmentObject(mainViewState))
+                            {
+                                usernameRow(username: username)
                             }
                         }
-                        .buttonStyle(.plain)
-                        .listRowBackground((isSplitView && selectedUsername?.id == username.id) ? Color.accentColor.opacity(0.15) : nil)
                     }
                     .onDelete(perform: deleteUsername)
                 } header: {

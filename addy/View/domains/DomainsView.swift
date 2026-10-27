@@ -22,18 +22,7 @@ struct DomainsView: View {
     @State private var shouldReloadDataInParent = false
     private var selectedDomain: Domains? {
         get { mainViewState.selectedDomain }
-        nonmutating set {
-            mainViewState.selectedDomain = newValue
-            if let val = newValue {
-                if mainViewState.domainNavigationPath.last != val {
-                    mainViewState.domainNavigationPath = [val]
-                }
-            } else {
-                if !mainViewState.domainNavigationPath.isEmpty {
-                    mainViewState.domainNavigationPath.removeAll()
-                }
-            }
-        }
+        nonmutating set { mainViewState.selectedDomain = newValue }
     }
     @State private var errorAlertTitle = ""
     @State private var errorAlertMessage = ""
@@ -82,32 +71,10 @@ struct DomainsView: View {
                 }
                 .navigationSplitViewStyle(.balanced)
             } else {
-                NavigationStack(path: $mainViewState.domainNavigationPath) {
-                    domainsViewBody(isSplitView: false)
-                        .navigationDestination(for: Domains.self) { domain in
-                            DomainsDetailView(domainId: domain.id, domainDomain: domain.domain, shouldReloadDataInParent: $shouldReloadDataInParent)
-                                .environmentObject(mainViewState)
-                                .id(domain.id)
-                        }
-                }
-            }
-        }
-        .onChange(of: mainViewState.domainNavigationPath) {
-            if mainViewState.domainNavigationPath.isEmpty {
-                mainViewState.selectedDomain = nil
-            } else {
-                mainViewState.selectedDomain = mainViewState.domainNavigationPath.last
-            }
-        }
-        .onChange(of: horizontalSize) {
-            if let domain = mainViewState.selectedDomain, mainViewState.domainNavigationPath.isEmpty {
-                mainViewState.domainNavigationPath = [domain]
+                domainsViewBody(isSplitView: false)
             }
         }
         .onAppear(perform: {
-            if let domain = mainViewState.selectedDomain, mainViewState.domainNavigationPath.isEmpty {
-                mainViewState.domainNavigationPath = [domain]
-            }
 
             // Set stats, update later
             domain_count = mainViewState.userResource?.active_domain_count ?? 0
@@ -168,22 +135,22 @@ struct DomainsView: View {
                 if !domains.data.isEmpty {
                     Section {
                         ForEach(domains.data) { domain in
-                        Button {
-                            selectedDomain = domain
-                        } label: {
-                            HStack {
-                                domainRow(domain: domain)
-                                if !isSplitView {
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .font(.footnote.weight(.semibold))
-                                        .foregroundStyle(.tertiary)
+                            if isSplitView {
+                                Button {
+                                    selectedDomain = domain
+                                } label: {
+                                    domainRow(domain: domain)
+                                }
+                                .buttonStyle(.plain)
+                                .listRowBackground(selectedDomain?.id == domain.id ? Color.accentColor.opacity(0.15) : nil)
+                            } else {
+                                NavigationLink(destination: DomainsDetailView(domainId: domain.id, domainDomain: domain.domain, shouldReloadDataInParent: $shouldReloadDataInParent)
+                                    .environmentObject(mainViewState))
+                                {
+                                    domainRow(domain: domain)
                                 }
                             }
                         }
-                        .buttonStyle(.plain)
-                        .listRowBackground((isSplitView && selectedDomain?.id == domain.id) ? Color.accentColor.opacity(0.15) : nil)
-                    }
                         .onDelete(perform: deleteDomain)
                     } header: {
                         HStack(spacing: 6) {
