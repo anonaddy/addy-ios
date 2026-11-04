@@ -27,6 +27,7 @@ struct FailedDeliveryBottomSheet: View {
     @State private var errorAlertMessage = ""
 
     let onDeleted: () -> Void
+    var isPresentedInSheet: Bool = true
     enum ActiveAlert {
         case error
         case resend
@@ -84,13 +85,15 @@ struct FailedDeliveryBottomSheet: View {
                 DocumentPicker(fileURL: $fileURL, isPresented: $isShowingPicker, fileToSave: url)
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(isPresentedInSheet ? .inline : .automatic)
         .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    dismiss()
-                } label: {
-                    Label(String(localized: "dismiss"), systemImage: "xmark")
+            if isPresentedInSheet {
+                ToolbarItem {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label(String(localized: "dismiss"), systemImage: "xmark")
+                    }
                 }
             }
 
@@ -267,8 +270,9 @@ struct FailedDeliveryBottomSheet: View {
         }
     }
 
-    init(failedDelivery: FailedDeliveries, onDeleted: @escaping () -> Void) {
+    init(failedDelivery: FailedDeliveries, isPresentedInSheet: Bool = true, onDeleted: @escaping () -> Void) {
         self.failedDelivery = failedDelivery
+        self.isPresentedInSheet = isPresentedInSheet
         self.onDeleted = onDeleted
     }
 

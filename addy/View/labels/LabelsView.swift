@@ -177,7 +177,7 @@ struct LabelsView: View {
             }
         })
         .navigationTitle(String(localized: "manage_labels"))
-        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
+        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .inline : .automatic)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {

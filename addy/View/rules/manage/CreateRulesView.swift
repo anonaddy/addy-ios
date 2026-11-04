@@ -12,7 +12,13 @@ import SwiftUI
 struct CreateRulesView: View {
     @Environment(\.dismiss) private var dismiss
 
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
     @State var ruleName: String
+    @State private var originalRule: Rules? = nil
+    @State private var originalRuleName: String = ""
+    @State private var originalConditionOperator: String = "AND"
+    @State private var originalSelectedChips: [String] = []
     @State private var actionToEdit: Action? = nil
     @State private var conditionToEdit: Condition? = nil
     @Binding var shouldReloadDataInParent: Bool
@@ -31,6 +37,21 @@ struct CreateRulesView: View {
     @State private var errorText: String? = nil
     @State private var isPresentingAddNewActionBottomSheet = false
     @State private var isPresentingAddNewConditionBottomSheet = false
+
+    private var hasChanges: Bool {
+        if ruleId.isEmpty {
+            return true
+        }
+        guard let originalRule = originalRule, let rule = rule else {
+            return false
+        }
+        if ruleName != originalRuleName { return true }
+        if conditionOperator != originalConditionOperator { return true }
+        if Set(selectedChips) != Set(originalSelectedChips) { return true }
+        if rule.conditions != originalRule.conditions { return true }
+        if rule.actions != originalRule.actions { return true }
+        return false
+    }
 
     enum ActiveAlert {
         case error
@@ -209,6 +230,36 @@ struct CreateRulesView: View {
                                             .multilineTextAlignment(.center)
                                             .lineLimit(3)
                                             .opacity(0.7)
+                                    } else if RulesOption.isWebhookAction(type: action.type) {
+                                        let url = action.webhookValue?.url ?? action.value
+                                        let includeBody = action.webhookValue?.include_body ?? false
+                                        let includeHeaders = action.webhookValue?.include_headers ?? false
+                                        VStack(spacing: 2) {
+                                            Text(url)
+                                                .font(.system(size: 14))
+                                                .multilineTextAlignment(.center)
+                                                .lineLimit(3)
+                                                .opacity(0.7)
+                                            if includeBody || includeHeaders {
+                                                HStack(spacing: 4) {
+                                                    if includeBody {
+                                                        Text(String(localized: "webhook_includes_body"))
+                                                            .font(.system(size: 12))
+                                                            .foregroundColor(.secondary)
+                                                    }
+                                                    if includeBody && includeHeaders {
+                                                        Text("•")
+                                                            .font(.system(size: 10))
+                                                            .foregroundColor(.secondary)
+                                                    }
+                                                    if includeHeaders {
+                                                        Text(String(localized: "webhook_includes_headers"))
+                                                            .font(.system(size: 12))
+                                                            .foregroundColor(.secondary)
+                                                    }
+                                                }
+                                            }
+                                        }
                                     } else if !RulesOption.isBooleanAction(type: action.type) {
                                         if !action.value.isEmpty {
                                             Text(action.value)
@@ -269,14 +320,22 @@ struct CreateRulesView: View {
                 }.textCase(nil)
 
             }.disabled(isSavingRule)
-                .navigationTitle(ruleName)
-                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle(ruleName.isEmpty ? String(localized: "create_rule") : ruleName)
+                .navigationBarTitleDisplayMode(horizontalSizeClass == .regular ? .automatic : .inline)
                 .toolbar(content: {
                     ToolbarItem(placement: .confirmationAction) {
                         if #available(iOS 26.0, *) {
-                            saveButton().buttonStyle(.glassProminent)
+                            if hasChanges {
+                                saveButton().buttonStyle(.glassProminent)
+                            } else {
+                                saveButton().buttonStyle(.plain)
+                            }
                         } else {
-                            saveButton()
+                            if hasChanges {
+                                saveButton().buttonStyle(.borderedProminent)
+                            } else {
+                                saveButton().buttonStyle(.plain)
+                            }
                         }
                     }
                 })
@@ -356,8 +415,8 @@ struct CreateRulesView: View {
                     }
                 }
             }
-            .navigationTitle(ruleName)
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(ruleName.isEmpty ? String(localized: "create_rule") : ruleName)
+            .navigationBarTitleDisplayMode(horizontalSizeClass == .regular ? .automatic : .inline)
         }
     }
 
@@ -367,6 +426,7 @@ struct CreateRulesView: View {
                 ProgressView().progressViewStyle(.circular)
             } else {
                 Button {
+                    guard hasChanges, !ruleName.trimmingCharacters(in: .whitespaces).isEmpty else { return }
                     self.isSavingRule = true
                     if self.ruleId.isEmpty {
                         Task {
@@ -380,7 +440,9 @@ struct CreateRulesView: View {
                     }
                 } label: {
                     Text(String(localized: "save"))
-                }.disabled(self.ruleName.isEmpty)
+                        .fontWeight(hasChanges ? .semibold : .regular)
+                }
+                .disabled(!hasChanges || self.ruleName.trimmingCharacters(in: .whitespaces).isEmpty)
             }
         }
     }
@@ -391,6 +453,7 @@ struct CreateRulesView: View {
         if let ruleId = ruleId {
             self.ruleId = ruleId
             self._ruleName = State(initialValue: ruleName)
+            self._originalRuleName = State(initialValue: ruleName)
         } else {
             // RuleId is nil, load in the template rule
             let rule = Rules(
@@ -420,6 +483,7 @@ struct CreateRulesView: View {
             self.ruleId = rule.id
             self._rule = State(initialValue: rule)
             self._ruleName = State(initialValue: rule.name)
+            self._originalRuleName = State(initialValue: rule.name)
         }
 
         _shouldReloadDataInParent = shouldReloadDataInParent
@@ -428,6 +492,7 @@ struct CreateRulesView: View {
     private func updateUi(rule: Rules) {
         conditionOperator = rule.operator
 
+        selectedChips.removeAll()
         if rule.forwards {
             selectedChips.append("forwards")
         }
@@ -444,7 +509,12 @@ struct CreateRulesView: View {
             let rule = try await RulesRepository.shared.getRule(ruleId: ruleId)
             withAnimation {
                 self.rule = rule
+                self.originalRule = rule
+                self.ruleName = rule.name
+                self.originalRuleName = rule.name
                 updateUi(rule: rule)
+                self.originalConditionOperator = rule.operator
+                self.originalSelectedChips = self.selectedChips
             }
         } catch {
             withAnimation {
@@ -464,11 +534,19 @@ struct CreateRulesView: View {
 
     func updateRule() async {
         updateRuleObject()
-        guard let currentRule = rule else { return }
+        guard let currentRule = rule else {
+            isSavingRule = false
+            return
+        }
 
         do {
             let result = try await RulesRepository.shared.updateRule(ruleId: currentRule.id, rule: currentRule)
+            isSavingRule = false
             if result == "200" {
+                originalRule = currentRule
+                originalRuleName = currentRule.name
+                originalConditionOperator = conditionOperator
+                originalSelectedChips = selectedChips
                 shouldReloadDataInParent = true
                 dismiss()
             } else {
@@ -478,28 +556,32 @@ struct CreateRulesView: View {
                 errorAlertMessage = result
             }
         } catch {
+            isSavingRule = false
             activeAlert = .error
             showAlert = true
             errorAlertTitle = String(localized: "error_creating_rule")
             errorAlertMessage = error.localizedDescription
-            isSavingRule = false
         }
     }
 
     func createRule() async {
         updateRuleObject()
-        guard let currentRule = rule else { return }
+        guard let currentRule = rule else {
+            isSavingRule = false
+            return
+        }
 
         do {
             _ = try await RulesRepository.shared.createRule(rule: currentRule)
+            isSavingRule = false
             shouldReloadDataInParent = true
             dismiss()
         } catch {
+            isSavingRule = false
             activeAlert = .error
             showAlert = true
             errorAlertTitle = String(localized: "error_creating_rule")
             errorAlertMessage = error.localizedDescription
-            isSavingRule = false
         }
     }
 }

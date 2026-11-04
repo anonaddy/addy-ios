@@ -13,18 +13,28 @@ public enum AddyIo {
     // The versioncode is a combination of MAJOR MINOR PATCH
     // TODO: Update on every release
 
-    // 1.7.3
+    // 1.7.4
     public static let MINIMUMVERSIONCODEMAJOR = 1
     public static let MINIMUMVERSIONCODEMINOR = 7
-    public static let MINIMUMVERSIONCODEPATCH = 3
+    public static let MINIMUMVERSIONCODEPATCH = 4
 
     public static var VERSIONMAJOR = 0
     public static var VERSIONMINOR = 0
     public static var VERSIONPATCH = 0
     public static var VERSIONSTRING = ""
 
+    public static let STATUS_URL = "https://status.addy.io"
+    public static let STATUS_JSON_URL = "https://status.addy.io/json"
+
     public static func isUsingHostedInstance() -> Bool {
         return VERSIONMAJOR == 9999
+    }
+
+    public static func isDefaultInstance(url: String = API_BASE_URL) -> Bool {
+        if let host = URL(string: url)?.host?.lowercased() {
+            return host == "app.addy.io"
+        }
+        return url.contains("app.addy.io")
     }
 
     /// API endpoints
@@ -98,6 +108,10 @@ public enum AddyIo {
 
     static var API_URL_SHARED_WITH_FAMILY_DOMAINS: String {
         "\(API_BASE_URL)/api/v1/shared-with-family-domains"
+    }
+
+    static var API_URL_DEFAULT_ATTACHED_RECIPIENTS_ONLY_DOMAINS: String {
+        "\(API_BASE_URL)/api/v1/default-attached-recipients-only-domains"
     }
 
     static var API_URL_USERNAMES: String {

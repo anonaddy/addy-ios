@@ -19,6 +19,8 @@ struct SetupView: View {
     @State private var isPresentingAddApiBottomSheet = false
     @State private var showAlert = false
     @State private var alertMessage = ""
+    @State private var verifyQueryForSheet: String? = nil
+    @State private var isPresentingEmailVerificationBottomSheet = false
 
     let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -122,6 +124,16 @@ struct SetupView: View {
                 AddApiBottomSheet(apiBaseUrl: nil, addKey: addKey).environmentObject(MainViewState.shared)
             }
             .presentationDetents([.large])
+        }.sheet(isPresented: $isPresentingEmailVerificationBottomSheet, onDismiss: {
+            setupViewState.verifyQuery = nil
+            verifyQueryForSheet = nil
+        }) {
+            if let query = verifyQueryForSheet {
+                NavigationStack {
+                    EmailVerificationBottomSheet(query: query, addKey: addKey)
+                }
+                .presentationDetents([.large])
+            }
         }.alert(isPresented: $showAlert) {
             Alert(title: Text(String(localized: "registration_register")), message: Text(alertMessage))
         }.onChange(of: setupViewState.verifyQuery) {
@@ -129,10 +141,15 @@ struct SetupView: View {
                 print("verifyPath changed to \(setupViewState.verifyQuery ?? "nil")!")
             #endif
             if let verifyQuery = setupViewState.verifyQuery {
-                isLoadingGetStarted = true
-                Task {
-                    await finishRegistrationVerification(query: verifyQuery)
-                }
+                verifyQueryForSheet = verifyQuery
+                showOnboarding = false
+                isPresentingEmailVerificationBottomSheet = true
+            }
+        }.onAppear {
+            if let verifyQuery = setupViewState.verifyQuery {
+                verifyQueryForSheet = verifyQuery
+                showOnboarding = false
+                isPresentingEmailVerificationBottomSheet = true
             }
         }
     }

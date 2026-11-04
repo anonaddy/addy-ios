@@ -150,6 +150,7 @@ enum RulesOption {
         "setAliasDescription",
         "deactivateAlias",
         "deleteAlias",
+        "webhook",
     ]
     static let actionsTypeName = [
         NSLocalizedString("replace_the_subject_with", comment: ""),
@@ -167,6 +168,7 @@ enum RulesOption {
         NSLocalizedString("set_alias_description_action", comment: ""),
         NSLocalizedString("deactivate_alias_action", comment: ""),
         NSLocalizedString("delete_alias_action", comment: ""),
+        NSLocalizedString("send_webhook_action", comment: ""),
     ]
 
     static func isBooleanCondition(type: String) -> Bool {
@@ -216,6 +218,10 @@ enum RulesOption {
             "addLabel",
             "removeLabel",
         ].contains(type)
+    }
+
+    static func isWebhookAction(type: String) -> Bool {
+        return type == "webhook"
     }
 
     static func matches(for conditionType: String) -> [String] {

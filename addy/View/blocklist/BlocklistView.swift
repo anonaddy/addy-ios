@@ -276,7 +276,7 @@ struct BlocklistView: View {
             }
         })
         .navigationTitle(String(localized: "blocklist"))
-        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .automatic : .inline)
+        .navigationBarTitleDisplayMode(horizontalSize == .regular ? .inline : .automatic)
         .toolbar {
             if !(mainViewState.userResource?.hasUserFreeSubscription() ?? true) {
                 ToolbarItem(placement: .topBarTrailing) {

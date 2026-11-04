@@ -13,6 +13,7 @@ struct RecipientsDetailView: View {
     @EnvironmentObject var mainViewState: MainViewState
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @Binding var shouldReloadDataInParent: Bool
     @State private var activeAlert: ActiveAlert = .deleteRecipient
@@ -372,7 +373,7 @@ struct RecipientsDetailView: View {
         }
         }
         .navigationTitle(recipientEmail)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(horizontalSizeClass == .regular ? .automatic : .inline)
     }
 
     init(recipientId: String, recipientEmail: String, shouldReloadDataInParent: Binding<Bool>) {

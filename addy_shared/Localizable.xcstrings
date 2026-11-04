@@ -1,6 +1,61 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "status_all_systems_operational" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io Status: All systems operational"
+          }
+        }
+      }
+    },
+    "status_service_disruption" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io Status: Service disruption"
+          }
+        }
+      }
+    },
+    "status_service_status_format" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io Status: %@"
+          }
+        }
+      }
+    },
+    "status_checking" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking service status…"
+          }
+        }
+      }
+    },
+    "status_addy_io" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "status.addy.io"
+          }
+        }
+      }
+    },
     "local_network_permission_rationale" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -181,6 +181,17 @@
         }
       }
     },
+    "add_action_webhook_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy sends a signed JSON POST when this rule matches an accepted email. Attachments are left out. The message body and the headers are included only when you select them, and each is limited to 1 MB. The signing secret is under More info on the rule page of the [web-app](%@) instead. If deliveries to this URL keep failing, addy pauses it for one hour and emails you. Other actions on the rule still run."
+          }
+        }
+      }
+    },
     "add_alias" : {
       "comment" : "MOVED TO SHARED"
     },
@@ -926,7 +937,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "**What’s new in addy.io for iOS 2.7.0**\n\n📱 **iOS 27 Support & Glass Design**\nFull compatibility and optimizations for iOS 27, featuring modern Liquid Glass styling.\n\n🔐 **Certificate Expiry Warnings**\nNever get locked out of your self-hosted server again! Receive proactive alerts before your client certificates expire.\n\n🔍 **Siri & Spotlight Search**\nFind your aliases instantly right from your Home Screen or Lock Screen using Spotlight search! Search by email, description, domain, recipients, or labels, and jump directly into alias details with a single tap.\n\n✨ **Bulk Actions for Aliases**\nManaging multiple aliases just got effortless! Multi-select aliases to activate, deactivate, pin, assign labels, change recipients, or delete them all in one go.\n\n🌐 **Domain Sending Verification**\nCheck whether your custom domain is properly configured to send email directly from domain settings.\n\n⚡ **Instant Blocklist Deep Links**\nBlock senders or domains instantly via deep links or directly from failed delivery details.\n\n🚀 **Faster & Smoother Everyday**\nRebuilt core architecture with async/await for top-tier speed, battery efficiency, and rock-solid stability.\n\n**What’s new in addy.io for Apple Watch 1.1.8**\n\n⌚ **Wrist Companion Upgrades**\nEnjoy a smoother experience on your wrist with faster alias creation, improved Siri Shortcuts, and reliable syncing with your iPhone."
+            "value" : "**What’s new in addy.io for iOS 2.7.1**\n\n📱 **iPad & Foldable Split Views**\nMaster-detail navigation layouts across iPad and foldable devices (iPhone Duo) for aliases, recipients, domains, rules, failed deliveries, and settings, complete with smooth fold/unfold state persistence.\n\n🔒 **Custom Domain Alias Limits**\nGain finer control over your custom domains with new options to automatically restrict sends and replies on newly generated aliases.\n\n🌐 **System Status Diagnostics**\nNever wonder why a connection fails—the app now checks status.addy.io on splash screen during connection issues to notify you of active incidents or maintenance.\n\n🪝 **Webhook Rule Actions**\nSupercharge your mail routing! You can now configure rules to trigger external webhooks whenever incoming emails match your rule criteria.\n\n✉️ **Email Verification Sheet**\nClearer account onboarding with a dedicated verification screen displaying account status and restrictions prior to confirming your email.\n\n🛠️ **Crash & Stability Fixes**\nResolved a crash on launch and tab navigation on iPad and iPhone (#57).\n\n🚀 **Performance & Backend Compatibility**\nUpdated minimum supported backend instance version to 1.7.4 along with general performance improvements and refinements."
           }
         }
       }
@@ -2072,6 +2083,9 @@
         }
       }
     },
+    "create_rule" : {
+
+    },
     "created" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3152,6 +3166,127 @@
         }
       }
     },
+    "email_verification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email Verification"
+          }
+        }
+      }
+    },
+    "email_verification_account_deletion_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must verify your email **within 30 days** or your account will be automatically deleted."
+          }
+        }
+      }
+    },
+    "email_verification_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accept and verify account"
+          }
+        }
+      }
+    },
+    "email_verification_no_marking_emails_as_spam_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do not mark emails forwarded to you by addy.io as spam"
+          }
+        }
+      }
+    },
+    "email_verification_no_marking_emails_as_spam_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Marking Emails as Spam"
+          }
+        }
+      }
+    },
+    "email_verification_no_mass_signups_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do not use addy.io to create large numbers of accounts on other websites or services"
+          }
+        }
+      }
+    },
+    "email_verification_no_mass_signups_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Mass Signups"
+          }
+        }
+      }
+    },
+    "email_verification_no_multiple_free_accounts_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do not create multiple free accounts as this is not considered an acceptable use of the service"
+          }
+        }
+      }
+    },
+    "email_verification_no_multiple_free_accounts_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Multiple Free Accounts"
+          }
+        }
+      }
+    },
+    "email_verification_prohibited_actions_intro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Before proceeding, please read the following **prohibited actions** and then click the button below to complete verification."
+          }
+        }
+      }
+    },
+    "email_verification_prohibited_actions_intro_with_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Before proceeding, please read the following **prohibited actions** and then click the button below to verify **%@**."
+          }
+        }
+      }
+    },
     "emails_blocked" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3549,6 +3684,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "An error occurred while changing the catch-all state"
+          }
+        }
+      }
+    },
+    "error_edit_default_attached_recipients_only" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error occurred while changing the domain attached recipients only state"
           }
         }
       }
@@ -4764,6 +4910,28 @@
         }
       }
     },
+    "limit_replies_sends_new_aliases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit replies and sends on new aliases"
+          }
+        }
+      }
+    },
+    "limit_replies_sends_new_aliases_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn this on and every new alias on this domain only allows recipients that are directly attached to it to reply or send. Aliases you already have stay unchanged.\n\nForwards still go to this domain's default recipient. That recipient is not attached, so they cannot reply or send until you attach them. With this on and no recipients attached, reply and send are blocked."
+          }
+        }
+      }
+    },
     "lite_plan" : {
       "localizations" : {
         "en" : {
@@ -5329,6 +5497,17 @@
         }
       }
     },
+    "no_alias_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No alias selected"
+          }
+        }
+      }
+    },
     "no_aliases" : {
       "comment" : "MOVED TO SHARED"
     },
@@ -5385,6 +5564,17 @@
         }
       }
     },
+    "no_domain_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No domain selected"
+          }
+        }
+      }
+    },
     "no_domains" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5425,6 +5615,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "That's a good thing!"
+          }
+        }
+      }
+    },
+    "no_failed_delivery_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No failed delivery selected"
           }
         }
       }
@@ -5497,6 +5698,28 @@
         }
       }
     },
+    "no_recipient_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No recipient selected"
+          }
+        }
+      }
+    },
+    "no_rule_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No rule selected"
+          }
+        }
+      }
+    },
     "no_rules" : {
       "localizations" : {
         "en" : {
@@ -5517,6 +5740,17 @@
         }
       }
     },
+    "no_setting_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No setting selected"
+          }
+        }
+      }
+    },
     "no_suggestions" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5524,6 +5758,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No suggestions"
+          }
+        }
+      }
+    },
+    "no_username_selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No username selected"
           }
         }
       }
@@ -7407,6 +7652,17 @@
         }
       }
     },
+    "select_alias_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select an alias from the list to view its details."
+          }
+        }
+      }
+    },
     "select_all" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7424,6 +7680,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select certificate"
+          }
+        }
+      }
+    },
+    "select_domain_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a domain from the list to view its details."
+          }
+        }
+      }
+    },
+    "select_failed_delivery_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a failed delivery from the list to view its details."
           }
         }
       }
@@ -7450,6 +7728,17 @@
         }
       }
     },
+    "select_recipient_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a recipient from the list to view its details."
+          }
+        }
+      }
+    },
     "select_recipients_for_this_alias" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7461,6 +7750,28 @@
         }
       }
     },
+    "select_rule_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a rule from the list to view its details."
+          }
+        }
+      }
+    },
+    "select_setting_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a setting from the list to view its details."
+          }
+        }
+      }
+    },
     "select_startup_page" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7468,6 +7779,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select startup page"
+          }
+        }
+      }
+    },
+    "select_username_to_view_details" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a username from the list to view its details."
           }
         }
       }
@@ -7521,6 +7843,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter the email addresses (comma separated) of the recipients you’d like to send an email to from an alias.\n\nAliases you enter that do not exist will be created automatically.\n\nThe mail app on your device opens with the correct to addresses entered. Note that you must send this email from one of your verified recipients email address.\n\nLeaving the alias field empty allows you to send emails from your own email address (not an alias)."
+          }
+        }
+      }
+    },
+    "send_webhook_action" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "send a webhook to"
           }
         }
       }
@@ -8285,6 +8618,61 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Statistics"
+          }
+        }
+      }
+    },
+    "status_addy_io" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "status.addy.io"
+          }
+        }
+      }
+    },
+    "status_all_systems_operational" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io Status: All systems operational"
+          }
+        }
+      }
+    },
+    "status_checking" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking service status…"
+          }
+        }
+      }
+    },
+    "status_service_disruption" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io Status: Service disruption"
+          }
+        }
+      }
+    },
+    "status_service_status_format" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "addy.io Status: %@"
           }
         }
       }
@@ -9147,6 +9535,72 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "When the addy.io app is opened for the first time on Apple Watch. Show a message on this device to quickly set up the app"
+          }
+        }
+      }
+    },
+    "webhook_include_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Include the message body"
+          }
+        }
+      }
+    },
+    "webhook_include_headers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Include the headers"
+          }
+        }
+      }
+    },
+    "webhook_includes_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Includes message body"
+          }
+        }
+      }
+    },
+    "webhook_includes_headers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Includes headers"
+          }
+        }
+      }
+    },
+    "webhook_url_must_be_https" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The webhook URL must start with https://"
+          }
+        }
+      }
+    },
+    "webhook_url_placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://example.com/hooks/addy"
           }
         }
       }

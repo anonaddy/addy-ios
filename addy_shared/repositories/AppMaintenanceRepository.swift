@@ -22,6 +22,20 @@ public protocol AppMaintenanceRepositoryProtocol: AnyObject, Sendable {
     func getAllAccountNotifications() async throws -> AccountNotificationsArray
     /// Caches account notifications count for background service and widgets.
     func cacheAccountNotificationsCountForWidgetAndBackgroundService() async -> Bool
+    /// Fetches the status of addy.io services from status.addy.io/json.
+    func getServiceStatus(url: String) async throws -> ServiceStatus
+    /// Test method to query service status or verify decoding with mock JSON.
+    func testServiceStatus(mockJson: String?) async throws -> ServiceStatus
+}
+
+public extension AppMaintenanceRepositoryProtocol {
+    func getServiceStatus(url: String = AddyIo.STATUS_JSON_URL) async throws -> ServiceStatus {
+        try await getServiceStatus(url: url)
+    }
+
+    func testServiceStatus(mockJson: String? = nil) async throws -> ServiceStatus {
+        try await testServiceStatus(mockJson: mockJson)
+    }
 }
 
 /// Repository for application maintenance, version checking, and system notifications.
@@ -96,5 +110,30 @@ public final class AppMaintenanceRepository: AppMaintenanceRepositoryProtocol, @
         } catch {
             return false
         }
+    }
+
+    public func getServiceStatus(url: String = AddyIo.STATUS_JSON_URL) async throws -> ServiceStatus {
+        let endpoint = Endpoint(
+            urlString: url,
+            method: .get
+        )
+        let (data, response) = try await apiClient.requestRaw(endpoint)
+        guard (200...299).contains(response.statusCode) else {
+            throw apiClient.mapResponseError(response: response, data: data, requestURL: endpoint.urlString)
+        }
+        let decoder = JSONDecoder()
+        return try decoder.decode(ServiceStatus.self, from: data)
+    }
+
+    @discardableResult
+    public func testServiceStatus(mockJson: String? = nil) async throws -> ServiceStatus {
+        if let jsonString = mockJson {
+            guard let data = jsonString.data(using: .utf8) else {
+                throw NSError(domain: "ServiceStatusTest", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid mock JSON string"])
+            }
+            let decoder = JSONDecoder()
+            return try decoder.decode(ServiceStatus.self, from: data)
+        }
+        return try await getServiceStatus()
     }
 }

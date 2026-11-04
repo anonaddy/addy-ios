@@ -10,6 +10,7 @@ struct MainView: View {
 
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     @State private var pendingURLFromShareViewController: IdentifiableURL?
     @State private var apiTokenExpiryText = ""
@@ -28,8 +29,16 @@ struct MainView: View {
         mainViewState.encryptedSettingsManager.getSettingsBool(key: .biometricEnabled) && !mainViewState.isUnlocked
     }
 
+    private var isPad: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad || (horizontalSizeClass == .regular && verticalSizeClass == .regular)
+    }
+
     private var tabDestinations: [Destination] {
-        horizontalSizeClass == .regular ? Destination.otherCases : Destination.iPhoneCases
+        isPad ? Destination.otherCases : Destination.iPhoneCases
+    }
+
+    private var effectiveHorizontalSize: UserInterfaceSizeClass {
+        isPad ? (horizontalSizeClass ?? .regular) : .compact
     }
 
     private enum AlertType: Identifiable {
@@ -112,19 +121,29 @@ struct MainView: View {
         Group {
             TabView(selection: $mainViewState.selectedTab) {
                 ForEach(tabDestinations, id: \.self) { destination in
-                    tabItem(for: destination, sizeClass: horizontalSizeClass)
+                    tabItem(for: destination, sizeClass: effectiveHorizontalSize)
                 }
             }
             .apply {
-                if #available(iOS 26.0, *) {
-                    $0.tabViewStyle(.sidebarAdaptable).tabBarMinimizeBehavior(.onScrollDown)
-                } else if #available(iOS 18.0, *) {
-                    $0.tabViewStyle(.sidebarAdaptable)
+                if isPad {
+                    if #available(iOS 26.0, *) {
+                        $0.tabViewStyle(.sidebarAdaptable)
+                            .defaultAdaptableTabBarPlacement(.sidebar)
+                            .tabBarMinimizeBehavior(.onScrollDown)
+                    } else if #available(iOS 18.0, *) {
+                        $0.tabViewStyle(.sidebarAdaptable)
+                            .defaultAdaptableTabBarPlacement(.sidebar)
+                    } else {
+                        $0.tabViewStyle(.automatic)
+                    }
                 } else {
-                    $0.tabViewStyle(.automatic)
+                    if #available(iOS 26.0, *) {
+                        $0.tabViewStyle(.automatic).tabBarMinimizeBehavior(.onScrollDown)
+                    } else {
+                        $0.tabViewStyle(.automatic)
+                    }
                 }
             }
-            .navigationTitle(mainViewState.selectedTab.title)
         }
         .onOpenURL(perform: handleURL)
         .onAppear(perform: handleOnAppear)
@@ -192,7 +211,7 @@ struct MainView: View {
             ProfileBottomSheet(
                 onNavigate: { mainViewState.isPresentingProfileBottomSheet = false; mainViewState.selectedTab = $0 },
                 isPresentingProfileBottomSheet: $mainViewState.isPresentingProfileBottomSheet,
-                horizontalSize: horizontalSizeClass
+                horizontalSize: effectiveHorizontalSize
             )
             .environmentObject(mainViewState)
             .interactiveDismissDisabled()
@@ -200,13 +219,13 @@ struct MainView: View {
         }
         .sheet(isPresented: $mainViewState.isPresentingFailedDeliveriesSheet) {
             NavigationStack {
-                FailedDeliveriesView(horizontalSize: horizontalSizeClass)
+                FailedDeliveriesView(horizontalSize: effectiveHorizontalSize)
             }
             .presentationDetents([.large])
         }
         .sheet(isPresented: $mainViewState.isPresentingAccountNotificationsSheet) {
             NavigationStack {
-                AccountNotificationsView(horizontalSize: horizontalSizeClass)
+                AccountNotificationsView(horizontalSize: effectiveHorizontalSize)
             }
             .presentationDetents([.large])
         }
@@ -234,9 +253,8 @@ struct MainView: View {
     }
 
     @ViewBuilder
-    private func tabItem(for destination: Destination, sizeClass: UserInterfaceSizeClass?) -> some View {
-        let effectiveSize = sizeClass ?? .compact
-        destination.view(horizontalSize: .constant(effectiveSize), refreshGeneralData: refreshGeneralData)
+    private func tabItem(for destination: Destination, sizeClass: UserInterfaceSizeClass) -> some View {
+        destination.view(horizontalSize: .constant(sizeClass), refreshGeneralData: refreshGeneralData)
             .tag(destination)
             .tabItem { Label(destination.title, systemImage: destination.systemImage) }
             .badge(destination == .failedDeliveries ? mainViewState.newFailedDeliveries ?? 0 : 0)
@@ -336,7 +354,7 @@ struct MainView: View {
         // Check if the value exists in the array, default (but dont reset) to home if not (this could occur if eg. a tablet backup (which has more options) gets restored on mobile)
         // Don't reset the value as this app could be opened in splitscreen, we don't want to reset the value then.
 
-        let destinations = horizontalSizeClass == .regular ? Destination.otherCases : Destination.iPhoneCases
+        let destinations = tabDestinations
         let startupPage = SettingsManager(encrypted: false).getSettingsString(key: .startupPage) ?? "home"
         if let destination = destinations.first(where: { $0.value == startupPage }) {
             mainViewState.selectedTab = destination

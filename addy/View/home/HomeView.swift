@@ -152,8 +152,10 @@ struct HomeView: View {
                         ToolbarSpacer(placement: .topBarLeading)
                     }
 
-                    ToolbarItem(placement: .topBarLeading) {
-                        FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                    if horizontalSize == .compact {
+                        ToolbarItem(placement: .topBarLeading) {
+                            FailedDeliveriesIcon(horizontalSize: $horizontalSize).environmentObject(mainViewState)
+                        }
                     }
 
                     ToolbarItem(placement: .topBarLeading) {
