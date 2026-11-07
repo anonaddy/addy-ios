@@ -53,15 +53,23 @@ struct AddApiBottomSheet: View {
                     CodeScannerView(codeTypes: [.qr], scanMode: .continuous) { response in
                         if case let .success(result) = response {
                             if isQrCodeFormattedCorrect(text: result.string) {
+                                let qrBaseUrl = result.string.components(separatedBy: "|").first ?? ""
+                                let qrApiKey = result.string.components(separatedBy: "|").last ?? ""
+
+                                if let apiBaseUrl = apiBaseUrl, apiBaseUrl.caseInsensitiveCompare(qrBaseUrl) != .orderedSame {
+                                    apiKeyError = String(localized: "api_belongs_other_account")
+                                    return
+                                }
+
                                 self.loginType = "api"
 
                                 // if apiBaseUrl set, do not set the baseURL using QR
                                 if apiBaseUrl == nil {
                                     // Get the string part before the | delimiter
-                                    instance = result.string.components(separatedBy: "|").first ?? ""
+                                    instance = qrBaseUrl
                                 }
                                 // Get the string part after the | delimiter
-                                apiKey = result.string.components(separatedBy: "|").last ?? ""
+                                apiKey = qrApiKey
 
                                 isLoadingSignIn = true
                                 // Call back to SetupView
@@ -128,8 +136,8 @@ struct AddApiBottomSheet: View {
                     }
                 } else {
                     ValidatingTextField(value: self.$username, placeholder: String(localized: "registration_username"), fieldType: .text, error: $usernameValidationError).onAppear {
-                        if apiBaseUrl != nil {
-                            self.username = mainViewState.userResource?.username ?? ""
+                        if apiBaseUrl != nil && self.username.isEmpty {
+                            self.username = mainViewState.userResource?.username ?? Self.getCachedUserResource()?.username ?? ""
                         }
                     }.disabled(apiBaseUrl != nil)
 
@@ -282,6 +290,17 @@ struct AddApiBottomSheet: View {
         self.addKey = addKey
         instance = apiBaseUrl ?? String(localized: "default_base_url")
         apiKey = ""
+
+        let savedUsername = apiBaseUrl != nil ? (Self.getCachedUserResource()?.username ?? "") : ""
+        _username = State(initialValue: savedUsername)
+    }
+
+    private static func getCachedUserResource() -> UserResource? {
+        guard let jsonString = SettingsManager(encrypted: true).getSettingsString(key: .userResource),
+              let data = jsonString.data(using: .utf8) else {
+            return nil
+        }
+        return try? JSONDecoder().decode(UserResource.self, from: data)
     }
 
     private func verifyApiKey(apiKey: String, baseUrl: String = AddyIo.API_BASE_URL) async {
@@ -293,29 +312,45 @@ struct AddApiBottomSheet: View {
         let userRepo = UserRepository(apiClient: APIClient(p12: certificateData, p12Password: certificatePass))
         do {
             let result = try await userRepo.verifyApiKey(baseUrl: cleanBaseUrl, apiKey: cleanApiKey)
-            if result != nil {
-                // APIKey is verified if the API_KEY is currently nil (aka empty)
-                // Or
-                // UserResource ids are the same
-                if SettingsManager(encrypted: true).getSettingsString(key: .apiKey) == nil ||
-                    mainViewState.userResource?.id == result?.id
-                {
+            if let result = result {
+                let currentBaseUrl = SettingsManager(encrypted: true).getSettingsString(key: .baseUrl)
+                let currentUserId = mainViewState.userResource?.id ?? Self.getCachedUserResource()?.id
+
+                let isSameInstance = currentBaseUrl == nil || currentBaseUrl?.caseInsensitiveCompare(cleanBaseUrl) == .orderedSame
+                let isSameUser = SettingsManager(encrypted: true).getSettingsString(key: .apiKey) == nil ||
+                    currentUserId == nil || currentUserId == result.id
+
+                if isSameInstance && isSameUser {
                     addKey(cleanApiKey, cleanBaseUrl, certificateData, certificatePass)
                 } else {
                     resetSignInButton()
-                    apiKeyError = String(localized: "api_belongs_other_account")
+                    let errorMessage = String(localized: "api_belongs_other_account")
+                    apiKeyError = errorMessage
+                    if loginType != "api" {
+                        alertMessage = errorMessage
+                        showAlert = true
+                    }
                 }
             } else {
                 resetSignInButton()
-                apiKeyError = String(localized: "api_invalid")
+                let errorMessage = String(localized: "api_invalid")
+                apiKeyError = errorMessage
+                if loginType != "api" {
+                    alertMessage = errorMessage
+                    showAlert = true
+                }
             }
         } catch {
             resetSignInButton()
-            var errorMessage = "\(error)"
+            var errorMessage = error.localizedDescription
             if NetworkUtils.isLocalAddress(cleanBaseUrl) {
                 errorMessage += "\n\n" + String(localized: "local_network_permission_rationale")
             }
             apiKeyError = errorMessage
+            if loginType != "api" {
+                alertMessage = errorMessage
+                showAlert = true
+            }
         }
     }
 
@@ -353,7 +388,7 @@ struct AddApiBottomSheet: View {
             // OTP has been entered, do the call to the /api/auth/mfa endpoint
             do {
                 let login = try await userRepo.loginMfa(baseUrl: cleanBaseUrl, mfaKey: otpMfaObject.mfa_key, otp: self.otp, apiExpiration: apiExpiration)
-                self.addKey(login.api_key, cleanBaseUrl, certificateData, certificatePass)
+                await self.verifyApiKey(apiKey: login.api_key, baseUrl: cleanBaseUrl)
             } catch {
                 withAnimation {
                     self.otpMfaObject = nil
@@ -374,7 +409,7 @@ struct AddApiBottomSheet: View {
                 let result = try await userRepo.login(baseUrl: cleanBaseUrl, username: username, password: password, apiExpiration: apiExpiration)
                 switch result {
                 case .success(let login):
-                    self.addKey(login.api_key, cleanBaseUrl, certificateData, certificatePass)
+                    await self.verifyApiKey(apiKey: login.api_key, baseUrl: cleanBaseUrl)
                 case .mfaRequired(let loginMfaRequired):
                     withAnimation {
                         self.otpMfaObject = loginMfaRequired
