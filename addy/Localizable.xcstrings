@@ -893,7 +893,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your API key will expire in %@. It is recommended to update your API key to prevent the app from resetting. Do you want to refresh the API token now?"
+            "value" : "Your API key will expire in %@. It is recommended to update your API key to prevent service interruption. Do you want to refresh the API token now?"
           }
         }
       }
@@ -904,7 +904,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your API key will expire soon. It is recommended to update your API key to prevent the app from resetting. Do you want to refresh the API token now?"
+            "value" : "Your API key will expire soon. It is recommended to update your API key to prevent service interruption. Do you want to refresh the API token now?"
           }
         }
       }
@@ -1734,7 +1734,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your certificate will expire in %@. It is recommended to update your certificate to prevent the app from resetting. Do you want to update the certificate now?"
+            "value" : "Your certificate will expire in %@. It is recommended to update your certificate to prevent service interruption. Do you want to update the certificate now?"
           }
         }
       }
@@ -3941,7 +3941,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Receive a notification 5 days before your API key expires to prevent the app from being reset.\n\nThese notifications will reappear every day until a new API key is entered"
+            "value" : "Receive a notification 5 days before your API key expires to prevent service interruption.\n\nThese notifications will reappear every day until a new API key is entered"
           }
         }
       }
@@ -5845,7 +5845,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your API key will expire in %@. Create a new one to prevent the app from resetting. Tap here to refresh the API key"
+            "value" : "Your API key will expire in %@. Create a new one to prevent service interruption. Tap here to refresh the API key"
           }
         }
       }
@@ -6616,7 +6616,6 @@
       }
     },
     "rate_this_app" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -6627,7 +6626,6 @@
       }
     },
     "rate_this_app_desc" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
