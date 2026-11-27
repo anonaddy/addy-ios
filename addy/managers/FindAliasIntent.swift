@@ -20,7 +20,7 @@ struct FindAliasIntent: AppIntent {
         searchKeywords: ["find", "search", "lookup", "alias", "email"],
         resultValueName: "app_intent_alias_output"
     )
-    static var openAppWhenRun: Bool = false
+    static var openAppWhenRun: Bool = true
 
     @Parameter(
         title: "app_intent_find_alias_parameter_query",
@@ -75,6 +75,21 @@ struct FindAliasIntent: AppIntent {
             }
 
             UIPasteboard.general.setValue(firstMatch.email, forPasteboardType: UTType.plainText.identifier)
+
+            // Dismiss obstructing sheets and navigate to the found alias
+            MainViewState.shared.isPresentingProfileBottomSheet = false
+            MainViewState.shared.isPresentingFailedDeliveriesSheet = false
+            MainViewState.shared.isPresentingAccountNotificationsSheet = false
+            MainViewState.shared.selectedTab = .aliases
+
+            if MainViewState.shared.showAliasWithId == firstMatch.id {
+                MainViewState.shared.showAliasWithId = nil
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    MainViewState.shared.showAliasWithId = firstMatch.id
+                }
+            } else {
+                MainViewState.shared.showAliasWithId = firstMatch.id
+            }
 
             let foundString = LocalizedStringResource("app_intent_alias_found\(firstMatch.email)")
             return .result(value: firstMatch.email, dialog: IntentDialog(foundString))

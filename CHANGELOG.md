@@ -1,5 +1,18 @@
 # Changelog
  
+## [v2.7.2] - 2026-11-27
+
+**Added**
+- **Update Expired API Keys**: When your API key is expired or revoked, the splash screen now offers an "Update API key" option so you can sign in again without resetting the app.
+- **Account & Instance Validation**: Updating your API key (via API key, QR code, or login with MFA) now verifies it belongs to the same account and instance, preventing accidental account switches.
+
+**Fixed & Improved**
+- **Find Alias Shortcut**: The Find Alias shortcut now opens the app, dismisses any open sheets, and navigates directly to the found alias (#58).
+- **QR Code Scanning**: Fixed duplicate sign-in attempts while a scanned QR code is being processed.
+- **Clearer Expiry Warnings**: Updated API key and certificate expiry warnings to reflect that the app no longer resets when they expire.
+- **Dependency Updates**: Updated FeedKit to 10.10.3.
+- Performance enhancements and other improvements for a smoother experience.
+
 ## [v2.7.1] - 2026-10-27
 
 **Added**

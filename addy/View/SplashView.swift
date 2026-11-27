@@ -8,6 +8,7 @@
 import addy_shared
 import Lottie
 import SwiftUI
+import UserNotifications
 
 struct SplashView: View {
     @EnvironmentObject var mainViewState: MainViewState
@@ -15,6 +16,8 @@ struct SplashView: View {
     @Environment(\.openURL) var openURL
 
     @State private var showError = false
+    @State private var isShowingAddApiSheet = false
+    @State private var isAuthError = false
     @State private var isPresentUnsupportedVersionBottomDialog = false
     @State private var isShowingDetailedErrorAlert = false
     @State private var detailedError: String? = ""
@@ -80,6 +83,14 @@ struct SplashView: View {
             // No cancel button so a drag indicator is a nice to have
             .presentationDragIndicator(.visible)
         })
+        .sheet(isPresented: $isShowingAddApiSheet) {
+            NavigationStack {
+                AddApiBottomSheet(apiBaseUrl: mainViewState.encryptedSettingsManager.getSettingsString(key: .baseUrl) ?? AddyIo.API_BASE_URL) { apiKey, baseUrl, p12, p12Password in
+                    self.addKey(apiKey: apiKey, baseUrl: baseUrl, p12: p12, p12Password: p12Password)
+                }
+            }
+            .presentationDetents([.large])
+        }
     }
 
     private var loadingView: some View {
@@ -161,11 +172,19 @@ struct SplashView: View {
                     Spacer()
                     Spacer()
                     HStack {
-                        AddyButton(action: {
-                            loadDataAndStartApp()
+                        if isAuthError {
+                            AddyButton(action: {
+                                isShowingAddApiSheet = true
+                            }, style: AddyButtonStyle()) {
+                                Text(String(localized: "update_api_key")).foregroundColor(Color.white)
+                            }
+                        } else {
+                            AddyButton(action: {
+                                loadDataAndStartApp()
 
-                        }, style: AddyButtonStyle()) {
-                            Text(String(localized: "try_again", bundle: Bundle(for: SharedData.self))).foregroundColor(Color.white)
+                            }, style: AddyButtonStyle()) {
+                                Text(String(localized: "try_again", bundle: Bundle(for: SharedData.self))).foregroundColor(Color.white)
+                            }
                         }
 
                         if NetworkUtils.isLocalAddress(AddyIo.API_BASE_URL) {
@@ -192,6 +211,7 @@ struct SplashView: View {
 
     private func loadDataAndStartApp() {
         showError = false
+        isAuthError = false
         serviceStatus = nil
         isLoadingStatus = false
 
@@ -229,9 +249,12 @@ struct SplashView: View {
                 isPresentUnsupportedVersionBottomDialog = true
             }
         } catch {
+            isAuthError = checkIsAuthError(error: error)
             detailedError = formatErrorMessage(error: error)
             showError = true
-            await checkServiceStatusIfNeeded()
+            if !isAuthError {
+                await checkServiceStatusIfNeeded()
+            }
         }
     }
 
@@ -263,10 +286,43 @@ struct SplashView: View {
                 }
             }
         } catch {
+            isAuthError = checkIsAuthError(error: error)
             detailedError = formatErrorMessage(error: error)
             showError = true
-            await checkServiceStatusIfNeeded()
+            if !isAuthError {
+                await checkServiceStatusIfNeeded()
+            }
         }
+    }
+
+    private func checkIsAuthError(error: Error) -> Bool {
+        if let networkError = error as? NetworkError {
+            switch networkError {
+            case .unauthorized, .httpError(401, _):
+                return true
+            default:
+                break
+            }
+        }
+        let lower = error.localizedDescription.lowercased()
+        return lower.contains("unauthorized") || lower.contains("401")
+    }
+
+    private func addKey(apiKey: String, baseUrl: String, p12: Data?, p12Password: String?) {
+        mainViewState.encryptedSettingsManager.putSettingsString(key: .apiKey, string: apiKey)
+        mainViewState.encryptedSettingsManager.putSettingsString(key: .baseUrl, string: baseUrl)
+        mainViewState.encryptedSettingsManager.putSettingsData(key: .p12, data: p12)
+        if let p12Password = p12Password {
+            mainViewState.encryptedSettingsManager.putSettingsString(key: .p12Password, string: p12Password)
+        }
+
+        // Cancel pending API token expiry notification if any
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [NotificationActions.openApiExpirationWarning])
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [NotificationActions.openApiExpirationWarning])
+        mainViewState.encryptedSettingsManager.putSettingsInt(key: .backgroundServiceCacheApiKeyExpiryLeftCount, int: 0)
+
+        isShowingAddApiSheet = false
+        loadDataAndStartApp()
     }
 
     private func formatErrorMessage(error: Error) -> String {
