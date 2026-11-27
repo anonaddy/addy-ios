@@ -50,8 +50,9 @@ struct AddApiBottomSheet: View {
         Form {
             Section {
                 ZStack(alignment: .center) {
-                    CodeScannerView(codeTypes: [.qr], scanMode: .continuous) { response in
+                    CodeScannerView(codeTypes: [.qr], scanMode: .continuous, isPaused: isLoadingSignIn) { response in
                         if case let .success(result) = response {
+                            guard !isLoadingSignIn else { return }
                             if isQrCodeFormattedCorrect(text: result.string) {
                                 let qrBaseUrl = result.string.components(separatedBy: "|").first ?? ""
                                 let qrApiKey = result.string.components(separatedBy: "|").last ?? ""
