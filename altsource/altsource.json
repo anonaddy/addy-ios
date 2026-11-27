@@ -30,8 +30,8 @@
                 {
                     "version": "2.7.2",
                     "date": "2026-11-27T00:00:00+01:00",
-                    "size": 0,
-                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/refs/heads/2.7.2/builds/appstorelessRelease%202026-11-27%2000-00-00/addy.ipa",
+                    "size": 39415357,
+                    "downloadURL": "https://github.com/anonaddy/addy-ios/raw/f41bae6efcace4f8835db4ac38b4af5c6e01b3dc/builds/appstorelessRelease%202026-11-27%2016-17-18/addy.ipa",
                     "localizedDescription": "- Update an expired or revoked API key directly from the splash screen without having to reset the app\n- Added account and instance validation when updating your API key to prevent signing in with a different account\n- The Find Alias shortcut now opens the app and navigates directly to the found alias (#58)\n- Fixed duplicate sign-in attempts when scanning a QR code\n- Clarified API key and certificate expiry warnings\n- Performance enhancements and other improvements for a smoother experience",
                     "minOSVersion": "17.0"
                 },
